@@ -50,3 +50,8 @@ unity/**/.utmp/
 unity/**/.gradle/
 unity/**/.cxx/
 unity/**/.vs/
+
+# SLURM job logs (GAIVI)
+slurm-*.out
+# models/ may be a symlink to /data storage on GAIVI
+/models

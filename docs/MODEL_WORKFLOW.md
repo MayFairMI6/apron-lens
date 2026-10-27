@@ -2,8 +2,8 @@
 
 GitHub stores source, datasets, run records and workflow definitions. Inference
 runs on a machine with sufficient memory and the pinned local model. The current
-engine is verified on Apple Silicon MPS; it falls back to CPU and does not yet
-select CUDA. No weights or model API credentials are needed by the hosted checks.
+engine is verified on Apple Silicon MPS. It also selects an NVIDIA GPU (bfloat16)
+when present, for example on [USF GAIVI](GAIVI.md), and otherwise falls back to CPU. No weights or model API credentials are needed by the hosted checks.
 
 ## Workflow choices
 

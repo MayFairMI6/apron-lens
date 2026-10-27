@@ -12,7 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
 from backend.reasoning import ROOT, MODEL_PATH, context_for, decode_image, validate_answer
 from backend.decisions import select_claims, VERSION as DECISION_VERSION
-from backend.engines import DEFAULT_MODEL, candidate, check_transformers, expected_manifest, model_dir, model_names
+from backend.engines import DEFAULT_MODEL, candidate, check_transformers, expected_manifest, model_dir, model_names, pick_device, pick_dtype
 
 TOKEN_PATH = ROOT / 'work/qwen-server-token.txt'
 AUDIT_PATH = ROOT / 'work/qwen-requests.jsonl'
@@ -44,8 +44,8 @@ class LocalQwen:
         import torch
         from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
         self.torch = torch
-        self.device = 'mps' if torch.backends.mps.is_available() else 'cpu'
-        self.dtype = torch.float16 if self.device == 'mps' else torch.float32
+        self.device = pick_device(torch)
+        self.dtype = pick_dtype(torch, self.device)
         self.processor = AutoProcessor.from_pretrained(MODEL_PATH, local_files_only=True, use_fast=False)
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             MODEL_PATH, dtype=self.dtype, attn_implementation='eager', local_files_only=True
@@ -91,8 +91,8 @@ class CandidateEngine(LocalQwen):
         from transformers import AutoModelForImageTextToText, AutoProcessor
         check_transformers(name, transformers.__version__)
         self.torch = torch
-        self.device = 'mps' if torch.backends.mps.is_available() else 'cpu'
-        self.dtype = getattr(torch, candidate(name)['dtype']) if self.device == 'mps' else torch.float32
+        self.device = pick_device(torch)
+        self.dtype = pick_dtype(torch, self.device, candidate(name)['dtype'])
         self.processor = AutoProcessor.from_pretrained(path, local_files_only=True)
         self.model = AutoModelForImageTextToText.from_pretrained(
             path, dtype=self.dtype, local_files_only=True

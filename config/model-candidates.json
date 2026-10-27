@@ -1,5 +1,5 @@
 {
-  "note": "Alternative models for development comparisons. The evaluated model stays in model-manifest.json, which the research integrity check pins by hash. Revisions, licences and architectures were read from the Hugging Face API on 2026-10-27. A new entry may start with a null revision; scripts/download_model.py --pin records it.",
+  "note": "Alternative models for development comparisons. The evaluated model stays in model-manifest.json, which the research integrity check pins by hash. Revisions, licences and architectures were read from the Hugging Face API on 2026-10-27. \"dtype\" applies on Apple Silicon; NVIDIA GPUs use bfloat16 where supported. A new entry may start with a null revision; scripts/download_model.py --pin records it.",
   "models": {
     "qwen3-vl-4b": {
       "model_id": "Qwen/Qwen3-VL-4B-Instruct",

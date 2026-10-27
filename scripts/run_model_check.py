@@ -57,6 +57,8 @@ def run(suite, output, model):
                   commit=commit.stdout.strip() if commit.returncode == 0 else None,
                   method=VERSION, modelName=model, model=engine.manifest, device=engine.device, python=platform.python_version(),
                   transformers=importlib.metadata.version('transformers'),
+                  dtype=str(engine.dtype).removeprefix('torch.'),
+                  gpu=engine.torch.cuda.get_device_name(0) if engine.device == 'cuda' else None,
                   sources=sources, total=len(rows), rawExact=sum(r['exact'] for r in rows),
                   deterministicExact=sum(r['baselineExact'] for r in rows), guardAccepted=sum(r['guardStatus']=='generated' for r in rows))
     (output / 'summary.json').write_text(json.dumps(result, indent=2)+'\n')

@@ -1,9 +1,10 @@
 """Model choice contract: the evaluated default is unchanged; candidates are pinned and guarded."""
 import json,re,tempfile,unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 from fastapi.testclient import TestClient
-from backend.engines import ROOT,DEFAULT_MODEL,candidates,check_transformers,expected_manifest,model_names
+from backend.engines import ROOT,DEFAULT_MODEL,candidates,check_transformers,expected_manifest,model_names,pick_device,pick_dtype
 from backend.server import CandidateEngine,create_app
 
 class NoEngine:
@@ -34,6 +35,20 @@ class EngineTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    Path(tmp,'download-manifest.json').write_text(json.dumps(dict(expected_manifest(name),revision='0'*40)))
    with patch('backend.server.model_dir',return_value=Path(tmp)),self.assertRaises(ValueError):CandidateEngine(name)
+ def test_device_and_dtype_choice(self):
+  def torch(cuda,bf16=True,mps=False):
+   return SimpleNamespace(float32='f32',float16='f16',bfloat16='bf16',
+    cuda=SimpleNamespace(is_available=lambda:cuda,is_bf16_supported=lambda:bf16),
+    backends=SimpleNamespace(mps=SimpleNamespace(is_available=lambda:mps)))
+  self.assertEqual(pick_device(torch(True,mps=True)),'cuda');self.assertEqual(pick_device(torch(False,mps=True)),'mps')
+  self.assertEqual(pick_device(torch(False)),'cpu')
+  # The evaluated Mac path keeps float16; NVIDIA prefers bfloat16; CPU stays float32.
+  self.assertEqual(pick_dtype(torch(False,mps=True),'mps'),'f16');self.assertEqual(pick_dtype(torch(True),'cuda'),'bf16')
+  self.assertEqual(pick_dtype(torch(True,bf16=False),'cuda'),'f16');self.assertEqual(pick_dtype(torch(False),'cpu'),'f32')
+  self.assertEqual(pick_dtype(torch(False,mps=True),'mps','bfloat16'),'bf16')
+ def test_gaivi_jobs_use_class_partition(self):
+  for job in ('download_models','model_check'):
+   self.assertIn('#SBATCH --partition=ClsGenAI',(ROOT/f'scripts/gaivi/{job}.sbatch').read_text())
  def test_workflow_offers_every_model(self):
   text=(ROOT/'.github/workflows/model-check.yml').read_text()
   options=re.search(r'model:\n(?:.*\n)*?\s+options:\n((?:\s+- .*\n)+)',text).group(1)

@@ -60,8 +60,8 @@ phone networking and physical acceptance checks.
 
 Verified development machine: Apple Silicon Mac, 48 GB memory, Python 3.12,
 MPS float16. Qwen runs on the Mac; the smartphone is the AR interface. The
-current engine chooses MPS when available and otherwise CPU; CUDA dispatch is
-not implemented.
+current engine chooses an NVIDIA GPU, then MPS, then CPU. USF students can run
+model checks on the GAIVI GPU cluster; see [Running on GAIVI](docs/GAIVI.md).
 
 ```sh
 python3.12 -m venv .venv-qwen
