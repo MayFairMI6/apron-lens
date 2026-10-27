@@ -53,6 +53,48 @@ The self-hosted workflow is manual-only and has no pull-request trigger. Run
 reviewed code because it executes on your machine. See GitHub's
 [self-hosted runner guidance](https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/use-in-a-workflow).
 
+## Try a candidate model
+
+`config/model-candidates.json` lists alternative models with exact revisions,
+licences and the minimum transformers version each needs. The evaluated
+Qwen2.5-VL-3B stays the default and keeps `config/model-manifest.json`
+unchanged, so frozen V2 records still verify. Candidate results are development
+observations, not new held-out evidence.
+
+| Model name | Hugging Face model | Python environment |
+|---|---|---|
+| `qwen3-vl-4b` | Qwen/Qwen3-VL-4B-Instruct | Existing `.venv-qwen` (transformers 4.57) |
+| `qwen3-vl-8b` | Qwen/Qwen3-VL-8B-Instruct | Existing `.venv-qwen` |
+| `qwen3.5-9b` | Qwen/Qwen3.5-9B | New `.venv-candidates` (transformers 5.5+) |
+| `gemma-4-e4b` | google/gemma-4-E4B-it | New `.venv-candidates` |
+
+```sh
+# Qwen3-VL: reuse the locked environment
+.venv-qwen/bin/python scripts/download_model.py --model qwen3-vl-4b
+.venv-qwen/bin/python scripts/run_model_check.py --suite smoke --model qwen3-vl-4b --output work/check-q3vl4b-001
+
+# Qwen3.5 and Gemma 4: a separate environment, so the locked one stays unchanged
+python3.12 -m venv .venv-candidates
+.venv-candidates/bin/python -m pip install -r requirements-candidates.txt
+.venv-candidates/bin/python scripts/download_model.py --model gemma-4-e4b
+.venv-candidates/bin/python scripts/run_model_check.py --suite smoke --model gemma-4-e4b --output work/check-gemma4-001
+```
+
+Weights go to the ignored `models/<model name>/` folder with a download
+manifest; a model whose manifest does not match its pinned revision is refused.
+To serve a candidate to the phone, start the service with `--model`, for example
+`.venv-qwen/bin/python -m backend.server --model qwen3-vl-4b`.
+
+For the **Qwen development check** workflow, pick the model when you run it.
+Candidates need two more repository variables: `AIRFIELD_MODELS_DIR`, a folder
+holding one subfolder per model name (each with its download manifest), and
+`AIRFIELD_CANDIDATE_PYTHON`, the Python of `.venv-candidates` for Qwen3.5 and
+Gemma 4. Each run records the model name, revision and transformers version.
+
+To add a model, append an entry with `"revision": null`, read its model card,
+then run `scripts/download_model.py --model <name> --pin` to record the
+revision. Add the name to the workflow's model options as well.
+
 ## Run the same development check locally
 
 ```sh

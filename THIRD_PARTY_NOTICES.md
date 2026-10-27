@@ -10,6 +10,10 @@
   Research License, described in the model manifest as non-commercial research
   and evaluation. Model weights are excluded. Consult the upstream model/license
   before use: https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct.
+- **Candidate models** in `config/model-candidates.json` (Qwen3-VL-4B/8B-Instruct,
+  Qwen3.5-9B, Gemma 4 E4B-it) are listed with Apache-2.0 upstream licenses as
+  reported by Hugging Face on 2026-10-27. They are optional, downloaded locally
+  only, and their weights are excluded. Check each model card before use.
 - Python dependencies retain their individual licenses. The verified versions
   are recorded in `requirements-qwen.lock.txt`.
 - The fictional board artwork, procedural generic airliner meshes and synthetic

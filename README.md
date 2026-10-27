@@ -73,6 +73,8 @@ bash scripts/start_qwen_server.sh
 
 The downloader uses the exact revision in [config/model-manifest.json](config/model-manifest.json).
 It does not follow the latest upstream model. Weights stay in ignored `models/`.
+Newer Qwen3-VL, Qwen3.5 and Gemma 4 models can be tried for development comparisons;
+see [Try a candidate model](docs/MODEL_WORKFLOW.md#try-a-candidate-model).
 The service generates a local connection token in `work/qwen-server-token.txt`;
 enter it through **More → Model connection**. Keep that token local.
 
@@ -165,6 +167,7 @@ See [model workflow setup](docs/MODEL_WORKFLOW.md) and
 | `outputs/reasoning_v1/`, `outputs/reasoning_v2/` | Preserved research records and frozen source snapshots |
 | `outputs/milestone1/` | Screenshots, printable board and verification evidence |
 | `config/model-manifest.json` | Exact model identity/revision; no weights |
+| `config/model-candidates.json` | Pinned alternative models for development comparisons |
 | `docs/` | Unity, model-compute and collaboration setup |
 
 Model weights, Python environments, Unity caches, license keys, connection

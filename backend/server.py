@@ -12,6 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
 from backend.reasoning import ROOT, MODEL_PATH, context_for, decode_image, validate_answer
 from backend.decisions import select_claims, VERSION as DECISION_VERSION
+from backend.engines import DEFAULT_MODEL, candidate, check_transformers, expected_manifest, model_dir, model_names
 
 TOKEN_PATH = ROOT / 'work/qwen-server-token.txt'
 AUDIT_PATH = ROOT / 'work/qwen-requests.jsonl'
@@ -33,7 +34,8 @@ class ReasonRequest(BaseModel):
     checkpoint: float = Field(ge=0, le=3600)
     queryType: str = Field(default='latest', pattern='^(latest|current|change)$')
     properties: list[str] = Field(default_factory=list, max_length=10)
-    imageBase64: str = Field(min_length=1, max_length=2_800_000)
+    # Optional: typed report queries never use the image for inference.
+    imageBase64: str | None = Field(default=None, min_length=1, max_length=2_800_000)
     question: str = Field(default='What does the latest received report say for this aircraft, when did it happen and arrive, and what remains unconfirmed?', min_length=1, max_length=400)
 
 
@@ -77,10 +79,35 @@ class LocalQwen:
         return {label:float(scores[ids[0]].item()) for label,ids in token_ids.items()},int(inputs['input_ids'].shape[1])
 
 
-def create_app(engine=None, token=None):
+class CandidateEngine(LocalQwen):
+    """Another local vision-language model behind the same generate/score_labels interface."""
+    def __init__(self, name):
+        path = model_dir(name)
+        manifest = json.loads((path / 'download-manifest.json').read_text())
+        if manifest != expected_manifest(name):
+            raise ValueError(f'{path} does not hold the pinned {name} revision')
+        import torch
+        import transformers
+        from transformers import AutoModelForImageTextToText, AutoProcessor
+        check_transformers(name, transformers.__version__)
+        self.torch = torch
+        self.device = 'mps' if torch.backends.mps.is_available() else 'cpu'
+        self.dtype = getattr(torch, candidate(name)['dtype']) if self.device == 'mps' else torch.float32
+        self.processor = AutoProcessor.from_pretrained(path, local_files_only=True)
+        self.model = AutoModelForImageTextToText.from_pretrained(
+            path, dtype=self.dtype, local_files_only=True
+        ).to(self.device).eval()
+        self.manifest = manifest
+
+
+def load_engine(name=DEFAULT_MODEL):
+    return LocalQwen() if name == DEFAULT_MODEL else CandidateEngine(name)
+
+
+def create_app(engine=None, token=None, model=DEFAULT_MODEL):
     @asynccontextmanager
     async def lifespan(app):
-        app.state.engine = engine or await run_in_threadpool(LocalQwen)
+        app.state.engine = engine or await run_in_threadpool(load_engine, model)
         app.state.token = token or local_token()
         app.state.busy = asyncio.Lock()
         yield
@@ -114,7 +141,7 @@ def create_app(engine=None, token=None):
         authenticate(authorization)
         try:
             context = context_for(body.scenarioId, body.aircraftId, body.checkpoint, body.queryType, body.properties)
-            image, image_hash = decode_image(body.imageBase64)
+            image_hash = decode_image(body.imageBase64)[1] if body.imageBase64 is not None else None
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         if app.state.busy.locked():
@@ -152,7 +179,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=8765)
+    parser.add_argument('--model', choices=model_names(), default=DEFAULT_MODEL)
     args = parser.parse_args()
     local_token()
-    print('Local token stored in work/qwen-server-token.txt; model is loading.', flush=True)
-    uvicorn.run(create_app(), host=args.host, port=args.port, access_log=False)
+    print(f'Local token stored in work/qwen-server-token.txt; {args.model} is loading.', flush=True)
+    uvicorn.run(create_app(model=args.model), host=args.host, port=args.port, access_log=False)
