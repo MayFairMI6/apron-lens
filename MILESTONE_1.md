@@ -1,7 +1,7 @@
 # Milestone 1: airfield coordination replay
 
 The full Unity application and Python service are maintained in the private
-GitHub repository `MayFairMI6/airfield-context-ar`. See README.md for setup.
+GitHub repository `MayFairMI6/apron-lens`. See README.md for setup.
 
 ## Intended airfield use
 

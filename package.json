@@ -1,5 +1,5 @@
 {
-  "name": "airfield-context-ar-artifacts",
+  "name": "apron-lens-artifacts",
   "private": true,
   "description": "Optional rendering of the S24 UI wireframe from existing Unity screenshots",
   "scripts": {"render:s24": "node scripts/render_s24_wireframe.cjs"},

@@ -9,7 +9,7 @@ collaborator settings. No collaborators are automatically invited.
 - On the original machine: **File → Add local repository**, then select the
   project root. Its `origin` points to this GitHub repository.
 - On another machine: **File → Clone repository**, then select
-  `MayFairMI6/airfield-context-ar`.
+  `MayFairMI6/apron-lens`.
 - Create a branch, make changes, review the changed files, commit, push, and
   open a pull request. Use descriptive commits such as `Improve source report navigation`.
 

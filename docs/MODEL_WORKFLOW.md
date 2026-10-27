@@ -15,7 +15,7 @@ select CUDA. No weights or model API credentials are needed by the hosted checks
 | New research evaluation | Deliberately frozen local protocol | Research milestone | Cached Qwen + new untouched set |
 | Unity / Android / AR validation | Licensed Unity install / phone | Local build | Model optional |
 
-The [first real-model GitHub job](https://github.com/MayFairMI6/airfield-context-ar/actions/runs/40566003969)
+The [first real-model GitHub job](https://github.com/MayFairMI6/apron-lens/actions/runs/40566003969)
 passed both smoke cases using a temporary Apple Silicon runner and saved a
 run artifact. That one-job runner stopped and unregistered automatically; no
 system background service was installed. The two repository variables are

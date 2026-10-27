@@ -1,6 +1,6 @@
-# Airfield Context AR
+# ApronLens
 
-[![Checks](https://github.com/MayFairMI6/airfield-context-ar/actions/workflows/checks.yml/badge.svg)](https://github.com/MayFairMI6/airfield-context-ar/actions/workflows/checks.yml)
+[![Checks](https://github.com/MayFairMI6/apron-lens/actions/workflows/checks.yml/badge.svg)](https://github.com/MayFairMI6/apron-lens/actions/workflows/checks.yml)
 
 An Android augmented reality prototype for reviewing changing aircraft-stand
 coordination information. Select a flight, replay moving aircraft, inspect what
@@ -17,7 +17,7 @@ original 3D aircraft over a printed fictional airfield board using Vuforia.
 *Actual Unity renders in an illustrative Galaxy S24 outline. Physical phone,
 keyboard and AR tracking tests remain pending.*
 
-[Download Android APK](https://github.com/MayFairMI6/airfield-context-ar/releases/tag/v0.1.0)
+[Download Android APK](https://github.com/MayFairMI6/apron-lens/releases/tag/v0.1.0)
 · [Unity setup](docs/UNITY_SETUP.md)
 · [Model and GitHub workflow](docs/MODEL_WORKFLOW.md)
 · [Evaluation report](outputs/reasoning_v2/REPORT.md)
