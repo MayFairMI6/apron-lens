@@ -1,0 +1,44 @@
+{
+  "createdUTC": "2026-10-27T15:18:30.038695+00:00",
+  "files": {
+    "backend/evidence.py": "8c55fcfba366a619afd64b8e8b297e8a303d3ffd043e2c986cf49321acccdf5b",
+    "backend/reasoning.py": "6e7d459d4b3023889932807db280e85eefb3b649d2c5197e4682eb2c0e0d639f",
+    "backend/server.py": "4913a6237c52e5627eae06e36d5238bf645b566d4c15a889e40ed610ab62180d",
+    "scripts/evaluate_reasoning.py": "12f5ecf03f587191555b6b6fbcb0c282d92f7aa5c2eb64f79592d417a8ae1440",
+    "data/reasoning_v1/manifest.json": "5c4af8aea08d0f30e6dab6407112cb39515bd4fa070588a49cabc254d1a8bfe9"
+  },
+  "model": {
+    "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "source": "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct",
+    "license": "Qwen Research License; non-commercial research/evaluation"
+  },
+  "conditions": [
+    "unfiltered_history_text",
+    "scoped_history_text",
+    "state_aware_text",
+    "state_aware_image"
+  ],
+  "decoding": {
+    "do_sample": false,
+    "max_new_tokens": 512
+  },
+  "promptVersion": "typed-claims-v1",
+  "split": "24 development questions in 8 families; 12 held-out questions in 4 author-known composition families",
+  "primary": "Raw exact claim/value/status/citation and unknown-property set accuracy; all failures included",
+  "secondary": [
+    "raw citation support",
+    "wrong-identity and temporal errors",
+    "abstention on unknown-property cases",
+    "guard withholding and coverage",
+    "latency and tokens"
+  ],
+  "baseline": "Deterministic resolver for the same explicit query type/properties; no learned component",
+  "caveats": [
+    "Single developer authored data and labels; no expert review",
+    "Four held-out clusters too few for broad claims",
+    "Synthetic negative-control image has no answer-bearing operational information",
+    "Not a test of visual understanding or open-ended aviation reasoning",
+    "Context lengths differ; input/output tokens are reported; not equal-token-budget causal comparison"
+  ]
+}

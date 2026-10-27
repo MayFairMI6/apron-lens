@@ -1,0 +1,150 @@
+{
+  "scenarioId": "M1-stand-coordination-01",
+  "duration": 60.0,
+  "targetWidth": 0.24,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1",
+      "waypoints": [
+        {
+          "t": 0,
+          "x": -0.09,
+          "z": -0.025
+        },
+        {
+          "t": 30,
+          "x": 0.035,
+          "z": -0.025
+        },
+        {
+          "t": 50,
+          "x": 0.095,
+          "z": -0.025
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1",
+      "waypoints": [
+        {
+          "t": 0,
+          "x": 0.035,
+          "z": 0.04
+        },
+        {
+          "t": 16,
+          "x": 0.035,
+          "z": 0.04
+        },
+        {
+          "t": 26,
+          "x": 0.035,
+          "z": -0.025
+        },
+        {
+          "t": 48,
+          "x": 0.095,
+          "z": -0.025
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "E01",
+      "flightInstance": "F1-R1",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "source": "scenario-coordinator",
+      "message": "A1 movement plan loaded; authored scenario.",
+      "aircraftId": "A1",
+      "facts": [
+        {
+          "property": "route",
+          "value": "initial authored route"
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "flightInstance": "F2-R1",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "source": "ground-handling",
+      "message": "A2 assigned Stand B. Authored movement begins after servicing completes.",
+      "aircraftId": "A2",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "B"
+        },
+        {
+          "property": "movement_condition",
+          "value": "after servicing completes"
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "flightInstance": "F2-R1",
+      "eventTime": 12,
+      "receiptTime": 14,
+      "source": "ground-handling",
+      "message": "Late report: baggage service complete at 12 s; received at 14 s.",
+      "aircraftId": "A2",
+      "facts": [
+        {
+          "property": "baggage_status",
+          "value": "complete"
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "flightInstance": "F1-R1",
+      "eventTime": 30,
+      "receiptTime": 30,
+      "source": "simulator",
+      "message": "A1 reached the shared path checkpoint.",
+      "aircraftId": "A1",
+      "facts": [
+        {
+          "property": "trajectory_checkpoint",
+          "value": "shared path"
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "flightInstance": "F2-R1",
+      "eventTime": 48,
+      "receiptTime": 48,
+      "source": "simulator",
+      "message": "A2 reached its final authored waypoint.",
+      "aircraftId": "A2",
+      "facts": [
+        {
+          "property": "trajectory_checkpoint",
+          "value": "final waypoint"
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "flightInstance": "F2-R1",
+      "eventTime": 16,
+      "receiptTime": 16,
+      "source": "scenario-coordinator",
+      "message": "A2 starts its authored movement after service completion; this is simulated, not a clearance.",
+      "aircraftId": "A2",
+      "facts": [
+        {
+          "property": "movement_status",
+          "value": "started"
+        }
+      ]
+    }
+  ]
+}

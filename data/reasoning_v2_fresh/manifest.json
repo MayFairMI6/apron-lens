@@ -1,0 +1,25 @@
+{
+  "version": "reasoning-v2-fresh-holdout-1",
+  "createdUTC": "2026-10-27T15:51:54.026518+00:00",
+  "families": 8,
+  "questions": 32,
+  "split": "heldout_fresh",
+  "model_calls_before_freeze": 0,
+  "provenance": "Evaluation subagent authoring separated from method-development task; not independent expert validation.",
+  "policy": "Effective supersession before scheduled; all max-receipt-time ties included; start-inclusive/end-exclusive intervals.",
+  "files": {
+    "README.md": "cebdf02b99eb610bf9aa07f09be7d6bf58f19e0b06c26f45cfac47fdb3599169",
+    "author_suite.py": "03e535579e59df97948f412051f6c7a50547842db7f81cb48fd6a3d89f429f13",
+    "images/context.png": "ab09427dc499bc69b521b7bbfb82d21b5fa0bfcfc2dcfb3477ab505cd4d6c6d8",
+    "queries.json": "0af18f82559fa261a00a1cdfba7c59ab724338e9d98b353d256014f108f80bdd",
+    "scenarios/N01.json": "670f7d8194163fca3880fcb478b0106a40c0f06a5c196785c377fb2acfc95616",
+    "scenarios/N02.json": "1a2b7e72c451ba1b69270f9993b81700bf08043056ea54c675e12fbc63620223",
+    "scenarios/N03.json": "f4cd6070beba53c984b76723bbe141e719379781a1e1d8f139a09c6dda1b806a",
+    "scenarios/N04.json": "3c18c7e2336e849583b6502ece7ef023add0fe3b27016cc43d296b05c729f0e5",
+    "scenarios/N05.json": "6871c4a48d113a45a43822a81bde33668c79f74d9130d37fd03bf4ac9b0ab97e",
+    "scenarios/N06.json": "803d37bbc459bb958a3c72ff9dee667fd308213675eb1186a060bd3104c3f49e",
+    "scenarios/N07.json": "346424cf7c6d186c3dd7523939815840f6c60b762bc8a524d4671d7b473a96ad",
+    "scenarios/N08.json": "f93591b7eceb36f3a5e304a5f6fdcaf08c21a2459ac5be6f634c6a6f95bcb2af",
+    "verification.json": "a71698a929d1fe8882e96e25daa4a995f25a35e37998324b35853cfc4c3fb323"
+  }
+}

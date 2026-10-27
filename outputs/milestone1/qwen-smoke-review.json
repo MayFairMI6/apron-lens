@@ -1,0 +1,9 @@
+{
+  "scope": "Manual review of two development smoke responses, not an accuracy benchmark",
+  "response_14_sha256": "504270eceaaf9e7ae368e45c40b9ecf8d77505daa2492fcdf9548680eadb137a",
+  "received_history_boundary": "Correct eligible evidence: E02 at13; E02,E03 at14",
+  "late_report_summary": "At14 the answer includes baggage completion at12 and receipt at14",
+  "citation_limitation": "At14 the answer combines Stand B assignment from E02 with the late report but cites only E03. Eligibility checks cannot establish semantic citation coverage.",
+  "uncertainty_limitation": "The model uncertainty flag was false in both cases. The interface separately preserves readiness unknown from scenario facts; this is not model abstention.",
+  "visual_reasoning_limitation": "Current synthetic scene is supplied, but the image contribution has not been measured by an ablation."
+}

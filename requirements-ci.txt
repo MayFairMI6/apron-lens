@@ -1,0 +1,4 @@
+# Tests use a fake model. No torch, transformers or downloaded weights required.
+fastapi==0.162.0
+httpx==0.28.1
+Pillow==12.3.0

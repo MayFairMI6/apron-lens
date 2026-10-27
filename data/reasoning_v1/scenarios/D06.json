@@ -1,0 +1,33 @@
+{
+  "scenarioId": "D06",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E61",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 10,
+      "receiptTime": 10,
+      "message": "fuel_status reported as complete.",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "complete",
+          "supersedes": [],
+          "validUntil": 20
+        }
+      ]
+    }
+  ]
+}

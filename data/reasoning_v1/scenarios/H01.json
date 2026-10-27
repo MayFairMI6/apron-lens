@@ -1,0 +1,66 @@
+{
+  "scenarioId": "H01",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E101",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "stand reported as B.",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "B",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E102",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 7,
+      "receiptTime": 22,
+      "message": "stand reported as D.",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "D",
+          "supersedes": [
+            "E101:stand"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E103",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R0",
+      "source": "fictional-coordinator",
+      "eventTime": 20,
+      "receiptTime": 21,
+      "message": "stand reported as F.",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "F",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

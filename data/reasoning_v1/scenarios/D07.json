@@ -1,0 +1,48 @@
+{
+  "scenarioId": "D07",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E71",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "route reported as east.",
+      "facts": [
+        {
+          "property": "route",
+          "value": "east",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E72",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 10,
+      "receiptTime": 10,
+      "message": "route reported as north.",
+      "facts": [
+        {
+          "property": "route",
+          "value": "north",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

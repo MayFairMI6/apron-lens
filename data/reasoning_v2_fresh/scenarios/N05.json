@@ -1,0 +1,96 @@
+{
+  "scenarioId": "N05",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F510",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "stand reported as P9",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "P9",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F511",
+      "aircraftId": "A2",
+      "flightInstance": "F1-R8",
+      "source": "fictional-misrouted-report",
+      "eventTime": 6,
+      "receiptTime": 6,
+      "message": "fuel_status reported as complete",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "complete",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F512",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R7",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 7,
+      "receiptTime": 7,
+      "message": "fuel_status reported as complete",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "complete",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F513",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 9,
+      "receiptTime": 14,
+      "message": "fuel_status reported as pending",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "pending",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F514",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 10,
+      "receiptTime": 14,
+      "message": "route reported as service lane",
+      "facts": [
+        {
+          "property": "route",
+          "value": "service lane",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

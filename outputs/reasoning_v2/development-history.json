@@ -1,0 +1,60 @@
+{
+  "trials": [
+    {
+      "trial": 1,
+      "correct": 16,
+      "total": 24,
+      "failures": [
+        "D01-Q3",
+        "D02-Q2",
+        "D03-Q3",
+        "D04-Q3",
+        "D05-Q1",
+        "D07-Q3",
+        "D08-Q1",
+        "D08-Q3"
+      ]
+    },
+    {
+      "trial": 2,
+      "correct": 21,
+      "total": 24,
+      "failures": [
+        "D04-Q3",
+        "D08-Q1",
+        "D08-Q3"
+      ]
+    },
+    {
+      "trial": 3,
+      "correct": 20,
+      "total": 24,
+      "failures": [
+        "D04-Q3",
+        "D05-Q1",
+        "D05-Q2",
+        "D08-Q2"
+      ]
+    },
+    {
+      "trial": 4,
+      "correct": 23,
+      "total": 24,
+      "failures": [
+        "D04-Q3"
+      ]
+    },
+    {
+      "trial": 5,
+      "correct": 23,
+      "total": 24,
+      "failures": [
+        "D08-Q1"
+      ]
+    }
+  ],
+  "selected": "pairwise-predicates-v5",
+  "fineTuning": false,
+  "freshTuning": false,
+  "note": "Development trials and M1 smoke preceded freeze. Original weights unchanged. All development failures retained."
+}

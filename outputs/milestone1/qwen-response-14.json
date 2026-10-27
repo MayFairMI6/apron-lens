@@ -1,0 +1,36 @@
+{
+    "requestId": "e0655fcc02fd45f7880cc4a908e89f6a",
+    "scenarioId": "M1-stand-coordination-01",
+    "aircraftId": "A2",
+    "flightInstance": "F2-R1",
+    "answer": "Baggage service: complete — current. Event 12 s; received 14 s. [E03]",
+    "resultStatus": "generated",
+    "model": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "validation": "Each displayed claim matches a typed fact, its temporal status and its exact source. Wording uses templates; not free-form semantic verification.",
+    "contextLimit": "Overall readiness remains unestablished. TOBT is an estimate, not movement clearance.",
+    "answerOrigin": "validated_fact_templates",
+    "claims": [
+        {
+            "fact_id": "E03:baggage_status",
+            "value": "complete",
+            "status": "current",
+            "evidence_ids": [
+                "E03"
+            ]
+        }
+    ],
+    "checkpoint": 14.0,
+    "elapsedSeconds": 0.4300000071525574,
+    "evidenceIds": [
+        "E03"
+    ],
+    "eligibleEvidenceIds": [
+        "E02",
+        "E03"
+    ],
+    "insufficientEvidence": true,
+    "modelInsufficientEvidence": false,
+    "inputTokens": 551,
+    "outputTokens": 0
+}

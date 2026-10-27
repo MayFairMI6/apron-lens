@@ -1,0 +1,64 @@
+{
+  "scenarioId": "D02",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E21",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "stand reported as B.",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "B",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E22",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 10,
+      "receiptTime": 10,
+      "message": "stand reported as C.",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "C",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E23",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R0",
+      "source": "fictional-coordinator",
+      "eventTime": 15,
+      "receiptTime": 15,
+      "message": "baggage_status reported as complete.",
+      "facts": [
+        {
+          "property": "baggage_status",
+          "value": "complete",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

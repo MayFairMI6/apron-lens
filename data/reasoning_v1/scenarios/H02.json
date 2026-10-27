@@ -1,0 +1,71 @@
+{
+  "scenarioId": "H02",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E201",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "route reported as south.",
+      "facts": [
+        {
+          "property": "route",
+          "value": "south",
+          "supersedes": [],
+          "validUntil": 60
+        }
+      ]
+    },
+    {
+      "id": "E202",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 8,
+      "receiptTime": 26,
+      "message": "route reported as west.",
+      "facts": [
+        {
+          "property": "route",
+          "value": "west",
+          "supersedes": [
+            "E201:route"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E203",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 15,
+      "receiptTime": 17,
+      "message": "route reported as north.",
+      "facts": [
+        {
+          "property": "route",
+          "value": "north",
+          "supersedes": [
+            "E201:route",
+            "E202:route"
+          ],
+          "validUntil": 35
+        }
+      ]
+    }
+  ]
+}

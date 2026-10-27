@@ -1,0 +1,35 @@
+AIRFIELD COORDINATOR — AUTONOMOUS UI HANDOFF
+
+Use either prompt below with the current app screenshots attached. The agent should make informed design decisions without asking approval for routine choices. Keep Astra responsible for the working Unity app and evidence engine; the external workflow explores and prototypes the interface.
+
+1. IMAGE GENERATOR — VISUAL EXPLORATION
+
+Redesign the attached Android app for a stationary airfield coordinator. Its job is to show which aircraft is selected, what changed, and what information is still uncertain. Produce a realistic portrait screen, not a device mockup.
+
+Use your design judgment to choose the layout, hierarchy, palette, typography, and navigation. You may depart from the current design. Prioritize a useful spatial view and a calm, glanceable summary; put explanation text, citations, and full timestamps behind a clear detail affordance. Avoid a wall of cards or warnings. Make it credible in daylight, with readable text and comfortable touch targets.
+
+Anchor the design in this example: A2 / F2-R1 is selected. Baggage completion happened at 12 seconds but was received at 14 seconds. The replay is now at 14 seconds. Overall departure readiness is unknown. The source is E03. Label the scenario as simulated; do not invent clearance, safety guarantees, or AI confidence percentages.
+
+Choose the strongest visual direction yourself and show it. Preserve the meaning of the evidence while improving how it is presented.
+
+2. CLAUDE OR CHATGPT — INTERACTIVE DESIGN PROTOTYPE
+
+You own the interaction design for a portrait Android AR airfield-coordination prototype. Use the attached screenshots as context, not a layout to copy. Build a self-contained HTML/CSS/JavaScript prototype with fictional local data and a concise Unity-friendly handoff.
+
+The coordinator's core task is: select an aircraft, understand the latest meaningful change, inspect its source when needed, and recover what was known at an earlier time. Make the main screen glanceable. Keep the spatial scene useful; reveal history and detailed reasoning progressively rather than covering it with text.
+
+You have autonomy over visual style, navigation, grouping, labels, and interaction patterns. Use your expertise, choose a coherent solution, and do not ask for approval on routine design choices. Briefly explain only the most consequential decisions. Ask only if an ambiguity changes evidence meaning or expands the project scope.
+
+Use these compact fixtures:
+• E02: A2 / F2-R1 assigned Stand B, event/receipt 0/0 seconds.
+• E03: A2 / F2-R1 baggage complete, event/receipt 12/14 seconds.
+• E07: A2 / F2-R1 route East, event/receipt 0/0 seconds.
+• E08: A2 / F2-R1 route West, event/receipt 20/24 seconds; supersedes E07 once received.
+• E09: A1 / F1-R1 baggage complete, event/receipt 10/11 seconds.
+
+Boundaries: never mix flights; never reveal E03 before 14 seconds; East remains the known plan until E08 arrives at 24 seconds; preserve superseded history; keep each displayed claim linked to its own source. Keep readiness unknown. Changing aircraft/time invalidates an old model answer. Model failure must not erase recorded facts. Tracking loss pauses playback; reacquisition requires explicit resume. No real-world clearance or safety claim.
+
+Verify the 13→14 and 23→24 transitions, switching flights, opening a source, and recovering from model/tracking loss. Check a narrow and a tall phone layout. Deliver one working direction, reusable design tokens/components, and a short list of assumptions or unresolved tradeoffs. Do not redesign the backend or implement a pretend live airport feed.
+
+HANDOFF BACK
+Return the prototype and selected visual assets here. We will implement the chosen design in Unity and verify actual phone behavior. A polished image is a design reference, not proof of usability or reasoning accuracy.

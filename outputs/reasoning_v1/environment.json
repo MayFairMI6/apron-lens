@@ -1,0 +1,13 @@
+{
+  "python": "3.12.13",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "4.57.6",
+    "Pillow": "12.3.0",
+    "fastapi": "0.162.0",
+    "uvicorn": "0.54.0",
+    "pydantic": "2.14.1"
+  },
+  "requirements_lock_sha256": "9b117451c5764d17a376aa55e4f1b64b45309e93966b254f49d795e6e34717ca"
+}

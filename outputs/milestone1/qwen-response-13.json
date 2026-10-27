@@ -1,0 +1,43 @@
+{
+    "requestId": "0e018e8dbcc74a638bc333b616bb1fa7",
+    "scenarioId": "M1-stand-coordination-01",
+    "aircraftId": "A2",
+    "flightInstance": "F2-R1",
+    "answer": "Assigned stand: B — current. Event 0 s; received 0 s. [E02]\n\nAuthored movement condition: after servicing completes — current. Event 0 s; received 0 s. [E02]",
+    "resultStatus": "generated",
+    "model": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "validation": "Each displayed claim matches a typed fact, its temporal status and its exact source. Wording uses templates; not free-form semantic verification.",
+    "contextLimit": "Overall readiness remains unestablished. TOBT is an estimate, not movement clearance.",
+    "answerOrigin": "validated_fact_templates",
+    "claims": [
+        {
+            "fact_id": "E02:stand",
+            "value": "B",
+            "status": "current",
+            "evidence_ids": [
+                "E02"
+            ]
+        },
+        {
+            "fact_id": "E02:movement_condition",
+            "value": "after servicing completes",
+            "status": "current",
+            "evidence_ids": [
+                "E02"
+            ]
+        }
+    ],
+    "checkpoint": 13.0,
+    "elapsedSeconds": 0.3700000047683716,
+    "evidenceIds": [
+        "E02"
+    ],
+    "eligibleEvidenceIds": [
+        "E02"
+    ],
+    "insufficientEvidence": true,
+    "modelInsufficientEvidence": false,
+    "inputTokens": 294,
+    "outputTokens": 0
+}

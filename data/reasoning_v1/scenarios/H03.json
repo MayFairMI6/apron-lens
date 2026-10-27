@@ -1,0 +1,83 @@
+{
+  "scenarioId": "H03",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E301",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "tobt reported as 40 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "40 s",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E302",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 10,
+      "receiptTime": 10,
+      "message": "tobt reported as 60 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "60 s",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E303",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 20,
+      "receiptTime": 25,
+      "message": "tobt reported as 75 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "75 s",
+          "supersedes": [
+            "E301:tobt",
+            "E302:tobt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E304",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 22,
+      "receiptTime": 22,
+      "message": "tobt reported as 15 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "15 s",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

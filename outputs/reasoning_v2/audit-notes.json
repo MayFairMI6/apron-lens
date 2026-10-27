@@ -1,0 +1,13 @@
+{
+  "audit": "Separate agent read-only audit after evaluation; no sources changed",
+  "integrity": "8 frozen source hashes and snapshots match; dataset manifest and files match;160 unique attempts and results;32 questions in8 families;all conditions retained",
+  "modelConditionRecords": 128,
+  "recordsInvokingQwen": 124,
+  "textMissingEvidenceExact": 12,
+  "textMissingEvidenceZeroInference": 2,
+  "independence": "Separate evaluation-agent authorship, not external domain experts or full statistical blinding",
+  "legacyTieCaveat": "Frozen legacy prompt says most recently RECEIVED event singular; corrected policy includes all max-receipt-time events. N05-Q4 is a tied case legacy misses. Comparison is whole-system, not isolated inference-method causality.",
+  "remainingTextError": "N02-Q3 includes unrelated stand fact in route answer; raw failure retained and guard withheld",
+  "testTuning": false,
+  "sourceChangesAfterFreeze": false
+}

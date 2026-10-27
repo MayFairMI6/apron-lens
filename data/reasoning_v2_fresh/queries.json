@@ -1,0 +1,974 @@
+[
+  {
+    "checkpoint": 10,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review current evidence for fuel_status at 10 seconds.",
+    "id": "N01-Q1",
+    "scenarioId": "N01",
+    "split": "heldout_fresh",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 10,
+    "queryType": "latest",
+    "properties": [],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "overall_readiness"
+      ]
+    },
+    "question": "Review latest evidence for this flight at 10 seconds.",
+    "id": "N01-Q2",
+    "scenarioId": "N01",
+    "split": "heldout_fresh",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "change",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F112:fuel_status",
+          "value": "pending",
+          "status": "scheduled",
+          "evidence_ids": [
+            "F112"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review change evidence for fuel_status at 25 seconds.",
+    "id": "N01-Q3",
+    "scenarioId": "N01",
+    "split": "heldout_fresh",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 30,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F112:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F112"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for fuel_status at 30 seconds.",
+    "id": "N01-Q4",
+    "scenarioId": "N01",
+    "split": "heldout_fresh",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 17,
+    "queryType": "current",
+    "properties": [
+      "stand",
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F212:stand",
+          "value": "P7",
+          "status": "current",
+          "evidence_ids": [
+            "F212"
+          ]
+        },
+        {
+          "fact_id": "F210:route",
+          "value": "blue corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F210"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for stand, route at 17 seconds.",
+    "id": "N02-Q1",
+    "scenarioId": "N02",
+    "split": "heldout_fresh",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 18,
+    "queryType": "change",
+    "properties": [
+      "stand",
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F210:stand",
+          "value": "P2",
+          "status": "superseded",
+          "evidence_ids": [
+            "F210"
+          ]
+        },
+        {
+          "fact_id": "F212:stand",
+          "value": "P7",
+          "status": "current",
+          "evidence_ids": [
+            "F212"
+          ]
+        },
+        {
+          "fact_id": "F210:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F210"
+          ]
+        },
+        {
+          "fact_id": "F211:route",
+          "value": "green corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F211"
+          ]
+        },
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review change evidence for stand, route at 18 seconds.",
+    "id": "N02-Q2",
+    "scenarioId": "N02",
+    "split": "heldout_fresh",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for route at 20 seconds.",
+    "id": "N02-Q3",
+    "scenarioId": "N02",
+    "split": "heldout_fresh",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 18,
+    "queryType": "latest",
+    "properties": [
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review latest evidence for route at 18 seconds.",
+    "id": "N02-Q4",
+    "scenarioId": "N02",
+    "split": "heldout_fresh",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 10,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review current evidence for fuel_status at 10 seconds.",
+    "id": "N03-Q1",
+    "scenarioId": "N03",
+    "split": "heldout_fresh",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F311:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F311"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for fuel_status at 20 seconds.",
+    "id": "N03-Q2",
+    "scenarioId": "N03",
+    "split": "heldout_fresh",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 24,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review current evidence for fuel_status at 24 seconds.",
+    "id": "N03-Q3",
+    "scenarioId": "N03",
+    "split": "heldout_fresh",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 26,
+    "queryType": "change",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F310:fuel_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F310"
+          ]
+        },
+        {
+          "fact_id": "F311:fuel_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F311"
+          ]
+        },
+        {
+          "fact_id": "F312:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F312"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review change evidence for fuel_status at 26 seconds.",
+    "id": "N03-Q4",
+    "scenarioId": "N03",
+    "split": "heldout_fresh",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 16,
+    "queryType": "change",
+    "properties": [
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F410:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F410"
+          ]
+        },
+        {
+          "fact_id": "F411:route",
+          "value": "yellow corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F411"
+          ]
+        },
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review change evidence for route at 16 seconds.",
+    "id": "N04-Q1",
+    "scenarioId": "N04",
+    "split": "heldout_fresh",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 22,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "route"
+      ]
+    },
+    "question": "Review current evidence for route at 22 seconds.",
+    "id": "N04-Q2",
+    "scenarioId": "N04",
+    "split": "heldout_fresh",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "latest",
+    "properties": [
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "expired",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review latest evidence for route at 25 seconds.",
+    "id": "N04-Q3",
+    "scenarioId": "N04",
+    "split": "heldout_fresh",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "change",
+    "properties": [
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F410:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F410"
+          ]
+        },
+        {
+          "fact_id": "F411:route",
+          "value": "yellow corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F411"
+          ]
+        },
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "expired",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "route"
+      ]
+    },
+    "question": "Review change evidence for route at 25 seconds.",
+    "id": "N04-Q4",
+    "scenarioId": "N04",
+    "split": "heldout_fresh",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 12,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review current evidence for fuel_status at 12 seconds.",
+    "id": "N05-Q1",
+    "scenarioId": "N05",
+    "split": "heldout_fresh",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 12,
+    "queryType": "current",
+    "properties": [
+      "stand",
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F510:stand",
+          "value": "P9",
+          "status": "current",
+          "evidence_ids": [
+            "F510"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review current evidence for stand, fuel_status at 12 seconds.",
+    "id": "N05-Q2",
+    "scenarioId": "N05",
+    "split": "heldout_fresh",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 12,
+    "queryType": "latest",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "question": "Review latest evidence for fuel_status at 12 seconds.",
+    "id": "N05-Q3",
+    "scenarioId": "N05",
+    "split": "heldout_fresh",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 14,
+    "queryType": "latest",
+    "properties": [],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F513:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F513"
+          ]
+        },
+        {
+          "fact_id": "F514:route",
+          "value": "service lane",
+          "status": "current",
+          "evidence_ids": [
+            "F514"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review latest evidence for this flight at 14 seconds.",
+    "id": "N05-Q4",
+    "scenarioId": "N05",
+    "split": "heldout_fresh",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "aircraftId": "A1",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 8,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F610:tobt",
+          "value": "60 s",
+          "status": "current",
+          "evidence_ids": [
+            "F610"
+          ]
+        },
+        {
+          "fact_id": "F611:tobt",
+          "value": "60 s",
+          "status": "current",
+          "evidence_ids": [
+            "F611"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for tobt at 8 seconds.",
+    "id": "N06-Q1",
+    "scenarioId": "N06",
+    "split": "heldout_fresh",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "tobt"
+      ]
+    },
+    "question": "Review current evidence for tobt at 20 seconds.",
+    "id": "N06-Q2",
+    "scenarioId": "N06",
+    "split": "heldout_fresh",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 30,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F612:tobt",
+          "value": "80 s",
+          "status": "current",
+          "evidence_ids": [
+            "F612"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for tobt at 30 seconds.",
+    "id": "N06-Q3",
+    "scenarioId": "N06",
+    "split": "heldout_fresh",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 35,
+    "queryType": "change",
+    "properties": [
+      "tobt"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F610:tobt",
+          "value": "60 s",
+          "status": "expired",
+          "evidence_ids": [
+            "F610"
+          ]
+        },
+        {
+          "fact_id": "F611:tobt",
+          "value": "60 s",
+          "status": "superseded",
+          "evidence_ids": [
+            "F611"
+          ]
+        },
+        {
+          "fact_id": "F612:tobt",
+          "value": "80 s",
+          "status": "current",
+          "evidence_ids": [
+            "F612"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review change evidence for tobt at 35 seconds.",
+    "id": "N06-Q4",
+    "scenarioId": "N06",
+    "split": "heldout_fresh",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "current",
+    "properties": [
+      "baggage_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for baggage_status at 25 seconds.",
+    "id": "N07-Q1",
+    "scenarioId": "N07",
+    "split": "heldout_fresh",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 36,
+    "queryType": "latest",
+    "properties": [],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F711:baggage_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F711"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review latest evidence for this flight at 36 seconds.",
+    "id": "N07-Q2",
+    "scenarioId": "N07",
+    "split": "heldout_fresh",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 36,
+    "queryType": "current",
+    "properties": [
+      "baggage_status",
+      "route"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        },
+        {
+          "fact_id": "F713:route",
+          "value": "west corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F713"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for baggage_status, route at 36 seconds.",
+    "id": "N07-Q3",
+    "scenarioId": "N07",
+    "split": "heldout_fresh",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 36,
+    "queryType": "change",
+    "properties": [
+      "baggage_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F710:baggage_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F710"
+          ]
+        },
+        {
+          "fact_id": "F711:baggage_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F711"
+          ]
+        },
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review change evidence for baggage_status at 36 seconds.",
+    "id": "N07-Q4",
+    "scenarioId": "N07",
+    "split": "heldout_fresh",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "overall_readiness"
+    ],
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "overall_readiness"
+      ]
+    },
+    "question": "Review current evidence for overall_readiness at 20 seconds.",
+    "id": "N08-Q1",
+    "scenarioId": "N08",
+    "split": "heldout_fresh",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 16,
+    "queryType": "latest",
+    "properties": [],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F811:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        },
+        {
+          "fact_id": "F811:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review latest evidence for this flight at 16 seconds.",
+    "id": "N08-Q2",
+    "scenarioId": "N08",
+    "split": "heldout_fresh",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 27,
+    "queryType": "change",
+    "properties": [
+      "fuel_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F810:fuel_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F810"
+          ]
+        },
+        {
+          "fact_id": "F811:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review change evidence for fuel_status at 27 seconds.",
+    "id": "N08-Q3",
+    "scenarioId": "N08",
+    "split": "heldout_fresh",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  },
+  {
+    "checkpoint": 28,
+    "queryType": "current",
+    "properties": [
+      "fuel_status",
+      "baggage_status"
+    ],
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F814:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F814"
+          ]
+        },
+        {
+          "fact_id": "F811:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "question": "Review current evidence for fuel_status, baggage_status at 28 seconds.",
+    "id": "N08-Q4",
+    "scenarioId": "N08",
+    "split": "heldout_fresh",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "aircraftId": "A2",
+    "image": "images/context.png"
+  }
+]

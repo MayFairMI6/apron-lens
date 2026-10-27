@@ -1,0 +1,21 @@
+name: Bug report
+description: Report a replay, model, Android or UI problem
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include commit, scenario/flight, replay checkpoint and steps.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS/phone, Unity/Python/model version, relevant logs. Remove tokens and license keys.

@@ -1,0 +1,70 @@
+{
+  "scenarioId": "N03",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F310",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "fuel_status reported as complete",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "complete",
+          "supersedes": [],
+          "validUntil": 18
+        }
+      ]
+    },
+    {
+      "id": "F311",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-fuel-service",
+      "eventTime": 4,
+      "receiptTime": 6,
+      "message": "fuel_status reported as pending",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "pending",
+          "supersedes": [],
+          "validUntil": 24
+        }
+      ]
+    },
+    {
+      "id": "F312",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 12,
+      "receiptTime": 14,
+      "message": "fuel_status reported as complete",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "complete",
+          "supersedes": [
+            "F310:fuel_status",
+            "F311:fuel_status"
+          ],
+          "validFrom": 26
+        }
+      ]
+    }
+  ]
+}

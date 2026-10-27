@@ -1,0 +1,92 @@
+{
+  "scenarioId": "N02",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F210",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "stand reported as P2; route reported as blue corridor",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "P2",
+          "supersedes": []
+        },
+        {
+          "property": "route",
+          "value": "blue corridor",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F211",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 8,
+      "receiptTime": 10,
+      "message": "route reported as green corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "green corridor",
+          "supersedes": [
+            "F210:route"
+          ],
+          "validFrom": 20
+        }
+      ]
+    },
+    {
+      "id": "F212",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 12,
+      "receiptTime": 16,
+      "message": "stand reported as P7",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "P7",
+          "supersedes": [
+            "F210:stand"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F213",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 17,
+      "receiptTime": 18,
+      "message": "route reported as amber corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "amber corridor",
+          "supersedes": [
+            "F211:route"
+          ]
+        }
+      ]
+    }
+  ]
+}

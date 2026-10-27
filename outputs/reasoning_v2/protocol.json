@@ -1,0 +1,56 @@
+{
+  "createdUTC": "2026-10-27T16:05:46.238396+00:00",
+  "config": {
+    "questionCount": 32,
+    "conditions": [
+      "legacy_state_text",
+      "decisions_state_text",
+      "decisions_unfiltered_text",
+      "decisions_state_image"
+    ],
+    "baseline": "deterministic_baseline",
+    "split": "heldout_fresh",
+    "developmentTrials": 5,
+    "developmentSmokeQueries": 2,
+    "legacyDecoding": {
+      "do_sample": false,
+      "max_new_tokens": 512
+    },
+    "order": "Rotate four model conditions left by question index modulo four",
+    "retries": 0,
+    "resume": "Only never-started calls; interrupted attempts count as failures",
+    "expectedSuiteManifestSha256": "c8e85ec2b1deffe626220c7af526f7f2b9789558a69bc260336531c9c49ca36c"
+  },
+  "sources": {
+    "backend/evidence.py": "3401365d3ecc38dd7d8544e1082a4e99fe54f48538af4d3e797ddd2875502806",
+    "backend/reasoning.py": "b9491713fd902f6d45a978ab423b60772a6f66146d703f541659a7b798cfdff3",
+    "backend/decisions.py": "dc20c8dfe0f9abbf668fea08dc430252c0531121dcbb15e6cdbc9d2c876e6850",
+    "backend/server.py": "a1c5f65ce007bde9783a325a0e6357bbeeb47569e1568b2b824b291e5d326de1",
+    "scripts/evaluate_reasoning_v2.py": "9a0f5fde19c0e4461dc1ac8064734edc53a21483ce31f07a233aec397816319b",
+    "scripts/report_reasoning_v2.py": "9d07345e6997d1eade6fc7c2ca2964f866b5fbf873da99a87e32b0b58efd4ecf",
+    "requirements-qwen.lock.txt": "9b117451c5764d17a376aa55e4f1b64b45309e93966b254f49d795e6e34717ca",
+    "outputs/reasoning_v1/source_snapshot/backend/reasoning.py": "b9491713fd902f6d45a978ab423b60772a6f66146d703f541659a7b798cfdff3"
+  },
+  "modelManifest": {
+    "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "source": "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct",
+    "license": "Qwen Research License; non-commercial research/evaluation"
+  },
+  "modelManifestSha256": "abd77c7c491ba9a50e3df39b8de024eb440827fc584321ecb3cfa2cce8f9851a",
+  "caveats": [
+    "Synthetic scenario-family pilot; no domain-expert validation or real-airfield outcome evidence.",
+    "Qwen selects literal predicates. Temporal statuses are supplied by a deterministic resolver.",
+    "Values, status labels, and citations are projected from selected records by construction.",
+    "Unknown flags compose model membership/current decisions; empty evidence needs no model call.",
+    "High hybrid accuracy does not prove learned temporal reasoning or benefit over the deterministic baseline.",
+    "The image is a non-diagnostic negative control, not evidence of visual reasoning.",
+    "The unfiltered condition is an identity-filtering stress diagnostic, not a matched-token causal comparison.",
+    "The guard uses the deterministic answer contract; withholding never earns raw accuracy credit.",
+    "Five development trials plus two real-Unity M1 development smoke queries; fresh suite unopened until run.",
+    "Pairwise receipt comparisons cache repeated numeric pairs, so predicate compute budgets vary by query.",
+    "Family-cluster comparisons are descriptive only; correlated questions are not independent samples."
+  ],
+  "primary": "Raw exact claim/value/status/citation set AND unknown-property set",
+  "scoring": "All attempted calls included, including malformed/interrupted/error outputs"
+}

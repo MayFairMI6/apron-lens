@@ -1,0 +1,85 @@
+{
+  "scenarioId": "N07",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F710",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "baggage_status reported as pending",
+      "facts": [
+        {
+          "property": "baggage_status",
+          "value": "pending",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F711",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 8,
+      "receiptTime": 35,
+      "message": "baggage_status reported as complete",
+      "facts": [
+        {
+          "property": "baggage_status",
+          "value": "complete",
+          "supersedes": [
+            "F710:baggage_status"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F712",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 18,
+      "receiptTime": 20,
+      "message": "baggage_status reported as pending",
+      "facts": [
+        {
+          "property": "baggage_status",
+          "value": "pending",
+          "supersedes": [
+            "F710:baggage_status",
+            "F711:baggage_status"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F713",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 22,
+      "receiptTime": 23,
+      "message": "route reported as west corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "west corridor",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

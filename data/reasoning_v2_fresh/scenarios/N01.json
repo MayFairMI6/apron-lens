@@ -1,0 +1,65 @@
+{
+  "scenarioId": "N01",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F110",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R3",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 2,
+      "receiptTime": 3,
+      "message": "fuel_status reported as complete",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "complete",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F111",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 5,
+      "receiptTime": 6,
+      "message": "stand reported as P6",
+      "facts": [
+        {
+          "property": "stand",
+          "value": "P6",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F112",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 18,
+      "receiptTime": 20,
+      "message": "fuel_status reported as pending",
+      "facts": [
+        {
+          "property": "fuel_status",
+          "value": "pending",
+          "supersedes": [],
+          "validFrom": 30
+        }
+      ]
+    }
+  ]
+}

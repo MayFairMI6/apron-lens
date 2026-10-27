@@ -1,0 +1,52 @@
+# Python, local model weights and runtime state
+.venv*/
+venv/
+models/
+work/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+
+# Unity generated files
+unity/**/Library/
+unity/**/Temp/
+unity/**/Logs/
+unity/**/obj/
+unity/**/UserSettings/
+unity/**/Build/
+unity/**/Builds/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.pidb
+*.booproj
+*.opendb
+*.VC.db
+
+# Licensed SDK package, private license and local model connection
+unity/**/Packages/*.tgz
+unity/**/Assets/Resources/VuforiaConfiguration.asset*
+unity/**/Assets/Resources/QwenConnection.local.json*
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+
+# Build binaries are release assets, not source history
+*.apk
+*.aab
+*.ipa
+
+# Local editor / OS state
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+unity/**/.utmp/
+unity/**/.gradle/
+unity/**/.cxx/
+unity/**/.vs/

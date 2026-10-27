@@ -1,0 +1,1007 @@
+[
+  {
+    "checkpoint": 10,
+    "queryType": "current",
+    "properties": [
+      "baggage_status"
+    ],
+    "id": "D01-Q1",
+    "scenarioId": "D01",
+    "split": "dev",
+    "family": "late-service",
+    "aircraftId": "A2",
+    "question": "Current evidence for baggage_status at 10 s.",
+    "image": "images/D01-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E11:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "E11"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 18,
+    "queryType": "current",
+    "properties": [
+      "baggage_status"
+    ],
+    "id": "D01-Q2",
+    "scenarioId": "D01",
+    "split": "dev",
+    "family": "late-service",
+    "aircraftId": "A2",
+    "question": "Current evidence for baggage_status at 18 s.",
+    "image": "images/D01-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E12:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E12"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "change",
+    "properties": [
+      "baggage_status"
+    ],
+    "id": "D01-Q3",
+    "scenarioId": "D01",
+    "split": "dev",
+    "family": "late-service",
+    "aircraftId": "A2",
+    "question": "Change evidence for baggage_status at 20 s.",
+    "image": "images/D01-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E11:baggage_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "E11"
+          ]
+        },
+        {
+          "fact_id": "E12:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E12"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "stand"
+    ],
+    "id": "D02-Q1",
+    "scenarioId": "D02",
+    "split": "dev",
+    "family": "identity-and-rotation",
+    "aircraftId": "A2",
+    "question": "Current evidence for stand at 20 s.",
+    "image": "images/D02-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E21:stand",
+          "value": "B",
+          "status": "current",
+          "evidence_ids": [
+            "E21"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "baggage_status"
+    ],
+    "id": "D02-Q2",
+    "scenarioId": "D02",
+    "split": "dev",
+    "family": "identity-and-rotation",
+    "aircraftId": "A2",
+    "question": "Current evidence for baggage_status at 20 s.",
+    "image": "images/D02-Q2.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "baggage_status"
+      ]
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "latest",
+    "properties": [],
+    "id": "D02-Q3",
+    "scenarioId": "D02",
+    "split": "dev",
+    "family": "identity-and-rotation",
+    "aircraftId": "A2",
+    "question": "Latest evidence for the selected flight at 20 s.",
+    "image": "images/D02-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E21:stand",
+          "value": "B",
+          "status": "current",
+          "evidence_ids": [
+            "E21"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 9,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "D03-Q1",
+    "scenarioId": "D03",
+    "split": "dev",
+    "family": "plan-replacement",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 9 s.",
+    "image": "images/D03-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E31:route",
+          "value": "east",
+          "status": "current",
+          "evidence_ids": [
+            "E31"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "D03-Q2",
+    "scenarioId": "D03",
+    "split": "dev",
+    "family": "plan-replacement",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 20 s.",
+    "image": "images/D03-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E32:route",
+          "value": "west",
+          "status": "current",
+          "evidence_ids": [
+            "E32"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "change",
+    "properties": [
+      "route"
+    ],
+    "id": "D03-Q3",
+    "scenarioId": "D03",
+    "split": "dev",
+    "family": "plan-replacement",
+    "aircraftId": "A2",
+    "question": "Change evidence for route at 20 s.",
+    "image": "images/D03-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E31:route",
+          "value": "east",
+          "status": "superseded",
+          "evidence_ids": [
+            "E31"
+          ]
+        },
+        {
+          "fact_id": "E32:route",
+          "value": "west",
+          "status": "current",
+          "evidence_ids": [
+            "E32"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "id": "D04-Q1",
+    "scenarioId": "D04",
+    "split": "dev",
+    "family": "out-of-order-targets",
+    "aircraftId": "A2",
+    "question": "Current evidence for tobt at 20 s.",
+    "image": "images/D04-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E43:tobt",
+          "value": "70 s",
+          "status": "current",
+          "evidence_ids": [
+            "E43"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 30,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "id": "D04-Q2",
+    "scenarioId": "D04",
+    "split": "dev",
+    "family": "out-of-order-targets",
+    "aircraftId": "A2",
+    "question": "Current evidence for tobt at 30 s.",
+    "image": "images/D04-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E43:tobt",
+          "value": "70 s",
+          "status": "current",
+          "evidence_ids": [
+            "E43"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 30,
+    "queryType": "latest",
+    "properties": [
+      "tobt"
+    ],
+    "id": "D04-Q3",
+    "scenarioId": "D04",
+    "split": "dev",
+    "family": "out-of-order-targets",
+    "aircraftId": "A2",
+    "question": "Latest evidence for tobt at 30 s.",
+    "image": "images/D04-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E42:tobt",
+          "value": "55 s",
+          "status": "superseded",
+          "evidence_ids": [
+            "E42"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 15,
+    "queryType": "current",
+    "properties": [
+      "stand"
+    ],
+    "id": "D05-Q1",
+    "scenarioId": "D05",
+    "split": "dev",
+    "family": "future-effective-assignment",
+    "aircraftId": "A2",
+    "question": "Current evidence for stand at 15 s.",
+    "image": "images/D05-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E51:stand",
+          "value": "B",
+          "status": "current",
+          "evidence_ids": [
+            "E51"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 15,
+    "queryType": "change",
+    "properties": [
+      "stand"
+    ],
+    "id": "D05-Q2",
+    "scenarioId": "D05",
+    "split": "dev",
+    "family": "future-effective-assignment",
+    "aircraftId": "A2",
+    "question": "Change evidence for stand at 15 s.",
+    "image": "images/D05-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E51:stand",
+          "value": "B",
+          "status": "current",
+          "evidence_ids": [
+            "E51"
+          ]
+        },
+        {
+          "fact_id": "E52:stand",
+          "value": "C",
+          "status": "scheduled",
+          "evidence_ids": [
+            "E52"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 26,
+    "queryType": "current",
+    "properties": [
+      "stand"
+    ],
+    "id": "D05-Q3",
+    "scenarioId": "D05",
+    "split": "dev",
+    "family": "future-effective-assignment",
+    "aircraftId": "A2",
+    "question": "Current evidence for stand at 26 s.",
+    "image": "images/D05-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E52:stand",
+          "value": "C",
+          "status": "current",
+          "evidence_ids": [
+            "E52"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 19,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "id": "D06-Q1",
+    "scenarioId": "D06",
+    "split": "dev",
+    "family": "validity-expiry",
+    "aircraftId": "A2",
+    "question": "Current evidence for fuel_status at 19 s.",
+    "image": "images/D06-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E61:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E61"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "id": "D06-Q2",
+    "scenarioId": "D06",
+    "split": "dev",
+    "family": "validity-expiry",
+    "aircraftId": "A2",
+    "question": "Current evidence for fuel_status at 20 s.",
+    "image": "images/D06-Q2.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    }
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "change",
+    "properties": [
+      "fuel_status"
+    ],
+    "id": "D06-Q3",
+    "scenarioId": "D06",
+    "split": "dev",
+    "family": "validity-expiry",
+    "aircraftId": "A2",
+    "question": "Change evidence for fuel_status at 25 s.",
+    "image": "images/D06-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E61:fuel_status",
+          "value": "complete",
+          "status": "expired",
+          "evidence_ids": [
+            "E61"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    }
+  },
+  {
+    "checkpoint": 9,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "D07-Q1",
+    "scenarioId": "D07",
+    "split": "dev",
+    "family": "unresolved-conflict",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 9 s.",
+    "image": "images/D07-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E71:route",
+          "value": "east",
+          "status": "current",
+          "evidence_ids": [
+            "E71"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "D07-Q2",
+    "scenarioId": "D07",
+    "split": "dev",
+    "family": "unresolved-conflict",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 20 s.",
+    "image": "images/D07-Q2.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "route"
+      ]
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "change",
+    "properties": [
+      "route"
+    ],
+    "id": "D07-Q3",
+    "scenarioId": "D07",
+    "split": "dev",
+    "family": "unresolved-conflict",
+    "aircraftId": "A2",
+    "question": "Change evidence for route at 20 s.",
+    "image": "images/D07-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E71:route",
+          "value": "east",
+          "status": "conflicting",
+          "evidence_ids": [
+            "E71"
+          ]
+        },
+        {
+          "fact_id": "E72:route",
+          "value": "north",
+          "status": "conflicting",
+          "evidence_ids": [
+            "E72"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "route"
+      ]
+    }
+  },
+  {
+    "checkpoint": 18,
+    "queryType": "latest",
+    "properties": [],
+    "id": "D08-Q1",
+    "scenarioId": "D08",
+    "split": "dev",
+    "family": "service-not-readiness",
+    "aircraftId": "A2",
+    "question": "Latest evidence for the selected flight at 18 s.",
+    "image": "images/D08-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E83:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E83"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 18,
+    "queryType": "current",
+    "properties": [
+      "baggage_status",
+      "fuel_status"
+    ],
+    "id": "D08-Q2",
+    "scenarioId": "D08",
+    "split": "dev",
+    "family": "service-not-readiness",
+    "aircraftId": "A2",
+    "question": "Current evidence for baggage_status, fuel_status at 18 s.",
+    "image": "images/D08-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E82:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E82"
+          ]
+        },
+        {
+          "fact_id": "E83:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E83"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 18,
+    "queryType": "current",
+    "properties": [
+      "overall_readiness"
+    ],
+    "id": "D08-Q3",
+    "scenarioId": "D08",
+    "split": "dev",
+    "family": "service-not-readiness",
+    "aircraftId": "A2",
+    "question": "Current evidence for overall_readiness at 18 s.",
+    "image": "images/D08-Q3.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "overall_readiness"
+      ]
+    }
+  },
+  {
+    "checkpoint": 21,
+    "queryType": "current",
+    "properties": [
+      "stand"
+    ],
+    "id": "H01-Q1",
+    "scenarioId": "H01",
+    "split": "heldout",
+    "family": "late-reassignment-with-rotation-distractor",
+    "aircraftId": "A2",
+    "question": "Current evidence for stand at 21 s.",
+    "image": "images/H01-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E101:stand",
+          "value": "B",
+          "status": "current",
+          "evidence_ids": [
+            "E101"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 22,
+    "queryType": "current",
+    "properties": [
+      "stand"
+    ],
+    "id": "H01-Q2",
+    "scenarioId": "H01",
+    "split": "heldout",
+    "family": "late-reassignment-with-rotation-distractor",
+    "aircraftId": "A2",
+    "question": "Current evidence for stand at 22 s.",
+    "image": "images/H01-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E102:stand",
+          "value": "D",
+          "status": "current",
+          "evidence_ids": [
+            "E102"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "change",
+    "properties": [
+      "stand"
+    ],
+    "id": "H01-Q3",
+    "scenarioId": "H01",
+    "split": "heldout",
+    "family": "late-reassignment-with-rotation-distractor",
+    "aircraftId": "A2",
+    "question": "Change evidence for stand at 25 s.",
+    "image": "images/H01-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E101:stand",
+          "value": "B",
+          "status": "superseded",
+          "evidence_ids": [
+            "E101"
+          ]
+        },
+        {
+          "fact_id": "E102:stand",
+          "value": "D",
+          "status": "current",
+          "evidence_ids": [
+            "E102"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 20,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "H02-Q1",
+    "scenarioId": "H02",
+    "split": "heldout",
+    "family": "delayed-old-plan-and-replacement-expiry",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 20 s.",
+    "image": "images/H02-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E203:route",
+          "value": "north",
+          "status": "current",
+          "evidence_ids": [
+            "E203"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 30,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "H02-Q2",
+    "scenarioId": "H02",
+    "split": "heldout",
+    "family": "delayed-old-plan-and-replacement-expiry",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 30 s.",
+    "image": "images/H02-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E203:route",
+          "value": "north",
+          "status": "current",
+          "evidence_ids": [
+            "E203"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 35,
+    "queryType": "current",
+    "properties": [
+      "route"
+    ],
+    "id": "H02-Q3",
+    "scenarioId": "H02",
+    "split": "heldout",
+    "family": "delayed-old-plan-and-replacement-expiry",
+    "aircraftId": "A2",
+    "question": "Current evidence for route at 35 s.",
+    "image": "images/H02-Q3.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "route"
+      ]
+    }
+  },
+  {
+    "checkpoint": 15,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "id": "H03-Q1",
+    "scenarioId": "H03",
+    "split": "heldout",
+    "family": "conflict-resolution-with-other-flight-target",
+    "aircraftId": "A2",
+    "question": "Current evidence for tobt at 15 s.",
+    "image": "images/H03-Q1.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "tobt"
+      ]
+    }
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "current",
+    "properties": [
+      "tobt"
+    ],
+    "id": "H03-Q2",
+    "scenarioId": "H03",
+    "split": "heldout",
+    "family": "conflict-resolution-with-other-flight-target",
+    "aircraftId": "A2",
+    "question": "Current evidence for tobt at 25 s.",
+    "image": "images/H03-Q2.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E303:tobt",
+          "value": "75 s",
+          "status": "current",
+          "evidence_ids": [
+            "E303"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 25,
+    "queryType": "change",
+    "properties": [
+      "tobt"
+    ],
+    "id": "H03-Q3",
+    "scenarioId": "H03",
+    "split": "heldout",
+    "family": "conflict-resolution-with-other-flight-target",
+    "aircraftId": "A2",
+    "question": "Change evidence for tobt at 25 s.",
+    "image": "images/H03-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E301:tobt",
+          "value": "40 s",
+          "status": "superseded",
+          "evidence_ids": [
+            "E301"
+          ]
+        },
+        {
+          "fact_id": "E302:tobt",
+          "value": "60 s",
+          "status": "superseded",
+          "evidence_ids": [
+            "E302"
+          ]
+        },
+        {
+          "fact_id": "E303:tobt",
+          "value": "75 s",
+          "status": "current",
+          "evidence_ids": [
+            "E303"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 19,
+    "queryType": "current",
+    "properties": [
+      "fuel_status",
+      "baggage_status"
+    ],
+    "id": "H04-Q1",
+    "scenarioId": "H04",
+    "split": "heldout",
+    "family": "late-correction-expiry-and-interleaved-services",
+    "aircraftId": "A2",
+    "question": "Current evidence for fuel_status, baggage_status at 19 s.",
+    "image": "images/H04-Q1.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E401:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E401"
+          ]
+        },
+        {
+          "fact_id": "E403:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "E403"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  },
+  {
+    "checkpoint": 26,
+    "queryType": "current",
+    "properties": [
+      "fuel_status"
+    ],
+    "id": "H04-Q2",
+    "scenarioId": "H04",
+    "split": "heldout",
+    "family": "late-correction-expiry-and-interleaved-services",
+    "aircraftId": "A2",
+    "question": "Current evidence for fuel_status at 26 s.",
+    "image": "images/H04-Q2.png",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    }
+  },
+  {
+    "checkpoint": 28,
+    "queryType": "change",
+    "properties": [
+      "fuel_status"
+    ],
+    "id": "H04-Q3",
+    "scenarioId": "H04",
+    "split": "heldout",
+    "family": "late-correction-expiry-and-interleaved-services",
+    "aircraftId": "A2",
+    "question": "Change evidence for fuel_status at 28 s.",
+    "image": "images/H04-Q3.png",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "E401:fuel_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "E401"
+          ]
+        },
+        {
+          "fact_id": "E405:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "E405"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    }
+  }
+]

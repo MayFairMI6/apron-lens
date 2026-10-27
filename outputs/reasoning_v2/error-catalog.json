@@ -1,0 +1,2227 @@
+[
+  {
+    "questionId": "N01-Q1",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N01-Q2",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "queryType": "latest",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "overall_readiness"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N01-Q3",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F112:fuel_status\",\"value\":\"pending\",\"status\":\"scheduled\",\"evidence_ids\":[\"F112\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F112:fuel_status",
+          "value": "pending",
+          "status": "scheduled",
+          "evidence_ids": [
+            "F112"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N01-Q4",
+    "family": "empty-selected-context-to-first-scheduled-service",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"fuel_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F112:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F112"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q1",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F212:stand\",\"value\":\"P7\",\"status\":\"current\",\"evidence_ids\":[\"F212\"]},{\"claim_id\":\"F210:route\",\"value\":\"blue corridor\",\"status\":\"current\",\"evidence_ids\":[\"F210\"]}]}.",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F212:stand",
+          "value": "P7",
+          "status": "current",
+          "evidence_ids": [
+            "F212"
+          ]
+        },
+        {
+          "fact_id": "F210:route",
+          "value": "blue corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F210"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": false,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "malformed_claim_response"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q1",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"stand\", \"route\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F212:stand",
+          "value": "P7",
+          "status": "current",
+          "evidence_ids": [
+            "F212"
+          ]
+        },
+        {
+          "fact_id": "F210:route",
+          "value": "blue corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F210"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q2",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "change",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F210:stand\", \"value\": \"P2\", \"status\": \"superseded\", \"evidence_ids\": [\"F210\"]}, {\"fact_id\": \"F210:route\", \"value\": \"blue corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F210\"]}, {\"fact_id\": \"F211:route\", \"value\": \"green corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F211\"]}, {\"fact_id\": \"F212:stand\", \"value\": \"P7\", \"status\": \"current\", \"evidence_ids\": [\"F212\"]}, {\"fact_id\": \"F213:route\", \"value\": \"amber corridor\", \"status\": \"current\", \"evidence_ids\": [\"F213\"]}], \"unknown_properties\": [\"stand\", \"route\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F210:stand",
+          "value": "P2",
+          "status": "superseded",
+          "evidence_ids": [
+            "F210"
+          ]
+        },
+        {
+          "fact_id": "F212:stand",
+          "value": "P7",
+          "status": "current",
+          "evidence_ids": [
+            "F212"
+          ]
+        },
+        {
+          "fact_id": "F210:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F210"
+          ]
+        },
+        {
+          "fact_id": "F211:route",
+          "value": "green corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F211"
+          ]
+        },
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 5,
+      "correct_claims": 5,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 5,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 5,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q2",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F212:stand\",\"value\":\"P7\",\"status\":\"current\",\"evidence_ids\":[\"F212\"]},{\"fact_id\":\"F213:route\",\"value\":\"amber corridor\",\"status\":\"current\",\"evidence_ids\":[\"F213\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F210:stand",
+          "value": "P2",
+          "status": "superseded",
+          "evidence_ids": [
+            "F210"
+          ]
+        },
+        {
+          "fact_id": "F212:stand",
+          "value": "P7",
+          "status": "current",
+          "evidence_ids": [
+            "F212"
+          ]
+        },
+        {
+          "fact_id": "F210:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F210"
+          ]
+        },
+        {
+          "fact_id": "F211:route",
+          "value": "green corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F211"
+          ]
+        },
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 2,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 5,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q3",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "current",
+    "condition": "decisions_unfiltered_text",
+    "raw": "{\"claims\": [{\"fact_id\": \"F212:stand\", \"value\": \"P7\", \"status\": \"current\", \"evidence_ids\": [\"F212\"]}, {\"fact_id\": \"F213:route\", \"value\": \"amber corridor\", \"status\": \"current\", \"evidence_ids\": [\"F213\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q3",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"route\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q3",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F211:route\",\"value\":\"green corridor\",\"status\":\"current\",\"evidence_ids\":[\"F211\"]}]}.",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": false,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "malformed_claim_response"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q3",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "current",
+    "condition": "decisions_state_text",
+    "raw": "{\"claims\": [{\"fact_id\": \"F212:stand\", \"value\": \"P7\", \"status\": \"current\", \"evidence_ids\": [\"F212\"]}, {\"fact_id\": \"F213:route\", \"value\": \"amber corridor\", \"status\": \"current\", \"evidence_ids\": [\"F213\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N02-Q4",
+    "family": "multi-property-handover-with-cancelled-future-plan",
+    "queryType": "latest",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F210:stand\", \"value\": \"P2\", \"status\": \"superseded\", \"evidence_ids\": [\"F210\"]}, {\"fact_id\": \"F210:route\", \"value\": \"blue corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F210\"]}, {\"fact_id\": \"F212:stand\", \"value\": \"P7\", \"status\": \"current\", \"evidence_ids\": [\"F212\"]}, {\"fact_id\": \"F213:route\", \"value\": \"amber corridor\", \"status\": \"current\", \"evidence_ids\": [\"F213\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F213:route",
+          "value": "amber corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F213"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 4,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 4,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N03-Q1",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F311:fuel_status\",\"value\":\"pending\",\"status\":\"current\",\"evidence_ids\":[\"F311\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 1,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage",
+        "wrong_temporal_status"
+      ]
+    }
+  },
+  {
+    "questionId": "N03-Q2",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"fuel_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F311:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F311"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N03-Q3",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F311:fuel_status\",\"value\":\"pending\",\"status\":\"current\",\"evidence_ids\":[\"F311\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 1,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage",
+        "wrong_temporal_status"
+      ]
+    }
+  },
+  {
+    "questionId": "N03-Q4",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "queryType": "change",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F310:fuel_status\", \"value\": \"complete\", \"status\": \"superseded\", \"evidence_ids\": [\"F310\"]}, {\"fact_id\": \"F311:fuel_status\", \"value\": \"pending\", \"status\": \"superseded\", \"evidence_ids\": [\"F311\"]}, {\"fact_id\": \"F312:fuel_status\", \"value\": \"complete\", \"status\": \"current\", \"evidence_ids\": [\"F312\"]}], \"unknown_properties\": [\"fuel_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F310:fuel_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F310"
+          ]
+        },
+        {
+          "fact_id": "F311:fuel_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F311"
+          ]
+        },
+        {
+          "fact_id": "F312:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F312"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 3,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N03-Q4",
+    "family": "conflict-dissolves-then-validity-gap-before-replacement",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F312:fuel_status\",\"value\":\"complete\",\"status\":\"current\",\"evidence_ids\":[\"F312\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F310:fuel_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F310"
+          ]
+        },
+        {
+          "fact_id": "F311:fuel_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F311"
+          ]
+        },
+        {
+          "fact_id": "F312:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F312"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N04-Q1",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F412:route\",\"value\":\"red corridor\",\"status\":\"current\",\"evidence_ids\":[\"F412\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F410:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F410"
+          ]
+        },
+        {
+          "fact_id": "F411:route",
+          "value": "yellow corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F411"
+          ]
+        },
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N04-Q1",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "queryType": "change",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F410:route\", \"value\": \"blue corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F410\"]}, {\"fact_id\": \"F411:route\", \"value\": \"yellow corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F411\"]}, {\"fact_id\": \"F412:route\", \"value\": \"red corridor\", \"status\": \"current\", \"evidence_ids\": [\"F412\"]}], \"unknown_properties\": [\"route\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F410:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F410"
+          ]
+        },
+        {
+          "fact_id": "F411:route",
+          "value": "yellow corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F411"
+          ]
+        },
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 3,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N04-Q2",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F412:route\",\"value\":\"red corridor\",\"status\":\"current\",\"evidence_ids\":[\"F412\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "route"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 1,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage",
+        "wrong_temporal_status"
+      ]
+    }
+  },
+  {
+    "questionId": "N04-Q3",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "queryType": "latest",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F410:route\", \"value\": \"blue corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F410\"]}, {\"fact_id\": \"F411:route\", \"value\": \"yellow corridor\", \"status\": \"superseded\", \"evidence_ids\": [\"F411\"]}, {\"fact_id\": \"F412:route\", \"value\": \"red corridor\", \"status\": \"expired\", \"evidence_ids\": [\"F412\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "expired",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N04-Q3",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "queryType": "latest",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F412:route\",\"value\":\"red corridor\",\"status\":\"current\",\"evidence_ids\":[\"F412\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "expired",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 1,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage",
+        "wrong_temporal_status"
+      ]
+    }
+  },
+  {
+    "questionId": "N04-Q4",
+    "family": "transitive-replacement-expiry-with-selected-aircraft-reversal",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F412:route\",\"value\":\"red corridor\",\"status\":\"expired\",\"evidence_ids\":[\"F412\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F410:route",
+          "value": "blue corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F410"
+          ]
+        },
+        {
+          "fact_id": "F411:route",
+          "value": "yellow corridor",
+          "status": "superseded",
+          "evidence_ids": [
+            "F411"
+          ]
+        },
+        {
+          "fact_id": "F412:route",
+          "value": "red corridor",
+          "status": "expired",
+          "evidence_ids": [
+            "F412"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "route"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 3,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q1",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F510:stand\",\"value\":\"P9\",\"status\":\"current\",\"evidence_ids\":[\"F510\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q2",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"stand\", \"fuel_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F510:stand",
+          "value": "P9",
+          "status": "current",
+          "evidence_ids": [
+            "F510"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q2",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F510:stand\",\"value\":\"P9\",\"status\":\"current\",\"evidence_ids\":[\"F510\"]}]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F510:stand",
+          "value": "P9",
+          "status": "current",
+          "evidence_ids": [
+            "F510"
+          ]
+        }
+      ],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": false,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "malformed_claim_response"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q3",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "latest",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F510:stand\", \"value\": \"P9\", \"status\": \"current\", \"evidence_ids\": [\"F510\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q3",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "latest",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F510:stand\",\"value\":\"P9\",\"status\":\"current\",\"evidence_ids\":[\"F510\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "fuel_status"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q4",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "latest",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F510:stand\", \"value\": \"P9\", \"status\": \"current\", \"evidence_ids\": [\"F510\"]}, {\"fact_id\": \"F513:fuel_status\", \"value\": \"pending\", \"status\": \"current\", \"evidence_ids\": [\"F513\"]}, {\"fact_id\": \"F514:route\", \"value\": \"service lane\", \"status\": \"current\", \"evidence_ids\": [\"F514\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F513:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F513"
+          ]
+        },
+        {
+          "fact_id": "F514:route",
+          "value": "service lane",
+          "status": "current",
+          "evidence_ids": [
+            "F514"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 2,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N05-Q4",
+    "family": "dual-identity-misrouting-and-simultaneous-receipts",
+    "queryType": "latest",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F510:stand\",\"value\":\"P9\",\"status\":\"current\",\"evidence_ids\":[\"F510\"]},{\"fact_id\":\"F513:fuel_status\",\"value\":\"pending\",\"status\":\"current\",\"evidence_ids\":[\"F513\"]},{\"fact_id\":\"F514:route\",\"value\":\"service lane\",\"status\":\"current\",\"evidence_ids\":[\"F514\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F513:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F513"
+          ]
+        },
+        {
+          "fact_id": "F514:route",
+          "value": "service lane",
+          "status": "current",
+          "evidence_ids": [
+            "F514"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 2,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N06-Q1",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"tobt\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F610:tobt",
+          "value": "60 s",
+          "status": "current",
+          "evidence_ids": [
+            "F610"
+          ]
+        },
+        {
+          "fact_id": "F611:tobt",
+          "value": "60 s",
+          "status": "current",
+          "evidence_ids": [
+            "F611"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N06-Q2",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F612:tobt\",\"value\":\"80 s\",\"status\":\"current\",\"evidence_ids\":[\"F612\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "tobt"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 1,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage",
+        "wrong_temporal_status"
+      ]
+    }
+  },
+  {
+    "questionId": "N06-Q3",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"tobt\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F612:tobt",
+          "value": "80 s",
+          "status": "current",
+          "evidence_ids": [
+            "F612"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N06-Q4",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "queryType": "change",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F610:tobt\", \"value\": \"60 s\", \"status\": \"expired\", \"evidence_ids\": [\"F610\"]}, {\"fact_id\": \"F611:tobt\", \"value\": \"60 s\", \"status\": \"superseded\", \"evidence_ids\": [\"F611\"]}, {\"fact_id\": \"F612:tobt\", \"value\": \"80 s\", \"status\": \"current\", \"evidence_ids\": [\"F612\"]}], \"unknown_properties\": [\"tobt\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F610:tobt",
+          "value": "60 s",
+          "status": "expired",
+          "evidence_ids": [
+            "F610"
+          ]
+        },
+        {
+          "fact_id": "F611:tobt",
+          "value": "60 s",
+          "status": "superseded",
+          "evidence_ids": [
+            "F611"
+          ]
+        },
+        {
+          "fact_id": "F612:tobt",
+          "value": "80 s",
+          "status": "current",
+          "evidence_ids": [
+            "F612"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 3,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N06-Q4",
+    "family": "concordant-estimates-partial-replacement-and-expiry",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F612:tobt\",\"value\":\"80 s\",\"status\":\"current\",\"evidence_ids\":[\"F612\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F610:tobt",
+          "value": "60 s",
+          "status": "expired",
+          "evidence_ids": [
+            "F610"
+          ]
+        },
+        {
+          "fact_id": "F611:tobt",
+          "value": "60 s",
+          "status": "superseded",
+          "evidence_ids": [
+            "F611"
+          ]
+        },
+        {
+          "fact_id": "F612:tobt",
+          "value": "80 s",
+          "status": "current",
+          "evidence_ids": [
+            "F612"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 1,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 1,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N07-Q1",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"baggage_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N07-Q2",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "queryType": "latest",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F710:baggage_status\", \"value\": \"pending\", \"status\": \"superseded\", \"evidence_ids\": [\"F710\"]}, {\"fact_id\": \"F711:baggage_status\", \"value\": \"complete\", \"status\": \"superseded\", \"evidence_ids\": [\"F711\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F711:baggage_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F711"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 1,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N07-Q2",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "queryType": "latest",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F712:baggage_status\",\"value\":\"pending\",\"status\":\"current\",\"evidence_ids\":[\"F712\"]},{\"fact_id\":\"F713:route\",\"value\":\"west corridor\",\"status\":\"current\",\"evidence_ids\":[\"F713\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F711:baggage_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F711"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 1,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N07-Q3",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"baggage_status\", \"route\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        },
+        {
+          "fact_id": "F713:route",
+          "value": "west corridor",
+          "status": "current",
+          "evidence_ids": [
+            "F713"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N07-Q4",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "queryType": "change",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F710:baggage_status\", \"value\": \"pending\", \"status\": \"superseded\", \"evidence_ids\": [\"F710\"]}, {\"fact_id\": \"F712:baggage_status\", \"value\": \"pending\", \"status\": \"current\", \"evidence_ids\": [\"F712\"]}, {\"fact_id\": \"F711:baggage_status\", \"value\": \"complete\", \"status\": \"superseded\", \"evidence_ids\": [\"F711\"]}], \"unknown_properties\": [\"baggage_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F710:baggage_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F710"
+          ]
+        },
+        {
+          "fact_id": "F711:baggage_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F711"
+          ]
+        },
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 3,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention"
+      ]
+    }
+  },
+  {
+    "questionId": "N07-Q4",
+    "family": "reopened-service-and-cross-property-late-arrival",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F712:baggage_status\",\"value\":\"pending\",\"status\":\"current\",\"evidence_ids\":[\"F712\"]},{\"fact_id\":\"F711:baggage_status\",\"value\":\"complete\",\"status\":\"superseded\",\"evidence_ids\":[\"F711\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F710:baggage_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F710"
+          ]
+        },
+        {
+          "fact_id": "F711:baggage_status",
+          "value": "complete",
+          "status": "superseded",
+          "evidence_ids": [
+            "F711"
+          ]
+        },
+        {
+          "fact_id": "F712:baggage_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F712"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 2,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 3,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N08-Q1",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "queryType": "current",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F811:baggage_status\",\"value\":\"complete\",\"status\":\"current\",\"evidence_ids\":[\"F811\"]},{\"fact_id\":\"F811:fuel_status\",\"value\":\"complete\",\"status\":\"current\",\"evidence_ids\":[\"F811\"]}],\"unknown_properties\":[]}",
+    "gold": {
+      "claims": [],
+      "unknown_properties": [
+        "overall_readiness"
+      ]
+    },
+    "error": null,
+    "metrics": {
+      "claims": 2,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 2,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 0,
+      "has_missing_evidence": true,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N08-Q2",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "queryType": "latest",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F810:baggage_status\", \"value\": \"pending\", \"status\": \"superseded\", \"evidence_ids\": [\"F810\"]}, {\"fact_id\": \"F810:fuel_status\", \"value\": \"pending\", \"status\": \"superseded\", \"evidence_ids\": [\"F810\"]}, {\"fact_id\": \"F811:baggage_status\", \"value\": \"complete\", \"status\": \"current\", \"evidence_ids\": [\"F811\"]}, {\"fact_id\": \"F811:fuel_status\", \"value\": \"complete\", \"status\": \"current\", \"evidence_ids\": [\"F811\"]}], \"unknown_properties\": []}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F811:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        },
+        {
+          "fact_id": "F811:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 4,
+      "correct_claims": 2,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 4,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": true,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N08-Q3",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "queryType": "change",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [{\"fact_id\": \"F810:fuel_status\", \"value\": \"pending\", \"status\": \"superseded\", \"evidence_ids\": [\"F810\"]}, {\"fact_id\": \"F811:fuel_status\", \"value\": \"complete\", \"status\": \"current\", \"evidence_ids\": [\"F811\"]}, {\"fact_id\": \"F812:tobt\", \"value\": \"90 s\", \"status\": \"current\", \"evidence_ids\": [\"F812\"]}], \"unknown_properties\": [\"fuel_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F810:fuel_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F810"
+          ]
+        },
+        {
+          "fact_id": "F811:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 3,
+      "correct_claims": 2,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 3,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  },
+  {
+    "questionId": "N08-Q3",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "queryType": "change",
+    "condition": "legacy_state_text",
+    "raw": "{\"claims\":[{\"fact_id\":\"F811:fuel_status\",\"value\":\"complete\",\"status\":\"current\",\"evidence_ids\":[\"F811\"]}]}.",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F810:fuel_status",
+          "value": "pending",
+          "status": "superseded",
+          "evidence_ids": [
+            "F810"
+          ]
+        },
+        {
+          "fact_id": "F811:fuel_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": false,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "malformed_claim_response"
+      ]
+    }
+  },
+  {
+    "questionId": "N08-Q4",
+    "family": "aggregate-service-update-readiness-temptation-and-reopened-task",
+    "queryType": "current",
+    "condition": "decisions_state_image",
+    "raw": "{\"claims\": [], \"unknown_properties\": [\"fuel_status\", \"baggage_status\"]}",
+    "gold": {
+      "claims": [
+        {
+          "fact_id": "F814:fuel_status",
+          "value": "pending",
+          "status": "current",
+          "evidence_ids": [
+            "F814"
+          ]
+        },
+        {
+          "fact_id": "F811:baggage_status",
+          "value": "complete",
+          "status": "current",
+          "evidence_ids": [
+            "F811"
+          ]
+        }
+      ],
+      "unknown_properties": []
+    },
+    "error": null,
+    "metrics": {
+      "claims": 0,
+      "correct_claims": 0,
+      "invented_fact_id": 0,
+      "unavailable_fact_id": 0,
+      "wrong_identity": 0,
+      "wrong_status": 0,
+      "wrong_value": 0,
+      "wrong_citation": 0,
+      "supported_citations": 0,
+      "json_valid": true,
+      "exact": false,
+      "unknown_exact": false,
+      "gold_claims": 2,
+      "has_missing_evidence": false,
+      "guard_accepted": false,
+      "guard_accepted_incorrect": false,
+      "guard_errors": [
+        "incorrect_abstention",
+        "query_coverage"
+      ]
+    }
+  }
+]

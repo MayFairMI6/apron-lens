@@ -1,0 +1,86 @@
+{
+  "scenarioId": "N04",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F410",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "route reported as blue corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "blue corridor",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F411",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 5,
+      "receiptTime": 9,
+      "message": "route reported as yellow corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "yellow corridor",
+          "supersedes": [
+            "F410:route"
+          ],
+          "validUntil": 40
+        }
+      ]
+    },
+    {
+      "id": "F412",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R8",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 12,
+      "receiptTime": 15,
+      "message": "route reported as red corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "red corridor",
+          "supersedes": [
+            "F411:route"
+          ],
+          "validUntil": 22
+        }
+      ]
+    },
+    {
+      "id": "F413",
+      "aircraftId": "A1",
+      "flightInstance": "F1-R7",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 18,
+      "receiptTime": 20,
+      "message": "route reported as blue corridor",
+      "facts": [
+        {
+          "property": "route",
+          "value": "blue corridor",
+          "supersedes": []
+        }
+      ]
+    }
+  ]
+}

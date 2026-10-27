@@ -1,0 +1,69 @@
+{
+  "scenarioId": "D04",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R1"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R1"
+    }
+  ],
+  "events": [
+    {
+      "id": "E41",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "tobt reported as 40 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "40 s",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "E42",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 8,
+      "receiptTime": 28,
+      "message": "tobt reported as 55 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "55 s",
+          "supersedes": [
+            "E41:tobt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E43",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1",
+      "source": "fictional-coordinator",
+      "eventTime": 16,
+      "receiptTime": 18,
+      "message": "tobt reported as 70 s.",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "70 s",
+          "supersedes": [
+            "E41:tobt",
+            "E42:tobt"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"status":"transport_and_guard_checks_passed","transport":"UnityWebRequest to local real Qwen model","checkpoints":[13,14],"accepted_answers":1,"withheld_answers":1,"stale_response_rejected":true,"scope":"Connection and fail-closed behavior only; withheld answers are not successful model reasoning"}

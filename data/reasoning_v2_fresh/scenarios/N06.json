@@ -1,0 +1,68 @@
+{
+  "scenarioId": "N06",
+  "duration": 90,
+  "aircraft": [
+    {
+      "id": "A1",
+      "flightInstance": "F1-R8"
+    },
+    {
+      "id": "A2",
+      "flightInstance": "F2-R4"
+    }
+  ],
+  "events": [
+    {
+      "id": "F610",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-airline-coordinator",
+      "eventTime": 0,
+      "receiptTime": 0,
+      "message": "tobt reported as 60 s",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "60 s",
+          "supersedes": [],
+          "validUntil": 30
+        }
+      ]
+    },
+    {
+      "id": "F611",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-ramp-coordinator",
+      "eventTime": 5,
+      "receiptTime": 6,
+      "message": "tobt reported as 60 s",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "60 s",
+          "supersedes": []
+        }
+      ]
+    },
+    {
+      "id": "F612",
+      "aircraftId": "A2",
+      "flightInstance": "F2-R4",
+      "source": "fictional-turnaround-coordinator",
+      "eventTime": 10,
+      "receiptTime": 12,
+      "message": "tobt reported as 80 s",
+      "facts": [
+        {
+          "property": "tobt",
+          "value": "80 s",
+          "supersedes": [
+            "F611:tobt"
+          ],
+          "validUntil": 40
+        }
+      ]
+    }
+  ]
+}
