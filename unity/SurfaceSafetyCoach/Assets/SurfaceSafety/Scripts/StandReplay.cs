@@ -203,7 +203,7 @@ namespace SurfaceSafety {
             if(FindFirstObjectByType<EventSystem>()==null)new GameObject("EventSystem",typeof(EventSystem),typeof(StandaloneInputModule));
             safeRoot=Panel(canvas.transform,"Safe area",Vector2.zero,Vector2.one,Color.clear);safeRoot.GetComponent<Image>().raycastTarget=false;
             var head=Panel(safeRoot,"Header",new Vector2(0,.84f),Vector2.one,card);
-            Label(head,"Stand review",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
+            Label(head,"ApronLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
             Label(head,"SIMULATION",new Vector2(.67f,.69f),new Vector2(.985f,.95f),33,TextAnchor.MiddleRight,teal);
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
             aircraftChips=new Image[2];

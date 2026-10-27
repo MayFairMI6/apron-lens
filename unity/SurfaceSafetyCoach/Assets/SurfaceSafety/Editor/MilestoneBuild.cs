@@ -16,8 +16,8 @@ public static class MilestoneBuild {
         importer.isReadable=true;importer.textureCompression=TextureImporterCompression.Uncompressed;
         importer.maxTextureSize=2048;importer.npotScale=TextureImporterNPOTScale.None;
         importer.mipmapEnabled=false;importer.SaveAndReimport();
-        PlayerSettings.companyName="Airfield Research";PlayerSettings.productName="Airfield Coordination Replay";
-        PlayerSettings.bundleVersion="1.3";PlayerSettings.Android.bundleVersionCode=4;
+        PlayerSettings.companyName="Airfield Research";PlayerSettings.productName="ApronLens";
+        PlayerSettings.bundleVersion="1.4";PlayerSettings.Android.bundleVersionCode=5;
         PlayerSettings.insecureHttpOption=InsecureHttpOption.DevelopmentOnly;
         PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android,"edu.airfieldresearch.standreplay");
         PlayerSettings.defaultInterfaceOrientation=UIOrientation.Portrait;
@@ -101,7 +101,7 @@ public static class MilestoneBuild {
         UnityEditor.Android.AndroidExternalToolsSettings.jdkRootPath=Path.Combine(tools,"OpenJDK");
         Prepare();
         var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),
-            locationPathName=Path.Combine(Output,"AirfieldCoordination-M1.apk"),target=BuildTarget.Android,options=BuildOptions.Development});
+            locationPathName=Path.Combine(Output,"ApronLens-M1.apk"),target=BuildTarget.Android,options=BuildOptions.Development});
         if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Android build failed: "+report.summary.result);
         Debug.Log("MILESTONE1_ANDROID_BUILD_PASS");
     }

@@ -47,8 +47,8 @@ must set `UNITY_EDITOR`. The editor build helper configures SDK/NDK/JDK paths
 relative to the editor; adapt those paths if your installation layout differs.
 You can also build through Unity's Android Build Profile normally.
 
-Output: `outputs/milestone1/AirfieldCoordination-M1.apk` (ignored by Git).
-The checked release is version 1.3 / build 4, a development build with local
+Output: `outputs/milestone1/ApronLens-M1.apk` (ignored by Git).
+The checked release is version 1.4 / build 5, a development build with local
 HTTP enabled. Use it only with the fictional test data on trusted connections.
 
 ## Model connection

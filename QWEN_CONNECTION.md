@@ -26,7 +26,7 @@ The server stays loaded between requests. Stop its process when finished.
 
 ## Android connection when ready
 
-Install `outputs/milestone1/AirfieldCoordination-M1.apk` (version 1.3, build 4).
+Install `outputs/milestone1/ApronLens-M1.apk` (version 1.4, build 5).
 Phone tracking and networking still need the deferred physical-device check.
 
 **USB option:** with USB debugging approved, forward the phone's port using

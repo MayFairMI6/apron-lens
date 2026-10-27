@@ -1,4 +1,4 @@
-# Milestone 1: airfield coordination replay
+# Milestone 1: ApronLens
 
 The full Unity application and Python service are maintained in the private
 GitHub repository `MayFairMI6/apron-lens`. See README.md for setup.
@@ -15,6 +15,9 @@ RESEARCH_PLAN.md. AR's added value requires comparison with an ordinary screen.
 Milestone one implements a simulated, printed-board surrogate. It does not
 identify actual aircraft, localize at a real stand, consume operational A-CDM
 feeds, issue movement instructions, or provide validated collision protection.
+
+The Unity product name, Android launcher label and in-app title are **ApronLens**.
+The current Android package is `ApronLens-M1.apk`, version 1.4 / build 5.
 
 ## Local project
 

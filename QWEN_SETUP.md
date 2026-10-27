@@ -1,4 +1,4 @@
-# Qwen setup for AR Surface Safety Coach
+# Qwen setup for ApronLens
 
 This project uses the proposal baseline, `Qwen/Qwen2.5-VL-3B-Instruct`, with
 Hugging Face Transformers and PyTorch. Packages are isolated in `.venv-qwen`;
@@ -32,7 +32,7 @@ Source: https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct
 
 ## Keep the two project goals distinct
 
-**AR Surface Safety Coach:** build an interactive smartphone AR training
+**ApronLens:** build an interactive smartphone AR training
 prototype. Show scripted moving aircraft, changing A-CDM-inspired coordination
 updates, as-of replay, and explanations supported by visual/event evidence.
 Unity supplies exact geometry and timing; Qwen interprets evidence and explains
