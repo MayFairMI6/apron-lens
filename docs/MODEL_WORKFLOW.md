@@ -15,9 +15,13 @@ select CUDA. No weights or model API credentials are needed by the hosted checks
 | New research evaluation | Deliberately frozen local protocol | Research milestone | Cached Qwen + new untouched set |
 | Unity / Android / AR validation | Licensed Unity install / phone | Local build | Model optional |
 
-The manual workflow exists in this repository, but a runner must be registered
-and configured before it can execute. An unconfigured dispatch waits for a
-matching runner. No runner or background service is installed by this repository.
+The [first real-model GitHub job](https://github.com/MayFairMI6/airfield-context-ar/actions/runs/40566003969)
+passed both smoke cases using a temporary Apple Silicon runner and saved a
+run artifact. That one-job runner stopped and unregistered automatically; no
+system background service was installed. The two repository variables are
+configured for the original development machine. Register/start a matching
+runner for future jobs, and update those variables when using another machine.
+A dispatch without an online matching runner waits in the queue.
 
 ## Register a Mac runner
 

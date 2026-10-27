@@ -1,5 +1,7 @@
 # Airfield Context AR
 
+[![Checks](https://github.com/MayFairMI6/airfield-context-ar/actions/workflows/checks.yml/badge.svg)](https://github.com/MayFairMI6/airfield-context-ar/actions/workflows/checks.yml)
+
 An Android augmented reality prototype for reviewing changing aircraft-stand
 coordination information. Select a flight, replay moving aircraft, inspect what
 was known at a checkpoint, and trace each explanation to its received reports.
@@ -143,7 +145,8 @@ python scripts/check_research_integrity.py
 - **Qwen development check:** manually dispatched on a configured Apple Silicon
   runner with cached weights. Choose two smoke cases or the 24-question development
   set; download results as an Actions artifact. This workflow does not run the
-  fresh held-out set. Runner registration is a separate setup step.
+  fresh held-out set. A one-job Mac runner verified the first smoke run (2/2);
+  it stopped and unregistered afterward. Register/start a Mac runner for future runs.
 - Unity compilation, Android builds and camera tracking are outside the hosted
   Python check. Their local verification records are under `outputs/milestone1/`.
 
