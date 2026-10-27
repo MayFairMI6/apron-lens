@@ -1,13 +1,28 @@
 {
-  "note": "Alternative models for development comparisons. The evaluated model stays in model-manifest.json, which the research integrity check pins by hash. Revisions, licences and architectures were read from the Hugging Face API on 2026-10-27. \"dtype\" applies on Apple Silicon; NVIDIA GPUs use bfloat16 where supported. A new entry may start with a null revision; scripts/download_model.py --pin records it.",
+  "note": "Shared model registry for the frozen backbone. role: primary = used by both projects; robustness = the single second backbone both projects report; exploratory = available but outside course scope. Revisions, licences and architectures were read from the Hugging Face API on 2026-10-27. dtype applies on Apple Silicon; NVIDIA GPUs use bfloat16 where supported. A new entry may start with a null revision; python -m backbone.download --pin records it.",
   "models": {
+    "qwen2.5-vl-3b": {
+      "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+      "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct",
+      "license": "Qwen Research License; non-commercial research/evaluation",
+      "local_dir": "Qwen2.5-VL-3B-Instruct",
+      "loader": "qwen2_5_vl",
+      "dtype": "float16",
+      "transformers": ">=4.51",
+      "role": "primary",
+      "purpose": "Evaluated model of the frozen ApronLens V2 run; primary backbone for both projects"
+    },
     "qwen3-vl-4b": {
       "model_id": "Qwen/Qwen3-VL-4B-Instruct",
       "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
       "source": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct",
       "license": "Apache-2.0",
+      "local_dir": "qwen3-vl-4b",
+      "loader": "auto",
       "dtype": "float16",
       "transformers": ">=4.57",
+      "role": "robustness",
       "purpose": "Next-generation Qwen at a similar size to the evaluated 3B model"
     },
     "qwen3-vl-8b": {
@@ -15,8 +30,11 @@
       "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
       "source": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct",
       "license": "Apache-2.0",
+      "local_dir": "qwen3-vl-8b",
+      "loader": "auto",
       "dtype": "float16",
       "transformers": ">=4.57",
+      "role": "exploratory",
       "purpose": "Larger Qwen; separates model size from task design"
     },
     "qwen3.5-9b": {
@@ -24,8 +42,11 @@
       "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
       "source": "https://huggingface.co/Qwen/Qwen3.5-9B",
       "license": "Apache-2.0",
+      "local_dir": "qwen3.5-9b",
+      "loader": "auto",
       "dtype": "bfloat16",
       "transformers": ">=5.2",
+      "role": "exploratory",
       "purpose": "Newest natively multimodal Qwen that fits a 48 GB Mac without quantisation"
     },
     "gemma-4-e4b": {
@@ -33,8 +54,11 @@
       "revision": "ee0ef6023621cff504d758262d4e04895a5af4a2",
       "source": "https://huggingface.co/google/gemma-4-E4B-it",
       "license": "Apache-2.0",
+      "local_dir": "gemma-4-e4b",
+      "loader": "auto",
       "dtype": "bfloat16",
       "transformers": ">=5.5",
+      "role": "exploratory",
       "purpose": "Second model family; small enough to consider for on-phone use"
     }
   }

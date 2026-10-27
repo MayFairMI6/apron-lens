@@ -1,0 +1,3 @@
+# The shared backbone is copied identically into the compaction project.
+# Changes here need a backbone/VERSION bump and the same change in the other repository.
+/backbone/ @MayFairMI6

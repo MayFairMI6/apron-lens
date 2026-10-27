@@ -1,23 +1,16 @@
-"""Download a candidate model from config/model-candidates.json at its exact revision.
-
-The evaluated default model keeps its own downloader, scripts/download_qwen.py.
-"""
+"""Download a registered model at its exact revision: python -m backbone.download --model <name> [--pin]"""
 import argparse
 import json
 import os
-import sys
-from pathlib import Path
 
 # Use resumable HTTP downloads; the development Mac's Xet route was substantially slower.
 os.environ.setdefault("HF_HUB_DISABLE_XET", "1")
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-from backend.engines import CANDIDATES_PATH, MANIFEST_FIELDS, candidate, model_dir
+from backbone.registry import MANIFEST_FIELDS, REGISTRY_PATH, model_dir, model_entry
 
 
 def download(name, pin=False):
     from huggingface_hub import HfApi, snapshot_download
-    entry = candidate(name)
+    entry = model_entry(name)
     revision = entry['revision']
     if revision is None:
         if not pin:
@@ -33,10 +26,11 @@ def download(name, pin=False):
         max_workers=3,
     )
     if entry['revision'] is None:
-        data = json.loads(CANDIDATES_PATH.read_text())
+        data = json.loads(REGISTRY_PATH.read_text())
         data['models'][name]['revision'] = revision
-        CANDIDATES_PATH.write_text(json.dumps(data, indent=2) + "\n")
-        print(f"Recorded revision in {CANDIDATES_PATH.relative_to(ROOT)}; commit it with your results.", flush=True)
+        REGISTRY_PATH.write_text(json.dumps(data, indent=2) + "\n")
+        print("Recorded the revision in backbone/models.json. This changes the backbone: "
+              "bump backbone/VERSION and run python -m backbone.check --stamp.", flush=True)
     manifest = {k: entry[k] for k in MANIFEST_FIELDS} | {'revision': revision}
     (target / "download-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"Download complete: {target}", flush=True)

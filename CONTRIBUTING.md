@@ -34,6 +34,14 @@ Keep frozen source snapshots, datasets and recorded evaluation artifacts intact.
 Add a new version for a new experiment. Historical local paths in audit evidence
 are provenance, not portable setup instructions; use the root README/docs instead.
 
+## Shared backbone
+
+`backbone/` is shared with the context-compaction project and must stay identical
+in both repositories. Read [its boundary](backbone/README.md) before changing it:
+project logic never goes there, project code imports only its public names, and
+every change needs a `backbone/VERSION` bump and `python -m backbone.check --stamp`.
+The **backbone-boundary** check enforces this on every push.
+
 ## Sensitive or proprietary configuration
 
 Never commit `.env`, model connection tokens, Vuforia licenses, signing keys,

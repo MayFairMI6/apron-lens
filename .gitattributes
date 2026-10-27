@@ -14,3 +14,5 @@
 *.unity text eol=lf
 *.asset text eol=lf
 *.meta text eol=lf
+# Shared backbone: identical bytes on every machine and in both repositories
+backbone/** text eol=lf

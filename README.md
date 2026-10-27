@@ -167,7 +167,7 @@ See [model workflow setup](docs/MODEL_WORKFLOW.md) and
 | `outputs/reasoning_v1/`, `outputs/reasoning_v2/` | Preserved research records and frozen source snapshots |
 | `outputs/milestone1/` | Screenshots, printable board and verification evidence |
 | `config/model-manifest.json` | Exact model identity/revision; no weights |
-| `config/model-candidates.json` | Pinned alternative models for development comparisons |
+| `backbone/` | Shared frozen model backbone, also used by the compaction project; see its [boundary](backbone/README.md) |
 | `docs/` | Unity, model-compute and collaboration setup |
 
 Model weights, Python environments, Unity caches, license keys, connection

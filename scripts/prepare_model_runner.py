@@ -6,16 +6,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from backend.engines import DEFAULT_MODEL, expected_manifest, model_dir, model_names
+from backbone import PRIMARY_MODEL, expected_manifest, model_dir, model_names
 
 
-def prepare(cache, model=DEFAULT_MODEL):
+def prepare(cache, model=PRIMARY_MODEL):
     cache = Path(cache).expanduser().resolve()
     expected = expected_manifest(model)
     actual = json.loads((cache / 'download-manifest.json').read_text())
     if actual != expected or not list(cache.glob('*.safetensors')):
         raise ValueError('Cache must contain the pinned model revision, manifest and weights')
-    target = ROOT / 'models/Qwen2.5-VL-3B-Instruct' if model == DEFAULT_MODEL else model_dir(model)
+    target = model_dir(model)
     target.parent.mkdir(exist_ok=True)
     if target.exists() or target.is_symlink():
         if target.resolve() != cache:
@@ -28,6 +28,6 @@ def prepare(cache, model=DEFAULT_MODEL):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model-cache', required=True)
-    parser.add_argument('--model', choices=model_names(), default=DEFAULT_MODEL)
+    parser.add_argument('--model', choices=model_names(), default=PRIMARY_MODEL)
     args = parser.parse_args()
     prepare(args.model_cache, args.model)

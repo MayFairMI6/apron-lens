@@ -11,7 +11,7 @@ on:
           - smoke
           - dev
       model:
-        description: Model to check (candidates are listed in config/model-candidates.json)
+        description: Model to check (registered in backbone/models.json)
         required: true
         type: choice
         default: qwen2.5-vl-3b
