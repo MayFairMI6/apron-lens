@@ -17,6 +17,7 @@ namespace SurfaceSafety {
         public string InspectedReportId {get;private set;} = "";
         public event Action RequestReasoning;
         public event Action OpenConnectionSettings;
+        public event Action OpenConversation;
         public ScenarioEvent[] VisibleReports => Data.KnownAt(Clock.Time)
             .Where(e=>AllFlightsHistory || e.flightInstance==SelectedAircraft.flightInstance).Reverse().ToArray();
         AircraftPlan SelectedAircraft => Data.aircraft[SelectedAircraftIndex];
@@ -403,7 +404,9 @@ namespace SurfaceSafety {
         void BuildTools(){
             Label(body,"Session options",new Vector2(.015f,.81f),new Vector2(.985f,.99f),39);
             Button(body,"Model connection",new Vector2(.035f,.55f),new Vector2(.965f,.805f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConnectionSettings?.Invoke();},card,39);
-            Button(body,logCopied?"Log path copied":"Copy session log path",new Vector2(.035f,.28f),new Vector2(.965f,.535f),()=>{GUIUtility.systemCopyBuffer=logPath;logCopied=true;Log("log_path_copied");bodyKey=null;ApplyScene();},card,39);
+            // Two half-width buttons share a row so every control keeps its 48 dp height.
+            Button(body,logCopied?"Log path copied":"Copy session log path",new Vector2(.035f,.28f),new Vector2(.49f,.535f),()=>{GUIUtility.systemCopyBuffer=logPath;logCopied=true;Log("log_path_copied");bodyKey=null;ApplyScene();},card,33);
+            Button(body,"Ask a question",new Vector2(.51f,.28f),new Vector2(.965f,.535f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConversation?.Invoke();},card,39);
             Button(body,"Done",new Vector2(.035f,.01f),new Vector2(.965f,.265f),()=>{showTools=false;bodyKey=null;ApplyScene();},teal,39).GetComponentInChildren<Text>().color=Color.white;
         }
     }

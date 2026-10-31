@@ -18,7 +18,7 @@ Status key: **Done** = implemented with unit tests · **Plan** = plan PDF revise
 | # | Finding | Disposition | Where |
 |---|---------|-------------|-------|
 | 1 | Evidence image reveals the selected aircraft; fixed virtual camera | Done in part / Plan. New capture omits ring and paths, renders from the AR camera pose, returns the tap as coordinates. **Verified in the Unity editor (batch mode with graphics, 31 October):** the project compiles; the existing capture differs by selection (leak confirmed); the new capture is byte-identical for either selection and not blank (672x504, 70 sampled colours); the tap is returned as viewport coordinates. Log: `work/unity-visual-capture-check.log`. Open: uniform livery and 3+ aircraft (StandReplay still builds two index-coloured aircraft); Android build and on-device check | `unity/.../Scripts/VisualEvidenceCapture.cs`, `unity/.../Editor/VisualCaptureVerification.cs` |
-| 2 | Aircraft cannot have a next rotation | Done (backend). Scenarios may declare `rotations`; legacy single-flight data still loads. Open: add `flightInstance` to the Unity request and author rotation scenarios | `backend/conversation/identity.py`, `context.py` |
+| 2 | Aircraft cannot have a next rotation | Done (backend). Scenarios may declare `rotations`; legacy single-flight data still loads. The Unity conversation client sends `flightInstance`. Open: author Unity rotation scenarios | `backend/conversation/identity.py`, `context.py`, `ConversationClient.cs` |
 | 3 | Seek-back leaks future evidence through memory | Done. Memory is tagged with its cutoff and masked; formal runs reject backward seeks | `backend/conversation/state.py` |
 | 4 | Validator checks support but not completeness; rationale unverifiable | Done. Changed-fact coverage, deny-change check, unknown-vs-current check, template claims, labelled interpretation | `backend/conversation/validate.py` |
 | 5 | Budget assumes text-only, low-reasoning calls | Plan + Done (ledger). Astra out of screening; comparison cost gate; stress illustration. Open: one development cost probe per provider, check minimum deposits | `backend/conversation/ledger.py`, `selection.comparison_eligible`, plan budget section |
@@ -120,11 +120,28 @@ is unchanged.
     the raw output and the image hash, never image bytes.
 - Run: `python -m backend.conversation.server --profile apronlens-v2-mps` (port
   8766, `qwen2.5-vl-3b` by default).
-- Open:
-  - The Unity client does not yet call `/conversation` or send `flightInstance`.
-  - No hosted adapters exist yet.
-  - Change follow-ups, referent corrections and observation format fail with
-    the 3B model (development run below).
+- Unity client (`ConversationClient.cs`), opened from More → Ask a question:
+  - Each question sends the selected aircraft and its `flightInstance`, the
+    replay time and a live `VisualEvidenceCapture` image captured at that time.
+  - One session per scenario. The client tracks the committed revision, and a
+    409 starts a new session.
+  - A failed connection keeps the request, so Retry reuses its ID and the
+    server answers it only once.
+  - Before showing anything it checks that the response matches this request,
+    session and replay time, that the selection hasn't changed, and that every
+    accepted claim cites a report received by then for the referent flight.
+  - The "Copy session log path" row now holds two half-width buttons, so every
+    control keeps its 48 dp height. The S24 layout result is unchanged.
+- Unity's `JsonUtility` cannot omit a field, so the server reads an empty
+  `imageBase64`, an empty `tapViewport` and a capture time without an image as
+  not provided.
+- Checks: `ConversationClientVerification.Run` (9, no network), and
+  `.RunLive` (optional, needs a running server). The live run on `qwen2.5-vl-3b`
+  went through in 17.7 s: the stand claim was checked and shown. Of its two
+  unverified observations, "cargo hatch open" was right and "fuel vehicle
+  connected" was wrong for that aircraft.
+- Open: change follow-ups and referent corrections still fail with the 3B
+  model, and observations are unreliable at 3B and 8B (development runs below).
 
 Development run (31 October): `python scripts/run_conversation_smoke.py
 --profile apronlens-v2-mps` with `qwen2.5-vl-3b`. Development data only: the
