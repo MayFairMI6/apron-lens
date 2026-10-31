@@ -2,7 +2,9 @@
 # Conversation development run (scripts/run_conversation_smoke.py) of one local model on a GAIVI GPU.
 # Development data only; never reads held-out answers or the v1 question/gold file.
 # Usage, from the repository root with the model environment active:
-#   sbatch --export=ALL,MODEL=qwen3-vl-8b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/conversation_smoke.sbatch
+#   sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/conversation_smoke.sbatch
+# Use GAIVI only for distinct runs: a model, method version or data set not already run
+# (docs/GAIVI.md section 6 lists completed runs). MODEL has no default for that reason.
 # RUNTIME is required: compaction-gaivi-cuda (float16, sdpa) or cuda-bfloat16-eager. Results record it,
 # the commit and the host; runs on different runtimes must not be pooled in one comparison.
 # The two image turns need Unity renders, which GAIVI cannot make; copy them from the Mac first:
@@ -20,7 +22,7 @@
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"
 PYTHON="${PYTHON:-python}"
-MODEL="${MODEL:-qwen3-vl-8b}"
+MODEL="${MODEL:?set MODEL to a model not already run with this method; see docs/GAIVI.md section 6}"
 RUNTIME="${RUNTIME:?set RUNTIME to a runtime profile, e.g. compaction-gaivi-cuda}"
 nvidia-smi --query-gpu=name,memory.total --format=csv
 # A preempted job restarts from the top; each attempt writes its own file, and the script never overwrites one.
