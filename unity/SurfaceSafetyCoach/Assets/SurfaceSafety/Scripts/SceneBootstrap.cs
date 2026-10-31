@@ -25,6 +25,7 @@ namespace SurfaceSafety {
             if(previewMode){previewCamera=camera;FramePreview(camera);}
             Replay=gameObject.AddComponent<StandReplay>();Replay.Initialize(previewMode,scenarioResource);
             gameObject.AddComponent<QwenReasoningClient>().Bind(Replay);
+            gameObject.AddComponent<ConversationClient>().Bind(Replay);
             if(!previewMode){
                 Replay.Content.gameObject.SetActive(false);
                 var anchor=gameObject.AddComponent<VuforiaStandAnchor>();anchor.Bind(Replay);

@@ -197,6 +197,12 @@ class Endpoint(unittest.TestCase):
         self.assertEqual(self.ask(client, 2, 0, imageBase64=png(), imageCaptureTime=26).status_code, 422)
         self.assertEqual(self.ask(client, 3, 0, imageBase64='bm90IGFuIGltYWdl').status_code, 422)
 
+    def test_unity_json_utility_empty_optionals_mean_not_provided(self):
+        client = self.serve([reply(claims=[claim('E01:stand', 'B', 'current', 'E01')])])
+        result = self.ask(client, 1, 0, imageBase64='', imageCaptureTime=0, tapViewport=[]).json()
+        self.assertTrue(result['accepted'], result)
+        self.assertFalse(result['imageUsedForInference'])
+
     def test_unknown_scenario_and_flight_are_refused(self):
         client = self.serve([])
         self.assertEqual(self.ask(client, 1, 0, scenarioId='missing').status_code, 422)

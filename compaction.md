@@ -74,12 +74,15 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 | D-055 | Hosted adapters use the official `anthropic` and `openai` SDKs, imported only when a hosted run starts. No server-side refusal fallbacks (the contract forbids serving another model), SDK retries off, temperature reported as ignored, capabilities unverified until probed. `modelaccess` is now 0.2.0. | Contract rules; the Claude API reference recommends SDKs over raw HTTP. | `modelaccess/anthropic_api.py`, `openai_api.py` | active |
 | D-056 | Every hosted call reserves a conservative maximum in the ledger before sending and reconciles to reported usage. Scripts price a run with `--estimate-only` and refuse a paid run without `--confirm-spend` or above `--max-spend`. | Spending stays bounded and visible before it happens (D-008). | `backend/conversation/hosted.py` | active |
 | D-057 | No provider API key is set on the development Mac, so the hosted comparison waits for the user to add keys and approve the spend. | Credentials are the user's to provide; never entered by the agent. | — | open |
+| D-058 | Unity `ConversationClient` (More → Ask a question) sends the selected aircraft, `flightInstance`, replay time and a live evidence capture. It keeps one session per scenario, tracks the revision, restarts the session on 409, retries with the same request ID, and checks responses locally before showing them. The `/reason` client is unchanged. | Puts the conversation path in the app, so corrections and follow-ups can be tried in the replay. | `ConversationClient.cs`, PR for this change | active |
+| D-059 | The server treats Unity `JsonUtility`'s empty optionals (`""`, `[]`, a capture time without an image) as not provided. | `JsonUtility` cannot omit fields. | `backend/conversation/server.py` | active |
+| D-060 | Live end-to-end check: Unity → `/conversation` → local Qwen 3B → Unity passed in 17.7 s, and the checked stand claim was shown. One unverified observation was wrong (D-049, D-054). | Confirms the Unity and server JSON agree in both directions. | `ConversationClientVerification.RunLive` | done |
 
 ## Open items (31 October)
 
 - Next model comparison: one low-cost hosted probe on the same 22 development turns (about $10–15 budget, D-004). Qwen3-VL-8B is done (D-048).
 - Visual grounding: compare a hosted model on `scripts/run_visual_perception_check.py` and the 22 turns (D-054). Adapters and budget enforcement are ready (D-055, D-056); this needs API keys and approval (D-057). Also add observation scoring against `visual_truth` to the evaluation (D-049).
-- Unity client for `/conversation` (send `flightInstance` and conversation turns).
+- Unity rotation scenarios (aircraft with more than one rotation) so "its next rotation" can be tried in the app.
 - Scenario families: occlusion; dialogue families with rotations; a development pilot, then a held-out set written outside the repository (D-002).
 - Freeze the prompt, referent rule, validator and scoring before any formal run.
 - Verify and write a related-work section. Suggested, not yet verified: Clark & Wilkes-Gibbs 1986, Clark & Brennan 1991, RefCOCO, Visual Dialog, SIMMC 2.0, MultiWOZ, SituatedQA, Longpre et al. 2021, Lost in the Middle, MemGPT, Endsley 1995, EUROCONTROL A-CDM.

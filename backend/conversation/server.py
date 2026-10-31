@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, Header, HTTPException
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from starlette.concurrency import run_in_threadpool
 
 from modelaccess.contract import Settings
@@ -86,6 +86,18 @@ class ConversationRequest(BaseModel):
     imageBase64: str | None = Field(default=None, min_length=1, max_length=2_800_000)
     imageCaptureTime: float | None = Field(default=None, ge=0, le=3600)
     tapViewport: list[float] | None = Field(default=None, min_length=2, max_length=2)
+
+    # Unity's JsonUtility cannot omit a field: an unset string is written as "" and an
+    # unset array as []. Both mean "not provided".
+    @field_validator('imageBase64', 'tapViewport', mode='before')
+    @classmethod
+    def unset_is_none(cls, value):
+        return None if value in ('', []) else value
+
+    @field_validator('imageCaptureTime', mode='before')
+    @classmethod
+    def no_time_without_image(cls, value, info):
+        return None if info.data.get('imageBase64') is None else value
 
 
 def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_PATH):
