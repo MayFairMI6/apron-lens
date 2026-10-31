@@ -77,14 +77,15 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 | D-058 | Unity `ConversationClient` (More → Ask a question) sends the selected aircraft, `flightInstance`, replay time and a live evidence capture. It keeps one session per scenario, tracks the revision, restarts the session on 409, retries with the same request ID, and checks responses locally before showing them. The `/reason` client is unchanged. | Puts the conversation path in the app, so corrections and follow-ups can be tried in the replay. | `ConversationClient.cs`, PR for this change | active |
 | D-059 | The server treats Unity `JsonUtility`'s empty optionals (`""`, `[]`, a capture time without an image) as not provided. | `JsonUtility` cannot omit fields. | `backend/conversation/server.py` | active |
 | D-060 | Live end-to-end check: Unity → `/conversation` → local Qwen 3B → Unity passed in 17.7 s, and the checked stand claim was shown. One unverified observation was wrong (D-049, D-054). | Confirms the Unity and server JSON agree in both directions. | `ConversationClientVerification.RunLive` | done |
+| D-061 | Unity scenarios support rotations in the backend's format; selection, history, chips and conversation requests follow the rotation under way. `visual_dev_03` adds a two-rotation aircraft with a late revision to the next rotation. Single-flight scenarios are unchanged. | Lets "its next rotation" be tried in the app (review item 2). | `Scenario.cs`, `StandReplay.cs`, `visual_dev_03.json` | active |
+| D-062 | Development finding: on `visual_dev_03` with `qwen3-vl-8b`, a next-rotation correction fails the same way as in the fixture. The memory update names F2-R2, but the referent stays the selected F2-R1, so the answer is withheld. Overall 22/25. | The model resolves the correction but anchors the referent to the selection. | `docs/REVIEW_DISPOSITIONS.md` | active |
 
 ## Open items (31 October)
 
 - Next model comparison: one low-cost hosted probe on the same 22 development turns (about $10–15 budget, D-004). Qwen3-VL-8B is done (D-048).
 - Visual grounding: compare a hosted model on `scripts/run_visual_perception_check.py` and the 22 turns (D-054). Adapters and budget enforcement are ready (D-055, D-056); this needs API keys and approval (D-057). Also add observation scoring against `visual_truth` to the evaluation (D-049).
-- Unity rotation scenarios (aircraft with more than one rotation) so "its next rotation" can be tried in the app.
 - Scenario families: occlusion; dialogue families with rotations; a development pilot, then a held-out set written outside the repository (D-002).
-- Freeze the prompt, referent rule, validator and scoring before any formal run.
+- Decide whether a validated correction should set the referent instead of the model's referent field (D-062), then freeze the prompt, referent rule, validator and scoring before any formal run.
 - Verify and write a related-work section. Suggested, not yet verified: Clark & Wilkes-Gibbs 1986, Clark & Brennan 1991, RefCOCO, Visual Dialog, SIMMC 2.0, MultiWOZ, SituatedQA, Longpre et al. 2021, Lost in the Middle, MemGPT, Endsley 1995, EUROCONTROL A-CDM.
 - Adopt backbone 1.1.0 in the compaction repository with the `compaction-gaivi-cuda` profile, as an explicit change there.
 - The user decides whether to commit their own uncommitted work, including the plan PDF and its generator.
