@@ -2,6 +2,7 @@
 
 Development data only:
 - the inline two-rotation fixture from tests/test_conversation.py;
+- visual_dev_03 (rotations): the next-rotation correction in a Unity scenario;
 - visual_dev_01 and visual_dev_02 with sample renders from
   VisualCaptureVerification.SaveObservationSamples (work/visual-observation-*.png);
 - reasoning_v1 development families D01 and D03-D08, with turns generated from
@@ -43,6 +44,7 @@ def dialogue():
     scenarios = load_scenarios()
     fixture = two_rotation_scenario()
     dev01, dev02 = scenarios['V1-visual-observation-dev-01'], scenarios['V2-uniform-livery-dev-02']
+    dev03 = scenarios['V3-rotations-dev-03']
     turns = [
         ('A-correction', fixture, 25, 'A2', 'F2-R1', 'Which stand is this aircraft assigned to?', None),
         ('A-correction', fixture, 25, 'A2', 'F2-R1', 'I mean its next rotation.', None),
@@ -52,6 +54,9 @@ def dialogue():
         ('B-late-report', fixture, 30, 'A2', 'F2-R1', 'Has anything changed since you answered?', None),
         ('C-image-dev01', dev01, 24, 'A2', 'F2-R1', 'Is fuelling finished for this aircraft?', 'visual-observation-24s.png'),
         ('D-image-dev02', dev02, 20, 'A1', 'F1-R1', 'Is the fuel vehicle still at this aircraft?', 'visual-observation-dev02-20s.png'),
+        ('E-rotations-dev03', dev03, 30, 'A2', 'F2-R1', 'When does this aircraft leave?', None),
+        ('E-rotations-dev03', dev03, 30, 'A2', 'F2-R1', 'I mean its next rotation.', None),
+        ('E-rotations-dev03', dev03, 40, 'A2', 'F2-R1', 'Has anything changed since you answered?', None),
     ]
     for path in sorted((ROOT / 'data/reasoning_v1/scenarios').glob('D0*.json')):
         if path.stem == 'D02':

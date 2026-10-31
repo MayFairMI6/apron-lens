@@ -89,7 +89,7 @@ namespace SurfaceSafety {
             var id = Guid.NewGuid().ToString("N");
             return new ConversationRequest {
                 requestId = id, turnId = id, sessionId = SessionId, scenarioId = replay.Data.scenarioId,
-                aircraftId = a.id, flightInstance = a.flightInstance, checkpoint = replay.Clock.Time,
+                aircraftId = a.id, flightInstance = a.FlightAt(replay.Clock.Time), checkpoint = replay.Clock.Time,
                 expectedRevision = Revision, question = question.Trim(),
                 imageBase64 = Convert.ToBase64String(evidence.png), imageCaptureTime = replay.Clock.Time,
                 tapViewport = float.IsNaN(evidence.tapViewport.x) ? new float[0] : new[] { evidence.tapViewport.x, evidence.tapViewport.y } };
@@ -124,7 +124,8 @@ namespace SurfaceSafety {
         bool ClaimsSupported(ConversationRequest request, ConversationResponse response) {
             var r = response.referent;
             if (r == null || string.IsNullOrEmpty(r.aircraftId)) return response.display?.claims == null || response.display.claims.Length == 0;
-            var aircraft = replay.Data.aircraft.FirstOrDefault(a => a.id == r.aircraftId && a.flightInstance == r.flightInstance);
+            // Any rotation of the referent aircraft: a correction such as "its next rotation" is answered about it.
+            var aircraft = replay.Data.aircraft.FirstOrDefault(a => a.id == r.aircraftId && a.Flies(r.flightInstance));
             if (aircraft == null) return false;
             var received = replay.Data.KnownAt(request.checkpoint).Where(e => e.flightInstance == r.flightInstance && e.aircraftId == r.aircraftId).ToArray();
             return (response.display?.claims ?? new SupportedClaim[0]).All(claim =>

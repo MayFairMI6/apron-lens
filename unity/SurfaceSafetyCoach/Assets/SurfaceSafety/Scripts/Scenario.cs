@@ -4,7 +4,24 @@ using UnityEngine;
 
 namespace SurfaceSafety {
     [Serializable] public class Waypoint { public float t, x, z; }
-    [Serializable] public class AircraftPlan { public string id, flightInstance; public Waypoint[] waypoints; }
+    // An aircraft flies one flight (legacy "flightInstance") or several rotations, in the
+    // same format as backend/conversation/identity.py: ordered, non-overlapping
+    // {flightInstance, from, until}; the last may omit "until" (open). Bindings come only
+    // from scenario data; a user correction selects among them and never creates one.
+    [Serializable] public class RotationPlan { public string flightInstance; public float from; public float until = -1; }
+    [Serializable] public class AircraftPlan {
+        public string id, flightInstance;
+        public RotationPlan[] rotations;
+        public Waypoint[] waypoints;
+        public RotationPlan[] Rotations => rotations != null && rotations.Length > 0 ? rotations
+            : new[] { new RotationPlan { flightInstance = flightInstance, from = 0 } };
+        public bool Flies(string flight) => Rotations.Any(r => r.flightInstance == flight);
+        // The rotation under way at t; between rotations, the latest one that has started.
+        public string FlightAt(float t) {
+            var started = Rotations.Where(r => r.from <= t).ToArray();
+            return (started.Length > 0 ? started[started.Length - 1] : Rotations[0]).flightInstance;
+        }
+    }
     [Serializable] public class EvidenceFact { public string property, value; }
     [Serializable] public class ScenarioEvent {
         public string id, aircraftId, flightInstance, source, message;
@@ -44,7 +61,7 @@ namespace SurfaceSafety {
             if (visualProps.Select(p => p.id).Distinct().Count() != visualProps.Length)
                 throw new ArgumentException("Duplicate visual prop ID.");
             foreach (var p in visualProps) {
-                if (string.IsNullOrEmpty(p.id) || !aircraft.Any(a => a.id == p.aircraftId && a.flightInstance == p.flightInstance))
+                if (string.IsNullOrEmpty(p.id) || !aircraft.Any(a => a.id == p.aircraftId && a.Flies(p.flightInstance)))
                     throw new ArgumentException("Visual prop must belong to a scenario aircraft and flight.");
                 if (p.states == null || p.states.Length == 0 || p.states[0].t != 0)
                     throw new ArgumentException("Visual prop states must start at time 0.");
@@ -62,9 +79,21 @@ namespace SurfaceSafety {
                 throw new ArgumentException("Livery must be \"indexed\" or \"uniform\".");
             if (aircraft.Select(a => a.id).Distinct().Count() != aircraft.Length)
                 throw new ArgumentException("Duplicate aircraft identity.");
+            var owner = new System.Collections.Generic.Dictionary<string, string>();
             foreach (var a in aircraft) {
-                if (string.IsNullOrEmpty(a.flightInstance) || a.waypoints == null || a.waypoints.Length < 2)
-                    throw new ArgumentException("Missing flight identity or trajectory.");
+                if (a.waypoints == null || a.waypoints.Length < 2)
+                    throw new ArgumentException("Missing trajectory.");
+                if ((a.rotations == null || a.rotations.Length == 0) && string.IsNullOrEmpty(a.flightInstance))
+                    throw new ArgumentException("Missing flight identity.");
+                var rotations = a.Rotations;
+                for (int i = 0; i < rotations.Length; i++) {
+                    var r = rotations[i];
+                    if (string.IsNullOrEmpty(r.flightInstance) || owner.ContainsKey(r.flightInstance))
+                        throw new ArgumentException("Flight instance missing or assigned to more than one aircraft or rotation.");
+                    owner[r.flightInstance] = a.id;
+                    if (r.from < 0 || (r.until >= 0 && r.until <= r.from) || (i > 0 && (rotations[i - 1].until < 0 || r.from < rotations[i - 1].until)))
+                        throw new ArgumentException("Rotations must be ordered and non-overlapping.");
+                }
                 for (int i=0; i<a.waypoints.Length; i++) {
                     var w=a.waypoints[i];
                     if (float.IsNaN(w.t) || float.IsNaN(w.x) || float.IsNaN(w.z) ||
@@ -78,8 +107,8 @@ namespace SurfaceSafety {
             foreach(var e in events)
                 if (e.eventTime<0 || e.receiptTime<e.eventTime || e.receiptTime>duration ||
                     string.IsNullOrEmpty(e.id) || string.IsNullOrEmpty(e.source) ||
-                    !aircraft.Any(a=>a.flightInstance==e.flightInstance))
-                    throw new ArgumentException("Invalid event identity or timestamps.");
+                    !owner.TryGetValue(e.flightInstance ?? "", out var flightOwner) || flightOwner != e.aircraftId)
+                    throw new ArgumentException("Invalid event identity or timestamps, or the flight is not its aircraft's.");
             ValidateProps();
         }
         public ScenarioEvent[] KnownAt(float t) => events.Where(e=>e.receiptTime<=t)
