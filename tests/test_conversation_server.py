@@ -105,6 +105,33 @@ class Endpoint(unittest.TestCase):
         self.assertEqual(third['currentReferent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
         self.assertIn('"currentReferent": {"aircraftId": "A2", "flightInstance": "F2-R2"}', self.prompt())
 
+    def test_a_validated_correction_sets_the_referent(self):
+        correction = {'kind': 'correction', 'aircraftId': 'A2', 'flightInstance': 'F2-R2'}
+        client = self.serve([reply(memoryUpdate=correction, claims=[claim('E02:stand', 'C', 'current', 'E02')])])
+        result = self.ask(client, 1, 0, question='I mean its next rotation.').json()  # model left referent on F2-R1
+        self.assertTrue(result['accepted'], result['errors'])
+        self.assertEqual(result['referent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
+        self.assertEqual((result['referentSource'], result['referentRule']), ('correction', 'referent-rule-v2'))
+        self.assertEqual(result['currentReferent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
+
+    def test_a_correction_mixing_both_flights_is_still_withheld(self):
+        correction = {'kind': 'correction', 'aircraftId': 'A2', 'flightInstance': 'F2-R2'}
+        client = self.serve([reply(memoryUpdate=correction, claims=[claim('E01:stand', 'B', 'current', 'E01'),
+                                                                    claim('E02:stand', 'C', 'current', 'E02')])])
+        result = self.ask(client, 1, 0).json()
+        self.assertFalse(result['accepted'])
+        self.assertIn('claim_outside_eligible_evidence', result['errors'])
+
+    def test_only_corrections_move_the_referent(self):
+        client = self.serve([reply(memoryUpdate={'kind': 'reference', 'aircraftId': 'A2', 'flightInstance': 'F2-R2'}),
+                             reply(memoryUpdate={'kind': 'correction', 'aircraftId': 'A2', 'flightInstance': 'F9-R9'})])
+        reference = self.ask(client, 1, 0).json()
+        self.assertEqual((reference['accepted'], reference['referentSource']), (False, 'model'))
+        self.assertIn('memory_update_mismatch', reference['errors'])
+        unknown = self.ask(client, 2, 1).json()
+        self.assertEqual((unknown['accepted'], unknown['referentSource']), (False, 'model'))
+        self.assertIn('memory_update_not_in_scenario', unknown['errors'])
+
     def test_selecting_another_aircraft_resets_the_referent(self):
         client = self.serve([
             reply(referent={'aircraftId': 'A2', 'flightInstance': 'F2-R2'},

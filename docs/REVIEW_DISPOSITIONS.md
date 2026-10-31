@@ -106,6 +106,13 @@ is unchanged.
   preserves an accepted correction such as "its next rotation". Memory comes
   only from the user's selection or a validated `memoryUpdate`, never from the
   rationale.
+- Correction rule (`referent-rule-v2`, adopted 31 October by the user's
+  decision): when the memory update is a correction to a flight in the
+  scenario, that flight becomes the proposal's referent before validation,
+  replacing the model's referent field. Its claims must then be that flight's
+  received facts, so mixing two flights is still withheld. Other memory-update
+  kinds never move the referent. Each result records `referentSource` (`model`
+  or `correction`) and `referentRule`.
 - `backend/conversation/server.py` provides `POST /conversation` and `GET /health`:
   - It uses the same bearer token as `/reason`, checked before the body is read.
   - It has one in-memory session per `sessionId`, bound to the scenario and mode it
@@ -235,9 +242,19 @@ and one question per stand aircraft, with no reports, scored against
   clarification. This is the same pattern as the fixture's correction turn:
   the model works out the intended rotation but keeps the app's selection as
   the referent.
-- Open design option, not adopted: take the referent from a validated
-  correction instead of from the model's referent field. That changes the
-  method, so it needs a decision before the freeze.
+- Taking the referent from a validated correction was then adopted
+  (`referent-rule-v2`). Rerun of the same 25 turns:
+  - `qwen3-vl-8b`: still 22/25. The rule applied as designed (the
+    memory-update mismatch is gone), but both correction turns are still
+    withheld. The model now cites facts from both rotations at once (F2-R1's
+    stand or baggage alongside F2-R2's off-block time) and lists an unknown
+    that contradicts a current fact.
+  - `qwen2.5-vl-3b`: 15/25. It makes no correction at all (no memory update,
+    referent left on F2-R1), so its "accepted" correction turns answer about
+    the wrong rotation. Only evaluation labels can catch that.
+- So the rule is safe and removes one failure, but correction turns still need
+  a model that keeps to one flight's facts. Evaluation must score the referent
+  against labels.
 
 ## Hosted adapters and budget enforcement (31 October)
 

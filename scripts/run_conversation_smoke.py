@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT), str(ROOT / 'tests')]
 
 from modelaccess.contract import Settings
-from backend.conversation.hosted import add_arguments, prepare
+from backend.conversation.hosted import add_arguments, prepare, provenance, result_path
 from backend.conversation.context import changed_facts, snapshot
 from backend.conversation.server import load_scenarios
 from backend.conversation.state import SessionState
@@ -101,6 +101,7 @@ def run_dialogue(adapter, settings, report=print):
 def main():
     parser = argparse.ArgumentParser()
     add_arguments(parser, 'qwen2.5-vl-3b')
+    parser.add_argument('--output', help='Result file; default work/conversation-smoke/<model>-<time>.json')
     parser.add_argument('--max-output-tokens', type=int,
                         help='Default 512 locally; 8000 hosted, where thinking counts against the cap')
     args = parser.parse_args()
@@ -113,20 +114,19 @@ def main():
     def run(adapter, model):
         return run_dialogue(adapter, settings_for(model), report=lambda line: None)
 
+    path = result_path(args.output, WORK / 'conversation-smoke', args.model)  # checked before any model time is spent
     adapter, model = prepare(args.provider, args.model, args.profile, run, estimate_only=args.estimate_only,
                              confirm_spend=args.confirm_spend, max_spend=args.max_spend,
                              session_id=f'smoke-{time.strftime("%Y%m%dT%H%M%S")}')
     if adapter is None:
         return
     rows = run_dialogue(adapter, settings_for(model), report=lambda line: print(line, flush=True))
-    out = WORK / 'conversation-smoke'
-    out.mkdir(parents=True, exist_ok=True)
-    path = out / f'{args.model}-{time.strftime("%Y%m%dT%H%M%S")}.json'
     inner = getattr(adapter, 'adapter', adapter)
     path.write_text(json.dumps(dict(model=model, provider=args.provider, runtime=getattr(inner, 'runtime', None),
+                                    runtimeProfile=args.profile, **provenance(),
                                     reasoningEffort=args.reasoning_effort, promptVersion=PROMPT_VERSION,
                                     note='Development smoke run; not evaluation evidence.', turns=rows), indent=1))
-    print(f"accepted {sum(r['accepted'] for r in rows)} of {len(rows)} -> {path.relative_to(ROOT)}")
+    print(f"accepted {sum(r['accepted'] for r in rows)} of {len(rows)} -> {path}")
 
 
 if __name__ == '__main__':
