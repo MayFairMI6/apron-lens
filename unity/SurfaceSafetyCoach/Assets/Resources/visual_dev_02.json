@@ -1,0 +1,29 @@
+{
+  "scenarioId": "V2-uniform-livery-dev-02",
+  "livery": "uniform",
+  "duration": 60.0,
+  "targetWidth": 0.24,
+  "aircraft": [
+    {"id": "A1", "flightInstance": "F1-R1", "waypoints": [{"t": 0, "x": -0.045, "z": 0.04}, {"t": 60, "x": -0.045, "z": 0.04}]},
+    {"id": "A2", "flightInstance": "F2-R1", "waypoints": [{"t": 0, "x": 0.035, "z": 0.04}, {"t": 60, "x": 0.035, "z": 0.04}]},
+    {"id": "A3", "flightInstance": "F3-R1", "waypoints": [{"t": 0, "x": -0.10, "z": -0.025}, {"t": 40, "x": 0.10, "z": -0.025}, {"t": 60, "x": 0.10, "z": -0.025}]}
+  ],
+  "events": [
+    {"id": "W01", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "A"}], "message": "A1 assigned Stand A."},
+    {"id": "W02", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "B"}], "message": "A2 assigned Stand B."},
+    {"id": "W03", "aircraftId": "A3", "flightInstance": "F3-R1", "source": "scenario-coordinator", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "route", "value": "initial authored route"}], "message": "A3 movement plan loaded; authored development scenario."},
+    {"id": "W04", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "ground-handling", "eventTime": 24, "receiptTime": 24,
+     "facts": [{"property": "fuel_status", "value": "complete"}], "message": "Fuel service reported complete at 24 s."},
+    {"id": "W05", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 30, "receiptTime": 38,
+     "facts": [{"property": "baggage_status", "value": "complete"}], "message": "Late report: baggage service complete at 30 s; received at 38 s."}
+  ],
+  "visualProps": [
+    {"id": "P1", "aircraftId": "A1", "flightInstance": "F1-R1", "kind": "fuel_vehicle",
+     "states": [{"t": 0, "value": "connected"}, {"t": 26, "value": "departed"}]},
+    {"id": "P2", "aircraftId": "A2", "flightInstance": "F2-R1", "kind": "cargo_door",
+     "states": [{"t": 0, "value": "open"}, {"t": 32, "value": "closed"}]}
+  ]
+}

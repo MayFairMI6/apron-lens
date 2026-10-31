@@ -21,12 +21,19 @@ namespace SurfaceSafety {
             .Where(e=>AllFlightsHistory || e.flightInstance==SelectedAircraft.flightInstance).Reverse().ToArray();
         AircraftPlan SelectedAircraft => Data.aircraft[SelectedAircraftIndex];
         ScenarioEvent[] SelectedReports => Data.KnownAt(Clock.Time).Where(e=>e.flightInstance==SelectedAircraft.flightInstance).ToArray();
+        const string Milestone1Id="M1-stand-coordination-01";
+        // Parking positions in front of the two printed stand markers.
+        static readonly Vector3 StandAPark=new Vector3(-.045f,0,.04f),StandBPark=new Vector3(.035f,0,.04f);
+        // Indexed liveries; the first two are the original Milestone 1 colours.
+        static readonly Color[] IndexedLiveries={new Color(.15f,.68f,.86f),new Color(1,.64f,.18f),new Color(.36f,.70f,.36f),new Color(.66f,.44f,.82f)};
+        static readonly Color UniformLiveryColor=new Color(.30f,.40f,.52f);
+        Color LiveryOf(int index)=>Data.UniformLivery?UniformLiveryColor:IndexedLiveries[index];
         public string CurrentSceneState {
             get {
                 var a=SelectedAircraft;
                 var p=Scenario.Position(a,Clock.Time);
-                if(SelectedAircraftIndex==1 && Vector3.Distance(p,new Vector3(.035f,0,.04f))<.0001f)
-                    return "At Stand B · stationary";
+                if(Vector3.Distance(p,StandBPark)<.0001f)return "At Stand B · stationary";
+                if(Vector3.Distance(p,StandAPark)<.0001f)return "At Stand A · stationary";
                 if(Clock.Time>=a.waypoints[a.waypoints.Length-1].t)return "At final authored waypoint";
                 return "On the authored movement path";
             }
@@ -34,6 +41,11 @@ namespace SurfaceSafety {
         public string CurrentReasoning {
             get {
                 var reports=SelectedReports;
+                // The authored wording below describes Milestone 1's reports only.
+                if(Data.scenarioId!=Milestone1Id)
+                    return (reports.Length==0?"No report for "+SelectedAircraft.id+" has been received at this replay time. ":
+                        string.Join(" ",reports.Select(e=>"["+e.id+"] "+e.message))+" ")+
+                        "Overall readiness remains unknown: the received reports do not establish every required service or a movement clearance.";
                 if(SelectedAircraftIndex==1){
                     var baggage=reports.FirstOrDefault(e=>e.id=="E03");
                     var move=reports.FirstOrDefault(e=>e.id=="E06");
@@ -187,11 +199,10 @@ namespace SurfaceSafety {
             Shape(PrimitiveType.Cube,"Terminal",new Vector3(0,.004f,.061f),new Vector3(.18f,.008f,.017f),terminal,Content);
             for(int i=0;i<2;i++)Shape(PrimitiveType.Cube,"Stand "+(i==0?"A":"B"),
                 new Vector3(i==0?-.045f:.035f,.002f,.047f),new Vector3(.004f,.004f,.015f),new Color(.5f,.61f,.65f),Content);
-            planes=new Transform[2];
-            for(int i=0;i<2;i++) {
+            planes=new Transform[Data.aircraft.Length];
+            for(int i=0;i<planes.Length;i++) {
                 var root=new GameObject(Data.aircraft[i].id).transform;root.SetParent(Content,false);planes[i]=root;
-                var col=i==0?new Color(.15f,.68f,.86f):new Color(1,.64f,.18f);
-                AircraftVisual.Build(root,col);
+                AircraftVisual.Build(root,LiveryOf(i));
             }
             BuildProps();
             foreach(var a in Data.aircraft) {
@@ -234,12 +245,16 @@ namespace SurfaceSafety {
             Label(head,"ApronLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
             Label(head,"SIMULATION",new Vector2(.67f,.69f),new Vector2(.985f,.95f),33,TextAnchor.MiddleRight,teal);
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
-            aircraftChips=new Image[2];
-            for(int i=0;i<2;i++){
-                int index=i;var r=Button(head,Data.aircraft[i].id+"  /  "+Data.aircraft[i].flightInstance,
-                    new Vector2(.035f+i*.48f,.025f),new Vector2(.485f+i*.48f,.455f),()=>SelectAircraft(index),panel,39);
+            // Chips share the header width; with two aircraft this is the original layout.
+            int count=Data.aircraft.Length;float gap=.03f,width=(.93f-(count-1)*gap)/count;
+            aircraftChips=new Image[count];
+            for(int i=0;i<count;i++){
+                int index=i;var a=Data.aircraft[i];
+                var r=Button(head,count==2?a.id+"  /  "+a.flightInstance:a.id+"\n"+a.flightInstance,
+                    new Vector2(.035f+i*(width+gap),.025f),new Vector2(.035f+i*(width+gap)+width,.455f),()=>SelectAircraft(index),panel,count==2?39:33);
                 aircraftChips[i]=r.GetComponent<Image>();
-                Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),i==0?teal:amber);
+                // Uniform-livery scenarios use one neutral marker so the chips do not imply colour identity.
+                Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),Data.UniformLivery?muted:i==0?teal:i==1?amber:LiveryOf(i));
             }
             var caption=Panel(safeRoot,"Selected scene identity",new Vector2(.035f,.529f),new Vector2(.965f,.565f),new Color(.055f,.095f,.13f,.9f));
             selectionLabel=Label(caption,"",Vector2.zero,Vector2.one,33,TextAnchor.MiddleCenter,Color.white);

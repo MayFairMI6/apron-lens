@@ -122,5 +122,28 @@ class EvaluationTruth(unittest.TestCase):
                          (True, 'open'))
 
 
+class UniformLiveryScenario(unittest.TestCase):
+    """visual_dev_02: three aircraft in one livery, told apart only by position, motion and props."""
+
+    def setUp(self):
+        self.data = json.loads((SCENARIO.parent / 'visual_dev_02.json').read_text())
+
+    def test_scenario_is_valid(self):
+        validate_scenario(self.data)
+        validate_rotations(self.data)
+        self.assertEqual(self.data['livery'], 'uniform')
+        self.assertEqual(len(self.data['aircraft']), 3)
+        for prop in self.data['visualProps']:
+            self.assertEqual(prop['states'][0]['t'], 0)
+            self.assertTrue(all(s['value'] in VISUAL_KINDS[prop['kind']]['values'] for s in prop['states']))
+
+    def test_props_belong_to_different_aircraft(self):
+        self.assertEqual(visual_truth.prop_value(self.data, 'A1', 'F1-R1', 'fuel_vehicle', 25), 'connected')
+        self.assertEqual(visual_truth.prop_value(self.data, 'A1', 'F1-R1', 'fuel_vehicle', 26), 'departed')
+        self.assertEqual(visual_truth.prop_value(self.data, 'A2', 'F2-R1', 'cargo_door', 31), 'open')
+        self.assertIsNone(visual_truth.prop_value(self.data, 'A2', 'F2-R1', 'fuel_vehicle', 20))
+        self.assertIsNone(visual_truth.prop_value(self.data, 'A3', 'F3-R1', 'cargo_door', 20))
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -19,7 +19,12 @@ namespace SurfaceSafety {
         public PropState[] states;
     }
     [Serializable] public class Scenario {
+        public const int MaxAircraft = 4;
         public string scenarioId;
+        // "uniform" renders every aircraft in one livery so that only position, motion
+        // and props tell them apart; omitted or "indexed" keeps one colour per aircraft.
+        public string livery;
+        public bool UniformLivery => livery == "uniform";
         public float duration, targetWidth;
         public AircraftPlan[] aircraft;
         public ScenarioEvent[] events;
@@ -51,8 +56,10 @@ namespace SurfaceSafety {
             }
         }
         public void Validate() {
-            if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length != 2)
-                throw new ArgumentException("Scenario requires positive duration/width and two aircraft.");
+            if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length < 2 || aircraft.Length > MaxAircraft)
+                throw new ArgumentException("Scenario requires positive duration/width and two to " + MaxAircraft + " aircraft.");
+            if (!string.IsNullOrEmpty(livery) && livery != "indexed" && livery != "uniform")
+                throw new ArgumentException("Livery must be \"indexed\" or \"uniform\".");
             if (aircraft.Select(a => a.id).Distinct().Count() != aircraft.Length)
                 throw new ArgumentException("Duplicate aircraft identity.");
             foreach (var a in aircraft) {
