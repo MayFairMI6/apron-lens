@@ -13,6 +13,7 @@ confirmation before a paid run.
 """
 import datetime as dt
 import math
+import uuid
 from pathlib import Path
 
 from modelaccess.contract import FinishReason, ModelAccessError, ProviderReply, Usage
@@ -56,6 +57,9 @@ class BudgetedAdapter:
         self.purpose, self.session_id = purpose, session_id
         self.today = today or dt.date.today()
         self.provider, self.capabilities = adapter.provider, adapter.capabilities
+        # The ledger deduplicates by (request ID, attempt) across all runs, and scripts reuse
+        # fixed request IDs, so reservation IDs are prefixed with a run ID unique to this adapter.
+        self.run_id = f'{session_id or "run"}:{uuid.uuid4().hex}'
         self.attempts = {}
 
     def generate(self, request):
@@ -63,7 +67,7 @@ class BudgetedAdapter:
         reserve = self.rates.max_cost_micro(model, self.today, max_input_tokens(request),
                                             request.settings.max_output_tokens)
         attempt = self.attempts[request.request_id] = self.attempts.get(request.request_id, 0) + 1
-        reservation = self.ledger.reserve(request.request_id, attempt, self.purpose, model, reserve,
+        reservation = self.ledger.reserve(f'{self.run_id}:{request.request_id}', attempt, self.purpose, model, reserve,
                                           session_id=self.session_id)
         try:
             result = self.adapter.generate(request)

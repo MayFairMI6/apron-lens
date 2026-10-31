@@ -134,6 +134,17 @@ class Budget(unittest.TestCase):
         self.assertGreater(result.metadata['reservedMicroUsd'], 0)
         self.assertEqual(ledger.committed(), 1000 * 2 + 200 * 10)  # $2 / $10 per MTok, in micro-dollars
 
+    def test_each_run_gets_its_own_reservation_for_reused_request_ids(self):
+        first, _, ledger = self.budgeted(claude_reply(usage=(1000, 200)))
+        second, recorder, _ = self.budgeted(claude_reply(usage=(1000, 200)))
+        first.generate(request('claude-sonnet-5-5'))
+        second.generate(request('claude-sonnet-5-5'))  # same request ID 'r1', a separate run
+        self.assertEqual(ledger.committed(), 2 * (1000 * 2 + 200 * 10))
+        tight, recorder, _ = self.budgeted(claude_reply(), session_limit=0.000001)
+        with self.assertRaises(BudgetExceeded):  # a reused ID is still budget-checked
+            tight.generate(request('claude-sonnet-5-5'))
+        self.assertEqual(recorder.calls, [])
+
     def test_refused_reservation_never_calls_the_provider(self):
         adapter, recorder, _ = self.budgeted(claude_reply(), session_limit=0.000001)
         with self.assertRaises(BudgetExceeded):
