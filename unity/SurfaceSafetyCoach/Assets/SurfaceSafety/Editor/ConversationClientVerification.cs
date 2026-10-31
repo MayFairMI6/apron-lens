@@ -59,14 +59,29 @@ public static class ConversationClientVerification {
         var old = client.SessionId; client.NewSession();
         check(client.SessionId != old && client.Revision == 0, "new session resets the revision");
 
-        // 8. More -> Ask a question opens one question field; Close removes the overlay.
+        // 8. Connection settings saved in More -> Model connection apply without a restart, on port 8766.
+        string[] keys = { "qwen_endpoint", "qwen_token", "conversation_endpoint" };
+        var saved = keys.Select(k => PlayerPrefs.HasKey(k) ? PlayerPrefs.GetString(k) : null).ToArray();
+        try {
+            PlayerPrefs.SetString("qwen_endpoint", "http://192.168.1.20:8765"); PlayerPrefs.DeleteKey("conversation_endpoint");
+            client.LoadConnection();
+            check(client.Endpoint == "http://192.168.1.20:8766", "conversation endpoint follows the Model connection host (" + client.Endpoint + ")");
+            PlayerPrefs.SetString("conversation_endpoint", "http://10.0.0.5:9000/");
+            client.LoadConnection();
+            check(client.Endpoint == "http://10.0.0.5:9000", "an explicit conversation endpoint wins");
+        } finally {
+            for (int i = 0; i < keys.Length; i++) { if (saved[i] == null) PlayerPrefs.DeleteKey(keys[i]); else PlayerPrefs.SetString(keys[i], saved[i]); }
+            PlayerPrefs.Save();
+        }
+
+        // 9. More -> Ask a question opens one question field; Close removes the overlay.
         Click("More"); Click("Ask a question");
         check(UnityEngine.Object.FindObjectsByType<InputField>(FindObjectsSortMode.None).Length == 1 && GameObject.Find("Conversation") != null,
               "question overlay opens with one field");
         Click("Close");
         check(GameObject.Find("Conversation") == null, "Close removes the overlay");
 
-        Debug.Log("CONVERSATION_CLIENT_CHECKS_PASS: 9");
+        Debug.Log("CONVERSATION_CLIENT_CHECKS_PASS: 11");
     }
 
     // Optional live check against a running service (not part of the standard suite):
