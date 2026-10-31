@@ -69,6 +69,15 @@ not otherwise have.
   crop coordinates). Props are dark grey instead of near-white and the hatch is
   1.5× larger in plan. Result: 892 px (0.26%) and 783 px (0.23%);
   `.RunObservations` now fails if a prop drops below 0.15%.
+- Similar aircraft: scenarios may declare two to four aircraft and
+  `"livery": "uniform"` (one colour for every aircraft and a neutral chip
+  marker). `visual_dev_02` has three same-livery aircraft: A1 parked at Stand A
+  with a fuel vehicle until 26 s, A2 at Stand B with the hatch open until 32 s,
+  and A3 taxiing past both; a late baggage report (event 30 s, received 38 s)
+  lets the view run ahead of the reports. The deterministic baseline text keeps
+  its authored wording for Milestone 1 only and lists the selected flight's
+  reports elsewhere. `VisualCaptureVerification.RunMultiAircraft` (14 checks)
+  covers this; Milestone 1 keeps two indexed aircraft and its original layout.
 - Open: occlusion families not yet authored. The crop shrinks as aircraft spread
   apart, so wider scenes zoom less.
 

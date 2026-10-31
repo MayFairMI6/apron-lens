@@ -17,9 +17,9 @@ namespace SurfaceSafety {
     //    markers (SceneCrop), so small props get more pixels. The crop is fitted to
     //    every aircraft, never the referent, so framing does not reveal the selection.
     //
-    // Known limit: StandReplay still colours aircraft by index and builds two
-    // aircraft. Families that test similar aircraft need a uniform livery and
-    // three or more aircraft before formal visual evaluation.
+    // Scenarios may set "livery": "uniform" and declare up to four aircraft
+    // (visual_dev_02), so that similar aircraft can be told apart only by
+    // position, motion and props.
     public struct VisualEvidence {
         public byte[] png;
         public Vector2 tapViewport; // in image coordinates, origin bottom-left; outside 0..1 when the tap falls outside the crop; NaN when there is no tap
@@ -123,9 +123,11 @@ namespace SurfaceSafety {
             try {
                 target.SelectAircraft(0);
                 var first = Capture(target, viewpoint, null).png;
-                target.SelectAircraft(1);
-                var second = Capture(target, viewpoint, null).png;
-                return first.SequenceEqual(second);
+                for (int i = 1; i < target.Data.aircraft.Length; i++) {
+                    target.SelectAircraft(i);
+                    if (!first.SequenceEqual(Capture(target, viewpoint, null).png)) return false;
+                }
+                return true;
             } finally {
                 target.SelectAircraft(original);
             }
