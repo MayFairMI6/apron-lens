@@ -59,13 +59,17 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 | D-042 | A session is bound to the scenario and mode it started with; changing either gets 409. | Scenarios reuse aircraft and flight IDs, so memory could carry across (review finding on PR #4). | PR #4 | done |
 | D-043 | Follow-up prompts carry `changedSincePreviousAnswer` from the validator's own `changed_facts`. | Without it, the required answer could not be read from the prompt (review finding on PR #4). | prompt v2, PR #4 | done |
 | D-044 | `conversation-prompt-v3`: allowed status values listed, every key required, real capture time in the example, "next rotation" defined. | The 3B model copied v2's placeholder `"exact fact status"`. | PR #5 | open |
-| D-045 | Development finding, not evidence: Qwen 2.5-VL-3B under v3 accepts 12/22 turns. First questions 9/9; change follow-ups 0/7; a next-rotation correction accepted with the wrong referent; image turns 0/2. Treat these as model limits rather than tuning the prompt further toward them. | Every rule it breaks is stated in the prompt, and the needed data is computed for it. | `docs/REVIEW_DISPOSITIONS.md` | active |
+| D-045 | Development finding, not evidence: Qwen 2.5-VL-3B under v3 accepts 12/22 turns. First questions 9/9; change follow-ups 0/7; a next-rotation correction accepted with the wrong referent; image turns 0/2. Treat these as model limits rather than tuning the prompt further toward them. | Every rule it breaks is stated in the prompt, and the needed data is computed for it. | `docs/REVIEW_DISPOSITIONS.md` | active; confirmed by D-048 |
 | D-046 | The validator does not check whether the referent is the one the user meant. Referent correctness is scored only at evaluation time, against labels kept off the request path. | Keeps gold labels away from the system under test. | `backend/conversation/validate.py` | active |
 | D-047 | v1 D02 is excluded from conversation runs. | Its `F2-R0` report has no declared rotation, and the conversation path refuses to guess. | `scripts/run_conversation_smoke.py` | active |
+| D-048 | Development finding: Qwen3-VL-8B (revision `0c351dd`, downloaded with the user's approval, 16 GB, git-ignored) accepts 20/22 of the same turns under v3. Change follow-ups 7/7; the next-rotation correction is withheld (memory names F2-R2, referent stays F2-R1). The text-side context design works with a larger model. | Separates model size from task design (its `models.json` purpose). | `docs/REVIEW_DISPOSITIONS.md` | active |
+| D-049 | Visual grounding is weak at both sizes. The 8B model's accepted observation contradicted the render and matched the report instead. Accepted is not correct: evaluation must score observations against `visual_truth`, and image-with/without comparisons need that scoring. | The validator checks observation form, not truth (D-046). | `backend/conversation/visual_truth.py` | active |
+| D-050 | Local 8B on this Mac takes a median of 53 s per turn (up to 119 s), too slow for live use. Interactive use needs GAIVI, a smaller model or a hosted model. | Measured in the 8B development run. | — | active |
 
 ## Open items (31 October)
 
-- Next model comparison on the same 22 development turns: Qwen3-VL-8B locally (about 17 GB download) or on GAIVI, then one low-cost hosted probe (about $10–15 budget, D-004).
+- Next model comparison: one low-cost hosted probe on the same 22 development turns (about $10–15 budget, D-004). Qwen3-VL-8B is done (D-048).
+- Visual grounding: try larger or more image-focused crops and observation prompts on the development scenarios, and add observation scoring against `visual_truth` to the evaluation (D-049).
 - Unity client for `/conversation` (send `flightInstance` and conversation turns); hosted adapters.
 - Scenario families: occlusion; dialogue families with rotations; a development pilot, then a held-out set written outside the repository (D-002).
 - Freeze the prompt, referent rule, validator and scoring before any formal run.
