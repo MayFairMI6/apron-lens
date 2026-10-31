@@ -1,0 +1,24 @@
+{
+  "scenarioId": "V5-occlusion-dev-05",
+  "duration": 60.0,
+  "targetWidth": 0.24,
+  "aircraft": [
+    {"id": "A1", "flightInstance": "F1-R1", "waypoints": [{"t": 0, "x": -0.045, "z": 0.04}, {"t": 60, "x": -0.045, "z": 0.04}]},
+    {"id": "A2", "flightInstance": "F2-R1", "waypoints": [{"t": 0, "x": 0.035, "z": 0.04}, {"t": 60, "x": 0.035, "z": 0.04}]}
+  ],
+  "occluders": [
+    {"id": "C1", "x": -0.0352, "z": 0.0415, "width": 0.0150, "depth": 0.0170, "height": 0.011}
+  ],
+  "events": [
+    {"id": "Y01", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "A"}], "message": "A1 assigned Stand A."},
+    {"id": "Y02", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "B"}], "message": "A2 assigned Stand B."}
+  ],
+  "visualProps": [
+    {"id": "P1", "aircraftId": "A1", "flightInstance": "F1-R1", "kind": "fuel_vehicle",
+     "states": [{"t": 0, "value": "connected"}]},
+    {"id": "P2", "aircraftId": "A2", "flightInstance": "F2-R1", "kind": "cargo_door",
+     "states": [{"t": 0, "value": "open"}]}
+  ]
+}

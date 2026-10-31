@@ -1,0 +1,107 @@
+{
+  "version": "conversation-dev-families-v1",
+  "split": "development",
+  "note": "Development dialogue families with authored labels, for tuning and for testing the scoring harness. Not evaluation evidence. The held-out set uses the same format but is written by someone else and kept outside the repository (backend/conversation/guards.load_heldout).",
+  "labelFields": {
+    "status": "Allowed proposal statuses.",
+    "referent": "Expected referent flight for an answer; null when the right response names no flight (clarify).",
+    "mustCite": "Fact IDs an answer must cite.",
+    "explanationChanged": "Expected value; omitted when not scored.",
+    "unknowns": "Properties that must be listed as unknown.",
+    "observations": "Expected visual observations for the referent: a value must be reported as that value; null means it must not be reported (not visible). Omitted kinds are not scored."
+  },
+  "families": [
+    {
+      "id": "F1-rotation-correction",
+      "tests": "A correction to the next rotation moves the referent; only that rotation's facts are cited; a later revision is flagged.",
+      "scenario": "V3-rotations-dev-03",
+      "turns": [
+        {"cutoff": 30, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "When does this aircraft leave?",
+         "expect": {"status": ["clarify", "answer"], "referentIfAnswer": {"aircraftId": "A2", "flightInstance": "F2-R2"}}},
+        {"cutoff": 30, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "I mean its next rotation.",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R2"}, "mustCite": ["R04:tobt"]}},
+        {"cutoff": 40, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Has anything changed since you answered?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R2"}, "mustCite": ["R05:tobt"], "explanationChanged": true}}
+      ]
+    },
+    {
+      "id": "F2-ambiguous-reference",
+      "tests": "\"The other one\" with three same-livery aircraft is ambiguous; the right response is a clarification.",
+      "scenario": "V2-uniform-livery-dev-02",
+      "turns": [
+        {"cutoff": 20, "selected": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "question": "Which stand is this aircraft on?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "mustCite": ["W01:stand"]}},
+        {"cutoff": 20, "selected": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "question": "What about the other one?",
+         "expect": {"status": ["clarify"], "referent": null}}
+      ]
+    },
+    {
+      "id": "F3-late-report",
+      "tests": "A report sent before the first answer but received after it changes the follow-up, which must flag and cite it.",
+      "scenario": "V1-visual-observation-dev-01",
+      "turns": [
+        {"cutoff": 30, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Is baggage handling complete for this aircraft?",
+         "expect": {"status": ["answer", "unknown"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "unknowns": ["baggage_status"]}},
+        {"cutoff": 36, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Has anything changed since you answered?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "mustCite": ["V04:baggage_status"], "explanationChanged": true}}
+      ]
+    },
+    {
+      "id": "F4-no-change",
+      "tests": "A follow-up with nothing new must say nothing changed and invent nothing.",
+      "scenario": "V2-uniform-livery-dev-02",
+      "turns": [
+        {"cutoff": 20, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Which stand is this aircraft on?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "mustCite": ["W02:stand"]}},
+        {"cutoff": 25, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Has anything changed since you answered?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "explanationChanged": false}}
+      ]
+    },
+    {
+      "id": "F5-missing-evidence",
+      "tests": "With no report on a service, the answer is unknown, not a guess.",
+      "scenario": "V2-uniform-livery-dev-02",
+      "turns": [
+        {"cutoff": 30, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Has fuelling been reported for this aircraft?",
+         "expect": {"status": ["answer", "unknown"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "unknowns": ["fuel_status"]}}
+      ]
+    },
+    {
+      "id": "F6-conflicting-reports",
+      "tests": "Two sources disagree about a stand; the answer shows both as conflicting, then flags the resolving report.",
+      "scenario": "V4-conflicting-reports-dev-04",
+      "turns": [
+        {"cutoff": 15, "selected": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "question": "Which stand is this aircraft assigned to?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "mustCite": ["X01:stand", "X02:stand"]}},
+        {"cutoff": 25, "selected": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "question": "Has anything changed since you answered?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "mustCite": ["X03:stand"], "explanationChanged": true}}
+      ]
+    },
+    {
+      "id": "F7-visual-observation",
+      "tests": "Observations follow the image: a visible vehicle is reported even when a report says fuelling is complete, and a vehicle hidden under a canopy is not reported.",
+      "scenario": null,
+      "turns": [
+        {"scenario": "V1-visual-observation-dev-01", "cutoff": 24, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"},
+         "question": "Is the fuel vehicle still at this aircraft?", "image": "visual-observation-24s.png",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "mustCite": ["V03:fuel_status"],
+                    "observations": {"fuel_vehicle": "connected"}}},
+        {"scenario": "V5-occlusion-dev-05", "cutoff": 20, "selected": {"aircraftId": "A1", "flightInstance": "F1-R1"},
+         "question": "Is a fuel vehicle at this aircraft?", "image": "visual-observation-dev05-20s.png",
+         "expect": {"status": ["answer", "unknown"], "referent": {"aircraftId": "A1", "flightInstance": "F1-R1"}, "unknowns": ["fuel_status"],
+                    "observations": {"fuel_vehicle": null}}}
+      ]
+    },
+    {
+      "id": "F8-scene-change",
+      "tests": "Between two questions the aircraft starts moving; the follow-up uses the newly received movement report.",
+      "scenario": "V1-visual-observation-dev-01",
+      "turns": [
+        {"cutoff": 38, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Has this aircraft started moving?",
+         "expect": {"status": ["answer", "unknown"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "unknowns": ["movement_status"]}},
+        {"cutoff": 42, "selected": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "question": "Has anything changed since you answered?",
+         "expect": {"status": ["answer"], "referent": {"aircraftId": "A2", "flightInstance": "F2-R1"}, "mustCite": ["V05:movement_status"], "explanationChanged": true}}
+      ]
+    }
+  ]
+}

@@ -217,6 +217,9 @@ namespace SurfaceSafety {
                 AircraftVisual.Build(root,LiveryOf(i));
             }
             BuildProps();
+            // Occluders (for example a service canopy) are neutral roof slabs; they hide what lies under them from the camera.
+            foreach(var o in Data.occluders??new Occluder[0])
+                Shape(PrimitiveType.Cube,"Occluder "+o.id,new Vector3(o.x,o.height,o.z),new Vector3(o.width,.0008f,o.depth),new Color(.62f,.66f,.68f),Content);
             foreach(var a in Data.aircraft) {
                 var g=new GameObject(a.id+" authored path");g.transform.SetParent(Content,false);
                 var l=g.AddComponent<LineRenderer>();l.useWorldSpace=false;l.positionCount=a.waypoints.Length;l.widthMultiplier=.0007f;

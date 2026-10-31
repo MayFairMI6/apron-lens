@@ -214,6 +214,63 @@ and one question per stand aircraft, with no reports, scored against
 - Conclusion: visual grounding of these props is a limit of the local 8B model,
   not the capture size. A hosted comparison is the next step.
 
+## Development families and scoring (31 October)
+
+- `data/conversation_dev/families.json` (`conversation-dev-families-v1`,
+  development split): eight families, 16 turns.
+  - Each turn has the app selection, the question, an optional evidence image,
+    and an `expect` label: allowed statuses, referent, required citations,
+    explanation-changed, required unknowns, and observations (a value, or null
+    for "must not be reported").
+  - The families: rotation correction, ambiguous reference, late report, no
+    change, missing evidence, conflicting reports, visual observation with
+    occlusion, and a scene change between turns.
+  - The held-out set will use the same format, but has to be written by
+    someone else and kept outside the repository.
+- New scenarios:
+  - `visual_dev_04`: two sources give A1 different stands (both
+    `conflicting` at 15 s), resolved by a report received at 22 s.
+  - `visual_dev_05`: A1's tanker sits under a service canopy, a new
+    `occluders` scenario element rendered as a roof slab, so it covers 0 px of
+    the evidence image while A2's hatch stays visible.
+    `VisualCaptureVerification.RunOcclusion` (4 checks) covers it, and the
+    sample renders now include `visual-observation-dev05-20s.png`.
+- `backend/conversation/scoring.py` (`conversation-scoring-v1`, evaluation
+  only, never imported on the request path):
+  - `validate_families` rejects labels that can't hold, for example a
+    citation not yet received by that turn's time.
+  - `score_turn` scores validity, status, referent, citations,
+    explanation-changed, unknowns and observations. A turn is correct only if
+    every labelled criterion holds.
+  - `summarize` reports per family.
+  - `baseline_proposal` is the deterministic baseline: the current referent,
+    every received fact, and changes flagged mechanically. It never
+    clarifies, never resolves a correction, and reports no observations.
+- `scripts/run_conversation_families.py` runs the families on any provider
+  (with the same budget controls), with `--images on|off` or `--baseline`,
+  and writes results with per-turn scores and a summary.
+- The deterministic baseline scores 7/16. It gets no-change, conflicting
+  reports and the late-report follow-ups right, and fails corrections,
+  ambiguity, unknowns and visible observations. A "must not be reported"
+  observation label is passed by any system that reports nothing, so it means
+  something only alongside the visible-vehicle turn.
+
+- First family runs, local, prompt v4, `referent-rule-v2`; development only. Turns
+  correct out of 16:
+
+  | System | Images on | Images off |
+  |---|---|---|
+  | Deterministic baseline | 7/16 | — |
+  | `qwen2.5-vl-3b` | 3/16 | 3/16 |
+  | `qwen3-vl-8b` | 8/16 | 8/16 |
+
+  - **8B:** solves late report, no change, scene change and ambiguity (it
+    asks for clarification). It fails rotation correction (0/3), conflicting
+    reports (0/2), missing evidence (0/1) and visual observation (0/2).
+  - **Images:** no measurable gain at either size; visual grounding remains
+    the weak point.
+  - **3B:** scores below the baseline.
+
 ## Rotations in Unity scenarios (31 October)
 
 - `Scenario.cs`: an aircraft has one `flightInstance` (legacy) or `rotations`,

@@ -141,6 +141,25 @@ public static class VisualCaptureVerification {
         Debug.Log("MULTI_AIRCRAFT_CHECKS_PASS: 14");
     }
 
+    // Occlusion (visual_dev_05): the fuel tanker under the service canopy changes almost no pixels
+    // in the evidence image, while the open hatch at the other stand stays legible.
+    public static void RunOcclusion() {
+        Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("Occlusion check failed: " + message); };
+        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        var boot = new GameObject("Occlusion regression").AddComponent<SceneBootstrap>();
+        boot.previewMode = true; boot.scenarioResource = "visual_dev_05"; boot.Initialize();
+        var replay = boot.Replay; replay.Seek(20);
+        check(replay.Content.Find("Occluder C1") != null, "canopy built");
+        var coverage = PropCoverage(replay, Camera.main); int frame = FramePixels(replay, Camera.main);
+        check(coverage["P1"] <= .0001f * frame, "tanker under the canopy is hidden (" + coverage["P1"] + " px)");
+        check(coverage["P2"] >= .0015f * frame, "hatch at the other stand stays legible (" + coverage["P2"] + " px)");
+        var json = Resources.Load<TextAsset>("visual_dev_05").text;
+        var s = JsonUtility.FromJson<Scenario>(json); s.occluders[0].height = 0;
+        bool rejected; try { s.Validate(); rejected = false; } catch (ArgumentException) { rejected = true; }
+        check(rejected, "an occluder without height is rejected");
+        Debug.Log($"OCCLUSION_CHECKS_PASS: 4 (P1={coverage["P1"]}px, P2={coverage["P2"]}px)");
+    }
+
     // Pixels each prop changes in the evidence image at 24 s (both props present), as a
     // count and a share of the frame. Hiding one prop at a time isolates its footprint.
     public static void MeasurePropCoverage() {
@@ -182,7 +201,8 @@ public static class VisualCaptureVerification {
         var output = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "../../../work"));
         System.IO.Directory.CreateDirectory(output);
         var samples = new[] { ("visual_dev_01", "visual-observation-", new[] { 24f, 29f, 31f }),
-                              ("visual_dev_02", "visual-observation-dev02-", new[] { 20f, 27f, 33f }) };
+                              ("visual_dev_02", "visual-observation-dev02-", new[] { 20f, 27f, 33f }),
+                              ("visual_dev_05", "visual-observation-dev05-", new[] { 20f }) };
         foreach (var (scenario, prefix, times) in samples) {
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var boot = new GameObject("Visual observation samples").AddComponent<SceneBootstrap>();
