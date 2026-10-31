@@ -89,8 +89,11 @@ is unchanged.
 - `backend/conversation/turns.py` serves one turn:
   1. Takes the receipt-eligible facts of every rotation of the selected aircraft,
      plus the current referent, and the memory visible at the turn's cutoff.
-  2. Builds the prompt (`conversation-prompt-v1`) and calls the model through
-     the model-access contract.
+  2. Builds the prompt (`conversation-prompt-v2`) and calls the model through
+     the model-access contract. For each candidate flight with a previous
+     answer, the prompt carries the changed-fact set the validator checks, from
+     the same `changed_facts` function. (v1 listed only the previous answer's
+     cited facts, so the required follow-up answer could not be read from it.)
   3. Parses the reply under `json-repair-v1` and runs `validate_proposal`.
   4. Commits atomically against the session revision.
 - Referent rule: the app sends its selected aircraft and flight on every turn.
@@ -100,7 +103,9 @@ is unchanged.
   rationale.
 - `backend/conversation/server.py` provides `POST /conversation` and `GET /health`:
   - It uses the same bearer token as `/reason`, checked before the body is read.
-  - It has one in-memory session per `sessionId`. A session's mode cannot change.
+  - It has one in-memory session per `sessionId`, bound to the scenario and mode it
+    started with; a change to either gets 409, because scenarios reuse aircraft and
+    flight IDs.
   - Retries with the same request ID return the stored result without a second
     model call.
   - A stale revision, a backward seek in a formal run or a reused request ID
@@ -144,7 +149,7 @@ addressing findings 11 and 12:
 `python -m unittest discover -s tests` runs `tests/test_conversation.py`,
 `tests/test_modelaccess.py` and `tests/test_visual_observations.py` (48 tests,
 standard library only, no network, no weights) together with the existing tests.
-`tests/test_conversation_server.py` (15 tests) drives `/conversation` with a
+`tests/test_conversation_server.py` (18 tests) drives `/conversation` with a
 scripted model through FastAPI's test client.
 
 ## Not verified

@@ -20,13 +20,13 @@ import json
 from modelaccess.contract import ImageInput, Request
 from modelaccess.repair import REPAIR_POLICY_VERSION, parse_json_output
 from backend.evidence import FIELDS
-from backend.conversation.context import receipt_times, snapshot
+from backend.conversation.context import changed_facts, receipt_times, snapshot
 from backend.conversation.identity import next_rotation, resolve_flight, rotations_for
 from backend.conversation.observations import VISUAL_KINDS
 from backend.conversation.state import AssistantTurn, IntentRecord, StaleRevision
 from backend.conversation.validate import VALIDATOR_VERSION, validate_proposal
 
-PROMPT_VERSION = 'conversation-prompt-v1'
+PROMPT_VERSION = 'conversation-prompt-v2'
 MAX_MEMORY_IN_PROMPT = 6
 
 
@@ -38,23 +38,33 @@ def candidate_flights(data, aircraft_id, referent):
     return flights
 
 
-def build_prompt(data, cutoff, selection, referent, intents, previous, question, image_time=None, tap=None):
+def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight, question, image_time=None, tap=None):
+    """`previous_by_flight` maps (aircraft, flight) to the visible previous answer about that flight.
+
+    For each such flight the prompt carries the changed-fact set that
+    validate_proposal will check, computed by the same function, so a
+    follow-up's required explanationChanged and coverage can be read
+    from the prompt rather than inferred.
+    """
     candidates = []
     for aircraft, flight in candidate_flights(data, selection[0], referent):
         snap = snapshot(data, aircraft, flight, cutoff)
         following = next_rotation(data, aircraft, flight)
+        previous = previous_by_flight.get((aircraft, flight))
         candidates.append(dict(aircraftId=aircraft, flightInstance=flight,
                                nextRotation=following['flightInstance'] if following else None,
                                facts=[{k: f[k] for k in ('fact_id', 'event_id', 'property', 'value', 'status',
                                                           'eventTime', 'receiptTime', 'source')}
-                                      for f in snap['facts']]))
+                                      for f in snap['facts']],
+                               previousAnswer=None if previous is None else dict(
+                                   atReplayTime=previous.cutoff, status=previous.status,
+                                   citedFacts=list(previous.claims),
+                                   changedSincePreviousAnswer=changed_facts(
+                                       snapshot(data, aircraft, flight, previous.cutoff), snap))))
     memory = dict(
         currentReferent=None if referent is None else dict(aircraftId=referent[0], flightInstance=referent[1]),
         userIntents=[dict(kind=i.kind, aircraftId=i.aircraft_id, flightInstance=i.flight_instance, text=i.text,
-                          atReplayTime=i.cutoff) for i in intents[-MAX_MEMORY_IN_PROMPT:]],
-        previousAnswer=None if previous is None else dict(
-            aircraftId=previous.aircraft_id, flightInstance=previous.flight_instance, atReplayTime=previous.cutoff,
-            status=previous.status, citedFacts=list(previous.claims)))
+                          atReplayTime=i.cutoff) for i in intents[-MAX_MEMORY_IN_PROMPT:]])
     view = ('No image is attached; "observations" must be [].' if image_time is None else
             f'An image of the current view is attached, captured at {image_time:g} s. You may report what is visible '
             f'for the referent aircraft only, as observations with captureTime {image_time:g}: '
@@ -73,9 +83,10 @@ def build_prompt(data, cutoff, selection, referent, intents, previous, question,
         '"captureTime":0}]}\n'
         'Rules: the referent must be one of the candidate flights. Claims copy a listed fact exactly. '
         'A user correction (for example "I mean its next rotation") changes the referent and is recorded as a '
-        'memoryUpdate of kind "correction"; it never changes a fact. If a previous answer exists for the same '
-        'flight, set explanationChanged and cite or list in changesNotDiscussed every fact that is new or changed '
-        'since then; otherwise explanationChanged is null. Use "clarify" when the referent is ambiguous and '
+        'memoryUpdate of kind "correction"; it never changes a fact. If the referent flight has a previousAnswer, '
+        'set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list '
+        'in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, '
+        'explanationChanged is null and changesNotDiscussed is []. Use "clarify" when the referent is ambiguous and '
         '"unknown" when the facts do not answer the question. Unknowns use these properties: '
         + ', '.join(FIELDS) + '.\n'
         f'Replay time (receipt cutoff): {cutoff:g} s. Selected in the app: aircraft {selection[0]}, '
@@ -116,9 +127,13 @@ def run_turn(session, data, turn, adapter, settings):
     if referent is None or referent[0] != selection[0]:
         new_intents.append(IntentRecord(turn_id, 'reference', *selection, turn['question'], cutoff))
         referent = selection
-    previous = session.previous_turn_for(*referent, cutoff, receipts)
-    prompt = build_prompt(data, cutoff, selection, referent, intents + new_intents, previous, turn['question'],
-                          image_time, turn.get('tap'))
+    previous_by_flight = {}
+    for flight in candidate_flights(data, selection[0], referent):
+        previous = session.previous_turn_for(*flight, cutoff, receipts)
+        if previous is not None:
+            previous_by_flight[flight] = previous
+    prompt = build_prompt(data, cutoff, selection, referent, intents + new_intents, previous_by_flight,
+                          turn['question'], image_time, turn.get('tap'))
     images = () if image_time is None else (ImageInput(turn['image'], turn['imageMediaType'], image_time),)
     reply = adapter.generate(Request(request_id, (('user', prompt),), settings, images))
 

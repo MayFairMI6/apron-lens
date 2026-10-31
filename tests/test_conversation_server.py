@@ -130,6 +130,36 @@ class Endpoint(unittest.TestCase):
         self.assertFalse(result['accepted'])
         self.assertIn('denies_change', result['errors'])
 
+    def test_follow_up_prompt_carries_the_changes_the_validator_checks(self):
+        client = self.serve([reply(claims=[claim('E01:stand', 'B', 'current', 'E01')]), reply(), reply()])
+        self.ask(client, 1, 0, checkpoint=25)
+        self.ask(client, 2, 1, checkpoint=26)
+        self.assertIn('"changedSincePreviousAnswer": []', self.prompt())
+        self.ask(client, 3, 2, checkpoint=30)  # E03 supersedes E01, received at 30 s
+        self.assertIn('"changedSincePreviousAnswer": ["E01:stand", "E03:stand"]', self.prompt())
+
+    def test_expiry_before_or_after_the_previous_answer_gives_different_prompts(self):
+        prompts = []
+        for expiry in (24, 27):
+            data = two_rotation_scenario()
+            data['events'][3]['facts'][0]['validUntil'] = expiry  # E04: A1's stand
+            client = self.serve([reply(referent={'aircraftId': 'A1', 'flightInstance': 'F1-R1'}), reply()],
+                                scenarios={'conv-test': data})
+            self.ask(client, 1, 0, checkpoint=25, aircraft='A1', flight='F1-R1')
+            self.ask(client, 2, 1, checkpoint=30, aircraft='A1', flight='F1-R1')
+            prompts.append(self.prompt())
+        self.assertIn('"changedSincePreviousAnswer": []', prompts[0])
+        self.assertIn('"changedSincePreviousAnswer": ["E04:stand"]', prompts[1])
+
+    def test_session_is_bound_to_its_scenario(self):
+        other = dict(two_rotation_scenario(), scenarioId='conv-other')
+        client = self.serve([reply(claims=[claim('E01:stand', 'B', 'current', 'E01')])],
+                            scenarios={'conv-test': two_rotation_scenario(), 'conv-other': other})
+        self.ask(client, 1, 0)
+        self.assertEqual(self.ask(client, 1, 0, scenarioId='conv-other').status_code, 409)
+        self.assertEqual(self.ask(client, 2, 1, scenarioId='conv-other').status_code, 409)
+        self.assertEqual(len(self.adapter.calls), 1)
+
     def test_invalid_and_fenced_json(self):
         client = self.serve(['not json', '```json\n' + reply() + '\n```'])
         bad = self.ask(client, 1, 0).json()

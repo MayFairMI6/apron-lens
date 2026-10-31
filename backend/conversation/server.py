@@ -2,7 +2,8 @@
 
 Separate from the frozen /reason server (backend/server.py), which is not
 modified. It shares that server's bearer token so the app keeps one secret.
-Sessions live in memory; restarting the service starts new sessions. Images
+Sessions live in memory, each bound to the scenario and mode it started with;
+restarting the service starts new sessions. Images
 are used for inference and hashed for the audit; their bytes are never stored.
 Before binding, check_bind refuses a non-loopback address whenever the adapter
 can spend money (any provider other than the local backbone or the mock).
@@ -125,9 +126,12 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
         data = app.state.scenarios.get(body.scenarioId)
         if data is None:
             raise HTTPException(422, 'Unknown scenario')
-        session = app.state.sessions.get(body.sessionId)
-        if session is None:
-            session = app.state.sessions.setdefault(body.sessionId, SessionState(body.sessionId, body.mode))
+        # A session belongs to the scenario and mode it started with: scenarios reuse
+        # aircraft and flight IDs, so memory and stored results must not carry across.
+        scenario_id, session = app.state.sessions.setdefault(
+            body.sessionId, (body.scenarioId, SessionState(body.sessionId, body.mode)))
+        if scenario_id != body.scenarioId:
+            raise HTTPException(409, 'Session belongs to another scenario; start a new session')
         if session.mode != body.mode:
             raise HTTPException(409, 'Session mode cannot change; start a new session')
         turn = dict(requestId=body.requestId, turnId=body.turnId, expectedRevision=body.expectedRevision,
