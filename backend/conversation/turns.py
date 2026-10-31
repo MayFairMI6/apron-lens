@@ -26,7 +26,7 @@ from backend.conversation.observations import VISUAL_KINDS
 from backend.conversation.state import AssistantTurn, IntentRecord, StaleRevision
 from backend.conversation.validate import VALIDATOR_VERSION, validate_proposal
 
-PROMPT_VERSION = 'conversation-prompt-v3'
+PROMPT_VERSION = 'conversation-prompt-v4'
 MAX_MEMORY_IN_PROMPT = 6
 
 
@@ -69,7 +69,10 @@ def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight,
             f'An image of the current view is attached, captured at {image_time:g} s. You may report what is visible '
             f'for the referent aircraft only, as observations with captureTime {image_time:g}: '
             + '; '.join(f'{k} in {list(v["values"])}' for k, v in VISUAL_KINDS.items())
-            + '. Report a kind only if you can see it at the referent aircraft; otherwise leave it out.'
+            + '. How they look in this rendering: '
+            + '; '.join(f'{k} ({v["appearance"]})' for k, v in VISUAL_KINDS.items())
+            + '. Report a kind only if you can see that part of the referent aircraft; otherwise leave it out. '
+              'Observations describe the image only: report what you see even if it disagrees with a report.'
             + ('' if tap is None else f' The user tapped the image at ({tap[0]:.3f}, {tap[1]:.3f}), '
                                       'origin bottom-left, 0..1.'))
     return (

@@ -156,8 +156,11 @@ class Endpoint(unittest.TestCase):
         self.ask(client, 1, 0)
         self.assertIn('"status":"current|superseded|scheduled|expired|conflicting"', self.prompt())
         self.assertIn('"observations":[]}', self.prompt())
+        self.assertNotIn('How they look in this rendering', self.prompt())
         self.ask(client, 2, 1, imageBase64=png(), imageCaptureTime=24)
         self.assertIn('"captureTime":24}]}', self.prompt())
+        self.assertIn('How they look in this rendering: fuel_vehicle (connected: a near-black tanker', self.prompt())
+        self.assertIn('report what you see even if it disagrees with a report', self.prompt())
 
     def test_session_is_bound_to_its_scenario(self):
         other = dict(two_rotation_scenario(), scenarioId='conv-other')
