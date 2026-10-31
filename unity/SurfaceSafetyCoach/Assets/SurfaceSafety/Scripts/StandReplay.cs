@@ -50,6 +50,8 @@ namespace SurfaceSafety {
             }
         }
         Transform[] planes;
+        GameObject[] propObjects;
+        VisualProp[] props;
         LineRenderer selectionRing;
         RectTransform safeRoot, body;
         Text status, clockLabel, playLabel, selectionLabel;
@@ -65,9 +67,12 @@ namespace SurfaceSafety {
         readonly Color muted=new Color(.38f,.46f,.5f);
         readonly Color teal=new Color(0f,.40f,.42f);
         readonly Color amber=new Color(.65f,.35f,.04f);
-        public void Initialize(bool preview) {
+        public void Initialize(bool preview) {Initialize(preview,"milestone1");}
+        public void Initialize(bool preview,string scenarioResource) {
             previewMode=preview;
-            Data=JsonUtility.FromJson<Scenario>(Resources.Load<TextAsset>("milestone1").text);Data.Validate();
+            var asset=Resources.Load<TextAsset>(scenarioResource);
+            if(asset==null)throw new ArgumentException("Unknown scenario resource: "+scenarioResource);
+            Data=JsonUtility.FromJson<Scenario>(asset.text);Data.Validate();
             Clock=new ReplayClock(Data.duration);Clock.SetTracking(preview);
             Content=new GameObject("StandWorld").transform;Content.SetParent(transform,false);
             BuildWorld();BuildUI();
@@ -122,6 +127,9 @@ namespace SurfaceSafety {
                 planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*.003f;
                 planes[i].localRotation=Quaternion.LookRotation(Scenario.Direction(Data.aircraft[i],Clock.Time),Vector3.up);
             }
+            if(propObjects!=null)for(int i=0;i<propObjects.Length;i++){
+                var v=Scenario.PropValueAt(props[i],Clock.Time);propObjects[i].SetActive(v=="connected"||v=="open");
+            }
             if(selectionRing!=null){selectionRing.transform.localPosition=Scenario.Position(SelectedAircraft,Clock.Time);selectionRing.startColor=selectionRing.endColor=SelectedAircraftIndex==1?new Color(1f,.72f,.33f):new Color(.28f,.84f,.78f);}
             if(!VisibleReports.Any(e=>e.id==InspectedReportId))InspectedReportId="";
             if(clockLabel!=null)clockLabel.text=$"{Clock.Time:00.0}<size=33> / {Data.duration:00} s</size>";
@@ -143,6 +151,24 @@ namespace SurfaceSafety {
             if(Application.isPlaying)Destroy(collider);else DestroyImmediate(collider);
         }
         Material Mat(Color color){var m=new Material(Shader.Find("Standard"));m.color=color;return m;}
+        // Visual-only props in one neutral colour and without text, attached to their aircraft.
+        // A fuel vehicle is shown while connected; a cargo hatch panel is shown while open.
+        void BuildProps(){
+            props=Data.visualProps??new VisualProp[0];propObjects=new GameObject[props.Length];
+            var neutral=new Color(.86f,.87f,.84f);
+            for(int i=0;i<props.Length;i++){
+                var id=props[i].aircraftId;
+                int index=Array.FindIndex(Data.aircraft,a=>a.id==id);
+                var root=new GameObject("Visual prop "+props[i].id).transform;root.SetParent(planes[index],false);
+                if(props[i].kind=="fuel_vehicle"){
+                    Shape(PrimitiveType.Cube,"Service vehicle body",new Vector3(.011f,.0018f,.008f),new Vector3(.0045f,.0036f,.0070f),neutral,root);
+                    Shape(PrimitiveType.Cube,"Service vehicle hose",new Vector3(.0065f,.0014f,.006f),new Vector3(.0050f,.0007f,.0007f),neutral,root);
+                } else {
+                    Shape(PrimitiveType.Cube,"Hatch panel",new Vector3(-.0055f,.0040f,-.0050f),new Vector3(.0040f,.0005f,.0045f),neutral,root);
+                }
+                propObjects[i]=root.gameObject;
+            }
+        }
         GameObject Shape(PrimitiveType type,string label,Vector3 p,Vector3 scale,Color color,Transform parent){
             var g=GameObject.CreatePrimitive(type);g.name=label;g.transform.SetParent(parent,false);
             g.transform.localPosition=p;g.transform.localScale=scale;g.GetComponent<Renderer>().sharedMaterial=Mat(color);
@@ -166,6 +192,7 @@ namespace SurfaceSafety {
                 var col=i==0?new Color(.15f,.68f,.86f):new Color(1,.64f,.18f);
                 AircraftVisual.Build(root,col);
             }
+            BuildProps();
             foreach(var a in Data.aircraft) {
                 var g=new GameObject(a.id+" authored path");g.transform.SetParent(Content,false);
                 var l=g.AddComponent<LineRenderer>();l.useWorldSpace=false;l.positionCount=a.waypoints.Length;l.widthMultiplier=.0007f;

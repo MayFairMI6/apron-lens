@@ -17,7 +17,7 @@ public static class MilestoneBuild {
         importer.maxTextureSize=2048;importer.npotScale=TextureImporterNPOTScale.None;
         importer.mipmapEnabled=false;importer.SaveAndReimport();
         PlayerSettings.companyName="Airfield Research";PlayerSettings.productName="ApronLens";
-        PlayerSettings.bundleVersion="1.4";PlayerSettings.Android.bundleVersionCode=5;
+        PlayerSettings.bundleVersion="1.5";PlayerSettings.Android.bundleVersionCode=6;
         PlayerSettings.insecureHttpOption=InsecureHttpOption.DevelopmentOnly;
         PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android,"edu.airfieldresearch.standreplay");
         PlayerSettings.defaultInterfaceOrientation=UIOrientation.Portrait;

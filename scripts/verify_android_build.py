@@ -21,7 +21,8 @@ assert "sdkVersion:'29'" in badging
 assert "native-code: 'arm64-v8a'" in badging
 assert "android.permission.CAMERA" in badging
 assert "android.permission.INTERNET" in badging
-assert "versionName='1.4'" in badging and "versionCode='5'" in badging
+VERSION_NAME, VERSION_CODE = "1.5", 6  # keep in step with MilestoneBuild.cs
+assert f"versionName='{VERSION_NAME}'" in badging and f"versionCode='{VERSION_CODE}'" in badging
 manifest = subprocess.run([str(tools / "SDK/build-tools/34.0.0/aapt"), "dump", "xmltree", str(apk), "AndroidManifest.xml"],
                           capture_output=True, text=True, check=True).stdout
 assert any("usesCleartextTraffic" in line and "0xffffffff" in line for line in manifest.splitlines())
@@ -36,8 +37,8 @@ result = {
     "bytes": apk.stat().st_size,
     "sha256": hashlib.sha256(apk.read_bytes()).hexdigest(),
     "abi": "arm64-v8a",
-    "version": "1.4",
-    "version_code": 5,
+    "version": VERSION_NAME,
+    "version_code": VERSION_CODE,
     "minimum_android_api": 29,
     "target_android_api": 35,
     "launch_activity": "com.unity3d.player.UnityPlayerActivity",

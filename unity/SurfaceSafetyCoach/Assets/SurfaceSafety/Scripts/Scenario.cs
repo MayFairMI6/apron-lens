@@ -11,11 +11,45 @@ namespace SurfaceSafety {
         public EvidenceFact[] facts;
         public float eventTime, receiptTime;
     }
+    // Visual-only scene state: rendered in the replay but never sent as a report.
+    // The backend request path never reads it; it is ground truth for scoring only.
+    [Serializable] public class PropState { public float t; public string value; }
+    [Serializable] public class VisualProp {
+        public string id, aircraftId, flightInstance, kind;
+        public PropState[] states;
+    }
     [Serializable] public class Scenario {
         public string scenarioId;
         public float duration, targetWidth;
         public AircraftPlan[] aircraft;
         public ScenarioEvent[] events;
+        public VisualProp[] visualProps;
+        static readonly string[] FuelVehicleValues = { "connected", "departed" };
+        static readonly string[] CargoDoorValues = { "open", "closed" };
+        public static bool AllowedPropValue(string kind, string value) =>
+            kind == "fuel_vehicle" ? Array.IndexOf(FuelVehicleValues, value) >= 0 :
+            kind == "cargo_door" && Array.IndexOf(CargoDoorValues, value) >= 0;
+        public static string PropValueAt(VisualProp p, float t) {
+            var value = p.states[0].value;
+            foreach (var s in p.states) if (s.t <= t) value = s.value;
+            return value;
+        }
+        void ValidateProps() {
+            if (visualProps == null) return;
+            if (visualProps.Select(p => p.id).Distinct().Count() != visualProps.Length)
+                throw new ArgumentException("Duplicate visual prop ID.");
+            foreach (var p in visualProps) {
+                if (string.IsNullOrEmpty(p.id) || !aircraft.Any(a => a.id == p.aircraftId && a.flightInstance == p.flightInstance))
+                    throw new ArgumentException("Visual prop must belong to a scenario aircraft and flight.");
+                if (p.states == null || p.states.Length == 0 || p.states[0].t != 0)
+                    throw new ArgumentException("Visual prop states must start at time 0.");
+                for (int i = 0; i < p.states.Length; i++) {
+                    var s = p.states[i];
+                    if (!AllowedPropValue(p.kind, s.value) || s.t < 0 || s.t > duration || (i > 0 && s.t <= p.states[i - 1].t))
+                        throw new ArgumentException("Invalid visual prop kind, value or time order.");
+                }
+            }
+        }
         public void Validate() {
             if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length != 2)
                 throw new ArgumentException("Scenario requires positive duration/width and two aircraft.");
@@ -39,6 +73,7 @@ namespace SurfaceSafety {
                     string.IsNullOrEmpty(e.id) || string.IsNullOrEmpty(e.source) ||
                     !aircraft.Any(a=>a.flightInstance==e.flightInstance))
                     throw new ArgumentException("Invalid event identity or timestamps.");
+            ValidateProps();
         }
         public ScenarioEvent[] KnownAt(float t) => events.Where(e=>e.receiptTime<=t)
             .OrderBy(e=>e.receiptTime).ThenBy(e=>e.id, StringComparer.Ordinal).ToArray();

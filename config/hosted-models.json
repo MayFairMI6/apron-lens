@@ -1,0 +1,125 @@
+{
+  "checkedOn": "2026-10-31",
+  "currency": "USD per 1M tokens",
+  "policy": "Planning inputs only. Refresh against the listed source before any paid run. A capability marked unverified must be confirmed (documentation or a recorded probe) before formal use. Label/logit scoring is treated as unsupported for every hosted model until verified. Rates marked rateIsLowerBound cannot be used for conservative budget reservations.",
+  "models": {
+    "gpt-6-astra": {
+      "provider": "openai",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 10.0, "cachedInputPerMTok": 1.0, "outputPerMTok": 50.0}],
+      "imageInput": "verified", "videoInput": "not_supported_verified", "structuredOutputs": "verified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningEfforts": ["low", "medium", "high", "xhigh", "max"],
+      "reasoningTokenBilling": "unverified",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+    },
+    "gpt-6.1-sol": {
+      "provider": "openai",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 2.0, "cachedInputPerMTok": 0.10, "outputPerMTok": 10.0}],
+      "imageInput": "verified", "videoInput": "not_supported_verified", "structuredOutputs": "verified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningEfforts": ["low", "medium", "high", "xhigh", "max"],
+      "reasoningTokenBilling": "unverified",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+    },
+    "gpt-6.1-terra": {
+      "provider": "openai",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 1.0, "cachedInputPerMTok": 0.05, "outputPerMTok": 5.0}],
+      "imageInput": "verified", "videoInput": "unverified", "structuredOutputs": "verified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningEfforts": ["none", "low", "medium", "high", "xhigh", "max"],
+      "reasoningTokenBilling": "unverified",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+    },
+    "gpt-6-luna": {
+      "provider": "openai",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 0.10, "cachedInputPerMTok": 0.01, "outputPerMTok": 0.50}],
+      "imageInput": "verified", "videoInput": "unverified", "structuredOutputs": "verified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningEfforts": ["none", "low", "medium", "high", "xhigh", "max"],
+      "reasoningTokenBilling": "unverified",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+    },
+    "gemini-4-argon": {
+      "provider": "google",
+      "rates": [
+        {"effectiveFrom": "2026-10-31", "inputPerMTok": 2.0, "outputPerMTok": 10.0},
+        {"effectiveFrom": "2026-12-01", "inputPerMTok": 4.0, "outputPerMTok": 20.0}
+      ],
+      "imageInput": "unverified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningTokenBilling": "output_includes_thinking_verified",
+      "freeTier": false,
+      "source": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "gemini-3.8-flash": {
+      "provider": "google",
+      "rates": [
+        {"effectiveFrom": "2026-10-31", "inputPerMTok": 0.75, "outputPerMTok": 3.75},
+        {"effectiveFrom": "2027-01-01", "inputPerMTok": 1.50, "outputPerMTok": 7.50}
+      ],
+      "imageInput": "unverified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningTokenBilling": "output_includes_thinking_verified",
+      "freeTier": true, "freeTierDataUse": "unverified_check_terms_before_use",
+      "source": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "gemini-3.6-flash": {
+      "provider": "google",
+      "rates": [
+        {"effectiveFrom": "2026-10-31", "inputPerMTok": 0.75, "outputPerMTok": 3.75},
+        {"effectiveFrom": "2027-01-01", "inputPerMTok": 1.50, "outputPerMTok": 7.50}
+      ],
+      "imageInput": "unverified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningTokenBilling": "output_includes_thinking_verified",
+      "freeTier": true, "freeTierDataUse": "unverified_check_terms_before_use",
+      "source": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "gemini-3.5-flash-lite": {
+      "provider": "google",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 0.30, "outputPerMTok": 2.50}],
+      "imageInput": "verified_priced", "videoInput": "verified_priced", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningTokenBilling": "output_includes_thinking_verified",
+      "freeTier": true, "freeTierDataUse": "unverified_check_terms_before_use",
+      "source": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "gemini-3.1-flash-lite": {
+      "provider": "google",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 0.25, "outputPerMTok": 1.50}],
+      "imageInput": "verified_priced", "videoInput": "verified_priced", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "reasoningTokenBilling": "output_includes_thinking_verified",
+      "freeTier": true, "freeTierDataUse": "unverified_check_terms_before_use",
+      "source": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "claude-fable-5-1": {
+      "provider": "anthropic",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 10.0, "outputPerMTok": 50.0}],
+      "imageInput": "verified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "thinking": "always_on_verified",
+      "source": "https://platform.claude.com/docs/en/models/overview"
+    },
+    "claude-opus-5-5": {
+      "provider": "anthropic",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 4.0, "outputPerMTok": 20.0}],
+      "imageInput": "verified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "thinking": "always_on_verified",
+      "source": "https://platform.claude.com/docs/en/models/overview"
+    },
+    "claude-sonnet-5-5": {
+      "provider": "anthropic",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 2.0, "outputPerMTok": 10.0}],
+      "imageInput": "verified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "thinking": "adaptive_cannot_disable_verified",
+      "source": "https://platform.claude.com/docs/en/models/overview"
+    },
+    "claude-haiku-5-5": {
+      "provider": "anthropic",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 0.10, "outputPerMTok": 0.50, "rateIsLowerBound": true}],
+      "imageInput": "verified", "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "thinking": "adaptive_verified",
+      "source": "https://platform.claude.com/docs/en/models/overview"
+    },
+    "deepseek-flash": {
+      "provider": "deepseek",
+      "rates": [{"effectiveFrom": "2026-10-31", "inputPerMTok": 0.30, "cachedInputPerMTok": 0.006, "outputPerMTok": 1.20,
+                 "note": "Peak rates recorded for conservative reservations; off-peak is half. Peak and off-peak runs also differ in latency."}],
+      "imageInput": "verified", "imageTokenCap": 1024, "videoInput": "unverified", "structuredOutputs": "unverified",
+      "labelScoring": "unverified_treat_as_unsupported", "servedVersion": "DeepSeek-V4.1-Flash-1017",
+      "retiredAliases": ["deepseek-v4-flash", "deepseek-v4-flash-vision-exp"],
+      "source": "https://api-docs.deepseek.com/quick_start/pricing/"
+    }
+  }
+}
