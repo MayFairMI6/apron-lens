@@ -153,9 +153,10 @@ namespace SurfaceSafety {
         Material Mat(Color color){var m=new Material(Shader.Find("Standard"));m.color=color;return m;}
         // Visual-only props in one neutral colour and without text, attached to their aircraft.
         // A fuel vehicle is shown while connected; a cargo hatch panel is shown while open.
+        // Dark grey contrasts with both the white airframe and the light apron.
         void BuildProps(){
             props=Data.visualProps??new VisualProp[0];propObjects=new GameObject[props.Length];
-            var neutral=new Color(.86f,.87f,.84f);
+            var neutral=new Color(.27f,.29f,.28f);
             for(int i=0;i<props.Length;i++){
                 var id=props[i].aircraftId;
                 int index=Array.FindIndex(Data.aircraft,a=>a.id==id);
@@ -164,7 +165,7 @@ namespace SurfaceSafety {
                     Shape(PrimitiveType.Cube,"Service vehicle body",new Vector3(.011f,.0018f,.008f),new Vector3(.0045f,.0036f,.0070f),neutral,root);
                     Shape(PrimitiveType.Cube,"Service vehicle hose",new Vector3(.0065f,.0014f,.006f),new Vector3(.0050f,.0007f,.0007f),neutral,root);
                 } else {
-                    Shape(PrimitiveType.Cube,"Hatch panel",new Vector3(-.0055f,.0040f,-.0050f),new Vector3(.0040f,.0005f,.0045f),neutral,root);
+                    Shape(PrimitiveType.Cube,"Hatch panel",new Vector3(-.0060f,.0040f,-.0050f),new Vector3(.0060f,.0005f,.0068f),neutral,root);
                 }
                 propObjects[i]=root.gameObject;
             }

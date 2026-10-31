@@ -56,11 +56,21 @@ not otherwise have.
   concern the referent; shown as unverified; claims and changed-fact checks
   are unaffected.
 - Unity editor checks (batch mode with graphics): `VisualCaptureVerification.Run`
-  (4 checks), `.RunObservations` (7 checks), and existing
+  (6 checks), `.RunObservations` (8 checks), and existing
   `ClaimClientVerification` (5) and `CoordinatorUiVerification` (16) all pass.
   Sample captures: `work/visual-observation-{24,29,31}s.png`.
-- Open: props occupy about 1% of the frame, which a 3B model may miss; consider
-  a referent-centred crop or larger props. Occlusion families not yet authored.
+- Prop legibility (`visual-capture-v2`): measured with
+  `VisualCaptureVerification.MeasurePropCoverage`, the props first covered 220 px
+  (fuel vehicle) and 81 px (hatch) of a 672 × 504 capture, 0.06% and 0.02% of the
+  frame, not the 1% estimated earlier. A referent-centred crop was rejected
+  because its framing would reveal the referent. The capture now renders a crop
+  fitted to all aircraft and stand markers (`SceneCrop`, about 2× zoom in the
+  development view; identical for either selection, and the tap is returned in
+  crop coordinates). Props are dark grey instead of near-white and the hatch is
+  1.5× larger in plan. Result: 892 px (0.26%) and 783 px (0.23%);
+  `.RunObservations` now fails if a prop drops below 0.15%.
+- Open: occlusion families not yet authored. The crop shrinks as aircraft spread
+  apart, so wider scenes zoom less.
 
 ## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
 
