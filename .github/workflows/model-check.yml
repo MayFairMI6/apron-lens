@@ -21,6 +21,14 @@ on:
           - qwen3-vl-8b
           - qwen3.5-9b
           - gemma-4-e4b
+      runtime:
+        description: Runtime profile (backbone/models.json); this runner is Apple Silicon
+        required: true
+        type: choice
+        default: apronlens-v2-mps
+        options:
+          - apronlens-v2-mps
+          - cpu-float32
 permissions:
   contents: read
 concurrency:
@@ -39,6 +47,7 @@ jobs:
       AIRFIELD_MODELS_DIR: ${{ vars.AIRFIELD_MODELS_DIR }}
       AIRFIELD_CHECK_SUITE: ${{ inputs.suite }}
       AIRFIELD_CHECK_MODEL: ${{ inputs.model }}
+      AIRFIELD_CHECK_RUNTIME: ${{ inputs.runtime }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -58,12 +67,12 @@ jobs:
           "$python" scripts/prepare_model_runner.py --model "$AIRFIELD_CHECK_MODEL" --model-cache "$cache"
           echo "AIRFIELD_RUN_PYTHON=$python" >> "$GITHUB_ENV"
       - name: Run development checks with the real model
-        run: '"$AIRFIELD_RUN_PYTHON" scripts/run_model_check.py --suite "$AIRFIELD_CHECK_SUITE" --model "$AIRFIELD_CHECK_MODEL" --output work/model-ci'
+        run: '"$AIRFIELD_RUN_PYTHON" scripts/run_model_check.py --suite "$AIRFIELD_CHECK_SUITE" --model "$AIRFIELD_CHECK_MODEL" --runtime "$AIRFIELD_CHECK_RUNTIME" --output work/model-ci'
       - name: Save model run as an artifact
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: ${{ inputs.model }}-${{ inputs.suite }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: ${{ inputs.model }}-${{ inputs.runtime }}-${{ inputs.suite }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: work/model-ci/
           if-no-files-found: warn
           retention-days: 30
