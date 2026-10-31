@@ -45,7 +45,9 @@ namespace SurfaceSafety {
 
     public class ConversationClient : MonoBehaviour {
         StandReplay replay;
+        public const int ServicePort = 8766;
         string endpoint = "http://127.0.0.1:8766", token = "";
+        public string Endpoint => endpoint;
         UnityWebRequest active;
         GameObject panel;
         Text answerText;
@@ -58,16 +60,26 @@ namespace SurfaceSafety {
 
         public void Bind(StandReplay target) {
             replay = target;
-            endpoint = PlayerPrefs.GetString("conversation_endpoint", endpoint);
+            LoadConnection();
+            replay.OpenConversation += ShowPanel;
+            NewSession();
+        }
+        void OnDestroy() { Cancel(); if (replay != null) replay.OpenConversation -= ShowPanel; }
+
+        // Read the shared connection settings each time, so a change saved in More -> Model connection
+        // applies without a restart. The service runs on the same host as /reason, on its own port,
+        // unless "conversation_endpoint" names another address.
+        public void LoadConnection() {
+            var explicitEndpoint = PlayerPrefs.GetString("conversation_endpoint", "");
+            if (!string.IsNullOrWhiteSpace(explicitEndpoint)) endpoint = explicitEndpoint.Trim().TrimEnd('/');
+            else if (Uri.TryCreate(PlayerPrefs.GetString("qwen_endpoint", ""), UriKind.Absolute, out var reason))
+                endpoint = new UriBuilder(reason.Scheme, reason.Host, ServicePort).Uri.ToString().TrimEnd('/');
             token = PlayerPrefs.GetString("qwen_token", "");
 #if UNITY_EDITOR
             var path = Path.GetFullPath(Path.Combine(Application.dataPath, "../../../work/qwen-server-token.txt"));
             if (File.Exists(path)) token = File.ReadAllText(path).Trim();
 #endif
-            replay.OpenConversation += ShowPanel;
-            NewSession();
         }
-        void OnDestroy() { Cancel(); if (replay != null) replay.OpenConversation -= ShowPanel; }
 
         public void NewSession() { SessionId = Guid.NewGuid().ToString("N"); Revision = 0; Pending = null; LastResponse = null; }
 
@@ -124,14 +136,15 @@ namespace SurfaceSafety {
         public void Ask(string question) {
             if (Busy || string.IsNullOrWhiteSpace(question)) return;
             if (!replay.Clock.Tracked) { Show("SCENE UNAVAILABLE", "Acquire the printed board before asking."); return; }
+            LoadConnection();
             if (!Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) || (uri.Scheme != "http" && uri.Scheme != "https") || string.IsNullOrWhiteSpace(token)) {
-                Show("CONNECTION NEEDED", "Open More → Model connection and enter the service token."); return;
+                Show("CONNECTION NEEDED", $"Open More → Model connection and enter the Mac address and token. Questions go to the same host on port {ServicePort}."); return;
             }
             replay.Pause();
             Send(BuildRequest(question));
         }
 
-        public void Retry() { if (!Busy && Pending != null && SameContext(Pending)) Send(Pending); }
+        public void Retry() { if (!Busy && Pending != null && SameContext(Pending)) { LoadConnection(); Send(Pending); } }
 
         void Send(ConversationRequest request) {
             Pending = request;
