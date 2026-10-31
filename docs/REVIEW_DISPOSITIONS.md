@@ -18,7 +18,7 @@ Status key: **Done** = implemented with unit tests · **Plan** = plan PDF revise
 | # | Finding | Disposition | Where |
 |---|---------|-------------|-------|
 | 1 | Evidence image reveals the selected aircraft; fixed virtual camera | Done in part / Plan. New capture omits ring and paths, renders from the AR camera pose, returns the tap as coordinates. **Verified in the Unity editor (batch mode with graphics, 31 October):** the project compiles; the existing capture differs by selection (leak confirmed); the new capture is byte-identical for either selection and not blank (672x504, 70 sampled colours); the tap is returned as viewport coordinates. Log: `work/unity-visual-capture-check.log`. Open: uniform livery and 3+ aircraft (StandReplay still builds two index-coloured aircraft); Android build and on-device check | `unity/.../Scripts/VisualEvidenceCapture.cs`, `unity/.../Editor/VisualCaptureVerification.cs` |
-| 2 | Aircraft cannot have a next rotation | Done (backend). Scenarios may declare `rotations`; legacy single-flight data still loads. The Unity conversation client sends `flightInstance`. Open: author Unity rotation scenarios | `backend/conversation/identity.py`, `context.py`, `ConversationClient.cs` |
+| 2 | Aircraft cannot have a next rotation | Done (backend). Scenarios may declare `rotations`; legacy single-flight data still loads. Done (backend and Unity). The Unity conversation client sends the rotation under way; Unity scenarios may declare `rotations` (`visual_dev_03`) | `backend/conversation/identity.py`, `context.py`, `Scenario.cs`, `ConversationClient.cs` |
 | 3 | Seek-back leaks future evidence through memory | Done. Memory is tagged with its cutoff and masked; formal runs reject backward seeks | `backend/conversation/state.py` |
 | 4 | Validator checks support but not completeness; rationale unverifiable | Done. Changed-fact coverage, deny-change check, unknown-vs-current check, template claims, labelled interpretation | `backend/conversation/validate.py` |
 | 5 | Budget assumes text-only, low-reasoning calls | Plan + Done (ledger). Astra out of screening; comparison cost gate; stress illustration. Open: one development cost probe per provider, check minimum deposits | `backend/conversation/ledger.py`, `selection.comparison_eligible`, plan budget section |
@@ -206,6 +206,38 @@ and one question per stand aircraft, with no reports, scored against
   the "fuel complete" report despite the image-first rule.
 - Conclusion: visual grounding of these props is a limit of the local 8B model,
   not the capture size. A hosted comparison is the next step.
+
+## Rotations in Unity scenarios (31 October)
+
+- `Scenario.cs`: an aircraft has one `flightInstance` (legacy) or `rotations`,
+  in the backend's format (`{flightInstance, from, until}`, ordered and
+  non-overlapping; the last may omit `until`). `FlightAt(t)` gives the
+  rotation under way, and between rotations the latest one that has started.
+  Validation matches `validate_rotations`: each flight is owned by one
+  aircraft, and every report's flight belongs to its own aircraft.
+- `StandReplay`: the selected flight, the report history and the chip labels
+  follow the rotation under way. Single-flight scenarios are unchanged,
+  including the Milestone 1 chip labels and the S24 layout result.
+- `ConversationClient`: sends the current rotation, and shows an answer about
+  any rotation of the referent aircraft (a "next rotation" correction) only
+  when its claims cite reports received for that rotation.
+- `visual_dev_03`: A2 flies F2-R1 until 45 s, then F2-R2. F2-R2's off-block
+  estimate (70 s, received at 10 s) is revised to 80 s by a report sent at
+  30 s and received at 36 s. So a question at 30 s, "I mean its next rotation",
+  and a follow-up at 40 s exercise the correction and the change check together.
+- Checks: `RotationVerification` (13), Python tests for `visual_dev_03`, and a
+  rotation session in `scripts/run_conversation_smoke.py`.
+- Development run with `qwen3-vl-8b` (prompt v4), 25 turns: 22 accepted. All
+  three rotation turns failed. Asked at 30 s when A2 leaves, it cited F2-R2's
+  off-block time under the referent F2-R1 (withheld). On "I mean its next
+  rotation" its memory update correctly named F2-R2, but the referent stayed
+  F2-R1 and it mixed both rotations' facts (withheld). The follow-up asked for
+  clarification. This is the same pattern as the fixture's correction turn:
+  the model works out the intended rotation but keeps the app's selection as
+  the referent.
+- Open design option, not adopted: take the referent from a validated
+  correction instead of from the model's referent field. That changes the
+  method, so it needs a decision before the freeze.
 
 ## Hosted adapters and budget enforcement (31 October)
 
