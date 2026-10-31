@@ -33,9 +33,17 @@ public static class VisualCaptureVerification {
         for (int y = 0; y < texture.height; y += 8) for (int x = 0; x < texture.width; x += 8) colours.Add(texture.GetPixel(x, y));
         UnityEngine.Object.DestroyImmediate(texture);
         check(colours.Count > 8, "new capture contains rendered content (" + colours.Count + " sampled colours)");
-        check(Mathf.Abs(evidence.tapViewport.x - .5f) < .01f && Mathf.Abs(evidence.tapViewport.y - .5f) < .01f, "tap returned as viewport coordinates");
+        var expectedTap = Rect.PointToNormalized(evidence.crop, new Vector2(.5f, .5f));
+        check(Mathf.Abs(evidence.tapViewport.x - expectedTap.x) < .01f && Mathf.Abs(evidence.tapViewport.y - expectedTap.y) < .01f, "tap returned in image coordinates");
 
-        Debug.Log("VISUAL_CAPTURE_CHECKS_PASS: 4 (" + evidence.width + "x" + evidence.height + ", " + colours.Count + " sampled colours)");
+        // 4. The crop zooms in and is fitted to all aircraft, not the selection.
+        replay.SelectAircraft(0); var cropA = VisualEvidenceCapture.SceneCrop(replay, viewpoint);
+        replay.SelectAircraft(1); var cropB = VisualEvidenceCapture.SceneCrop(replay, viewpoint);
+        check(cropA == cropB, "crop identical for either selection");
+        check(cropA.width < 1 && cropA.xMin >= 0 && cropA.yMin >= 0 && cropA.xMax <= 1 && cropA.yMax <= 1, "crop lies inside the view and zooms in");
+
+        Debug.Log("VISUAL_CAPTURE_CHECKS_PASS: 6 (" + evidence.width + "x" + evidence.height + ", " + colours.Count + " sampled colours, crop " +
+                  evidence.crop.width.ToString("0.00") + " of view)");
     }
 
     // Visual-only props in the development scenario (visual_dev_01).
@@ -72,7 +80,48 @@ public static class VisualCaptureVerification {
         check(!shown.SequenceEqual(hidden), "props are visible in the evidence image");
         check(VisualEvidenceCapture.SelectionInvariant(replay, viewpoint), "capture still independent of selection");
 
-        Debug.Log("VISUAL_OBSERVATION_CHECKS_PASS: 7");
+        // Each prop must stay legible: at least 0.15% of the frame (about 500 px at 672x504).
+        var coverage = PropCoverage(replay, viewpoint); int frame = FramePixels(replay, viewpoint);
+        check(coverage.Values.All(px => px >= .0015f * frame), "each prop covers at least 0.15% of the frame (" +
+              string.Join(", ", coverage.Select(c => c.Key + "=" + c.Value + "px")) + ")");
+
+        Debug.Log("VISUAL_OBSERVATION_CHECKS_PASS: 8");
+    }
+
+    // Pixels each prop changes in the evidence image at 24 s (both props present), as a
+    // count and a share of the frame. Hiding one prop at a time isolates its footprint.
+    public static void MeasurePropCoverage() {
+        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        var boot = new GameObject("Prop coverage measurement").AddComponent<SceneBootstrap>();
+        boot.previewMode = true; boot.scenarioResource = "visual_dev_01"; boot.Initialize();
+        boot.Replay.Seek(24);
+        Debug.Log("VISUAL_PROP_COVERAGE: crop " + VisualEvidenceCapture.SceneCrop(boot.Replay, Camera.main) + "; " + string.Join(", ", PropCoverage(boot.Replay, Camera.main)
+            .Select(c => c.Key + "=" + c.Value + "px (" + (100f * c.Value / FramePixels(boot.Replay, Camera.main)).ToString("0.00") + "%)")));
+    }
+
+    static Dictionary<string, int> PropCoverage(StandReplay replay, Camera viewpoint) {
+        var props = replay.Content.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Visual prop", StringComparison.Ordinal)).ToArray();
+        var all = Pixels(VisualEvidenceCapture.Capture(replay, viewpoint, null).png);
+        var result = new Dictionary<string, int>();
+        foreach (var p in props) {
+            p.gameObject.SetActive(false);
+            var without = Pixels(VisualEvidenceCapture.Capture(replay, viewpoint, null).png);
+            p.gameObject.SetActive(true);
+            result[p.name.Substring("Visual prop ".Length)] = all.Zip(without, (a, b) => !a.Equals(b)).Count(d => d);
+        }
+        return result;
+    }
+
+    static int FramePixels(StandReplay replay, Camera viewpoint) {
+        var evidence = VisualEvidenceCapture.Capture(replay, viewpoint, null);
+        return evidence.width * evidence.height;
+    }
+
+    static Color32[] Pixels(byte[] png) {
+        var texture = new Texture2D(2, 2); texture.LoadImage(png);
+        var pixels = texture.GetPixels32();
+        UnityEngine.Object.DestroyImmediate(texture);
+        return pixels;
     }
 
     // Writes sample evidence images to work/ for human inspection of prop legibility.
