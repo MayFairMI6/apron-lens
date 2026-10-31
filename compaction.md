@@ -21,6 +21,8 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 | D-006 | 2026-10-31 | Third-party weights and frameworks (Qwen, transformers, Unity, Vuforia) are not the user's contribution. | Accurate attribution. | `THIRD_PARTY_NOTICES.md` | active |
 | D-007 | 2026-10-31 | Development runs use development data only: inline fixtures, `visual_dev_*` scenarios, and v1 families D01–D08. Never H01–H04 or `reasoning_v2_fresh`; v1 dialogues are generated from scenario events without reading the v1 question/gold file. | Keeps every held-out set untouched. | `scripts/run_conversation_smoke.py` | active |
 
+| D-008 | 2026-10-31 | The user authorized running the milestone end to end without asking at each step (branch, build, test, PR, merge once CI and review are clean), with bypass permissions on. Spending is the exception: ask before any paid call, with the expected cost. The budget may be raised when needed. | User instruction. Refines D-004: merging no longer needs a separate yes; paid calls still do. | — | active |
+
 ## Environment and scope
 
 | ID | Date | Decision | Reason | Where | Status |
@@ -69,12 +71,15 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 | D-052 | Props redesigned for distinct outlines: a tanker (tank, cab, hose) on the aircraft's right and a cargo-hatch flap hinged out on its left, both near-black. Coverage 0.28% and 0.19%. | The original hatch panel looked like the fuel vehicle from above, and dark grey vanished on the dark Stand B band. | `StandReplay.BuildProps` | active |
 | D-053 | `conversation-prompt-v4`: an appearance legend for each prop (from `VISUAL_KINDS`) and "observations describe the image even if a report disagrees". | The props are abstract shapes; describing them lifted the original-prop check from 10/18 to 14/18. | `backend/conversation/turns.py`, `observations.py` | active |
 | D-054 | Development finding: with the new props and v4, the 8B model scores 11/18 plain and 12/18 with the legend on perception, and 21/22 on the conversation turns. One accepted image observation still follows the report against the image. Visual grounding of these props is a model limit at 8B; the next step is a hosted comparison, not more prop or prompt tuning. | Resolution, legend and redesign were each tested; none brought perception above about 14/18. | `scripts/run_visual_perception_check.py`, `docs/REVIEW_DISPOSITIONS.md` | active |
+| D-055 | Hosted adapters use the official `anthropic` and `openai` SDKs, imported only when a hosted run starts. No server-side refusal fallbacks (the contract forbids serving another model), SDK retries off, temperature reported as ignored, capabilities unverified until probed. `modelaccess` is now 0.2.0. | Contract rules; the Claude API reference recommends SDKs over raw HTTP. | `modelaccess/anthropic_api.py`, `openai_api.py` | active |
+| D-056 | Every hosted call reserves a conservative maximum in the ledger before sending and reconciles to reported usage. Scripts price a run with `--estimate-only` and refuse a paid run without `--confirm-spend` or above `--max-spend`. | Spending stays bounded and visible before it happens (D-008). | `backend/conversation/hosted.py` | active |
+| D-057 | No provider API key is set on the development Mac, so the hosted comparison waits for the user to add keys and approve the spend. | Credentials are the user's to provide; never entered by the agent. | — | open |
 
 ## Open items (31 October)
 
 - Next model comparison: one low-cost hosted probe on the same 22 development turns (about $10–15 budget, D-004). Qwen3-VL-8B is done (D-048).
-- Visual grounding: compare a hosted model on `scripts/run_visual_perception_check.py` and the 22 turns (D-054); add observation scoring against `visual_truth` to the evaluation (D-049).
-- Unity client for `/conversation` (send `flightInstance` and conversation turns); hosted adapters.
+- Visual grounding: compare a hosted model on `scripts/run_visual_perception_check.py` and the 22 turns (D-054). Adapters and budget enforcement are ready (D-055, D-056); this needs API keys and approval (D-057). Also add observation scoring against `visual_truth` to the evaluation (D-049).
+- Unity client for `/conversation` (send `flightInstance` and conversation turns).
 - Scenario families: occlusion; dialogue families with rotations; a development pilot, then a held-out set written outside the repository (D-002).
 - Freeze the prompt, referent rule, validator and scoring before any formal run.
 - Verify and write a related-work section. Suggested, not yet verified: Clark & Wilkes-Gibbs 1986, Clark & Brennan 1991, RefCOCO, Visual Dialog, SIMMC 2.0, MultiWOZ, SituatedQA, Longpre et al. 2021, Lost in the Middle, MemGPT, Endsley 1995, EUROCONTROL A-CDM.

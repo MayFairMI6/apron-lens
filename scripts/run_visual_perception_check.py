@@ -10,6 +10,7 @@ evaluation-only module: it is read here for scoring, never on the request path.
 Results are development observations, written to work/visual-diag/.
 
     python scripts/run_visual_perception_check.py --profile apronlens-v2-mps --model qwen3-vl-8b
+    python scripts/run_visual_perception_check.py --provider openai --model gpt-6.1-terra --estimate-only
 """
 import argparse
 import json
@@ -21,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from modelaccess.contract import ImageInput, Request, Settings
-from modelaccess.local_backbone import LocalBackboneAdapter
+from backend.conversation.hosted import add_arguments, prepare
 from modelaccess.repair import parse_json_output
 from backend.conversation import visual_truth
 from backend.conversation.server import load_scenarios
@@ -51,35 +52,45 @@ def expected(data, aircraft, flight, kind, t):
     return ('departed' if kind == 'fuel_vehicle' else 'closed'), False  # no such prop at this aircraft
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--model', default='qwen3-vl-8b')
-parser.add_argument('--profile', required=True, help='Runtime profile from backbone/models.json')
-args = parser.parse_args()
-adapter = LocalBackboneAdapter(args.model, profile=args.profile)
-adapter.load()
-rows = []
-for width in (672,):
-    for described in (False, True):
-        for n, (label, data, t, stand, aircraft, flight) in enumerate(QUESTIONS):
-            image = (ROOT / ('work/visual-observation-' + ('' if label == 'dev01' else 'dev02-') + f'{t}s.png')).read_bytes()
-            settings = Settings(model=adapter.served_model, max_output_tokens=64, image_max_side=width)
-            reply = adapter.generate(Request(f'diag-{width}-{int(described)}-{n}', (('user', prompt(stand, described)),),
-                                             settings, (ImageInput(image, 'image/png', t),)))
-            answer, _, _, error = parse_json_output(reply.text) if reply.ok else (None, False, (), reply.error)
-            for kind in ('fuel_vehicle', 'cargo_door'):
-                truth, has_prop = expected(data, aircraft, flight, kind, t)
-                said = answer.get(kind) if isinstance(answer, dict) else None
-                rows.append(dict(width=width, described=described, scene=label, time=t, stand=stand, kind=kind,
-                                 truth=truth, propAuthored=has_prop, said=said, correct=said == truth,
-                                 inputTokens=reply.usage.input_tokens, latency=round(reply.latency_seconds, 1),
-                                 raw=reply.text, error=error))
-            print(f'{width} {"described" if described else "plain    "} {label} t={t} stand {stand}: '
-                  + ', '.join(f'{r["kind"]}={r["said"]}({"ok" if r["correct"] else "X:" + r["truth"]})' for r in rows[-2:]),
-                  flush=True)
+def check(adapter, model, max_output_tokens, effort, report=print):
+    rows = []
+    for width in (672,):
+        for described in (False, True):
+            for n, (label, data, t, stand, aircraft, flight) in enumerate(QUESTIONS):
+                image = (ROOT / ('work/visual-observation-' + ('' if label == 'dev01' else 'dev02-') + f'{t}s.png')).read_bytes()
+                settings = Settings(model=model, max_output_tokens=max_output_tokens, image_max_side=width,
+                                    reasoning_effort=effort)
+                reply = adapter.generate(Request(f'diag-{width}-{int(described)}-{n}', (('user', prompt(stand, described)),),
+                                                 settings, (ImageInput(image, 'image/png', t),)))
+                answer, _, _, error = parse_json_output(reply.text) if reply.ok else (None, False, (), reply.error)
+                for kind in ('fuel_vehicle', 'cargo_door'):
+                    truth, has_prop = expected(data, aircraft, flight, kind, t)
+                    said = answer.get(kind) if isinstance(answer, dict) else None
+                    rows.append(dict(width=width, described=described, scene=label, time=t, stand=stand, kind=kind,
+                                     truth=truth, propAuthored=has_prop, said=said, correct=said == truth,
+                                     inputTokens=reply.usage.input_tokens, latency=round(reply.latency_seconds, 1),
+                                     raw=reply.text, error=error))
+                report(f'{width} {"described" if described else "plain    "} {label} t={t} stand {stand}: '
+                       + ', '.join(f'{r["kind"]}={r["said"]}({"ok" if r["correct"] else "X:" + r["truth"]})' for r in rows[-2:]))
+    return rows
 
-out = ROOT / 'work/visual-diag' / f'perception-{adapter.model_name}-{time.strftime("%Y%m%dT%H%M%S")}.json'
+
+parser = argparse.ArgumentParser()
+add_arguments(parser, 'qwen3-vl-8b')
+parser.add_argument('--max-output-tokens', type=int, help='Default 64 locally; 4000 hosted, where thinking counts against the cap')
+args = parser.parse_args()
+args.max_output_tokens = args.max_output_tokens or (64 if args.provider == 'local' else 4000)
+adapter, model = prepare(args.provider, args.model, args.profile,
+                         lambda a, m: check(a, m, args.max_output_tokens, args.reasoning_effort, report=lambda line: None),
+                         estimate_only=args.estimate_only, confirm_spend=args.confirm_spend, max_spend=args.max_spend,
+                         session_id=f'perception-{time.strftime("%Y%m%dT%H%M%S")}')
+if adapter is None:
+    sys.exit(0)
+rows = check(adapter, model, args.max_output_tokens, args.reasoning_effort, report=lambda line: print(line, flush=True))
+
+out = ROOT / 'work/visual-diag' / f'perception-{args.model}-{time.strftime("%Y%m%dT%H%M%S")}.json'
 out.parent.mkdir(parents=True, exist_ok=True)
-out.write_text(json.dumps(dict(model=adapter.served_model, rows=rows), indent=1))
+out.write_text(json.dumps(dict(model=model, provider=args.provider, reasoningEffort=args.reasoning_effort, rows=rows), indent=1))
 print('\nscore (correct / questions) by width and prompt:')
 for width in (672,):
     for described in (False, True):

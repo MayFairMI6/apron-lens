@@ -3,4 +3,4 @@
 Each consuming project pins this library by commit SHA and upgrades it only by
 an explicit change, so one update cannot silently alter both experiments.
 """
-__version__ = '0.1.0'
+__version__ = '0.2.0'

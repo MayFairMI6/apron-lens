@@ -190,6 +190,44 @@ and one question per stand aircraft, with no reports, scored against
 - Conclusion: visual grounding of these props is a limit of the local 8B model,
   not the capture size. A hosted comparison is the next step.
 
+## Hosted adapters and budget enforcement (31 October)
+
+- `modelaccess` 0.2.0 adds `AnthropicAdapter` (Messages API) and `OpenAIAdapter`
+  (Responses API) on the official SDKs, imported only when a hosted run starts
+  (`requirements-hosted.txt`). Both follow the contract:
+  - no fallback to another model: server-side refusal fallbacks are not enabled,
+    and a refusal is `finish_refusal`
+  - temperature is reported as ignored
+  - images are downscaled to the shared `image_max_side`
+  - SDK retries are off; each retry is a separate budgeted attempt
+  - capabilities stay unverified until a recorded probe
+- Claude: thinking is always on and is not configured; effort goes to
+  `output_config.effort`. OpenAI: effort goes to `reasoning.effort`, and images
+  are sent with detail "high".
+- `backend/conversation/hosted.py`:
+  - `BudgetedAdapter` reserves a conservative maximum in the ledger before every
+    call (input estimated at two characters per token plus 3,000 tokens per image,
+    all at the uncached rate, plus the full output cap) and reconciles it with
+    reported usage. A refused reservation raises before any network call.
+  - `estimate_run` prices a whole run without calling a model.
+- Both run scripts take `--provider`, `--estimate-only`, `--confirm-spend` and
+  `--max-spend` (default $5, the ledger session limit). A hosted run refuses to
+  start without `--confirm-spend` or above the cap.
+- Maximum reservations for the 22 turns / 18 perception questions:
+
+  | Model | 22 turns | 18 questions |
+  |---|---|---|
+  | Claude Sonnet 5.5 | $1.84 | $0.84 |
+  | Claude Opus 5.5 | $3.68 | $1.69 |
+  | GPT-6.1 Terra | $0.92 | $0.42 |
+  | GPT-6 Luna | $0.09 | $0.04 |
+  | GPT-6 Astra | $9.20 | $4.22 |
+
+  Claude Haiku 5.5 has only a "from" rate and is refused until an exact rate is set.
+- Open: no provider API key is set on the development Mac, so no paid call has
+  been made. The first paid call per provider is a cost probe, made only with
+  the user's approval.
+
 ## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
 
 Built on the unmerged `claude/charming-maxwell-msnzgq` backbone (1.0.0, 27 October),
