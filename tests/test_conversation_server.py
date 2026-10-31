@@ -151,6 +151,14 @@ class Endpoint(unittest.TestCase):
         self.assertIn('"changedSincePreviousAnswer": []', prompts[0])
         self.assertIn('"changedSincePreviousAnswer": ["E04:stand"]', prompts[1])
 
+    def test_prompt_schema_lists_allowed_values_and_the_capture_time(self):
+        client = self.serve([reply(), reply()])
+        self.ask(client, 1, 0)
+        self.assertIn('"status":"current|superseded|scheduled|expired|conflicting"', self.prompt())
+        self.assertIn('"observations":[]}', self.prompt())
+        self.ask(client, 2, 1, imageBase64=png(), imageCaptureTime=24)
+        self.assertIn('"captureTime":24}]}', self.prompt())
+
     def test_session_is_bound_to_its_scenario(self):
         other = dict(two_rotation_scenario(), scenarioId='conv-other')
         client = self.serve([reply(claims=[claim('E01:stand', 'B', 'current', 'E01')])],

@@ -19,14 +19,14 @@ import json
 
 from modelaccess.contract import ImageInput, Request
 from modelaccess.repair import REPAIR_POLICY_VERSION, parse_json_output
-from backend.evidence import FIELDS
+from backend.evidence import FIELDS, STATUSES
 from backend.conversation.context import changed_facts, receipt_times, snapshot
 from backend.conversation.identity import next_rotation, resolve_flight, rotations_for
 from backend.conversation.observations import VISUAL_KINDS
 from backend.conversation.state import AssistantTurn, IntentRecord, StaleRevision
 from backend.conversation.validate import VALIDATOR_VERSION, validate_proposal
 
-PROMPT_VERSION = 'conversation-prompt-v2'
+PROMPT_VERSION = 'conversation-prompt-v3'
 MAX_MEMORY_IN_PROMPT = 6
 
 
@@ -68,22 +68,28 @@ def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight,
     view = ('No image is attached; "observations" must be [].' if image_time is None else
             f'An image of the current view is attached, captured at {image_time:g} s. You may report what is visible '
             f'for the referent aircraft only, as observations with captureTime {image_time:g}: '
-            + '; '.join(f'{k} in {list(v["values"])}' for k, v in VISUAL_KINDS.items()) + '.'
+            + '; '.join(f'{k} in {list(v["values"])}' for k, v in VISUAL_KINDS.items())
+            + '. Report a kind only if you can see it at the referent aircraft; otherwise leave it out.'
             + ('' if tap is None else f' The user tapped the image at ({tap[0]:.3f}, {tap[1]:.3f}), '
                                       'origin bottom-left, 0..1.'))
     return (
         'You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft '
         'flight, using only the facts listed below. Return JSON only, no prose or markdown.\n'
         'Schema: {"status":"answer|clarify|unknown","referent":{"aircraftId":"...","flightInstance":"..."} or null,'
-        '"claims":[{"fact_id":"ID:property","value":"exact fact value","status":"exact fact status",'
-        '"evidence_ids":["event_id of that fact"]}],"unknowns":["property"],'
+        '"claims":[{"fact_id":"ID:property","value":"...","status":"' + '|'.join(STATUSES) + '",'
+        '"evidence_ids":["event ID"]}],"unknowns":["property"],'
         '"explanationChanged":true|false|null,"changesNotDiscussed":["fact_id"],'
         '"memoryUpdate":{"kind":"reference|correction|scope","aircraftId":"...","flightInstance":"..."} or null,'
-        '"rationale":"one or two sentences","observations":[{"kind":"...","aircraftId":"...","value":"...",'
-        '"captureTime":0}]}\n'
-        'Rules: the referent must be one of the candidate flights. Claims copy a listed fact exactly. '
-        'A user correction (for example "I mean its next rotation") changes the referent and is recorded as a '
-        'memoryUpdate of kind "correction"; it never changes a fact. If the referent flight has a previousAnswer, '
+        '"rationale":"one or two sentences","observations":'
+        + ('[]' if image_time is None else
+           '[{"kind":"' + '|'.join(VISUAL_KINDS) + f'","aircraftId":"...","value":"...","captureTime":{image_time:g}}}]')
+        + '}\n'
+        'Every reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and '
+        'event_id (as the only evidence_ids entry) from one listed fact.\n'
+        'Rules: the referent must be one of the candidate flights. '
+        'A user correction changes the referent and is recorded as a memoryUpdate of kind "correction" with the '
+        'same aircraft and flight as the new referent; it never changes a fact. "Its next rotation" means the '
+        'flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, '
         'set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list '
         'in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, '
         'explanationChanged is null and changesNotDiscussed is []. Use "clarify" when the referent is ambiguous and '
