@@ -2,7 +2,9 @@
 # Visual perception check (scripts/run_visual_perception_check.py) of one local model on a GAIVI GPU.
 # Development scenarios only; scored against authored ground truth.
 # Usage, from the repository root with the model environment active:
-#   sbatch --export=ALL,MODEL=qwen3-vl-8b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/perception_check.sbatch
+#   sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/perception_check.sbatch
+# Use GAIVI only for distinct runs: a model, method version or data set not already run
+# (docs/GAIVI.md section 6 lists completed runs). MODEL has no default for that reason.
 # RUNTIME is required: compaction-gaivi-cuda (float16, sdpa) or cuda-bfloat16-eager. Results record it,
 # the commit and the host.
 # The check needs the six Unity renders from VisualCaptureVerification.SaveObservationSamples, which
@@ -20,7 +22,7 @@
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"
 PYTHON="${PYTHON:-python}"
-MODEL="${MODEL:-qwen3-vl-8b}"
+MODEL="${MODEL:?set MODEL to a model not already run with this method; see docs/GAIVI.md section 6}"
 RUNTIME="${RUNTIME:?set RUNTIME to a runtime profile, e.g. compaction-gaivi-cuda}"
 for t in 24s 29s 31s dev02-20s dev02-27s dev02-33s; do
   [ -f "work/visual-observation-$t.png" ] || { echo "Missing work/visual-observation-$t.png: copy the Unity renders from the Mac (see the header)." >&2; exit 2; }

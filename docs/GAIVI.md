@@ -68,6 +68,8 @@ repository root. `--export=ALL` passes the active environment to the job.
 ```sh
 conda activate apronlens
 sbatch --export=ALL,MODELS="qwen2.5-vl-3b qwen3-vl-4b qwen3-vl-8b" scripts/gaivi/download_models.sbatch
+# for the candidate models, from the apronlens-candidates environment:
+sbatch --export=ALL,MODELS="qwen3.5-9b gemma-4-e4b" scripts/gaivi/download_models.sbatch
 ```
 
 Each model lands in `models/<name>/` with a manifest pinning its exact revision.
@@ -105,12 +107,31 @@ from `VisualCaptureVerification.SaveObservationSamples`:
 scp work/visual-observation-*.png <NetID>@gaivi.cse.usf.edu:<repo>/work/
 ```
 
+Use GAIVI only for distinct runs: a combination of model, method version
+(prompt and referent rule) and data that hasn't been run already. Rerunning a
+model counts as distinct only when the method or data changed. These have
+already run on the Mac (`apronlens-v2-mps`) and shouldn't be repeated:
+
+| Run | Model | Method | Result |
+|---|---|---|---|
+| 25 conversation turns | `qwen2.5-vl-3b` | prompt v4, `referent-rule-v2` | 15/25 |
+| 25 conversation turns | `qwen3-vl-8b` | prompt v4, `referent-rule-v2` | 22/25 |
+| Perception check (18 judgements) | `qwen3-vl-8b` | redesigned props, v4 legend | 11/18 plain, 12/18 with legend |
+
+Not yet run with this method: `qwen3-vl-4b` (the `apronlens` environment),
+and `qwen3.5-9b` and `gemma-4-e4b` (the `apronlens-candidates` environment,
+which has transformers 5). Download their weights first (step 4).
+
 Then, with the environment for the model active:
 
 ```sh
-sbatch --export=ALL,MODEL=qwen3-vl-8b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/conversation_smoke.sbatch
-sbatch --export=ALL,MODEL=qwen3-vl-8b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/perception_check.sbatch
+conda activate apronlens-candidates
+sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/conversation_smoke.sbatch
+sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/perception_check.sbatch
 ```
+
+`MODEL` has no default, so a job can't repeat a completed run by accident. Add
+each finished run to the table above.
 
 Results go to `work/gaivi/conversation-…json` and `work/gaivi/perception-…json`.
 Each records the runtime, the commit (and whether the checkout had uncommitted
