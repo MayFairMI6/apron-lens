@@ -136,6 +136,7 @@ observations, not evaluation evidence.
 |---|---|---|
 | v2 | 2/8 | Status placeholder copied (`"exact fact"`); image turns missing keys |
 | v3 | 12/22 | All JSON valid; 9-16 s per turn on MPS |
+| v3, `qwen3-vl-8b` | 20/22 | All JSON valid; 16-119 s per turn on MPS (median 53 s) |
 
 Under v3, by situation:
 - First question about a flight, no image: 9/9 accepted.
@@ -147,6 +148,18 @@ Under v3, by situation:
   validator does not verify referent choice, so scoring needs evaluation labels.
 - Image turns: 0/2, `captureTime` omitted. Fuel vehicle state was right in both;
   one hatch observation was wrong.
+
+Same 22 turns with `qwen3-vl-8b` (revision `0c351dd`, same profile and prompt):
+- Follow-ups after a change: 7/7, each with `explanationChanged: true` and every
+  changed fact covered. The 3B failure was the model, not the design.
+- "I mean its next rotation": withheld. The memory update names F2-R2, but
+  the referent stays F2-R1 and F2-R2's fact is cited under it.
+- Image turns: 1/2 accepted, but both observations are wrong. It reported
+  "departed" for a fuel vehicle that is connected in the 24 s render, matching
+  the "fuel complete" report instead, and "unknown" (not an allowed value)
+  for A1's visible vehicle. Observation truth is not validated on the request
+  path, so evaluation must score observations against `visual_truth`.
+- A median of 53 s per turn on this Mac is too slow for live use.
 
 ## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
 
