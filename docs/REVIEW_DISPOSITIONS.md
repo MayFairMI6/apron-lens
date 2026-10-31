@@ -89,14 +89,16 @@ is unchanged.
 - `backend/conversation/turns.py` serves one turn:
   1. Takes the receipt-eligible facts of every rotation of the selected aircraft,
      plus the current referent, and the memory visible at the turn's cutoff.
-  2. Builds the prompt (`conversation-prompt-v3`) and calls the model through
+  2. Builds the prompt (`conversation-prompt-v4`) and calls the model through
      the model-access contract. For each candidate flight with a previous
      answer, the prompt carries the changed-fact set the validator checks, from
      the same `changed_facts` function. (v1 listed only the previous answer's
      cited facts, so the required follow-up answer could not be read from it.)
      v3 lists the allowed status values, requires every key, puts the real
      image capture time in the example and defines "next rotation"; v2's
-     placeholder wording was copied literally by the 3B model.
+     placeholder wording was copied literally by the 3B model. v4 adds a
+     one-line appearance legend for each prop (from `VISUAL_KINDS`) and the rule
+     that observations describe the image even when a report disagrees.
   3. Parses the reply under `json-repair-v1` and runs `validate_proposal`.
   4. Commits atomically against the session revision.
 - Referent rule: the app sends its selected aircraft and flight on every turn.
@@ -160,6 +162,33 @@ Same 22 turns with `qwen3-vl-8b` (revision `0c351dd`, same profile and prompt):
   for A1's visible vehicle. Observation truth is not validated on the request
   path, so evaluation must score observations against `visual_truth`.
 - A median of 53 s per turn on this Mac is too slow for live use.
+
+Visual perception check (`scripts/run_visual_perception_check.py`): the image
+and one question per stand aircraft, with no reports, scored against
+`visual_truth`; `qwen3-vl-8b`, 18 prop judgements per condition.
+
+| Props | Render | Prompt | Correct |
+|---|---|---|---|
+| original (grey box, grey panel) | 672 px | plain | 10/18 |
+| original | 672 px | shapes described | 14/18 |
+| original | 1344 px | plain | 8/18 (7 "cannot tell") |
+| original | 1344 px | shapes described | 14/18 |
+| redesigned (tanker, flap) | 672 px | plain | 11/18 |
+| redesigned | 672 px | v4 legend | 12/18 |
+
+- Resolution does not help: 1344 px matches or trails 672 px at three times the
+  input tokens. Captures stay at 672 px.
+- The original hatch panel looked like the fuel vehicle from above. The props
+  were redesigned (tanker with cab and hose on the aircraft's right; a flap
+  hinged out on its left; near-black for contrast on the stand bands; coverage
+  0.28% and 0.19%), but perception did not improve: open hatches are still
+  mostly missed, and at Stand B the flap is still called a tanker.
+- 22 turns under v4 with `qwen3-vl-8b`: 21/22 accepted (the next-rotation
+  correction is still withheld). Both image turns now pass the validator, but
+  one observation is still wrong: "departed" for a connected tanker, matching
+  the "fuel complete" report despite the image-first rule.
+- Conclusion: visual grounding of these props is a limit of the local 8B model,
+  not the capture size. A hosted comparison is the next step.
 
 ## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
 

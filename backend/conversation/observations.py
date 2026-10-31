@@ -15,13 +15,19 @@ This module never reads scenario ground truth for visible state.
 """
 
 RULES_NOTE = 'Authored simulation rules, not operational procedure; domain review required.'
+# 'appearance' describes how each rendered prop looks, for the prompt's legend. The props are
+# abstract shapes, so the model cannot know what they stand for without it.
 VISUAL_KINDS = {
     'fuel_vehicle': dict(values=('connected', 'departed'), related_property='fuel_status',
                          suggests={'connected': 'incomplete', 'departed': 'complete'},
-                         label='Fuel vehicle'),
+                         label='Fuel vehicle',
+                         appearance='connected: a near-black tanker (a long rounded tank with a separate cab) beside '
+                                    'the forward fuselage, joined to it by a thin hose; departed: no tanker there'),
     'cargo_door': dict(values=('open', 'closed'), related_property='baggage_status',
                        suggests={'open': 'incomplete', 'closed': 'complete'},
-                       label='Cargo hatch'),
+                       label='Cargo hatch',
+                       appearance='open: a flat near-black flap standing out from the side of the forward fuselage; '
+                                  'closed: no flap'),
 }
 RELATIONS = ('consistent', 'conflicts', 'no_report_yet', 'report_describes_later_time', 'not_comparable')
 

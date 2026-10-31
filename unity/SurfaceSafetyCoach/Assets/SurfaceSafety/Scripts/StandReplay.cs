@@ -164,20 +164,26 @@ namespace SurfaceSafety {
         }
         Material Mat(Color color){var m=new Material(Shader.Find("Standard"));m.color=color;return m;}
         // Visual-only props in one neutral colour and without text, attached to their aircraft.
-        // A fuel vehicle is shown while connected; a cargo hatch panel is shown while open.
-        // Dark grey contrasts with both the white airframe and the light apron.
+        // A fuel tanker is shown while connected; a cargo hatch flap is shown while open.
+        // Near-black contrasts with the white airframe, the light apron and the darker stand bands.
         void BuildProps(){
             props=Data.visualProps??new VisualProp[0];propObjects=new GameObject[props.Length];
-            var neutral=new Color(.27f,.29f,.28f);
+            var neutral=new Color(.12f,.13f,.13f);
             for(int i=0;i<props.Length;i++){
                 var id=props[i].aircraftId;
                 int index=Array.FindIndex(Data.aircraft,a=>a.id==id);
                 var root=new GameObject("Visual prop "+props[i].id).transform;root.SetParent(planes[index],false);
+                // The two props differ in side, outline and shape so they cannot be mistaken
+                // for each other from above: a tanker with a cab and hose on the aircraft's
+                // right, and a flat flap hinged out from the fuselage on its left.
                 if(props[i].kind=="fuel_vehicle"){
-                    Shape(PrimitiveType.Cube,"Service vehicle body",new Vector3(.011f,.0018f,.008f),new Vector3(.0045f,.0036f,.0070f),neutral,root);
-                    Shape(PrimitiveType.Cube,"Service vehicle hose",new Vector3(.0065f,.0014f,.006f),new Vector3(.0050f,.0007f,.0007f),neutral,root);
+                    Shape(PrimitiveType.Cylinder,"Fuel tanker tank",new Vector3(.0115f,.0019f,.0070f),new Vector3(.0034f,.0040f,.0034f),neutral,root)
+                        .transform.localRotation=Quaternion.Euler(90,0,0);
+                    Shape(PrimitiveType.Cube,"Fuel tanker cab",new Vector3(.0115f,.0017f,.0128f),new Vector3(.0034f,.0030f,.0028f),neutral,root);
+                    Shape(PrimitiveType.Cube,"Fuel tanker hose",new Vector3(.0062f,.0014f,.0070f),new Vector3(.0072f,.0006f,.0006f),neutral,root);
                 } else {
-                    Shape(PrimitiveType.Cube,"Hatch panel",new Vector3(-.0060f,.0040f,-.0050f),new Vector3(.0060f,.0005f,.0068f),neutral,root);
+                    Shape(PrimitiveType.Cube,"Cargo hatch flap",new Vector3(-.0045f,.0035f,.0080f),new Vector3(.0050f,.0005f,.0070f),neutral,root)
+                        .transform.localRotation=Quaternion.Euler(0,0,-25);
                 }
                 propObjects[i]=root.gameObject;
             }
