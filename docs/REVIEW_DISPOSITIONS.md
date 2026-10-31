@@ -29,7 +29,7 @@ Status key: **Done** = implemented with unit tests · **Plan** = plan PDF revise
 | 10 | Silent model changes behind aliases | Done. Returned model must equal the configured model or a listed snapshot | `modelaccess/contract.py` |
 | 11 | Device and dtype differ between projects | Done for new code. Frozen `backend/server.py` intentionally unchanged | `modelaccess/local_qwen.py` |
 | 12 | Shared library could change both experiments; order front-loads it | Plan. Library used only in new code paths; pin by commit SHA. Open: extract once the GenAI project adopts it | `modelaccess/__init__.py`, plan delivery sequence |
-| 13 | Plain-HTTP Wi-Fi exposes the API budget | Done (guard). Open: call `check_bind` from the future `/conversation` server | `backend/conversation/guards.check_bind` |
+| 13 | Plain-HTTP Wi-Fi exposes the API budget | Done. The `/conversation` server calls `check_bind` before binding whenever its adapter can spend money | `backend/conversation/guards.check_bind`, `backend/conversation/server.py` |
 | 14 | Retries, cancellations, tracking loss | Done (idempotent commits, cancelled calls stay charged) / Plan (tracking-loss rule). Open: Unity side | `state.py`, `ledger.py` |
 | 15 | Provider-specific JSON repair | Done. One policy, `json-repair-v1`; raw validity reported | `modelaccess/repair.py` |
 | 16 | Dated prices, peak rates, thinking defaults | Done. Rates by effective date; "from" rates refused | `config/hosted-models.json`, `ledger.RateTable` |
@@ -72,6 +72,40 @@ not otherwise have.
 - Open: occlusion families not yet authored. The crop shrinks as aircraft spread
   apart, so wider scenes zoom less.
 
+## Conversation endpoint (31 October)
+
+The context modules now run as one conversation. The frozen `/reason` server
+is unchanged.
+
+- `backend/conversation/turns.py` serves one turn:
+  1. Takes the receipt-eligible facts of every rotation of the selected aircraft,
+     plus the current referent, and the memory visible at the turn's cutoff.
+  2. Builds the prompt (`conversation-prompt-v1`) and calls the model through
+     the model-access contract.
+  3. Parses the reply under `json-repair-v1` and runs `validate_proposal`.
+  4. Commits atomically against the session revision.
+- Referent rule: the app sends its selected aircraft and flight on every turn.
+  Selecting a different aircraft resets the referent. Keeping the same one
+  preserves an accepted correction such as "its next rotation". Memory comes
+  only from the user's selection or a validated `memoryUpdate`, never from the
+  rationale.
+- `backend/conversation/server.py` provides `POST /conversation` and `GET /health`:
+  - It uses the same bearer token as `/reason`, checked before the body is read.
+  - It has one in-memory session per `sessionId`. A session's mode cannot change.
+  - Retries with the same request ID return the stored result without a second
+    model call.
+  - A stale revision, a backward seek in a formal run or a reused request ID
+    gets 409.
+  - An image needs a capture time at or before the checkpoint.
+  - The audit goes to `work/conversation-requests.jsonl`. It holds the prompt,
+    the raw output and the image hash, never image bytes.
+- Run: `python -m backend.conversation.server --profile apronlens-v2-mps` (port
+  8766, `qwen2.5-vl-3b` by default).
+- Open:
+  - The Unity client does not yet call `/conversation` or send `flightInstance`.
+  - No hosted adapters exist yet.
+  - No real model has answered through this path; the tests use a scripted model.
+
 ## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
 
 Built on the unmerged `claude/charming-maxwell-msnzgq` backbone (1.0.0, 27 October),
@@ -101,6 +135,8 @@ addressing findings 11 and 12:
 `python -m unittest discover -s tests` runs `tests/test_conversation.py`,
 `tests/test_modelaccess.py` and `tests/test_visual_observations.py` (48 tests,
 standard library only, no network, no weights) together with the existing tests.
+`tests/test_conversation_server.py` (15 tests) drives `/conversation` with a
+scripted model through FastAPI's test client.
 
 ## Not verified
 

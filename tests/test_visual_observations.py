@@ -12,7 +12,8 @@ from backend.evidence import validate_scenario
 
 ROOT = Path(__file__).resolve().parents[1]
 SCENARIO = ROOT / 'unity/SurfaceSafetyCoach/Assets/Resources/visual_dev_01.json'
-REQUEST_PATH = ['context.py', 'state.py', 'validate.py', 'observations.py', 'identity.py', 'guards.py', 'ledger.py']
+REQUEST_PATH = ['context.py', 'state.py', 'validate.py', 'observations.py', 'identity.py', 'guards.py', 'ledger.py',
+                'turns.py', 'server.py']
 
 
 def load():
