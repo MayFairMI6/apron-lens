@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from modelaccess.contract import ImageInput, Request, Settings
-from backend.conversation.hosted import add_arguments, prepare
+from backend.conversation.hosted import add_arguments, prepare, provenance, result_path
 from modelaccess.repair import parse_json_output
 from backend.conversation import visual_truth
 from backend.conversation.server import load_scenarios
@@ -77,9 +77,11 @@ def check(adapter, model, max_output_tokens, effort, report=print):
 
 parser = argparse.ArgumentParser()
 add_arguments(parser, 'qwen3-vl-8b')
+parser.add_argument('--output', help='Result file; default work/visual-diag/perception-<model>-<time>.json')
 parser.add_argument('--max-output-tokens', type=int, help='Default 64 locally; 4000 hosted, where thinking counts against the cap')
 args = parser.parse_args()
 args.max_output_tokens = args.max_output_tokens or (64 if args.provider == 'local' else 4000)
+out = result_path(args.output, ROOT / 'work/visual-diag', f'perception-{args.model}')  # checked before any model time is spent
 adapter, model = prepare(args.provider, args.model, args.profile,
                          lambda a, m: check(a, m, args.max_output_tokens, args.reasoning_effort, report=lambda line: None),
                          estimate_only=args.estimate_only, confirm_spend=args.confirm_spend, max_spend=args.max_spend,
@@ -88,9 +90,10 @@ if adapter is None:
     sys.exit(0)
 rows = check(adapter, model, args.max_output_tokens, args.reasoning_effort, report=lambda line: print(line, flush=True))
 
-out = ROOT / 'work/visual-diag' / f'perception-{args.model}-{time.strftime("%Y%m%dT%H%M%S")}.json'
-out.parent.mkdir(parents=True, exist_ok=True)
-out.write_text(json.dumps(dict(model=model, provider=args.provider, reasoningEffort=args.reasoning_effort, rows=rows), indent=1))
+inner = getattr(adapter, 'adapter', adapter)
+out.write_text(json.dumps(dict(model=model, provider=args.provider, runtime=getattr(inner, 'runtime', None),
+                               runtimeProfile=args.profile, reasoningEffort=args.reasoning_effort, **provenance(), rows=rows),
+                          indent=1))
 print('\nscore (correct / questions) by width and prompt:')
 for width in (672,):
     for described in (False, True):
@@ -100,4 +103,4 @@ for width in (672,):
               f'authored props {sum(r["correct"] for r in authored)}/{len(authored)}, '
               f'cannot_tell {sum(r["said"] == "cannot_tell" for r in sel)}, '
               f'median input tokens {sorted(r["inputTokens"] or 0 for r in sel)[len(sel)//2]}')
-print('->', out.relative_to(ROOT))
+print('->', out)

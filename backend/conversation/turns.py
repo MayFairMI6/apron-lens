@@ -13,6 +13,15 @@ same aircraft keeps the current referent, so an accepted correction such as
 come only from the user's selection or from a validated memory update; the
 model's rationale never becomes memory.
 
+Correction rule (referent-rule-v2). When the proposal's memory update is a
+correction to a flight that exists in the scenario, that flight becomes the
+proposal's referent before validation, replacing the model's referent field.
+Development runs showed models naming the corrected rotation in the memory
+update while leaving the referent on the app's selection. The corrected
+proposal is then validated as usual: its claims must be that flight's received
+facts, so a mix of the old and new flight is still withheld. Other memory
+update kinds never change the referent.
+
 Authored visual ground truth is never read on this path.
 """
 import json
@@ -27,6 +36,7 @@ from backend.conversation.state import AssistantTurn, IntentRecord, StaleRevisio
 from backend.conversation.validate import VALIDATOR_VERSION, validate_proposal
 
 PROMPT_VERSION = 'conversation-prompt-v4'
+REFERENT_RULE_VERSION = 'referent-rule-v2'
 MAX_MEMORY_IN_PROMPT = 6
 
 
@@ -36,6 +46,22 @@ def candidate_flights(data, aircraft_id, referent):
     if referent is not None and referent not in flights:
         flights.append(referent)
     return flights
+
+
+def apply_correction(data, proposal):
+    """Return (proposal, referent source): a valid correction's flight replaces the referent."""
+    mu = proposal.get('memoryUpdate') if isinstance(proposal, dict) else None
+    if not (isinstance(mu, dict) and mu.get('kind') == 'correction'
+            and isinstance(mu.get('aircraftId'), str) and isinstance(mu.get('flightInstance'), str)):
+        return proposal, 'model'
+    try:
+        resolve_flight(data, mu['aircraftId'], mu['flightInstance'])
+    except ValueError:
+        return proposal, 'model'  # left for the validator to reject
+    target = {'aircraftId': mu['aircraftId'], 'flightInstance': mu['flightInstance']}
+    if proposal.get('referent') == target:
+        return proposal, 'model'
+    return dict(proposal, referent=target), 'correction'
 
 
 def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight, question, image_time=None, tap=None):
@@ -147,6 +173,7 @@ def run_turn(session, data, turn, adapter, settings):
     reply = adapter.generate(Request(request_id, (('user', prompt),), settings, images))
 
     proposal, raw_valid, repairs, parse_error = (None, False, (), None)
+    referent_source = 'model'
     if reply.ok:
         proposal, raw_valid, repairs, parse_error = parse_json_output(reply.text)
     if not reply.ok:
@@ -156,6 +183,7 @@ def run_turn(session, data, turn, adapter, settings):
         checked = validate_proposal(None, data, cutoff)
         checked['errors'] = [parse_error]
     else:
+        proposal, referent_source = apply_correction(data, proposal)
         ref = proposal.get('referent') if isinstance(proposal, dict) else None
         prior = None
         if isinstance(ref, dict) and isinstance(ref.get('aircraftId'), str) and isinstance(ref.get('flightInstance'), str):
@@ -188,6 +216,7 @@ def run_turn(session, data, turn, adapter, settings):
         finishReason=reply.finish_reason.value, inputTokens=reply.usage.input_tokens,
         outputTokens=reply.usage.output_tokens, latencySeconds=round(reply.latency_seconds, 3),
         ignoredSettings=list(reply.ignored_settings), rawJsonValid=raw_valid, repairs=list(repairs),
-        promptVersion=PROMPT_VERSION, validatorVersion=VALIDATOR_VERSION, repairPolicy=REPAIR_POLICY_VERSION)
+        referentSource=referent_source, promptVersion=PROMPT_VERSION, referentRule=REFERENT_RULE_VERSION,
+        validatorVersion=VALIDATOR_VERSION, repairPolicy=REPAIR_POLICY_VERSION)
     stored = session.commit(request_id, turn_id, expected, new_intents, stored_turn, result)
     return dict(stored, prompt=prompt, rawModelOutput=reply.text)

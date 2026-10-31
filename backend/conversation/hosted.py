@@ -13,6 +13,8 @@ confirmation before a paid run.
 """
 import datetime as dt
 import math
+import socket
+import subprocess
 import uuid
 from pathlib import Path
 
@@ -117,6 +119,23 @@ def estimate_run(run, capabilities, rates, model, today=None):
     total = sum(rates.max_cost_micro(model, today, max_input_tokens(request), request.settings.max_output_tokens)
                 for request, _ in capture.calls)
     return len(capture.calls), total / 1_000_000
+
+
+def provenance():
+    """Commit, uncommitted-change flag and host for a run's result file."""
+    def git(*args):
+        return subprocess.run(['git', *args], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    return dict(commit=git('rev-parse', 'HEAD') or None, dirty=bool(git('status', '--porcelain', '--untracked-files=no')),
+                host=socket.gethostname())
+
+
+def result_path(output, default_dir, stem):
+    """The run's result file: --output if given, else a timestamped file. Never overwrites."""
+    path = Path(output) if output else default_dir / f'{stem}-{dt.datetime.now().strftime("%Y%m%dT%H%M%S")}.json'
+    if path.exists():
+        raise SystemExit(f'{path} already exists; choose a new --output. Runs are never overwritten.')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path
 
 
 def load_rates(path=RATES_PATH):

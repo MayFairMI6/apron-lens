@@ -91,7 +91,38 @@ recording the model revision, GPU, number type and transformers version.
 GAIVI may preempt a job; it is requeued and restarts into a new results folder,
 so an interrupted attempt is kept rather than overwritten.
 
-## 6. Bring results back
+## 6. Conversation and perception runs (GPU jobs)
+
+These run `scripts/run_conversation_smoke.py` (25 development turns through
+the `/conversation` turn handler) and `scripts/run_visual_perception_check.py`
+(18 prop judgements against authored ground truth) on a GAIVI GPU. Both use
+development data only.
+
+GAIVI has no Unity, so first copy the evidence renders from the Mac. They come
+from `VisualCaptureVerification.SaveObservationSamples`:
+
+```sh
+scp work/visual-observation-*.png <NetID>@gaivi.cse.usf.edu:<repo>/work/
+```
+
+Then, with the environment for the model active:
+
+```sh
+sbatch --export=ALL,MODEL=qwen3-vl-8b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/conversation_smoke.sbatch
+sbatch --export=ALL,MODEL=qwen3-vl-8b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/perception_check.sbatch
+```
+
+Results go to `work/gaivi/conversation-…json` and `work/gaivi/perception-…json`.
+Each records the runtime, the commit (and whether the checkout had uncommitted
+changes) and the host. A preempted attempt writes its own file; nothing is
+overwritten. Without the renders, the conversation run skips its two image
+turns and the perception job stops with a message.
+
+Compare GAIVI and Mac results only within the same runtime profile. The frozen
+V2 results ran on Apple MPS in float16, which neither CUDA profile matches
+exactly.
+
+## 7. Bring results back
 
 Copy the results folder to your computer (`scp -r`), or commit it on a branch
 and open a pull request. Keep raw results and failures; do not rerun until a
