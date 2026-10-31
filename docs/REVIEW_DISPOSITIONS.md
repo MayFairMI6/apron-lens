@@ -89,11 +89,14 @@ is unchanged.
 - `backend/conversation/turns.py` serves one turn:
   1. Takes the receipt-eligible facts of every rotation of the selected aircraft,
      plus the current referent, and the memory visible at the turn's cutoff.
-  2. Builds the prompt (`conversation-prompt-v2`) and calls the model through
+  2. Builds the prompt (`conversation-prompt-v3`) and calls the model through
      the model-access contract. For each candidate flight with a previous
      answer, the prompt carries the changed-fact set the validator checks, from
      the same `changed_facts` function. (v1 listed only the previous answer's
      cited facts, so the required follow-up answer could not be read from it.)
+     v3 lists the allowed status values, requires every key, puts the real
+     image capture time in the example and defines "next rotation"; v2's
+     placeholder wording was copied literally by the 3B model.
   3. Parses the reply under `json-repair-v1` and runs `validate_proposal`.
   4. Commits atomically against the session revision.
 - Referent rule: the app sends its selected aircraft and flight on every turn.
@@ -118,7 +121,32 @@ is unchanged.
 - Open:
   - The Unity client does not yet call `/conversation` or send `flightInstance`.
   - No hosted adapters exist yet.
-  - No real model has answered through this path; the tests use a scripted model.
+  - Change follow-ups, referent corrections and observation format fail with
+    the 3B model (development run below).
+
+Development run (31 October): `python scripts/run_conversation_smoke.py
+--profile apronlens-v2-mps` with `qwen2.5-vl-3b`. Development data only: the
+inline fixture, `visual_dev_01`/`visual_dev_02` with sample renders, and v1
+families D01 and D03-D08 with turns generated from scenario events (the v1
+question and gold file, H01-H04 and `reasoning_v2_fresh` are not read). D02 is
+skipped: its `F2-R0` report has no declared rotation. These are development
+observations, not evaluation evidence.
+
+| Prompt | Accepted | Notes |
+|---|---|---|
+| v2 | 2/8 | Status placeholder copied (`"exact fact"`); image turns missing keys |
+| v3 | 12/22 | All JSON valid; 9-16 s per turn on MPS |
+
+Under v3, by situation:
+- First question about a flight, no image: 9/9 accepted.
+- Follow-up with no change (D06): 1/1.
+- Follow-up after a change: 0/7. The model cites the changed facts but sets
+  `explanationChanged: false`, and often labels superseded facts "expired".
+- "I mean its next rotation": accepted with the wrong referent (F2-R1). The
+  rationale names F2-R2, but the referent and memory are unchanged. The
+  validator does not verify referent choice, so scoring needs evaluation labels.
+- Image turns: 0/2, `captureTime` omitted. Fuel vehicle state was right in both;
+  one hatch observation was wrong.
 
 ## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
 
@@ -149,7 +177,7 @@ addressing findings 11 and 12:
 `python -m unittest discover -s tests` runs `tests/test_conversation.py`,
 `tests/test_modelaccess.py` and `tests/test_visual_observations.py` (48 tests,
 standard library only, no network, no weights) together with the existing tests.
-`tests/test_conversation_server.py` (18 tests) drives `/conversation` with a
+`tests/test_conversation_server.py` (19 tests) drives `/conversation` with a
 scripted model through FastAPI's test client.
 
 ## Not verified
