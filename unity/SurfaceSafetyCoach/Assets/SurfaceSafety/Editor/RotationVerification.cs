@@ -38,6 +38,13 @@ public static class RotationVerification {
         check(client.ApplyResponse(request, answer("R04:tobt", "70 s")), "next-rotation answer citing a received F2-R2 report is shown");
         check(!client.ApplyResponse(request, answer("R05:tobt", "80 s")), "next-rotation answer citing a report received at 36 s is withheld at 30 s");
 
+        // Crossing 45 s with no new report and no movement still rebuilds the panel for F2-R2.
+        Func<string, bool> panelShows = text => boot.GetComponentsInChildren<Text>(true).Any(t => t.gameObject.activeInHierarchy && t.text.Contains(text));
+        replay.SelectTab("now"); replay.Seek(44);
+        check(panelShows("R03") && !panelShows("R05"), "at 44 s the Now card shows F2-R1's latest report");
+        replay.Seek(46);
+        check(panelShows("R05") && !panelShows("R03"), "at 46 s the Now card shows F2-R2's latest report");
+
         replay.Seek(50);
         check(replay.SelectedFlight == "F2-R2" && chipShows(boot, "A2  /  F2-R2") && !chipShows(boot, "A2  /  F2-R1"), "at 50 s the chip shows F2-R2");
         check(replay.VisibleReports.All(e => e.flightInstance == "F2-R2") && replay.VisibleReports.Any(e => e.id == "R05"), "history scoped to F2-R2 at 50 s");
@@ -54,6 +61,6 @@ public static class RotationVerification {
         check(rejects(s => s.aircraft[1].rotations[1].flightInstance = "F1-R1"), "a flight owned by two aircraft rejected");
         check(rejects(s => s.events[2].aircraftId = "A1"), "a report whose flight is not its aircraft's rejected");
 
-        Debug.Log("ROTATION_CHECKS_PASS: 13");
+        Debug.Log("ROTATION_CHECKS_PASS: 15");
     }
 }
