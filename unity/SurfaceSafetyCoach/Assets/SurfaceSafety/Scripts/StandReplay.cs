@@ -160,7 +160,7 @@ namespace SurfaceSafety {
             if(tabChips!=null)for(int i=0;i<tabChips.Length;i++){bool selected=SelectedTab==new[]{"now","why","history"}[i];tabChips[i].color=selected?teal:card;tabChips[i].GetComponentInChildren<Text>().color=selected?Color.white:ink;}
             if(slider!=null){updatingSlider=true;slider.SetValueWithoutNotify(Clock.Time);updatingSlider=false;}
             UpdateSafeArea();
-            var key=SelectedAircraftIndex+"|"+SelectedTab+"|"+AllFlightsHistory+"|"+InspectedReportId+"|"+
+            var key=SelectedAircraftIndex+"|"+SelectedFlight+"|"+SelectedTab+"|"+AllFlightsHistory+"|"+InspectedReportId+"|"+
                 string.Join(",",Data.KnownAt(Clock.Time).Select(e=>e.id))+"|"+CurrentSceneState+"|"+aiStatus+"|"+aiText+"|"+showBaseline+"|"+showAiDetails+"|"+showTools+"|"+logCopied;
             if(key!=bodyKey){bodyKey=key;RebuildBody();}
         }
