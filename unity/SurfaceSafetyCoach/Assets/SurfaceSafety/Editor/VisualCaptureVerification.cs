@@ -88,6 +88,59 @@ public static class VisualCaptureVerification {
         Debug.Log("VISUAL_OBSERVATION_CHECKS_PASS: 8");
     }
 
+    // Three aircraft in one livery (visual_dev_02); Milestone 1 keeps two indexed aircraft.
+    public static void RunMultiAircraft() {
+        Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("Multi-aircraft check failed: " + message); };
+        Func<SceneBootstrap, int> chips = b => b.GetComponentsInChildren<Transform>(true).Count(t => t.name == "Aircraft color");
+
+        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        var m1 = new GameObject("Milestone regression").AddComponent<SceneBootstrap>(); m1.previewMode = true; m1.Initialize();
+        check(m1.Replay.Data.aircraft.Length == 2 && chips(m1) == 2 && m1.GetComponentsInChildren<UnityEngine.UI.Text>(true).Any(t => t.text == "A1  /  F1-R1"),
+              "milestone scenario keeps two aircraft and its chip labels");
+
+        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        var boot = new GameObject("Multi-aircraft regression").AddComponent<SceneBootstrap>();
+        boot.previewMode = true; boot.scenarioResource = "visual_dev_02"; boot.Initialize();
+        var replay = boot.Replay; var viewpoint = Camera.main;
+        check(replay.Data.aircraft.Length == 3 && replay.Data.aircraft.All(a => replay.Content.Find(a.id) != null), "three aircraft built");
+        check(chips(boot) == 3, "one selection chip per aircraft");
+
+        // Uniform livery: every aircraft is built from the same set of material colours.
+        var liveries = replay.Data.aircraft.Select(a => string.Join(",", replay.Content.Find(a.id).GetComponentsInChildren<Renderer>()
+            .Where(r => !r.transform.GetComponentsInParent<Transform>().Any(p => p.name.StartsWith("Visual prop ", StringComparison.Ordinal)))
+            .Select(r => r.sharedMaterial.color.ToString()).Distinct().OrderBy(c => c))).Distinct().Count();
+        check(liveries == 1, "all aircraft share one livery");
+
+        replay.SelectAircraft(0);
+        check(replay.CurrentSceneState == "At Stand A · stationary", "A1 reported at Stand A");
+        replay.SelectAircraft(2); replay.Seek(5);
+        check(replay.CurrentReasoning.Contains("[W03]") && !replay.CurrentReasoning.Contains("[E01]"), "baseline text uses this scenario's reports");
+
+        replay.Seek(20);
+        check(VisualEvidenceCapture.SelectionInvariant(replay, viewpoint), "capture identical for each of the three selections");
+        var crop = VisualEvidenceCapture.SceneCrop(replay, viewpoint);
+        check(crop.xMin >= 0 && crop.yMin >= 0 && crop.xMax <= 1 && crop.yMax <= 1, "crop lies inside the view");
+
+        var props = replay.Content.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Visual prop", StringComparison.Ordinal)).ToArray();
+        Func<string, bool> shown = id => props.Single(p => p.name.EndsWith(id, StringComparison.Ordinal)).gameObject.activeSelf;
+        check(shown("P1") && shown("P2"), "both props visible at 20 s");
+        replay.Seek(27); check(!shown("P1") && shown("P2"), "fuel vehicle gone, hatch open at 27 s");
+        replay.Seek(33); check(!shown("P1") && !shown("P2"), "both props gone at 33 s");
+
+        // Validation: more than four aircraft, or an unknown livery, is rejected.
+        var json = Resources.Load<TextAsset>("visual_dev_02").text;
+        Func<Action<Scenario>, bool> rejects = edit => {
+            var s = JsonUtility.FromJson<Scenario>(json); edit(s);
+            try { s.Validate(); return false; } catch (ArgumentException) { return true; }
+        };
+        check(rejects(s => s.aircraft = Enumerable.Range(0, Scenario.MaxAircraft + 1).Select(i => new AircraftPlan {
+            id = "X" + i, flightInstance = "FX" + i, waypoints = s.aircraft[0].waypoints }).ToArray()), "five aircraft rejected");
+        check(rejects(s => s.livery = "striped"), "unknown livery rejected");
+        check(!rejects(s => { }), "scenario itself validates");
+
+        Debug.Log("MULTI_AIRCRAFT_CHECKS_PASS: 14");
+    }
+
     // Pixels each prop changes in the evidence image at 24 s (both props present), as a
     // count and a share of the frame. Hiding one prop at a time isolates its footprint.
     public static void MeasurePropCoverage() {
@@ -126,15 +179,19 @@ public static class VisualCaptureVerification {
 
     // Writes sample evidence images to work/ for human inspection of prop legibility.
     public static void SaveObservationSamples() {
-        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-        var boot = new GameObject("Visual observation samples").AddComponent<SceneBootstrap>();
-        boot.previewMode = true; boot.scenarioResource = "visual_dev_01"; boot.Initialize();
         var output = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "../../../work"));
         System.IO.Directory.CreateDirectory(output);
-        foreach (var t in new[] { 24f, 29f, 31f }) {
-            boot.Replay.Seek(t);
-            System.IO.File.WriteAllBytes(System.IO.Path.Combine(output, "visual-observation-" + t + "s.png"),
-                VisualEvidenceCapture.Capture(boot.Replay, Camera.main, null).png);
+        var samples = new[] { ("visual_dev_01", "visual-observation-", new[] { 24f, 29f, 31f }),
+                              ("visual_dev_02", "visual-observation-dev02-", new[] { 20f, 27f, 33f }) };
+        foreach (var (scenario, prefix, times) in samples) {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var boot = new GameObject("Visual observation samples").AddComponent<SceneBootstrap>();
+            boot.previewMode = true; boot.scenarioResource = scenario; boot.Initialize();
+            foreach (var t in times) {
+                boot.Replay.Seek(t);
+                System.IO.File.WriteAllBytes(System.IO.Path.Combine(output, prefix + t + "s.png"),
+                    VisualEvidenceCapture.Capture(boot.Replay, Camera.main, null).png);
+            }
         }
         Debug.Log("VISUAL_OBSERVATION_SAMPLES_WRITTEN: " + output);
     }
