@@ -19,9 +19,11 @@ namespace SurfaceSafety {
         public event Action OpenConnectionSettings;
         public event Action OpenConversation;
         public ScenarioEvent[] VisibleReports => Data.KnownAt(Clock.Time)
-            .Where(e=>AllFlightsHistory || e.flightInstance==SelectedAircraft.flightInstance).Reverse().ToArray();
+            .Where(e=>AllFlightsHistory || e.flightInstance==SelectedFlight).Reverse().ToArray();
         AircraftPlan SelectedAircraft => Data.aircraft[SelectedAircraftIndex];
-        ScenarioEvent[] SelectedReports => Data.KnownAt(Clock.Time).Where(e=>e.flightInstance==SelectedAircraft.flightInstance).ToArray();
+        // The selected aircraft's rotation under way at the replay time.
+        public string SelectedFlight => SelectedAircraft.FlightAt(Clock.Time);
+        ScenarioEvent[] SelectedReports => Data.KnownAt(Clock.Time).Where(e=>e.flightInstance==SelectedFlight).ToArray();
         const string Milestone1Id="M1-stand-coordination-01";
         // Parking positions in front of the two printed stand markers.
         static readonly Vector3 StandAPark=new Vector3(-.045f,0,.04f),StandBPark=new Vector3(.035f,0,.04f);
@@ -69,6 +71,7 @@ namespace SurfaceSafety {
         RectTransform safeRoot, body;
         Text status, clockLabel, playLabel, selectionLabel;
         Image[] aircraftChips, tabChips;
+        Text[] aircraftChipLabels;
         Slider slider;
         Button playButton;
         string logPath, bodyKey, aiStatus="Not requested", aiText="Generate an explanation of this checkpoint using the configured local model service.";
@@ -152,6 +155,8 @@ namespace SurfaceSafety {
             if(playButton!=null)playButton.interactable=Clock.Tracked;
             if(selectionLabel!=null)selectionLabel.text=SelectedAircraft.id+" · "+CurrentSceneState+" · simulated";
             if(aircraftChips!=null)for(int i=0;i<aircraftChips.Length;i++)aircraftChips[i].color=i==SelectedAircraftIndex?new Color(.82f,.92f,.92f):panel;
+            // Chip labels follow the rotation under way; single-flight aircraft never change.
+            if(aircraftChipLabels!=null)for(int i=0;i<aircraftChipLabels.Length;i++){var label=ChipLabel(Data.aircraft[i]);if(aircraftChipLabels[i].text!=label)aircraftChipLabels[i].text=label;}
             if(tabChips!=null)for(int i=0;i<tabChips.Length;i++){bool selected=SelectedTab==new[]{"now","why","history"}[i];tabChips[i].color=selected?teal:card;tabChips[i].GetComponentInChildren<Text>().color=selected?Color.white:ink;}
             if(slider!=null){updatingSlider=true;slider.SetValueWithoutNotify(Clock.Time);updatingSlider=false;}
             UpdateSafeArea();
@@ -235,6 +240,7 @@ namespace SurfaceSafety {
             button.targetGraphic=r.GetComponent<Image>();button.onClick.AddListener(action);
             Label(r,title,Vector2.zero,Vector2.one,size,TextAnchor.MiddleCenter);return r;
         }
+        string ChipLabel(AircraftPlan a)=>Data.aircraft.Length==2?a.id+"  /  "+a.FlightAt(Clock.Time):a.id+"\n"+a.FlightAt(Clock.Time);
         void UpdateSafeArea(){
             if(safeRoot==null||Screen.width==0||Screen.height==0)return;
             var safe=Screen.safeArea;
@@ -254,12 +260,12 @@ namespace SurfaceSafety {
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
             // Chips share the header width; with two aircraft this is the original layout.
             int count=Data.aircraft.Length;float gap=.03f,width=(.93f-(count-1)*gap)/count;
-            aircraftChips=new Image[count];
+            aircraftChips=new Image[count];aircraftChipLabels=new Text[count];
             for(int i=0;i<count;i++){
                 int index=i;var a=Data.aircraft[i];
-                var r=Button(head,count==2?a.id+"  /  "+a.flightInstance:a.id+"\n"+a.flightInstance,
+                var r=Button(head,ChipLabel(a),
                     new Vector2(.035f+i*(width+gap),.025f),new Vector2(.035f+i*(width+gap)+width,.455f),()=>SelectAircraft(index),panel,count==2?39:33);
-                aircraftChips[i]=r.GetComponent<Image>();
+                aircraftChips[i]=r.GetComponent<Image>();aircraftChipLabels[i]=r.GetComponentInChildren<Text>();
                 // Uniform-livery scenarios use one neutral marker so the chips do not imply colour identity.
                 Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),Data.UniformLivery?muted:i==0?teal:i==1?amber:LiveryOf(i));
             }

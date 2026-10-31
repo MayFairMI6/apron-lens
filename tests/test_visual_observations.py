@@ -4,8 +4,8 @@ import unittest
 from pathlib import Path
 
 from backend.conversation import visual_truth
-from backend.conversation.context import snapshot
-from backend.conversation.identity import validate_rotations
+from backend.conversation.context import changed_facts, snapshot
+from backend.conversation.identity import next_rotation, rotation_at, validate_rotations
 from backend.conversation.observations import VISUAL_KINDS, relate
 from backend.conversation.validate import validate_proposal
 from backend.evidence import validate_scenario
@@ -143,6 +143,26 @@ class UniformLiveryScenario(unittest.TestCase):
         self.assertEqual(visual_truth.prop_value(self.data, 'A2', 'F2-R1', 'cargo_door', 31), 'open')
         self.assertIsNone(visual_truth.prop_value(self.data, 'A2', 'F2-R1', 'fuel_vehicle', 20))
         self.assertIsNone(visual_truth.prop_value(self.data, 'A3', 'F3-R1', 'cargo_door', 20))
+
+
+class RotationScenario(unittest.TestCase):
+    """visual_dev_03: A2 flies F2-R1 until 45 s, then F2-R2; F2-R2's off-block time is revised by a late report."""
+
+    def setUp(self):
+        self.data = json.loads((SCENARIO.parent / 'visual_dev_03.json').read_text())
+
+    def test_scenario_and_rotations_are_valid(self):
+        validate_scenario(self.data)
+        validate_rotations(self.data)
+        self.assertEqual(next_rotation(self.data, 'A2', 'F2-R1')['flightInstance'], 'F2-R2')
+        self.assertEqual(rotation_at(self.data, 'A2', 30)['flightInstance'], 'F2-R1')
+        self.assertEqual(rotation_at(self.data, 'A2', 45)['flightInstance'], 'F2-R2')
+
+    def test_late_revision_reaches_the_next_rotation_at_36_s(self):
+        before = snapshot(self.data, 'A2', 'F2-R2', 30)
+        after = snapshot(self.data, 'A2', 'F2-R2', 40)
+        self.assertEqual([(f['fact_id'], f['status']) for f in before['facts']], [('R04:tobt', 'current')])
+        self.assertEqual(changed_facts(before, after), ['R04:tobt', 'R05:tobt'])
 
 
 if __name__ == '__main__':

@@ -1,0 +1,24 @@
+{
+  "scenarioId": "V3-rotations-dev-03",
+  "duration": 90.0,
+  "targetWidth": 0.24,
+  "aircraft": [
+    {"id": "A1", "flightInstance": "F1-R1", "waypoints": [{"t": 0, "x": -0.045, "z": 0.04}, {"t": 90, "x": -0.045, "z": 0.04}]},
+    {"id": "A2", "rotations": [{"flightInstance": "F2-R1", "from": 0, "until": 45}, {"flightInstance": "F2-R2", "from": 45}],
+     "waypoints": [{"t": 0, "x": 0.035, "z": 0.04}, {"t": 70, "x": 0.035, "z": 0.04}, {"t": 78, "x": 0.035, "z": -0.025}, {"t": 90, "x": 0.095, "z": -0.025}]}
+  ],
+  "events": [
+    {"id": "R01", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "A"}], "message": "A1 assigned Stand A."},
+    {"id": "R02", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "B"}], "message": "A2 arriving rotation F2-R1 assigned Stand B."},
+    {"id": "R03", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 20, "receiptTime": 24,
+     "facts": [{"property": "baggage_status", "value": "complete"}], "message": "Arrival baggage unloaded at 20 s; received at 24 s."},
+    {"id": "R04", "aircraftId": "A2", "flightInstance": "F2-R2", "source": "turnaround-coordination", "eventTime": 10, "receiptTime": 10,
+     "facts": [{"property": "tobt", "value": "70 s"}], "message": "Next rotation F2-R2: target off-block time 70 s (estimate)."},
+    {"id": "R05", "aircraftId": "A2", "flightInstance": "F2-R2", "source": "turnaround-coordination", "eventTime": 30, "receiptTime": 36,
+     "facts": [{"property": "tobt", "value": "80 s", "supersedes": ["R04:tobt"]}], "message": "Revised: F2-R2 target off-block time 80 s, sent at 30 s and received at 36 s."},
+    {"id": "R06", "aircraftId": "A2", "flightInstance": "F2-R2", "source": "scenario-coordinator", "eventTime": 70, "receiptTime": 70,
+     "facts": [{"property": "movement_status", "value": "started"}], "message": "Authored movement started."}
+  ]
+}
