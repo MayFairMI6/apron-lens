@@ -50,6 +50,7 @@ class Separation(unittest.TestCase):
             source = (base / name).read_text()
             self.assertNotIn('visual_truth', source, name)
             self.assertNotIn('visualProps', source, name)
+            self.assertNotIn('scoring', source, name)  # evaluation labels stay off the request path
 
 
 class Relations(unittest.TestCase):

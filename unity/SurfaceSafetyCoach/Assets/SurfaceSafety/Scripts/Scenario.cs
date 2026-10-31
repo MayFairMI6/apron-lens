@@ -35,6 +35,10 @@ namespace SurfaceSafety {
         public string id, aircraftId, flightInstance, kind;
         public PropState[] states;
     }
+    // Scene geometry that can hide props from the evidence camera (occlusion families),
+    // such as a service canopy: a roof slab of width (x) by depth (z) at a height, in
+    // board coordinates. Rendered and captured like the rest of the scene.
+    [Serializable] public class Occluder { public string id; public float x, z, width, depth, height; }
     [Serializable] public class Scenario {
         public const int MaxAircraft = 4;
         public string scenarioId;
@@ -46,6 +50,7 @@ namespace SurfaceSafety {
         public AircraftPlan[] aircraft;
         public ScenarioEvent[] events;
         public VisualProp[] visualProps;
+        public Occluder[] occluders;
         static readonly string[] FuelVehicleValues = { "connected", "departed" };
         static readonly string[] CargoDoorValues = { "open", "closed" };
         public static bool AllowedPropValue(string kind, string value) =>
@@ -110,6 +115,11 @@ namespace SurfaceSafety {
                     !owner.TryGetValue(e.flightInstance ?? "", out var flightOwner) || flightOwner != e.aircraftId)
                     throw new ArgumentException("Invalid event identity or timestamps, or the flight is not its aircraft's.");
             ValidateProps();
+            if (occluders != null)
+                foreach (var o in occluders)
+                    if (string.IsNullOrEmpty(o.id) || o.width <= 0 || o.depth <= 0 || o.height <= 0 ||
+                        Mathf.Abs(o.x) > targetWidth / 2 || Mathf.Abs(o.z) > targetWidth / 3)
+                        throw new ArgumentException("Occluder needs an ID, positive size and height, and a position on the board.");
         }
         public ScenarioEvent[] KnownAt(float t) => events.Where(e=>e.receiptTime<=t)
             .OrderBy(e=>e.receiptTime).ThenBy(e=>e.id, StringComparer.Ordinal).ToArray();

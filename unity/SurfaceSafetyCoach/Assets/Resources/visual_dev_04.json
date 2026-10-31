@@ -1,0 +1,19 @@
+{
+  "scenarioId": "V4-conflicting-reports-dev-04",
+  "duration": 60.0,
+  "targetWidth": 0.24,
+  "aircraft": [
+    {"id": "A1", "flightInstance": "F1-R1", "waypoints": [{"t": 0, "x": -0.045, "z": 0.04}, {"t": 60, "x": -0.045, "z": 0.04}]},
+    {"id": "A2", "flightInstance": "F2-R1", "waypoints": [{"t": 0, "x": 0.035, "z": 0.04}, {"t": 60, "x": 0.035, "z": 0.04}]}
+  ],
+  "events": [
+    {"id": "X01", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "A"}], "message": "Ground handling: A1 assigned Stand A."},
+    {"id": "X02", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "airline-operations", "eventTime": 10, "receiptTime": 12,
+     "facts": [{"property": "stand", "value": "C"}], "message": "Airline operations: A1 assigned Stand C."},
+    {"id": "X03", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "turnaround-coordination", "eventTime": 20, "receiptTime": 22,
+     "facts": [{"property": "stand", "value": "C", "supersedes": ["X01:stand", "X02:stand"]}], "message": "Coordination resolves the conflict: A1 Stand C."},
+    {"id": "X04", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 0, "receiptTime": 0,
+     "facts": [{"property": "stand", "value": "B"}], "message": "Ground handling: A2 assigned Stand B."}
+  ]
+}
