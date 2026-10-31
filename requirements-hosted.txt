@@ -1,0 +1,5 @@
+# Official provider SDKs for hosted runs only (paid). Not needed for tests or CI:
+# the adapters import them only when a hosted run starts. Pin exact versions at
+# first install and record them with the run.
+anthropic>=1.0,<2
+openai>=1.0,<3

@@ -13,6 +13,10 @@ Results are development observations, not evaluation evidence. They are written
 to work/conversation-smoke/, which is not tracked.
 
     python scripts/run_conversation_smoke.py --profile apronlens-v2-mps
+    python scripts/run_conversation_smoke.py --provider anthropic --model claude-sonnet-5-5 --estimate-only
+
+A hosted run is priced first and makes paid calls only with --confirm-spend,
+within --max-spend, through the budget ledger (backend/conversation/hosted.py).
 """
 import argparse
 import json
@@ -24,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT), str(ROOT / 'tests')]
 
 from modelaccess.contract import Settings
-from modelaccess.local_backbone import LocalBackboneAdapter
+from backend.conversation.hosted import add_arguments, prepare
 from backend.conversation.context import changed_facts, snapshot
 from backend.conversation.server import load_scenarios
 from backend.conversation.state import SessionState
@@ -66,15 +70,7 @@ def dialogue():
     return turns
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--model', default='qwen2.5-vl-3b')
-    parser.add_argument('--profile', required=True, help='Runtime profile from backbone/models.json')
-    parser.add_argument('--max-output-tokens', type=int, default=512)
-    args = parser.parse_args()
-    adapter = LocalBackboneAdapter(args.model, profile=args.profile)
-    settings = Settings(model=adapter.served_model, max_output_tokens=args.max_output_tokens, image_max_side=672)
-    adapter.load()
+def run_dialogue(adapter, settings, report=print):
     sessions, rows = {}, []
     for index, (name, data, cutoff, aircraft, flight, question, image) in enumerate(dialogue(), 1):
         if image and not (WORK / image).exists():
@@ -93,11 +89,37 @@ def main():
                          latencySeconds=result['latencySeconds'], inputTokens=result['inputTokens'],
                          outputTokens=result['outputTokens'], finishReason=result['finishReason'],
                          answer=result['display']['answer'], rawModelOutput=result['rawModelOutput']))
-        print(f"{name} turn {index}: {'accepted' if result['accepted'] else 'withheld ' + ','.join(result['errors'])}", flush=True)
+        report(f"{name} turn {index}: {'accepted' if result['accepted'] else 'withheld ' + ','.join(result['errors'])}")
+    return rows
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    add_arguments(parser, 'qwen2.5-vl-3b')
+    parser.add_argument('--max-output-tokens', type=int,
+                        help='Default 512 locally; 8000 hosted, where thinking counts against the cap')
+    args = parser.parse_args()
+    args.max_output_tokens = args.max_output_tokens or (512 if args.provider == 'local' else 8000)
+
+    def settings_for(model):
+        return Settings(model=model, max_output_tokens=args.max_output_tokens, image_max_side=672,
+                        reasoning_effort=args.reasoning_effort)
+
+    def run(adapter, model):
+        return run_dialogue(adapter, settings_for(model), report=lambda line: None)
+
+    adapter, model = prepare(args.provider, args.model, args.profile, run, estimate_only=args.estimate_only,
+                             confirm_spend=args.confirm_spend, max_spend=args.max_spend,
+                             session_id=f'smoke-{time.strftime("%Y%m%dT%H%M%S")}')
+    if adapter is None:
+        return
+    rows = run_dialogue(adapter, settings_for(model), report=lambda line: print(line, flush=True))
     out = WORK / 'conversation-smoke'
     out.mkdir(parents=True, exist_ok=True)
     path = out / f'{args.model}-{time.strftime("%Y%m%dT%H%M%S")}.json'
-    path.write_text(json.dumps(dict(model=adapter.served_model, runtime=adapter.runtime, promptVersion=PROMPT_VERSION,
+    inner = getattr(adapter, 'adapter', adapter)
+    path.write_text(json.dumps(dict(model=model, provider=args.provider, runtime=getattr(inner, 'runtime', None),
+                                    reasoningEffort=args.reasoning_effort, promptVersion=PROMPT_VERSION,
                                     note='Development smoke run; not evaluation evidence.', turns=rows), indent=1))
     print(f"accepted {sum(r['accepted'] for r in rows)} of {len(rows)} -> {path.relative_to(ROOT)}")
 
