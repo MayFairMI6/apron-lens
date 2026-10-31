@@ -60,8 +60,8 @@ phone networking and physical acceptance checks.
 
 Verified development machine: Apple Silicon Mac, 48 GB memory, Python 3.12,
 MPS float16. Qwen runs on the Mac; the smartphone is the AR interface. The
-current engine chooses MPS when available and otherwise CPU; CUDA dispatch is
-not implemented.
+current engine chooses an NVIDIA GPU, then MPS, then CPU. USF students can run
+model checks on the GAIVI GPU cluster; see [Running on GAIVI](docs/GAIVI.md).
 
 ```sh
 python3.12 -m venv .venv-qwen
@@ -73,6 +73,8 @@ bash scripts/start_qwen_server.sh
 
 The downloader uses the exact revision in [config/model-manifest.json](config/model-manifest.json).
 It does not follow the latest upstream model. Weights stay in ignored `models/`.
+Newer Qwen3-VL, Qwen3.5 and Gemma 4 models can be tried for development comparisons;
+see [Try a candidate model](docs/MODEL_WORKFLOW.md#try-a-candidate-model).
 The service generates a local connection token in `work/qwen-server-token.txt`;
 enter it through **More → Model connection**. Keep that token local.
 
@@ -165,6 +167,7 @@ See [model workflow setup](docs/MODEL_WORKFLOW.md) and
 | `outputs/reasoning_v1/`, `outputs/reasoning_v2/` | Preserved research records and frozen source snapshots |
 | `outputs/milestone1/` | Screenshots, printable board and verification evidence |
 | `config/model-manifest.json` | Exact model identity/revision; no weights |
+| `backbone/` | Shared frozen model backbone, also used by the compaction project; see its [boundary](backbone/README.md) |
 | `docs/` | Unity, model-compute and collaboration setup |
 
 Model weights, Python environments, Unity caches, license keys, connection

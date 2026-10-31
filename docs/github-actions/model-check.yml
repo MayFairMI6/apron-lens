@@ -10,6 +10,17 @@ on:
         options:
           - smoke
           - dev
+      model:
+        description: Model to check (registered in backbone/models.json)
+        required: true
+        type: choice
+        default: qwen2.5-vl-3b
+        options:
+          - qwen2.5-vl-3b
+          - qwen3-vl-4b
+          - qwen3-vl-8b
+          - qwen3.5-9b
+          - gemma-4-e4b
 permissions:
   contents: read
 concurrency:
@@ -24,23 +35,35 @@ jobs:
     env:
       AIRFIELD_QWEN_PYTHON: ${{ vars.AIRFIELD_QWEN_PYTHON }}
       AIRFIELD_MODEL_CACHE: ${{ vars.AIRFIELD_MODEL_CACHE }}
+      AIRFIELD_CANDIDATE_PYTHON: ${{ vars.AIRFIELD_CANDIDATE_PYTHON }}
+      AIRFIELD_MODELS_DIR: ${{ vars.AIRFIELD_MODELS_DIR }}
       AIRFIELD_CHECK_SUITE: ${{ inputs.suite }}
+      AIRFIELD_CHECK_MODEL: ${{ inputs.model }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Check configured runtime and attach pinned local weights
         run: |
-          test -n "$AIRFIELD_QWEN_PYTHON" && test -x "$AIRFIELD_QWEN_PYTHON"
-          test -n "$AIRFIELD_MODEL_CACHE"
-          "$AIRFIELD_QWEN_PYTHON" scripts/prepare_model_runner.py --model-cache "$AIRFIELD_MODEL_CACHE"
+          python="$AIRFIELD_QWEN_PYTHON"
+          cache="$AIRFIELD_MODEL_CACHE"
+          case "$AIRFIELD_CHECK_MODEL" in
+            qwen2.5-vl-3b) ;;
+            # Qwen3-VL runs in the locked Qwen environment; transformers 5 models need their own.
+            qwen3-vl-*) cache="$AIRFIELD_MODELS_DIR/$AIRFIELD_CHECK_MODEL" ;;
+            *) python="$AIRFIELD_CANDIDATE_PYTHON"; cache="$AIRFIELD_MODELS_DIR/$AIRFIELD_CHECK_MODEL" ;;
+          esac
+          test -n "$python" && test -x "$python"
+          test -n "$cache" && test -d "$cache"
+          "$python" scripts/prepare_model_runner.py --model "$AIRFIELD_CHECK_MODEL" --model-cache "$cache"
+          echo "AIRFIELD_RUN_PYTHON=$python" >> "$GITHUB_ENV"
       - name: Run development checks with the real model
-        run: '"$AIRFIELD_QWEN_PYTHON" scripts/run_model_check.py --suite "$AIRFIELD_CHECK_SUITE" --output work/model-ci'
+        run: '"$AIRFIELD_RUN_PYTHON" scripts/run_model_check.py --suite "$AIRFIELD_CHECK_SUITE" --model "$AIRFIELD_CHECK_MODEL" --output work/model-ci'
       - name: Save model run as an artifact
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: qwen-${{ inputs.suite }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: ${{ inputs.model }}-${{ inputs.suite }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: work/model-ci/
           if-no-files-found: warn
           retention-days: 30

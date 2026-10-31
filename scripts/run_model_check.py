@@ -2,6 +2,7 @@
 import argparse
 import datetime
 import hashlib
+import importlib.metadata
 import json
 import platform
 import subprocess
@@ -11,10 +12,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+import backbone
+from backbone import PRIMARY_MODEL, expected_manifest, load_engine, model_names
 
 
-def run(suite, output):
-    from backend.server import LocalQwen
+def run(suite, output, model):
     from backend.decisions import select_claims, VERSION
     from backend.evidence import build_context, load_scenario, expected_selection
     from backend.reasoning import normalized_claims, validate_answer
@@ -27,9 +29,8 @@ def run(suite, output):
         queries = [q for q in json.loads((ROOT / 'data/reasoning_v1/queries.json').read_text()) if q['split'] == 'dev']
     else:
         queries = [dict(id=f'M1-{t}', scenarioId='M1-stand-coordination-01', aircraftId='A2', checkpoint=t, queryType='latest', properties=[]) for t in (13, 14)]
-    engine = LocalQwen()
-    pinned = json.loads((ROOT / 'config/model-manifest.json').read_text())
-    if engine.manifest != pinned:
+    engine = load_engine(model)
+    if engine.manifest != expected_manifest(model):
         raise ValueError('Loaded model does not match the pinned model manifest')
     rows = []
     for q in queries:
@@ -50,11 +51,14 @@ def run(suite, output):
             stream.write(json.dumps(row)+'\n')
         print(q['id'], 'raw exact:', exact, 'baseline:', baseline_exact, 'guard:', guard['resultStatus'], flush=True)
     commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
-    sources = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ('backend/decisions.py','backend/evidence.py','backend/server.py')}
+    sources = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ('backend/decisions.py','backend/evidence.py','backend/server.py','backbone/MANIFEST.json')}
     result = dict(suite=suite, purpose='Development regression; not fresh held-out evidence',
                   recordedUTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                   commit=commit.stdout.strip() if commit.returncode == 0 else None,
-                  method=VERSION, model=engine.manifest, device=engine.device, python=platform.python_version(),
+                  method=VERSION, backbone=backbone.__version__, modelName=model, model=engine.manifest, device=engine.device, python=platform.python_version(),
+                  transformers=importlib.metadata.version('transformers'),
+                  dtype=str(engine.dtype).removeprefix('torch.'),
+                  gpu=engine.torch.cuda.get_device_name(0) if engine.device == 'cuda' else None,
                   sources=sources, total=len(rows), rawExact=sum(r['exact'] for r in rows),
                   deterministicExact=sum(r['baselineExact'] for r in rows), guardAccepted=sum(r['guardStatus']=='generated' for r in rows))
     (output / 'summary.json').write_text(json.dumps(result, indent=2)+'\n')
@@ -66,5 +70,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--suite', choices=('smoke','dev'), default='smoke')
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--model', choices=model_names(), default=PRIMARY_MODEL)
     args = parser.parse_args()
-    run(args.suite, args.output)
+    run(args.suite, args.output, args.model)
