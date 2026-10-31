@@ -1,5 +1,5 @@
 {
-  "note": "Shared model registry for the frozen backbone. role: primary = used by both projects; robustness = the single second backbone both projects report; exploratory = available but outside course scope. Revisions, licences and architectures were read from the Hugging Face API on 2026-10-27. dtype applies on Apple Silicon; NVIDIA GPUs use bfloat16 where supported. A new entry may start with a null revision; python -m backbone.download --pin records it.",
+  "note": "Shared model registry for the frozen backbone. role: primary = used by both projects; robustness = the single second backbone both projects report; exploratory = available but outside course scope. Revisions, licences and architectures were read from the Hugging Face API on 2026-10-27. dtype is the recommended type on Apple Silicon. Engines never choose device, number type or attention themselves: every run names a runtime profile (below) and records it. A new entry may start with a null revision; python -m backbone.download --pin records it.",
   "models": {
     "qwen2.5-vl-3b": {
       "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
@@ -60,6 +60,32 @@
       "transformers": ">=5.5",
       "role": "exploratory",
       "purpose": "Second model family; small enough to consider for on-phone use"
+    }
+  },
+  "runtimeProfiles": {
+    "apronlens-v2-mps": {
+      "device": "mps",
+      "dtype": "float16",
+      "attn_implementation": "eager",
+      "note": "Configuration of the frozen ApronLens V2 evaluation (backend/server.py LocalQwen)."
+    },
+    "compaction-gaivi-cuda": {
+      "device": "cuda",
+      "dtype": "float16",
+      "attn_implementation": "sdpa",
+      "note": "Configuration in the compaction project's scripts/cabin_scene_runner.py on main (read 2026-10-31)."
+    },
+    "cuda-bfloat16-eager": {
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "attn_implementation": "eager",
+      "note": "What backbone 1.0.0 chose automatically on NVIDIA GPUs; equivalent to neither evaluated profile."
+    },
+    "cpu-float32": {
+      "device": "cpu",
+      "dtype": "float32",
+      "attn_implementation": "eager",
+      "note": "Debugging only; slow."
     }
   }
 }

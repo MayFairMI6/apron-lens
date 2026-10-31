@@ -2,8 +2,9 @@
 
 GitHub stores source, datasets, run records and workflow definitions. Inference
 runs on a machine with sufficient memory and the pinned local model. The current
-engine is verified on Apple Silicon MPS. It also selects an NVIDIA GPU (bfloat16)
-when present, for example on [USF GAIVI](GAIVI.md), and otherwise falls back to CPU. No weights or model API credentials are needed by the hosted checks.
+engine is verified on Apple Silicon MPS. Every run names a runtime profile
+(`apronlens-v2-mps` on the Mac; `compaction-gaivi-cuda` or `cuda-bfloat16-eager` on an
+NVIDIA GPU such as [USF GAIVI](GAIVI.md)); the engine never picks a device or falls back. No weights or model API credentials are needed by the hosted checks.
 
 ## Workflow choices
 
@@ -72,21 +73,22 @@ observations, not new held-out evidence.
 ```sh
 # Qwen3-VL: reuse the locked environment
 .venv-qwen/bin/python -m backbone.download --model qwen3-vl-4b
-.venv-qwen/bin/python scripts/run_model_check.py --suite smoke --model qwen3-vl-4b --output work/check-q3vl4b-001
+.venv-qwen/bin/python scripts/run_model_check.py --suite smoke --model qwen3-vl-4b --runtime apronlens-v2-mps --output work/check-q3vl4b-001
 
 # Qwen3.5 and Gemma 4: a separate environment, so the locked one stays unchanged
 python3.12 -m venv .venv-candidates
 .venv-candidates/bin/python -m pip install -r requirements-candidates.txt
 .venv-candidates/bin/python -m backbone.download --model gemma-4-e4b
-.venv-candidates/bin/python scripts/run_model_check.py --suite smoke --model gemma-4-e4b --output work/check-gemma4-001
+.venv-candidates/bin/python scripts/run_model_check.py --suite smoke --model gemma-4-e4b --runtime apronlens-v2-mps --output work/check-gemma4-001
 ```
 
 Weights go to the ignored `models/<model name>/` folder with a download
 manifest; a model whose manifest does not match its pinned revision is refused.
-To serve a candidate to the phone, start the service with `--model`, for example
-`.venv-qwen/bin/python -m backend.server --model qwen3-vl-4b`.
+The phone service (`backend/server.py`) stays frozen to the evaluated Qwen2.5-VL-3B
+configuration. Candidates are compared with `run_model_check.py`; serving them to
+the phone belongs to the planned conversation service.
 
-For the **Qwen development check** workflow, pick the model when you run it.
+For the **Qwen development check** workflow, pick the model and runtime profile when you run it.
 Candidates need two more repository variables: `AIRFIELD_MODELS_DIR`, a folder
 holding one subfolder per model name (each with its download manifest), and
 `AIRFIELD_CANDIDATE_PYTHON`, the Python of `.venv-candidates` for Qwen3.5 and
@@ -100,8 +102,8 @@ revision. That changes the backbone: bump `backbone/VERSION`, run
 ## Run the same development check locally
 
 ```sh
-.venv-qwen/bin/python scripts/run_model_check.py --suite smoke --output work/check-001
-.venv-qwen/bin/python scripts/run_model_check.py --suite dev --output work/check-002
+.venv-qwen/bin/python scripts/run_model_check.py --suite smoke --runtime apronlens-v2-mps --output work/check-001
+.venv-qwen/bin/python scripts/run_model_check.py --suite dev --runtime apronlens-v2-mps --output work/check-002
 ```
 
 Use a new output directory for each run. The script refuses to overwrite an

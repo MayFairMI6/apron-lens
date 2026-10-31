@@ -10,9 +10,8 @@ from typing import Annotated
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
-from backend.reasoning import ROOT, context_for, decode_image, validate_answer
+from backend.reasoning import ROOT, MODEL_PATH, context_for, decode_image, validate_answer
 from backend.decisions import select_claims, VERSION as DECISION_VERSION
-from backbone import PRIMARY_MODEL, VLMEngine, load_engine, model_names
 
 TOKEN_PATH = ROOT / 'work/qwen-server-token.txt'
 AUDIT_PATH = ROOT / 'work/qwen-requests.jsonl'
@@ -34,19 +33,54 @@ class ReasonRequest(BaseModel):
     checkpoint: float = Field(ge=0, le=3600)
     queryType: str = Field(default='latest', pattern='^(latest|current|change)$')
     properties: list[str] = Field(default_factory=list, max_length=10)
-    # Optional: typed report queries never use the image for inference.
-    imageBase64: str | None = Field(default=None, min_length=1, max_length=2_800_000)
+    imageBase64: str = Field(min_length=1, max_length=2_800_000)
     question: str = Field(default='What does the latest received report say for this aircraft, when did it happen and arrive, and what remains unconfirmed?', min_length=1, max_length=400)
 
 
-# Historical evaluation scripts load the evaluated model by this name.
-LocalQwen = VLMEngine
+class LocalQwen:
+    def __init__(self):
+        import torch
+        from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
+        self.torch = torch
+        self.device = 'mps' if torch.backends.mps.is_available() else 'cpu'
+        self.dtype = torch.float16 if self.device == 'mps' else torch.float32
+        self.processor = AutoProcessor.from_pretrained(MODEL_PATH, local_files_only=True, use_fast=False)
+        self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+            MODEL_PATH, dtype=self.dtype, attn_implementation='eager', local_files_only=True
+        ).to(self.device).eval()
+        self.manifest = json.loads((MODEL_PATH / 'download-manifest.json').read_text())
+
+    def generate(self, prompt, image):
+        content = ([{'type':'image'}] if image is not None else []) + [{'type':'text','text':prompt}]
+        messages = [{'role':'user','content':content}]
+        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        inputs = self.processor(text=[text], images=[image] if image is not None else None, return_tensors='pt').to(self.device)
+        if 'pixel_values' in inputs: inputs['pixel_values'] = inputs['pixel_values'].to(self.dtype)
+        with self.torch.inference_mode():
+            output = self.model.generate(**inputs, max_new_tokens=512, do_sample=False)
+        if self.device == 'mps':
+            self.torch.mps.synchronize()
+        count = inputs['input_ids'].shape[1]
+        answer = self.processor.batch_decode(output[:, count:], skip_special_tokens=True)[0]
+        return answer, int(count), int(output.shape[1] - count)
+
+    def score_labels(self, prompt, image, labels=('A','B')):
+        content=([{'type':'image'}] if image is not None else [])+[{'type':'text','text':prompt}]
+        text=self.processor.apply_chat_template([{'role':'user','content':content}],tokenize=False,add_generation_prompt=True)
+        inputs=self.processor(text=[text],images=[image] if image is not None else None,return_tensors='pt').to(self.device)
+        if 'pixel_values' in inputs:inputs['pixel_values']=inputs['pixel_values'].to(self.dtype)
+        token_ids={label:self.processor.tokenizer.encode(label,add_special_tokens=False) for label in labels}
+        if any(len(ids)!=1 for ids in token_ids.values()):raise ValueError('Decision labels must each be one token')
+        with self.torch.inference_mode():
+            logits=self.model(**inputs,logits_to_keep=1,use_cache=False).logits[0,-1].float()
+            scores=self.torch.log_softmax(logits,dim=-1)
+        return {label:float(scores[ids[0]].item()) for label,ids in token_ids.items()},int(inputs['input_ids'].shape[1])
 
 
-def create_app(engine=None, token=None, model=PRIMARY_MODEL):
+def create_app(engine=None, token=None):
     @asynccontextmanager
     async def lifespan(app):
-        app.state.engine = engine or await run_in_threadpool(load_engine, model)
+        app.state.engine = engine or await run_in_threadpool(LocalQwen)
         app.state.token = token or local_token()
         app.state.busy = asyncio.Lock()
         yield
@@ -80,7 +114,7 @@ def create_app(engine=None, token=None, model=PRIMARY_MODEL):
         authenticate(authorization)
         try:
             context = context_for(body.scenarioId, body.aircraftId, body.checkpoint, body.queryType, body.properties)
-            image_hash = decode_image(body.imageBase64)[1] if body.imageBase64 is not None else None
+            image, image_hash = decode_image(body.imageBase64)
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         if app.state.busy.locked():
@@ -118,8 +152,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=8765)
-    parser.add_argument('--model', choices=model_names(), default=PRIMARY_MODEL)
     args = parser.parse_args()
     local_token()
-    print(f'Local token stored in work/qwen-server-token.txt; {args.model} is loading.', flush=True)
-    uvicorn.run(create_app(model=args.model), host=args.host, port=args.port, access_log=False)
+    print('Local token stored in work/qwen-server-token.txt; model is loading.', flush=True)
+    uvicorn.run(create_app(), host=args.host, port=args.port, access_log=False)

@@ -13,10 +13,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import backbone
-from backbone import PRIMARY_MODEL, expected_manifest, load_engine, model_names
+from backbone import PRIMARY_MODEL, expected_manifest, load_engine, model_names, runtime_profiles
 
 
-def run(suite, output, model):
+def run(suite, output, model, runtime):
     from backend.decisions import select_claims, VERSION
     from backend.evidence import build_context, load_scenario, expected_selection
     from backend.reasoning import normalized_claims, validate_answer
@@ -29,7 +29,7 @@ def run(suite, output, model):
         queries = [q for q in json.loads((ROOT / 'data/reasoning_v1/queries.json').read_text()) if q['split'] == 'dev']
     else:
         queries = [dict(id=f'M1-{t}', scenarioId='M1-stand-coordination-01', aircraftId='A2', checkpoint=t, queryType='latest', properties=[]) for t in (13, 14)]
-    engine = load_engine(model)
+    engine = load_engine(model, profile=runtime)
     if engine.manifest != expected_manifest(model):
         raise ValueError('Loaded model does not match the pinned model manifest')
     rows = []
@@ -55,7 +55,8 @@ def run(suite, output, model):
     result = dict(suite=suite, purpose='Development regression; not fresh held-out evidence',
                   recordedUTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                   commit=commit.stdout.strip() if commit.returncode == 0 else None,
-                  method=VERSION, backbone=backbone.__version__, modelName=model, model=engine.manifest, device=engine.device, python=platform.python_version(),
+                  method=VERSION, backbone=backbone.__version__, modelName=model, model=engine.manifest, runtimeProfile=runtime,
+                  runtime=engine.runtime, device=engine.device, python=platform.python_version(),
                   transformers=importlib.metadata.version('transformers'),
                   dtype=str(engine.dtype).removeprefix('torch.'),
                   gpu=engine.torch.cuda.get_device_name(0) if engine.device == 'cuda' else None,
@@ -71,5 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('--suite', choices=('smoke','dev'), default='smoke')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--model', choices=model_names(), default=PRIMARY_MODEL)
+    parser.add_argument('--runtime', choices=runtime_profiles(), required=True,
+                        help='Named runtime profile; the device, dtype and attention are never chosen automatically')
     args = parser.parse_args()
-    run(args.suite, args.output, args.model)
+    run(args.suite, args.output, args.model, args.runtime)

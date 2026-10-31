@@ -62,6 +62,30 @@ not otherwise have.
 - Open: props occupy about 1% of the frame, which a 3B model may miss; consider
   a referent-centred crop or larger props. Occlusion families not yet authored.
 
+## Backbone 1.1.0 (branch `backbone/explicit-runtime`)
+
+Built on the unmerged `claude/charming-maxwell-msnzgq` backbone (1.0.0, 27 October),
+addressing findings 11 and 12:
+
+- `backend/server.py` restored to the frozen V2 source; it never imports the
+  backbone (`check_research_integrity.py --current` passes, and CI now runs it).
+  The 1.0.0 branch's `--model` option and optional image on `/reason` are
+  therefore not included; candidates are compared with `run_model_check.py`.
+- Engines require an explicit runtime: named profiles in `backbone/models.json`
+  (`apronlens-v2-mps`, `compaction-gaivi-cuda`, `cuda-bfloat16-eager`,
+  `cpu-float32`); an unavailable device is an error, never a fallback.
+  `run_model_check.py --runtime`, the workflow and the GAIVI job require one.
+- Versioning: each repository adopts a backbone version by its own explicit
+  change; results record the backbone version and runtime.
+- `modelaccess/local_backbone.py` replaces `local_qwen.py` and delegates to the
+  backbone engine, so model loading exists in one place.
+- Real-model check (31 October, this Mac): the backbone engine with
+  `apronlens-v2-mps` and the frozen `LocalQwen` produced identical outputs and
+  log-probabilities (maximum difference 0.0) on 23 Yes/No decisions across four
+  Milestone 1 development queries.
+- Not done: the compaction repository still loads Qwen directly (float16, SDPA,
+  CUDA); it adopts the backbone later with the `compaction-gaivi-cuda` profile.
+
 ## Tests
 
 `python -m unittest discover -s tests` runs `tests/test_conversation.py`,

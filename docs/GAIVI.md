@@ -3,8 +3,10 @@
 GAIVI is USF's GPU cluster. The class allocation is node GPU42 in the
 `ClsGenAI` partition, with 100 GB each in `/home`, `/data` and `/general`.
 GitHub keeps running the model-free tests; GAIVI runs the real models.
-Results are development observations, not held-out evidence, and NVIDIA
-bfloat16 numbers will not exactly match the frozen Apple MPS float16 run.
+Results are development observations, not held-out evidence. Every job names
+a runtime profile (`RUNTIME=compaction-gaivi-cuda` for float16 with SDPA, as
+the compaction project ran, or `cuda-bfloat16-eager`); neither matches the
+frozen Apple MPS float16 run exactly, and the profile is recorded with the results.
 
 GAIVI rules that shape these steps: connect through the USF GlobalProtect VPN;
 anything over 10 minutes, 1 CPU core or 2 GB memory on the login node must run
@@ -76,7 +78,7 @@ ask GAIVI support (Bellini-CollegeLRICS@usf.edu) for the recommended route.
 
 ```sh
 conda activate apronlens
-sbatch --export=ALL,MODEL=qwen3-vl-4b,SUITE=smoke scripts/gaivi/model_check.sbatch
+sbatch --export=ALL,MODEL=qwen3-vl-4b,SUITE=smoke,RUNTIME=compaction-gaivi-cuda scripts/gaivi/model_check.sbatch
 squeue -u $USER
 ```
 

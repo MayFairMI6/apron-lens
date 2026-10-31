@@ -3,14 +3,22 @@
 generate     free text for a prompt and optional image
 score_labels log-probabilities of single-token labels (e.g. Yes/No) as the next token
 embed        mean-pooled final hidden state, as frozen features for project modules
+
+Since 1.1.0 every engine is created with an explicit runtime (device, dtype,
+attention implementation), usually from a named profile, and exposes it as
+engine.runtime so results can record it.
 """
 import json
-from backbone.registry import check_transformers, expected_manifest, model_dir, model_entry, PRIMARY_MODEL
-from backbone.runtime import pick_device, pick_dtype
+from pathlib import Path
+from backbone.registry import (check_transformers, expected_manifest, model_dir, model_entry,
+                               PRIMARY_MODEL, runtime_profile)
+from backbone.runtime import resolve_runtime
+
+VERSION = Path(__file__).with_name('VERSION').read_text().strip()
 
 
 class VLMEngine:
-    def __init__(self, name=PRIMARY_MODEL):
+    def __init__(self, name=PRIMARY_MODEL, *, device, dtype, attn_implementation):
         entry = model_entry(name)
         path = model_dir(name)
         manifest = json.loads((path / 'download-manifest.json').read_text())
@@ -21,22 +29,22 @@ class VLMEngine:
         check_transformers(name, transformers.__version__)
         self.name = name
         self.torch = torch
-        self.device = pick_device(torch)
-        self.dtype = pick_dtype(torch, self.device, entry['dtype'])
+        self.device, self.dtype, self.attn_implementation = resolve_runtime(torch, device, dtype, attn_implementation)
         if entry['loader'] == 'qwen2_5_vl':
-            # Exactly the configuration of the frozen ApronLens V2 evaluation.
             from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
             self.processor = AutoProcessor.from_pretrained(path, local_files_only=True, use_fast=False)
             self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-                path, dtype=self.dtype, attn_implementation='eager', local_files_only=True
+                path, dtype=self.dtype, attn_implementation=self.attn_implementation, local_files_only=True
             ).to(self.device).eval()
         else:
             from transformers import AutoModelForImageTextToText, AutoProcessor
             self.processor = AutoProcessor.from_pretrained(path, local_files_only=True)
             self.model = AutoModelForImageTextToText.from_pretrained(
-                path, dtype=self.dtype, local_files_only=True
+                path, dtype=self.dtype, attn_implementation=self.attn_implementation, local_files_only=True
             ).to(self.device).eval()
         self.manifest = manifest
+        self.runtime = dict(device=device, dtype=dtype, attn_implementation=attn_implementation,
+                            torch=torch.__version__, transformers=transformers.__version__, backbone=VERSION)
 
     def _inputs(self, prompt, image):
         content = ([{'type':'image'}] if image is not None else []) + [{'type':'text','text':prompt}]
@@ -45,10 +53,11 @@ class VLMEngine:
         if 'pixel_values' in inputs: inputs['pixel_values'] = inputs['pixel_values'].to(self.dtype)
         return inputs
 
-    def generate(self, prompt, image):
+    def generate(self, prompt, image, max_new_tokens=512):
+        """Greedy decoding only; returns (text, input_tokens, output_tokens)."""
         inputs = self._inputs(prompt, image)
         with self.torch.inference_mode():
-            output = self.model.generate(**inputs, max_new_tokens=512, do_sample=False)
+            output = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
         if self.device == 'mps':
             self.torch.mps.synchronize()
         count = inputs['input_ids'].shape[1]
@@ -72,5 +81,14 @@ class VLMEngine:
         return hidden.float().mean(dim=0).cpu().tolist()
 
 
-def load_engine(name=PRIMARY_MODEL):
-    return VLMEngine(name)
+def load_engine(name=PRIMARY_MODEL, *, profile=None, device=None, dtype=None, attn_implementation=None):
+    """Load with a named runtime profile, or with all three runtime values given explicitly."""
+    explicit = (device, dtype, attn_implementation)
+    if profile is not None:
+        if any(v is not None for v in explicit):
+            raise ValueError('Give a runtime profile or explicit runtime values, not both')
+        return VLMEngine(name, **runtime_profile(profile))
+    if any(v is None for v in explicit):
+        raise ValueError('A runtime profile or device, dtype and attn_implementation are required; '
+                         'the backbone does not choose them')
+    return VLMEngine(name, device=device, dtype=dtype, attn_implementation=attn_implementation)

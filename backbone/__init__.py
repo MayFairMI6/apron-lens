@@ -5,10 +5,12 @@ evidence rules and anything trained live in each project, never here.
 See backbone/README.md for the boundary and python -m backbone.check for its enforcement.
 """
 from pathlib import Path
-from backbone.registry import PRIMARY_MODEL, check_transformers, expected_manifest, model_dir, model_entry, model_names
-from backbone.runtime import pick_device, pick_dtype
+from backbone.registry import (PRIMARY_MODEL, check_transformers, expected_manifest, model_dir, model_entry,
+                               model_names, runtime_profile, runtime_profiles)
+from backbone.runtime import pick_device, pick_dtype, resolve_runtime
 from backbone.engine import VLMEngine, load_engine
 
 __version__ = (Path(__file__).parent / 'VERSION').read_text().strip()
 __all__ = ['PRIMARY_MODEL', 'VLMEngine', 'check_transformers', 'expected_manifest', 'load_engine',
-           'model_dir', 'model_entry', 'model_names', 'pick_device', 'pick_dtype', '__version__']
+           'model_dir', 'model_entry', 'model_names', 'pick_device', 'pick_dtype', 'resolve_runtime',
+           'runtime_profile', 'runtime_profiles', '__version__']

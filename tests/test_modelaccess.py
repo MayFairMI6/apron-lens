@@ -3,7 +3,9 @@ import unittest
 
 from modelaccess.contract import (FinishReason, ImageInput, InvalidRequest, Operation, ProviderReply,
                                   Request, SchemaMode, Settings, UnsupportedCapability, Usage)
-from modelaccess.local_qwen import LocalQwenAdapter
+from modelaccess.local_backbone import LocalBackboneAdapter
+from modelaccess.contract import ModelAccessError
+from backbone import expected_manifest
 from modelaccess.mock import MockAdapter, mock_capabilities
 from modelaccess.repair import REPAIR_POLICY_VERSION, parse_json_output
 
@@ -61,15 +63,67 @@ class Contract(unittest.TestCase):
             no_images.generate(Request('r1', (('user', 'x'),), Settings('model-x', 10, image_max_side=672), images=(image,)))
 
 
-class LocalQwenSettings(unittest.TestCase):
-    def test_device_and_dtype_must_be_explicit(self):
+class FakeEngine:
+    def __init__(self, manifest, output_tokens=3):
+        self.manifest, self.output_tokens, self.calls = manifest, output_tokens, []
+        self.runtime = dict(device='cpu', dtype='float32', attn_implementation='eager', backbone='test')
+
+    def generate(self, prompt, image, max_new_tokens=512):
+        self.calls.append(('generate', max_new_tokens))
+        return '{"a":1}', 12, min(self.output_tokens, max_new_tokens)
+
+    def score_labels(self, prompt, image, labels):
+        return {'Yes': -0.1, 'No': -2.3}, 9
+
+
+class LocalBackbone(unittest.TestCase):
+    MODEL = 'qwen2.5-vl-3b'
+
+    def adapter(self, engine=None, **runtime):
+        runtime = runtime or dict(profile='cpu-float32')
+        engine = engine or FakeEngine(expected_manifest(self.MODEL))
+        made = []
+
+        def factory(name, **values):
+            made.append((name, values))
+            return engine
+        adapter = LocalBackboneAdapter(self.MODEL, engine_factory=factory, **runtime)
+        return adapter, made
+
+    def test_runtime_must_be_explicit(self):
         with self.assertRaises(InvalidRequest):
-            LocalQwenAdapter('models/x', 'Qwen/Qwen2.5-VL-3B-Instruct', 'rev', 'auto', 'float16', 'eager')
+            LocalBackboneAdapter(self.MODEL)
         with self.assertRaises(InvalidRequest):
-            LocalQwenAdapter('models/x', 'Qwen/Qwen2.5-VL-3B-Instruct', 'rev', 'mps', 'half', 'eager')
-        adapter = LocalQwenAdapter('models/x', 'Qwen/Qwen2.5-VL-3B-Instruct', 'rev', 'cpu', 'float32', 'eager')
+            LocalBackboneAdapter(self.MODEL, device='mps')
+        with self.assertRaises(InvalidRequest):
+            LocalBackboneAdapter(self.MODEL, profile='apronlens-v2-mps', device='cpu')
+        with self.assertRaises(InvalidRequest):
+            LocalBackboneAdapter(self.MODEL, device='auto', dtype='float16', attn_implementation='eager')
+
+    def test_profile_is_passed_to_the_backbone(self):
+        adapter, made = self.adapter(profile='apronlens-v2-mps')
+        adapter.load()
+        self.assertEqual(made, [(self.MODEL, dict(device='mps', dtype='float16', attn_implementation='eager'))])
         self.assertIn(Operation.SCORE_LABELS, adapter.capabilities.operations)
-        self.assertEqual(adapter.run_metadata()['dtype'], 'float32')
+
+    def test_generate_and_score_through_the_engine(self):
+        adapter, _ = self.adapter()
+        result = adapter.generate(request(model=adapter.served_model, max_output_tokens=50, temperature=0.7))
+        self.assertTrue(result.ok, result.error)
+        self.assertEqual(result.ignored_settings, ('temperature',))  # greedy engine
+        self.assertEqual(result.metadata['engineRuntime']['dtype'], 'float32')
+        scores = adapter.score_labels('Yes or No?', ('Yes', 'No'), Settings(adapter.served_model, 1))
+        self.assertEqual(scores, {'Yes': -0.1, 'No': -2.3})
+
+    def test_output_cap_reached_is_a_length_stop(self):
+        adapter, _ = self.adapter(engine=FakeEngine(expected_manifest(self.MODEL), output_tokens=5))
+        result = adapter.generate(request(model=adapter.served_model, max_output_tokens=5))
+        self.assertEqual(result.finish_reason, FinishReason.LENGTH)
+
+    def test_wrong_engine_revision_is_refused(self):
+        adapter, _ = self.adapter(engine=FakeEngine(dict(expected_manifest(self.MODEL), revision='0' * 40)))
+        with self.assertRaises(ModelAccessError):
+            adapter.load()
 
 
 class Repair(unittest.TestCase):
