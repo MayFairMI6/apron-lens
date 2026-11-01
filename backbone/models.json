@@ -47,7 +47,10 @@
       "dtype": "bfloat16",
       "transformers": ">=5.2",
       "role": "exploratory",
-      "purpose": "Newest natively multimodal Qwen that fits a 48 GB Mac without quantisation"
+      "purpose": "Newest natively multimodal Qwen that fits a 48 GB Mac without quantisation",
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
     },
     "gemma-4-e4b": {
       "model_id": "google/gemma-4-E4B-it",

@@ -45,6 +45,10 @@ class BackboneTests(unittest.TestCase):
    self.assertRegex(entry['transformers'],r'^>=\d+\.\d+$',name)
    self.assertTrue(entry['source'].endswith(entry['model_id']),name)
    self.assertEqual(set(expected_manifest(name)),{'model_id','revision','source','license'})
+ def test_only_qwen35_switches_its_chat_template(self):
+  # 1.2.0: Qwen3.5 answers without a thinking trace; every other model keeps its default template.
+  switched={n:model_entry(n).get('chat_template_kwargs') for n in model_names() if model_entry(n).get('chat_template_kwargs')}
+  self.assertEqual(switched,{'qwen3.5-9b':{'enable_thinking':False}})
  def test_unknown_and_unpinned_rejected(self):
   with self.assertRaises(ValueError):expected_manifest('not-a-model')
   unpinned={'x':dict(model_entry(PRIMARY_MODEL),revision=None)}

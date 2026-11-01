@@ -43,6 +43,12 @@ Projects import only these names: `from backbone import ...`
 | `qwen3-vl-4b` | robustness: the one second backbone both projects report | Qwen/Qwen3-VL-4B-Instruct | `requirements-qwen.lock.txt` |
 | `qwen3-vl-8b`, `qwen3.5-9b`, `gemma-4-e4b` | exploratory, outside course scope | see `models.json` | transformers 5 models: `requirements-candidates.txt` |
 
+A registry entry may set `chat_template_kwargs` (1.2.0), passed to the
+processor's chat template. `qwen3.5-9b` sets `enable_thinking: false`: by
+default it writes a reasoning trace before answering, which used the whole
+output budget in the conversation runs. No other model sets it, so their
+prompts are unchanged.
+
 ## Runtime profiles (1.1.0)
 
 The engine never chooses device, number type or attention implementation.

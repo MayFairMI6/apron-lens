@@ -1,13 +1,13 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "files": {
-    "README.md": "30f290e723bb06d5460a3df2355c18da43acad635110c619a3a696bcea22af99",
-    "VERSION": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8",
+    "README.md": "daacdba52060149c95023ebaa5316edc7537305ad1504bfcb445fbef355976b2",
+    "VERSION": "1e5b51cde515396a9fa762909cf8ca6584ccc564b325d2eebeea76175fe95c4d",
     "__init__.py": "dcd88e6d0b4f1e1a4fcab76f2fe98f4c67b41a331ce8d6ec57226ab4d031e94a",
     "check.py": "14fc2b862ab6add0d49eead0d47ff8088db52cc6b1e348421d0422d91ec1b215",
     "download.py": "9ee827fb606ab2fae780c697d74daf1047eac1fe2a251f9aa392e3c6025897c9",
-    "engine.py": "8db314cd01110daa140208e02a8a3ee0771035866bdd79b0b3f4713a4990fd31",
-    "models.json": "b810cd48f1bbb7b9056be1ba9decdae1cc181681f46253aa8407dab7b69d1b95",
+    "engine.py": "58e5084578406d925c1215d05ce74e3372d5daac0ab708473aa6eeeac2f5f00c",
+    "models.json": "728660a5045909634c238f01b907d7543aa870f7c72fb4edc3d86de19e6b9352",
     "registry.py": "33f2eed079a61efc9fddf55a399026d5f313943e15a5e95655cb380e55cd7bec",
     "runtime.py": "3edd6b0dce6825dca9982c0cfc68d8d7c41348dff57cf01dd17c454b9882fb84"
   }
