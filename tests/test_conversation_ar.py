@@ -63,7 +63,7 @@ class TrackingInterruption(unittest.TestCase):
         away = {c['flightInstance']: c['changedWhileAway'] for c in candidates}
         # E03 (received at 30) supersedes E01, so both changed status while the board was out of view.
         self.assertEqual(away, {'F2-R1': ['E01:stand', 'E03:stand'], 'F2-R2': []})
-        self.assertEqual(result['lastSeen'], 25)
+        self.assertEqual(result['awayIntervals'], [25, 35])
 
     def test_back_in_view_excludes_reports_the_user_watched_arrive(self):
         adapter = MockAdapter([json.dumps(proposal())])
@@ -77,6 +77,24 @@ class TrackingInterruption(unittest.TestCase):
         with self.assertRaises(ValueError):
             run_turn(SessionState('s'), two_rotation_scenario(), turn(1, 0, cutoff=40, lastSeen=10, backInView=45),
                      MockAdapter([]), SETTINGS)
+
+    def test_separate_losses_keep_the_watched_time_between_them_out(self):
+        adapter = MockAdapter([json.dumps(proposal())])
+        # Out of view 0-4 and 31-40: E02 (5 s) and E03 (30 s) arrived while the board was in view.
+        result = run_turn(SessionState('s'), two_rotation_scenario(),
+                          turn(1, 0, cutoff=40, awayIntervals=[0, 4, 31, 40]), adapter, SETTINGS)
+        prompt = adapter.calls[0][0].messages[0][1]
+        self.assertIn('from 0 s to 4 s and from 31 s until now', prompt)
+        candidates = json.loads(prompt.split('Candidate flights and received facts: ')[1].split('\nUser:')[0])
+        self.assertEqual({c['flightInstance']: c['changedWhileAway'] for c in candidates}, {'F2-R1': [], 'F2-R2': []})
+        self.assertEqual(result['awayIntervals'], [0, 4, 31, 40])
+        merged = MockAdapter([json.dumps(proposal())])
+        run_turn(SessionState('s'), two_rotation_scenario(), turn(1, 0, cutoff=40, lastSeen=0), merged, SETTINGS)
+        self.assertIn('"changedWhileAway": ["E01:stand", "E03:stand"]', merged.calls[0][0].messages[0][1])
+        for bad in ([10, 5], [0, 20, 15, 30], [0, 4, 31]):
+            with self.assertRaises(ValueError):
+                run_turn(SessionState('s'), two_rotation_scenario(), turn(1, 0, cutoff=40, awayIntervals=bad),
+                         MockAdapter([]), SETTINGS)
 
     def test_without_last_seen_the_prompt_says_nothing_about_tracking(self):
         adapter = MockAdapter([json.dumps(proposal())])

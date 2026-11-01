@@ -27,11 +27,13 @@ AR conditions (conversation-prompt-v6, referent-rule-v3; docs/AR_SCOPE.md).
   The candidates are then every flight in the scenario, and an accepted answer's
   referent is recorded as a 'reference' intent, as a selection would be, so it
   persists to the next turn.
-- lastSeen and backInView: the replay times when the board left and returned to
-  the camera's view (backInView defaults to the turn's cutoff). For each
-  candidate flight the prompt then lists changedWhileAway, the facts that are
-  new or changed status in that interval, from the same changed_facts function;
-  reports after backInView were watched arrive and are not included.
+- Tracking interruptions: one or more intervals when the board was out of the
+  camera's view, given as lastSeen and backInView (one interval; backInView
+  defaults to the turn's cutoff) or as awayIntervals (the app's list, which
+  keeps separate losses apart). For each candidate flight the prompt lists
+  changedWhileAway, the union over the intervals of the facts that are new or
+  changed status, from the same changed_facts function; reports that arrived
+  while the board was in view were watched and are not included.
 
 Authored visual ground truth is never read on this path.
 """
@@ -77,8 +79,30 @@ def apply_correction(data, proposal):
     return dict(proposal, referent=target), 'correction'
 
 
+def away_intervals(turn, cutoff):
+    """[(start, end)] from lastSeen/backInView or awayIntervals; ValueError unless ordered, disjoint and before cutoff."""
+    flat = turn.get('awayIntervals')
+    if flat is not None and turn.get('lastSeen') is not None:
+        raise ValueError('Give lastSeen/backInView or awayIntervals, not both')
+    if flat is None:
+        if turn.get('lastSeen') is None:
+            if turn.get('backInView') is not None:
+                raise ValueError('backInView needs a lastSeen')
+            return []
+        flat = [turn['lastSeen'], cutoff if turn.get('backInView') is None else turn['backInView']]
+    if len(flat) % 2:
+        raise ValueError('awayIntervals needs start and end pairs')
+    intervals = list(zip(flat[0::2], flat[1::2]))
+    previous_end = 0
+    for start, end in intervals:
+        if not previous_end <= start < end <= cutoff:
+            raise ValueError('Away intervals must be ordered, disjoint and not after the replay time')
+        previous_end = end
+    return intervals
+
+
 def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight, question, image_time=None, tap=None,
-                 last_seen=None, back_in_view=None):
+                 away=()):
     """`previous_by_flight` maps (aircraft, flight) to the visible previous answer about that flight.
 
     For each such flight the prompt carries the changed-fact set that
@@ -101,10 +125,10 @@ def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight,
                                    citedFacts=list(previous.claims),
                                    changedSincePreviousAnswer=changed_facts(
                                        snapshot(data, aircraft, flight, previous.cutoff), snap))))
-        if last_seen is not None:
-            back = cutoff if back_in_view is None else back_in_view
-            candidates[-1]['changedWhileAway'] = changed_facts(snapshot(data, aircraft, flight, last_seen),
-                                                               snapshot(data, aircraft, flight, back))
+        if away:
+            candidates[-1]['changedWhileAway'] = sorted(set().union(*(
+                changed_facts(snapshot(data, aircraft, flight, start), snapshot(data, aircraft, flight, end))
+                for start, end in away)))
     memory = dict(
         currentReferent=None if referent is None else dict(aircraftId=referent[0], flightInstance=referent[1]),
         userIntents=[dict(kind=i.kind, aircraftId=i.aircraft_id, flightInstance=i.flight_instance, text=i.text,
@@ -151,9 +175,9 @@ def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight,
         + ('Nothing is selected in the app: identify the flight from the user\'s words and the memory, and use '
            '"clarify" when they could mean more than one candidate flight. ' if selection is None else
            f'Selected in the app: aircraft {selection[0]}, flight {selection[1]}. ')
-        + ('' if last_seen is None else
-           f'The board was out of the user\'s view from {last_seen:g} s '
-           + ('until now' if back_in_view is None or back_in_view >= cutoff else f'to {back_in_view:g} s')
+        + ('' if not away else
+           'The board was out of the user\'s view '
+           + ' and '.join(f'from {start:g} s ' + ('until now' if end >= cutoff else f'to {end:g} s') for start, end in away)
            + ', while reports kept arriving; '
            'each candidate\'s changedWhileAway lists the facts that are new or changed since then. Cite those of '
            'the referent flight that bear on the question, so the user hears what changed while they were not '
@@ -172,7 +196,8 @@ def run_turn(session, data, turn, adapter, settings):
     `turn` keys: requestId, turnId, expectedRevision, aircraftId, flightInstance,
     cutoff, question, and optionally image (bytes), imageMediaType,
     imageCaptureTime, imageSha256, tap ([x, y] in image coordinates),
-    lastSeen and backInView. aircraftId and flightInstance are None when
+    lastSeen and backInView, or awayIntervals ([start, end, start, end, ...]
+    from the app). aircraftId and flightInstance are None when
     nothing is selected.
     Raises ValueError for requests that cannot be served, and the state
     module's exceptions for revision, seek and request-ID conflicts.
@@ -188,11 +213,7 @@ def run_turn(session, data, turn, adapter, settings):
         resolve_flight(data, *selection)
     if not 0 <= cutoff <= data['duration']:
         raise ValueError('Cutoff outside scenario')
-    last_seen, back_in_view = turn.get('lastSeen'), turn.get('backInView')
-    if last_seen is not None and not 0 <= last_seen < cutoff:
-        raise ValueError('lastSeen must be before the replay time')
-    if back_in_view is not None and (last_seen is None or not last_seen < back_in_view <= cutoff):
-        raise ValueError('backInView needs a lastSeen before it and must not be after the replay time')
+    away = away_intervals(turn, cutoff)
     image_time = turn.get('imageCaptureTime') if turn.get('image') is not None else None
     if turn.get('image') is not None and (image_time is None or image_time > cutoff):
         raise ValueError('An image needs a capture time at or before the replay time')
@@ -211,7 +232,7 @@ def run_turn(session, data, turn, adapter, settings):
         if previous is not None:
             previous_by_flight[flight] = previous
     prompt = build_prompt(data, cutoff, selection, referent, intents + new_intents, previous_by_flight,
-                          turn['question'], image_time, turn.get('tap'), last_seen, back_in_view)
+                          turn['question'], image_time, turn.get('tap'), away)
     images = () if image_time is None else (ImageInput(turn['image'], turn['imageMediaType'], image_time),)
     reply = adapter.generate(Request(request_id, (('user', prompt),), settings, images))
 
@@ -264,7 +285,7 @@ def run_turn(session, data, turn, adapter, settings):
         finishReason=reply.finish_reason.value, inputTokens=reply.usage.input_tokens,
         outputTokens=reply.usage.output_tokens, latencySeconds=round(reply.latency_seconds, 3),
         ignoredSettings=list(reply.ignored_settings), rawJsonValid=raw_valid, repairs=list(repairs),
-        selectionSent=selection is not None, lastSeen=last_seen, backInView=back_in_view,
+        selectionSent=selection is not None, awayIntervals=[t for interval in away for t in interval],
         referentSource=referent_source, promptVersion=PROMPT_VERSION, referentRule=REFERENT_RULE_VERSION,
         validatorVersion=VALIDATOR_VERSION, repairPolicy=REPAIR_POLICY_VERSION)
     stored = session.commit(request_id, turn_id, expected, new_intents, stored_turn, result)

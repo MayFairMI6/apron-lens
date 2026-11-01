@@ -23,8 +23,7 @@ namespace SurfaceSafety {
     [Serializable] public class ConversationRequest {
         public string requestId, turnId, sessionId, mode = "development", scenarioId, aircraftId, flightInstance, question, imageBase64;
         public float checkpoint, imageCaptureTime;
-        public float lastSeen = -1; // replay time the board left the view before this turn; -1 when it didn't (JsonUtility can't omit)
-        public float backInView = -1; // when it came back into view, if before this turn; -1 means "until now"
+        public float[] awayIntervals; // tracking losses since the last committed turn, [start, end, ...]; [] for none
         public int expectedRevision;
         public float[] tapViewport; // JsonUtility writes [] when unset; the server reads [] as "no tap"
     }
@@ -86,7 +85,7 @@ namespace SurfaceSafety {
 
         public void NewSession() { SessionId = Guid.NewGuid().ToString("N"); Revision = 0; Pending = null; LastResponse = null; }
 
-        // Request ID -> how many tracking losses the request carried (as lastSeen), so a committed turn clears
+        // Request ID -> how many tracking losses the request carried (as awayIntervals), so a committed turn clears
         // only those, not losses that happened after the request was built.
         readonly Dictionary<string, int> interruptionsCarried = new Dictionary<string, int>();
 
@@ -100,9 +99,7 @@ namespace SurfaceSafety {
                 aircraftId = a.id, flightInstance = a.FlightAt(replay.Clock.Time), checkpoint = replay.Clock.Time,
                 expectedRevision = Revision, question = question.Trim(),
                 imageBase64 = Convert.ToBase64String(evidence.png), imageCaptureTime = replay.Clock.Time,
-                lastSeen = replay.InterruptedAt.HasValue && replay.InterruptedAt.Value < replay.Clock.Time ? replay.InterruptedAt.Value : -1,
-                backInView = replay.InterruptedAt.HasValue && replay.BackInView.HasValue && replay.BackInView.Value < replay.Clock.Time
-                    ? replay.BackInView.Value : -1,
+                awayIntervals = replay.AwayIntervals(),
                 tapViewport = float.IsNaN(evidence.tapViewport.x) ? new float[0] : new[] { evidence.tapViewport.x, evidence.tapViewport.y } };
         }
 

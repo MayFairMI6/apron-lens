@@ -108,11 +108,18 @@ class Endpoint(unittest.TestCase):
     def test_last_seen_reaches_the_prompt_and_minus_one_means_none(self):
         client = self.serve([reply(), reply()])
         first = self.ask(client, 1, 0, checkpoint=35, lastSeen=25).json()
-        self.assertEqual(first['lastSeen'], 25)
+        self.assertEqual(first['awayIntervals'], [25, 35])
         self.assertIn("out of the user's view from 25 s", self.prompt())
         second = self.ask(client, 2, 1, checkpoint=36, lastSeen=-1).json()  # Unity's "no interruption"
-        self.assertIsNone(second['lastSeen'])
+        self.assertEqual(second['awayIntervals'], [])
         self.assertNotIn('changedWhileAway', self.prompt())
+
+    def test_the_apps_away_intervals_reach_the_prompt(self):
+        client = self.serve([reply(), reply()])
+        result = self.ask(client, 1, 0, checkpoint=40, awayIntervals=[0, 4, 31, 40]).json()
+        self.assertEqual(result['awayIntervals'], [0, 4, 31, 40])
+        self.assertIn('from 0 s to 4 s and from 31 s until now', self.prompt())
+        self.assertEqual(self.ask(client, 2, 1, checkpoint=41, awayIntervals=[]).json()['awayIntervals'], [])
 
     def test_text_only_requests_reach_the_turn_handler(self):
         client = self.serve([reply(status='clarify', referent=None)])

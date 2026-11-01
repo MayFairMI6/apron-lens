@@ -102,15 +102,23 @@ namespace SurfaceSafety {
         }
         // Tracking losses not yet reported to the server, each with a sequence number and the replay time the
         // board left the camera's view. Only a clock that runs while untracked records them: with a paused clock
-        // nothing can arrive unseen. ConversationClient sends the earliest as lastSeen and, once that turn is
+        // nothing can arrive unseen. ConversationClient sends them as awayIntervals and, once that turn is
         // committed, clears the losses the request carried, keeping any that happened after it was built.
         // Restarting or seeking backward starts a new timeline and discards them.
         // back is the replay time tracking returned (-1 while the board is still out of view).
         readonly List<(int id,float at,float back)> interruptions=new List<(int id,float at,float back)>();
         public int InterruptionCount {get;private set;}
         public float? InterruptedAt=>interruptions.Count==0?(float?)null:interruptions[0].at;
-        // When the board last came back into view; reports after it were watched arrive. Null while still out of view.
-        public float? BackInView=>interruptions.Count==0||interruptions[interruptions.Count-1].back<0?(float?)null:interruptions[interruptions.Count-1].back;
+        // Pending losses as [start, end, start, end, ...] up to the current replay time, each kept separate so the
+        // time watched between them never counts as unseen. A loss still under way ends now.
+        public float[] AwayIntervals(){
+            var flat=new List<float>();
+            foreach(var i in interruptions){
+                var end=i.back<0?Clock.Time:i.back;
+                if(end>i.at){flat.Add(i.at);flat.Add(end);}
+            }
+            return flat.ToArray();
+        }
         public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}
         public void Tracking(bool found){
             if(Clock==null)return;

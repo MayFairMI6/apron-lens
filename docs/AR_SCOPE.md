@@ -128,7 +128,10 @@ All are optional unless a set requires them.
 - **`backInView`** (optional, with `lastSeen`): the replay time the board came
   back into view, when that was before the turn's `cutoff`. Reports after it
   were watched arrive, so only the interval from `lastSeen` to `backInView`
-  counts as unseen. Without it, the board came back at the `cutoff`.
+  counts as unseen. Without it, the board came back at the `cutoff`. The app
+  itself sends every loss since the last committed turn as `awayIntervals`
+  (`[start, end, start, end, ...]`), so the time watched between two losses is
+  never counted as unseen.
 - **`citeOnly`** (in `expect`): the facts an answer may cite; its claims must
   be a subset, scored as `precise`. Use it where the question asks what
   changed, so that listing every fact doesn't pass. For example, "what changed

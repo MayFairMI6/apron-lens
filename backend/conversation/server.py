@@ -89,10 +89,12 @@ class ConversationRequest(BaseModel):
     tapViewport: list[float] | None = Field(default=None, min_length=2, max_length=2)
     lastSeen: float | None = Field(default=None, le=3600)  # tracking interruption; Unity sends -1 for none
     backInView: float | None = Field(default=None, le=3600)  # when tracking returned; -1 for none
+    # The app's tracking losses as [start, end, start, end, ...] (JsonUtility can't write nested arrays); [] for none.
+    awayIntervals: list[float] | None = Field(default=None, max_length=40)
 
     # Unity's JsonUtility cannot omit a field: an unset string is written as "" and an
     # unset array as []. Both mean "not provided".
-    @field_validator('imageBase64', 'tapViewport', 'aircraftId', 'flightInstance', mode='before')
+    @field_validator('imageBase64', 'tapViewport', 'aircraftId', 'flightInstance', 'awayIntervals', mode='before')
     @classmethod
     def unset_is_none(cls, value):
         return None if value in ('', []) else value
@@ -163,7 +165,7 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
         turn = dict(requestId=body.requestId, turnId=body.turnId, expectedRevision=body.expectedRevision,
                     aircraftId=body.aircraftId, flightInstance=body.flightInstance, cutoff=body.checkpoint,
                     question=body.question, tap=body.tapViewport, lastSeen=body.lastSeen,
-                    backInView=body.backInView)
+                    backInView=body.backInView, awayIntervals=body.awayIntervals)
         image_hash = None
         if body.imageBase64 is not None:
             try:

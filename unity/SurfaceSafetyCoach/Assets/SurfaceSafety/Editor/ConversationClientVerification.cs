@@ -111,47 +111,49 @@ public static class ConversationClientVerification {
         replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true);
         check(Mathf.Approximately(replay.Clock.Time, 20), "the default clock pauses while the board is out of view");
         replay.Clock.Play(); replay.Clock.Advance(10);
-        check(!replay.InterruptedAt.HasValue && client.BuildRequest("Anything new?").lastSeen < 0,
-              "no lastSeen from a paused clock, even after playback resumes");
+        check(!replay.InterruptedAt.HasValue && client.BuildRequest("Anything new?").awayIntervals.Length == 0,
+              "no away interval from a paused clock, even after playback resumes");
 
-        // 3. A running clock: reports keep arriving out of view, and the next request carries lastSeen.
+        // 3. A running clock: reports keep arriving out of view, and the next request carries the interval.
         var running = boot("visual_dev_03"); replay = running.Replay; client = running.GetComponent<ConversationClient>();
         replay.SelectAircraft(1); replay.Seek(20); replay.Clock.Play();
         replay.Tracking(false); replay.Clock.Advance(6); replay.Tracking(false); replay.Clock.Advance(4); replay.Tracking(true);
         var request = client.BuildRequest("I was looking away. Is it done now?");
         check(replay.Data.ClockRunsUntracked && Mathf.Approximately(request.checkpoint, 30), "the clock ran 10 s out of view");
-        check(Mathf.Approximately(request.lastSeen, 20) && JsonUtility.ToJson(request).Contains("\"lastSeen\":20") && request.backInView < 0,
-              "lastSeen is when the board first left the view; back in view just now");
+        check(request.awayIntervals.Length == 2 && Mathf.Approximately(request.awayIntervals[0], 20) && Mathf.Approximately(request.awayIntervals[1], 30)
+              && JsonUtility.ToJson(request).Contains("\"awayIntervals\":[20.0,30.0]"), "one interval, 20 to 30 s");
         var response = new ConversationResponse { requestId = request.requestId, sessionId = request.sessionId, cutoff = request.checkpoint,
             accepted = true, revision = 1, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } };
         // A second loss after the request was built must survive the first request's response.
         replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(5); replay.Tracking(true);
         client.ApplyResponse(request, response);
         var next = client.BuildRequest("And now?");
-        check(Mathf.Approximately(next.lastSeen, 30), "a committed turn clears only the interruption it carried");
+        check(next.awayIntervals.Length == 2 && Mathf.Approximately(next.awayIntervals[0], 30) && Mathf.Approximately(next.awayIntervals[1], 35),
+              "a committed turn clears only the interruption it carried");
         client.ApplyResponse(next, new ConversationResponse { requestId = next.requestId, sessionId = next.sessionId, cutoff = next.checkpoint,
             accepted = true, revision = 2, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } });
-        check(client.BuildRequest("And after that?").lastSeen < 0, "nothing left once every interruption was sent");
+        check(client.BuildRequest("And after that?").awayIntervals.Length == 0, "nothing left once every interruption was sent");
 
-        // 4. Back in view before the question: only the untracked interval counts as unseen.
+        // 4. Two separate losses, 20-25 s and 35-38 s, then a question at 45 s: the watched time between them stays out.
         replay.Seek(20); replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(5); replay.Tracking(true);
-        replay.Clock.Play(); replay.Clock.Advance(15);
+        replay.Clock.Play(); replay.Clock.Advance(10); replay.Tracking(false); replay.Clock.Advance(3); replay.Tracking(true);
+        replay.Clock.Play(); replay.Clock.Advance(7);
         var watched = client.BuildRequest("Anything new?");
-        check(Mathf.Approximately(watched.lastSeen, 20) && Mathf.Approximately(watched.backInView, 25) && Mathf.Approximately(watched.checkpoint, 40),
-              "lastSeen 20 and backInView 25 for a question at 40");
+        check(watched.awayIntervals.Length == 4 && Mathf.Approximately(watched.awayIntervals[1], 25) && Mathf.Approximately(watched.awayIntervals[2], 35)
+              && Mathf.Approximately(watched.awayIntervals[3], 38) && Mathf.Approximately(watched.checkpoint, 45), "two intervals, 20-25 and 35-38 s");
         replay.Seek(10);  // discard it before the next case
 
         // 5. Paused by hand in a running scenario: a loss during which no replay time passed hides nothing.
         replay.Seek(20); replay.Clock.Pause(); replay.Tracking(false); replay.Tracking(true);
         replay.Clock.Play(); replay.Clock.Advance(10);
-        check(client.BuildRequest("Anything new?").lastSeen < 0, "a loss with no replay time passing is discarded");
+        check(client.BuildRequest("Anything new?").awayIntervals.Length == 0, "a loss with no replay time passing is discarded");
 
         // 6. Restarting or seeking backward starts a new timeline: an unreported loss from the old one is discarded.
         replay.Seek(20); replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true);
         replay.Restart(); replay.Clock.Play(); replay.Clock.Advance(25);
-        check(client.BuildRequest("Anything new?").lastSeen < 0, "a restart discards the earlier loss");
+        check(client.BuildRequest("Anything new?").awayIntervals.Length == 0, "a restart discards the earlier loss");
         replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true); replay.Seek(10);
-        check(client.BuildRequest("Anything new?").lastSeen < 0, "a backward seek discards the earlier loss");
+        check(client.BuildRequest("Anything new?").awayIntervals.Length == 0, "a backward seek discards the earlier loss");
         Debug.Log("AR_CONTEXT_CHECKS_PASSED");
     }
 
