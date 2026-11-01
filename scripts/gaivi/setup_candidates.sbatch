@@ -23,9 +23,12 @@ pip_args=(-q --find-links "$WHEELS" -c "$WHEELS/constraints.txt" -r requirements
 "$ENV/bin/python" -m pip install --no-index "${pip_args[@]}" || "$ENV/bin/python" -m pip install --resume-retries 20 "${pip_args[@]}"
 "$ENV/bin/python" -c "import torch, transformers; print('torch', torch.__version__, 'cuda', torch.cuda.is_available(), torch.cuda.get_device_name(0), 'transformers', transformers.__version__)"
 for model in qwen3.5-9b gemma-4-e4b; do
+  downloaded=0
   for attempt in 1 2 3 4 5 6; do
-    "$ENV/bin/python" -m backbone.download --model "$model" && break
+    if "$ENV/bin/python" -m backbone.download --model "$model"; then downloaded=1; break; fi
     echo "download $model attempt $attempt failed; retrying"; sleep 20
   done
+  # A model that never downloaded leaves the environment unusable for its runs: fail the job.
+  if [ "$downloaded" -ne 1 ]; then echo "download $model failed after 6 attempts" >&2; exit 1; fi
 done
 du -shL models/*/
