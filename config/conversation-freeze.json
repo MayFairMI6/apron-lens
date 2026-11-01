@@ -18,7 +18,13 @@
     "backend/conversation/state.py": "33a72ce8255531a537004a754d0c6ad98042b6d35c1291afe531e718318b9549",
     "backend/conversation/scoring.py": "8e221877915031a2d9919d6ff57e306c150ff681e0df71337cbc882b6372e2de",
     "backend/evidence.py": "3401365d3ecc38dd7d8544e1082a4e99fe54f48538af4d3e797ddd2875502806",
+    "scripts/run_conversation_families.py": "4014afd9336ab8027965ba8da5b9a08f0e921123c0ab40b346993a5014ce0e7b",
+    "modelaccess/contract.py": "fe8ffdef43360fc01ba15fa7c0760a77d14f8fda46be7ccecb633dab8b5bed3a",
     "modelaccess/repair.py": "ea79c0b46822de049f1a067f07d527b588873a4b487e40d07963a0f998abd862",
+    "modelaccess/images.py": "8dbeeb2af54288891a7afed0089ed7e1f60fa3077224242410dec4ae007d81c5",
+    "modelaccess/local_backbone.py": "48a0183f6c9f1bf238a4f725d62a9e8294f16f14ff3120d689059e33727f5e65",
+    "modelaccess/anthropic_api.py": "4d844396886e9daaf02dd841ba518deb2367cc2308a5d1386b08760172a88163",
+    "modelaccess/openai_api.py": "91e50cc7334e06bec70d0ea2a17bca1334f9253442c4b8e87542fb22ae265856",
     "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/VisualEvidenceCapture.cs": "96c71eae5e71d347e9c68e63fe0f60b56d26754b3ed35bf29c5da8ee754247c3"
   }
 }
