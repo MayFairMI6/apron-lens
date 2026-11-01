@@ -225,20 +225,24 @@ held-out set. Development numbers are a planning input, not evidence.
 | Deterministic baseline | 7 | 0.23–0.67 |
 | `qwen2.5-vl-3b` | 3 | 0.07–0.43 |
 
-- **Precision.** About 100–150 held-out turns put a system's accuracy within
-  ±10 percentage points. The range covers turn correlation within a family
-  (icc 0–0.6) at two turns per family.
+Turns within a family are correlated, so both counts below cover intra-family
+correlation (icc) from 0 to 0.6 at 2.5 turns per family. The paired counts are
+inflated too, after a review finding on PR #15.
+
+- **Precision.** 97–183 held-out turns put a system's accuracy within
+  ±10 percentage points.
 - **Paired comparison.** 8B and the baseline disagree on 31% of turns.
-  Detecting an accuracy gap between them takes about 60 turns for 20 points,
-  about 110 for 15 points, and about 240 for 10 points.
+  Detecting a gap between them takes 59–113 turns for 20 points, 107–204 for
+  15 points, and 243–462 for 10 points.
 - **With vs without images.** 8B behaved identically with and without images
   on every development turn, so the image comparison needs more image-bearing
   turns than the development set has.
-- **Recommendation for the held-out author:** about 50–75 independently
-  written families of 2–3 turns each (120–180 turns), with every family type
-  represented and at least a third of the turns carrying an image. That
-  supports ±10-point accuracy estimates and detects a 15-point difference
-  from the baseline.
+- **Recommendation for the held-out author:** about 200 turns, roughly 80
+  independently written families of 2–3 turns. Every family type should be
+  represented, and at least a third of the turns should carry an image. That
+  supports ±10-point accuracy and detects a 15-point difference from the
+  baseline even under strong within-family correlation. A smaller set of
+  120–180 turns supports those claims only if turns are close to independent.
 
 ## Freeze package (31 October)
 

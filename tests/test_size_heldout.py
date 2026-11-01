@@ -22,6 +22,7 @@ class Sizing(unittest.TestCase):
     def test_paired_turns_shrink_with_a_larger_gap(self):
         self.assertGreater(size.paired_turns(0.31, 0.10), size.paired_turns(0.31, 0.15))
         self.assertIsNone(size.paired_turns(0.10, 0.20))
+        self.assertEqual(size.paired_turns(0.20, 0.20), 37)  # the equality boundary is feasible
 
 
 if __name__ == '__main__':
