@@ -45,6 +45,10 @@ namespace SurfaceSafety {
         // "uniform" renders every aircraft in one livery so that only position, motion
         // and props tell them apart; omitted or "indexed" keeps one colour per aircraft.
         public string livery;
+        // "runs": the replay keeps running while the board is out of the camera's view, as a real apron would
+        // (tracking interruptions, docs/AR_SCOPE.md). Default "pauses", the Milestone 1 behaviour.
+        public string clockWhileUntracked;
+        public bool ClockRunsUntracked => clockWhileUntracked == "runs";
         public bool UniformLivery => livery == "uniform";
         public float duration, targetWidth;
         public AircraftPlan[] aircraft;
@@ -82,6 +86,8 @@ namespace SurfaceSafety {
                 throw new ArgumentException("Scenario requires positive duration/width and two to " + MaxAircraft + " aircraft.");
             if (!string.IsNullOrEmpty(livery) && livery != "indexed" && livery != "uniform")
                 throw new ArgumentException("Livery must be \"indexed\" or \"uniform\".");
+            if (!string.IsNullOrEmpty(clockWhileUntracked) && clockWhileUntracked != "pauses" && clockWhileUntracked != "runs")
+                throw new ArgumentException("clockWhileUntracked must be \"pauses\" or \"runs\".");
             if (aircraft.Select(a => a.id).Distinct().Count() != aircraft.Length)
                 throw new ArgumentException("Duplicate aircraft identity.");
             var owner = new System.Collections.Generic.Dictionary<string, string>();
@@ -152,15 +158,16 @@ namespace SurfaceSafety {
         public bool Playing {get;private set;}
         public bool Tracked {get;private set;}
         public readonly float Duration;
-        public ReplayClock(float duration){Duration=duration;}
-        public void SetTracking(bool tracked){Tracked=tracked;if(!tracked)Playing=false;}
-        public void Play(){Playing=Tracked && Time<Duration;}
+        public readonly bool RunsUntracked;
+        public ReplayClock(float duration,bool runsUntracked=false){Duration=duration;RunsUntracked=runsUntracked;}
+        public void SetTracking(bool tracked){Tracked=tracked;if(!tracked&&!RunsUntracked)Playing=false;}
+        public void Play(){Playing=(Tracked||RunsUntracked) && Time<Duration;}
         public void Pause(){Playing=false;}
         public void Restart(){Time=0;Playing=false;}
         public void Seek(float t){Time=Mathf.Clamp(t,0,Duration);Playing=false;}
         public void Advance(float dt){
             if(float.IsNaN(dt)||float.IsInfinity(dt)||dt<0)throw new ArgumentException("Invalid clock step");
-            if(!Playing||!Tracked)return;
+            if(!Playing||(!Tracked&&!RunsUntracked))return;
             Time=Mathf.Min(Duration,Time+dt);if(Time>=Duration)Playing=false;
         }
     }

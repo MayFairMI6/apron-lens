@@ -86,6 +86,7 @@ class ConversationRequest(BaseModel):
     imageBase64: str | None = Field(default=None, min_length=1, max_length=2_800_000)
     imageCaptureTime: float | None = Field(default=None, ge=0, le=3600)
     tapViewport: list[float] | None = Field(default=None, min_length=2, max_length=2)
+    lastSeen: float | None = Field(default=None, le=3600)  # tracking interruption; Unity sends -1 for none
 
     # Unity's JsonUtility cannot omit a field: an unset string is written as "" and an
     # unset array as []. Both mean "not provided".
@@ -93,6 +94,11 @@ class ConversationRequest(BaseModel):
     @classmethod
     def unset_is_none(cls, value):
         return None if value in ('', []) else value
+
+    @field_validator('lastSeen', mode='before')
+    @classmethod
+    def negative_is_none(cls, value):
+        return None if isinstance(value, (int, float)) and value < 0 else value
 
     @field_validator('imageCaptureTime', mode='before')
     @classmethod
@@ -148,7 +154,7 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
             raise HTTPException(409, 'Session mode cannot change; start a new session')
         turn = dict(requestId=body.requestId, turnId=body.turnId, expectedRevision=body.expectedRevision,
                     aircraftId=body.aircraftId, flightInstance=body.flightInstance, cutoff=body.checkpoint,
-                    question=body.question, tap=body.tapViewport)
+                    question=body.question, tap=body.tapViewport, lastSeen=body.lastSeen)
         image_hash = None
         if body.imageBase64 is not None:
             try:

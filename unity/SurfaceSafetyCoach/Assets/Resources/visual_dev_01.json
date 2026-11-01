@@ -1,6 +1,6 @@
 {
   "scenarioId": "V1-visual-observation-dev-01",
-  "duration": 60.0,
+  "duration": 60.0, "clockWhileUntracked": "runs",
   "targetWidth": 0.24,
   "aircraft": [
     {"id": "A1", "flightInstance": "F1-R1",

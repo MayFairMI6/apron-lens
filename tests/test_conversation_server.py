@@ -105,13 +105,22 @@ class Endpoint(unittest.TestCase):
         self.assertEqual(third['currentReferent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
         self.assertIn('"currentReferent": {"aircraftId": "A2", "flightInstance": "F2-R2"}', self.prompt())
 
+    def test_last_seen_reaches_the_prompt_and_minus_one_means_none(self):
+        client = self.serve([reply(), reply()])
+        first = self.ask(client, 1, 0, checkpoint=35, lastSeen=25).json()
+        self.assertEqual(first['lastSeen'], 25)
+        self.assertIn("out of the user's view from 25 s", self.prompt())
+        second = self.ask(client, 2, 1, checkpoint=36, lastSeen=-1).json()  # Unity's "no interruption"
+        self.assertIsNone(second['lastSeen'])
+        self.assertNotIn('changedWhileAway', self.prompt())
+
     def test_a_validated_correction_sets_the_referent(self):
         correction = {'kind': 'correction', 'aircraftId': 'A2', 'flightInstance': 'F2-R2'}
         client = self.serve([reply(memoryUpdate=correction, claims=[claim('E02:stand', 'C', 'current', 'E02')])])
         result = self.ask(client, 1, 0, question='I mean its next rotation.').json()  # model left referent on F2-R1
         self.assertTrue(result['accepted'], result['errors'])
         self.assertEqual(result['referent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
-        self.assertEqual((result['referentSource'], result['referentRule']), ('correction', 'referent-rule-v2'))
+        self.assertEqual((result['referentSource'], result['referentRule']), ('correction', 'referent-rule-v3'))
         self.assertEqual(result['currentReferent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
 
     def test_a_correction_mixing_both_flights_is_still_withheld(self):

@@ -32,6 +32,9 @@ from backend.conversation.observations import VISUAL_KINDS
 from backend.conversation.scoring import turns_of, validate_families
 
 MAX_AIRCRAFT = 4  # Scenario.MaxAircraft
+TYPES = ('rotation-correction', 'ambiguous-reference', 'late-report', 'no-change', 'missing-evidence',
+         'conflicting-reports', 'superseded-report', 'visual-observation', 'scene-change', 'ar-pointing',
+         'tracking-interruption', 'viewpoint')  # or other:<name>; docs/AR_SCOPE.md
 
 
 def number(value):
@@ -46,6 +49,8 @@ def check_structure(data):
     aircraft = data.get('aircraft') or []
     if not 2 <= len(aircraft) <= MAX_AIRCRAFT:
         raise ValueError(f'needs two to {MAX_AIRCRAFT} aircraft')
+    if data.get('clockWhileUntracked', 'pauses') not in ('pauses', 'runs'):
+        raise ValueError('clockWhileUntracked must be "pauses" or "runs"')
     if data.get('livery', 'indexed') not in ('indexed', 'uniform'):
         raise ValueError('livery must be "indexed" or "uniform"')
     if len({a['id'] for a in aircraft}) != len(aircraft):
@@ -110,10 +115,22 @@ def check_families(families, scenarios, rendered):
     errors = []
     if families.get('split') != 'heldout' or not families.get('version') or families.get('set') not in HELDOUT_SETS:
         errors.append(f'families.json needs "split": "heldout", a version and "set": one of {", ".join(HELDOUT_SETS)}')
+    name = families.get('set')
     for family in families.get('families', []):
+        kind = family.get('type', '')
+        if kind not in TYPES and not (kind.startswith('other:') and len(kind) > 6):
+            errors.append(f'{family.get("id")}: type must be one of docs/AR_SCOPE.md\'s types or other:<name>')
         for index, turn in turns_of(family):
             where = f'{family.get("id")} turn {index + 1}'
             expect, data = turn.get('expect', {}), scenarios.get(turn.get('scenario'))
+            if name in ('m1', 'final') and not turn.get('textOnly'):
+                errors.append(f'{where}: every {name} turn needs textOnly')
+            if name == 'm1' and turn.get('image'):
+                errors.append(f'{where}: the m1 set has no images')
+            if name == 'm2' and not turn.get('image'):
+                errors.append(f'{where}: every m2 turn needs an image')
+            if turn.get('lastSeen') is not None and data is not None and data.get('clockWhileUntracked') != 'runs':
+                errors.append(f'{where}: a lastSeen turn needs a scenario with "clockWhileUntracked": "runs"')
             if data is not None and not (number(turn.get('cutoff')) and 0 <= turn['cutoff'] <= data['duration']):
                 errors.append(f'{where}: cutoff outside its scenario')
             if not set(expect.get('unknowns', [])) <= set(FIELDS):
@@ -141,10 +158,13 @@ def counts(families):
     per_family = Counter(len(family['turns']) for family in families['families'])
     statuses = Counter('/'.join(sorted(turn['expect']['status'])) for _, turn in turns)
     criteria = Counter(key for _, turn in turns for key in turn['expect'] if key != 'status')
+    types = Counter(family.get('type') for family in families['families'])
     images = sum(1 for _, turn in turns if turn.get('image'))
     return dict(families=len(families['families']), turns=len(turns), turnsPerFamily=dict(sorted(per_family.items())),
                 imageTurns=images, imageShare=round(images / len(turns), 3) if turns else 0,
-                scenarios=len({turn['scenario'] for _, turn in turns}), statuses=dict(statuses),
+                scenarios=len({turn['scenario'] for _, turn in turns}), types=dict(types), statuses=dict(statuses),
+                textOnlyTurns=sum(1 for _, turn in turns if turn.get('textOnly')),
+                lastSeenTurns=sum(1 for _, turn in turns if turn.get('lastSeen') is not None),
                 labelledCriteria=dict(criteria))
 
 

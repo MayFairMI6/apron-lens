@@ -21,13 +21,15 @@ stay out of scope, D-010):
 Each milestone is complete in itself: it builds its part, freezes it, runs it
 once on its own held-out set, and ends with a report in `outputs/`. Each
 held-out set is used once, after its freeze, so earlier held-out results can't
-shape later development.
+shape later development. Every milestone has substantial AR work in the Unity
+app. M1's evaluation is deliberately light, a first check of the AR conditions;
+M2 and M3 are larger, building on what M1 shows.
 
 | Milestone | Builds | Evaluates | Report |
 |---|---|---|---|
-| **M1. AR conversational context** | Held-out tooling (`scripts/check_heldout.py`, `HeldoutRender`, hashed loading); AR pointing (selection on vs text-only); tracking interruptions (`lastSeen`, a clock that runs while untracked) | Development families, then freeze 1 and the `m1` held-out set (about 60 turns) | `outputs/m1_ar_context/REPORT.md` |
-| **M2. AR visual evidence** | User-viewpoint capture (`visual-capture-v3`); licensed realistic aircraft and ground-vehicle models (each asset approved by the user); a real-photo perception check on public-domain apron photos | Development families, then freeze 2 and the `m2` held-out set (about 60 turns) | `outputs/m2_ar_visual/REPORT.md` |
-| **M3. Integrated evaluation** | The final freeze of the complete method | The `final` held-out set (about 200 turns, all conditions); the hosted comparison (cost approved by the user) | `outputs/m3_evaluation/REPORT.md` and the write-up |
+| **M1. AR conversational context** (light evaluation) | Held-out tooling (`scripts/check_heldout.py`, `HeldoutRender`, hashed loading); AR pointing (selection in the AR view vs text-only) and tracking interruptions, end to end: `lastSeen` in the turn handler, runner and scoring, a replay clock that keeps running while the board is out of view, the AR client sending `lastSeen` when tracking returns, and a Unity check that simulates looking away and pointing | Development families, then freeze 1 and the `m1` held-out set (about 40 turns): `qwen3.5-9b`, `qwen3-vl-4b` and the baseline, images off, in three conditions (full AR, text-only, no tracking) | `outputs/m1_ar_context/REPORT.md` |
+| **M2. AR visual evidence** | The AR camera's own viewpoint as evidence (`visual-capture-v3`); simulated user movement (camera paths around the stand); licensed realistic aircraft and ground-vehicle models in the AR scene (each asset approved by the user); a real-photo perception check on public-domain apron photos | Development families, then freeze 2 and the `m2` held-out set (about 60 turns), with every model run so far | `outputs/m2_ar_visual/REPORT.md` |
+| **M3. Integrated AR evaluation** | The final freeze of the complete method; a Unity driver that replays held-out families as simulated AR sessions through the app's own client (camera pose, taps, tracking) | The `final` held-out set (about 200 turns) through the runner, every condition and model; a sample of its families replayed in-app, compared with the runner; the hosted comparison (cost approved by the user) | `outputs/m3_evaluation/REPORT.md` and the write-up |
 
 ## Held-out sets
 
@@ -45,8 +47,8 @@ development families, the prompt or any result:
   `superseded-report`, `visual-observation`, `scene-change`, `ar-pointing`,
   `tracking-interruption`, `viewpoint`, or `other:<name>`. Reports break down by
   type.
-- **`m1`:** conversational AR. Every turn has `textOnly`. About half the
-  families include a `lastSeen` turn. Images are optional.
+- **`m1`:** conversational AR, about 40 turns (about 16 families). Every turn
+  has `textOnly`. About half the families include a `lastSeen` turn. No images.
 - **`m2`:** visual AR. Every turn has an image and a `viewpoint`.
 - **`final`:** every type. Every turn has `textOnly`; `lastSeen` and
   `viewpoint` are used where natural, and at least a third of the turns carry an

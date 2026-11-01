@@ -19,11 +19,13 @@ def write_set(folder, image=True):
     scenario = dict(json.loads(BASE.read_text()), scenarioId='H-test')
     (folder / 'scenarios/h_test.json').write_text(json.dumps(scenario))
     turn = dict(cutoff=20, selected=dict(aircraftId='A1', flightInstance='F1-R1'), question='Which stand?',
-                expect=dict(status=['answer'], referent=dict(aircraftId='A1', flightInstance='F1-R1')))
+                expect=dict(status=['answer'], referent=dict(aircraftId='A1', flightInstance='F1-R1')),
+                textOnly=dict(question='Which stand is A1 on?'))
     if image:
         turn['image'] = 'heldout/H-test-20s.png'
-    families = dict(version='conversation-heldout-test', split='heldout', set='m1',
-                    families=[dict(id='H1', tests='test', scenario='H-test', turns=[turn, dict(turn, cutoff=30)])])
+    families = dict(version='conversation-heldout-test', split='heldout', set='final',
+                    families=[dict(id='H1', type='no-change', tests='test', scenario='H-test',
+                                   turns=[turn, dict(turn, cutoff=30)])])
     if image:
         families['families'][0]['turns'][1]['image'] = 'heldout/H-test-30s.png'
     (folder / 'families.json').write_text(json.dumps(families))
@@ -100,6 +102,21 @@ class HeldoutSet(unittest.TestCase):
             out = check(families, scenarios)
             self.assertIn('h_test.json', out.stdout)
             self.assertNotEqual(out.returncode, 0)
+
+    def test_checker_enforces_set_rules_types_and_running_clocks(self):
+        with tempfile.TemporaryDirectory() as folder:
+            families, scenarios = write_set(folder)
+            data = json.loads(families.read_text())
+            data['set'] = 'm1'                                   # m1: no images, every turn textOnly
+            family = data['families'][0]
+            family['type'] = 'tracking'                          # not a listed type
+            del family['turns'][0]['textOnly']
+            family['turns'][1]['lastSeen'] = 25                  # visual_dev_05's clock pauses
+            families.write_text(json.dumps(data))
+            out = check(families, scenarios).stdout
+            for text in ('type must be one of', 'every m1 turn needs textOnly', 'the m1 set has no images',
+                         'clockWhileUntracked'):
+                self.assertIn(text, out)
 
     def test_runner_refuses_a_heldout_set_without_its_scenarios(self):
         with tempfile.TemporaryDirectory() as folder:

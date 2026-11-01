@@ -22,6 +22,7 @@ namespace SurfaceSafety {
     [Serializable] public class ConversationRequest {
         public string requestId, turnId, sessionId, mode = "development", scenarioId, aircraftId, flightInstance, question, imageBase64;
         public float checkpoint, imageCaptureTime;
+        public float lastSeen = -1; // replay time the board left the view before this turn; -1 when it didn't (JsonUtility can't omit)
         public int expectedRevision;
         public float[] tapViewport; // JsonUtility writes [] when unset; the server reads [] as "no tap"
     }
@@ -92,6 +93,7 @@ namespace SurfaceSafety {
                 aircraftId = a.id, flightInstance = a.FlightAt(replay.Clock.Time), checkpoint = replay.Clock.Time,
                 expectedRevision = Revision, question = question.Trim(),
                 imageBase64 = Convert.ToBase64String(evidence.png), imageCaptureTime = replay.Clock.Time,
+                lastSeen = replay.InterruptedAt.HasValue && replay.InterruptedAt.Value < replay.Clock.Time ? replay.InterruptedAt.Value : -1,
                 tapViewport = float.IsNaN(evidence.tapViewport.x) ? new float[0] : new[] { evidence.tapViewport.x, evidence.tapViewport.y } };
         }
 
@@ -106,6 +108,7 @@ namespace SurfaceSafety {
                 return Show("CONTEXT CHANGED", "This answer belongs to a different question. Ask again.");
             }
             Revision = Mathf.Max(Revision, response.revision);  // the turn is committed on the server either way
+            replay.ClearInterruption();  // the server has seen this interruption
             if (!SameContext(request)) return Show("CONTEXT CHANGED", "The selection or replay time changed. Ask again for this checkpoint.");
             var display = response.display ?? new ConversationDisplay();
             if (response.accepted && !ClaimsSupported(request, response))

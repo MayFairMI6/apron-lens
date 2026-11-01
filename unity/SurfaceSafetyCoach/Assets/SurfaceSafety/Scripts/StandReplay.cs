@@ -93,21 +93,42 @@ namespace SurfaceSafety {
         public void InitializeFromJson(bool preview,string scenarioJson) {
             previewMode=preview;
             Data=JsonUtility.FromJson<Scenario>(scenarioJson);Data.Validate();
-            Clock=new ReplayClock(Data.duration);Clock.SetTracking(preview);
+            Clock=new ReplayClock(Data.duration,Data.ClockRunsUntracked);Clock.SetTracking(preview);
             Content=new GameObject("StandWorld").transform;Content.SetParent(transform,false);
             BuildWorld();BuildUI();
             logPath=Path.Combine(Application.persistentDataPath,"session-"+Guid.NewGuid().ToString("N")+".jsonl");
             Log("session_start");ApplyScene();
         }
+        // Replay time when the board left the camera's view, held until the next conversation turn is committed
+        // (ConversationClient sends it as lastSeen). The earliest loss counts: the user missed everything since.
+        public float? InterruptedAt {get;private set;}
+        public void ClearInterruption(){InterruptedAt=null;}
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
+            if(Clock.Tracked&&!found&&!InterruptedAt.HasValue)InterruptedAt=Clock.Time;
             Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}
         public void Pause(){Clock.Pause();Log("pause");ApplyScene();}
         public void Restart(){Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
         public void Seek(float time){if(float.IsNaN(time)||float.IsInfinity(time))return;Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
+        // AR pointing: the aircraft nearest a tap in the AR view, if one is within the radius (pixels); else -1.
+        public int AircraftAtScreen(Vector2 screen,Camera camera,float radius){
+            int best=-1;float bestDistance=radius;
+            for(int i=0;i<planes.Length;i++){
+                var p=camera.WorldToScreenPoint(planes[i].position);
+                if(p.z<=0||!planes[i].gameObject.activeInHierarchy)continue;
+                var d=Vector2.Distance(screen,new Vector2(p.x,p.y));
+                if(d<bestDistance){best=i;bestDistance=d;}
+            }
+            return best;
+        }
+        public bool TapSelect(Vector2 screen,Camera camera){
+            var index=AircraftAtScreen(screen,camera,Mathf.Max(40,.08f*Mathf.Min(camera.pixelWidth,camera.pixelHeight)));
+            if(index<0)return false;
+            Log("aircraft_tapped");SelectAircraft(index);return true;
+        }
         public void SelectAircraft(int index){
             if(index<0||index>=Data.aircraft.Length)return;
             if(index!=SelectedAircraftIndex){SelectedAircraftIndex=index;InspectedReportId="";InvalidateAi();Log("aircraft_selected");}
@@ -125,7 +146,12 @@ namespace SurfaceSafety {
         }
         public void SetAiResult(string status,string text){aiStatus=status??"";aiText=text??"";showAiDetails=false;bodyKey=null;ApplyScene();}
         void InvalidateAi(){showAiDetails=false;aiStatus="Checkpoint changed";aiText="Generate a new explanation for the selected aircraft and replay time.";}
-        void Update(){if(Clock==null)return;Clock.Advance(Time.unscaledDeltaTime);ApplyScene();}
+        void Update(){
+            if(Clock==null)return;
+            if(Input.GetMouseButtonDown(0)&&Camera.main!=null&&(EventSystem.current==null||!EventSystem.current.IsPointerOverGameObject()))
+                TapSelect(Input.mousePosition,Camera.main);
+            Clock.Advance(Time.unscaledDeltaTime);ApplyScene();
+        }
         void OnApplicationPause(bool paused){if(paused&&Clock!=null){Clock.Pause();Log("application_pause");ApplyScene();}}
         void OnDestroy(){if(Clock!=null)Log("session_end");}
         [Serializable] class LogRecord {

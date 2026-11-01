@@ -88,6 +88,44 @@ public static class ConversationClientVerification {
     //   python -m backend.conversation.server --profile apronlens-v2-mps
     // Sends one real request built by the client and applies the real response, so the
     // JSON that Unity writes and reads is checked against the server end to end.
+    // AR pointing and tracking interruptions (docs/AR_SCOPE.md, M1):
+    //   Unity -batchmode -quit -projectPath <project> -executeMethod ConversationClientVerification.RunArContext -logFile <log>
+    public static void RunArContext() {
+        Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("AR context check failed: " + message); };
+        Func<string, SceneBootstrap> boot = scenario => {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var b = new GameObject("AR context " + scenario).AddComponent<SceneBootstrap>();
+            b.previewMode = true; b.scenarioResource = scenario; b.Initialize(); return b;
+        };
+
+        // 1. Pointing: a tap on an aircraft in the AR view selects it, and the request names it.
+        var pointing = boot("visual_dev_02"); var replay = pointing.Replay; var client = pointing.GetComponent<ConversationClient>();
+        replay.SelectAircraft(0); replay.Seek(20);
+        var a3 = Camera.main.WorldToScreenPoint(replay.Content.Find("A3").position);
+        check(replay.TapSelect(new Vector2(a3.x, a3.y), Camera.main) && replay.SelectedAircraftIndex == 2, "a tap on A3 selects it");
+        check(client.BuildRequest("Where is this one heading?").aircraftId == "A3", "the request names the tapped aircraft");
+        check(!replay.TapSelect(new Vector2(2, 2), Camera.main) && replay.SelectedAircraftIndex == 2, "a tap on empty board changes nothing");
+
+        // 2. A scenario that pauses (the default): no time passes out of view, so no lastSeen is sent.
+        replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true);
+        check(Mathf.Approximately(replay.Clock.Time, 20), "the default clock pauses while the board is out of view");
+        check(client.BuildRequest("Anything new?").lastSeen < 0, "no lastSeen when no replay time passed out of view");
+
+        // 3. A running clock: reports keep arriving out of view, and the next request carries lastSeen.
+        var running = boot("visual_dev_03"); replay = running.Replay; client = running.GetComponent<ConversationClient>();
+        replay.SelectAircraft(1); replay.Seek(20); replay.Clock.Play();
+        replay.Tracking(false); replay.Clock.Advance(6); replay.Tracking(false); replay.Clock.Advance(4); replay.Tracking(true);
+        var request = client.BuildRequest("I was looking away. Is it done now?");
+        check(replay.Data.ClockRunsUntracked && Mathf.Approximately(request.checkpoint, 30), "the clock ran 10 s out of view");
+        check(Mathf.Approximately(request.lastSeen, 20) && JsonUtility.ToJson(request).Contains("\"lastSeen\":20"),
+              "lastSeen is when the board first left the view");
+        var response = new ConversationResponse { requestId = request.requestId, sessionId = request.sessionId, cutoff = request.checkpoint,
+            accepted = true, revision = 1, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } };
+        client.ApplyResponse(request, response);
+        check(client.BuildRequest("And now?").lastSeen < 0, "a committed turn clears the interruption");
+        Debug.Log("AR_CONTEXT_CHECKS_PASSED");
+    }
+
     public static void RunLive() {
         Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("Live conversation check failed: " + message); };
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);

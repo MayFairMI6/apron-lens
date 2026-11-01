@@ -1,6 +1,6 @@
 {
   "scenarioId": "V3-rotations-dev-03",
-  "duration": 90.0,
+  "duration": 90.0, "clockWhileUntracked": "runs",
   "targetWidth": 0.24,
   "aircraft": [
     {"id": "A1", "flightInstance": "F1-R1", "waypoints": [{"t": 0, "x": -0.045, "z": 0.04}, {"t": 90, "x": -0.045, "z": 0.04}]},
