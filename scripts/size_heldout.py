@@ -8,7 +8,9 @@ m turns per family; with only a handful of development families the
 intra-family correlation cannot be estimated reliably, so a range is shown.
 For a paired comparison of two systems on the same turns, the discordance rate
 (turns where exactly one is correct) sets the number of turns needed to detect
-a given accuracy difference (McNemar normal approximation, alpha 0.05, power 0.8).
+a given accuracy difference (McNemar normal approximation, alpha 0.05, power 0.8),
+inflated by the same design-effect range because paired differences within a
+family are correlated too.
 
     python scripts/size_heldout.py work/conversation-families/qwen3-vl-8b-*.json work/conversation-families/baseline-*.json
 """
@@ -35,7 +37,7 @@ def turns_for_half_width(p, half_width, design_effect):
 
 def paired_turns(discordance, difference):
     """Turns needed to detect `difference` given the discordant-pair rate (McNemar, normal approximation)."""
-    if discordance <= difference:
+    if discordance < difference:  # equality is feasible: every discordant pair favours one system
         return None
     return math.ceil(((Z95 * math.sqrt(discordance) + Z80 * math.sqrt(discordance - difference ** 2)) / difference) ** 2)
 
@@ -65,9 +67,12 @@ def main():
             if not shared:
                 continue
             discordant = sum(runs[a][key] != runs[b][key] for key in shared) / len(shared)
+            effects = [1 + (m - 1) * icc for icc in (0.0, 0.3, 0.6)]
             needs = {d: paired_turns(max(discordant, 0.2), d) for d in (0.10, 0.15, 0.20)}
-            print(f'paired {a} vs {b}: discordance {discordant:.2f} (planning floor 0.20); turns to detect a '
-                  + ', '.join(f'{int(d * 100)} pp gap: {v}' for d, v in needs.items()))
+            print(f'paired {a} vs {b}: discordance {discordant:.2f} (planning floor 0.20); turns to detect a gap '
+                  '(icc 0 / 0.3 / 0.6): ' + ', '.join(
+                      f'{int(d * 100)} pp: ' + ('-' if v is None else ' / '.join(str(math.ceil(v * e)) for e in effects))
+                      for d, v in needs.items()))
 
 
 if __name__ == '__main__':
