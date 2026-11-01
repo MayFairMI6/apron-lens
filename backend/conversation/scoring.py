@@ -20,6 +20,7 @@ same way, it shows what the model adds beyond selection plus bookkeeping.
 import json
 from pathlib import Path
 
+from modelaccess.repair import parse_json_output
 from backend.conversation.context import changed_facts, snapshot
 from backend.conversation.identity import resolve_flight
 
@@ -67,6 +68,16 @@ def validate_families(families, scenarios):
     return families
 
 
+def required_images(families):
+    """Evidence image files the families use, in order, without repeats."""
+    names = []
+    for family in families['families']:
+        for _, turn in turns_of(family):
+            if turn.get('image') and turn['image'] not in names:
+                names.append(turn['image'])
+    return names
+
+
 def baseline_proposal(data, cutoff, referent, previous_cutoff=None):
     """Deterministic proposal for `referent` (aircraft, flight); see the module docstring."""
     snap = snapshot(data, *referent, cutoff)
@@ -81,11 +92,9 @@ def baseline_proposal(data, cutoff, referent, previous_cutoff=None):
 
 
 def _proposal(result):
-    try:
-        value = json.loads(result.get('rawModelOutput') or '')
-    except (json.JSONDecodeError, TypeError):
-        return None
-    return value if isinstance(value, dict) else None
+    # The same repair policy as run_turn, so the scored proposal is the one that was validated.
+    value, _, _, error = parse_json_output(result.get('rawModelOutput') or '')
+    return value if error is None and isinstance(value, dict) else None
 
 
 def score_turn(expect, result):

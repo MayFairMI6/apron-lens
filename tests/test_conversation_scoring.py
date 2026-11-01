@@ -4,8 +4,8 @@ import json
 import unittest
 from pathlib import Path
 
-from backend.conversation.scoring import (baseline_proposal, load_families, score_turn, summarize,
-                                          validate_families)
+from backend.conversation.scoring import (baseline_proposal, load_families, required_images, score_turn,
+                                          summarize, validate_families)
 from backend.conversation.server import load_scenarios
 from backend.conversation.validate import validate_proposal
 
@@ -30,6 +30,9 @@ class Labels(unittest.TestCase):
         validate_families(self.families, self.scenarios)
         self.assertEqual(self.families['split'], 'development')
 
+    def test_required_images_are_listed_for_the_preflight(self):
+        self.assertEqual(required_images(self.families), ['visual-observation-24s.png', 'visual-observation-dev05-20s.png'])
+
     def test_a_citation_not_yet_received_is_a_broken_label(self):
         broken = copy.deepcopy(self.families)
         late = next(f for f in broken['families'] if f['id'] == 'F3-late-report')
@@ -49,6 +52,12 @@ class TurnScores(unittest.TestCase):
         expect = dict(status=['answer'], referent=A2_R1, explanationChanged=True)
         scores = score_turn(expect, result(referent={'aircraftId': 'A2', 'flightInstance': 'F2-R2'}, explanationChanged=False))
         self.assertEqual((scores['referent'], scores['changed'], scores['correct']), (False, False, False))
+
+    def test_a_fenced_reply_is_scored_as_the_validator_read_it(self):
+        expect = dict(status=['answer'], referent=A2_R1, explanationChanged=True)
+        fenced = result(explanationChanged=True)
+        fenced['rawModelOutput'] = '```json\n' + fenced['rawModelOutput'] + '\n```'
+        self.assertTrue(score_turn(expect, fenced)['correct'])
 
     def test_withheld_is_never_correct(self):
         self.assertFalse(score_turn(dict(status=['answer']), result(accepted=False))['correct'])

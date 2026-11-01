@@ -27,8 +27,8 @@ from modelaccess.contract import Settings
 from modelaccess.mock import MockAdapter
 from backend.conversation.context import receipt_times
 from backend.conversation.hosted import add_arguments, prepare, provenance, result_path
-from backend.conversation.scoring import (SCORING_VERSION, baseline_proposal, load_families, score_turn,
-                                          summarize, turns_of, validate_families)
+from backend.conversation.scoring import (SCORING_VERSION, baseline_proposal, load_families, required_images,
+                                          score_turn, summarize, turns_of, validate_families)
 from backend.conversation.server import load_scenarios
 from backend.conversation.state import SessionState
 from backend.conversation.turns import PROMPT_VERSION, REFERENT_RULE_VERSION, run_turn
@@ -98,6 +98,11 @@ def main():
     scenarios = load_scenarios()
     families = validate_families(load_families(args.families), scenarios)
     images = args.images == 'on'
+    missing = [name for name in required_images(families) if not (WORK / name).exists()] if images else []
+    if missing:  # an images-on run without its images would silently become the images-off condition
+        raise SystemExit(f'Missing evidence images in work/: {", ".join(missing)}. Render them with Unity '
+                         '(VisualCaptureVerification.SaveObservationSamples) or copy them from the Mac, '
+                         'or run the without-image condition explicitly with --images off.')
     stem = ('baseline' if args.baseline else args.model) + ('' if images else '-noimages')
     path = result_path(args.output, WORK / 'conversation-families', stem)  # checked before any model time is spent
 
