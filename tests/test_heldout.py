@@ -61,6 +61,7 @@ class HeldoutSet(unittest.TestCase):
             heldout_record_path({'set': 'development'})
 
     def test_set_inside_the_repository_is_refused(self):
+        (ROOT / 'work').mkdir(exist_ok=True)  # ignored by git, so absent on a fresh checkout
         with tempfile.TemporaryDirectory(dir=ROOT / 'work') as folder:
             families, scenarios = write_set(folder)
             record = Path(folder) / 'record.json'
