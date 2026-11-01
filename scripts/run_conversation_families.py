@@ -15,6 +15,7 @@ results are observations, not evaluation evidence.
     python scripts/run_conversation_families.py --provider openai --model gpt-6-luna --estimate-only
 """
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -25,6 +26,7 @@ sys.path.insert(0, str(ROOT))
 
 from modelaccess.contract import Settings
 from modelaccess.mock import MockAdapter
+from backend.conversation import freeze
 from backend.conversation.context import receipt_times
 from backend.conversation.hosted import add_arguments, prepare, provenance, result_path
 from backend.conversation.scoring import (SCORING_VERSION, baseline_proposal, load_families, required_images,
@@ -50,9 +52,11 @@ def run_families(families, scenarios, adapter, settings, images=True, baseline=F
                            flightInstance=selected['flightInstance'], cutoff=turn['cutoff'], question=turn['question'])
             image = turn.get('image')
             image_used = bool(images and image and (WORK / image).exists())
+            image_sha256 = None
             if image_used:
-                request.update(image=(WORK / image).read_bytes(), imageMediaType='image/png',
-                               imageCaptureTime=turn['cutoff'])
+                image_bytes = (WORK / image).read_bytes()
+                image_sha256 = hashlib.sha256(image_bytes).hexdigest()  # renders are not frozen; record each one
+                request.update(image=image_bytes, imageMediaType='image/png', imageCaptureTime=turn['cutoff'])
             turn_adapter = adapter
             if baseline:
                 receipts = receipt_times(data)
@@ -66,6 +70,7 @@ def run_families(families, scenarios, adapter, settings, images=True, baseline=F
             scores = score_turn(turn['expect'], result)
             rows.append(dict(family=family['id'], turn=index + 1, scenario=turn['scenario'], cutoff=turn['cutoff'],
                              selected=selected, question=turn['question'], image=image, imageUsed=image_used,
+                             imageSha256=image_sha256,
                              accepted=result['accepted'], errors=result['errors'], referent=result['referent'],
                              referentSource=result.get('referentSource'), currentReferent=result['currentReferent'],
                              display=result['display'], latencySeconds=result['latencySeconds'],
@@ -97,6 +102,8 @@ def main():
     args.max_output_tokens = args.max_output_tokens or (512 if args.provider == 'local' else 8000)
     scenarios = load_scenarios()
     families = validate_families(load_families(args.families), scenarios)
+    if families['split'] != 'development':
+        freeze.require_approved()  # a formal run uses only an approved, unchanged method
     images = args.images == 'on'
     missing = [name for name in required_images(families) if not (WORK / name).exists()] if images else []
     if missing:  # an images-on run without its images would silently become the images-off condition
@@ -127,6 +134,7 @@ def main():
         model=model, provider='baseline' if args.baseline else args.provider, runtime=getattr(inner, 'runtime', None),
         runtimeProfile=args.profile, images=args.images, familiesVersion=families['version'], split=families['split'],
         promptVersion=PROMPT_VERSION, referentRule=REFERENT_RULE_VERSION, scoringVersion=SCORING_VERSION,
+        freeze=freeze.status(),
         note='Development run; not evaluation evidence.' if families['split'] == 'development' else '',
         **provenance(), summary=summary, turns=rows), indent=1))
     print_summary(summary)
