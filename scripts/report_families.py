@@ -9,7 +9,10 @@ Prints Markdown:
 - paired differences between conditions of the same system and between systems in the same
   condition, on the turns both ran, with a 95% interval from a bootstrap over families (turns
   within a family are correlated, so families, not turns, are resampled);
-- criterion pass rates and withheld vs accepted-but-wrong counts.
+- criterion pass rates and withheld vs accepted-but-wrong counts;
+- selective prediction: a turn is answered (an accepted "answer") or abstains (clarify, unknown or
+  withheld). Coverage is the answered share, selective accuracy is accuracy on answered turns, and
+  wrong answers shown counts accepted answers that fail their labels, the errors a user would see.
 Only counts, rates and family IDs are printed, so the output can go into a report in the repository.
 """
 import argparse
@@ -115,6 +118,18 @@ def main():
                                                              seed=args.seed)
             print(f'| {first[0]} ({first[1]}) | {second[0]} ({second[1]}) | {100 * d:+.0f} pp | '
                   f'{100 * low:+.0f} to {100 * high:+.0f} pp | {n} | {families} |')
+
+    print('\nSelective prediction (answered vs abstained):\n')
+    print('| System | Condition | Coverage | Selective accuracy | Abstentions right | Wrong answers shown |')
+    print('|---|---|---|---|---|---|')
+    for (model, condition), result in runs.items():
+        turns = result['turns']
+        answered = [t for t in turns if t['accepted'] and (t.get('display') or {}).get('resultStatus') == 'answer']
+        abstained = [t for t in turns if t not in answered]
+        right = sum(t['scores']['correct'] for t in answered)
+        print(f'| {model} | {condition} | {len(answered)}/{len(turns)} ({pct(len(answered) / len(turns))}) | '
+              f'{right}/{len(answered)}' + (f' ({pct(right / len(answered))})' if answered else '') + ' | '
+              f'{sum(t["scores"]["correct"] for t in abstained)}/{len(abstained)} | {len(answered) - right} |')
 
     print('\nCriterion pass rates (passed / labelled):\n')
     print('| System | Condition | ' + ' | '.join(CRITERIA) + ' |')
