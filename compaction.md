@@ -89,6 +89,7 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 | D-070 | First family runs (development): baseline 7/16; `qwen2.5-vl-3b` 3/16 with or without images; `qwen3-vl-8b` 8/16 with or without images. 8B fails corrections, conflicting reports, missing evidence and visual observation; images add nothing measurable. | Baseline for the pilot and the hosted comparison. | `work/conversation-families/` (not tracked) | active |
 | D-071 | Freeze package: `config/conversation-freeze.json` records method versions and SHA-256 of the method files, status `proposed`. Approval is the user's (`scripts/freeze_conversation_method.py --approve --by NAME`). An approved record makes tests fail on any frozen-file change, and makes formal runs refuse unless it matches. Runs record freeze status and image hashes. | A formal run must use exactly the reviewed method; evidence renders are recorded per run instead of frozen. | `backend/conversation/freeze.py`, `config/conversation-freeze.json` | active |
 | D-072 | Held-out sizing (planning): about 50–75 families of 2–3 turns (120–180 turns), every family type represented, at least a third of turns with an image. That gives ±10 pp accuracy and detects a 15 pp gap from the baseline. | Development runs: 8B 8/16 (CI 0.28–0.72), baseline 7/16; 31% discordance. | `scripts/size_heldout.py` | active |
+| D-073 | Related-work draft in `docs/RELATED_WORK_DRAFT.md`: 16 references, each checked against its publisher record (Crossref, arXiv, EUROCONTROL), with how ApronLens relates to each. The gap statement is framed as a limited search. | Replaces the unverified suggestion list; the author reviews and rewrites. | `docs/RELATED_WORK_DRAFT.md` | active |
 
 ## Open items (31 October)
 
@@ -97,6 +98,6 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 - Scenario families: occlusion; dialogue families with rotations; a development pilot, then a held-out set written outside the repository (D-002).
 - Freeze sign-off (user): review `config/conversation-freeze.json`, then `python scripts/freeze_conversation_method.py --approve --by NAME` (D-071). Correction turns still fail at 8B by mixing two flights' facts (D-064).
 - First GAIVI runs, for models not yet run with this method: `qwen3.5-9b`, `gemma-4-e4b`, `qwen3-vl-4b` (user, with their login; D-065, D-066).
-- Verify and write a related-work section. Suggested, not yet verified: Clark & Wilkes-Gibbs 1986, Clark & Brennan 1991, RefCOCO, Visual Dialog, SIMMC 2.0, MultiWOZ, SituatedQA, Longpre et al. 2021, Lost in the Middle, MemGPT, Endsley 1995, EUROCONTROL A-CDM.
+- Review and rewrite the related-work draft (`docs/RELATED_WORK_DRAFT.md`, D-073); run a systematic search before claiming the gap.
 - Adopt backbone 1.1.0 in the compaction repository with the `compaction-gaivi-cuda` profile, as an explicit change there.
 - The user decides whether to commit their own uncommitted work, including the plan PDF and its generator.
