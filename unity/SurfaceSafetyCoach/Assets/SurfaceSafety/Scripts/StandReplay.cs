@@ -104,6 +104,7 @@ namespace SurfaceSafety {
         // board left the camera's view. Only a clock that runs while untracked records them: with a paused clock
         // nothing can arrive unseen. ConversationClient sends the earliest as lastSeen and, once that turn is
         // committed, clears the losses the request carried, keeping any that happened after it was built.
+        // Restarting or seeking backward starts a new timeline and discards them.
         readonly List<(int id,float at)> interruptions=new List<(int id,float at)>();
         public int InterruptionCount {get;private set;}
         public float? InterruptedAt=>interruptions.Count==0?(float?)null:interruptions[0].at;
@@ -116,8 +117,11 @@ namespace SurfaceSafety {
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}
         public void Pause(){Clock.Pause();Log("pause");ApplyScene();}
-        public void Restart(){Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
-        public void Seek(float time){if(float.IsNaN(time)||float.IsInfinity(time))return;Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
+        public void Restart(){interruptions.Clear();Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
+        public void Seek(float time){
+            if(float.IsNaN(time)||float.IsInfinity(time))return;
+            if(time<Clock.Time)interruptions.Clear();  // a new timeline: earlier losses no longer describe what was missed
+            Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
         // AR pointing: the aircraft nearest a tap in the AR view, if one is within the radius (pixels); else -1.
         public int AircraftAtScreen(Vector2 screen,Camera camera,float radius){
             int best=-1;float bestDistance=radius;
