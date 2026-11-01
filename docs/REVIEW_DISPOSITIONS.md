@@ -358,6 +358,10 @@ inflated too, after a review finding on PR #15.
     these scores are optimistic. Only the held-out set measures the method.
   - Latency rose (median 28–55 s) because three models shared the GPU; it is
     not comparable with the single-model runs.
+  - These result files record commit `059b55d`, a local commit that was
+    rebuilt as `ba93f6e` before pushing (it had picked up an unrelated staged
+    rename). The method files are identical, and each file's freeze check
+    reads `matches: true`.
 
 ## Rotations in Unity scenarios (31 October)
 
