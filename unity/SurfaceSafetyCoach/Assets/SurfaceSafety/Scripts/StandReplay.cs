@@ -113,6 +113,9 @@ namespace SurfaceSafety {
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
             if(Clock.Tracked&&!found&&Data.ClockRunsUntracked)interruptions.Add((++InterruptionCount,Clock.Time));
+            // A loss during which no replay time passed (playback paused by hand) hid nothing: discard it.
+            if(!Clock.Tracked&&found&&interruptions.Count>0&&interruptions[interruptions.Count-1].at>=Clock.Time)
+                interruptions.RemoveAt(interruptions.Count-1);
             Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}

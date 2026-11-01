@@ -133,7 +133,12 @@ public static class ConversationClientVerification {
             accepted = true, revision = 2, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } });
         check(client.BuildRequest("And after that?").lastSeen < 0, "nothing left once every interruption was sent");
 
-        // 4. Restarting or seeking backward starts a new timeline: an unreported loss from the old one is discarded.
+        // 5. Paused by hand in a running scenario: a loss during which no replay time passed hides nothing.
+        replay.Seek(20); replay.Clock.Pause(); replay.Tracking(false); replay.Tracking(true);
+        replay.Clock.Play(); replay.Clock.Advance(10);
+        check(client.BuildRequest("Anything new?").lastSeen < 0, "a loss with no replay time passing is discarded");
+
+        // 6. Restarting or seeking backward starts a new timeline: an unreported loss from the old one is discarded.
         replay.Seek(20); replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true);
         replay.Restart(); replay.Clock.Play(); replay.Clock.Advance(25);
         check(client.BuildRequest("Anything new?").lastSeen < 0, "a restart discards the earlier loss");
