@@ -31,6 +31,19 @@ M2 and M3 are larger, building on what M1 shows.
 | **M2. AR visual evidence** | The AR camera's own viewpoint as evidence (`visual-capture-v3`); simulated user movement (camera paths around the stand); licensed realistic aircraft and ground-vehicle models in the AR scene (each asset approved by the user); a real-photo perception check on public-domain apron photos | Development families, then freeze 2 and the `m2` held-out set (about 60 turns), with every model run so far | `outputs/m2_ar_visual/REPORT.md` |
 | **M3. Integrated AR evaluation** | The final freeze of the complete method; a Unity driver that replays held-out families as simulated AR sessions through the app's own client (camera pose, taps, tracking) | The `final` held-out set (about 200 turns) through the runner, every condition and model; a sample of its families replayed in-app, compared with the runner; the hosted comparison (cost approved by the user) | `outputs/m3_evaluation/REPORT.md` and the write-up |
 
+## Checkpoints: adjusting the plan to the results
+
+The plan changes between milestones based on results, never within a milestone
+after its held-out run: a method is never retuned on the held-out set that
+measures it. Each change goes into the ledger with the result that prompted it.
+
+| When | What is checked | What can change |
+|---|---|---|
+| M1 development results | Whether text-only and no-tracking differ from full AR on development data | If they don't, the families or prompt don't exercise the condition; fix before freeze 1 |
+| After the M1 held-out run | Full vs text-only and full vs no-tracking, with family-bootstrap intervals | A condition that helps is built on in M2; one that doesn't gets a fix in M2's development, measured on `m2` |
+| After the M2 held-out run | Perception and observation accuracy with realistic props and the user's viewpoint; the real-photo check | If visuals help, images-on becomes M3's main condition; if not, M3 reports visual grounding as a measured limitation |
+| Before M3 | M1 and M2 effect sizes | The final set's size (`scripts/size_heldout.py`), and the hosted model and its turns, to fit the budget |
+
 ## Held-out sets
 
 Three sets, written outside the repository by an author who hasn't seen the
