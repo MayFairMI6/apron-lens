@@ -55,8 +55,11 @@ environment. Three GAIVI details shape how (found on GPU42, October 2026):
 
 - The `/home` quota is small; PyTorch alone fills it. Keep this environment,
   and the pip, conda and Hugging Face caches, in your `/data` folder.
-- GPU42's driver (530) supports CUDA 12.x only, while PyPI's default PyTorch
-  wheels are built for CUDA 13. Install the `cu126` build.
+- GPU42's driver (530) supports CUDA 12.1 at most. PyPI's default PyTorch
+  wheels (CUDA 13) don't match, and the `cu126` build installs but fails on the
+  first GPU operation ("CUDA-capable device(s) is/are busy or unavailable"),
+  even on an idle GPU. Use PyTorch 2.7.1 `cu118`: the newest build for CUDA
+  11.8, and within transformers 5's torch ≥ 2.6. Not yet verified on GPU42.
 - Compute nodes keep dropping long downloads, such as the 400 MB CUDA wheels.
   Fetch the wheels on the login node, where downloads complete, then install
   them in a job.
@@ -65,14 +68,13 @@ On the login node (each step takes a few minutes):
 
 ```sh
 DATA=/data/<your folder>
-mkdir -p $DATA/wheels-cu126 $DATA/logs
+mkdir -p $DATA/wheels-cu118 $DATA/logs
 export PIP_CACHE_DIR=$DATA/pip-cache CONDA_PKGS_DIRS=$DATA/conda-pkgs
 conda create -y -q -p $DATA/conda-envs/wheel-fetch python=3.12
 PY=$DATA/conda-envs/wheel-fetch/bin/python
-$PY -m pip download -d $DATA/wheels-cu126 --index-url https://download.pytorch.org/whl/cu126 "torch>=2.6,<3" "torchvision>=0.21,<1"
-ls $DATA/wheels-cu126 | grep ^torch   # pin these exact versions in the next line
-printf "torch==<version>+cu126\ntorchvision==<version>+cu126\n" > $DATA/wheels-cu126/constraints.txt
-$PY -m pip download -d $DATA/wheels-cu126 --find-links $DATA/wheels-cu126 -c $DATA/wheels-cu126/constraints.txt -r requirements-candidates.txt
+$PY -m pip download -d $DATA/wheels-cu118 --index-url https://download.pytorch.org/whl/cu118 "torch==2.7.1+cu118" "torchvision==0.22.1+cu118"
+printf "torch==2.7.1+cu118\ntorchvision==0.22.1+cu118\n" > $DATA/wheels-cu118/constraints.txt
+$PY -m pip download -d $DATA/wheels-cu118 --find-links $DATA/wheels-cu118 -c $DATA/wheels-cu118/constraints.txt -r requirements-candidates.txt
 ```
 
 Then build the environment and download both models in one job:
@@ -81,7 +83,9 @@ Then build the environment and download both models in one job:
 sbatch --export=ALL,DATA=$DATA --output=$DATA/logs/slurm-%x-%j.out scripts/gaivi/setup_candidates.sbatch
 ```
 
-The job prints the torch version and whether CUDA is available; use
+The job prints the torch version and runs one GPU operation, so a build the
+driver can't run fails here rather than in the first evaluation. Installing
+onto `/data` is slow (over an hour). Use
 `PYTHON=$DATA/conda-envs/apronlens-candidates/bin/python` when submitting runs
 for these two models.
 
@@ -150,10 +154,11 @@ already run on the Mac (`apronlens-v2-mps`) and shouldn't be repeated:
 | 16 family turns, images on / off | `qwen2.5-vl-3b` | prompt v5 | 5/16, 4/16 |
 | 16 family turns, images on / off | `qwen3-vl-4b` | prompt v5 | 12/16, 11/16 |
 | 16 family turns, images on / off | `qwen3-vl-8b` | prompt v5 | 11/16, 12/16 |
+| 16 family turns, images on / off | `qwen3.5-9b` | prompt v5, backbone 1.2.0 | 14/16, 14/16 |
+| 16 family turns, images on / off | `gemma-4-e4b` | prompt v5 | 8/16, 9/16 |
 
-Not yet run with this method: `qwen3.5-9b` and `gemma-4-e4b` (the
-`apronlens-candidates` environment, which has transformers 5; step 3 builds it
-and downloads both).
+Every development model has now run with prompt v5 (on the Mac). GAIVI's
+next distinct runs are the held-out evaluation, once the freeze is approved.
 
 Then, with the environment for the model active:
 

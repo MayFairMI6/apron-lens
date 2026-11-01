@@ -10,18 +10,19 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=1
 #SBATCH --mem=16G
-#SBATCH --time=03:00:00
+#SBATCH --time=06:00:00
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"
 DATA="${DATA:?set DATA to your /data folder}"
 ENV="$DATA/conda-envs/apronlens-candidates"
-WHEELS="$DATA/wheels-cu126"
+WHEELS="$DATA/wheels-cu118"
 export PIP_CACHE_DIR="$DATA/pip-cache" HF_HOME="$DATA/hf-cache" CONDA_PKGS_DIRS="$DATA/conda-pkgs"
 if [ ! -x "$ENV/bin/python" ]; then "${CONDA:-conda}" create -y -q -p "$ENV" python=3.12; fi
 # Install from the wheels fetched on the login node; fall back to the index only for anything missing.
 pip_args=(-q --find-links "$WHEELS" -c "$WHEELS/constraints.txt" -r requirements-candidates.txt)
 "$ENV/bin/python" -m pip install --no-index "${pip_args[@]}" || "$ENV/bin/python" -m pip install --resume-retries 20 "${pip_args[@]}"
-"$ENV/bin/python" -c "import torch, transformers; print('torch', torch.__version__, 'cuda', torch.cuda.is_available(), torch.cuda.get_device_name(0), 'transformers', transformers.__version__)"
+# One GPU operation: a build the driver can't run (cu126 on GPU42's driver 530) fails here.
+"$ENV/bin/python" -c "import torch, transformers; x = torch.ones(64, 64, device='cuda', dtype=torch.float16); print('torch', torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0), 'matmul', (x @ x)[0, 0].item(), 'transformers', transformers.__version__)"
 for model in qwen3.5-9b gemma-4-e4b; do
   downloaded=0
   for attempt in 1 2 3 4 5 6; do

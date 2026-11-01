@@ -346,13 +346,26 @@ inflated too, after a review finding on PR #15.
   | `qwen2.5-vl-3b` | 5/16 | 4/16 |
   | `qwen3-vl-4b` | 12/16 | 11/16 |
   | `qwen3-vl-8b` | 11/16 | 12/16 |
+  | `qwen3.5-9b` (backbone 1.2.0, thinking off) | 14/16 | 14/16 |
+  | `gemma-4-e4b` | 8/16 | 9/16 |
 
   - Of the 18 remaining 4B and 8B misses across the four runs, 13 are
     withheld replies: claims outside the referent's facts (corrections and
     missing evidence), invalid JSON, or a malformed or contradicting unknown.
     The other 5 were accepted but wrong: a missing property not listed in
     unknowns (4B, three times) and a wrong visual observation (once each).
-  - The 8B still fails all three correction turns (F1); the 4B solves two.
+  - The 8B still fails all three correction turns (F1); the 4B and 9B solve
+    two.
+  - `qwen3.5-9b`: its misses are the first correction turn and the visible
+    fuel-vehicle turn, withheld for a malformed unknowns list or (images on)
+    accepted with a wrong observation. With its default thinking mode it
+    scored 0/16: the reasoning trace used the whole 512-token output budget,
+    so no reply was JSON. Backbone 1.2.0 turns thinking off for this model
+    only.
+  - `gemma-4-e4b`: the validator withheld 4–6 replies (schema errors, a
+    missing changed fact, claims outside the referent). It also fails
+    corrections and scene change, and it accepted one correction follow-up
+    about the wrong rotation.
   - Images: still no consistent gain (±1 turn either way).
   - Caution: v5 was written after reading failures on these same 16 turns, so
     these scores are optimistic. Only the held-out set measures the method.
