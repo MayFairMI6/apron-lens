@@ -50,13 +50,40 @@ python -m pip install -r requirements-qwen.lock.txt
 ```
 
 That environment runs the evaluated `qwen2.5-vl-3b` and the Qwen3-VL candidates.
-For `qwen3.5-9b` and `gemma-4-e4b`, which need transformers 5, make a second one:
+For `qwen3.5-9b` and `gemma-4-e4b`, which need transformers 5, make a second
+environment. Three GAIVI details shape how (found on GPU42, October 2026):
+
+- The `/home` quota is small; PyTorch alone fills it. Keep this environment,
+  and the pip, conda and Hugging Face caches, in your `/data` folder.
+- GPU42's driver (530) supports CUDA 12.x only, while PyPI's default PyTorch
+  wheels are built for CUDA 13. Install the `cu126` build.
+- Compute nodes keep dropping long downloads, such as the 400 MB CUDA wheels.
+  Fetch the wheels on the login node, where downloads complete, then install
+  them in a job.
+
+On the login node (each step takes a few minutes):
 
 ```sh
-conda create -y -n apronlens-candidates python=3.12
-conda activate apronlens-candidates
-python -m pip install -r requirements-candidates.txt
+DATA=/data/<your folder>
+mkdir -p $DATA/wheels-cu126 $DATA/logs
+export PIP_CACHE_DIR=$DATA/pip-cache CONDA_PKGS_DIRS=$DATA/conda-pkgs
+conda create -y -q -p $DATA/conda-envs/wheel-fetch python=3.12
+PY=$DATA/conda-envs/wheel-fetch/bin/python
+$PY -m pip download -d $DATA/wheels-cu126 --index-url https://download.pytorch.org/whl/cu126 "torch>=2.6,<3" "torchvision>=0.21,<1"
+ls $DATA/wheels-cu126 | grep ^torch   # pin these exact versions in the next line
+printf "torch==<version>+cu126\ntorchvision==<version>+cu126\n" > $DATA/wheels-cu126/constraints.txt
+$PY -m pip download -d $DATA/wheels-cu126 --find-links $DATA/wheels-cu126 -c $DATA/wheels-cu126/constraints.txt -r requirements-candidates.txt
 ```
+
+Then build the environment and download both models in one job:
+
+```sh
+sbatch --export=ALL,DATA=$DATA --output=$DATA/logs/slurm-%x-%j.out scripts/gaivi/setup_candidates.sbatch
+```
+
+The job prints the torch version and whether CUDA is available; use
+`PYTHON=$DATA/conda-envs/apronlens-candidates/bin/python` when submitting runs
+for these two models.
 
 Exit the interactive job with `exit` when done.
 
@@ -117,10 +144,16 @@ already run on the Mac (`apronlens-v2-mps`) and shouldn't be repeated:
 | 25 conversation turns | `qwen2.5-vl-3b` | prompt v4, `referent-rule-v2` | 15/25 |
 | 25 conversation turns | `qwen3-vl-8b` | prompt v4, `referent-rule-v2` | 22/25 |
 | Perception check (18 judgements) | `qwen3-vl-8b` | redesigned props, v4 legend | 11/18 plain, 12/18 with legend |
+| Perception check (18 judgements) | `qwen3-vl-4b` | v4 legend | 9/18 plain, 11/18 with legend |
+| Perception check (18 judgements) | `qwen2.5-vl-3b` | v4 legend | 0/18 plain, 9/18 with legend |
+| 16 family turns, images on / off | `qwen2.5-vl-3b`, `qwen3-vl-4b`, `qwen3-vl-8b` | prompt v4 | 3, 5, 8 of 16 (both) |
+| 16 family turns, images on / off | `qwen2.5-vl-3b` | prompt v5 | 5/16, 4/16 |
+| 16 family turns, images on / off | `qwen3-vl-4b` | prompt v5 | 12/16, 11/16 |
+| 16 family turns, images on / off | `qwen3-vl-8b` | prompt v5 | 11/16, 12/16 |
 
-Not yet run with this method: `qwen3-vl-4b` (the `apronlens` environment),
-and `qwen3.5-9b` and `gemma-4-e4b` (the `apronlens-candidates` environment,
-which has transformers 5). Download their weights first (step 4).
+Not yet run with this method: `qwen3.5-9b` and `gemma-4-e4b` (the
+`apronlens-candidates` environment, which has transformers 5; step 3 builds it
+and downloads both).
 
 Then, with the environment for the model active:
 
@@ -128,6 +161,13 @@ Then, with the environment for the model active:
 conda activate apronlens-candidates
 sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/conversation_smoke.sbatch
 sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda scripts/gaivi/perception_check.sbatch
+```
+
+The development families (`scripts/run_conversation_families.py`, images on
+and then off, in one job):
+
+```sh
+sbatch --export=ALL,MODEL=qwen3.5-9b,RUNTIME=compaction-gaivi-cuda,PYTHON=$DATA/conda-envs/apronlens-candidates/bin/python scripts/gaivi/conversation_families.sbatch
 ```
 
 `MODEL` has no default, so a job can't repeat a completed run by accident. Add
