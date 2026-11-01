@@ -57,9 +57,15 @@ def check_structure(data):
         raise ValueError('duplicate aircraft ID')
     for a in aircraft:
         points = a.get('waypoints') or []
-        if not points or any(not (number(p.get('t')) and number(p.get('x')) and number(p.get('z'))) for p in points) \
+        if len(points) < 2:
+            raise ValueError(f'aircraft {a["id"]}: needs at least two waypoints (Unity: "Missing trajectory")')
+        if any(not (number(p.get('t')) and number(p.get('x')) and number(p.get('z'))) for p in points) \
+                or any(not 0 <= p['t'] <= data['duration'] for p in points) \
                 or any(b['t'] <= p['t'] for p, b in zip(points, points[1:])):
-            raise ValueError(f'aircraft {a["id"]}: waypoints need increasing times')
+            raise ValueError(f'aircraft {a["id"]}: waypoint times must increase within 0..duration')
+    for e in data.get('events') or []:
+        if not e.get('source') or not (number(e.get('receiptTime')) and e['receiptTime'] <= data['duration']):
+            raise ValueError(f'event {e.get("id")}: needs a source and a receipt time within the scenario')
     flights = {(e['aircraftId'], e['flightInstance']) for e in data['events']}
     flights |= {(a['id'], a['flightInstance']) for a in aircraft if a.get('flightInstance')}
     flights |= {(a['id'], r['flightInstance']) for a in aircraft for r in a.get('rotations') or []}
@@ -75,8 +81,10 @@ def check_structure(data):
                 or any(b['t'] <= s['t'] for s, b in zip(states, states[1:])):
             raise ValueError(f'prop {p["id"]}: invalid kind, value or state times (states start at t 0)')
     for o in data.get('occluders') or []:
-        if not o.get('id') or not all(number(o.get(k)) and o[k] > 0 for k in ('width', 'depth', 'height')):
-            raise ValueError('occluder needs an ID and positive size and height')
+        if not o.get('id') or not all(number(o.get(k)) and o[k] > 0 for k in ('width', 'depth', 'height')) \
+                or not (number(o.get('x')) and number(o.get('z')) and abs(o['x']) <= data['targetWidth'] / 2
+                        and abs(o['z']) <= data['targetWidth'] / 3):
+            raise ValueError('occluder needs an ID, positive size and height, and a position on the board')
 
 
 def load_set(families_path, scenarios_dir):

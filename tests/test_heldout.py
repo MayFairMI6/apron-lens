@@ -104,6 +104,22 @@ class HeldoutSet(unittest.TestCase):
             self.assertIn('h_test.json', out.stdout)
             self.assertNotEqual(out.returncode, 0)
 
+    def test_checker_mirrors_unitys_trajectory_and_board_rules(self):
+        for change, text in ((lambda d: d['aircraft'][0].__setitem__('waypoints', d['aircraft'][0]['waypoints'][:1]),
+                              'at least two waypoints'),
+                             (lambda d: d['aircraft'][0]['waypoints'][-1].__setitem__('t', d['duration'] + 1),
+                              'within 0..duration'),
+                             (lambda d: d['occluders'][0].__setitem__('x', d['targetWidth']), 'position on the board')):
+            with self.subTest(text), tempfile.TemporaryDirectory() as folder:
+                families, scenarios = write_set(folder)
+                path = scenarios / 'h_test.json'
+                data = json.loads(path.read_text())
+                change(data)
+                path.write_text(json.dumps(data))
+                out = check(families, scenarios)
+                self.assertNotEqual(out.returncode, 0)
+                self.assertIn(text, out.stdout)
+
     def test_checker_enforces_set_rules_types_and_running_clocks(self):
         with tempfile.TemporaryDirectory() as folder:
             families, scenarios = write_set(folder)

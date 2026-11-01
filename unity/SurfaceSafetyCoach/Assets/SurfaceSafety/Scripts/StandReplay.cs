@@ -109,14 +109,29 @@ namespace SurfaceSafety {
         readonly List<(int id,float at,float back)> interruptions=new List<(int id,float at,float back)>();
         public int InterruptionCount {get;private set;}
         public float? InterruptedAt=>interruptions.Count==0?(float?)null:interruptions[0].at;
-        // Pending losses as [start, end, start, end, ...] up to the current replay time, each kept separate so the
-        // time watched between them never counts as unseen. A loss still under way ends now.
+        // Pending losses as [start, end, start, end, ...] up to the current replay time, kept separate so the time
+        // watched between them doesn't count as unseen. A loss still under way ends now. Losses less than
+        // FlickerSeconds of watching apart are one loss (tracking flicker, not watching). At most MaxAwayIntervals
+        // are sent, the server's limit: beyond it, the shortest watched gaps are merged first, so only those few
+        // seconds can count as unseen.
+        public const int MaxAwayIntervals=20;
+        public const float FlickerSeconds=1f;
         public float[] AwayIntervals(){
-            var flat=new List<float>();
+            var spans=new List<(float start,float end)>();
             foreach(var i in interruptions){
                 var end=i.back<0?Clock.Time:i.back;
-                if(end>i.at){flat.Add(i.at);flat.Add(end);}
+                if(end<=i.at)continue;
+                if(spans.Count>0&&i.at-spans[spans.Count-1].end<FlickerSeconds)spans[spans.Count-1]=(spans[spans.Count-1].start,end);
+                else spans.Add((i.at,end));
             }
+            while(spans.Count>MaxAwayIntervals){
+                int shortest=0;
+                for(int k=1;k<spans.Count-1;k++)
+                    if(spans[k+1].start-spans[k].end<spans[shortest+1].start-spans[shortest].end)shortest=k;
+                spans[shortest]=(spans[shortest].start,spans[shortest+1].end);spans.RemoveAt(shortest+1);
+            }
+            var flat=new List<float>();
+            foreach(var span in spans){flat.Add(span.start);flat.Add(span.end);}
             return flat.ToArray();
         }
         public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}

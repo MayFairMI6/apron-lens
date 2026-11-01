@@ -90,7 +90,7 @@ class ConversationRequest(BaseModel):
     lastSeen: float | None = Field(default=None, le=3600)  # tracking interruption; Unity sends -1 for none
     backInView: float | None = Field(default=None, le=3600)  # when tracking returned; -1 for none
     # The app's tracking losses as [start, end, start, end, ...] (JsonUtility can't write nested arrays); [] for none.
-    awayIntervals: list[float] | None = Field(default=None, max_length=40)
+    awayIntervals: list[float] | None = Field(default=None, max_length=40)  # StandReplay.MaxAwayIntervals = 20 pairs
 
     # Unity's JsonUtility cannot omit a field: an unset string is written as "" and an
     # unset array as []. Both mean "not provided".

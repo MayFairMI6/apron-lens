@@ -143,6 +143,19 @@ public static class ConversationClientVerification {
               && Mathf.Approximately(watched.awayIntervals[3], 38) && Mathf.Approximately(watched.checkpoint, 45), "two intervals, 20-25 and 35-38 s");
         replay.Seek(10);  // discard it before the next case
 
+        // 4b. Many losses: flicker (under a second of watching) is one loss, and no more than the server's limit is sent.
+        replay.Seek(5); replay.Clock.Play();
+        for (int k = 0; k < 3; k++) { replay.Tracking(false); replay.Clock.Advance(1); replay.Tracking(true); replay.Clock.Play(); replay.Clock.Advance(.5f); }
+        var flicker = client.BuildRequest("Anything new?");
+        check(flicker.awayIntervals.Length == 2 && Mathf.Approximately(flicker.awayIntervals[0], 5) && Mathf.Approximately(flicker.awayIntervals[1], 9),
+              "three flickering losses are one interval, 5 to 9 s");
+        replay.Seek(1); replay.Clock.Play();
+        for (int k = 0; k < 25; k++) { replay.Tracking(false); replay.Clock.Advance(1); replay.Tracking(true); replay.Clock.Play(); replay.Clock.Advance(1.5f + (k % 3)); }
+        var many = client.BuildRequest("Anything new?");
+        check(many.awayIntervals.Length == 2 * StandReplay.MaxAwayIntervals && Mathf.Approximately(many.awayIntervals[0], 1),
+              "25 losses are sent as at most the server's limit, starting at the first loss");
+        replay.Seek(0);
+
         // 5. Paused by hand in a running scenario: a loss during which no replay time passed hides nothing.
         replay.Seek(20); replay.Clock.Pause(); replay.Tracking(false); replay.Tracking(true);
         replay.Clock.Play(); replay.Clock.Advance(10);
