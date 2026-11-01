@@ -106,10 +106,13 @@ public static class ConversationClientVerification {
         check(client.BuildRequest("Where is this one heading?").aircraftId == "A3", "the request names the tapped aircraft");
         check(!replay.TapSelect(new Vector2(2, 2), Camera.main) && replay.SelectedAircraftIndex == 2, "a tap on empty board changes nothing");
 
-        // 2. A scenario that pauses (the default): no time passes out of view, so no lastSeen is sent.
+        // 2. A scenario that pauses (the default): no time passes out of view, so no interruption is recorded,
+        //    even after playback resumes and later reports arrive while the user watches.
         replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true);
         check(Mathf.Approximately(replay.Clock.Time, 20), "the default clock pauses while the board is out of view");
-        check(client.BuildRequest("Anything new?").lastSeen < 0, "no lastSeen when no replay time passed out of view");
+        replay.Clock.Play(); replay.Clock.Advance(10);
+        check(!replay.InterruptedAt.HasValue && client.BuildRequest("Anything new?").lastSeen < 0,
+              "no lastSeen from a paused clock, even after playback resumes");
 
         // 3. A running clock: reports keep arriving out of view, and the next request carries lastSeen.
         var running = boot("visual_dev_03"); replay = running.Replay; client = running.GetComponent<ConversationClient>();
@@ -121,8 +124,14 @@ public static class ConversationClientVerification {
               "lastSeen is when the board first left the view");
         var response = new ConversationResponse { requestId = request.requestId, sessionId = request.sessionId, cutoff = request.checkpoint,
             accepted = true, revision = 1, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } };
+        // A second loss after the request was built must survive the first request's response.
+        replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(5); replay.Tracking(true);
         client.ApplyResponse(request, response);
-        check(client.BuildRequest("And now?").lastSeen < 0, "a committed turn clears the interruption");
+        var next = client.BuildRequest("And now?");
+        check(Mathf.Approximately(next.lastSeen, 30), "a committed turn clears only the interruption it carried");
+        client.ApplyResponse(next, new ConversationResponse { requestId = next.requestId, sessionId = next.sessionId, cutoff = next.checkpoint,
+            accepted = true, revision = 2, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } });
+        check(client.BuildRequest("And after that?").lastSeen < 0, "nothing left once every interruption was sent");
         Debug.Log("AR_CONTEXT_CHECKS_PASSED");
     }
 

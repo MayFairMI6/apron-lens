@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -84,10 +85,15 @@ namespace SurfaceSafety {
 
         public void NewSession() { SessionId = Guid.NewGuid().ToString("N"); Revision = 0; Pending = null; LastResponse = null; }
 
+        // Request ID -> how many tracking losses the request carried (as lastSeen), so a committed turn clears
+        // only those, not losses that happened after the request was built.
+        readonly Dictionary<string, int> interruptionsCarried = new Dictionary<string, int>();
+
         public ConversationRequest BuildRequest(string question, Vector2? tapScreen = null) {
             var a = replay.Data.aircraft[replay.SelectedAircraftIndex];
             var evidence = VisualEvidenceCapture.Capture(replay, Camera.main, tapScreen);
             var id = Guid.NewGuid().ToString("N");
+            interruptionsCarried[id] = replay.InterruptionCount;
             return new ConversationRequest {
                 requestId = id, turnId = id, sessionId = SessionId, scenarioId = replay.Data.scenarioId,
                 aircraftId = a.id, flightInstance = a.FlightAt(replay.Clock.Time), checkpoint = replay.Clock.Time,
@@ -108,7 +114,10 @@ namespace SurfaceSafety {
                 return Show("CONTEXT CHANGED", "This answer belongs to a different question. Ask again.");
             }
             Revision = Mathf.Max(Revision, response.revision);  // the turn is committed on the server either way
-            replay.ClearInterruption();  // the server has seen this interruption
+            if (interruptionsCarried.TryGetValue(request.requestId, out var carried)) {
+                replay.ClearInterruptionsThrough(carried);  // the server has seen these interruptions
+                interruptionsCarried.Remove(request.requestId);
+            }
             if (!SameContext(request)) return Show("CONTEXT CHANGED", "The selection or replay time changed. Ask again for this checkpoint.");
             var display = response.display ?? new ConversationDisplay();
             if (response.accepted && !ClaimsSupported(request, response))

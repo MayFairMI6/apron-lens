@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -99,14 +100,18 @@ namespace SurfaceSafety {
             logPath=Path.Combine(Application.persistentDataPath,"session-"+Guid.NewGuid().ToString("N")+".jsonl");
             Log("session_start");ApplyScene();
         }
-        // Replay time when the board left the camera's view, held until the next conversation turn is committed
-        // (ConversationClient sends it as lastSeen). The earliest loss counts: the user missed everything since.
-        public float? InterruptedAt {get;private set;}
-        public void ClearInterruption(){InterruptedAt=null;}
+        // Tracking losses not yet reported to the server, each with a sequence number and the replay time the
+        // board left the camera's view. Only a clock that runs while untracked records them: with a paused clock
+        // nothing can arrive unseen. ConversationClient sends the earliest as lastSeen and, once that turn is
+        // committed, clears the losses the request carried, keeping any that happened after it was built.
+        readonly List<(int id,float at)> interruptions=new List<(int id,float at)>();
+        public int InterruptionCount {get;private set;}
+        public float? InterruptedAt=>interruptions.Count==0?(float?)null:interruptions[0].at;
+        public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
-            if(Clock.Tracked&&!found&&!InterruptedAt.HasValue)InterruptedAt=Clock.Time;
+            if(Clock.Tracked&&!found&&Data.ClockRunsUntracked)interruptions.Add((++InterruptionCount,Clock.Time));
             Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}
