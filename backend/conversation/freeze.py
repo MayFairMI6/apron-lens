@@ -36,6 +36,7 @@ FROZEN_FILES = (
     'backend/conversation/state.py',
     'backend/conversation/scoring.py',
     'backend/evidence.py',
+    'backend/conversation/guards.py',  # which held-out set a formal run loads, and its hash checks
     # Request construction and input preprocessing: what the model actually sees.
     'scripts/run_conversation_families.py',
     'modelaccess/contract.py',

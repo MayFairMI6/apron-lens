@@ -1,7 +1,11 @@
 """Run the conversation families through the /conversation turn handler and score them.
 
 Families and labels: data/conversation_dev/families.json (development split) or
---families PATH. Each family runs in its own session per scenario, as the
+--families PATH. A non-development (held-out) set also needs --scenarios DIR and
+an approved freeze: its families file and scenario folder must be outside the
+repository and match config/heldout-<set>.json, and --output must be
+outside the repository too (backend/conversation/guards.load_heldout_set).
+Each family runs in its own session per scenario, as the
 server would. --images off removes every evidence image (the without-image
 condition); --baseline runs the deterministic baseline from
 backend/conversation/scoring.py through the same turn handler and validator.
@@ -28,6 +32,7 @@ from modelaccess.contract import Settings
 from modelaccess.mock import MockAdapter
 from backend.conversation import freeze
 from backend.conversation.context import receipt_times
+from backend.conversation.guards import load_heldout_set, outside_repo
 from backend.conversation.hosted import add_arguments, prepare, provenance, result_path
 from backend.conversation.scoring import (SCORING_VERSION, baseline_proposal, load_families, required_images,
                                           score_turn, summarize, turns_of, validate_families)
@@ -94,16 +99,25 @@ def main():
     add_arguments(parser, 'qwen2.5-vl-3b')
     parser.add_argument('--baseline', action='store_true', help='Run the deterministic baseline instead of a model')
     parser.add_argument('--families', default=str(DEFAULT_FAMILIES))
+    parser.add_argument('--scenarios', help='Scenario folder of a held-out set (outside the repository)')
     parser.add_argument('--images', choices=('on', 'off'), default='on')
     parser.add_argument('--output', help='Result file; default work/conversation-families/<model>-<time>.json')
     parser.add_argument('--max-output-tokens', type=int,
                         help='Default 512 locally; 8000 hosted, where thinking counts against the cap')
     args = parser.parse_args()
     args.max_output_tokens = args.max_output_tokens or (512 if args.provider == 'local' else 8000)
-    scenarios = load_scenarios()
-    families = validate_families(load_families(args.families), scenarios)
-    if families['split'] != 'development':
+    if args.scenarios is None:
+        families, scenarios = load_families(args.families), load_scenarios()
+        if families['split'] != 'development':
+            raise SystemExit('A held-out set needs --scenarios and its committed record (config/heldout-<set>.json).')
+    else:
         freeze.require_approved()  # a formal run uses only an approved, unchanged method
+        families, scenarios = load_heldout_set(args.families, args.scenarios)
+        if families['split'] == 'development':
+            raise SystemExit('--scenarios is for a held-out set; the development families use the app scenarios.')
+        if args.output is None or not outside_repo(args.output):
+            raise SystemExit('Write held-out results outside the repository with --output: they carry the questions.')
+    families = validate_families(families, scenarios)
     images = args.images == 'on'
     missing = [name for name in required_images(families) if not (WORK / name).exists()] if images else []
     if missing:  # an images-on run without its images would silently become the images-off condition

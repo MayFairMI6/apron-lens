@@ -85,10 +85,14 @@ namespace SurfaceSafety {
         readonly Color amber=new Color(.65f,.35f,.04f);
         public void Initialize(bool preview) {Initialize(preview,"milestone1");}
         public void Initialize(bool preview,string scenarioResource) {
-            previewMode=preview;
             var asset=Resources.Load<TextAsset>(scenarioResource);
             if(asset==null)throw new ArgumentException("Unknown scenario resource: "+scenarioResource);
-            Data=JsonUtility.FromJson<Scenario>(asset.text);Data.Validate();
+            InitializeFromJson(preview,asset.text);
+        }
+        // Scenario text from outside the app's resources (held-out renders, HeldoutRender).
+        public void InitializeFromJson(bool preview,string scenarioJson) {
+            previewMode=preview;
+            Data=JsonUtility.FromJson<Scenario>(scenarioJson);Data.Validate();
             Clock=new ReplayClock(Data.duration);Clock.SetTracking(preview);
             Content=new GameObject("StandWorld").transform;Content.SetParent(transform,false);
             BuildWorld();BuildUI();
