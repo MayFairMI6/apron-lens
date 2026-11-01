@@ -10,7 +10,8 @@
   "unknowns": "Properties that must be listed as unknown.",
   "observations": "Expected visual observations for the referent: a value must be reported as that value; null means it must not be reported (not visible). Omitted kinds are not scored.",
   "textOnly": "The same intent asked in words, with nothing selected (the text-only condition); its expect replaces the turn expect when given.",
-  "lastSeen": "Replay time when the board was last in view before this turn (tracking interruption)."
+  "lastSeen": "Replay time when the board was last in view before this turn (tracking interruption).",
+  "citeOnly": "Facts an answer may cite (claims must be a subset), e.g. only what changed while the user looked away; scored as \"precise\"."
  },
  "families": [
   {
@@ -568,7 +569,11 @@
        "V03:fuel_status",
        "V04:baggage_status"
       ],
-      "explanationChanged": true
+      "explanationChanged": true,
+      "citeOnly": [
+       "V03:fuel_status",
+       "V04:baggage_status"
+      ]
      },
      "textOnly": {
       "question": "I looked away for a moment. What changed for A2?"
@@ -678,12 +683,136 @@
       "mustCite": [
        "R03:baggage_status"
       ],
-      "explanationChanged": true
+      "explanationChanged": true,
+      "citeOnly": [
+       "R03:baggage_status"
+      ]
      },
      "textOnly": {
       "question": "I was looking away. Is baggage done for A2 now?"
      },
      "lastSeen": 20
+    }
+   ]
+  },
+  {
+   "id": "F13-tracking-first-look",
+   "type": "tracking-interruption",
+   "scenario": "V1-visual-observation-dev-01",
+   "tests": "Looking back before any answer: only the look-away time says which facts are new.",
+   "turns": [
+    {
+     "cutoff": 36,
+     "selected": {
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1"
+     },
+     "question": "I just looked back at the board. What's new for this aircraft?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A2",
+       "flightInstance": "F2-R1"
+      },
+      "mustCite": [
+       "V03:fuel_status",
+       "V04:baggage_status"
+      ],
+      "citeOnly": [
+       "V03:fuel_status",
+       "V04:baggage_status"
+      ]
+     },
+     "textOnly": {
+      "question": "I just looked back at the board. What's new for A2?"
+     },
+     "lastSeen": 21
+    },
+    {
+     "cutoff": 42,
+     "selected": {
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1"
+     },
+     "question": "Has it started moving?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A2",
+       "flightInstance": "F2-R1"
+      },
+      "mustCite": [
+       "V05:movement_status"
+      ],
+      "explanationChanged": true
+     },
+     "textOnly": {
+      "question": "Has A2 started moving?"
+     }
+    }
+   ]
+  },
+  {
+   "id": "F14-tracking-after-answer",
+   "type": "tracking-interruption",
+   "scenario": "V1-visual-observation-dev-01",
+   "tests": "The user kept watching after the last answer, then looked away: only what arrived while away is new to them.",
+   "turns": [
+    {
+     "cutoff": 21,
+     "selected": {
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1"
+     },
+     "question": "Is fuelling done for this aircraft?",
+     "expect": {
+      "status": [
+       "answer",
+       "unknown"
+      ],
+      "referent": {
+       "aircraftId": "A2",
+       "flightInstance": "F2-R1"
+      },
+      "unknowns": [
+       "fuel_status"
+      ]
+     },
+     "textOnly": {
+      "question": "Is fuelling done for A2?"
+     }
+    },
+    {
+     "cutoff": 36,
+     "selected": {
+      "aircraftId": "A2",
+      "flightInstance": "F2-R1"
+     },
+     "question": "I looked away for a moment. What changed?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A2",
+       "flightInstance": "F2-R1"
+      },
+      "mustCite": [
+       "V04:baggage_status"
+      ],
+      "citeOnly": [
+       "V04:baggage_status"
+      ],
+      "explanationChanged": true
+     },
+     "textOnly": {
+      "question": "I looked away for a moment. What changed for A2?"
+     },
+     "lastSeen": 30
     }
    ]
   }

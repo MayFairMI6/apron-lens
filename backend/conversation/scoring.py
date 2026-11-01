@@ -25,7 +25,7 @@ from backend.conversation.context import changed_facts, snapshot
 from backend.conversation.identity import resolve_flight
 
 SCORING_VERSION = 'conversation-scoring-v2'
-CRITERIA = ('valid', 'status', 'referent', 'cites', 'changed', 'unknowns', 'observations')
+CRITERIA = ('valid', 'status', 'referent', 'cites', 'precise', 'changed', 'unknowns', 'observations')
 
 
 def load_families(path):
@@ -42,11 +42,13 @@ def check_expect(data, expect, cutoff, where):
     if referent is not None:
         resolve_flight(data, referent['aircraftId'], referent['flightInstance'])
         facts = snapshot(data, referent['aircraftId'], referent['flightInstance'], cutoff)['factsById']
-        missing = [f for f in expect.get('mustCite', []) if f not in facts]
+        missing = [f for f in expect.get('mustCite', []) + expect.get('citeOnly', []) if f not in facts]
         if missing:
             raise ValueError(f'{where}: {missing} not received for the referent by {cutoff} s')
-    elif expect.get('mustCite'):
-        raise ValueError(f'{where}: mustCite without a referent')
+        if 'citeOnly' in expect and not set(expect.get('mustCite', [])) <= set(expect['citeOnly']):
+            raise ValueError(f'{where}: mustCite must be within citeOnly')
+    elif expect.get('mustCite') or expect.get('citeOnly'):
+        raise ValueError(f'{where}: mustCite or citeOnly without a referent')
     if not set(expect['status']) <= {'answer', 'clarify', 'unknown'}:
         raise ValueError(f'{where}: unknown status')
 
@@ -126,6 +128,8 @@ def score_turn(expect, result):
     else:
         scores['referent'] = None
     scores['cites'] = (accepted and set(expect['mustCite']) <= cited) if expect.get('mustCite') else None
+    # citeOnly: the facts an answer may cite, e.g. only what changed while the user looked away.
+    scores['precise'] = (accepted and cited <= set(expect['citeOnly'])) if 'citeOnly' in expect else None
     scores['changed'] = (accepted and p.get('explanationChanged') == expect['explanationChanged']) \
         if 'explanationChanged' in expect else None
     scores['unknowns'] = (accepted and set(expect['unknowns']) <= set(p.get('unknowns') or [])) \
@@ -151,7 +155,7 @@ def summarize(rows):
             bucket['turns'] += 1
             bucket['correct'] += row['scores']['correct']
             for c in CRITERIA:
-                if row['scores'][c] is not None:
+                if row['scores'].get(c) is not None:  # older results have no 'precise'
                     bucket[c][1] += 1
-                    bucket[c][0] += row['scores'][c]
+                    bucket[c][0] += row['scores'].get(c)
     return out

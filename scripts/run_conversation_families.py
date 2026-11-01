@@ -121,10 +121,10 @@ def run_families(families, scenarios, adapter, settings, images=True, baseline=F
 
 
 def print_summary(summary, report=print):
-    report(f"{'family':<28}{'correct':>9}  " + '  '.join(f'{c:>12}' for c in ('referent', 'cites', 'changed', 'unknowns', 'observations')))
+    report(f"{'family':<28}{'correct':>9}  " + '  '.join(f'{c:>12}' for c in ('referent', 'cites', 'precise', 'changed', 'unknowns', 'observations')))
     for key, s in sorted(summary.items(), key=lambda item: item[0] == 'all'):  # 'all' last
         cells = '  '.join(f'{s[c][0]:>5}/{s[c][1]:<6}' if s[c][1] else f'{"-":>12}'
-                          for c in ('referent', 'cites', 'changed', 'unknowns', 'observations'))
+                          for c in ('referent', 'cites', 'precise', 'changed', 'unknowns', 'observations'))
         report(f'{key:<28}{s["correct"]:>4}/{s["turns"]:<4}  {cells}')
 
 

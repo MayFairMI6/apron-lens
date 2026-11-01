@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from size_heldout import wilson  # noqa: E402
 
-CRITERIA = ('referent', 'cites', 'changed', 'unknowns', 'observations')
+CRITERIA = ('referent', 'cites', 'precise', 'changed', 'unknowns', 'observations')
 
 
 def factors_off(result):

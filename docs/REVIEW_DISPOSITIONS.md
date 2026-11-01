@@ -495,3 +495,63 @@ hosted logprobs; image-token counts for OpenAI, Claude and Gemini; whether
 OpenAI bills reasoning tokens as output; provider minimum deposits; Gemini
 free-tier data-use terms; Android build with the new scripts; physical
 Android behaviour.
+
+## AR milestone 1: development (1 November)
+
+Scope and milestones are in `docs/AR_SCOPE.md` (ledger D-080 to D-084). M1 adds
+AR pointing and tracking interruptions, end to end:
+
+- **Method:** `conversation-prompt-v6`, `referent-rule-v3`,
+  `conversation-scoring-v2`.
+  - With nothing selected (the text-only user), every flight is a candidate,
+    and an accepted answer's referent persists.
+  - `lastSeen` adds each candidate's `changedWhileAway`. When the user asks
+    what changed while away, only those facts are cited, and other changes
+    since the last answer go to `changesNotDiscussed`.
+  - Labels gain `textOnly`, `lastSeen` and `citeOnly` (scored as `precise`).
+- **Runner:** `--selection on|off` and `--tracking on|off`. The baseline
+  resolves text-only references from aircraft or flight names, or asks.
+- **Unity:**
+  - Tapping an aircraft in the AR view selects it.
+  - Scenarios may keep the clock running while the board is out of view.
+  - The client sends `lastSeen` until a turn is committed.
+  - `ConversationClientVerification.RunArContext` checks all three; the
+    client, rotation and capture checks still pass.
+- **Held-out tooling:** sets live outside the repository and are checked
+  against `config/heldout-<set>.json`. `scripts/check_heldout.py` prints only
+  counts. `HeldoutRender.Run` renders a set and validates it in Unity; its
+  output matches the development render byte for byte.
+- **Reporting:** `scripts/report_families.py` gives Wilson intervals,
+  one-factor paired differences with a family bootstrap, and selective
+  prediction (coverage, accuracy on answered turns, abstentions that were
+  right, wrong answers shown).
+
+Development families v2 (14 families, 28 turns, images off), local, development only:
+
+| System | Full AR | Text-only | No tracking |
+|---|---|---|---|
+| `qwen3.5-9b` (24 turns, before F13–F14) | 22/24 | 20/24 | 22/24 |
+| `qwen3-vl-4b` (24 turns, before F13–F14) | 16/24 | 12/24 | 17/24 |
+| Deterministic baseline (24 turns) | 14/24 | 14/24 | 14/24 |
+
+- **Checkpoint 1 (`docs/AR_SCOPE.md`):**
+  - Pointing is exercised: full AR beats text-only by 8 points for the 9B
+    (interval 0 to +19) and by 17 points for the 4B (0 to +33).
+  - Tracking was not exercised. In every tracking turn `lastSeen` equalled the
+    previous answer's time, so "changed since your last answer" already
+    covered it, and citing every fact passed `mustCite`.
+  - Fixes before freeze 1: the `citeOnly` precision label; F13 (a look-back
+    before any answer) and F14 (a look-away that starts after the last answer);
+    the prompt's precedence rule; and the same label change in the `m1` and
+    `final` sets, made by their author.
+- **Tracking families after the fixes (10 turns, with / without `lastSeen`):**
+  9B 9/10 vs 8/10, 4B 7/10 vs 5/10, baseline 4/10 vs 4/10. The baseline
+  cites everything, so it fails the precision label.
+- Every system still fails F14's second turn on precision: it also cites the
+  fuel report the user watched arrive, which answers the user's earlier
+  question. This is recorded rather than tuned away.
+- **Selective prediction (full AR):** the 9B answered 17 of 24 turns and was
+  right on all 17; the 4B answered 19, with 4 wrong answers shown.
+- These are development observations on the turns the method was written
+  against. The `m1` held-out run, after freeze 1, is the measurement.
+

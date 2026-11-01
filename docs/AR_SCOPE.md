@@ -125,6 +125,14 @@ All are optional unless a set requires them.
   follow-up). A scenario with `lastSeen` turns sets
   `"clockWhileUntracked": "runs"`, so the Unity replay keeps running while the
   board is out of view (the default, `"pauses"`, is the Milestone 1 behaviour).
+- **`citeOnly`** (in `expect`): the facts an answer may cite; its claims must
+  be a subset, scored as `precise`. Use it where the question asks what
+  changed, so that listing every fact doesn't pass. For example, "what changed
+  while I was away?" gets `citeOnly` set to the facts received during the
+  look-away. A tracking turn measures something only when `lastSeen` adds
+  information beyond the previous answer: the look-away comes before any
+  answer, or starts after the previous answer. When `lastSeen` equals the
+  previous turn's `cutoff`, "changed since your last answer" already covers it.
 - **`viewpoint`** (M2; its exact coordinates are fixed in M2): the AR camera
   pose for the turn's image, as `{"position": [x, y, z], "lookAt": [x, y, z]}`
   in board metres, with y up. Observation labels describe what is visible from

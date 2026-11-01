@@ -76,6 +76,13 @@ class TurnScores(unittest.TestCase):
         self.assertFalse(score_turn(hidden, result(observations=seen))['observations'])
         self.assertTrue(score_turn(hidden, result())['observations'])
 
+    def test_cite_only_bounds_the_cited_facts(self):
+        expect = dict(status=['answer'], referent=A2_R1, mustCite=['V04:baggage_status'], citeOnly=['V04:baggage_status'])
+        self.assertTrue(score_turn(expect, result(claims=['V04:baggage_status']))['correct'])
+        scores = score_turn(expect, result(claims=['V03:fuel_status', 'V04:baggage_status']))
+        self.assertEqual((scores['cites'], scores['precise'], scores['correct']), (True, False, False))
+        self.assertIsNone(score_turn(dict(status=['answer']), result())['precise'])
+
     def test_summary_counts_only_labelled_criteria(self):
         rows = [dict(family='F', scores=dict(valid=True, status=True, referent=True, cites=None, changed=False,
                                              unknowns=None, observations=None, correct=False))]

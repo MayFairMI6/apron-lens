@@ -151,7 +151,9 @@ def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight,
            f'The board was out of the user\'s view from {last_seen:g} s until now, while reports kept arriving; '
            'each candidate\'s changedWhileAway lists the facts that are new or changed since then. Cite those of '
            'the referent flight that bear on the question, so the user hears what changed while they were not '
-           'looking. ')
+           'looking. When the user asks what changed while they were away, cite only facts in changedWhileAway, and '
+           'list the referent\'s other changedSincePreviousAnswer facts, which the user saw arrive, in '
+           'changesNotDiscussed. ')
         + f'\n{view}\n'
         f'Memory: {json.dumps(memory, sort_keys=True)}\n'
         f'Candidate flights and received facts: {json.dumps(candidates, sort_keys=True)}\n'
