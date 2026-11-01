@@ -18,8 +18,15 @@ For each turn, in random order across systems and conditions, with no system,
 model or condition name:
 
 - the user's question and the replay time;
+- the conversation so far in that family: each earlier turn's question, replay
+  time and displayed answer, as the same system gave them. On a follow-up
+  ("has anything changed since you answered?"), this is how the judge knows
+  the previous answer and its cutoff, and so which facts arrived since then and
+  whether "no change" is right;
 - the facts received for the referent flight by that time, with their status,
-  event and receipt times;
+  event and receipt times, and, for a follow-up, the facts that are new or
+  changed since the previous answer (the same `changed_facts` set the
+  validator checks);
 - when the user was away, the time interval(s);
 - the answer as the app displays it: the checked claims, the unknowns and the
   status, plus the model's interpretation text, which is shown to the user as
