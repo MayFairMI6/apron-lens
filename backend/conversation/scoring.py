@@ -78,6 +78,9 @@ def validate_families(families, scenarios):
             if last_seen is not None and not (0 <= last_seen < turn['cutoff']
                                               and (previous_cutoff is None or last_seen >= previous_cutoff)):
                 raise ValueError(f'{where}: lastSeen must be before the cutoff and not before the previous turn')
+            back = turn.get('backInView')
+            if back is not None and (last_seen is None or not last_seen < back <= turn['cutoff']):
+                raise ValueError(f'{where}: backInView needs a lastSeen before it and must not be after the cutoff')
             previous_cutoff = turn['cutoff']
             if turn.get('image') and turn['cutoff'] < 0:
                 raise ValueError(f'{where}: bad image time')

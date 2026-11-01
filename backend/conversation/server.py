@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, Header, HTTPException
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from starlette.concurrency import run_in_threadpool
 
 from modelaccess.contract import Settings
@@ -78,8 +78,9 @@ class ConversationRequest(BaseModel):
     sessionId: str = Field(min_length=1, max_length=80)
     mode: str = Field(default=DEVELOPMENT, pattern='^(development|formal)$')
     scenarioId: str = Field(min_length=1, max_length=80)
-    aircraftId: str = Field(min_length=1, max_length=20)
-    flightInstance: str = Field(min_length=1, max_length=40)
+    # Both absent (or "" from Unity) for the text-only condition: nothing selected.
+    aircraftId: str | None = Field(default=None, min_length=1, max_length=20)
+    flightInstance: str | None = Field(default=None, min_length=1, max_length=40)
     checkpoint: float = Field(ge=0, le=3600)
     expectedRevision: int = Field(ge=0)
     question: str = Field(min_length=1, max_length=400)
@@ -87,15 +88,22 @@ class ConversationRequest(BaseModel):
     imageCaptureTime: float | None = Field(default=None, ge=0, le=3600)
     tapViewport: list[float] | None = Field(default=None, min_length=2, max_length=2)
     lastSeen: float | None = Field(default=None, le=3600)  # tracking interruption; Unity sends -1 for none
+    backInView: float | None = Field(default=None, le=3600)  # when tracking returned; -1 for none
 
     # Unity's JsonUtility cannot omit a field: an unset string is written as "" and an
     # unset array as []. Both mean "not provided".
-    @field_validator('imageBase64', 'tapViewport', mode='before')
+    @field_validator('imageBase64', 'tapViewport', 'aircraftId', 'flightInstance', mode='before')
     @classmethod
     def unset_is_none(cls, value):
         return None if value in ('', []) else value
 
-    @field_validator('lastSeen', mode='before')
+    @model_validator(mode='after')
+    def selection_is_a_pair(self):
+        if (self.aircraftId is None) != (self.flightInstance is None):
+            raise ValueError('aircraftId and flightInstance are given together, or both left out (text-only)')
+        return self
+
+    @field_validator('lastSeen', 'backInView', mode='before')
     @classmethod
     def negative_is_none(cls, value):
         return None if isinstance(value, (int, float)) and value < 0 else value
@@ -154,7 +162,8 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
             raise HTTPException(409, 'Session mode cannot change; start a new session')
         turn = dict(requestId=body.requestId, turnId=body.turnId, expectedRevision=body.expectedRevision,
                     aircraftId=body.aircraftId, flightInstance=body.flightInstance, cutoff=body.checkpoint,
-                    question=body.question, tap=body.tapViewport, lastSeen=body.lastSeen)
+                    question=body.question, tap=body.tapViewport, lastSeen=body.lastSeen,
+                    backInView=body.backInView)
         image_hash = None
         if body.imageBase64 is not None:
             try:

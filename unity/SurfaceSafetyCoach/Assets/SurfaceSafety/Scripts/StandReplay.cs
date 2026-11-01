@@ -105,17 +105,23 @@ namespace SurfaceSafety {
         // nothing can arrive unseen. ConversationClient sends the earliest as lastSeen and, once that turn is
         // committed, clears the losses the request carried, keeping any that happened after it was built.
         // Restarting or seeking backward starts a new timeline and discards them.
-        readonly List<(int id,float at)> interruptions=new List<(int id,float at)>();
+        // back is the replay time tracking returned (-1 while the board is still out of view).
+        readonly List<(int id,float at,float back)> interruptions=new List<(int id,float at,float back)>();
         public int InterruptionCount {get;private set;}
         public float? InterruptedAt=>interruptions.Count==0?(float?)null:interruptions[0].at;
+        // When the board last came back into view; reports after it were watched arrive. Null while still out of view.
+        public float? BackInView=>interruptions.Count==0||interruptions[interruptions.Count-1].back<0?(float?)null:interruptions[interruptions.Count-1].back;
         public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
-            if(Clock.Tracked&&!found&&Data.ClockRunsUntracked)interruptions.Add((++InterruptionCount,Clock.Time));
-            // A loss during which no replay time passed (playback paused by hand) hid nothing: discard it.
-            if(!Clock.Tracked&&found&&interruptions.Count>0&&interruptions[interruptions.Count-1].at>=Clock.Time)
-                interruptions.RemoveAt(interruptions.Count-1);
+            if(Clock.Tracked&&!found&&Data.ClockRunsUntracked)interruptions.Add((++InterruptionCount,Clock.Time,-1f));
+            if(!Clock.Tracked&&found&&interruptions.Count>0&&interruptions[interruptions.Count-1].back<0){
+                var last=interruptions[interruptions.Count-1];
+                // A loss during which no replay time passed (playback paused by hand) hid nothing: discard it.
+                if(last.at>=Clock.Time)interruptions.RemoveAt(interruptions.Count-1);
+                else interruptions[interruptions.Count-1]=(last.id,last.at,Clock.Time);
+            }
             Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}

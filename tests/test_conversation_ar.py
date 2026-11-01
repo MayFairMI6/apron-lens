@@ -65,6 +65,19 @@ class TrackingInterruption(unittest.TestCase):
         self.assertEqual(away, {'F2-R1': ['E01:stand', 'E03:stand'], 'F2-R2': []})
         self.assertEqual(result['lastSeen'], 25)
 
+    def test_back_in_view_excludes_reports_the_user_watched_arrive(self):
+        adapter = MockAdapter([json.dumps(proposal())])
+        run_turn(SessionState('s'), two_rotation_scenario(), turn(1, 0, cutoff=40, lastSeen=10, backInView=25),
+                 adapter, SETTINGS)
+        prompt = adapter.calls[0][0].messages[0][1]
+        self.assertIn('from 10 s to 25 s', prompt)
+        candidates = json.loads(prompt.split('Candidate flights and received facts: ')[1].split('\nUser:')[0])
+        # E03 arrives at 30, after the board came back into view at 25: watched, so not listed.
+        self.assertEqual({c['flightInstance']: c['changedWhileAway'] for c in candidates}, {'F2-R1': [], 'F2-R2': []})
+        with self.assertRaises(ValueError):
+            run_turn(SessionState('s'), two_rotation_scenario(), turn(1, 0, cutoff=40, lastSeen=10, backInView=45),
+                     MockAdapter([]), SETTINGS)
+
     def test_without_last_seen_the_prompt_says_nothing_about_tracking(self):
         adapter = MockAdapter([json.dumps(proposal())])
         run_turn(SessionState('s'), two_rotation_scenario(), turn(1, 0), adapter, SETTINGS)

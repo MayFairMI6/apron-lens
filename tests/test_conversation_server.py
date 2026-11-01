@@ -114,6 +114,14 @@ class Endpoint(unittest.TestCase):
         self.assertIsNone(second['lastSeen'])
         self.assertNotIn('changedWhileAway', self.prompt())
 
+    def test_text_only_requests_reach_the_turn_handler(self):
+        client = self.serve([reply(status='clarify', referent=None)])
+        result = self.ask(client, 1, 0, aircraft='', flight='').json()  # Unity writes "" for no selection
+        self.assertFalse(result['selectionSent'])
+        self.assertIn('Nothing is selected in the app', self.prompt())
+        half = self.ask(client, 2, 1, aircraft='A2', flight=None)
+        self.assertEqual(half.status_code, 422)
+
     def test_a_validated_correction_sets_the_referent(self):
         correction = {'kind': 'correction', 'aircraftId': 'A2', 'flightInstance': 'F2-R2'}
         client = self.serve([reply(memoryUpdate=correction, claims=[claim('E02:stand', 'C', 'current', 'E02')])])

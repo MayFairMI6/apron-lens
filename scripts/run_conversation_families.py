@@ -62,11 +62,12 @@ def text_referent(data, question, current):
 
 
 def condition_turn(turn, selection, tracking):
-    """(question, expect, selected or None, lastSeen or None) for a family turn under the AR condition."""
+    """(question, expect, selected or None, (lastSeen, backInView) or (None, None)) under the AR condition."""
     text_only = turn.get('textOnly') or {}
     question = turn['question'] if selection else text_only.get('question', turn['question'])
     expect = turn['expect'] if selection else text_only.get('expect', turn['expect'])
-    return question, expect, turn['selected'] if selection else None, turn.get('lastSeen') if tracking else None
+    away = (turn.get('lastSeen'), turn.get('backInView')) if tracking else (None, None)
+    return question, expect, turn['selected'] if selection else None, away
 
 
 def run_families(families, scenarios, adapter, settings, images=True, baseline=False, report=print,
@@ -77,11 +78,11 @@ def run_families(families, scenarios, adapter, settings, images=True, baseline=F
             data = scenarios[turn['scenario']]
             session = sessions.setdefault((family['id'], turn['scenario']),
                                           SessionState(f'{family["id"]}:{turn["scenario"]}'))
-            question, expect, selected, last_seen = condition_turn(turn, selection, tracking)
+            question, expect, selected, (last_seen, back_in_view) = condition_turn(turn, selection, tracking)
             request = dict(requestId=f'{family["id"]}-{index + 1}', turnId=f'{family["id"]}-{index + 1}',
                            expectedRevision=session.revision, aircraftId=selected and selected['aircraftId'],
                            flightInstance=selected and selected['flightInstance'], cutoff=turn['cutoff'],
-                           question=question, lastSeen=last_seen)
+                           question=question, lastSeen=last_seen, backInView=back_in_view)
             image = turn.get('image')
             image_used = bool(images and image and (WORK / image).exists())
             image_sha256 = None

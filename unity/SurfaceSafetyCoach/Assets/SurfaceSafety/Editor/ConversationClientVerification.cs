@@ -120,8 +120,8 @@ public static class ConversationClientVerification {
         replay.Tracking(false); replay.Clock.Advance(6); replay.Tracking(false); replay.Clock.Advance(4); replay.Tracking(true);
         var request = client.BuildRequest("I was looking away. Is it done now?");
         check(replay.Data.ClockRunsUntracked && Mathf.Approximately(request.checkpoint, 30), "the clock ran 10 s out of view");
-        check(Mathf.Approximately(request.lastSeen, 20) && JsonUtility.ToJson(request).Contains("\"lastSeen\":20"),
-              "lastSeen is when the board first left the view");
+        check(Mathf.Approximately(request.lastSeen, 20) && JsonUtility.ToJson(request).Contains("\"lastSeen\":20") && request.backInView < 0,
+              "lastSeen is when the board first left the view; back in view just now");
         var response = new ConversationResponse { requestId = request.requestId, sessionId = request.sessionId, cutoff = request.checkpoint,
             accepted = true, revision = 1, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } };
         // A second loss after the request was built must survive the first request's response.
@@ -132,6 +132,14 @@ public static class ConversationClientVerification {
         client.ApplyResponse(next, new ConversationResponse { requestId = next.requestId, sessionId = next.sessionId, cutoff = next.checkpoint,
             accepted = true, revision = 2, display = new ConversationDisplay { resultStatus = "answer", answer = "", claims = new SupportedClaim[0] } });
         check(client.BuildRequest("And after that?").lastSeen < 0, "nothing left once every interruption was sent");
+
+        // 4. Back in view before the question: only the untracked interval counts as unseen.
+        replay.Seek(20); replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(5); replay.Tracking(true);
+        replay.Clock.Play(); replay.Clock.Advance(15);
+        var watched = client.BuildRequest("Anything new?");
+        check(Mathf.Approximately(watched.lastSeen, 20) && Mathf.Approximately(watched.backInView, 25) && Mathf.Approximately(watched.checkpoint, 40),
+              "lastSeen 20 and backInView 25 for a question at 40");
+        replay.Seek(10);  // discard it before the next case
 
         // 5. Paused by hand in a running scenario: a loss during which no replay time passed hides nothing.
         replay.Seek(20); replay.Clock.Pause(); replay.Tracking(false); replay.Tracking(true);
