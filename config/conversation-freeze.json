@@ -1,6 +1,6 @@
 {
   "record": "conversation-freeze-v1",
-  "status": "proposed",
+  "status": "approved",
   "versions": {
     "prompt": "conversation-prompt-v6",
     "referentRule": "referent-rule-v3",
@@ -27,5 +27,7 @@
     "modelaccess/anthropic_api.py": "4d844396886e9daaf02dd841ba518deb2367cc2308a5d1386b08760172a88163",
     "modelaccess/openai_api.py": "91e50cc7334e06bec70d0ea2a17bca1334f9253442c4b8e87542fb22ae265856",
     "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/VisualEvidenceCapture.cs": "96c71eae5e71d347e9c68e63fe0f60b56d26754b3ed35bf29c5da8ee754247c3"
-  }
+  },
+  "approvedBy": "MayfairMI6 (approved in chat, 1 November 2026)",
+  "approvedAt": "2026-11-01"
 }

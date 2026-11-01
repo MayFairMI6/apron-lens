@@ -62,12 +62,14 @@ M2 and M3 are larger, building on what M1 shows.
 | Proactive, mixed-initiative assistance | M2 | A change notice when tracking returns, measured for accuracy and for when it interrupts |
 | Validator-guided self-repair | M2 | One retry with the validator's errors, compared with no retry |
 | Agentic tool use | M3 | Tool queries against the evidence store, compared with the full-context prompt |
+| LLM-as-judge (secondary metric) | M2, M3 | A fixed rubric (`docs/JUDGE_RUBRIC.md`) for what labels can't score: usefulness, clarity, clarifying questions, change explanations, proactive notices. A judge from another model family, blind to system and condition, calibrated against the user's own ratings. Never replaces the deterministic scores. |
 | Accuracy against latency and model size | M3 | Report trade-off for on-device use |
 
 Each gets a verified reference in `docs/RELATED_WORK_DRAFT.md` when its
 milestone starts (scene graphs and dynamic scene graphs, shared situation
-awareness, selective prediction, proactive assistance, tool-using agents).
-Deliberately not used: LLM-as-judge scoring (scoring stays deterministic), and
+awareness, selective prediction, proactive assistance, tool-using agents,
+LLM judges and their biases). Correctness stays with the deterministic scores;
+the judge adds quality dimensions alongside them. Deliberately not used:
 fine-tuning the language models (D-013). A trained detector is this project's
 own module, not fine-tuning.
 
