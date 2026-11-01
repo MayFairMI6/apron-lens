@@ -214,6 +214,28 @@ and one question per stand aircraft, with no reports, scored against
 - Conclusion: visual grounding of these props is a limit of the local 8B model,
   not the capture size. A hosted comparison is the next step.
 
+## Freeze package (31 October)
+
+- `config/conversation-freeze.json` (`conversation-freeze-v1`, status
+  **proposed**) records the method's version constants and the SHA-256 of
+  each file that defines it:
+  - versions: prompt v4, `referent-rule-v2`, validator v2, scoring v1,
+    `json-repair-v1`, `visual-capture-v2`
+  - files: the turn handler, validator, observations, context, identity,
+    state, scoring, `backend/evidence.py`, the repair policy and the Unity
+    capture
+- `scripts/freeze_conversation_method.py`: `--check`, `--write` (proposed),
+  and `--approve --by NAME`, which only the user runs.
+- Once a record is approved:
+  - `tests/test_conversation_freeze.py` fails on any change to a frozen file.
+  - `run_conversation_families.py` refuses a non-development (formal) run
+    unless the approved record matches.
+- A changed method needs new version constants, a new record and a new
+  approval.
+- Evidence renders are not frozen, because their renderer changes with the
+  UI. Instead, every run records the freeze status and the SHA-256 of each
+  image it used.
+
 ## Development families and scoring (31 October)
 
 - `data/conversation_dev/families.json` (`conversation-dev-families-v1`,
