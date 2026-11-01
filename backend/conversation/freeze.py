@@ -9,8 +9,10 @@ user. From then on:
 A changed method needs new version constants, a new record and a new approval;
 the earlier record stays in git history.
 
-Evidence images are not frozen here: their renderer changes with the UI, so
-each run records the SHA-256 of the images it used.
+Request construction (the runner's settings, the adapters and image
+preprocessing) is frozen with the method, because it decides what the model
+sees. Evidence images are not frozen here: their renderer changes with the UI,
+so each run records the SHA-256 of the images it used and its effective settings.
 """
 import datetime as dt
 import hashlib
@@ -34,7 +36,14 @@ FROZEN_FILES = (
     'backend/conversation/state.py',
     'backend/conversation/scoring.py',
     'backend/evidence.py',
+    # Request construction and input preprocessing: what the model actually sees.
+    'scripts/run_conversation_families.py',
+    'modelaccess/contract.py',
     'modelaccess/repair.py',
+    'modelaccess/images.py',
+    'modelaccess/local_backbone.py',
+    'modelaccess/anthropic_api.py',
+    'modelaccess/openai_api.py',
     'unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/VisualEvidenceCapture.cs',
 )
 

@@ -134,7 +134,8 @@ def main():
         model=model, provider='baseline' if args.baseline else args.provider, runtime=getattr(inner, 'runtime', None),
         runtimeProfile=args.profile, images=args.images, familiesVersion=families['version'], split=families['split'],
         promptVersion=PROMPT_VERSION, referentRule=REFERENT_RULE_VERSION, scoringVersion=SCORING_VERSION,
-        freeze=freeze.status(),
+        freeze=freeze.status(), settings=dict(maxOutputTokens=args.max_output_tokens, imageMaxSide=672,
+                                              reasoningEffort=args.reasoning_effort),
         note='Development run; not evaluation evidence.' if families['split'] == 'development' else '',
         **provenance(), summary=summary, turns=rows), indent=1))
     print_summary(summary)

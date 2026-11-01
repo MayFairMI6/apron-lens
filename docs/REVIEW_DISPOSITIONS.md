@@ -222,8 +222,12 @@ and one question per stand aircraft, with no reports, scored against
   - versions: prompt v4, `referent-rule-v2`, validator v2, scoring v1,
     `json-repair-v1`, `visual-capture-v2`
   - files: the turn handler, validator, observations, context, identity,
-    state, scoring, `backend/evidence.py`, the repair policy and the Unity
-    capture
+    state, scoring, `backend/evidence.py`, the request construction and
+    input preprocessing (the families runner, the model-access contract,
+    the repair policy, image preparation, and the local, Anthropic and OpenAI
+    adapters), and the Unity capture. That's 16 files. Request construction
+    is frozen because it decides what the model sees, for example the image
+    size (review finding on PR #14).
 - `scripts/freeze_conversation_method.py`: `--check`, `--write` (proposed),
   and `--approve --by NAME`, which only the user runs.
 - Once a record is approved:
@@ -233,8 +237,8 @@ and one question per stand aircraft, with no reports, scored against
 - A changed method needs new version constants, a new record and a new
   approval.
 - Evidence renders are not frozen, because their renderer changes with the
-  UI. Instead, every run records the freeze status and the SHA-256 of each
-  image it used.
+  UI. Instead, every run records the freeze status, its effective settings
+  and the SHA-256 of each image it used.
 
 ## Development families and scoring (31 October)
 

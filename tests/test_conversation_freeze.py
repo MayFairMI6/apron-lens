@@ -21,6 +21,11 @@ class FreezeRecord(unittest.TestCase):
         if self.record['status'] == 'approved':  # once approved, any change to a frozen file fails here
             self.assertEqual(freeze.mismatches(self.record), [])
 
+    def test_request_construction_and_preprocessing_are_frozen(self):
+        for rel in ('scripts/run_conversation_families.py', 'modelaccess/images.py', 'modelaccess/local_backbone.py',
+                    'modelaccess/anthropic_api.py', 'modelaccess/openai_api.py'):
+            self.assertIn(rel, freeze.FROZEN_FILES)  # they decide what the model sees, e.g. image_max_side
+
     def test_a_changed_file_is_detected(self):
         changed = dict(self.record, files=dict(self.record['files'], **{freeze.FROZEN_FILES[0]: '0' * 64}))
         self.assertEqual(freeze.mismatches(changed), [freeze.FROZEN_FILES[0]])
