@@ -214,6 +214,32 @@ and one question per stand aircraft, with no reports, scored against
 - Conclusion: visual grounding of these props is a limit of the local 8B model,
   not the capture size. A hosted comparison is the next step.
 
+## Held-out sizing (31 October, planning only)
+
+`scripts/size_heldout.py` uses the development family runs to size the
+held-out set. Development numbers are a planning input, not evidence.
+
+| System (development, 16 turns) | Correct | Wilson 95% CI |
+|---|---|---|
+| `qwen3-vl-8b` (with or without images) | 8 | 0.28–0.72 |
+| Deterministic baseline | 7 | 0.23–0.67 |
+| `qwen2.5-vl-3b` | 3 | 0.07–0.43 |
+
+- **Precision.** About 100–150 held-out turns put a system's accuracy within
+  ±10 percentage points. The range covers turn correlation within a family
+  (icc 0–0.6) at two turns per family.
+- **Paired comparison.** 8B and the baseline disagree on 31% of turns.
+  Detecting an accuracy gap between them takes about 60 turns for 20 points,
+  about 110 for 15 points, and about 240 for 10 points.
+- **With vs without images.** 8B behaved identically with and without images
+  on every development turn, so the image comparison needs more image-bearing
+  turns than the development set has.
+- **Recommendation for the held-out author:** about 50–75 independently
+  written families of 2–3 turns each (120–180 turns), with every family type
+  represented and at least a third of the turns carrying an image. That
+  supports ±10-point accuracy estimates and detects a 15-point difference
+  from the baseline.
+
 ## Freeze package (31 October)
 
 - `config/conversation-freeze.json` (`conversation-freeze-v1`, status
