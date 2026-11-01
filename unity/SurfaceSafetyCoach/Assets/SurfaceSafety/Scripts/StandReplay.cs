@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -85,25 +86,90 @@ namespace SurfaceSafety {
         readonly Color amber=new Color(.65f,.35f,.04f);
         public void Initialize(bool preview) {Initialize(preview,"milestone1");}
         public void Initialize(bool preview,string scenarioResource) {
-            previewMode=preview;
             var asset=Resources.Load<TextAsset>(scenarioResource);
             if(asset==null)throw new ArgumentException("Unknown scenario resource: "+scenarioResource);
-            Data=JsonUtility.FromJson<Scenario>(asset.text);Data.Validate();
-            Clock=new ReplayClock(Data.duration);Clock.SetTracking(preview);
+            InitializeFromJson(preview,asset.text);
+        }
+        // Scenario text from outside the app's resources (held-out renders, HeldoutRender).
+        public void InitializeFromJson(bool preview,string scenarioJson) {
+            previewMode=preview;
+            Data=JsonUtility.FromJson<Scenario>(scenarioJson);Data.Validate();
+            Clock=new ReplayClock(Data.duration,Data.ClockRunsUntracked);Clock.SetTracking(preview);
             Content=new GameObject("StandWorld").transform;Content.SetParent(transform,false);
             BuildWorld();BuildUI();
             logPath=Path.Combine(Application.persistentDataPath,"session-"+Guid.NewGuid().ToString("N")+".jsonl");
             Log("session_start");ApplyScene();
         }
+        // Tracking losses not yet reported to the server, each with a sequence number and the replay time the
+        // board left the camera's view. Only a clock that runs while untracked records them: with a paused clock
+        // nothing can arrive unseen. ConversationClient sends them as awayIntervals and, once that turn is
+        // committed, clears the losses the request carried, keeping any that happened after it was built.
+        // Restarting or seeking backward starts a new timeline and discards them.
+        // back is the replay time tracking returned (-1 while the board is still out of view).
+        readonly List<(int id,float at,float back)> interruptions=new List<(int id,float at,float back)>();
+        public int InterruptionCount {get;private set;}
+        public float? InterruptedAt=>interruptions.Count==0?(float?)null:interruptions[0].at;
+        // Pending losses as [start, end, start, end, ...] up to the current replay time, kept separate so the time
+        // watched between them doesn't count as unseen. A loss still under way ends now. Losses less than
+        // FlickerSeconds of watching apart are one loss (tracking flicker, not watching). At most MaxAwayIntervals
+        // are sent, the server's limit: beyond it, the shortest watched gaps are merged first, so only those few
+        // seconds can count as unseen.
+        public const int MaxAwayIntervals=20;
+        public const float FlickerSeconds=1f;
+        public float[] AwayIntervals(){
+            var spans=new List<(float start,float end)>();
+            foreach(var i in interruptions){
+                var end=i.back<0?Clock.Time:i.back;
+                if(end<=i.at)continue;
+                if(spans.Count>0&&i.at-spans[spans.Count-1].end<FlickerSeconds)spans[spans.Count-1]=(spans[spans.Count-1].start,end);
+                else spans.Add((i.at,end));
+            }
+            while(spans.Count>MaxAwayIntervals){
+                int shortest=0;
+                for(int k=1;k<spans.Count-1;k++)
+                    if(spans[k+1].start-spans[k].end<spans[shortest+1].start-spans[shortest].end)shortest=k;
+                spans[shortest]=(spans[shortest].start,spans[shortest+1].end);spans.RemoveAt(shortest+1);
+            }
+            var flat=new List<float>();
+            foreach(var span in spans){flat.Add(span.start);flat.Add(span.end);}
+            return flat.ToArray();
+        }
+        public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
+            if(Clock.Tracked&&!found&&Data.ClockRunsUntracked)interruptions.Add((++InterruptionCount,Clock.Time,-1f));
+            if(!Clock.Tracked&&found&&interruptions.Count>0&&interruptions[interruptions.Count-1].back<0){
+                var last=interruptions[interruptions.Count-1];
+                // A loss during which no replay time passed (playback paused by hand) hid nothing: discard it.
+                if(last.at>=Clock.Time)interruptions.RemoveAt(interruptions.Count-1);
+                else interruptions[interruptions.Count-1]=(last.id,last.at,Clock.Time);
+            }
             Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}
         public void Pause(){Clock.Pause();Log("pause");ApplyScene();}
-        public void Restart(){Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
-        public void Seek(float time){if(float.IsNaN(time)||float.IsInfinity(time))return;Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
+        public void Restart(){interruptions.Clear();Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
+        public void Seek(float time){
+            if(float.IsNaN(time)||float.IsInfinity(time))return;
+            if(time<Clock.Time)interruptions.Clear();  // a new timeline: earlier losses no longer describe what was missed
+            Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
+        // AR pointing: the aircraft nearest a tap in the AR view, if one is within the radius (pixels); else -1.
+        public int AircraftAtScreen(Vector2 screen,Camera camera,float radius){
+            int best=-1;float bestDistance=radius;
+            for(int i=0;i<planes.Length;i++){
+                var p=camera.WorldToScreenPoint(planes[i].position);
+                if(p.z<=0||!planes[i].gameObject.activeInHierarchy)continue;
+                var d=Vector2.Distance(screen,new Vector2(p.x,p.y));
+                if(d<bestDistance){best=i;bestDistance=d;}
+            }
+            return best;
+        }
+        public bool TapSelect(Vector2 screen,Camera camera){
+            var index=AircraftAtScreen(screen,camera,Mathf.Max(40,.08f*Mathf.Min(camera.pixelWidth,camera.pixelHeight)));
+            if(index<0)return false;
+            Log("aircraft_tapped");SelectAircraft(index);return true;
+        }
         public void SelectAircraft(int index){
             if(index<0||index>=Data.aircraft.Length)return;
             if(index!=SelectedAircraftIndex){SelectedAircraftIndex=index;InspectedReportId="";InvalidateAi();Log("aircraft_selected");}
@@ -121,7 +187,12 @@ namespace SurfaceSafety {
         }
         public void SetAiResult(string status,string text){aiStatus=status??"";aiText=text??"";showAiDetails=false;bodyKey=null;ApplyScene();}
         void InvalidateAi(){showAiDetails=false;aiStatus="Checkpoint changed";aiText="Generate a new explanation for the selected aircraft and replay time.";}
-        void Update(){if(Clock==null)return;Clock.Advance(Time.unscaledDeltaTime);ApplyScene();}
+        void Update(){
+            if(Clock==null)return;
+            if(Input.GetMouseButtonDown(0)&&Camera.main!=null&&(EventSystem.current==null||!EventSystem.current.IsPointerOverGameObject()))
+                TapSelect(Input.mousePosition,Camera.main);
+            Clock.Advance(Time.unscaledDeltaTime);ApplyScene();
+        }
         void OnApplicationPause(bool paused){if(paused&&Clock!=null){Clock.Pause();Log("application_pause");ApplyScene();}}
         void OnDestroy(){if(Clock!=null)Log("session_end");}
         [Serializable] class LogRecord {

@@ -1,0 +1,11 @@
+{
+  "record": "conversation-heldout-record-v1",
+  "set": "m1",
+  "families": "3a67d2f44363865ff5890cb85ade215f7d15984eed27f9e2804d7ea07a1d4745",
+  "scenarios": {
+    "H-M1-01.json": "1875757b667ba85f505bbaeff7f9009017b27b5f27303d1d57d5ee92168b9fd1",
+    "H-M1-02.json": "77ae3afb42b84c800ea840e7fe0249bcb83741fa64521c68ac060ba5bd5decfc",
+    "H-M1-03.json": "07f97ec1f67eaa7291bc3b432c4d4e979951e3d745eaa2d09b43106f0531edbb",
+    "H-M1-04.json": "baf9823e9e29ae67899198fdb3c58279a2cdc4976b1d508fed7ada6d0068e892"
+  }
+}

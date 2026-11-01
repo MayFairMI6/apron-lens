@@ -24,8 +24,8 @@ from modelaccess.repair import parse_json_output
 from backend.conversation.context import changed_facts, snapshot
 from backend.conversation.identity import resolve_flight
 
-SCORING_VERSION = 'conversation-scoring-v1'
-CRITERIA = ('valid', 'status', 'referent', 'cites', 'changed', 'unknowns', 'observations')
+SCORING_VERSION = 'conversation-scoring-v2'
+CRITERIA = ('valid', 'status', 'referent', 'cites', 'precise', 'changed', 'unknowns', 'observations')
 
 
 def load_families(path):
@@ -37,6 +37,22 @@ def turns_of(family):
         yield index, dict(turn, scenario=turn.get('scenario') or family['scenario'])
 
 
+def check_expect(data, expect, cutoff, where):
+    referent = expect.get('referent') or expect.get('referentIfAnswer')
+    if referent is not None:
+        resolve_flight(data, referent['aircraftId'], referent['flightInstance'])
+        facts = snapshot(data, referent['aircraftId'], referent['flightInstance'], cutoff)['factsById']
+        missing = [f for f in expect.get('mustCite', []) + expect.get('citeOnly', []) if f not in facts]
+        if missing:
+            raise ValueError(f'{where}: {missing} not received for the referent by {cutoff} s')
+        if 'citeOnly' in expect and not set(expect.get('mustCite', [])) <= set(expect['citeOnly']):
+            raise ValueError(f'{where}: mustCite must be within citeOnly')
+    elif expect.get('mustCite') or expect.get('citeOnly'):
+        raise ValueError(f'{where}: mustCite or citeOnly without a referent')
+    if not set(expect['status']) <= {'answer', 'clarify', 'unknown'}:
+        raise ValueError(f'{where}: unknown status')
+
+
 def validate_families(families, scenarios):
     """Raise ValueError if a label cannot hold for its scenario (a broken label, not a model error)."""
     seen = set()
@@ -44,6 +60,7 @@ def validate_families(families, scenarios):
         if family['id'] in seen:
             raise ValueError(f'Duplicate family {family["id"]}')
         seen.add(family['id'])
+        previous_cutoff = None
         for index, turn in turns_of(family):
             where = f'{family["id"]} turn {index + 1}'
             data = scenarios.get(turn['scenario'])
@@ -51,18 +68,20 @@ def validate_families(families, scenarios):
                 raise ValueError(f'{where}: unknown scenario {turn["scenario"]}')
             selected = turn['selected']
             resolve_flight(data, selected['aircraftId'], selected['flightInstance'])
-            expect = turn['expect']
-            referent = expect.get('referent') or expect.get('referentIfAnswer')
-            if referent is not None:
-                resolve_flight(data, referent['aircraftId'], referent['flightInstance'])
-                facts = snapshot(data, referent['aircraftId'], referent['flightInstance'], turn['cutoff'])['factsById']
-                missing = [f for f in expect.get('mustCite', []) if f not in facts]
-                if missing:
-                    raise ValueError(f'{where}: {missing} not received for the referent by {turn["cutoff"]} s')
-            elif expect.get('mustCite'):
-                raise ValueError(f'{where}: mustCite without a referent')
-            if not set(expect['status']) <= {'answer', 'clarify', 'unknown'}:
-                raise ValueError(f'{where}: unknown status')
+            text_only = turn.get('textOnly')
+            if text_only is not None and not (isinstance(text_only.get('question'), str) and text_only['question']):
+                raise ValueError(f'{where}: textOnly needs a question')
+            for label, expect in (('', turn['expect']), (' textOnly', (text_only or {}).get('expect'))):
+                if expect is not None:
+                    check_expect(data, expect, turn['cutoff'], where + label)
+            last_seen = turn.get('lastSeen')
+            if last_seen is not None and not (0 <= last_seen < turn['cutoff']
+                                              and (previous_cutoff is None or last_seen >= previous_cutoff)):
+                raise ValueError(f'{where}: lastSeen must be before the cutoff and not before the previous turn')
+            back = turn.get('backInView')
+            if back is not None and (last_seen is None or not last_seen < back <= turn['cutoff']):
+                raise ValueError(f'{where}: backInView needs a lastSeen before it and must not be after the cutoff')
+            previous_cutoff = turn['cutoff']
             if turn.get('image') and turn['cutoff'] < 0:
                 raise ValueError(f'{where}: bad image time')
     return families
@@ -112,6 +131,8 @@ def score_turn(expect, result):
     else:
         scores['referent'] = None
     scores['cites'] = (accepted and set(expect['mustCite']) <= cited) if expect.get('mustCite') else None
+    # citeOnly: the facts an answer may cite, e.g. only what changed while the user looked away.
+    scores['precise'] = (accepted and cited <= set(expect['citeOnly'])) if 'citeOnly' in expect else None
     scores['changed'] = (accepted and p.get('explanationChanged') == expect['explanationChanged']) \
         if 'explanationChanged' in expect else None
     scores['unknowns'] = (accepted and set(expect['unknowns']) <= set(p.get('unknowns') or [])) \
@@ -137,7 +158,7 @@ def summarize(rows):
             bucket['turns'] += 1
             bucket['correct'] += row['scores']['correct']
             for c in CRITERIA:
-                if row['scores'][c] is not None:
+                if row['scores'].get(c) is not None:  # older results have no 'precise'
                     bucket[c][1] += 1
-                    bucket[c][0] += row['scores'][c]
+                    bucket[c][0] += row['scores'].get(c)
     return out

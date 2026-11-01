@@ -5,6 +5,7 @@ namespace SurfaceSafety {
     public class SceneBootstrap : MonoBehaviour {
         public bool previewMode;
         public string scenarioResource="milestone1";
+        public string scenarioJson; // when set, used instead of scenarioResource (held-out renders)
         public StandReplay Replay {get;private set;}
         Camera previewCamera;
         public static void FramePreview(Camera camera){
@@ -23,7 +24,8 @@ namespace SurfaceSafety {
             cam.tag="MainCamera";var camera=cam.GetComponent<Camera>();camera.nearClipPlane=.005f;camera.farClipPlane=10;
             camera.backgroundColor=new Color(.055f,.095f,.13f);camera.clearFlags=CameraClearFlags.SolidColor;
             if(previewMode){previewCamera=camera;FramePreview(camera);}
-            Replay=gameObject.AddComponent<StandReplay>();Replay.Initialize(previewMode,scenarioResource);
+            Replay=gameObject.AddComponent<StandReplay>();
+            if(string.IsNullOrEmpty(scenarioJson))Replay.Initialize(previewMode,scenarioResource);else Replay.InitializeFromJson(previewMode,scenarioJson);
             gameObject.AddComponent<QwenReasoningClient>().Bind(Replay);
             gameObject.AddComponent<ConversationClient>().Bind(Replay);
             if(!previewMode){

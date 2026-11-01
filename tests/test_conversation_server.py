@@ -105,13 +105,37 @@ class Endpoint(unittest.TestCase):
         self.assertEqual(third['currentReferent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
         self.assertIn('"currentReferent": {"aircraftId": "A2", "flightInstance": "F2-R2"}', self.prompt())
 
+    def test_last_seen_reaches_the_prompt_and_minus_one_means_none(self):
+        client = self.serve([reply(), reply()])
+        first = self.ask(client, 1, 0, checkpoint=35, lastSeen=25).json()
+        self.assertEqual(first['awayIntervals'], [25, 35])
+        self.assertIn("out of the user's view from 25 s", self.prompt())
+        second = self.ask(client, 2, 1, checkpoint=36, lastSeen=-1).json()  # Unity's "no interruption"
+        self.assertEqual(second['awayIntervals'], [])
+        self.assertNotIn('changedWhileAway', self.prompt())
+
+    def test_the_apps_away_intervals_reach_the_prompt(self):
+        client = self.serve([reply(), reply()])
+        result = self.ask(client, 1, 0, checkpoint=40, awayIntervals=[0, 4, 31, 40]).json()
+        self.assertEqual(result['awayIntervals'], [0, 4, 31, 40])
+        self.assertIn('from 0 s to 4 s and from 31 s until now', self.prompt())
+        self.assertEqual(self.ask(client, 2, 1, checkpoint=41, awayIntervals=[]).json()['awayIntervals'], [])
+
+    def test_text_only_requests_reach_the_turn_handler(self):
+        client = self.serve([reply(status='clarify', referent=None)])
+        result = self.ask(client, 1, 0, aircraft='', flight='').json()  # Unity writes "" for no selection
+        self.assertFalse(result['selectionSent'])
+        self.assertIn('Nothing is selected in the app', self.prompt())
+        half = self.ask(client, 2, 1, aircraft='A2', flight=None)
+        self.assertEqual(half.status_code, 422)
+
     def test_a_validated_correction_sets_the_referent(self):
         correction = {'kind': 'correction', 'aircraftId': 'A2', 'flightInstance': 'F2-R2'}
         client = self.serve([reply(memoryUpdate=correction, claims=[claim('E02:stand', 'C', 'current', 'E02')])])
         result = self.ask(client, 1, 0, question='I mean its next rotation.').json()  # model left referent on F2-R1
         self.assertTrue(result['accepted'], result['errors'])
         self.assertEqual(result['referent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
-        self.assertEqual((result['referentSource'], result['referentRule']), ('correction', 'referent-rule-v2'))
+        self.assertEqual((result['referentSource'], result['referentRule']), ('correction', 'referent-rule-v3'))
         self.assertEqual(result['currentReferent'], {'aircraftId': 'A2', 'flightInstance': 'F2-R2'})
 
     def test_a_correction_mixing_both_flights_is_still_withheld(self):

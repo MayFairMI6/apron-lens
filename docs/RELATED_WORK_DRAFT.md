@@ -1,6 +1,9 @@
 # Related work (draft for review)
 
-Status: draft written 31 October 2026 for the author to review and rewrite.
+Status: draft written 31 October 2026 and extended on 1 November for the AR
+scope (`docs/AR_SCOPE.md`): AR assistants, multi-turn and agentic language
+models, and AR and AI in airport operations [17–22]. For the author to review
+and rewrite.
 Every reference below was checked against its publisher record (Crossref, or
 arXiv and the EUROCONTROL publication page). The summaries describe each
 work's general aim and how ApronLens relates to it. Before quoting a specific
@@ -68,10 +71,46 @@ Eye2Eye studies cognitive alignment between a person and an AI through a
 shared first-person perspective, with revisable memory and feedback [13].
 ApronLens studies the narrower problem of reconciling conversational
 corrections with independently arriving, source-backed reports on a phone. It
-uses explicit selection instead of gaze. Pro²Assist provides step-aware
+uses a tap on the aircraft in the AR view rather than gaze. Pro²Assist provides step-aware
 proactive assistance from egocentric perception during procedural tasks [14].
 It motivates ApronLens's later, separate study of when to tell a user that new
 evidence has changed an earlier answer.
+
+## AR assistants and deictic reference
+
+GazePointAR resolves pronouns in spoken questions to a wearable AR assistant
+("what's over there?") from eye gaze, pointing and conversation history [17].
+It is the closest AR work to ApronLens's pointing condition. ApronLens differs
+in three ways: the referent has to persist and be corrected across turns while
+the scene and its reports change; the AR pointing condition is compared with a
+text-only user on the same intents; and the user's view can be interrupted
+(tracking loss) while reports keep arriving, so the assistant must say what
+changed while the user was not looking.
+
+## Multi-turn and agentic language models
+
+Language models degrade sharply when a task unfolds over several turns
+instead of one: they commit to early assumptions and then answer too soon
+[18]. τ-bench evaluates agents that talk with a simulated user and act through
+tools under domain rules, and reports low consistency across repeated trials
+[19]. Both are text-only, and the facts the agent relies on don't change during
+the conversation. ApronLens studies a multi-turn assistant whose evidence does
+change between turns, with corrections, late reports and interrupted views,
+and it checks every displayed claim against received evidence instead of
+trusting the model.
+
+## AR and AI in airport operations
+
+AR has been designed for air cargo handling at terminal warehouses, with
+operator guidance through AR glasses [20]. Computer vision monitors aircraft
+turnarounds from apron cameras, detecting service activities such as fuelling
+and baggage handling [21]. Language models have been benchmarked on aviation
+operational knowledge, including ground operations [22]. None of these
+combines a conversational assistant, an AR view of the stand and changing,
+time-stamped reports. In ApronLens, turnaround-monitoring outputs would be one
+more source of reports for the assistant to reconcile, not a replacement for
+it. AR head-up displays have also been studied for tower controllers in SESAR
+projects; those reports still need checking before they are cited.
 
 ## Situation awareness and airport coordination
 
@@ -86,8 +125,13 @@ estimates are treated as estimates.
 
 I didn't find work on conversational AR assistance for turnaround or stand
 coordination that combines spatial reference, corrections and time-stamped,
-source-backed reports. That reflects a limited search, not proof of absence;
-a systematic search should come before stating it as a gap.
+source-backed reports. More specifically, AR assistants resolve a pointing or
+gaze reference at one moment [17], and multi-turn agent studies keep the facts
+fixed during a conversation [18, 19]. I found no work measuring how an AR
+assistant keeps a shared referent and its evidence current across turns while
+reports arrive and the user's view is interrupted, which is what ApronLens's AR
+conditions test. That reflects a limited search, not proof of absence; a
+systematic search should come before stating it as a gap.
 
 ## References
 
@@ -110,3 +154,9 @@ a systematic search should come before stating it as a gap.
 
 First names for [13] and [14] were abbreviated in the publisher record, so
 complete them from the papers before submission.
+17. J. Lee, J. Wang, E. Brown, L. Chu, S. S. Rodriguez and J. E. Froehlich. GazePointAR: A context-aware multimodal voice assistant for pronoun disambiguation in wearable augmented reality. *CHI*, 2024, article 408. arXiv:2404.08213. https://arxiv.org/abs/2404.08213
+18. P. Laban, H. Hayashi, Y. Zhou and J. Neville. LLMs get lost in multi-turn conversation. arXiv:2505.06120, 2025. https://arxiv.org/abs/2505.06120
+19. S. Yao, N. Shinn, P. Razavi and K. Narasimhan. τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045, 2024. https://arxiv.org/abs/2406.12045
+20. A. A. Tubis, A. Jodejko-Pietruczuk and T. Nowakowski. Use of augmented reality as a tool to support cargo handling operations at the CARGO air terminal. *Sensors*, 2024. https://doi.org/10.3390/s24041099
+21. N. Suvittawat and D. W. Soh. Computer vision-based airport turnaround monitoring using YOLOv11, multi-object tracking, and motion-based passenger and baggage activity detection. *Sensors*, 2026. https://doi.org/10.3390/s26134231
+22. A. Brooker and T. Hughes. Pre-Flight: A benchmark for evaluating large language models on aviation operational knowledge. arXiv:2607.01829, 2026 (preprint). https://arxiv.org/abs/2607.01829
