@@ -42,13 +42,16 @@ class VLMEngine:
             self.model = AutoModelForImageTextToText.from_pretrained(
                 path, dtype=self.dtype, attn_implementation=self.attn_implementation, local_files_only=True
             ).to(self.device).eval()
+        # Per-model chat-template switches from the registry, e.g. Qwen3.5's thinking mode (1.2.0).
+        self.template_kwargs = dict(entry.get('chat_template_kwargs', {}))
         self.manifest = manifest
         self.runtime = dict(device=device, dtype=dtype, attn_implementation=attn_implementation,
                             torch=torch.__version__, transformers=transformers.__version__, backbone=VERSION)
 
     def _inputs(self, prompt, image):
         content = ([{'type':'image'}] if image is not None else []) + [{'type':'text','text':prompt}]
-        text = self.processor.apply_chat_template([{'role':'user','content':content}], tokenize=False, add_generation_prompt=True)
+        text = self.processor.apply_chat_template([{'role':'user','content':content}], tokenize=False, add_generation_prompt=True,
+                                                    **self.template_kwargs)
         inputs = self.processor(text=[text], images=[image] if image is not None else None, return_tensors='pt').to(self.device)
         if 'pixel_values' in inputs: inputs['pixel_values'] = inputs['pixel_values'].to(self.dtype)
         return inputs

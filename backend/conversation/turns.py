@@ -35,7 +35,7 @@ from backend.conversation.observations import VISUAL_KINDS
 from backend.conversation.state import AssistantTurn, IntentRecord, StaleRevision
 from backend.conversation.validate import VALIDATOR_VERSION, validate_proposal
 
-PROMPT_VERSION = 'conversation-prompt-v4'
+PROMPT_VERSION = 'conversation-prompt-v5'
 REFERENT_RULE_VERSION = 'referent-rule-v2'
 MAX_MEMORY_IN_PROMPT = 6
 
@@ -115,14 +115,19 @@ def build_prompt(data, cutoff, selection, referent, intents, previous_by_flight,
         + '}\n'
         'Every reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and '
         'event_id (as the only evidence_ids entry) from one listed fact.\n'
-        'Rules: the referent must be one of the candidate flights. '
+        'Rules: the referent must be one of the candidate flights, and claims cite only facts listed under the '
+        'referent flight. '
         'A user correction changes the referent and is recorded as a memoryUpdate of kind "correction" with the '
         'same aircraft and flight as the new referent; it never changes a fact. "Its next rotation" means the '
         'flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, '
         'set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list '
         'in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, '
-        'explanationChanged is null and changesNotDiscussed is []. Use "clarify" when the referent is ambiguous and '
-        '"unknown" when the facts do not answer the question. Unknowns use these properties: '
+        'explanationChanged is null and changesNotDiscussed is []. '
+        'Status: "answer" whenever you name one referent flight and reply about it, also when some facts are '
+        'missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). '
+        '"clarify" only when the user\'s words could mean more than one candidate flight and neither the selection '
+        'nor the memory decides it; then referent is null and claims is []. "unknown" when the referent is clear but '
+        'no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: '
         + ', '.join(FIELDS) + '.\n'
         f'Replay time (receipt cutoff): {cutoff:g} s. Selected in the app: aircraft {selection[0]}, '
         f'flight {selection[1]}.\n{view}\n'

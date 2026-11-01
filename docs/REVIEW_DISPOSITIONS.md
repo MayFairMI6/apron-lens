@@ -89,7 +89,7 @@ is unchanged.
 - `backend/conversation/turns.py` serves one turn:
   1. Takes the receipt-eligible facts of every rotation of the selected aircraft,
      plus the current referent, and the memory visible at the turn's cutoff.
-  2. Builds the prompt (`conversation-prompt-v4`) and calls the model through
+  2. Builds the prompt (`conversation-prompt-v5`) and calls the model through
      the model-access contract. For each candidate flight with a previous
      answer, the prompt carries the changed-fact set the validator checks, from
      the same `changed_facts` function. (v1 listed only the previous answer's
@@ -98,7 +98,10 @@ is unchanged.
      image capture time in the example and defines "next rotation"; v2's
      placeholder wording was copied literally by the 3B model. v4 adds a
      one-line appearance legend for each prop (from `VISUAL_KINDS`) and the rule
-     that observations describe the image even when a report disagrees.
+     that observations describe the image even when a report disagrees. v5
+     says when each status applies ("answer" also when facts are missing or
+     conflicting; "clarify" only for an undecidable referent, with no claims)
+     and that claims cite only the referent flight's facts.
   3. Parses the reply under `json-repair-v1` and runs `validate_proposal`.
   4. Commits atomically against the session revision.
 - Referent rule: the app sends its selected aircraft and flight on every turn.
@@ -319,6 +322,7 @@ inflated too, after a review finding on PR #15.
   | Deterministic baseline | 7/16 | — |
   | `qwen2.5-vl-3b` | 3/16 | 3/16 |
   | `qwen3-vl-8b` | 8/16 | 8/16 |
+  | `qwen3-vl-4b` | 5/16 | 5/16 |
 
   - **8B:** solves late report, no change, scene change and ambiguity (it
     asks for clarification). It fails rotation correction (0/3), conflicting
@@ -326,6 +330,51 @@ inflated too, after a review finding on PR #15.
   - **Images:** no measurable gain at either size; visual grounding remains
     the weak point.
   - **3B:** scores below the baseline.
+  - **4B:** its content is mostly right (referent 15/16, citations 8/9,
+    change flags 5/5), but it labels 9–10 cited answers "clarify". The 8B
+    answers "clarify" with no referent when facts are missing or conflicting.
+    Both point at the prompt: v4 said when to clarify, not when to answer.
+  - Perception check (18 judgements, plain / with legend): `qwen3-vl-4b`
+    9/18 / 11/18; `qwen2.5-vl-3b` 0/18 (always `cannot_tell`) / 9/18.
+
+- Prompt v5 (status definitions; claims only from the referent flight),
+  local, same 16 development turns, three models in parallel on one Mac:
+
+  | System | Images on | Images off |
+  |---|---|---|
+  | Deterministic baseline | 7/16 | — |
+  | `qwen2.5-vl-3b` | 5/16 | 4/16 |
+  | `qwen3-vl-4b` | 12/16 | 11/16 |
+  | `qwen3-vl-8b` | 11/16 | 12/16 |
+  | `qwen3.5-9b` (backbone 1.2.0, thinking off) | 14/16 | 14/16 |
+  | `gemma-4-e4b` | 8/16 | 9/16 |
+
+  - Of the 18 remaining 4B and 8B misses across the four runs, 13 are
+    withheld replies: claims outside the referent's facts (corrections and
+    missing evidence), invalid JSON, or a malformed or contradicting unknown.
+    The other 5 were accepted but wrong: a missing property not listed in
+    unknowns (4B, three times) and a wrong visual observation (once each).
+  - The 8B still fails all three correction turns (F1); the 4B and 9B solve
+    two.
+  - `qwen3.5-9b`: its misses are the first correction turn and the visible
+    fuel-vehicle turn, withheld for a malformed unknowns list or (images on)
+    accepted with a wrong observation. With its default thinking mode it
+    scored 0/16: the reasoning trace used the whole 512-token output budget,
+    so no reply was JSON. Backbone 1.2.0 turns thinking off for this model
+    only.
+  - `gemma-4-e4b`: the validator withheld 4–6 replies (schema errors, a
+    missing changed fact, claims outside the referent). It also fails
+    corrections and scene change, and it accepted one correction follow-up
+    about the wrong rotation.
+  - Images: still no consistent gain (±1 turn either way).
+  - Caution: v5 was written after reading failures on these same 16 turns, so
+    these scores are optimistic. Only the held-out set measures the method.
+  - Latency rose (median 28–55 s) because three models shared the GPU; it is
+    not comparable with the single-model runs.
+  - These result files record commit `059b55d`, a local commit that was
+    rebuilt as `ba93f6e` before pushing (it had picked up an unrelated staged
+    rename). The method files are identical, and each file's freeze check
+    reads `matches: true`.
 
 ## Rotations in Unity scenarios (31 October)
 
