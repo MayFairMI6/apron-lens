@@ -1,0 +1,336 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Networking;
+using UnityEngine.UI;
+
+namespace SurfaceSafety {
+    [Serializable] public class TrainingCheckpoint {public string id,question;public float at;public string[] choices;}
+    [Serializable] public class TrainingFeedback {
+        public string checkpointId,question,chosen,correctAnswer,explanation;public bool correct;public float cutoff;
+        public ScenarioEvent[] reports,laterReports;
+    }
+    [Serializable] public class TrainingCue {public string id,question,status,aircraftId;public float cutoff;}
+    [Serializable] public class TrainingPerspective {public string role,text;}
+    [Serializable] public class TrainingState {
+        public string runId,mode,phase,title,objective,exercise,targetAircraft,spotlightId,spotlightAircraft;
+        public int revision,checkpointNumber,checkpointCount,score,answered;
+        public float sourceTime,rate,nextBoundary;
+        public TrainingCheckpoint checkpoint;public TrainingFeedback feedback;public TrainingFeedback[] reviews;
+        public TrainingCue demoCue;public TrainingPerspective[] perspectives;
+    }
+    [Serializable] public class TrainingAction {
+        public string actionId,runId,action,checkpointId,cueId;public int revision,choice;public bool success;
+    }
+
+    // A presentation of the external session, never a second exercise clock.
+    public class TrainingView : MonoBehaviour {
+        public TrainingState State {get;private set;}
+        public bool Connected {get;set;}=true;
+        StandReplay replay;ConversationClient assistant;Camera camera;
+        Canvas canvas;RectTransform root,side,tagRoot;Font font;
+        Text title,subtitle,clockText,focusText,answerText,answerHeading,notice,motionText;
+        GameObject runwayGeometry;TrainingIncidentEffects incidentEffects;string seenSpotlight="";bool followFlight;
+        AircraftPlan SelectedPlane=>replay.Data.aircraft[replay.SelectedAircraftIndex];
+        InputField input;Button askButton;ScrollRect answerScroll;
+        string viewKey="",message="Choose a question or ask about the selected flight.",messageStatus="",seenCue="",pendingCue="";
+        string selection="";bool sources,history,actionBusy,landscape,dragging;
+        Vector2 lastPointer;Vector3 centre=new Vector3(75,0,-25);float distance=320;bool ground;
+        readonly List<RaycastResult> hits=new List<RaycastResult>();
+        readonly List<RectTransform> tags=new List<RectTransform>();
+        readonly List<GameObject> vehicles=new List<GameObject>();
+        readonly Color navy=new Color(.025f,.055f,.08f),panel=new Color(.045f,.085f,.12f,.98f),
+            muted=new Color(.66f,.75f,.79f),teal=new Color(.07f,.64f,.58f),line=new Color(.14f,.23f,.28f);
+        int cameraMask;
+
+        public void Bind(StandReplay r,ConversationClient a){
+            replay=r;assistant=a;camera=Camera.main;cameraMask=camera.cullingMask;camera.farClipPlane=15000;
+            replay.UseTrainingPresentation();assistant.ExternalPresentation=true;assistant.DisplayChanged+=OnAnswer;
+            var look=camera.GetComponent<SimulatorLook>();if(look!=null)look.enabled=false;
+            camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.54f,.64f,.70f);
+            font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            var go=new GameObject("Controller training",typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));
+            go.transform.SetParent(transform,false);canvas=go.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=20;
+            root=Box(go.transform,"Safe area",Vector2.zero,Vector2.one,Color.clear,false);
+            camera.transform.rotation=Quaternion.Euler(48,0,0);
+        }
+        void OnDestroy(){if(runwayGeometry!=null)Destroy(runwayGeometry);if(assistant!=null){assistant.DisplayChanged-=OnAnswer;assistant.ExternalPresentation=false;assistant.TrainingQuestionBlocked=false;}}
+        public void Apply(TrainingState state){
+            if(state==null||string.IsNullOrEmpty(state.runId))return;
+            if(State!=null&&State.runId==state.runId&&state.revision<State.revision)return;
+            bool run=State==null||State.runId!=state.runId;
+            bool phase=run||State.revision!=state.revision;
+            State=state;
+            if(phase){assistant.NewSession();assistant.TrainingQuestionBlocked=state.phase!="practice"&&state.phase!="debrief";pendingCue="";
+                messageStatus="";message="Ask about the selected flight using the reports received so far.";sources=false;history=false;}
+            if(run){
+                sources=false;history=false;seenCue="";message="Choose a question or ask about the selected flight.";messageStatus="";
+                var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.targetAircraft);replay.SelectAircraft(Mathf.Max(0,selected));
+                selection=replay.SelectedFlight;BuildVehicles();Overview();seenSpotlight="";
+                if(runwayGeometry!=null)Destroy(runwayGeometry);runwayGeometry=TrainingRunway.Build(replay.Content,replay.Data.runway,replay.Data.taxiPaths);
+                if(incidentEffects!=null)Destroy(incidentEffects.gameObject);
+                var effects=new GameObject("Training incident effects");effects.transform.SetParent(replay.Content,false);
+                incidentEffects=effects.AddComponent<TrainingIncidentEffects>();incidentEffects.Bind(replay);
+            }
+            var spotlight=state.spotlightId??"";
+            if(spotlight!=seenSpotlight){seenSpotlight=spotlight;
+                if(spotlight!=""){
+                    var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.spotlightAircraft);
+                    if(selected>=0){replay.SelectAircraft(selected);ground=false;Focus();distance=spotlight=="stand-incident"?95:190;}
+                }else{Overview();var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.targetAircraft);if(selected>=0)replay.SelectAircraft(selected);}
+            }
+            RebuildIfNeeded();
+            if(state.demoCue!=null&&state.demoCue.status=="timeout"&&pendingCue==state.demoCue.id){
+                assistant.NewSession();pendingCue="";messageStatus="UNAVAILABLE";message="The assistant request timed out. No answer was received.";RefreshAnswer();
+            }
+            if(state.mode=="demo"&&state.phase=="practice"&&state.demoCue!=null&&state.demoCue.status=="pending"&&seenCue!=state.demoCue.id&&!assistant.Busy){
+                var cueAircraft=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.demoCue.aircraftId);
+                if(cueAircraft>=0&&cueAircraft!=replay.SelectedAircraftIndex){replay.SelectAircraft(cueAircraft);assistant.NewSession();selection=replay.SelectedFlight;}
+                seenCue=state.demoCue.id;pendingCue=seenCue;history=false;sources=false;
+                if(input!=null)input.text=state.demoCue.question;
+                assistant.Ask(state.demoCue.question);
+            }
+        }
+        void OnAnswer(string status,string text){
+            messageStatus=status;message=status=="ANSWER WITHHELD"?"That answer could not be supported by the available reports. Please review Recent reports or ask again.":text;RefreshAnswer();
+            if(!string.IsNullOrEmpty(pendingCue)&&status!="ASKING"){
+                var cue=pendingCue;pendingCue="";SendAction("demo_answer",cue:cue,success:status=="CHECKED ANSWER");
+            }
+        }
+        void Update(){
+            if(State==null)return;
+            var area=Screen.safeArea;
+            root.anchorMin=new Vector2(area.xMin/Screen.width,area.yMin/Screen.height);
+            root.anchorMax=new Vector2(area.xMax/Screen.width,area.yMax/Screen.height);
+            RebuildIfNeeded();
+            if(selection!=replay.SelectedFlight){
+                selection=replay.SelectedFlight;assistant.NewSession();messageStatus="";sources=false;history=false;if(input!=null)input.text="";
+                message="Ask about "+selection+" using the reports received so far.";RefreshAnswer();
+            }
+            clockText.text=(State.mode=="demo"?"Guided demonstration":State.mode=="continuous"?"Continuous exercise":"Controller practice")+
+                "  ·  "+TimeSpan.FromSeconds(replay.Clock.Time).ToString(replay.Clock.Time>=3600?@"h\:mm\:ss":@"mm\:ss")+
+                (State.rate>1?"  ·  Time-lapse · "+State.rate.ToString("0")+"×":"");
+            if(focusText!=null)focusText.text="SELECTED FLIGHT  /  "+replay.SelectedFlight;
+            if(motionText!=null){var phase=SelectedPlane.PhaseAt(replay.Clock.Time);
+                var altitude=Scenario.Position(SelectedPlane,replay.Clock.Time).y*WorldArBootstrap.MetresPerBoardUnit;
+                motionText.text=phase==null?"APRON  ·  Ground routes":replay.SelectedFlight+"  ·  "+phase.label+"  ·  "+altitude.ToString("0")+" m  ·  "+Scenario.Heading(SelectedPlane,replay.Clock.Time).ToString("000")+"°";}
+            if(notice!=null)notice.text=!Connected?"Connection interrupted · waiting for the exercise service":actionBusy?"Updating exercise…":"";
+            if(askButton!=null)askButton.interactable=Connected&&!assistant.Busy&&!assistant.TrainingQuestionBlocked;
+            if(history)RefreshAnswer();
+            MoveCamera();UpdateTags();
+            var plans=replay.Data.groundVehicles??new AircraftPlan[0];
+            for(int i=0;i<vehicles.Count&&i<plans.Length;i++){
+                vehicles[i].transform.localPosition=Scenario.Position(plans[i],replay.Clock.Time);
+                var d=Scenario.Direction(plans[i],replay.Clock.Time);if(d.sqrMagnitude>.000001f)vehicles[i].transform.localRotation=Quaternion.LookRotation(d);
+            }
+        }
+        void RebuildIfNeeded(){
+            landscape=Screen.width>Screen.height;
+            var key=State.runId+"|"+State.revision+"|"+landscape;
+            if(key==viewKey)return;viewKey=key;
+            foreach(Transform child in root)Destroy(child.gameObject);
+            tags.Clear();input=null;answerText=null;answerHeading=null;focusText=null;askButton=null;motionText=null;
+            var scaler=canvas.GetComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution=landscape?new Vector2(1600,900):new Vector2(900,1600);scaler.matchWidthOrHeight=.5f;
+            bool modal=State.phase=="checkpoint"||State.phase=="feedback"||State.phase=="briefing";
+            camera.cullingMask=State.phase=="checkpoint"?0:cameraMask;
+            camera.rect=landscape?new Rect(.015f,.06f,.61f,.78f):new Rect(.015f,.51f,.97f,.32f);
+            var header=Box(root,"Header",new Vector2(0,.87f),Vector2.one,navy);
+            Label(header,"APRONLENS  /  CONTROLLER AWARENESS",new Vector2(.025f,.68f),new Vector2(.98f,.96f),landscape?18:22,muted);
+            title=Label(header,State.title,new Vector2(.025f,.31f),new Vector2(.98f,.75f),landscape?32:34,Color.white);
+            clockText=Label(header,"",new Vector2(.025f,.02f),new Vector2(.98f,.33f),landscape?18:22,teal);
+            notice=Label(root,"",new Vector2(.025f,0),new Vector2(.98f,.035f),landscape?17:21,new Color(1,.74f,.35f));
+            if(modal){BuildModal();return;}
+            tagRoot=Box(root,"Flight labels",Vector2.zero,Vector2.one,Color.clear,false);
+            BuildTags();
+            var tools=Box(root,"View controls",new Vector2(.025f,landscape?.78f:.815f),new Vector2(landscape?.61f:.97f,.855f),Color.clear,false);
+            Button(tools,"Apron",new Vector2(0,0),new Vector2(.23f,1),Overview);
+            Button(tools,"Runway",new Vector2(.25f,0),new Vector2(.48f,1),RunwayView);
+            Button(tools,"Follow flight",new Vector2(.50f,0),new Vector2(.77f,1),Focus);
+            Button(tools,"−",new Vector2(.79f,0),new Vector2(.88f,1),()=>distance=Mathf.Min(2400,distance+(distance>400?200:35)));
+            Button(tools,"+",new Vector2(.9f,0),Vector2.one,()=>distance=Mathf.Max(65,distance-(distance>400?200:35)));
+            var motion=Box(root,"Flight phase",new Vector2(.025f,landscape?.06f:.51f),new Vector2(landscape?.61f:.97f,landscape?.115f:.55f),navy,false);
+            motionText=Label(motion,"",new Vector2(.025f,0),new Vector2(.98f,1),landscape?22:24,Color.white);
+            side=Box(root,"Exercise panel",new Vector2(landscape?.65f:.025f,.045f),new Vector2(.98f,landscape?.85f:.495f),panel);
+            if(State.phase=="debrief")BuildDebrief();else BuildAssistant();
+        }
+        void BuildModal(){
+            Box(root,"Backdrop",Vector2.zero,new Vector2(1,.865f),State.phase=="checkpoint"?navy:new Color(.02f,.04f,.06f,.91f));
+            var card=Box(root,"Lesson card",new Vector2(landscape?.22f:.045f,.075f),new Vector2(landscape?.78f:.955f,.81f),panel);
+            if(State.phase=="briefing"){
+                Label(card,"YOUR BRIEFING",new Vector2(.05f,.83f),new Vector2(.95f,.94f),22,teal);
+                ScrollText(card,State.objective+"\n\nWatch the aircraft, follow reports and ask the assistant.\n\nThree questions pause the scene. Answer, then review the evidence.\n\nAllow 3–5 minutes, plus review time.",new Vector2(.05f,.23f),new Vector2(.95f,.79f),landscape?25:29,out _);
+                Button(card,"Ready",new Vector2(.05f,.06f),new Vector2(.95f,.18f),()=>SendAction("ready"),true);
+            }else if(State.phase=="checkpoint"){
+                var p=State.checkpoint;
+                Label(card,"CHECKPOINT "+State.checkpointNumber+" OF 3  ·  "+p.at.ToString("0")+" s",new Vector2(.05f,.88f),new Vector2(.95f,.96f),20,teal);
+                Label(card,p.question,new Vector2(.05f,.64f),new Vector2(.95f,.87f),landscape?28:32,Color.white);
+                for(int i=0;i<4;i++){int choice=i;float y=.49f-i*.145f;
+                    Button(card,((char)('A'+i))+"   "+p.choices[i],new Vector2(.05f,y),new Vector2(.95f,y+.12f),()=>SendAction("answer",choice,p.id));}
+            }else{
+                var f=State.feedback;
+                Label(card,f.correct?"That’s right":"Let’s review that",new Vector2(.05f,.84f),new Vector2(.95f,.95f),30,f.correct?teal:new Color(1,.72f,.34f));
+                ScrollText(card,FeedbackText(f),new Vector2(.05f,.22f),new Vector2(.95f,.8f),landscape?24:28,out _);
+                Button(card,"Continue",new Vector2(.05f,.05f),new Vector2(.95f,.17f),()=>SendAction("continue"),true);
+            }
+        }
+        void BuildAssistant(){
+            focusText=Label(side,"",new Vector2(.05f,.92f),new Vector2(.95f,.99f),landscape?18:23,teal);
+            for(int i=0;i<replay.Data.aircraft.Length;i++){int n=i;float x=.05f+i*.305f;
+                Button(side,replay.Data.aircraft[i].FlightAt(replay.Clock.Time),new Vector2(x,.84f),new Vector2(x+.29f,.92f),()=>replay.SelectAircraft(n));}
+            var field=Box(side,"Question",new Vector2(.05f,.70f),new Vector2(.95f,.81f),line);
+            input=field.gameObject.AddComponent<InputField>();input.characterLimit=400;input.lineType=InputField.LineType.MultiLineNewline;
+            input.textComponent=Label(field,"",new Vector2(.03f,.04f),new Vector2(.97f,.96f),landscape?22:27,Color.white);
+            var hint=Label(field,"Ask about this flight…",new Vector2(.03f,.04f),new Vector2(.97f,.96f),landscape?22:27,muted);input.placeholder=hint;
+            Button(side,"Latest update",new Vector2(.05f,.61f),new Vector2(.49f,.68f),()=>Ask("What is the latest update for this aircraft?"));
+            Button(side,"Readiness",new Vector2(.51f,.61f),new Vector2(.95f,.68f),()=>Ask("Is this aircraft ready to depart?"));
+            answerHeading=Label(side,"Report summary",new Vector2(.05f,.53f),new Vector2(.95f,.61f),landscape?24:29,Color.white);
+            answerText=ScrollText(side,"",new Vector2(.05f,.19f),new Vector2(.95f,.53f),landscape?23:28,out answerScroll);
+            Button(side,"Sources",new Vector2(.05f,.11f),new Vector2(.48f,.18f),()=>{sources=!sources;history=false;RefreshAnswer();});
+            Button(side,"Recent reports",new Vector2(.51f,.11f),new Vector2(.95f,.18f),()=>{history=!history;sources=false;RefreshAnswer();});
+            askButton=Button(side,"Ask assistant",new Vector2(.05f,.015f),new Vector2(.95f,.095f),()=>Ask(input.text),true);
+            RefreshAnswer();
+        }
+        void BuildDebrief(){
+            Label(side,State.mode=="lesson"?"Your debrief  ·  "+State.score+" / 3":"Demonstration complete",new Vector2(.05f,.88f),new Vector2(.95f,.98f),28,Color.white);
+            var text=State.mode=="lesson"?string.Join("\n\n──────────\n\n",(State.reviews??new TrainingFeedback[0]).Select(FeedbackText)):"This demonstration was unscored. The aircraft and assistant followed the external exercise timeline.";
+            text+="\n\nTHE SAME SITUATION, THREE ROLES\n\n"+string.Join("\n\n",(State.perspectives??new TrainingPerspective[0]).Select(p=>p.role+"\n"+p.text));
+            ScrollText(side,text,new Vector2(.05f,.24f),new Vector2(.95f,.87f),landscape?22:27,out _);
+            Button(side,"Ground view",new Vector2(.05f,.15f),new Vector2(.48f,.22f),()=>{ground=!ground;Focus();});
+            Button(side,"Try again",new Vector2(.51f,.15f),new Vector2(.95f,.22f),()=>SendAction("retry"));
+            Button(side,"Next exercise",new Vector2(.05f,.035f),new Vector2(.95f,.13f),()=>SendAction("next"),true);
+        }
+        string FeedbackText(TrainingFeedback f){
+            var text=f.question+"\n\nYour answer: "+f.chosen+"\nAnswer: "+f.correctAnswer+"\n\n"+f.explanation+"\n\nREPORTS AVAILABLE AT "+f.cutoff.ToString("0")+" s\n";
+            text+=string.Join("\n\n",(f.reports??new ScenarioEvent[0]).Select(ReportText));
+            if(f.laterReports!=null&&f.laterReports.Length>0)text+="\n\nARRIVED AFTER THIS CHECKPOINT\n"+string.Join("\n\n",f.laterReports.Select(ReportText));
+            return text;
+        }
+        string ReportText(ScenarioEvent e)=>e.message+"\n"+e.source+"  ·  received "+e.receiptTime.ToString("0")+" s  ["+e.id+"]";
+        void Ask(string question){history=false;sources=false;if(input!=null)input.text=question;assistant.Ask(question);}
+        void RefreshAnswer(){
+            if(answerText==null)return;
+            if(history){answerHeading.text="Recent reports";answerText.text=string.Join("\n\n",replay.Data.KnownAt(replay.Clock.Time).Where(e=>e.flightInstance==replay.SelectedFlight).Reverse().Take(12).Select(ReportText));return;}
+            answerHeading.text=messageStatus=="ASKING"?"Checking reports…":messageStatus=="ANSWER WITHHELD"||messageStatus=="UNAVAILABLE"?"Answer unavailable":"Report summary";
+            var response=assistant.LastResponse;
+            if(messageStatus!="CHECKED ANSWER"||response==null||!response.accepted){answerText.text=message;return;}
+            answerHeading.text="Report summary · "+TimeSpan.FromSeconds(response.cutoff).ToString(@"mm\:ss");
+            var d=response.display;var lines=new List<string>();
+            foreach(var claim in d.claims??new SupportedClaim[0]){
+                var prop=claim.fact_id.Split(':').Last();
+                var label=prop=="tobt"?"Target off-block estimate":prop=="movement_condition"?"Ground restriction":
+                    prop=="movement_status"?"Movement":prop=="baggage_status"?"Baggage":prop=="fuel_status"?"Fuel service":prop=="stand"?"Stand":prop=="route"?"Reported route":prop.Replace('_',' ');
+                lines.Add(label+": "+claim.value+".");
+            }
+            foreach(var unknown in d.unknowns??new string[0])lines.Add(unknown=="overall_readiness"?"Overall readiness has not been confirmed.":"No confirmed "+unknown.Replace('_',' ')+" report is available.");
+            if(lines.Count==0)lines.Add(d.answer??"No supported report answer is available.");
+            lines.Add("\nAs of "+response.cutoff.ToString("0")+" s · "+(response.referent?.flightInstance??replay.SelectedFlight));
+            if(sources){
+                var ids=new HashSet<string>((d.claims??new SupportedClaim[0]).SelectMany(c=>c.evidence_ids??new string[0]));
+                lines.Add("\nSUPPORTING REPORTS\n"+string.Join("\n\n",replay.Data.KnownAt(response.cutoff).Where(e=>ids.Contains(e.id)).Select(ReportText)));
+            }
+            answerText.text=string.Join("\n\n",lines);Canvas.ForceUpdateCanvases();
+        }
+        void SendAction(string action,int choice=0,string checkpoint=null,string cue=null,bool success=false){
+            if(State==null||actionBusy)return;
+            var body=new TrainingAction{action=action,actionId=Guid.NewGuid().ToString("N"),runId=State.runId,revision=State.revision,
+                choice=choice,checkpointId=checkpoint??"",cueId=cue??"",success=success};
+            StartCoroutine(ActionRequest(body));
+        }
+        IEnumerator ActionRequest(TrainingAction body){
+            actionBusy=true;var json=JsonUtility.ToJson(body);
+            for(int attempt=0;attempt<2;attempt++){
+                using(var request=assistant.TrainingActionRequest(json)){
+                    yield return request.SendWebRequest();
+                    if(request.result==UnityWebRequest.Result.Success){
+                        var next=JsonUtility.FromJson<TrainingState>(request.downloadHandler.text);
+                        // A new attempt needs its matching immutable world from /traffic.
+                        if(next.runId==State.runId)Apply(next);
+                        actionBusy=false;yield break;
+                    }
+                    if(request.responseCode==409){message="The exercise has moved on. The current step will appear shortly.";break;}
+                }
+            }
+            actionBusy=false;Connected=false;
+        }
+        void Overview(){followFlight=false;ground=false;centre=new Vector3(75,0,-25);distance=320;}
+        void RunwayView(){followFlight=false;ground=false;centre=new Vector3(0,0,-400);distance=1600;}
+        void Focus(){followFlight=true;centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));distance=ground?85:190;}
+        bool OverUI(Vector2 p){hits.Clear();EventSystem.current?.RaycastAll(new PointerEventData(EventSystem.current){position=p},hits);return hits.Count>0;}
+        void MoveCamera(){
+            if(State.phase=="checkpoint")return;
+            Vector2 pos=Input.mousePosition;bool begin=Input.GetMouseButtonDown(0),held=Input.GetMouseButton(0),end=Input.GetMouseButtonUp(0);
+            if(Input.touchCount>0){var t=Input.GetTouch(0);pos=t.position;begin=t.phase==TouchPhase.Began;held=t.phase!=TouchPhase.Ended&&t.phase!=TouchPhase.Canceled;end=!held;}
+            if(begin){dragging=camera.pixelRect.Contains(pos)&&!OverUI(pos);lastPointer=pos;if(dragging)followFlight=false;}
+            if(dragging&&held){var delta=pos-lastPointer;lastPointer=pos;centre+=new Vector3(-delta.x,0,-delta.y)*distance/Mathf.Max(1,Screen.height);}
+            if(end)dragging=false;
+            if(Input.touchCount==2){var a=Input.GetTouch(0);var b=Input.GetTouch(1);if(!OverUI(a.position)&&!OverUI(b.position)){
+                var before=(a.position-a.deltaPosition-(b.position-b.deltaPosition)).magnitude;distance-=((a.position-b.position).magnitude-before)*.25f;}}
+            distance=Mathf.Clamp(distance-Input.mouseScrollDelta.y*10,65,2400);
+            if(followFlight)centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));
+            centre.x=Mathf.Clamp(centre.x,-5000,5000);centre.z=Mathf.Clamp(centre.z,-4000,500);
+            camera.transform.rotation=Quaternion.Euler(ground?12:followFlight?24:48,0,0);
+            camera.transform.position=centre-camera.transform.forward*distance;camera.fieldOfView=55;
+        }
+        void BuildTags(){for(int i=0;i<replay.Data.aircraft.Length;i++){
+            int n=i;var r=Box(tagRoot,"Flight "+i,Vector2.zero,Vector2.zero,panel);r.sizeDelta=new Vector2(125,39);r.pivot=new Vector2(.5f,0);
+            Label(r,replay.Data.aircraft[i].flightInstance,Vector2.zero,Vector2.one,20,Color.white);
+            r.gameObject.AddComponent<Button>().onClick.AddListener(()=>replay.SelectAircraft(n));tags.Add(r);
+        }}
+        void UpdateTags(){for(int i=0;i<tags.Count;i++){
+            var aircraft=replay.Content.Find(replay.Data.aircraft[i].id);if(aircraft==null)continue;
+            var screen=camera.WorldToScreenPoint(aircraft.position+Vector3.up*14);
+            tags[i].gameObject.SetActive(screen.z>0&&camera.pixelRect.Contains(screen));
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(root,screen,null,out var point);
+            tags[i].anchorMin=tags[i].anchorMax=new Vector2(.5f,.5f);tags[i].anchoredPosition=point;
+            tags[i].GetComponent<Image>().color=i==replay.SelectedAircraftIndex?new Color(.04f,.44f,.40f):panel;
+        }}
+        void BuildVehicles(){
+            foreach(var v in vehicles)Destroy(v);vehicles.Clear();
+            foreach(var plan in replay.Data.groundVehicles??new AircraftPlan[0]){
+                var vehicle=new GameObject(plan.id);vehicle.transform.SetParent(replay.Content,false);
+                Cube(vehicle.transform,"Body",new Vector3(0,.0016f,0),new Vector3(.0028f,.0022f,.0055f),new Color(.9f,.62f,.10f));
+                Cube(vehicle.transform,"Cab",new Vector3(0,.0028f,.0018f),new Vector3(.0027f,.0014f,.0018f),new Color(.85f,.87f,.85f));
+                Cube(vehicle.transform,"Windshield",new Vector3(0,.0029f,.00272f),new Vector3(.0022f,.0008f,.0001f),new Color(.06f,.13f,.18f));
+                for(int i=0;i<4;i++)Cube(vehicle.transform,"Wheel",new Vector3(i%2==0?-.0015f:.0015f,.0006f,i<2?-.0017f:.0017f),new Vector3(.0005f,.0012f,.0012f),new Color(.04f,.05f,.055f));
+                vehicles.Add(vehicle);
+            }
+        }
+        void Cube(Transform p,string name,Vector3 pos,Vector3 scale,Color color){var go=GameObject.CreatePrimitive(PrimitiveType.Cube);go.name=name;go.transform.SetParent(p,false);go.transform.localPosition=pos;go.transform.localScale=scale;go.GetComponent<Renderer>().material.color=color;Destroy(go.GetComponent<Collider>());}
+        RectTransform Box(Transform parent,string name,Vector2 min,Vector2 max,Color color,bool raycast=true){
+            var go=new GameObject(name,typeof(RectTransform),typeof(Image));go.transform.SetParent(parent,false);var r=go.GetComponent<RectTransform>();
+            r.anchorMin=min;r.anchorMax=max;r.offsetMin=r.offsetMax=Vector2.zero;var image=go.GetComponent<Image>();image.color=color;image.raycastTarget=raycast;return r;
+        }
+        Text Label(Transform parent,string value,Vector2 min,Vector2 max,int size,Color color){
+            var go=new GameObject("Text",typeof(RectTransform),typeof(Text));go.transform.SetParent(parent,false);var t=go.GetComponent<Text>();
+            t.font=font;t.fontSize=size;t.color=color;t.text=value;t.supportRichText=false;t.raycastTarget=false;t.alignment=TextAnchor.MiddleLeft;
+            t.horizontalOverflow=HorizontalWrapMode.Wrap;t.verticalOverflow=VerticalWrapMode.Truncate;
+            var r=t.rectTransform;r.anchorMin=min;r.anchorMax=max;r.offsetMin=r.offsetMax=Vector2.zero;return t;
+        }
+        Button Button(Transform p,string text,Vector2 min,Vector2 max,UnityEngine.Events.UnityAction action,bool primary=false){
+            var r=Box(p,text,min,max,primary?new Color(.035f,.43f,.39f):line);var t=Label(r,text,new Vector2(.04f,.02f),new Vector2(.96f,.98f),landscape?21:26,Color.white);
+            t.alignment=TextAnchor.MiddleCenter;var b=r.gameObject.AddComponent<Button>();b.onClick.AddListener(action);return b;
+        }
+        Text ScrollText(Transform p,string text,Vector2 min,Vector2 max,int size,out ScrollRect scroll){
+            // A visible hit surface is required on the iOS canvas; a nearly
+            // transparent Image may be culled and never receive drag events.
+            var viewport=Box(p,"Scrollable text",min,max,panel);viewport.gameObject.AddComponent<RectMask2D>();
+            scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;scroll.scrollSensitivity=28;
+            var content=new GameObject("Content",typeof(RectTransform)).GetComponent<RectTransform>();content.SetParent(viewport,false);
+            content.anchorMin=new Vector2(0,1);content.anchorMax=new Vector2(.94f,1);content.pivot=new Vector2(.5f,1);content.offsetMin=content.offsetMax=Vector2.zero;
+            var label=Label(content,text,Vector2.zero,Vector2.one,size,new Color(.90f,.94f,.95f));
+            label.alignment=TextAnchor.UpperLeft;label.verticalOverflow=VerticalWrapMode.Overflow;label.lineSpacing=1.12f;
+            var layout=content.gameObject.AddComponent<VerticalLayoutGroup>();layout.childControlHeight=true;layout.childControlWidth=true;layout.childForceExpandHeight=false;layout.padding=new RectOffset(0,12,6,12);
+            content.gameObject.AddComponent<ContentSizeFitter>().verticalFit=ContentSizeFitter.FitMode.PreferredSize;
+            scroll.viewport=viewport;scroll.content=content;
+            var track=Box(viewport,"Scroll track",new Vector2(.955f,0),Vector2.one,line);
+            var handle=Box(track,"Scroll handle",Vector2.zero,Vector2.one,muted);
+            var bar=track.gameObject.AddComponent<Scrollbar>();bar.handleRect=handle;bar.targetGraphic=handle.GetComponent<Image>();bar.direction=Scrollbar.Direction.BottomToTop;
+            scroll.verticalScrollbar=bar;scroll.verticalScrollbarVisibility=ScrollRect.ScrollbarVisibility.AutoHide;
+            return label;
+        }
+    }
+}

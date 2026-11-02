@@ -46,6 +46,9 @@ namespace SurfaceSafety {
     }
 
     public class ConversationClient : MonoBehaviour {
+        public bool ExternalPresentation {get;set;}
+        public bool TrainingQuestionBlocked {get;set;}
+        public event Action<string,string> DisplayChanged;
         StandReplay replay;
         public const int ServicePort = 8766;
         string endpoint = "http://127.0.0.1:8766", token = "";
@@ -71,19 +74,45 @@ namespace SurfaceSafety {
         // Read the shared connection settings each time, so a change saved in More -> Model connection
         // applies without a restart. The service runs on the same host as /reason, on its own port,
         // unless "conversation_endpoint" names another address.
+        [Serializable] class LocalConnection { public string endpoint, token; }
         public void LoadConnection() {
             var explicitEndpoint = PlayerPrefs.GetString("conversation_endpoint", "");
             if (!string.IsNullOrWhiteSpace(explicitEndpoint)) endpoint = explicitEndpoint.Trim().TrimEnd('/');
             else if (Uri.TryCreate(PlayerPrefs.GetString("qwen_endpoint", ""), UriKind.Absolute, out var reason))
                 endpoint = new UriBuilder(reason.Scheme, reason.Host, ServicePort).Uri.ToString().TrimEnd('/');
             token = PlayerPrefs.GetString("qwen_token", "");
+#if APRONLENS_SIMULATOR
+            // Installed privately into this simulator by configure_ios_assistant.py; never bundled.
+            var configPath = Path.Combine(Application.persistentDataPath, "assistant-connection.json");
+            if (File.Exists(configPath)) {
+                try {
+                    var config = JsonUtility.FromJson<LocalConnection>(File.ReadAllText(configPath));
+                    if (config != null) { endpoint = config.endpoint; token = config.token; }
+                } catch (Exception) { token = ""; }
+            }
+#endif
 #if UNITY_EDITOR
+            if(replay!=null && replay.LiveTraffic && string.IsNullOrWhiteSpace(explicitEndpoint))
+                endpoint=new UriBuilder(endpoint){Port=8767}.Uri.ToString().TrimEnd('/');
             var path = Path.GetFullPath(Path.Combine(Application.dataPath, "../../../work/qwen-server-token.txt"));
             if (File.Exists(path)) token = File.ReadAllText(path).Trim();
 #endif
         }
 
-        public void NewSession() { SessionId = Guid.NewGuid().ToString("N"); Revision = 0; Pending = null; LastResponse = null; }
+        public UnityWebRequest TrafficRequest(){
+            LoadConnection();
+            var request=UnityWebRequest.Get(endpoint+"/traffic");request.timeout=5;
+            request.SetRequestHeader("Authorization","Bearer "+token);return request;
+        }
+        public UnityWebRequest TrainingActionRequest(string json){
+            LoadConnection();
+            var request=new UnityWebRequest(endpoint+"/training/action","POST");
+            request.uploadHandler=new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+            request.downloadHandler=new DownloadHandlerBuffer();request.timeout=8;
+            request.SetRequestHeader("Content-Type","application/json");
+            request.SetRequestHeader("Authorization","Bearer "+token);return request;
+        }
+        public void NewSession() { Cancel(); SessionId = Guid.NewGuid().ToString("N"); Revision = 0; Pending = null; LastResponse = null; interruptionsCarried.Clear(); }
 
         // Request ID -> how many tracking losses the request carried (as awayIntervals), so a committed turn clears
         // only those, not losses that happened after the request was built.
@@ -104,12 +133,14 @@ namespace SurfaceSafety {
         }
 
         bool SameContext(ConversationRequest request) =>
+            request.sessionId == SessionId &&
             replay.Data.aircraft[replay.SelectedAircraftIndex].id == request.aircraftId &&
-            Mathf.Abs(replay.Clock.Time - request.checkpoint) < .001f && replay.Data.scenarioId == request.scenarioId;
+            (replay.LiveTraffic || Mathf.Abs(replay.Clock.Time - request.checkpoint) < .001f) && replay.Data.scenarioId == request.scenarioId &&
+            replay.SelectedFlight == request.flightInstance;
 
         // Returns true when the response is shown. Updates the revision for every committed turn.
         public bool ApplyResponse(ConversationRequest request, ConversationResponse response) {
-            if (response == null || response.requestId != request.requestId || response.sessionId != request.sessionId ||
+            if (request == null || request.sessionId != SessionId || response == null || response.requestId != request.requestId || response.sessionId != request.sessionId ||
                 Mathf.Abs(response.cutoff - request.checkpoint) > .001f) {
                 return Show("CONTEXT CHANGED", "This answer belongs to a different question. Ask again.");
             }
@@ -124,11 +155,13 @@ namespace SurfaceSafety {
                 return Show("ANSWER WITHHELD", "A claim did not match a report received for this flight.");
             LastResponse = response;
             var body = string.IsNullOrEmpty(display.answer) ? "No answer text." : display.answer;
+            if(replay.LiveTraffic)body=body.Replace("Authored movement condition:","Reported movement condition:").Replace("Scripted movement:","Reported movement:").Replace("Authored movement plan:","Reported route:");
             if (display.interpretation != null && !string.IsNullOrEmpty(display.interpretation.text))
                 body += $"\n\n{display.interpretation.label}: {display.interpretation.text}";
             var who = response.currentReferent != null && !string.IsNullOrEmpty(response.currentReferent.aircraftId)
                 ? $"{response.currentReferent.aircraftId} / {response.currentReferent.flightInstance}" : request.aircraftId;
             body += $"\n\nAbout {who} · as of {request.checkpoint:00.0}s · {response.latencySeconds:0.0}s";
+            if(replay.LiveTraffic && replay.Clock.Time-request.checkpoint>10)body+="\nNewer reports may have arrived. Ask again for an update.";
             Show(response.accepted ? "CHECKED ANSWER" : "ANSWER WITHHELD", body);
             return response.accepted;
         }
@@ -147,24 +180,27 @@ namespace SurfaceSafety {
         }
 
         public void Ask(string question) {
-            if (Busy || string.IsNullOrWhiteSpace(question)) return;
-            if (!replay.Clock.Tracked) { Show("SCENE UNAVAILABLE", replay.WorldScale ? "Turn back to the apron before asking." : "Acquire the printed board before asking."); return; }
+            if(TrainingQuestionBlocked){Show("CHECKPOINT", "Finish this checkpoint before asking a question.");return;}
+            if (Busy) return;
+            if (string.IsNullOrWhiteSpace(question)) { Show("QUESTION NEEDED", "Type a question or choose one of the examples above."); return; }
+            if (!replay.Clock.Tracked && !replay.LiveTraffic) { Show("SCENE UNAVAILABLE", replay.WorldScale ? "Turn back to the apron before asking." : "Acquire the printed board before asking."); return; }
             LoadConnection();
             if (!Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) || (uri.Scheme != "http" && uri.Scheme != "https") || string.IsNullOrWhiteSpace(token)) {
-                Show("CONNECTION NEEDED", $"Open More → Model connection and enter the Mac address and token. Questions go to the same host on port {ServicePort}."); return;
+                Show("CONNECTION NEEDED", "The assistant connection is not set up on this device yet. Reports remain available in History."); return;
             }
             replay.Pause();
-            Send(BuildRequest(question));
+            try { Send(BuildRequest(question)); }
+            catch (Exception) { Show("UNAVAILABLE", "Could not prepare the scene for this question. Please try again."); }
         }
 
         public void Retry() { if (!Busy && Pending != null && SameContext(Pending)) { LoadConnection(); Send(Pending); } }
 
         void Send(ConversationRequest request) {
             Pending = request;
-            Show("ASKING", $"About {request.aircraftId} at {request.checkpoint:00.0}s. Replay paused so the answer stays tied to this time.");
+            Show("ASKING", replay.LiveTraffic?$"Checking reports for {request.aircraftId} as of {request.checkpoint:00.0}s. Traffic continues while I answer.":$"About {request.aircraftId} at {request.checkpoint:00.0}s. Replay paused so the answer stays tied to this time.");
             active = new UnityWebRequest(endpoint + "/conversation", "POST");
             active.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(request)));
-            active.downloadHandler = new DownloadHandlerBuffer(); active.timeout = 240;
+            active.downloadHandler = new DownloadHandlerBuffer(); active.timeout = ExternalPresentation ? 35 : 240;
             active.SetRequestHeader("Content-Type", "application/json"); active.SetRequestHeader("Authorization", "Bearer " + token);
             var web = active;
             web.SendWebRequest().completed += _ => {
@@ -173,7 +209,7 @@ namespace SurfaceSafety {
                     if (web.responseCode == 409) {
                         NewSession(); Show("SESSION RESTARTED", "The conversation was out of step with the service. A new session started; ask again.");
                     } else if (web.result != UnityWebRequest.Result.Success) {
-                        Show("UNAVAILABLE", $"Connection failed ({web.responseCode}). Check the service, then Retry.");
+                        Show("UNAVAILABLE", ExternalPresentation ? "The assistant could not answer this request. Please try your question again." : $"Connection failed ({web.responseCode}). Check the service, then Retry.");
                         return;  // keep Pending so Retry reuses the request ID
                     } else ApplyResponse(request, JsonUtility.FromJson<ConversationResponse>(web.downloadHandler.text));
                     Pending = null;
@@ -186,7 +222,9 @@ namespace SurfaceSafety {
 
         bool Show(string status, string text) {
             Status = status;
-            if (answerText != null) answerText.text = status + "\n\n" + text;
+            DisplayChanged?.Invoke(status,text);
+            var heading = status == "CHECKED ANSWER" ? "Report summary" : status.Replace("_", " ");
+            if (answerText != null) answerText.text = heading + "\n\n" + text;
             return false;
         }
 
@@ -206,19 +244,37 @@ namespace SurfaceSafety {
             var b = r.gameObject.AddComponent<Button>(); b.onClick.AddListener(action); return b;
         }
 
+        public void ResetForExercise(){
+            NewSession();
+            if(panel!=null){Remove(panel);panel=null;answerText=null;}
+        }
         public void ShowPanel() {
+            if(ExternalPresentation)return;
             if (panel != null) return;
+            replay.Pause();
             var canvas = new GameObject("Conversation", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster)); panel = canvas;
             var c = canvas.GetComponent<Canvas>(); c.renderMode = RenderMode.ScreenSpaceOverlay; c.sortingOrder = 50;
             var scaler = canvas.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; scaler.referenceResolution = new Vector2(1080, 1920); scaler.matchWidthOrHeight = .5f;
-            var shade = Box(canvas.transform, "Dim", Vector2.zero, Vector2.one, new Color(0, 0, 0, .8f));
-            var card = Box(shade, "Ask", new Vector2(.05f, .1f), new Vector2(.95f, .9f), new Color(.035f, .075f, .11f));
-            TextAt(card, "Ask about the selected aircraft", new Vector2(.04f, .9f), new Vector2(.96f, .98f), 40);
-            var field = Box(card, "Question field", new Vector2(.04f, .78f), new Vector2(.96f, .89f), new Color(.13f, .2f, .26f));
+            // In world AR the panel is a bottom sheet, so the apron stays visible above it while you ask.
+            var world = replay.WorldScale;
+            var shade = Box(canvas.transform, "Dim", Vector2.zero, Vector2.one, new Color(0, 0, 0, world ? .25f : .8f));
+            var card = world ? Box(shade, "Ask", new Vector2(.03f, .02f), new Vector2(.97f, .46f), new Color(.035f, .075f, .11f, .97f))
+                             : Box(shade, "Ask", new Vector2(.05f, .1f), new Vector2(.95f, .9f), new Color(.035f, .075f, .11f));
+            TextAt(card, replay.AssistantTitle, new Vector2(.04f, .9f), new Vector2(.96f, .98f), 40);
+            var field = Box(card, "Question field", new Vector2(.04f, .76f), new Vector2(.96f, .88f), new Color(.13f, .2f, .26f));
             var input = field.gameObject.AddComponent<InputField>(); input.textComponent = TextAt(field, "", Vector2.zero, Vector2.one, 36);
-            input.characterLimit = 400;
-            answerText = TextAt(card, Status == "" ? "Answers use only reports received by this replay time. Visual observations are labelled as unverified." : Status,
-                                new Vector2(.04f, .18f), new Vector2(.96f, .76f), 33, TextAnchor.UpperLeft);
+            input.characterLimit = 400; input.lineType = InputField.LineType.MultiLineNewline;
+            var placeholder = TextAt(field, "Type your question…", Vector2.zero, Vector2.one, 34);
+            placeholder.color = new Color(.65f, .73f, .78f); input.placeholder = placeholder;
+            ButtonAt(card, replay.SuggestedLabel(0), new Vector2(.04f,.64f), new Vector2(.49f,.74f), new Color(.13f,.2f,.26f), () => { input.text=replay.SuggestedQuestion(0); Ask(input.text); });
+            ButtonAt(card, replay.SuggestedLabel(1), new Vector2(.51f,.64f), new Vector2(.96f,.74f), new Color(.13f,.2f,.26f), () => { input.text=replay.SuggestedQuestion(1); Ask(input.text); });
+            var answerArea = Box(card, "Answer", new Vector2(.04f,.18f), new Vector2(.96f,.61f), Color.clear);
+            answerArea.gameObject.AddComponent<RectMask2D>();
+            var scroll = answerArea.gameObject.AddComponent<ScrollRect>(); scroll.horizontal=false; scroll.movementType=ScrollRect.MovementType.Clamped;
+            answerText = TextAt(answerArea, "Choose a question above or type your own. Answers use reports available at the time you ask.", new Vector2(0,1), Vector2.one, 33, TextAnchor.UpperLeft);
+            answerText.rectTransform.pivot = new Vector2(.5f,1);
+            answerText.gameObject.AddComponent<ContentSizeFitter>().verticalFit=ContentSizeFitter.FitMode.PreferredSize;
+            scroll.viewport=answerArea; scroll.content=answerText.rectTransform;
             ButtonAt(card, "Ask", new Vector2(.04f, .04f), new Vector2(.36f, .15f), new Color(.05f, .48f, .48f), () => Ask(input.text));
             ButtonAt(card, "Retry", new Vector2(.38f, .04f), new Vector2(.62f, .15f), new Color(.13f, .2f, .26f), Retry);
             ButtonAt(card, "Close", new Vector2(.64f, .04f), new Vector2(.96f, .15f), new Color(.13f, .2f, .26f), () => { Remove(panel); panel = null; answerText = null; });

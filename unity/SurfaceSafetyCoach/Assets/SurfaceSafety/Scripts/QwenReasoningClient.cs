@@ -44,12 +44,12 @@ namespace SurfaceSafety {
 #endif
             replay.RequestReasoning+=Request;
             replay.OpenConnectionSettings+=ShowSettings;
-            replay.SetAiResult("QWEN · READY TO CONNECT","Generate an explanation for this aircraft and replay time. Runs on your Mac using the simulated scene and received reports.");
+            replay.SetAiResult("QWEN · READY TO CONNECT","Generate an explanation for this aircraft and replay time. Runs on your Mac using the scene and received reports.");
         }
         public void Configure(string url,string secret) {endpoint=url.Trim().TrimEnd('/');token=secret.Trim();}
         bool SameContext(string flight,float time) => replay.Data.aircraft[replay.SelectedAircraftIndex].flightInstance==flight && Mathf.Abs(replay.Clock.Time-time)<.001f;
         void Update() {
-            if(replay==null)return;
+            if(replay==null||replay.Data==null||replay.Clock==null){Cancel();hasResult=false;LastResponse=null;return;}
             var pendingAircraft=pending==null?null:replay.Data.aircraft.FirstOrDefault(a=>a.id==pending.aircraftId);  // gone if the scenario changed
             if(pending!=null && (pendingAircraft==null||!SameContext(pendingAircraft.flightInstance,pending.checkpoint))) {
                 Cancel(); replay.SetAiResult("CONTEXT CHANGED","Generate again for the selected aircraft and time.");

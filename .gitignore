@@ -46,6 +46,8 @@ unity/**/Assets/Resources/QwenConnection.local.json*
 .idea/
 .vscode/
 node_modules/
+/tmp/
+/output/
 unity/**/.utmp/
 unity/**/.gradle/
 unity/**/.cxx/

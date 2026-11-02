@@ -22,13 +22,14 @@ public static class WorldArSetup {
     const string ScenePath = "Assets/SurfaceSafety/Scenes/WorldAR.unity";
     const string SimulationLoader = "UnityEngine.XR.Simulation.SimulationLoader";
     const float FarClip = 2000f;
-    // Eye height, south of the taxiway, phone tilted 12 degrees down so the stands sit in the AR window above the
+    // Eye height, south of the taxiway, phone tilted 3 degrees down so the stands sit in the AR window above the
     // coordinator panels.
-    static readonly Vector3 StartPosition = new Vector3(-5f, 1.7f, -105f);
-    static readonly Quaternion StartRotation = Quaternion.Euler(12f, 0f, 0f);
+    static readonly Vector3 StartPosition = new Vector3(-5f, 1.7f, -170f);
+    static readonly Quaternion StartRotation = Quaternion.Euler(3f, 0f, 0f);
 
     [MenuItem("ApronLens/Rebuild world AR (apron, XR settings, scene)")]
     public static void Run() {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) { Debug.LogWarning("Stop Play mode before rebuilding world AR."); return; }
         Directory.CreateDirectory(Folder + "/Materials");
         UseBothInputHandlers();
         EnableSimulationLoader();
@@ -122,6 +123,7 @@ public static class WorldArSetup {
         var light = sun.GetComponent<Light>(); light.type = LightType.Directional; light.intensity = 1.2f;
         sun.transform.localRotation = Quaternion.Euler(50, -35, 0);
 
+        CustomHeathrowEnvironment.Decorate(root);
         AddSimulationEnvironment(root);
         var prefab = PrefabUtility.SaveAsPrefabAsset(root, EnvironmentPath);
         UnityEngine.Object.DestroyImmediate(root);
@@ -139,7 +141,7 @@ public static class WorldArSetup {
         var start = new Pose(StartPosition, StartRotation);
         so.FindProperty("m_CameraStartingPose.position").vector3Value = start.position;
         so.FindProperty("m_CameraStartingPose.rotation").quaternionValue = start.rotation;
-        so.FindProperty("m_CameraMovementBounds").boundsValue = new Bounds(new Vector3(0, 15, 0), new Vector3(320, 30, 260));
+        so.FindProperty("m_CameraMovementBounds").boundsValue = new Bounds(new Vector3(0, 15, 0), new Vector3(400, 30, 400));
         so.FindProperty("m_DefaultViewPose.position").vector3Value = new Vector3(0, 60, -120);
         so.FindProperty("m_DefaultViewPose.rotation").quaternionValue = Quaternion.Euler(30, 0, 0);
         so.FindProperty("m_DefaultViewPivot").vector3Value = new Vector3(0, 0, 20);
@@ -166,7 +168,7 @@ public static class WorldArSetup {
         // The Mobile AR default (20 m far clip) suits tabletop AR; the apron spans hundreds of metres.
         var arCamera = origin.GetComponentInChildren<Camera>(true);
         arCamera.nearClipPlane = .1f; arCamera.farClipPlane = FarClip;
-        new GameObject("World AR replay").AddComponent<WorldArBootstrap>();
+        new GameObject("World AR replay").AddComponent<WorldArBootstrap>().autonomousTraffic=true;
         EditorSceneManager.SaveScene(scene, ScenePath);
     }
 
@@ -175,13 +177,19 @@ public static class WorldArSetup {
     // that turning away takes the apron out of view. Writes work/world-ar/*.png for review.
     [MenuItem("ApronLens/Check world AR (renders into the work folder)")]
     public static void Check() {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) { Debug.LogWarning("Stop Play mode before checking world AR."); return; }
         Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("World AR check failed: " + message); };
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         var environment = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(EnvironmentPath));
         check(environment != null, "environment prefab exists");
         var boot = UnityEngine.Object.FindFirstObjectByType<WorldArBootstrap>(); check(boot != null, "the scene has the world replay");
+        boot.autonomousTraffic=false; // Preserve fixed replay checks.
         boot.Initialize();
-        var replay = boot.Replay; replay.Seek(20); replay.SelectAircraft(1);
+        var replay = boot.Replay; var overlay = boot.Overlay;
+        check(!replay.DetailsOpen, "world AR starts with the details collapsed");
+        // Look away from 25 to 50 s so the banner and NEW badges show (the demo's D05-D07 arrive meanwhile).
+        replay.Seek(25); replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(25); replay.Tracking(true); replay.Pause();
+        replay.SelectAircraft(1);
         var cam = UnityEngine.Object.FindObjectsByType<Camera>(FindObjectsSortMode.None).FirstOrDefault(c => c.CompareTag("MainCamera"));
         check(cam != null, "the scene has the AR camera");
         cam.transform.position = StartPosition; cam.transform.rotation = StartRotation; cam.clearFlags = CameraClearFlags.Skybox;
@@ -192,22 +200,30 @@ public static class WorldArSetup {
         check(Mathf.Abs(replay.Content.lossyScale.x - WorldArBootstrap.MetresPerBoardUnit) < .01f, "the replay is in metres");
         var output = Path.GetFullPath(Path.Combine(Application.dataPath, "../../../work/world-ar"));
         Directory.CreateDirectory(output);
-        Render(cam, Path.Combine(output, "eye-height-view.png"), false);
-        Render(cam, Path.Combine(output, "eye-height-view-with-ui.png"), true);
+        Render(cam, Path.Combine(output, "eye-height-view.png"), false, overlay);
+        Render(cam, Path.Combine(output, "eye-height-view-with-ui.png"), true, overlay);
+        check(overlay.VisibleLabels >= 2, $"aircraft labels float over the apron ({overlay.VisibleLabels} visible)");
+        check(overlay.BannerShown, "the While-you-were-away banner shows over the AR view");
+        replay.SetDetails(true);
+        Render(cam, Path.Combine(output, "eye-height-view-details.png"), true, overlay);
+        check(!overlay.BannerShown, "opening the details hides the banner (the card is on the Now tab)");
         cam.transform.rotation = Quaternion.Euler(12f, 180f, 0f);
         check(!WorldArBootstrap.ApronInView(cam, replay.Content.position), "turning around takes the apron out of view");
+        cam.transform.position = new Vector3(-115, 14, -70);
+        cam.transform.LookAt(new Vector3(0, 12, 100));
+        Render(cam, Path.Combine(output, "heathrow-overview.png"), false, overlay, 1600, 900);
         Debug.Log("WORLD_AR_CHECKS_PASS: " + output);
     }
 
-    static void Render(Camera cam, string path, bool withUi) {
-        var tex = new RenderTexture(1080, 1920, 24); cam.targetTexture = tex; cam.aspect = 1080f / 1920f;
+    static void Render(Camera cam, string path, bool withUi, WorldOverlay overlay, int width = 1080, int height = 1920) {
+        var tex = new RenderTexture(width, height, 24); cam.targetTexture = tex; cam.aspect = (float)width / height;
         var canvases = UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None);
         foreach (var canvas in canvases) {
             canvas.enabled = withUi;
             if (withUi) { canvas.renderMode = RenderMode.ScreenSpaceCamera; canvas.worldCamera = cam; canvas.planeDistance = .5f; }
         }
-        Canvas.ForceUpdateCanvases(); cam.Render(); RenderTexture.active = tex;
-        var image = new Texture2D(1080, 1920, TextureFormat.RGB24, false); image.ReadPixels(new Rect(0, 0, 1080, 1920), 0, 0); image.Apply();
+        Canvas.ForceUpdateCanvases(); overlay.Refresh(cam); Canvas.ForceUpdateCanvases(); cam.Render(); RenderTexture.active = tex;
+        var image = new Texture2D(width, height, TextureFormat.RGB24, false); image.ReadPixels(new Rect(0, 0, width, height), 0, 0); image.Apply();
         File.WriteAllBytes(path, image.EncodeToPNG());
         UnityEngine.Object.DestroyImmediate(image); RenderTexture.active = null; cam.targetTexture = null;
     }

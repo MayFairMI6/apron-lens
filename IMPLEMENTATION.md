@@ -1,9 +1,23 @@
-# Milestone 1: ApronLens
+# ApronLens implementation status
 
 The full Unity application and Python service are maintained in the private
 GitHub repository `MayFairMI6/apron-lens`. See README.md for setup.
 
-## Intended airfield use
+## Current training direction
+
+The active preview targets controller situational awareness through three formative
+lessons: vehicle obstruction, late inbound/occupied stand, and delayed baggage affecting
+a departure estimate. The external service owns the clock, report arrivals, reservations,
+checkpoint pauses and scoring. The learner sees the selected flight, the apron, concise
+assistant answers and expandable sources. Pilot and turnaround perspectives appear in
+debrief rather than separate courses. Landscape is the primary layout, with portrait
+fallback. Normal-hour and guided 30× profiles run outside the learner UI.
+See [training driver](docs/TRAINING_DRIVER.md) for commands and limits. Backbone extension
+and recorded-video research are deferred under the user's ApronLens-only priority.
+The remaining sections describe earlier builds; these changes do not complete the M2
+visual-evidence or detector research milestone.
+
+## Earlier intended airfield use
 
 The target role is a turnaround coordinator or ramp supervisor inspecting a
 stand's changing operational context. The proposed use is a stationary review of
@@ -12,7 +26,7 @@ available at the time. Existing mobile coordination products establish a
 plausible device/workflow precedent; see the sourced motivation in
 RESEARCH_PLAN.md. AR's added value requires comparison with an ordinary screen.
 
-Milestone one implements a simulated, printed-board surrogate. It does not
+The current app implements a simulated, printed-board surrogate. It does not
 identify actual aircraft, localize at a real stand, consume operational A-CDM
 feeds, issue movement instructions, or provide validated collision protection.
 
@@ -27,10 +41,17 @@ Local license configuration is excluded from source-control rules.
 
 - `Assets/SurfaceSafety/Scenes/DesktopReplay.unity`: camera-free desktop view.
 - `Assets/SurfaceSafety/Scenes/AndroidAR.unity`: Vuforia image-target AR.
-- `Assets/Resources/milestone1.json`: original fictional scenario, identities,
+- The scenario JSON in `Assets/Resources/`: original fictional scenario, identities,
   timestamped waypoints, and reports with event and receipt times.
-- `outputs/milestone1/Print-AirportBoard-24x16cm.png`: print at **24.0 x 16.0 cm**.
+- [Printable board](media/airport-board.png): print at **24.0 x 16.0 cm**.
   The runtime target width is **0.24 m**. Disable print scaling and measure it.
+
+## Scope boundary
+
+The current application provides explicit aircraft selection, replay and fixed
+report queries. Multi-turn dialogue, correction memory, hosted model adapters,
+longitudinal context and proactive assistance are proposed in [the research
+plan](RESEARCH_PLAN.md); they are not capabilities of the current APK.
 
 ## Implemented
 
@@ -95,7 +116,7 @@ debug signature are checked separately in
 Activity entry point. Phone compatibility and tracking still require testing.
 
 The SDK/NDK/JDK/CMake toolchain was installed alongside a private, user-owned
-editor copy in `work/unity-editor`. Rebuild with `bash scripts/build_milestone1.sh`.
+editor copy in `work/unity-editor`. Rebuild with `bash scripts/build_android.sh`.
 Alternatively set `UNITY_EDITOR` to a Unity 6000.2.2f1 executable with Android
 support. Local paths for external tools are set by the build script inside Unity;
 adapt that configuration when building on a teammate's machine.
@@ -125,4 +146,4 @@ Android version, target dimensions, lighting, tracking behavior, and any failure
 
 The user chose to perform the phone test later. Physical validation is pending
 until a phone is connected and these checks run.
-Milestone one is fully accepted only after the phone checks pass.
+Physical acceptance requires the phone checks to pass.

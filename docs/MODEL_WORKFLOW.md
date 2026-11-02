@@ -13,7 +13,7 @@ NVIDIA GPU such as [USF GAIVI](GAIVI.md)); the engine never picks a device or fa
 | Unit/API tests and frozen artifact integrity | GitHub-hosted Linux | Push / pull request | No |
 | Two real-model smoke queries | Your configured Apple Silicon runner | Manual Actions dispatch | Cached Qwen |
 | 24-question development regression | Same configured runner | Manual Actions dispatch | Cached Qwen |
-| New research evaluation | Deliberately frozen local protocol | Research milestone | Cached Qwen + new untouched set |
+| New research evaluation | Deliberately frozen local protocol | Frozen evaluation run | Cached Qwen + new untouched set |
 | Unity / Android / AR validation | Licensed Unity install / phone | Local build | Model optional |
 
 The [first real-model GitHub job](https://github.com/MayFairMI6/apron-lens/actions/runs/40566003969)
@@ -134,3 +134,11 @@ retained as historical code. Current V2 report reproduction requires the pinned
 local model manifest even though aggregating saved results performs no inference.
 Use the preserved source snapshots to investigate a historical environment;
 do not overwrite its records to make a new run appear identical.
+
+## Proposed conversational API experiments
+
+The current workflows test the local Qwen report selector and preserved research
+artifacts. Hosted-provider adapters, dialogue benchmarks and cache/effort routing
+are proposed in [the research plan](../RESEARCH_PLAN.md). They have not been
+connected to GitHub Actions. Any later hosted evaluation needs explicit usage
+budgets, server-side credentials and saved provider/model configuration.

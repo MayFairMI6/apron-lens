@@ -3,7 +3,12 @@ using System.Linq;
 using UnityEngine;
 
 namespace SurfaceSafety {
-    [Serializable] public class Waypoint { public float t, x, z; }
+    [Serializable] public class Waypoint { public float t, x, y, z,pitch,heading; public bool reverse,gearRetracted; }
+    [Serializable] public class FlightPhase {public float t;public string id,label;}
+    [Serializable] public class RunwayPlan {public string id;public float x,z,length,width;}
+    [Serializable] public class TaxiPoint {public float x,z;}
+    [Serializable] public class TaxiPath {public string id;public float width;public TaxiPoint[] points;}
+    [Serializable] public class TrainingIncident {public string id,kind,aircraftId;public float start,end,x,y,z;}
     // An aircraft flies one flight (legacy "flightInstance") or several rotations, in the
     // same format as backend/conversation/identity.py: ordered, non-overlapping
     // {flightInstance, from, until}; the last may omit "until" (open). Bindings come only
@@ -11,8 +16,12 @@ namespace SurfaceSafety {
     [Serializable] public class RotationPlan { public string flightInstance; public float from; public float until = -1; }
     [Serializable] public class AircraftPlan {
         public string id, flightInstance;
+        public bool preciseHeading;
         public RotationPlan[] rotations;
         public Waypoint[] waypoints;
+        public FlightPhase[] phases;
+        public FlightPhase PhaseAt(float t) => phases==null?null:phases.LastOrDefault(p=>p.t<=t);
+        public bool GearRetractedAt(float t) => waypoints.LastOrDefault(p=>p.t<=t)?.gearRetracted??false;
         public RotationPlan[] Rotations => rotations != null && rotations.Length > 0 ? rotations
             : new[] { new RotationPlan { flightInstance = flightInstance, from = 0 } };
         public bool Flies(string flight) => Rotations.Any(r => r.flightInstance == flight);
@@ -42,6 +51,8 @@ namespace SurfaceSafety {
     [Serializable] public class Scenario {
         public const int MaxAircraft = 4;
         public string scenarioId;
+        public string trainingRole, trainingRoleLabel, trainingObjective;
+        public string[] assistantQuestionLabels, assistantQuestions;
         // "uniform" renders every aircraft in one livery so that only position, motion
         // and props tell them apart; omitted or "indexed" keeps one colour per aircraft.
         public string livery;
@@ -55,6 +66,10 @@ namespace SurfaceSafety {
         public ScenarioEvent[] events;
         public VisualProp[] visualProps;
         public Occluder[] occluders;
+        public AircraftPlan[] groundVehicles; // Rendering-only vehicle routes from the external lesson driver.
+        public RunwayPlan runway;
+        public TaxiPath[] taxiPaths;
+        public TrainingIncident[] incidents;
         static readonly string[] FuelVehicleValues = { "connected", "departed" };
         static readonly string[] CargoDoorValues = { "open", "closed" };
         public static bool AllowedPropValue(string kind, string value) =>
@@ -107,10 +122,15 @@ namespace SurfaceSafety {
                 }
                 for (int i=0; i<a.waypoints.Length; i++) {
                     var w=a.waypoints[i];
-                    if (float.IsNaN(w.t) || float.IsNaN(w.x) || float.IsNaN(w.z) ||
-                        float.IsInfinity(w.t) || float.IsInfinity(w.x) || float.IsInfinity(w.z) ||
+                    if (float.IsNaN(w.t) || float.IsNaN(w.x) || float.IsNaN(w.y) || float.IsNaN(w.z) ||
+                        float.IsInfinity(w.t) || float.IsInfinity(w.x) || float.IsInfinity(w.y) || float.IsInfinity(w.z) || w.y<0 || float.IsNaN(w.heading)||float.IsInfinity(w.heading) || float.IsNaN(w.pitch)||float.IsInfinity(w.pitch)||Mathf.Abs(w.pitch)>30 ||
                         w.t < 0 || w.t > duration || (i>0 && w.t <= a.waypoints[i-1].t))
                         throw new ArgumentException("Invalid waypoint/time order.");
+                }
+                if(a.phases!=null)for(int i=0;i<a.phases.Length;i++){
+                    var p=a.phases[i];
+                    if(string.IsNullOrEmpty(p.id)||string.IsNullOrEmpty(p.label)||float.IsNaN(p.t)||float.IsInfinity(p.t)||p.t<0||p.t>duration||(i>0&&p.t<=a.phases[i-1].t))
+                        throw new ArgumentException("Invalid flight phase order.");
                 }
             }
             if (events == null || events.Select(e=>e.id).Distinct().Count()!=events.Length)
@@ -131,26 +151,37 @@ namespace SurfaceSafety {
             .OrderBy(e=>e.receiptTime).ThenBy(e=>e.id, StringComparer.Ordinal).ToArray();
         public static Vector3 Position(AircraftPlan a, float t) {
             var ws=a.waypoints;
-            if(t<=ws[0].t) return new Vector3(ws[0].x,0,ws[0].z);
+            if(t<=ws[0].t) return new Vector3(ws[0].x,ws[0].y,ws[0].z);
             for(int i=1;i<ws.Length;i++) if(t<=ws[i].t) {
                 float f=(t-ws[i-1].t)/(ws[i].t-ws[i-1].t);
-                return Vector3.Lerp(new Vector3(ws[i-1].x,0,ws[i-1].z),new Vector3(ws[i].x,0,ws[i].z),f);
+                return Vector3.Lerp(new Vector3(ws[i-1].x,ws[i-1].y,ws[i-1].z),new Vector3(ws[i].x,ws[i].y,ws[i].z),f);
             }
-            var w=ws[ws.Length-1]; return new Vector3(w.x,0,w.z);
+            var w=ws[ws.Length-1]; return new Vector3(w.x,w.y,w.z);
         }
         public static Vector3 Direction(AircraftPlan a, float t) {
             for(int i=1;i<a.waypoints.Length;i++) if(t<a.waypoints[i].t) {
                 var x=a.waypoints[i-1];var y=a.waypoints[i];
-                var dir=new Vector3(y.x-x.x,0,y.z-x.z);
-                if(dir.sqrMagnitude>0)return dir.normalized;
+                var dir=new Vector3(y.x-x.x,y.y-x.y,y.z-x.z);
+                if(dir.sqrMagnitude>0)return y.reverse?-dir.normalized:dir.normalized;
                 for(int j=i+1;j<a.waypoints.Length;j++){
-                    var next=a.waypoints[j];dir=new Vector3(next.x-y.x,0,next.z-y.z);
-                    if(dir.sqrMagnitude>0)return dir.normalized;
+                    var next=a.waypoints[j];dir=new Vector3(next.x-y.x,next.y-y.y,next.z-y.z);
+                    if(dir.sqrMagnitude>0)return next.reverse?-dir.normalized:dir.normalized;
                 }
                 return Vector3.forward;
             }
             var b=a.waypoints[a.waypoints.Length-2];var c=a.waypoints[a.waypoints.Length-1];
-            return new Vector3(c.x-b.x,0,c.z-b.z).normalized;
+            return new Vector3(c.x-b.x,c.y-b.y,c.z-b.z).normalized;
+        }
+        public static float Heading(AircraftPlan a,float t){
+            if(!a.preciseHeading){var d=Direction(a,t);return Mathf.Repeat(Mathf.Atan2(d.x,d.z)*Mathf.Rad2Deg,360);}
+            var ws=a.waypoints;if(t<=ws[0].t)return ws[0].heading;
+            for(int i=1;i<ws.Length;i++)if(t<=ws[i].t)return Mathf.Repeat(Mathf.LerpAngle(ws[i-1].heading,ws[i].heading,(t-ws[i-1].t)/(ws[i].t-ws[i-1].t)),360);
+            return ws[ws.Length-1].heading;
+        }
+        public static float Pitch(AircraftPlan a,float t){
+            var ws=a.waypoints;if(t<=ws[0].t)return ws[0].pitch;
+            for(int i=1;i<ws.Length;i++)if(t<=ws[i].t)return Mathf.Lerp(ws[i-1].pitch,ws[i].pitch,(t-ws[i-1].t)/(ws[i].t-ws[i-1].t));
+            return ws[ws.Length-1].pitch;
         }
     }
     public class ReplayClock {

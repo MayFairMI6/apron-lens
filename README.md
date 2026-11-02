@@ -2,17 +2,47 @@
 
 [![Checks](https://github.com/MayFairMI6/apron-lens/actions/workflows/checks.yml/badge.svg)](https://github.com/MayFairMI6/apron-lens/actions/workflows/checks.yml)
 
-An Android augmented reality prototype for reviewing changing aircraft-stand
-coordination information. Select a flight, replay moving aircraft, inspect what
-was known at a checkpoint, and trace each explanation to its received reports.
-The intended stakeholder is a turnaround coordinator or ramp supervisor reviewing
-stand activity, with training and debrief as secondary uses.
+ApronLens is a smartphone AR research prototype investigating how an assistant
+maintains shared context when users refer to objects, correct earlier intent,
+and receive new information between conversational turns. Aviation is the
+application domain: moving aircraft, flight rotations and changing stand reports
+provide a controlled environment for studying spatial and temporal context.
 
-**This repository contains the full Unity application**, its local Qwen service,
-synthetic datasets, and preserved evaluation records. The Android app places
+The current application direction is **controller situational-awareness training**.
+Three exercises cover an obstructed ground route, an occupied arrival stand and a changing
+departure estimate. Each has a briefing, moving aircraft, a report-grounded assistant,
+three scored formative checkpoints and an evidence debrief. Pilot and turnaround perspectives
+support the debrief; separate courses and cockpit procedures are outside this milestone.
+The iOS preview has landscape and portrait layouts, an elevated overview and selectable
+aircraft. A local external service owns time and offers a short lesson, a normal-speed hour,
+or a guided 30× demonstration that slows for teaching moments and actual assistant responses.
+Models, baselines and playback controls are absent from the learner interface. Earlier
+turnaround/printed-board builds and frozen research results remain historical baselines.
+The longer guided story includes a reported runway wildlife hold, takeoff and landing,
+measured paved taxi turns and a separate engine fire after parking. Aircraft movements,
+visual incidents and their reports follow the same external clock. Heathrow/CAA publications
+inform the reporting distinctions; the layout and event timings remain fictional.
+See [training setup and limits](docs/TRAINING_DRIVER.md) and the
+[Heathrow scenario sources](docs/HEATHROW_SCENARIO_BASIS.txt).
+
+Start the current controller lesson with
+`.venv-candidates/bin/python -m backend.training --mode lesson --exercise surface_conflict --seed 17`.
+The preselected local Qwen3.5-9B configuration is unchanged. Continuous voice, full Heathrow
+reconstruction and physical-device AR testing remain separate work. The shared-backbone
+extension and recorded-video experiment are deferred by the current priority decision.
+
+For the frozen Checkpoint 1 demonstration, start with the
+[current setup and verification record](docs/course/CHECKPOINT1_CURRENT.md),
+[presenter guide](docs/course/CHECKPOINT1_PRESENTER_GUIDE.txt) and
+[course documentation status](docs/course/README.md).
+The recorded guided run is an iOS Simulator preview; physical-device AR tracking
+and measured visual reasoning are not demonstrated by that recording.
+
+**This repository contains the editable Unity application**, its local Qwen service,
+synthetic datasets, and preserved evaluation records. The historical Android app places
 original 3D aircraft over a printed fictional airfield board using Vuforia.
 
-![Galaxy S24 layout simulation](outputs/milestone1/s24/s24-wireframe.png)
+![Galaxy S24 layout simulation](media/apronlens-s24.png)
 
 *Actual Unity renders in an illustrative Galaxy S24 outline. Physical phone,
 keyboard and AR tracking tests remain pending.*
@@ -22,7 +52,51 @@ keyboard and AR tracking tests remain pending.*
 · [Model and GitHub workflow](docs/MODEL_WORKFLOW.md)
 · [Evaluation report](outputs/reasoning_v2/REPORT.md)
 
-## What works
+## Conversational research and historical proposal
+
+The completed [M1 conversational-context study](outputs/m1_ar_context/REPORT.md)
+evaluated 40 held-out turns in 17 families, across three context conditions, with
+images off. Qwen3.5-9B scored 24/40 in full AR; Qwen3-VL-4B and the deterministic
+baseline each scored 16/40. These are frozen earlier-method results, not a new
+evaluation of the controller interface or its training selector. The current
+demo uses image-bearing requests but answers by selecting report facts; it does
+not establish visual recognition accuracy. [M2 visual-evidence work](docs/AR_SCOPE.md)
+remains planned.
+
+The proposal discussion below records earlier research plans. For current
+completion status use the M1 report and Checkpoint 1 guide above; planned
+capabilities and hosted-model candidates are not additional delivered results.
+
+**Question:** How should an AR assistant maintain and revise shared context when
+user corrections and external event updates arrive between conversational turns?
+
+A proposed interaction: select an aircraft, ask “Why is this one waiting?”,
+clarify “I mean its next rotation”, and then inspect a delayed report that
+changes the answer. The assistant should retain the corrected reference,
+re-evaluate applicable evidence and explain the change using its sources.
+This conversational interaction is proposed; the released app currently uses
+explicit aircraft selection and fixed report queries.
+
+The research focus is shared spatial reference, revisable conversation memory,
+and the distinction between user intent and source-backed external facts.
+Longitudinal context across rotations or resumed sessions is a separate planned
+extension. Adaptive model/effort routing, caching and proactive assistance follow
+controlled evaluation of the core interaction.
+
+| Capability | Status |
+|---|---|
+| Aircraft replay, selected-flight reports and source inspection | Implemented |
+| Local Qwen report selection and separate deterministic baseline | Implemented and evaluated on synthetic structured queries |
+| Follow-up dialogue, reference resolution and correction memory | Proposed |
+| Visually necessary reasoning and linked-session context | Proposed |
+| Hosted APIs, adaptive effort and cache/compaction experiments | Proposed |
+| Proactive notifications when evidence changes an earlier answer | Proposed |
+
+[Research plan and literature](RESEARCH_PLAN.md) describes the comparisons,
+evaluation design and boundaries of current evidence. The historical structured
+benchmark establishes a foundation; it does not evaluate the proposed dialogue.
+
+## Historical Android application
 
 - Scripted aircraft motion with pause, restart, seek and tracking-loss gating.
 - **Now / Why / History** views, selected-flight scope and source inspection.
@@ -32,7 +106,7 @@ keyboard and AR tracking tests remain pending.*
 - A deterministic baseline displayed and evaluated separately from Qwen.
 - Android ARM64 development build and simulated base Galaxy S24 layout checks.
 
-The app currently has one authored M1 replay. Additional evaluation scenarios
+The app currently has one authored stand-coordination replay. Additional evaluation scenarios
 run in the Python harness; there is no Android scenario picker yet. Coordination
 updates are A-CDM-inspired, but no live airport/A-CDM feed is connected. This is a
 fictional research prototype without movement authority or validated collision
@@ -49,7 +123,7 @@ protection. The benefit of AR over a conventional screen remains to be tested.
    application license in the Vuforia configuration; its local asset is ignored.
 5. Open `Assets/SurfaceSafety/Scenes/DesktopReplay.unity` and press Play for a
    camera-free preview. For the phone, build `AndroidAR.unity` for Android.
-6. Print [the original board](outputs/milestone1/Print-AirportBoard-24x16cm.png)
+6. Print [the original board](media/airport-board.png)
    at **24 × 16 cm**, without scaling, and measure it. The target width is 0.24 m.
 
 The replay and recorded-fact views work without Qwen. For **Why → Qwen → Explain**,
@@ -81,7 +155,7 @@ enter it through **More → Model connection**. Keep that token local.
 For a phone on USB, use `adb reverse tcp:8765 tcp:8765` and the default service
 address. For a trusted Wi-Fi connection, follow [QWEN_CONNECTION.md](QWEN_CONNECTION.md).
 
-## How reasoning works
+## Implemented report reasoning
 
 ```mermaid
 flowchart LR
@@ -103,6 +177,19 @@ The production report-query path uses text. A synthetic scene image is captured
 for audit but supplies no service-state evidence. Multi-frame visual reasoning,
 visually necessary tasks and longitudinal memory remain research extensions.
 No model fine-tuning has been performed.
+
+## Proposed model/API strategy
+
+Keep local Qwen and the deterministic resolver as reproducible baselines. Test
+OpenAI Responses with Astra on selected difficult turns and reference evaluations;
+benchmark a lower-cost model for routine dialogue. Claude is a cross-provider
+comparison, DeepSeek Flash a further multimodal candidate, and Gemini an optional
+comparison if video becomes necessary. Hosted adapters are not implemented and
+no hosted-provider results are claimed.
+
+Measure quality, response latency and actual billed usage before choosing a
+default. Cache and effort controls differ by provider; changing effort does not
+necessarily invalidate a cached prefix. See the [provider and budget plan](RESEARCH_PLAN.md#model-and-api-comparisons).
 
 ## Preserved evaluation
 
@@ -150,7 +237,7 @@ python scripts/check_research_integrity.py
   fresh held-out set. A one-job Mac runner verified the first smoke run (2/2);
   it stopped and unregistered afterward. Register/start a Mac runner for future runs.
 - Unity compilation, Android builds and camera tracking are outside the hosted
-  Python check. Their local verification records are under `outputs/milestone1/`.
+  Python check. Verification records are linked from [implementation status](IMPLEMENTATION.md).
 
 See [model workflow setup](docs/MODEL_WORKFLOW.md) and
 [contributing](CONTRIBUTING.md), including GitHub Desktop instructions.
@@ -165,7 +252,8 @@ See [model workflow setup](docs/MODEL_WORKFLOW.md) and
 | `scripts/` | Model installation, checks, evaluation and Android build helpers |
 | `tests/` | Model-free regression and API contract tests |
 | `outputs/reasoning_v1/`, `outputs/reasoning_v2/` | Preserved research records and frozen source snapshots |
-| `outputs/milestone1/` | Screenshots, printable board and verification evidence |
+| `media/` | Current phone preview and printable board |
+| [Implementation status](IMPLEMENTATION.md) | App validation, source inspection and phone acceptance |
 | `config/model-manifest.json` | Exact model identity/revision; no weights |
 | `backbone/` | Shared frozen model backbone, also used by the compaction project; see its [boundary](backbone/README.md) |
 | `docs/` | Unity, model-compute and collaboration setup |

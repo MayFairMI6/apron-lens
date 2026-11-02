@@ -1,0 +1,10 @@
+newmtl m1_tex
+Kd 0.8 0.8 0.8
+Ks 0.08 0.08 0.08
+Ns 20
+map_Kd EGLL-T5.png
+newmtl m3_tex
+Kd 0.8 0.8 0.8
+Ks 0.08 0.08 0.08
+Ns 20
+map_Kd EGLL-T5.png

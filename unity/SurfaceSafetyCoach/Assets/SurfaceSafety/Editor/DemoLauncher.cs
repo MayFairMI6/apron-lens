@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-// One click to the simulated AR demo (see docs/USER_MANUAL.md): ApronLens -> Play simulated AR demo opens
+// One click to the simulated AR demo (see docs/USER_MANUAL.md): ApronLens -> Play AR demo opens
 // Scenes/WorldAR.unity, sets the Game view to 1080 x 1920 portrait and enters Play mode. Creating the file
 // work/start-ar-demo.flag makes the editor do this once on its next script reload (the flag is then deleted).
 [InitializeOnLoad]
@@ -21,7 +21,7 @@ public static class DemoLauncher {
         };
     }
 
-    [MenuItem("ApronLens/Play simulated AR demo")]
+    [MenuItem("ApronLens/Play AR demo")]
     public static void Play() {
         if (EditorApplication.isPlaying || !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);

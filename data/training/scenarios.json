@@ -1,0 +1,436 @@
+[
+  {
+    "id": "late_baggage",
+    "title": "Baggage loading delay",
+    "trigger": "Baggage is still being loaded when the planned departure time approaches.",
+    "report": "Baggage loading is delayed; the departure estimate is being revised.",
+    "hold": [
+      35,
+      65
+    ],
+    "objective": "Distinguish a completed service from confirmed overall departure readiness; explain a revised estimate using the latest received reports.",
+    "question": "Why is this aircraft still at the stand?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Aircraft waits at stand, then performs its ground movement after an explicit exercise release.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "ramp"
+    ]
+  },
+  {
+    "id": "late_arrival",
+    "title": "Late arrival and stand conflict",
+    "trigger": "An inbound aircraft is late while its intended stand is still occupied.",
+    "report": "The inbound arrival is delayed; stand availability is being coordinated.",
+    "hold": [
+      45,
+      90
+    ],
+    "objective": "Separate estimated arrival, confirmed stand availability and the onward flight's departure estimate.",
+    "question": "What changed for the arriving flight and its stand?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Apron holding and taxi movements; no airborne approach animation.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "controller_awareness",
+      "ramp"
+    ]
+  },
+  {
+    "id": "late_departure",
+    "title": "Departure delay",
+    "trigger": "Ground services finish, but a departure sequencing restriction remains.",
+    "report": "Departure is delayed by sequencing restrictions; a revised off-block estimate is pending.",
+    "hold": [
+      50,
+      100
+    ],
+    "objective": "Distinguish ground readiness, off-block estimates and takeoff clearance; do not infer clearance from a timestamp.",
+    "question": "Does the revised time mean the aircraft can take off?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Stand hold followed by ground taxi; takeoff itself is outside this scene.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "controller_awareness",
+      "pilot_awareness"
+    ]
+  },
+  {
+    "id": "rejected_takeoff",
+    "title": "Rejected takeoff",
+    "trigger": "A departure is reported as rejected and the runway is temporarily unavailable.",
+    "report": "Exercise control reports a rejected takeoff and a temporary runway movement restriction.",
+    "hold": [
+      90,
+      160
+    ],
+    "objective": "Identify confirmed reports, affected surface traffic and missing information without guessing the cause or issuing cockpit instructions.",
+    "question": "What is confirmed, and which movements are affected?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Consequential apron holds; the rejected takeoff is represented by reports.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "controller_awareness",
+      "pilot_awareness"
+    ]
+  },
+  {
+    "id": "takeoff_accident",
+    "title": "Accident during takeoff",
+    "trigger": "An accident during departure is reported; initial information is incomplete.",
+    "report": "Exercise control reports a takeoff accident; affected movements are on hold and incident details remain incomplete.",
+    "hold": [
+      120,
+      220
+    ],
+    "objective": "Summarize the confirmed incident and reported restrictions; avoid inventing cause, casualties or reopening times.",
+    "question": "Which facts are confirmed and what remains unknown?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Report-led incident and apron holds, without a crash animation.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": []
+  },
+  {
+    "id": "emergency_landing",
+    "title": "Emergency landing request",
+    "trigger": "An inbound aircraft is reported to need an emergency landing, affecting departure sequencing.",
+    "report": "Exercise control reports an inbound emergency landing request and restrictions on affected departures.",
+    "hold": [
+      90,
+      170
+    ],
+    "objective": "Distinguish an emergency request from confirmed touchdown and explain only reported operational effects.",
+    "question": "Has it landed, or is that still an expectation?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Apron holds and report updates; no cockpit or airborne landing simulation.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "controller_awareness",
+      "pilot_awareness"
+    ]
+  },
+  {
+    "id": "landing_accident",
+    "title": "Landing accident / runway excursion",
+    "trigger": "An aircraft is reported to have left the runway during landing.",
+    "report": "Exercise control reports a landing accident with a runway excursion; affected surface movements remain restricted.",
+    "hold": [
+      120,
+      220
+    ],
+    "objective": "Track confirmed runway status, source timestamps and uncertainty without inferring severity from an incomplete report.",
+    "question": "What do the reports establish about the runway and affected flights?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Report-led incident and resulting apron holds, without a crash animation.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "controller_awareness"
+    ]
+  },
+  {
+    "id": "surface_conflict",
+    "title": "Surface conflict",
+    "trigger": "A vehicle or aircraft is reported inside a protected movement area unexpectedly.",
+    "report": "Ground control reports a surface conflict; the affected ground route is temporarily held.",
+    "hold": [
+      35,
+      80
+    ],
+    "objective": "Identify the reported conflict and hold, distinguish an observation from a confirmed instruction, and request missing evidence.",
+    "question": "Why has the aircraft stopped moving?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Aircraft is held at the stand before its ground route is released; no collision animation.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "controller_awareness",
+      "pilot_awareness"
+    ]
+  },
+  {
+    "id": "fuel_delay",
+    "title": "Fuelling interruption",
+    "trigger": "Fuelling is interrupted and an earlier completion expectation becomes stale.",
+    "report": "Ground handling reports that fuelling is interrupted; completion is not yet confirmed.",
+    "hold": [
+      45,
+      100
+    ],
+    "objective": "Avoid carrying a prior completion estimate into a readiness claim; explain which service report is current.",
+    "question": "Is fuelling complete according to the latest received information?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Stand hold and changing service reports.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "ramp"
+    ]
+  },
+  {
+    "id": "conflicting_stand",
+    "title": "Conflicting stand assignment",
+    "trigger": "Two sources report different stand assignments, followed by a correction.",
+    "report": "Stand planning reports an assignment discrepancy; the aircraft remains at its current position pending confirmation.",
+    "hold": [
+      30,
+      65
+    ],
+    "objective": "Show the conflict, preserve aircraft and flight identity, and apply the later correction without rewriting what was known earlier.",
+    "question": "Which stand is confirmed and which report was corrected?",
+    "variation": "Seeded movement order, taxi speed, hold duration and report latency.",
+    "visual": "Stand hold; conflicting reports must not teleport the aircraft.",
+    "implementation": "Report-led apron exercise; timings compressed for demonstration. No airborne or accident animation. Assessment rubric defined, automatic scoring not implemented.",
+    "assessment": [
+      "Identify the correct aircraft and flight.",
+      "Cite the newest received relevant report and distinguish event time from receipt time.",
+      "State what remains unknown; do not turn an estimate or completed service into movement clearance.",
+      "Explain what changed after a later report or correction."
+    ],
+    "roleObjectives": {
+      "controller_awareness": "Track the selected flight, identify its reported restriction, and explain what changed.",
+      "pilot_awareness": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+      "ramp": "Identify the service bottleneck and distinguish completed services from overall readiness."
+    },
+    "roleQuestions": {
+      "controller_awareness": [
+        "Summarize the latest reported movement status and restriction for this aircraft.",
+        "What movement restriction is confirmed for this aircraft?"
+      ],
+      "pilot_awareness": [
+        "What route and movement restriction are reported for this aircraft?",
+        "What has changed in the reports for this aircraft?"
+      ],
+      "ramp": [
+        "What is the latest update for this aircraft?",
+        "Is this aircraft ready to depart?"
+      ]
+    },
+    "priorityFor": [
+      "pilot_awareness",
+      "ramp"
+    ]
+  }
+]

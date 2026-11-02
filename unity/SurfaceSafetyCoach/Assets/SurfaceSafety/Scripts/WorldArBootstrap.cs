@@ -8,8 +8,10 @@ namespace SurfaceSafety {
     // the "While you were away" card and awayIntervals work unchanged.
     public class WorldArBootstrap : MonoBehaviour {
         public const float MetresPerBoardUnit = 1000f;  // the 0.24 m board becomes a 240 m apron
+        public bool autonomousTraffic;
         public string scenarioResource = "ar_demo_01";
         public StandReplay Replay {get;private set;}
+        public WorldOverlay Overlay {get;private set;}
 
         void Awake(){Initialize();}
 
@@ -22,7 +24,9 @@ namespace SurfaceSafety {
             Replay=gameObject.AddComponent<StandReplay>();Replay.Initialize(true,scenarioResource);
             Replay.UseWorldScale(MetresPerBoardUnit);
             gameObject.AddComponent<QwenReasoningClient>().Bind(Replay);
-            gameObject.AddComponent<ConversationClient>().Bind(Replay);
+            var conversation=gameObject.AddComponent<ConversationClient>();conversation.Bind(Replay);
+            if(autonomousTraffic){Replay.UseAutonomousTraffic();gameObject.AddComponent<ExternalTrafficDriver>().Bind(Replay,conversation);}
+            Overlay=gameObject.AddComponent<WorldOverlay>();Overlay.Bind(Replay);
         }
 
         // The apron is in view while its centre projects inside the camera's view (a small margin avoids flicker).
@@ -34,6 +38,7 @@ namespace SurfaceSafety {
         void LateUpdate(){
             var camera=Camera.main;
             if(camera==null||Replay==null||Replay.Clock==null)return;
+            if(Replay.TrainingPresentation){if(!Replay.Clock.Tracked)Replay.Tracking(true);return;}
             var inView=ApronInView(camera,Replay.Content.position);
             if(inView!=Replay.Clock.Tracked)Replay.Tracking(inView);
         }

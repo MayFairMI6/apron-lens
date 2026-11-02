@@ -1,0 +1,27 @@
+ApronLens: Heathrow-informed scenario design
+
+The reference airport is Heathrow. The rendered airport, stand labels A/B/C, runway 09/27, local circuit, flight identifiers, report timings and incident response duration are fictional teaching geometry. The 1.8 km runway is not a reconstruction of a Heathrow runway. This app practices interpreting reports and changing restrictions; it does not implement Heathrow procedures or establish professional competence.
+
+Occupied arrival stand
+Heathrow's Allocation of Aircraft Parking Stands, ASGrOps_OSI_047 v3.0, 28 March 2025, section 3.2.5, distinguishes a holding aircraft assigned to an occupied stand from cancellation of that hold. Sections 3.1 and 3.2 describe stand allocation and communication via the Airport Operations Plan. ApronLens applies the information distinction: a plan to reposition the occupant does not establish availability. TRN103 waits for the explicit stand-planning update, then follows the paved route to Stand B. The app does not reproduce Heathrow's AOP symbols or terminal allocation authority.
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASGrOps_OSI_047_Allocation_of_Aircraft_Parking_Stands_v3.pdf
+
+Wildlife on the runway
+Heathrow's Wildlife Hazards and Reporting of Birdstrikes, ASWHM_OSI_077 v3.0, 21 November 2023, sections 4, 6 and 7, assigns wildlife management to Airfield Operations and describes reporting of sightings and strikes. A hazard report includes its location, species or description if known, and activity; flight-crew reports are relayed through ATC. ApronLens now uses a visible flock crossing the runway centreline, a report with those details, an explicitly unconfirmed species and no reported strike. The aircraft holds. Birds disperse, an inspection report arrives, and only then does a separate exercise-controller release permit entry. The specific hold duration, inspection interval and release sequence are authored training choices, not extracted Heathrow timings or an asserted Heathrow SOP.
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASWHM_OSI_077_Wildlife_Hazards_and_Reporting_v3.pdf
+
+UK CAA CAP 772, second edition October 2017, chapters 2, 4 and 6, supports hazard identification, risk assessment, record keeping and distinguishing confirmed, unconfirmed and significant wildlife encounters. The app therefore does not turn a visible bird into a confirmed strike or assume damage. Species and causation stay unconfirmed unless a report establishes them. The planned lesson evaluates source-supported awareness, not wildlife-control methods.
+https://www.caa.co.uk/data-and-publications/publications/documents/content/cap-772/
+https://www.caa.co.uk/publication/download/13426
+
+Turnaround and departure
+Heathrow's Aircraft Arrival, Turnaround and Departure Procedures on Stand, ASGrOps_OSI_093 v1.0, 30 October 2024, defines separate arrival, turnaround and departure phases and requires operator-specific procedures. This supports keeping baggage completion, the off-block estimate, readiness and movement permission separate in the existing baggage-delay exercise. A new estimate does not create a clearance in ApronLens.
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASGrOps_OSI_093_Aircraft_Arrival_Turnaround_and_Departure_on_Stand_v1.pdf
+
+Engine fire after parking
+The public Heathrow Emergency Orders notice, ASEO_OSI_076 v9.0, 10 July 2026, describes alerting, responsibilities and coordination, and states that the full orders have controlled distribution. ApronLens does not claim to reproduce those orders. Its separate fictional engine-fire event practices following an incident report, keeping an affected aircraft stopped and distinguishing containment from permission to reopen a stand. The earlier birds are not asserted to be its cause. Flame and smoke effects are illustrative, not a physical fire model or response-time standard.
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASEO_OSI_076_Emergency_Orders_v9.pdf
+
+Verification and provenance
+The Heathrow current-publications index was checked on 2 November 2026 and listed the versions above. Publications inform exercise design and debrief. They are not inserted as live operational facts or substituted for the aircraft's available reports. Assistant answers still use the ordinary local model request and evidence validator. Sources expands the actual cited reports at that answer's cutoff; Recent reports can include later arrivals.
+https://www.heathrow.com/company/team-heathrow/airside/useful-publications/operational-safety-instructions

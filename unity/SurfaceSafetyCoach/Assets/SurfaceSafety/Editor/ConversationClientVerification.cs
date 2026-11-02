@@ -56,8 +56,10 @@ public static class ConversationClientVerification {
         check(!client.ApplyResponse(request, response(request, request.requestId, true, stand)) && client.Status == "CONTEXT CHANGED",
               "answer discarded after the replay time changed");
         // 7. A new session resets the revision.
+        request=client.BuildRequest("Which stand?");var staleSessionResponse=response(request,request.requestId,true,stand);
         var old = client.SessionId; client.NewSession();
         check(client.SessionId != old && client.Revision == 0, "new session resets the revision");
+        check(!client.ApplyResponse(request,staleSessionResponse)&&client.Revision==0,"old attempt or phase response rejected at unchanged source time");
 
         // 8. Connection settings saved in More -> Model connection apply without a restart, on port 8766.
         string[] keys = { "qwen_endpoint", "qwen_token", "conversation_endpoint" };
@@ -74,14 +76,14 @@ public static class ConversationClientVerification {
             PlayerPrefs.Save();
         }
 
-        // 9. More -> Ask a question opens one question field; Close removes the overlay.
-        Click("More"); Click("Ask a question");
+        // 9. More -> Ask assistant opens one question field; Close removes the overlay.
+        Click("More"); Click("Ask assistant");
         check(UnityEngine.Object.FindObjectsByType<InputField>(FindObjectsSortMode.None).Length == 1 && GameObject.Find("Conversation") != null,
               "question overlay opens with one field");
         Click("Close");
         check(GameObject.Find("Conversation") == null, "Close removes the overlay");
 
-        Debug.Log("CONVERSATION_CLIENT_CHECKS_PASS: 11");
+        Debug.Log("CONVERSATION_CLIENT_CHECKS_PASS: 12");
     }
 
     // Optional live check against a running service (not part of the standard suite):

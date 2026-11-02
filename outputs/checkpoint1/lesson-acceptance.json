@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 1,
+  "scope": "ApronLens controller training milestone only; backbone extension and video study deferred",
+  "status": "passed with documented model-answer limitation",
+  "repository": "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create",
+  "gitBase": "f2b9e5d76e846165fdbf4db119b1c23c0f6480c9",
+  "changes": "Local working tree; not committed or pushed",
+  "versions": {
+    "unity": "6000.2.2f1",
+    "ios": "27.0",
+    "device": "iPhone 18 Pro Simulator",
+    "bundleId": "edu.airfieldresearch.apronlens.simulator",
+    "backbone": "1.2.0 unchanged",
+    "sourceRecord": 1,
+    "runtimeProfile": "apronlens-v2-mps"
+  },
+  "simulatorLessons": [
+    {
+      "exercise": "surface_conflict",
+      "seed": 17,
+      "runId": "edd417f8f643a2556699",
+      "worldHash": "f1379d417f4cf4d7bcff7093132d7773ebccb2ddcef017e95ad3cd4477a597fd",
+      "completed": true,
+      "score": 3,
+      "checkpoints": [
+        {
+          "event": "answer",
+          "runId": "edd417f8f643a2556699",
+          "sourceTime": 60.0,
+          "wallElapsed": 381.0053193329986,
+          "revision": 2,
+          "checkpointId": "check-1",
+          "choice": 1,
+          "correct": true,
+          "cutoff": 60.0
+        },
+        {
+          "event": "answer",
+          "runId": "edd417f8f643a2556699",
+          "sourceTime": 120.0,
+          "wallElapsed": 517.9400488749998,
+          "revision": 5,
+          "checkpointId": "check-2",
+          "choice": 3,
+          "correct": true,
+          "cutoff": 120.0
+        },
+        {
+          "event": "answer",
+          "runId": "edd417f8f643a2556699",
+          "sourceTime": 180.0,
+          "wallElapsed": 643.9747470830007,
+          "revision": 8,
+          "checkpointId": "check-3",
+          "choice": 3,
+          "correct": true,
+          "cutoff": 180.0
+        }
+      ]
+    },
+    {
+      "exercise": "late_arrival",
+      "seed": 17,
+      "runId": "7df51429e8d9bc721a9c",
+      "worldHash": "ba5a24186b83b03fb7afa98687f42c5e8c3082567e525f5208f922a819a0d618",
+      "completed": true,
+      "score": 3,
+      "checkpoints": [
+        {
+          "event": "answer",
+          "runId": "7df51429e8d9bc721a9c",
+          "sourceTime": 60.0,
+          "wallElapsed": 140.53926858299747,
+          "revision": 2,
+          "checkpointId": "check-1",
+          "choice": 1,
+          "correct": true,
+          "cutoff": 60.0
+        },
+        {
+          "event": "answer",
+          "runId": "7df51429e8d9bc721a9c",
+          "sourceTime": 120.0,
+          "wallElapsed": 242.1376926669982,
+          "revision": 5,
+          "checkpointId": "check-2",
+          "choice": 3,
+          "correct": true,
+          "cutoff": 120.0
+        },
+        {
+          "event": "answer",
+          "runId": "7df51429e8d9bc721a9c",
+          "sourceTime": 180.0,
+          "wallElapsed": 350.738135874999,
+          "revision": 8,
+          "checkpointId": "check-3",
+          "choice": 3,
+          "correct": true,
+          "cutoff": 180.0
+        }
+      ]
+    },
+    {
+      "exercise": "late_baggage",
+      "seed": 17,
+      "runId": "712c8d256a1948ef04f8",
+      "worldHash": "da7ef9e420636e36651e93c3b41362adf27bc7732dd1f2c78cc9ed07b73b6539",
+      "completed": true,
+      "score": 3,
+      "checkpoints": [
+        {
+          "event": "answer",
+          "runId": "712c8d256a1948ef04f8",
+          "sourceTime": 60.0,
+          "wallElapsed": 171.16463329199905,
+          "revision": 2,
+          "checkpointId": "check-1",
+          "choice": 1,
+          "correct": true,
+          "cutoff": 60.0
+        },
+        {
+          "event": "answer",
+          "runId": "712c8d256a1948ef04f8",
+          "sourceTime": 120.0,
+          "wallElapsed": 310.595620832999,
+          "revision": 5,
+          "checkpointId": "check-2",
+          "choice": 1,
+          "correct": true,
+          "cutoff": 120.0
+        },
+        {
+          "event": "answer",
+          "runId": "712c8d256a1948ef04f8",
+          "sourceTime": 180.0,
+          "wallElapsed": 386.9951617919978,
+          "revision": 8,
+          "checkpointId": "check-3",
+          "choice": 3,
+          "correct": true,
+          "cutoff": 180.0
+        }
+      ]
+    }
+  ],
+  "automated": {
+    "pythonTestsPassed": 107,
+    "pythonGroups": {
+      "conversation": 78,
+      "training_traffic_role": 29
+    },
+    "unityChecksPassed": 26,
+    "unityGroups": {
+      "conversation": 12,
+      "traffic": 14
+    },
+    "seedCoverage": {
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "exercises": 3,
+      "worlds": 60,
+      "completeLessonFlows": 60
+    },
+    "commands": [
+      "PYTHONPATH=tests .venv-candidates/bin/python -m unittest discover -s tests -p 'test_conversation*.py' -q",
+      ".venv-candidates/bin/python -m unittest tests.test_training_session tests.test_training_adapter tests.test_traffic tests.test_role_demo -q"
+    ],
+    "unityExport": "passed",
+    "xcodeBuild": "BUILD SUCCEEDED"
+  },
+  "observedUI": [
+    "Landscape and portrait lesson layouts",
+    "All nine checkpoint answers and source-backed feedback",
+    "Aircraft and vehicle movements",
+    "Occupied-stand vacancy and inbound handover",
+    "Focus and zoom controls",
+    "Long-answer scrolling through visible scrollbar",
+    "Expandable sources and recent reports",
+    "Freeze during interrupted driver connection; recovery on reconnect",
+    "One-hour completion displayed as 1:00:00"
+  ],
+  "notValidated": [
+    "Physical-device ARKit",
+    "Physical-device pan and pinch gestures",
+    "Professional training efficacy",
+    "Aerial/visual perception accuracy"
+  ],
+  "assistant": {
+    "totalCalls": 13,
+    "accepted": 10,
+    "withheld": 3,
+    "latencyRangeSeconds": [
+      12.592,
+      15.697
+    ],
+    "calls": [
+      {
+        "requestId": "b253a23b7286419c81c39e7d9b4c31f4",
+        "scenarioId": "LESSON-edd417f8f643a2556699",
+        "question": "What is the latest update for this aircraft?",
+        "cutoff": 12.901982307434082,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 15.697,
+        "inputTokens": 842,
+        "outputTokens": 48,
+        "repairs": []
+      },
+      {
+        "requestId": "6ba8773710ea4792b9a839c0218de570",
+        "scenarioId": "LESSON-7df51429e8d9bc721a9c",
+        "question": "What is the latest update for this aircraft?",
+        "cutoff": 26.93206787109375,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 12.675,
+        "inputTokens": 894,
+        "outputTokens": 53,
+        "repairs": []
+      },
+      {
+        "requestId": "964567825e594162b62b5b7d181433af",
+        "scenarioId": "LESSON-7df51429e8d9bc721a9c",
+        "question": "What is the latest update for this aircraft?",
+        "cutoff": 153.86622619628906,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 12.592,
+        "inputTokens": 1037,
+        "outputTokens": 53,
+        "repairs": []
+      },
+      {
+        "requestId": "094fa7f8bdab496c8134494497c66a35",
+        "scenarioId": "LESSON-712c8d256a1948ef04f8",
+        "question": "What is the latest update for this aircraft?",
+        "cutoff": 37.80023956298828,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 14.621,
+        "inputTokens": 1066,
+        "outputTokens": 53,
+        "repairs": []
+      },
+      {
+        "requestId": "f3fd0af0a55c470585b25986c0fc929d",
+        "scenarioId": "LESSON-4e1cb8497cc8830a9468",
+        "question": "Why is TRN103 waiting?",
+        "cutoff": 60.0,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 15.065,
+        "inputTokens": 876,
+        "outputTokens": 69,
+        "repairs": []
+      },
+      {
+        "requestId": "1fff5307a7e04ad88b3a8d5a2ca51c2a",
+        "scenarioId": "LESSON-4e1cb8497cc8830a9468",
+        "question": "Is Stand B confirmed available for TRN103?",
+        "cutoff": 120.0,
+        "accepted": false,
+        "errors": [
+          "unknown_contradicts_current_fact"
+        ],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.397,
+        "inputTokens": 880,
+        "outputTokens": 67,
+        "repairs": []
+      },
+      {
+        "requestId": "d8cbce2af7894a2e8d697cbb1f63b96d",
+        "scenarioId": "LESSON-4e1cb8497cc8830a9468",
+        "question": "What changed for TRN103?",
+        "cutoff": 180.0,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.298,
+        "inputTokens": 1019,
+        "outputTokens": 66,
+        "repairs": []
+      },
+      {
+        "requestId": "7bb62a42d5154b99abd24f31623c2ce3",
+        "scenarioId": "LESSON-56facdbb752cf5873753",
+        "question": "Why is TRN103 waiting?",
+        "cutoff": 60.0,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.532,
+        "inputTokens": 876,
+        "outputTokens": 69,
+        "repairs": []
+      },
+      {
+        "requestId": "c6be1fc4bcc94d7799b0e244cd90fe60",
+        "scenarioId": "LESSON-56facdbb752cf5873753",
+        "question": "Is Stand B confirmed available for TRN103?",
+        "cutoff": 120.0,
+        "accepted": false,
+        "errors": [
+          "unknown_contradicts_current_fact"
+        ],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.243,
+        "inputTokens": 880,
+        "outputTokens": 67,
+        "repairs": []
+      },
+      {
+        "requestId": "3de13c4fd03a4af79123e8c32a4b9086",
+        "scenarioId": "LESSON-56facdbb752cf5873753",
+        "question": "What changed for TRN103?",
+        "cutoff": 180.0,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.612,
+        "inputTokens": 1019,
+        "outputTokens": 66,
+        "repairs": []
+      },
+      {
+        "requestId": "473e0166e63742c5b7ac0d365ad1e771",
+        "scenarioId": "LESSON-5a8dc8c7634ec01c29b9",
+        "question": "Why is TRN103 waiting?",
+        "cutoff": 60.0,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 15.314,
+        "inputTokens": 876,
+        "outputTokens": 69,
+        "repairs": []
+      },
+      {
+        "requestId": "e01ac4a123ef44b2894c71399e67694f",
+        "scenarioId": "LESSON-5a8dc8c7634ec01c29b9",
+        "question": "Is Stand B confirmed available for TRN103?",
+        "cutoff": 120.0,
+        "accepted": false,
+        "errors": [
+          "unknown_contradicts_current_fact"
+        ],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.408,
+        "inputTokens": 880,
+        "outputTokens": 67,
+        "repairs": []
+      },
+      {
+        "requestId": "4051b05124b9490ba1ee30cce368da5d",
+        "scenarioId": "LESSON-5a8dc8c7634ec01c29b9",
+        "question": "What changed for TRN103?",
+        "cutoff": 180.0,
+        "accepted": true,
+        "errors": [],
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 13.27,
+        "inputTokens": 1019,
+        "outputTokens": 66,
+        "repairs": []
+      }
+    ],
+    "interpretation": "Observed demonstration checks, not an independent model benchmark. Withheld proposals remain failures. No replacement answers were scripted.",
+    "knownRepeatableFailure": "Stand-availability question at cutoff 120 selected a current movement-condition fact while also marking that property unknown; the unchanged validator withheld it in all three guided runs."
+  },
+  "recordings": [
+    {
+      "recording": "apronlens-controller-guided-demo.mp4",
+      "runId": "5a8dc8c7634ec01c29b9",
+      "completed": true,
+      "exercise": "late_arrival",
+      "finalSourceTime": 3600.0,
+      "wallElapsed": 220.7,
+      "rates": [
+        0.0,
+        1.0,
+        30.0
+      ],
+      "durationSeconds": 223.53,
+      "resolution": [
+        2622,
+        1206
+      ],
+      "inspectedFrameSeconds": [
+        3,
+        26,
+        50,
+        73
+      ]
+    },
+    {
+      "recording": "apronlens-controller-withheld-answer-demo.mp4",
+      "runId": "56facdbb752cf5873753",
+      "completed": true,
+      "exercise": "late_arrival",
+      "finalSourceTime": 3600.0,
+      "wallElapsed": 219.217,
+      "rates": [
+        0.0,
+        1.0,
+        30.0
+      ]
+    }
+  ],
+  "sourceSha256": {
+    "backend/lessons.py": "85643f2f9ef2d3a86352bb5215d9ad349ce42bdcd6b06b9febd4339615657f10",
+    "backend/training.py": "1755582b94c0e2db6eee71e7ccf513bbfc5e240d32b7a81ba6aa5bc0103c24f0",
+    "backend/training_adapter.py": "4f8372d5fbc8d00434798322731c7d85dde03fcd404434fee46110d0b856d330",
+    "backend/training_session.py": "21be7479853b4942041f84d17d3c96ed0d51aae689352a9e2511ee1c5514e947",
+    "evidencekit/__init__.py": "46da2de6a317dab85aaaeb3e8679a276d3ab24fc094e05292381ca89193ba467",
+    "scripts/record_controller_demo.py": "b88a8d9b2a236b0196eed8ac819827b359542d7395c0c815da646361b49aa19d",
+    "tests/test_training_session.py": "1358e846845c49ee0d2594496172cd49aaaad1203b157ea7c7cf980f6780c86a",
+    "tests/test_training_adapter.py": "943ee5635ccb6062d2d7f1b1d657f03d27a3ea8f65b156961a66f0e4430336ce",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "3b4d72319e00fc061702cb1384e0fe52a08019c6f4dd51f9e3e2a7f2f75626b7",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "3715b76b3707da69f965893d902140e9e1d29147bdd8c4f856a59cef954a5889",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ExternalTrafficDriver.cs": "bb476f1be45add974b139359853e2ab0f14e783af2d44321cc48408ac335cca7",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/StandReplay.cs": "df4b0833c004b037735ac15741d341453420073d8f8d36779e780044778ec6ae",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/WorldOverlay.cs": "5f7613aba36c02c8d016f4dc297c253455c8ec030f4d1111574ce5a8584790d9",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/WorldArBootstrap.cs": "793a19d274eeca8fc038dd386845ba75ab202472038b2e7c084a5a5819842706",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "3141a09ba48b5c0ca59864bc00718fe45c045ddd959b1788480be9121cbe4b39",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/IosSimulatorBuild.cs": "2e19e1e278c872ef7c7af93d4649386a65f420af86913d3c4a894e897fdf67fa",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/TrafficVerification.cs": "5616074a6aa0c1834e735a6c5d007cf4d3c5e2b507edc5e65d54bb2b3a472bff",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/ConversationClientVerification.cs": "148967a08ede763ae9d643c445c6225d40d34eae0146ee4599818817b8342572"
+  },
+  "deferred": [
+    "Continuous voice",
+    "Dedicated cockpit controls and separate pilot/turnaround courses",
+    "Full Heathrow reconstruction",
+    "Visual-perception research milestone",
+    "Shared multimodal backbone extension",
+    "Recorded-video experiments"
+  ],
+  "sourceIsolation": {
+    "backboneAndModelaccessUnchanged": true,
+    "frozenResearchPathsUnchanged": true,
+    "videoRepositoryClean": true
+  },
+  "buildEvidence": {
+    "unityLogMarkers": [
+      "CONVERSATION_CLIENT_CHECKS_PASS: 12",
+      "TRAFFIC_CLIENT_CHECKS_PASS: 14",
+      "IOS_SIMULATOR_EXPORT_PASS"
+    ],
+    "xcodeLogMarker": "BUILD SUCCEEDED",
+    "executableSha256": "1b676b2ab3a692dde1ea218475ed93b5febf8832a9d761c44fc4338f84f3384b"
+  },
+  "handover": {
+    "runId": "5a344b327db1b1901154",
+    "exercise": "surface_conflict",
+    "mode": "lesson",
+    "phase": "briefing",
+    "sourceTime": 0.0,
+    "servicePort": 8767,
+    "ready": true
+  }
+}

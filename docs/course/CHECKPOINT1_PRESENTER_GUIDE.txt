@@ -1,0 +1,133 @@
+ApronLens — Checkpoint 1 presenter guide
+
+Present this as a working controller situational-awareness training prototype with pilot and turnaround perspectives in debrief. The current implementation/demo milestone and the earlier M1 context evaluation are complete. M2 is planned visual-evidence research, still unfinished. The separate recorded-video memory project is deferred.
+
+The roles
+
+Controller: the primary interactive experience. The learner follows selected aircraft, received movement restrictions, stand occupancy and changing reports. The three scored exercises cover a vehicle obstructing a ground route, an inbound waiting for an occupied stand, and baggage delaying a departure estimate.
+
+Pilot: a supporting debrief perspective on the same situation. It concerns the selected aircraft's reported route, restrictions and what still needs confirmation. This build does not contain cockpit controls or a separate pilot course.
+
+Turnaround/ramp: a supporting debrief perspective covering service completion, estimates, stand readiness and coordination. These issues also supply the disruptions in the controller exercises. This build does not contain a separate ground-handler course.
+
+An earlier prototype retains three role-specific assistant profiles and a common-world comparison service. Those profiles change suggested questions and the assistant's emphasis. The current guided lesson service preselects controller awareness; it does not expose three role modes to the learner. Do not present the older profiles as three completed courses.
+
+Suggested presentation: about ten minutes
+
+Use the 8 minute 27 second recording, with a 30–40 second introduction and a short conclusion. The cues below refer to the VIDEO PLAYER time, not the exercise clock shown inside the app. Live inference may change these timings. Speak at the important moments and leave room to watch the aircraft.
+
+Opening, before starting the recording
+
+“ApronLens is a controller situational-awareness training prototype. It lets a learner follow aircraft and changing airport reports, ask about the selected flight, and inspect the evidence behind the answer. The main question is whether the assistant can keep the right aircraft and the right information in context as the situation changes. Controller awareness is the primary experience, with pilot and turnaround perspectives in the debrief.”
+
+00:00–00:35 — Establish the situation
+
+Point to TRN103 waiting, TRN102 occupying Stand B, and the selected-flight panel. The first answer appears at approximately 00:21.
+
+“TRN103 is the late inbound, but the important issue is the occupied stand. The assistant identifies the reported reason for waiting. Selecting the aircraft gives the question a clear reference.”
+
+00:43–01:10 — Explain what is known at the answer time
+
+The stand-availability question is asked around 00:43 and answered around 00:49. Explain the cutoff shown on the answer.
+
+“A plan to reposition the other aircraft does not itself confirm that the stand is available. This answer is based on reports received by its cutoff. Even if the scene continues moving while the model answers, later reports are not used retroactively.”
+
+01:13–01:35 — Show the answer change
+
+The third question starts around 01:13; its answer appears around 01:24.
+
+“Now the availability update has arrived. The assistant changes its answer using that new report. This is the core behaviour: the answer follows the evidence available at the time.”
+
+01:47–02:26 — Wildlife hold
+
+Show the flock, the stopped aircraft and the report summary. The wildlife question starts around 01:53 and its answer appears around 02:03.
+
+“Here the aircraft is held short because birds have been reported near the runway entry. A wildlife sighting is different from a confirmed strike. The exercise waits for an inspection report and a separate controller release before the aircraft enters.”
+
+02:27–03:40 — Movement and the external driver
+
+Line-up starts around 02:27, the takeoff roll around 02:39, rotation around 03:15 and climb around 03:21.
+
+“One external service owns the exercise time, aircraft paths, incidents and report arrivals. Quiet periods run at thirty times normal speed; teaching moments and assistant requests run at normal speed. The ground paths and pavement use the same geometry, so the aircraft follows the taxiway through measured turns. The local circuit is an authored training movement.”
+
+03:48–05:20 — Approach, landing and runway exit
+
+Approach is visible from about 03:48, flare around 04:20, touchdown around 04:23 and the curved exit around 05:04.
+
+“The aircraft descends, touches down and follows the runway exit back toward the stand. These visuals help the learner maintain the traffic picture. For this checkpoint, the assistant's operational answers are grounded in received reports. Establishing useful visual perception is part of the planned M2 evaluation.”
+
+05:26–06:34 — Stand incident and Sources
+
+The engine-fire event begins around 05:26. The question begins around 05:35 and the answer appears around 05:47. The recording later expands and scrolls Sources.
+
+“This is a separate incident after parking. The earlier wildlife encounter is not established as its cause. The aircraft remains stopped while the incident report closes the stand. Sources opens the reports supporting the answer, including who reported them and when they were received.”
+
+When discussing Sources, distinguish it from Recent reports:
+
+“Sources stays tied to this answer's cutoff. Recent reports can show updates that arrived afterward.”
+
+06:34–07:03 — Containment is not reopening
+
+The post-containment update is a manual Latest update request, made around 06:43. Its accepted answer is visible around 06:55.
+
+“The fire is now reported contained, but the stand remains closed pending inspection. The assistant preserves that restriction. It does not turn the disappearance of the visual fire into permission to move.”
+
+07:05–08:27 — Explain the learner flow and evidence
+
+The remainder advances through the quiet part of the hour and ends in debrief.
+
+“This recording is an unscored guided demonstration. In the separate learner mode, each lesson has a briefing, three four-choice checkpoints, feedback and a debrief. The scene and assistant are hidden during a checkpoint, so the learner answers from the situation they observed. The feedback refers to the reports available at that checkpoint. The debrief revisits the controller, pilot and turnaround implications.”
+
+Then give the results, keeping two kinds of evidence separate:
+
+“For functional verification, all three lessons reached debrief in the iOS simulator. Automated checks covered sixty seeded worlds. This final recording contains six real model requests, all accepted by the evidence checks. Those six demonstration answers are not a general accuracy estimate.”
+
+“Separately, the earlier frozen M1 context study evaluated forty turns in seventeen conversation families, with images off. Qwen3.5-9B scored twenty-four out of forty, or sixty percent; the deterministic baseline scored sixteen out of forty, or forty percent. Removing pointing reduced the smaller model from forty to twenty-five percent. Providing tracking-interruption context did not improve scores in that setup. These are results from the earlier frozen configuration, not a fresh evaluation of this controller interface.”
+
+Conclusion, after the recording
+
+“Checkpoint 1 establishes a working training workflow and an initial evaluation of shared conversational context. The next research question is whether the camera view provides useful evidence for questions that actually require it. That is M2. The current environment is Heathrow-inspired, with fictional geometry and timings, and the exercises are formative rather than a validated measure of professional competence.”
+
+Five-minute route
+
+Use approximately 30 seconds to introduce the project and roles. Show 00:43–01:35 for the stand update, 01:47–02:15 for wildlife, 03:15–03:30 for liftoff, 04:20–04:35 for landing, and 05:35–06:05 for the fire answer. Then jump to 06:50–07:03 for the continuing stand closure and to the final debrief. Use the remaining time to explain the learner checkpoints, report the M1 results, and state the M2 plan. Introduce the jumps as selected excerpts from the recorded run; do not describe a recording as a live request.
+
+Live demonstration preparation
+
+Open the current iOS app in landscape. Use the existing local training service and confirm the app is connected before presenting. If the guided run is at its completion screen, Try again starts a fresh run. Keep the saved recording open as a clearly labelled recorded run in case the live service is unavailable. Exact startup commands are in apronlens-run-guide.txt.
+
+During a live answer, avoid changing the selected aircraft until it finishes; doing so correctly discards the old response. Model answers in the final recording took approximately six to twelve seconds. During the wait, explain that the traffic continues and the request retains its evidence cutoff. If a request fails, show the failure and the available reports. Do not substitute a rehearsed answer as though it came from the model.
+
+To show the actual learning flow, use the short lesson profile, read the briefing, choose Ready and let the first checkpoint arrive at one minute of exercise time. Choose one answer, then show the report-based feedback. The guided recording does not contain these scored checkpoints. Use the saved learner-debrief screen if the presentation time is too short to run a checkpoint.
+
+Likely questions
+
+What does the AI do?
+The local Qwen model interprets the question and selected-flight context and selects relevant eligible report facts. A deterministic validator checks support, identity and timing; the interface renders the accepted facts as a concise report summary. The external driver controls the scenario and movements.
+
+Are the answers scripted?
+The events and reports are authored training data. The model makes the evidence selections at request time, and its raw outputs are logged. The displayed wording is constrained by supported facts. Invalid selections remain failures.
+
+Does the AI see and understand the birds or fire?
+The current demo does not establish visual recognition accuracy. Its operational answers use reports. M2 is where questions requiring the camera view, and comparisons with images removed, belong.
+
+Is it three role courses?
+The interactive course is controller-first. Pilot and turnaround implications appear in debrief. Earlier role-specific assistant profiles remain available as prototype groundwork.
+
+Is it real Heathrow?
+Heathrow and UK CAA publications inform the scenario design and reporting distinctions. The geometry, aircraft identifiers and timings are fictional, and the app is not connected to live airport operations.
+
+Does 6/6 mean 100 percent model accuracy?
+No. It describes this demonstration's six requests. The separate M1 held-out study provides the initial research results, with limited sample size and uncertainty.
+
+What remains after Checkpoint 1?
+M2 remains planned in the existing research roadmap. Its original scope includes visual evidence and a detector; any narrower controller-focused replacement should be explicitly agreed and checked against the course proposal. Snow is a credible future exercise but is not in this build. Continuous voice and physical-device AR testing are also not demonstrated here. The recorded-video memory project remains separate and deferred.
+
+Files to have open
+
+apronlens-heathrow-informed-demo.mp4 — full recorded demonstration, 8:27.
+apronlens-heathrow-acceptance.json — current implementation and demo verification.
+apronlens-m1-research-results.md — unchanged copy of the earlier frozen M1 report.
+controller-arrival-debrief.png — completed learner-mode debrief.
+apronlens-heathrow-design-notes.txt — Heathrow/CAA references and fictional design choices.
+apronlens-run-guide.txt — startup and operating instructions.

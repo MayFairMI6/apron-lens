@@ -1,5 +1,7 @@
 using UnityEngine;
+#if !APRONLENS_SIMULATOR
 using Vuforia;
+#endif
 
 namespace SurfaceSafety {
     public class SceneBootstrap : MonoBehaviour {
@@ -30,8 +32,10 @@ namespace SurfaceSafety {
             gameObject.AddComponent<ConversationClient>().Bind(Replay);
             if(!previewMode){
                 Replay.Content.gameObject.SetActive(false);
+                #if !APRONLENS_SIMULATOR
                 var anchor=gameObject.AddComponent<VuforiaStandAnchor>();anchor.Bind(Replay);
                 cam.AddComponent<VuforiaBehaviour>();
+#endif
             }
         }
     }

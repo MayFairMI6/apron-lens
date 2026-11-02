@@ -1,3 +1,4 @@
+#if !APRONLENS_SIMULATOR
 using UnityEngine;
 using Vuforia;
 
@@ -23,3 +24,5 @@ namespace SurfaceSafety {
         }
     }
 }
+
+#endif

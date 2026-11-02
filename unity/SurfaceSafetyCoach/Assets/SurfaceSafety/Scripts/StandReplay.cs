@@ -11,6 +11,15 @@ namespace SurfaceSafety {
         public bool previewMode;
         public Scenario Data {get;private set;}
         public ReplayClock Clock {get;private set;}
+        public bool LiveTraffic {get;private set;}
+        public bool TrainingPresentation {get;private set;}
+        public void UseTrainingPresentation(){TrainingPresentation=true;if(safeRoot!=null)safeRoot.gameObject.SetActive(false);}
+        string trafficStatus="Connecting to traffic…";
+        public string TrainingTitle {get;set;}="";
+        public bool AwarenessTrack => LiveTraffic && (Data.trainingRole=="controller_awareness" || Data.trainingRole=="pilot_awareness");
+        public string AssistantTitle => AwarenessTrack?Data.trainingRoleLabel+" · selected flight":"Ask about the selected aircraft";
+        public string SuggestedLabel(int index) => LiveTraffic && Data.assistantQuestionLabels!=null && Data.assistantQuestionLabels.Length>index?Data.assistantQuestionLabels[index]:index==0?"Latest update":"Ready to depart?";
+        public string SuggestedQuestion(int index) => LiveTraffic && Data.assistantQuestions!=null && Data.assistantQuestions.Length>index?Data.assistantQuestions[index]:index==0?"What is the latest update for this aircraft?":"Is this aircraft ready to depart?";
         public Transform Content {get;private set;}
         public int SelectedAircraftIndex {get;private set;} = 1;
         public string SelectedTab {get;private set;} = "now";
@@ -38,6 +47,7 @@ namespace SurfaceSafety {
                 var p=Scenario.Position(a,Clock.Time);
                 if(Vector3.Distance(p,StandBPark)<.0001f)return "At Stand B · stationary";
                 if(Vector3.Distance(p,StandAPark)<.0001f)return "At Stand A · stationary";
+                if(LiveTraffic)return Vector3.Distance(p,new Vector3(.115f,0,.04f))<.0001f?"At Stand C · stationary":"On apron";
                 if(Clock.Time>=a.waypoints[a.waypoints.Length-1].t)return "At final authored waypoint";
                 return "On the authored movement path";
             }
@@ -66,17 +76,18 @@ namespace SurfaceSafety {
             }
         }
         Transform[] planes;
+        Transform[][] landingGear;
         GameObject[] propObjects;
         VisualProp[] props;
         LineRenderer selectionRing;
-        RectTransform safeRoot, body;
+        RectTransform safeRoot, body, captionPanel, tabsPanel, detailsHandle, worldAskButton;
         Text status, clockLabel, playLabel, selectionLabel;
         Image[] aircraftChips, tabChips;
         Text[] aircraftChipLabels;
         Slider slider;
         Button playButton;
-        string logPath, bodyKey, aiStatus="Not requested", aiText="Generate an explanation of this checkpoint using the configured local model service.";
-        bool updatingSlider, showBaseline, showAiDetails, showTools, logCopied;
+        string logPath, bodyKey, aiStatus="Not requested", aiText="Ask about this aircraft using reports available at the selected time.";
+        bool updatingSlider, showTools, logCopied;
         Font font;
         readonly Color ink=new Color(.055f,.095f,.13f);
         readonly Color panel=new Color(.94f,.96f,.965f);
@@ -158,12 +169,67 @@ namespace SurfaceSafety {
         public bool WorldScale {get;private set;}
         public void UseWorldScale(float metresPerUnit){
             WorldScale=true;Content.localScale=Vector3.one*metresPerUnit;
+            var header=safeRoot.Find("Header") as RectTransform;
+            if(header!=null){
+                header.anchorMin=new Vector2(0,.88f);
+                foreach(var chip in aircraftChips){var rect=chip.rectTransform;rect.anchorMax=new Vector2(rect.anchorMax.x,.60f);}
+                status.transform.SetParent(safeRoot,false);
+                status.rectTransform.anchorMin=new Vector2(.035f,.84f);status.rectTransform.anchorMax=new Vector2(.965f,.878f);
+                status.rectTransform.offsetMin=status.rectTransform.offsetMax=Vector2.zero;
+
+            }
+            // AR-first layout: the details (caption, tabs, inspector) start collapsed so the camera view fills the
+            // screen between the header and the transport; a tab above the transport opens and closes them.
+            if(safeRoot!=null&&detailsHandle==null){
+                detailsHandle=Button(safeRoot,"Show details",Vector2.zero,Vector2.one,()=>SetDetails(!DetailsOpen),new Color(.94f,.96f,.965f,.96f),30);
+                worldAskButton=Button(safeRoot,"Ask assistant",new Vector2(.52f,.186f),new Vector2(.965f,.236f),()=>OpenConversation?.Invoke(),teal,32);
+                worldAskButton.GetComponentInChildren<Text>().color=Color.white;
+                SetDetails(false);
+            }
             foreach(Transform t in Content)
-                if(t.name=="Board image"||t.name.StartsWith("Stand ",StringComparison.Ordinal))
+                if(t.name=="Board image"||t.name=="Terminal"||t.name.StartsWith("Stand ",StringComparison.Ordinal))
                     foreach(var r in t.GetComponentsInChildren<Renderer>())r.enabled=false;
             if(selectionRing!=null)selectionRing.widthMultiplier*=metresPerUnit;  // line width ignores transform scale
             ApplyScene();
         }
+        public void UseAutonomousTraffic(){
+            LiveTraffic=true;Clock.Pause();
+            safeRoot.Find("Replay transport").gameObject.SetActive(false);
+            body.anchorMin=new Vector2(0,.015f);
+            SetDetails(false);
+        }
+        public void ApplyTrafficScenario(Scenario incoming){
+            incoming.Validate();
+            if(incoming.aircraft.Length!=Data.aircraft.Length || incoming.aircraft.Where((a,i)=>a.id!=Data.aircraft[i].id).Any())
+                throw new ArgumentException("Traffic aircraft do not match the apron.");
+            bool changed=incoming.scenarioId!=Data.scenarioId;
+            if(!changed)return; // A session's plan is immutable; only its clock updates.
+            bool tracked=Clock.Tracked;Data=incoming;Clock=new ReplayClock(Data.duration,true);Clock.SetTracking(tracked);
+            interruptions.Clear();ClearAwayNotice();InspectedReportId="";
+            foreach(var obj in propObjects)obj.SetActive(false);
+            props=new VisualProp[0];propObjects=new GameObject[0];bodyKey=null;
+            GetComponent<ConversationClient>()?.ResetForExercise();Log("traffic_session_started");
+        }
+        public void UpdateTrafficTime(float time,string state){
+            if(!LiveTraffic || float.IsNaN(time) || float.IsInfinity(time))return;
+            trafficStatus=state;Clock.Seek(Mathf.Max(Clock.Time,time));ApplyScene();
+        }
+        // World AR only: whether the caption, tabs and inspector are shown (DetailsOpen) or collapsed under the AR view.
+        public bool DetailsOpen {get;private set;}=true;
+        public void SetDetails(bool open){
+            DetailsOpen=open;
+            foreach(var panelObject in new[]{captionPanel,tabsPanel,body})if(panelObject!=null)panelObject.gameObject.SetActive(open);
+            if(detailsHandle!=null){
+                detailsHandle.anchorMin=new Vector2(.035f,open?.568f:(LiveTraffic?.025f:.186f));detailsHandle.anchorMax=new Vector2(.48f,open?.618f:(LiveTraffic?.085f:.236f));
+                detailsHandle.GetComponentInChildren<Text>().text=open?"Hide details":"Show details";
+            }
+            if(worldAskButton!=null){
+                worldAskButton.anchorMin=new Vector2(.52f,open?.568f:(LiveTraffic?.025f:.186f));worldAskButton.anchorMax=new Vector2(.965f,open?.618f:(LiveTraffic?.085f:.236f));
+            }
+            Log(open?"details_opened":"details_closed");bodyKey=null;ApplyScene();
+        }
+        // Aircraft with a report received while the user looked away (the pending "While you were away" card).
+        public IEnumerable<string> AwayAircraft=>awayMissed.Select(e=>e.aircraftId).Distinct();
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
@@ -174,12 +240,13 @@ namespace SurfaceSafety {
                 if(last.at>=Clock.Time)interruptions.RemoveAt(interruptions.Count-1);
                 else{interruptions[interruptions.Count-1]=(last.id,last.at,Clock.Time);SetAwayNotice(last.at,Clock.Time);}
             }
-            Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
+            Clock.SetTracking(found);Content.gameObject.SetActive(found||LiveTraffic);ApplyScene();
         }
-        public void Play(){Clock.Play();Log("play");ApplyScene();}
-        public void Pause(){Clock.Pause();Log("pause");ApplyScene();}
-        public void Restart(){interruptions.Clear();ClearAwayNotice();Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
+        public void Play(){if(LiveTraffic)return;Clock.Play();Log("play");ApplyScene();}
+        public void Pause(){if(LiveTraffic)return;Clock.Pause();Log("pause");ApplyScene();}
+        public void Restart(){if(LiveTraffic)return;interruptions.Clear();ClearAwayNotice();Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
         public void Seek(float time){
+            if(LiveTraffic)return;
             if(float.IsNaN(time)||float.IsInfinity(time))return;
             if(time<Clock.Time){interruptions.Clear();ClearAwayNotice();}  // a new timeline: earlier losses no longer describe what was missed
             Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
@@ -214,13 +281,13 @@ namespace SurfaceSafety {
             var report=VisibleReports.FirstOrDefault(e=>e.id==id);if(report==null)return;
             Seek(report.receiptTime);Log("jump_to_receipt");
         }
-        public void SetAiResult(string status,string text){aiStatus=status??"";aiText=text??"";showAiDetails=false;bodyKey=null;ApplyScene();}
-        void InvalidateAi(){showAiDetails=false;aiStatus="Checkpoint changed";aiText="Generate a new explanation for the selected aircraft and replay time.";}
+        public void SetAiResult(string status,string text){aiStatus=status??"";aiText=text??"";bodyKey=null;ApplyScene();}
+        void InvalidateAi(){aiStatus="Checkpoint changed";aiText="Generate a new explanation for the selected aircraft and replay time.";}
         void Update(){
             if(Clock==null)return;
-            if(Input.GetMouseButtonDown(0)&&Camera.main!=null&&(EventSystem.current==null||!EventSystem.current.IsPointerOverGameObject()))
+            if(!TrainingPresentation&&Input.GetMouseButtonDown(0)&&Camera.main!=null&&(EventSystem.current==null||!EventSystem.current.IsPointerOverGameObject()))
                 TapSelect(Input.mousePosition,Camera.main);
-            Clock.Advance(Time.unscaledDeltaTime);ApplyScene();
+            if(!LiveTraffic)Clock.Advance(Time.unscaledDeltaTime);ApplyScene();
         }
         void OnApplicationPause(bool paused){if(paused&&Clock!=null){Clock.Pause();Log("application_pause");ApplyScene();}}
         void OnDestroy(){if(Clock!=null)Log("session_end");}
@@ -238,10 +305,16 @@ namespace SurfaceSafety {
             catch(Exception e){Debug.LogWarning("Session log unavailable: "+e.GetType().Name);}
         }
         public void ApplyScene(){
-            if(planes==null)return;
+            if(planes==null||Data==null||Clock==null)return;
             for(int i=0;i<planes.Length;i++) {
-                planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*.003f;
-                planes[i].localRotation=Quaternion.LookRotation(Scenario.Direction(Data.aircraft[i],Clock.Time),Vector3.up);
+                planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*(TrainingPresentation?.00235f:.003f);
+                var direction=Scenario.Direction(Data.aircraft[i],Clock.Time);
+                if(direction.sqrMagnitude>0.000001f)planes[i].localRotation=Quaternion.LookRotation(direction,Vector3.up);
+                if(Data.aircraft[i].phases!=null&&new Vector2(direction.x,direction.z).sqrMagnitude>0.000001f)
+                    planes[i].localRotation=Quaternion.LookRotation(new Vector3(direction.x,0,direction.z),Vector3.up)*Quaternion.Euler(-Scenario.Pitch(Data.aircraft[i],Clock.Time),0,0);
+                if(Data.aircraft[i].preciseHeading)
+                    planes[i].localRotation=Quaternion.Euler(0,Scenario.Heading(Data.aircraft[i],Clock.Time),0)*Quaternion.Euler(-Scenario.Pitch(Data.aircraft[i],Clock.Time),0,0);
+                if(landingGear!=null)foreach(var part in landingGear[i])part.gameObject.SetActive(!Data.aircraft[i].GearRetractedAt(Clock.Time));
             }
             if(propObjects!=null)for(int i=0;i<propObjects.Length;i++){
                 var v=Scenario.PropValueAt(props[i],Clock.Time);propObjects[i].SetActive(v=="connected"||v=="open");
@@ -249,14 +322,15 @@ namespace SurfaceSafety {
             if(selectionRing!=null){selectionRing.transform.localPosition=Scenario.Position(SelectedAircraft,Clock.Time);selectionRing.startColor=selectionRing.endColor=SelectedAircraftIndex==1?new Color(1f,.72f,.33f):new Color(.28f,.84f,.78f);}
             if(!VisibleReports.Any(e=>e.id==InspectedReportId))InspectedReportId="";
             if(clockLabel!=null)clockLabel.text=$"{Clock.Time:00.0}<size=33> / {Data.duration:00} s</size>";
-            if(status!=null&&WorldScale){status.text=Clock.Tracked?"Simulated world AR · apron in view":
-                Clock.RunsUntracked&&Clock.Playing?"Apron out of view · it keeps running":"Apron out of view · playback paused";status.color=Clock.Tracked?teal:amber;}
+            if(status!=null&&LiveTraffic){status.text=!string.IsNullOrEmpty(trafficStatus)?trafficStatus:Clock.Tracked?TrainingTitle:"Looking away · updates continue";status.color=string.IsNullOrEmpty(trafficStatus)?teal:amber;}
+            else if(status!=null&&WorldScale){status.text=Clock.Tracked?"":
+                Clock.RunsUntracked&&Clock.Playing?"Looking away · updates continue":"Looking away · replay paused";status.color=Clock.Tracked?teal:amber;}
             else if(status!=null){status.text=previewMode?"Desktop preview · tracking untested":
                 (Clock.Tracked?"Board tracked · "+(Clock.Playing?"replaying":"paused"):
                 Clock.RunsUntracked&&Clock.Playing?"Board out of view · apron keeps running":"Find printed board · playback paused");status.color=Clock.Tracked?teal:amber;}
             if(playLabel!=null)playLabel.text=Clock.Playing?"Pause":"Play";
             if(playButton!=null)playButton.interactable=Clock.Tracked;
-            if(selectionLabel!=null)selectionLabel.text=SelectedAircraft.id+" · "+CurrentSceneState+" · simulated";
+            if(selectionLabel!=null)selectionLabel.text=SelectedAircraft.id+" · "+CurrentSceneState;
             if(aircraftChips!=null)for(int i=0;i<aircraftChips.Length;i++)aircraftChips[i].color=i==SelectedAircraftIndex?new Color(.82f,.92f,.92f):panel;
             // Chip labels follow the rotation under way; single-flight aircraft never change.
             if(aircraftChipLabels!=null)for(int i=0;i<aircraftChipLabels.Length;i++){var label=ChipLabel(Data.aircraft[i]);if(aircraftChipLabels[i].text!=label)aircraftChipLabels[i].text=label;}
@@ -264,7 +338,7 @@ namespace SurfaceSafety {
             if(slider!=null){updatingSlider=true;slider.SetValueWithoutNotify(Clock.Time);updatingSlider=false;}
             UpdateSafeArea();
             var key=SelectedAircraftIndex+"|"+SelectedFlight+"|"+SelectedTab+"|"+AllFlightsHistory+"|"+InspectedReportId+"|"+
-                string.Join(",",Data.KnownAt(Clock.Time).Select(e=>e.id))+"|"+CurrentSceneState+"|"+aiStatus+"|"+aiText+"|"+showBaseline+"|"+showAiDetails+"|"+showTools+"|"+logCopied+"|"+(AwayNotice==null?"":AwayNoticeSpan+string.Join(";",AwayNotice));
+                string.Join(",",Data.KnownAt(Clock.Time).Select(e=>e.id))+"|"+CurrentSceneState+"|"+aiStatus+"|"+aiText+"|"+showTools+"|"+logCopied+"|"+(AwayNotice==null?"":AwayNoticeSpan+string.Join(";",AwayNotice));
             if(key!=bodyKey){bodyKey=key;RebuildBody();}
         }
         void RemoveCollider(GameObject obj){
@@ -315,9 +389,11 @@ namespace SurfaceSafety {
             for(int i=0;i<2;i++)Shape(PrimitiveType.Cube,"Stand "+(i==0?"A":"B"),
                 new Vector3(i==0?-.045f:.035f,.002f,.047f),new Vector3(.004f,.004f,.015f),new Color(.5f,.61f,.65f),Content);
             planes=new Transform[Data.aircraft.Length];
+            landingGear=new Transform[Data.aircraft.Length][];
             for(int i=0;i<planes.Length;i++) {
                 var root=new GameObject(Data.aircraft[i].id).transform;root.SetParent(Content,false);planes[i]=root;
                 AircraftVisual.Build(root,LiveryOf(i));
+                landingGear[i]=root.GetComponentsInChildren<Transform>(true).Where(t=>t.name=="Main wheel"||t.name=="Nose wheel"||t.name=="Gear strut").ToArray();
             }
             BuildProps();
             // Occluders (for example a service canopy) are neutral roof slabs; they hide what lies under them from the camera.
@@ -362,7 +438,6 @@ namespace SurfaceSafety {
             safeRoot=Panel(canvas.transform,"Safe area",Vector2.zero,Vector2.one,Color.clear);safeRoot.GetComponent<Image>().raycastTarget=false;
             var head=Panel(safeRoot,"Header",new Vector2(0,.84f),Vector2.one,card);
             Label(head,"ApronLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
-            Label(head,"SIMULATION",new Vector2(.67f,.69f),new Vector2(.985f,.95f),33,TextAnchor.MiddleRight,teal);
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
             // Chips share the header width; with two aircraft this is the original layout.
             int count=Data.aircraft.Length;float gap=.03f,width=(.93f-(count-1)*gap)/count;
@@ -375,9 +450,9 @@ namespace SurfaceSafety {
                 // Uniform-livery scenarios use one neutral marker so the chips do not imply colour identity.
                 Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),Data.UniformLivery?muted:i==0?teal:i==1?amber:LiveryOf(i));
             }
-            var caption=Panel(safeRoot,"Selected scene identity",new Vector2(.035f,.529f),new Vector2(.965f,.565f),new Color(.055f,.095f,.13f,.9f));
+            var caption=Panel(safeRoot,"Selected scene identity",new Vector2(.035f,.529f),new Vector2(.965f,.565f),new Color(.055f,.095f,.13f,.9f));captionPanel=caption;
             selectionLabel=Label(caption,"",Vector2.zero,Vector2.one,33,TextAnchor.MiddleCenter,Color.white);
-            var tabs=Panel(safeRoot,"View tabs",new Vector2(0,.455f),new Vector2(1,.522f),card);
+            var tabs=Panel(safeRoot,"View tabs",new Vector2(0,.455f),new Vector2(1,.522f),card);tabsPanel=tabs;
             tabChips=new Image[3];string[] names={"now","why","history"};
             for(int i=0;i<3;i++){string tab=names[i];var r=Button(tabs,char.ToUpper(tab[0])+tab.Substring(1),new Vector2(i/3f,0),new Vector2((i+1)/3f,1),()=>SelectTab(tab),card,39);tabChips[i]=r.GetComponent<Image>();}
             body=Panel(safeRoot,"Inspector",new Vector2(0,.185f),new Vector2(1,.452f),panel);
@@ -387,13 +462,15 @@ namespace SurfaceSafety {
             var track=Panel(transport,"Seek timeline hit area",new Vector2(.05f,.46f),new Vector2(.95f,.89f),Color.clear);
             var rail=Panel(track,"Visible timeline",new Vector2(0,.33f),new Vector2(1,.37f),new Color(.71f,.78f,.8f));rail.GetComponent<Image>().raycastTarget=false;
             slider=track.gameObject.AddComponent<Slider>();slider.minValue=0;slider.maxValue=Data.duration;
-            var handle=Panel(track,"Handle",new Vector2(0,.10f),new Vector2(0,.60f),teal);handle.sizeDelta=new Vector2(36,0);
+            var handleArea=Panel(track,"Handle area",new Vector2(0,.35f),new Vector2(1,.35f),Color.clear);
+            handleArea.sizeDelta=new Vector2(0,32);handleArea.GetComponent<Image>().raycastTarget=false;
+            var handle=Panel(handleArea,"Handle",Vector2.zero,Vector2.up,teal);handle.sizeDelta=new Vector2(32,0);
             slider.handleRect=handle;slider.targetGraphic=handle.GetComponent<Image>();
             slider.onValueChanged.AddListener(t=>{if(!updatingSlider)Seek(t);});
             var play=Button(transport,"Play",new Vector2(.035f,.035f),new Vector2(.535f,.45f),()=>{if(Clock.Playing)Pause();else Play();},teal,39);
             playLabel=play.GetComponentInChildren<Text>();playLabel.color=Color.white;playButton=play.GetComponent<Button>();
             Button(transport,"Restart",new Vector2(.555f,.035f),new Vector2(.795f,.45f),Restart,panel,39);
-            Button(transport,"More",new Vector2(.815f,.035f),new Vector2(.965f,.45f),()=>{showTools=!showTools;bodyKey=null;ApplyScene();},panel,39);
+            Button(transport,"More",new Vector2(.815f,.035f),new Vector2(.965f,.45f),()=>{showTools=!showTools;if(WorldScale&&!DetailsOpen)SetDetails(true);bodyKey=null;ApplyScene();},panel,39);
             var ring=new GameObject("Selected aircraft ring");ring.transform.SetParent(Content,false);selectionRing=ring.AddComponent<LineRenderer>();
             selectionRing.useWorldSpace=false;selectionRing.loop=true;selectionRing.positionCount=48;selectionRing.widthMultiplier=.0007f;
             selectionRing.sharedMaterial=new Material(Shader.Find("Sprites/Default"));
@@ -404,7 +481,7 @@ namespace SurfaceSafety {
         }
         void RebuildBody(){ClearBody();if(showTools)BuildTools();else if(SelectedTab=="now")BuildNow();else if(SelectedTab=="why")BuildWhy();else BuildHistory();}
         RectTransform Card(string name,float bottom,float top){return Panel(body,name,new Vector2(.035f,bottom),new Vector2(.965f,top),card);}
-        string ShortReport(ScenarioEvent report){
+        public string ShortReport(ScenarioEvent report){
             if(report==null)return "No report received";
             if(report.facts!=null && report.facts.Length>0){
                 var f=report.facts[0];
@@ -413,7 +490,9 @@ namespace SurfaceSafety {
                     case "baggage_status":return "Baggage service "+f.value;
                     case "fuel_status":return "Fuel service "+f.value;
                     case "route":return "Movement plan updated";
-                    case "movement_status":return "Scripted movement "+f.value;
+                    case "movement_status":return (LiveTraffic?"Movement: ":"Scripted movement ")+f.value;
+                    case "movement_condition":return LiveTraffic?(f.value.StartsWith("hold")?"Movement on hold":f.value=="released"?"Hold released":f.value):report.message;
+                    case "tobt":return "Off-block estimate: "+f.value;
                     case "trajectory_checkpoint":return "Checkpoint: "+f.value;
                 }
             }
@@ -432,9 +511,12 @@ namespace SurfaceSafety {
                 if(latest.receiptTime>latest.eventTime)Label(update,"LATE",new Vector2(.72f,.025f),new Vector2(.985f,.24f),33,TextAnchor.MiddleRight,amber);
             }
             var readiness=Card("Readiness summary",.035f,.29f);
-            readiness.gameObject.AddComponent<Button>().onClick.AddListener(()=>{showBaseline=true;SelectTab("why");});
-            Label(readiness,"Departure readiness",new Vector2(.015f,0),new Vector2(.69f,1),39);
-            Label(readiness,"Unknown  ›",new Vector2(.69f,0),new Vector2(.985f,1),39,TextAnchor.MiddleRight,amber);
+            readiness.gameObject.AddComponent<Button>().onClick.AddListener(()=>SelectTab("why"));
+            Label(readiness,AwarenessTrack?"Reported restriction":"Departure readiness",new Vector2(.015f,0),new Vector2(.69f,1),39);
+            var restriction=SelectedReports.LastOrDefault(e=>e.facts!=null && e.facts.Any(f=>f.property=="movement_condition"));
+            var condition=restriction?.facts.First(f=>f.property=="movement_condition").value;
+            var restrictionLabel=condition==null?"No report":condition.StartsWith("hold")?"Hold reported":condition=="released"?"Hold released":"See report";
+            Label(readiness,AwarenessTrack?restrictionLabel+" ›":"Unknown  ›",new Vector2(.63f,0),new Vector2(.985f,1),AwarenessTrack?30:39,TextAnchor.MiddleRight,amber);
         }
         void BuildAwayNotice(){
             var notice=Card("While you were away",.035f,.965f);
@@ -454,44 +536,12 @@ namespace SurfaceSafety {
             t.gameObject.AddComponent<ContentSizeFitter>().verticalFit=ContentSizeFitter.FitMode.PreferredSize;
             scroll.content=content;scroll.viewport=viewport;
         }
-        string FriendlyAiState(){
-            var state=aiStatus.ToUpperInvariant();
-            if(state.Contains("WITHHELD"))return "Selection needs review";
-            if(state.Contains("THINKING")||state.Contains("REVIEWING"))return "Reviewing this checkpoint…";
-            if(state.Contains("SCENE UNAVAILABLE"))return "Find the printed board";
-            if(state.Contains("UNAVAILABLE"))return "Model service unavailable";
-            if(state.Contains("CHECKED"))return "Supported claims";
-            if(state.Contains("CHANGED"))return "Checkpoint changed";
-            return "Explain this checkpoint";
-        }
-        string CompactAiText(){
-            if(showAiDetails)return aiText;
-            var state=aiStatus.ToUpperInvariant();
-            if(state.Contains("WITHHELD"))return "The model did not return a fully supported answer. Recorded facts are still available.";
-            if(state.Contains("THINKING")||state.Contains("REVIEWING"))return "Replay is paused while the selected flight's reports are reviewed.";
-            if(state.Contains("SCENE UNAVAILABLE"))return "Track the printed board before reviewing this checkpoint.";
-            if(state.Contains("CONNECTION NEEDED"))return "Open More → Model connection and enter the service address and token.";
-            if(state.Contains("CONNECTION SAVED"))return "Connection saved. Tap Explain to review this checkpoint.";
-            if(state.Contains("UNAVAILABLE"))return "Recorded facts remain available. Check the connection and try again.";
-            if(state.Contains("CHANGED"))return "Generate again for the selected aircraft and replay time.";
-            var text=aiText;int cut=text.IndexOf("\n\nSources:",StringComparison.Ordinal);if(cut<0)cut=text.IndexOf("\n\nEvidence:",StringComparison.Ordinal);
-            if(cut>=0)text=text.Substring(0,cut);
-            return System.Text.RegularExpressions.Regex.Replace(text,@" Event [\d.]+ s; received [\d.]+ s\.","");
-        }
         void BuildWhy(){
-            Button(body,"Qwen",new Vector2(.035f,.735f),new Vector2(.49f,.99f),()=>{showBaseline=false;showAiDetails=false;bodyKey=null;ApplyScene();},showBaseline?card:new Color(.82f,.92f,.92f),39);
-            Button(body,"Recorded facts",new Vector2(.51f,.735f),new Vector2(.965f,.99f),()=>{showBaseline=true;bodyKey=null;ApplyScene();},showBaseline?new Color(.82f,.92f,.92f):card,39);
-            var explanation=Card(showBaseline?"Deterministic baseline":"Qwen selection",.28f,.72f);
-            Label(explanation,showBaseline?"DETERMINISTIC BASELINE":FriendlyAiState(),new Vector2(.01f,.75f),new Vector2(.99f,.98f),showBaseline?33:39,TextAnchor.MiddleLeft,showBaseline?teal:ink);
-            var explanationText=showBaseline?CurrentReasoning:CompactAiText();
-            ScrollText(explanation,explanationText,new Vector2(.01f,.20f),new Vector2(.99f,.75f),39);
-            if(explanationText.Length>90)Label(explanation,"Swipe to read more",new Vector2(.01f,0),new Vector2(.99f,.18f),33,TextAnchor.MiddleRight,muted);
-            if(showBaseline){
-                Button(body,"Review source reports",new Vector2(.035f,.005f),new Vector2(.965f,.26f),()=>{InspectedReportId="";SelectTab("history");},teal,39).GetComponentInChildren<Text>().color=Color.white;
-            }else{
-                Button(body,"Explain",new Vector2(.035f,.005f),new Vector2(.64f,.26f),()=>{showAiDetails=false;if(RequestReasoning!=null)RequestReasoning();else SetAiResult("Not connected","Open More → Model connection to connect the service.");},teal,39).GetComponentInChildren<Text>().color=Color.white;
-                Button(body,showAiDetails?"Summary":"Details",new Vector2(.66f,.005f),new Vector2(.965f,.26f),()=>{showAiDetails=!showAiDetails;bodyKey=null;ApplyScene();},card,39);
-            }
+            var explanation=Card("Assistant explanation",.28f,.965f);
+            Label(explanation,"Understand this aircraft",new Vector2(.01f,.70f),new Vector2(.99f,.98f),39);
+            ScrollText(explanation,AwarenessTrack?Data.trainingObjective+" Answers describe received reports; they do not issue a clearance.":"Ask about its status, recent changes, or departure readiness. Answers use reports received by the selected time.",new Vector2(.01f,.05f),new Vector2(.99f,.69f),36);
+            Button(body,"Ask assistant",new Vector2(.035f,.005f),new Vector2(.64f,.26f),()=>OpenConversation?.Invoke(),teal,39).GetComponentInChildren<Text>().color=Color.white;
+            Button(body,"Sources",new Vector2(.66f,.005f),new Vector2(.965f,.26f),()=>{InspectedReportId="";SelectTab("history");},card,39);
         }
         void BuildHistory(){
             if(!string.IsNullOrEmpty(InspectedReportId)){BuildReportDetail(VisibleReports.First(e=>e.id==InspectedReportId));return;}
@@ -522,14 +572,12 @@ namespace SurfaceSafety {
             Label(timing,"Received",new Vector2(.51f,.51f),new Vector2(.99f,1),33,TextAnchor.MiddleLeft,muted);
             Label(timing,$"{report.eventTime:0} s",new Vector2(.01f,0),new Vector2(.49f,.58f),39);
             Label(timing,$"{report.receiptTime:0} s",new Vector2(.51f,0),new Vector2(.99f,.58f),39,TextAnchor.MiddleLeft,teal);
-            Button(body,$"Jump to receipt · {report.receiptTime:0} s",new Vector2(.035f,.005f),new Vector2(.965f,.26f),()=>SeekToReportReceipt(report.id),teal,39).GetComponentInChildren<Text>().color=Color.white;
+            Button(body,LiveTraffic?"Back to reports":$"Jump to receipt · {report.receiptTime:0} s",new Vector2(.035f,.005f),new Vector2(.965f,.26f),()=>{if(LiveTraffic){InspectedReportId="";bodyKey=null;ApplyScene();}else SeekToReportReceipt(report.id);},teal,39).GetComponentInChildren<Text>().color=Color.white;
         }
         void BuildTools(){
             Label(body,"Session options",new Vector2(.015f,.81f),new Vector2(.985f,.99f),39);
-            Button(body,"Model connection",new Vector2(.035f,.55f),new Vector2(.965f,.805f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConnectionSettings?.Invoke();},card,39);
-            // Two half-width buttons share a row so every control keeps its 48 dp height.
-            Button(body,logCopied?"Log path copied":"Copy session log path",new Vector2(.035f,.28f),new Vector2(.49f,.535f),()=>{GUIUtility.systemCopyBuffer=logPath;logCopied=true;Log("log_path_copied");bodyKey=null;ApplyScene();},card,33);
-            Button(body,"Ask a question",new Vector2(.51f,.28f),new Vector2(.965f,.535f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConversation?.Invoke();},card,39);
+            Button(body,"Ask assistant",new Vector2(.035f,.55f),new Vector2(.965f,.805f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConversation?.Invoke();},card,39);
+            Button(body,"Report history",new Vector2(.035f,.28f),new Vector2(.965f,.535f),()=>{showTools=false;InspectedReportId="";SelectTab("history");},card,39);
             Button(body,"Done",new Vector2(.035f,.01f),new Vector2(.965f,.265f),()=>{showTools=false;bodyKey=null;ApplyScene();},teal,39).GetComponentInChildren<Text>().color=Color.white;
         }
     }

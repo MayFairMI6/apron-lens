@@ -1,0 +1,80 @@
+[
+  {
+    "id": "controller_awareness",
+    "label": "Controller awareness",
+    "shortLabel": "Controller",
+    "audience": "Air traffic control trainees",
+    "status": "active situational-awareness prototype",
+    "defaultExercise": "surface_conflict",
+    "objective": "Track the selected flight, identify its reported restriction, and explain what changed.",
+    "questionLabels": [
+      "Traffic update",
+      "Reported hold"
+    ],
+    "questions": [
+      "Summarize the latest reported movement status and restriction for this aircraft.",
+      "What movement restriction is confirmed for this aircraft?"
+    ],
+    "assistantFocus": "Prioritise movement_condition, movement_status and route. Support identification and report-based handovers. Do not issue clearances, choose separation minima, or invent a runway reopening. This is awareness of the selected flight, not an operational traffic-control system.",
+    "priorityExercises": [
+      "surface_conflict",
+      "emergency_landing",
+      "rejected_takeoff",
+      "landing_accident",
+      "late_arrival",
+      "late_departure"
+    ],
+    "assessment": "Manual review of aircraft identity, evidence timing, reported restrictions, changes and acknowledged uncertainty; automatic trainee scoring not implemented."
+  },
+  {
+    "id": "pilot_awareness",
+    "label": "Pilot awareness",
+    "shortLabel": "Pilot",
+    "audience": "Pilots and flight operations trainees",
+    "status": "active situational-awareness prototype",
+    "defaultExercise": "late_departure",
+    "objective": "Review the selected flight’s reported route and restrictions; identify what needs confirmation.",
+    "questionLabels": [
+      "Route briefing",
+      "What changed?"
+    ],
+    "questions": [
+      "What route and movement restriction are reported for this aircraft?",
+      "What has changed in the reports for this aircraft?"
+    ],
+    "assistantFocus": "Prioritise route, movement_condition and movement_status for the selected flight. Distinguish a reported route or estimate from an operational clearance. Do not give cockpit procedures, control inputs, or permission to move. This is a surface briefing, not a cockpit or flight-dynamics simulator.",
+    "priorityExercises": [
+      "late_departure",
+      "surface_conflict",
+      "emergency_landing",
+      "conflicting_stand",
+      "rejected_takeoff"
+    ],
+    "assessment": "Manual review of aircraft identity, evidence timing, reported restrictions, changes and acknowledged uncertainty; automatic trainee scoring not implemented."
+  },
+  {
+    "id": "ramp",
+    "label": "Ramp awareness",
+    "shortLabel": "Ramp",
+    "audience": "Turnaround coordinators, ramp supervisors and ground-handling trainees",
+    "status": "active optional awareness track",
+    "defaultExercise": "late_baggage",
+    "objective": "Identify the service bottleneck and distinguish completed services from overall readiness.",
+    "questionLabels": [
+      "Latest update",
+      "Ready to depart?"
+    ],
+    "questions": [
+      "What is the latest update for this aircraft?",
+      "Is this aircraft ready to depart?"
+    ],
+    "assistantFocus": "Prioritise service updates and relevant movement restrictions. Completed services do not establish overall departure readiness or movement clearance.",
+    "priorityExercises": [
+      "late_baggage",
+      "fuel_delay",
+      "late_arrival",
+      "conflicting_stand"
+    ],
+    "assessment": "Manual review of aircraft identity, evidence timing, reported restrictions, changes and acknowledged uncertainty; automatic trainee scoring not implemented."
+  }
+]

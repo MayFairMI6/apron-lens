@@ -32,12 +32,11 @@ Source: https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct
 
 ## Keep the two project goals distinct
 
-**ApronLens:** build an interactive smartphone AR training
-prototype. Show scripted moving aircraft, changing A-CDM-inspired coordination
-updates, as-of replay, and explanations supported by visual/event evidence.
-Unity supplies exact geometry and timing; Qwen interprets evidence and explains
-answers. Evaluate replay/history correctness, explanation accuracy, and
-interface usability. Linked rotations across days are an optional extension.
+**ApronLens:** study shared spatial and temporal context across AR conversation
+turns, user corrections and changing external reports. The implemented foundation
+is aircraft replay, source-aware report selection and a local Qwen service.
+Conversation memory, visual reference resolution and hosted APIs are proposed.
+Evaluate grounding, correction recovery, evidence validity and interaction cost.
 
 **Separate airport-video AI study:** according to saved personal project notes,
 AVIS anchors learned visual-evidence retention and reasoning-rollout allocation.
