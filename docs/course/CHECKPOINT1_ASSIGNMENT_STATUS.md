@@ -11,7 +11,7 @@ duration was specified in the supplied wording.
 |---|---|
 | Runs on a smartphone | Native iOS Simulator execution verified; physical-smartphone run unverified. The owner requested the simulator for now. |
 | Video shows current features | Existing 8:27 guided recording and verification available. This is an unscored demo; scored learner flow is documented separately. |
-| Every member identified and participating | Four-presenter allocation and agent handoff prepared. Actual names, member recordings, final edit and participation review remain. |
+| Every member identified and participating | Two-presenter allocation with draft narration for the project owner and one teammate and agent handoff prepared. Actual names, member recordings, final edit and participation review remain. |
 | Achievement/reflection at most one page | One-page PDF and editable text prepared from documented work and decisions. Coordination and Meetings are intentionally blank at the owner's request. |
 | Remaining checkpoints explained | M2 visual evidence and a distinct turnaround task; M3 integrated evaluation. Planned work is separated from current results. |
 

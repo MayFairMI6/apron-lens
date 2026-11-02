@@ -1,4 +1,4 @@
-Help me prepare my assigned part of the ApronLens Checkpoint 1 video. My presenter letter is [A/B/C/D] and my name is [name]. Use the attached TEAM_RECORDING_PLAN.txt to identify my responsibilities. If the letter is missing, ask for it before writing my narration.
+Help me prepare my assigned part of the ApronLens Checkpoint 1 video. My presenter letter is [A/B] and my name is [name]. There are two presenters: A is the teammate opening with learner workflow and assistant; B is the project owner covering moving scenarios, the external driver, results and conclusion. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify my responsibilities. If the letter is missing, ask for it before writing my narration.
 
 Repository: https://github.com/MayFairMI6/apron-lens
 Published Checkpoint 1 branch: codex/checkpoint1-controller-training
@@ -16,7 +16,7 @@ Read these sources first:
 The older CHECKPOINT1_DEMO.md and REFLECTION_DRAFT describe historical work. The current achievement/reflection file leaves Coordination and Meetings blank by the owner's request.
 
 Produce only preparation material for my assigned section:
-- A natural narration of about 170-220 words, with enough pause time for the proposed two-minute segment. Timing is a suggestion, not an assignment requirement.
+- A natural narration adapted from my assigned draft, with enough pause time for roughly three minutes for A or three to four minutes for B. Verify timing in rehearsal rather than forcing a word count. Timing is a suggestion, not an assignment requirement.
 - Screen/clip cues with source-video times, explicitly distinguished from scenario time. If you cannot inspect the video, mark those cues as taken from the presenter guide and request the necessary clip for visual verification.
 - The title containing my actual name that should appear before my segment.
 - A small claim-to-source checklist and three likely questions with concise answers.
