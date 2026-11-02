@@ -307,13 +307,14 @@ namespace SurfaceSafety {
         public void ApplyScene(){
             if(planes==null||Data==null||Clock==null)return;
             for(int i=0;i<planes.Length;i++) {
-                planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*(TrainingPresentation?.00235f:.003f);
+                planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*((TrainingPresentation?.00235f:.003f)-Scenario.BodySink(Data.aircraft[i],Clock.Time));
                 var direction=Scenario.Direction(Data.aircraft[i],Clock.Time);
                 if(direction.sqrMagnitude>0.000001f)planes[i].localRotation=Quaternion.LookRotation(direction,Vector3.up);
                 if(Data.aircraft[i].phases!=null&&new Vector2(direction.x,direction.z).sqrMagnitude>0.000001f)
                     planes[i].localRotation=Quaternion.LookRotation(new Vector3(direction.x,0,direction.z),Vector3.up)*Quaternion.Euler(-Scenario.Pitch(Data.aircraft[i],Clock.Time),0,0);
                 if(Data.aircraft[i].preciseHeading)
                     planes[i].localRotation=Quaternion.Euler(0,Scenario.Heading(Data.aircraft[i],Clock.Time),0)*Quaternion.Euler(-Scenario.Pitch(Data.aircraft[i],Clock.Time),0,0);
+                planes[i].localRotation*=Quaternion.Euler(0,0,Scenario.Roll(Data.aircraft[i],Clock.Time));
                 if(landingGear!=null)foreach(var part in landingGear[i])part.gameObject.SetActive(!Data.aircraft[i].GearRetractedAt(Clock.Time));
             }
             if(propObjects!=null)for(int i=0;i<propObjects.Length;i++){

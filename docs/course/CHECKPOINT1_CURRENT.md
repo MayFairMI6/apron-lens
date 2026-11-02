@@ -6,16 +6,27 @@ and turnaround implications appear in debrief. A dedicated turnaround task is
 deferred to Checkpoint 2, alongside the planned visual-evidence research. No
 separate pilot course is delivered. The separate video-memory project is deferred.
 
-The subsequent requested visual update adds articulated birds and a dropped-baggage
-incident to the extended guided story. It leaves the three scored lessons unchanged.
-Use the [supplemental clip guide](INCIDENT_DEMO_SUPPLEMENT.txt) for these additions;
-the original full recording and its timestamps remain historical evidence.
-The new 9:42 combined edit keeps the original stand, flight, fire and Sources
-footage, replaces the bird window and inserts the baggage clip. Title cards
-identify separate captures. See [Person 2’s updated script](PERSON2_SCRIPT.txt)
-and the [edit record](../../outputs/checkpoint1/combined-demo-edit.json).
-Person 1’s spoken script remains unchanged. The combined edit is silent footage
-for narration; it is not a new uninterrupted acceptance run.
+The presentation uses distinct scenarios, with time scaling within each case.
+Routine operational disruptions anchor the scored lessons; wildlife, dropped
+baggage, aircraft–vehicle contact, stand fire and a damaging emergency landing
+provide separate demonstrations of evidence and restrictions. The emergency cases
+are not presented as probable events in one airport hour. Geometry, response
+intervals and incident physics remain authored illustrations. Heathrow sources
+support the hazard categories; they do not establish our timings or probabilities.
+
+The [16:18 scenario and weather edit](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view?usp=drivesdk) includes Person 1's supplied audio, aligned with the learner
+flow, stand-availability answers and Sources. Person 2's section awaits narration.
+[Person 2's script](PERSON2_SCRIPT.txt) and the [two-person plan](TEAM_RECORDING_PLAN.txt)
+identify the separate cases. The original 8:27, 9:42 and 13:25 pre-weather recordings are preserved. Rain, snowfall and late-afternoon → dusk → night appear as separate environment previews in Person 2’s section.
+The edit uses selected captures; the driver retains a shared source timeline, and
+chapter cuts do not create independent acceptance runs or reset evidence clocks.
+
+Heathrow's AI-assisted digital-tower trials provide relevant motivation for the
+next research stage. NATS describes testing, and Searidge describes camera-based
+monitoring of aircraft and runway thresholds to assist people. ApronLens currently
+answers from reports. Checkpoint 2 will test whether images add reliable evidence;
+Checkpoint 3 will evaluate the integrated experience and failures. See the
+[primary-source design notes](../HEATHROW_SCENARIO_BASIS.txt). Rain, snowfall and late-afternoon → dusk → night are implemented as visual conditions on the external source clock. Operational weather decisions, de-icing and visual-evidence evaluation remain Checkpoint 2 work; integrated condition testing belongs to Checkpoint 3. The current dusk profile is one source hour, not a full 24-hour solar cycle. See the [implementation docket](IMPLEMENTATION_DOCKET.md).
 
 The learner-facing header is simply APRONLENS followed by the exercise title.
 Controller situational awareness describes the learning objective in developer
@@ -23,9 +34,11 @@ and course documentation; it is not a role selector or a label in the header.
 
 The current preview ran in the iOS Simulator on Apple Silicon. The fictional
 Heathrow-informed environment includes an occupied stand, paved turns, a local
-takeoff/landing circuit, wildlife and a separate stand fire. This recording does
+takeoff/landing circuit, wildlife, dropped baggage, ground contact and separate emergency examples. This recording does
 not establish physical-device AR tracking, accurate Heathrow geometry or
 professional training competence.
+
+ApronLens is positioned as portable scenario practice and review for learners, not an operational control workstation. The phone suits a focused flight/report/checkpoint task; a tablet or larger display is the recommended format for a broader traffic overview. This is a design recommendation, not a completed controller-usability finding. Checkpoint 3 should compare phone and larger-screen use with representative learners. See the [mobile-training source note](../HEATHROW_SCENARIO_BASIS.txt).
 
 ## Evidence and presentation
 
@@ -59,8 +72,22 @@ Six accepted demo answers are not a model benchmark.
 
 The saved 8:27 recording is an unscored guided demonstration with five automatic
 questions and one manual post-containment question. The short learner profile
-has three scored checkpoints and ends at 3:30 of source time. A fresh extended
-demo now includes seven automatic questions after the baggage addition.
+has three scored checkpoints and ends at 3:30 of source time. The extended
+driver now includes eleven automatic questions, including four collision/landing
+questions. The three scored lessons remain unchanged.
+
+- [Collision and landing acceptance](../../outputs/checkpoint1/accident-acceptance.json):
+  229 backend tests, 60 Unity checks, native build/install and two targeted landscape
+  recordings with four actual accepted answers (10.203–17.736 seconds). An earlier
+  cold-model request exceeded the app timeout; its failure is retained. These checks
+  do not replace the earlier full-hour or three-lesson acceptance records.
+- [Current video edit record](../../outputs/checkpoint1/scenario-demo-edit.json):
+  source cuts, Person 1 audio identity, separate scenario cards and verification.
+
+- [Weather acceptance](../../outputs/checkpoint1/weather-acceptance.json): 231 backend tests, 69 Unity checks, native build and rain/snow/dusk captures. Visual changes follow source time; they do not alter aircraft performance or create operational evidence. The private 30× capture profile suppresses question/teaching pauses and adds no new model-response acceptance claims.
+- [Weather video edit](../../outputs/checkpoint1/weather-demo-edit.json): appended clips, source windows and preserved Person 1 audio.
+
+The in-app “Allow 3–5 minutes” estimate has been removed, and the elapsed clock is labelled “Scenario”. Guided/full-hour profiles still span 3,600 source seconds; short scored practice still spans 210 source seconds with question/review pauses.
 
 ## Try the source without model weights
 
@@ -92,6 +119,8 @@ python3.12 -m venv .venv-candidates
 .venv-candidates/bin/python -m backbone.download --model qwen3.5-9b
 .venv-candidates/bin/python -m backend.training --exercise late_arrival --mode demo --seed 17
 ```
+
+Add `--environment rain`, `--environment snow` or `--environment dusk` to the launch command; the default is clear daytime. The driver supplies the visual timeline and Unity renders it at the same source time as movement and reports.
 
 The model loads before readiness on port 8767. Each host generates its own local
 token in the ignored work directory. Use one training service at a time. For
@@ -147,6 +176,6 @@ Record a fresh guided run using a new filename:
 ## Submission boundary
 
 The owner supplied the assignment wording; see [requirement status](CHECKPOINT1_ASSIGNMENT_STATUS.md).
-The required team video, blank Coordination/Meetings sections and physical-phone
-verification remain outstanding. No video duration was specified in the supplied
+The video now contains Person 1’s supplied narration; Person 2’s narration, the
+blank Coordination/Meetings sections and physical-phone verification remain outstanding. No video duration was specified in the supplied
 wording. No course submission or instructor approval is implied by this snapshot.

@@ -8,13 +8,16 @@ import threading
 import time
 
 from backend.lessons import EXERCISES, TITLES, OBJECTIVES, build_lesson
+from backend.training_environment import attach_environment, ENVIRONMENTS
 from evidencekit import SourceRecord, check_references
 
 class ActionConflict(ValueError): pass
 
 class TrainingSession:
-    def __init__(self, seed, exercise='surface_conflict', mode='lesson', clock=time.monotonic, audit_path=None):
+    def __init__(self, seed, exercise='surface_conflict', mode='lesson', clock=time.monotonic, audit_path=None, environment='clear'):
         if mode not in ('lesson','continuous','demo'): raise ValueError('Unknown training mode')
+        if environment not in ENVIRONMENTS: raise ValueError('Unknown environment')
+        self.environment=environment
         self.seed=seed;self.exercise=exercise;self.mode=mode;self.clock=clock
         self.audit_path=Path(audit_path) if audit_path else None
         self.lock=threading.RLock();self.transitions={};self._reset()
@@ -23,6 +26,7 @@ class TrainingSession:
         self.run_id=secrets.token_hex(10);self.revision=0;self.source_time=0.;self.last_wall=self.clock()
         self.started_wall=self.last_wall;self.phase='briefing' if self.mode=='lesson' else 'practice'
         self.scenario,self.reservations,self.probes=build_lesson(self.seed,self.exercise)
+        attach_environment(self.scenario,self.environment)
         self.demo_probes=sorted(self.probes+self.scenario.get('demoQuestions',[]),key=lambda p:p['at'])
         self.scenario['scenarioId']='LESSON-'+self.run_id
         self.records=[SourceRecord(self.scenario['scenarioId'],e['id'],e['eventTime'],e['receiptTime'],'report')
@@ -33,7 +37,7 @@ class TrainingSession:
             check_references(probe['evidenceIds'],self.records,self.scenario['scenarioId'],probe['at'])
         self.answers=[];self.actions={};self.active_probe=0;self.demo_index=0;self.cue=None
         self.assistant_pending={};self.read_until=0.;self.last_rate=None
-        self._log('start',seed=self.seed,exercise=self.exercise,mode=self.mode,
+        self._log('start',seed=self.seed,exercise=self.exercise,mode=self.mode,environment=self.environment,
                   worldHash=hashlib.sha256(json.dumps({k:v for k,v in self.scenario.items() if k!='scenarioId'},sort_keys=True).encode()).hexdigest())
 
     def _log(self, event, **values):
@@ -138,7 +142,8 @@ class TrainingSession:
             focus=next((f for f in self.scenario.get('flightShowcases',[]) if f['start']<=self.source_time<f['end']),None)
             result['spotlightId']=focus['id'] if focus and self.mode=='demo' else ''
             result['spotlightAircraft']=focus['aircraftId'] if focus and self.mode=='demo' else ''
-            stages=self.scenario['aircraft'][0].get('phases',[])
+            focused=next((a for a in self.scenario['aircraft'] if focus and a['id']==focus['aircraftId']),self.scenario['aircraft'][0])
+            stages=focused.get('phases',[])
             current=[p for p in stages if p['t']<=self.source_time]
             result['flightPhase']=current[-1]['id'] if current else ''
             return result

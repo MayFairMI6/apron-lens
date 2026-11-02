@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 namespace SurfaceSafety {
-    [Serializable] public class Waypoint { public float t, x, y, z,pitch,heading; public bool reverse,gearRetracted; }
+    [Serializable] public class Waypoint { public float t, x, y, z,pitch,heading,roll,bodySink; public bool reverse,gearRetracted; }
     [Serializable] public class FlightPhase {public float t;public string id,label;}
     [Serializable] public class RunwayPlan {public string id;public float x,z,length,width;}
     [Serializable] public class TaxiPoint {public float x,z;}
@@ -49,6 +49,7 @@ namespace SurfaceSafety {
     // board coordinates. Rendered and captured like the rest of the scene.
     [Serializable] public class Occluder { public string id; public float x, z, width, depth, height; }
     [Serializable] public class Scenario {
+        public TrainingEnvironment environment;
         public const int MaxAircraft = 4;
         public string scenarioId;
         public string trainingRole, trainingRoleLabel, trainingObjective;
@@ -124,6 +125,8 @@ namespace SurfaceSafety {
                     var w=a.waypoints[i];
                     if (float.IsNaN(w.t) || float.IsNaN(w.x) || float.IsNaN(w.y) || float.IsNaN(w.z) ||
                         float.IsInfinity(w.t) || float.IsInfinity(w.x) || float.IsInfinity(w.y) || float.IsInfinity(w.z) || w.y<0 || float.IsNaN(w.heading)||float.IsInfinity(w.heading) || float.IsNaN(w.pitch)||float.IsInfinity(w.pitch)||Mathf.Abs(w.pitch)>30 ||
+                        float.IsNaN(w.roll)||float.IsInfinity(w.roll)||Mathf.Abs(w.roll)>30 ||
+                        float.IsNaN(w.bodySink)||float.IsInfinity(w.bodySink)||w.bodySink<0||w.bodySink>.005f ||
                         w.t < 0 || w.t > duration || (i>0 && w.t <= a.waypoints[i-1].t))
                         throw new ArgumentException("Invalid waypoint/time order.");
                 }
@@ -140,7 +143,7 @@ namespace SurfaceSafety {
                     string.IsNullOrEmpty(e.id) || string.IsNullOrEmpty(e.source) ||
                     !owner.TryGetValue(e.flightInstance ?? "", out var flightOwner) || flightOwner != e.aircraftId)
                     throw new ArgumentException("Invalid event identity or timestamps, or the flight is not its aircraft's.");
-            ValidateProps();
+            ValidateProps();TrainingWeather.Validate(environment,duration);
             if (occluders != null)
                 foreach (var o in occluders)
                     if (string.IsNullOrEmpty(o.id) || o.width <= 0 || o.depth <= 0 || o.height <= 0 ||
@@ -182,6 +185,14 @@ namespace SurfaceSafety {
             var ws=a.waypoints;if(t<=ws[0].t)return ws[0].pitch;
             for(int i=1;i<ws.Length;i++)if(t<=ws[i].t)return Mathf.Lerp(ws[i-1].pitch,ws[i].pitch,(t-ws[i-1].t)/(ws[i].t-ws[i-1].t));
             return ws[ws.Length-1].pitch;
+        }
+        public static float Roll(AircraftPlan a,float t)=>Attitude(a,t,false);
+        public static float BodySink(AircraftPlan a,float t)=>Attitude(a,t,true);
+        static float Attitude(AircraftPlan a,float t,bool sink){
+            var ws=a.waypoints;System.Func<Waypoint,float> value=w=>sink?w.bodySink:w.roll;
+            if(t<=ws[0].t)return value(ws[0]);
+            for(int i=1;i<ws.Length;i++)if(t<=ws[i].t)return Mathf.Lerp(value(ws[i-1]),value(ws[i]),(t-ws[i-1].t)/(ws[i].t-ws[i-1].t));
+            return value(ws[ws.Length-1]);
         }
     }
     public class ReplayClock {

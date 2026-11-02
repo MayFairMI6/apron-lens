@@ -43,9 +43,10 @@ class FlightCycleTests(unittest.TestCase):
         for window in s.scenario['flightTeachingWindows']:
             s.source_time=window['start'];s.last_wall=now[0];s.demo_index=3;s.cue=None;s.read_until=0
             state=s.state();self.assertEqual(state['rate'],1)
-            self.assertEqual(state['spotlightAircraft'],'A2' if state['spotlightId']=='baggage-incident' else 'A1')
+            expected={'baggage-incident':'A2','vehicle-collision':'A2','crash-landing':'A3'}
+            self.assertEqual(state['spotlightAircraft'],expected.get(state['spotlightId'],'A1'))
             self.assertLessEqual(state['nextBoundary'],window['end'])
-        s.source_time=2000;s.last_wall=now[0]
+        s.source_time=3500;s.last_wall=now[0]
         self.assertEqual(s.state()['spotlightAircraft'],'')
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,320 @@
+{
+  "video": "apronlens-scenarios-person1-audio.mp4",
+  "durationSeconds": 804.6,
+  "bytes": 79691135,
+  "sha256": "2a9d2ca4b973089cf9430993022873f970aeea5a16e21918db041208a0ef9fae",
+  "width": 2622,
+  "height": 1206,
+  "segments": [
+    {
+      "file": "person1.mp4",
+      "outputEnd": 2,
+      "outputStart": 0,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Person 1"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 15.92,
+      "outputStart": 2,
+      "sourceEnd": 13.92,
+      "sourceStart": 0,
+      "title": "recorded app"
+    },
+    {
+      "file": "lessons.mp4",
+      "outputEnd": 28.42,
+      "outputStart": 15.92,
+      "sourceEnd": 12.5,
+      "sourceStart": 0,
+      "title": "Three practice lessons"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 39.38,
+      "outputStart": 28.42,
+      "sourceEnd": 16.96,
+      "sourceStart": 6,
+      "title": "recorded app"
+    },
+    {
+      "file": "learning-flow.mp4",
+      "outputEnd": 54.913333333333334,
+      "outputStart": 39.38,
+      "sourceEnd": 15.533333333333333,
+      "sourceStart": 0,
+      "title": "Briefing \u2192 Practice \u2192 Checkpoints \u2192 Debrief"
+    },
+    {
+      "file": "saved-debrief.mp4",
+      "outputEnd": 62.31333333333333,
+      "outputStart": 54.913333333333334,
+      "sourceEnd": 7.4,
+      "sourceStart": 0,
+      "title": "Saved learner-mode debrief \u00b7 Earlier build"
+    },
+    {
+      "file": "stand.mp4",
+      "outputEnd": 64.91333333333333,
+      "outputStart": 62.31333333333333,
+      "sourceEnd": 2.6,
+      "sourceStart": 0,
+      "title": "Scenario 1 \u00b7 Occupied arrival stand"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 81.49333333333334,
+      "outputStart": 64.91333333333333,
+      "sourceEnd": 68.08,
+      "sourceStart": 51.5,
+      "title": "recorded app"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 97.31333333333333,
+      "outputStart": 81.49333333333334,
+      "sourceEnd": 99.82,
+      "sourceStart": 84,
+      "title": "recorded app"
+    },
+    {
+      "file": "sources.mp4",
+      "outputEnd": 99.31333333333333,
+      "outputStart": 97.31333333333333,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Sources"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 110.47333333333333,
+      "outputStart": 99.31333333333333,
+      "sourceEnd": 392.16,
+      "sourceStart": 381,
+      "title": "recorded app"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 132.89333333333335,
+      "outputStart": 110.47333333333333,
+      "sourceEnd": 106.42,
+      "sourceStart": 84,
+      "title": "recorded app"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 139.95465,
+      "outputStart": 132.89333333333335,
+      "sourceEnd": 22.061333333333,
+      "sourceStart": 15,
+      "title": "recorded app"
+    },
+    {
+      "file": "person2.mp4",
+      "outputEnd": 142.95465,
+      "outputStart": 139.95465,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Person 2"
+    },
+    {
+      "file": "driver.mp4",
+      "outputEnd": 160.95465,
+      "outputStart": 142.95465,
+      "sourceEnd": 18,
+      "sourceStart": 0,
+      "title": "An external service drives the scene"
+    },
+    {
+      "file": "birds.mp4",
+      "outputEnd": 163.95465,
+      "outputStart": 160.95465,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 2 \u00b7 Runway wildlife"
+    },
+    {
+      "file": "apronlens-landscape-birds.mp4",
+      "outputEnd": 198.00796666666668,
+      "outputStart": 163.95465,
+      "sourceEnd": 36.053333333333,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "file": "flight.mp4",
+      "outputEnd": 201.00796666666668,
+      "outputStart": 198.00796666666668,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Flight movement"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 275.0079666666667,
+      "outputStart": 201.00796666666668,
+      "sourceEnd": 220,
+      "sourceStart": 146,
+      "title": "recorded app"
+    },
+    {
+      "file": "approach.mp4",
+      "outputEnd": 277.0079666666667,
+      "outputStart": 275.0079666666667,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Return approach"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 340.0079666666667,
+      "outputStart": 277.0079666666667,
+      "sourceEnd": 323,
+      "sourceStart": 260,
+      "title": "recorded app"
+    },
+    {
+      "file": "bags.mp4",
+      "outputEnd": 343.0079666666667,
+      "outputStart": 340.0079666666667,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 3 \u00b7 Dropped baggage"
+    },
+    {
+      "file": "apronlens-landscape-baggage.mp4",
+      "outputEnd": 419.7296333333333,
+      "outputStart": 343.0079666666667,
+      "sourceEnd": 78.72166666666666,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "file": "vehicle.mp4",
+      "outputEnd": 422.7296333333333,
+      "outputStart": 419.7296333333333,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 4 \u00b7 Aircraft\u2013vehicle contact"
+    },
+    {
+      "file": "apronlens-vehicle-collision.mp4",
+      "outputEnd": 514.42295,
+      "outputStart": 422.7296333333333,
+      "sourceEnd": 92.693333333333,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "fire.mp4",
+      "outputEnd": 517.42295,
+      "outputStart": 514.42295,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 5 \u00b7 Fire at the stand"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 556.42295,
+      "outputStart": 517.42295,
+      "sourceEnd": 365,
+      "sourceStart": 326,
+      "title": "recorded app"
+    },
+    {
+      "file": "contained.mp4",
+      "outputEnd": 558.42295,
+      "outputStart": 556.42295,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later update"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 591.42295,
+      "outputStart": 558.42295,
+      "sourceEnd": 423,
+      "sourceStart": 390,
+      "title": "recorded app"
+    },
+    {
+      "file": "landing.mp4",
+      "outputEnd": 594.42295,
+      "outputStart": 591.42295,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 6 \u00b7 Damaging emergency landing"
+    },
+    {
+      "file": "apronlens-crash-landing.mp4",
+      "outputEnd": 724.5812666666667,
+      "outputStart": 594.42295,
+      "sourceEnd": 131.158333333333,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "evaluation.mp4",
+      "outputEnd": 756.5812666666667,
+      "outputStart": 724.5812666666667,
+      "sourceEnd": 32,
+      "sourceStart": 0,
+      "title": "Earlier frozen Milestone 1 evaluation"
+    },
+    {
+      "file": "heathrow-ai.mp4",
+      "outputEnd": 786.5812666666667,
+      "outputStart": 756.5812666666667,
+      "sourceEnd": 30,
+      "sourceStart": 0,
+      "title": "Why visual evidence comes next"
+    },
+    {
+      "file": "next.mp4",
+      "outputEnd": 804.5812666666667,
+      "outputStart": 786.5812666666667,
+      "sourceEnd": 18,
+      "sourceStart": 0,
+      "title": "Next checkpoints"
+    }
+  ],
+  "audio": {
+    "person": "Person 1",
+    "originalFile": "Audio Message 4.m4a",
+    "originalSHA256": "757c12235038967ce6990377b73c2236e9d763c42c5c4df45fc9f7961b6db312",
+    "speechStartsAtSeconds": 2,
+    "originalDurationSeconds": 137.98133333333334,
+    "decodedComparedSeconds": 137.98,
+    "decodedCorrelation": 0.9999999999999978,
+    "decodedRmsError": 9.679846257881763e-09,
+    "spokenEdits": false,
+    "syntheticVoice": false,
+    "note": "Original speech preserved. AAC container/priming samples differ; compared decoded speech matches to floating-point tolerance."
+  },
+  "person2Narration": "pending",
+  "presentation": "Distinct time-scaled scenarios, selected recorded excerpts; source clock and evidence cutoffs retained from shared driver.",
+  "newUninterruptedAcceptanceRun": false,
+  "visualVerification": [
+    "Native excerpts maintain landscape orientation and readable answer panels",
+    "Sources excerpt labelled separately from stand-availability scenario",
+    "Saved learner debrief is labelled earlier build; no implied new scored run",
+    "Distinct scenario title cards",
+    "Collision/contact and stopped aircraft visible",
+    "Landing approach, rollout and continued runway closure visible",
+    "Fixed clipped saved-debrief title and inspected corrected final export"
+  ],
+  "acceptanceReferences": [
+    "heathrow-acceptance.json",
+    "native-ios-rerun.json",
+    "incident-acceptance.json",
+    "accident-acceptance.json"
+  ],
+  "sources": {
+    "apronlens-crash-landing.mp4": "c7701717d9c47dec693375551697129c5dccc7b630c75bf6eaf1cff8400b2ca0",
+    "apronlens-heathrow-informed-demo.mp4": "b2a2442dd4bae076d50b1279467c4e324fdcb5807daffba9bf34f60b047f063c",
+    "apronlens-landscape-baggage.mp4": "2d9fb2f3ed5b931e11c0afa59900830c562f854ad43ae29b80cc2dacd86ad399",
+    "apronlens-landscape-birds.mp4": "e5baa8235d17db2aacd8eb52bac30d029348bed5a5dcafbf604d2327527833cf",
+    "apronlens-vehicle-collision.mp4": "562ad2f6b63c2680741808fd56334eb28e16f7ccfd81c3ae13c3324d87fe337f"
+  }
+}

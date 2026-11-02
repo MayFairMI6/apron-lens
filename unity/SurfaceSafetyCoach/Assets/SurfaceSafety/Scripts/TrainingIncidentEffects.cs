@@ -6,7 +6,7 @@ namespace SurfaceSafety {
     // These visuals are never promoted to assistant evidence.
     public class TrainingIncidentEffects : MonoBehaviour {
         StandReplay replay;Material particleMaterial;IncidentModels models;
-        class Effect {public TrainingIncident plan;public GameObject root;public readonly List<IncidentModels.BirdRig> birds=new List<IncidentModels.BirdRig>();public IncidentModels.BaggageRig baggage;public ParticleSystem flames,smoke;public float lastAge=-1;}
+        class Effect {public TrainingIncident plan;public GameObject root;public readonly List<IncidentModels.BirdRig> birds=new List<IncidentModels.BirdRig>();public IncidentModels.BaggageRig baggage;public IncidentModels.ResponseRig response;public AircraftPlan aircraft;public ParticleSystem flames,smoke;public float lastAge=-1;}
         readonly List<Effect> effects=new List<Effect>();
         public void Bind(StandReplay owner){
             replay=owner;models=new IncidentModels();
@@ -20,7 +20,12 @@ namespace SurfaceSafety {
                 e.root.transform.localPosition=new Vector3(plan.x,plan.y,plan.z);effects.Add(e);
                 if(plan.kind=="wildlife")for(int i=0;i<9;i++)e.birds.Add(models.Bird(e.root.transform,i));
                 else if(plan.kind=="baggage_spill")e.baggage=models.Baggage(e.root.transform);
-                else if(plan.kind=="engine_fire"){
+                else if(plan.kind=="vehicle_collision")e.response=models.Response(e.root.transform,false);
+                if(plan.kind=="crash_landing"){
+                    e.response=models.Response(e.root.transform,true);
+                    e.aircraft=System.Array.Find(owner.Data.aircraft,a=>a.id==plan.aircraftId);
+                }
+                if(plan.kind=="engine_fire"||plan.kind=="crash_landing"){
                     e.flames=Particles(e.root.transform,"Flames",new Color(1,.18f,.01f,.9f),new Color(1,.8f,.12f,0),.004f,.007f,1.2f,35);
                     e.smoke=Particles(e.root.transform,"Smoke",new Color(.12f,.13f,.14f,.65f),new Color(.24f,.25f,.27f,0),.008f,.008f,4.5f,12);
                 }
@@ -46,7 +51,16 @@ namespace SurfaceSafety {
                 float age=t-e.plan.start;
                 for(int i=0;i<e.birds.Count;i++)e.birds[i].Pose(age,i,e.plan.end-e.plan.start);
                 if(e.baggage!=null)e.baggage.Pose(t,e.plan);
+                if(e.response!=null)e.response.Pose(t,e.plan);
                 if(e.flames!=null){
+                    if(e.plan.kind=="crash_landing"){
+                        bool burning=t>=e.plan.onset+1&&t<e.plan.clearedAt;
+                        e.flames.gameObject.SetActive(burning);e.smoke.gameObject.SetActive(burning);
+                        if(!burning){e.lastAge=-1;continue;}
+                        age=t-e.plan.onset-1;
+                        var position=Scenario.Position(e.aircraft,t)-e.root.transform.localPosition+new Vector3(0,.003f,-.005f);
+                        e.flames.transform.localPosition=position;e.smoke.transform.localPosition=position;
+                    }
                     bool reset=e.lastAge<0||age<e.lastAge||age-e.lastAge>2;float dt=reset?age:age-e.lastAge;
                     if(reset){e.flames.Play(true);e.smoke.Play(true);}
                     e.flames.Simulate(dt,true,reset,false);e.smoke.Simulate(dt,true,reset,false);e.lastAge=age;

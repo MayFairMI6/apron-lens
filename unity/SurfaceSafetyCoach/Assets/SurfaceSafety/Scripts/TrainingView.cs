@@ -30,7 +30,7 @@ namespace SurfaceSafety {
     public class TrainingView : MonoBehaviour {
         public TrainingState State {get;private set;}
         public bool Connected {get;set;}=true;
-        StandReplay replay;ConversationClient assistant;Camera camera;
+        StandReplay replay;ConversationClient assistant;Camera camera;TrainingWeather weather;
         Canvas canvas;RectTransform root,side,tagRoot;Font font;
         Text title,subtitle,clockText,focusText,answerText,answerHeading,notice,motionText;
         GameObject runwayGeometry;TrainingIncidentEffects incidentEffects;string seenSpotlight="";bool followFlight;TrainingIncident focusIncident;
@@ -51,13 +51,14 @@ namespace SurfaceSafety {
             replay.UseTrainingPresentation();assistant.ExternalPresentation=true;assistant.DisplayChanged+=OnAnswer;
             var look=camera.GetComponent<SimulatorLook>();if(look!=null)look.enabled=false;
             camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.54f,.64f,.70f);
+            weather=camera.gameObject.AddComponent<TrainingWeather>();weather.Bind(replay,camera);
             font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             var go=new GameObject("Controller training",typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));
             go.transform.SetParent(transform,false);canvas=go.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=20;
             root=Box(go.transform,"Safe area",Vector2.zero,Vector2.one,Color.clear,false);
             camera.transform.rotation=Quaternion.Euler(48,0,0);
         }
-        void OnDestroy(){if(runwayGeometry!=null)Destroy(runwayGeometry);if(assistant!=null){assistant.DisplayChanged-=OnAnswer;assistant.ExternalPresentation=false;assistant.TrainingQuestionBlocked=false;}}
+        void OnDestroy(){if(weather!=null)Destroy(weather);if(runwayGeometry!=null)Destroy(runwayGeometry);if(assistant!=null){assistant.DisplayChanged-=OnAnswer;assistant.ExternalPresentation=false;assistant.TrainingQuestionBlocked=false;}}
         public void Apply(TrainingState state){
             if(state==null||string.IsNullOrEmpty(state.runId))return;
             if(State!=null&&State.runId==state.runId&&state.revision<State.revision)return;
@@ -79,10 +80,11 @@ namespace SurfaceSafety {
             if(spotlight!=seenSpotlight){seenSpotlight=spotlight;
                 if(spotlight!=""){
                     var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.spotlightAircraft);
-                    if(selected>=0){replay.SelectAircraft(selected);ground=false;Focus();distance=spotlight=="stand-incident"?95:190;}
-                    if(spotlight=="wildlife-detail"||spotlight=="baggage-incident"){
-                        focusIncident=Array.Find(replay.Data.incidents??new TrainingIncident[0],i=>i.kind==(spotlight=="wildlife-detail"?"wildlife":"baggage_spill"));
-                        followFlight=false;distance=spotlight=="wildlife-detail"?38:45;
+                    if(selected>=0){replay.SelectAircraft(selected);ground=false;Focus();distance=spotlight=="stand-incident"?95:spotlight=="crash-landing"?125:190;}
+                    if(spotlight=="wildlife-detail"||spotlight=="baggage-incident"||spotlight=="vehicle-collision"){
+                        var kind=spotlight=="wildlife-detail"?"wildlife":spotlight=="vehicle-collision"?"vehicle_collision":"baggage_spill";
+                        focusIncident=Array.Find(replay.Data.incidents??new TrainingIncident[0],i=>i.kind==kind);
+                        followFlight=false;distance=spotlight=="wildlife-detail"?38:spotlight=="vehicle-collision"?70:45;
                     }
                 }else{Overview();var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.targetAircraft);if(selected>=0)replay.SelectAircraft(selected);}
             }
@@ -114,14 +116,14 @@ namespace SurfaceSafety {
                 selection=replay.SelectedFlight;assistant.NewSession();messageStatus="";sources=false;history=false;if(input!=null)input.text="";
                 message="Ask about "+selection+" using the reports received so far.";RefreshAnswer();
             }
-            clockText.text=(State.mode=="demo"?"Guided demonstration":State.mode=="continuous"?"Continuous exercise":"Controller practice")+
-                "  ·  "+TimeSpan.FromSeconds(replay.Clock.Time).ToString(replay.Clock.Time>=3600?@"h\:mm\:ss":@"mm\:ss")+
+            clockText.text=(State.mode=="demo"?"Guided demonstration":State.mode=="continuous"?"Continuous exercise":"Practice")+
+                "  ·  Scenario "+TimeSpan.FromSeconds(replay.Clock.Time).ToString(replay.Clock.Time>=3600?@"h\:mm\:ss":@"mm\:ss")+
                 (State.rate>1?"  ·  Time-lapse · "+State.rate.ToString("0")+"×":"");
             if(focusText!=null)focusText.text="SELECTED FLIGHT  /  "+replay.SelectedFlight;
             if(motionText!=null){var phase=SelectedPlane.PhaseAt(replay.Clock.Time);
                 var altitude=Scenario.Position(SelectedPlane,replay.Clock.Time).y*WorldArBootstrap.MetresPerBoardUnit;
                 motionText.text=phase==null?"APRON  ·  Ground routes":replay.SelectedFlight+"  ·  "+phase.label+"  ·  "+altitude.ToString("0")+" m  ·  "+Scenario.Heading(SelectedPlane,replay.Clock.Time).ToString("000")+"°";}
-            if(notice!=null)notice.text=!Connected?"Connection interrupted · waiting for the exercise service":actionBusy?"Updating exercise…":"";
+            if(notice!=null)notice.text=!Connected?"Connection interrupted · waiting for the exercise service":actionBusy?"Updating exercise…":weather!=null?weather.ConditionLabel:"";
             if(askButton!=null)askButton.interactable=Connected&&!assistant.Busy&&!assistant.TrainingQuestionBlocked;
             if(history)RefreshAnswer();
             MoveCamera();UpdateTags();
@@ -166,7 +168,7 @@ namespace SurfaceSafety {
             var card=Box(root,"Lesson card",new Vector2(landscape?.22f:.045f,.075f),new Vector2(landscape?.78f:.955f,.81f),panel);
             if(State.phase=="briefing"){
                 Label(card,"YOUR BRIEFING",new Vector2(.05f,.83f),new Vector2(.95f,.94f),22,teal);
-                ScrollText(card,State.objective+"\n\nWatch the aircraft, follow reports and ask the assistant.\n\nThree questions pause the scene. Answer, then review the evidence.\n\nAllow 3–5 minutes, plus review time.",new Vector2(.05f,.23f),new Vector2(.95f,.79f),landscape?25:29,out _);
+                ScrollText(card,State.objective+"\n\nWatch the aircraft, follow reports and ask the assistant.\n\nThree questions pause the scene. Answer, then review the evidence.\n\nYour answers and review set the pace.",new Vector2(.05f,.23f),new Vector2(.95f,.79f),landscape?25:29,out _);
                 Button(card,"Ready",new Vector2(.05f,.06f),new Vector2(.95f,.18f),()=>SendAction("ready"),true);
             }else if(State.phase=="checkpoint"){
                 var p=State.checkpoint;

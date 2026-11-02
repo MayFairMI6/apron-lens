@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "scope": "Native visual environment extension; not a new full-hour lesson or assistant acceptance run",
+  "backendTests": 231,
+  "unityChecks": {
+    "conversation": 12,
+    "incident": 17,
+    "flight": 17,
+    "weather": 9,
+    "traffic": 14
+  },
+  "nativeBuild": "Unity iOS export and Xcode Debug iphonesimulator passed",
+  "device": "Apple Silicon iPhone 18 Pro / iOS 27.0 Simulator",
+  "physicalPhoneVerified": false,
+  "visualChecks": [
+    "rain streaks",
+    "snowflakes",
+    "late-afternoon/dusk/night lighting",
+    "landscape and upright portrait layout",
+    "scenario clock labelled; 3\u20135 minute estimate removed"
+  ],
+  "sourceClock": "Driver frames; client interpolation and particle positions use replay source time. Same-time pause and normal/accelerated frame identity checked.",
+  "operationalWeatherEffects": false,
+  "full24HourCycle": false,
+  "sourceHashes": {
+    "backend/training_environment.py": "8920bc376df66006279c6944506c8e53971f1210f36cebd2316c882c1318aba0",
+    "backend/training.py": "a7d67e574099d40dcf42ddc8efabdba1eefbc0b46c6107dfaf3142edca3abf66",
+    "backend/training_session.py": "11e0e2acc25dec824e2f8c4f0cfed501b0b9903a0686db692e733696c1a045e1",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingWeather.cs": "4a26ca29839c8fb1a6a14181e6c2239d70bdf08f27f30bdd5380a0cd7f7217de",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "b33a8ef4f1670691498db01d81fed57a37143385100a0b4a9559983dbc46ff23",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/WeatherVerification.cs": "d468816d6aa9b986c094a37a8f519948d2c0a9d91cb1e323919d801744e1fa0b",
+    "tests/test_training_environment.py": "11ad0b8f9e2d274ff2d5cfb08358cd96f7b9b93ea8f373b217971430f52618f8"
+  },
+  "captures": [
+    {
+      "kind": "rain",
+      "sourceStart": 600,
+      "sourceEnd": 1268.3204900100009,
+      "movie": "apronlens-environment-rain.mp4",
+      "sha256": "111cdfb24cc086b5ad2142e56af21d5af13502b14de940bcb82d4575a916f390",
+      "profile": "Visual-only 30x source clock; demo questions and teaching windows disabled in private recording harness."
+    },
+    {
+      "kind": "snow",
+      "sourceStart": 600,
+      "sourceEnd": 1261.498222500013,
+      "movie": "apronlens-environment-snow.mp4",
+      "sha256": "06180484ca31c3fb448befc0ab7d226fef4b42a4294604dbc624e173adcfb75e",
+      "profile": "Visual-only 30x source clock; demo questions and teaching windows disabled in private recording harness."
+    },
+    {
+      "kind": "dusk",
+      "sourceStart": 0,
+      "sourceEnd": 3598.293104999939,
+      "movie": "apronlens-environment-dusk.mp4",
+      "sha256": "d2bf184a72a4f7a913b351d351bc7f6e648df3ddaf65ee68736391ddf281664a",
+      "profile": "Visual-only 30x source clock; demo questions and teaching windows disabled in private recording harness."
+    }
+  ],
+  "screenshots": {
+    "apronlens-rain.png": "4aa91dec1543f639460e9ccb62cd2198245062d0f433cf2df07348bd384b5fe0",
+    "apronlens-snow.png": "6bd6f6fc6306894331f70d60885946a5ef35cca92bdf30752853458413631b89",
+    "apronlens-daylight.png": "61d6337935b52e903174e6fbf6c25bde5db637b5ace37d2365005e3755eb840e",
+    "apronlens-dusk.png": "60a2002b9bf3f0859498a070dc639d978d91a2f809828fcb400ea3109f1567db",
+    "apronlens-night.png": "9567f63cd5343844acddca19923f68a7046411575d351593793b2f22a56ee3c0",
+    "apronlens-weather-portrait-check.png": "1159de07b1762e5d1c72266f3edfc9542fb8910e39de3a55450d4306a3183505",
+    "apronlens-duration-briefing.png": "db3df2b93a0087b20d3feffc6348c60940048738fafe2b830b1de2dd334468b5"
+  },
+  "verificationFailures": [
+    {
+      "stage": "first native validation",
+      "failure": "Unity JsonUtility materialized an omitted environment as an empty version-0 object; strict validation rejected a legacy fixture.",
+      "resolution": "Treat only a completely empty version-0 optional object as absent; explicit regression added; subsequent 69 checks and native builds passed."
+    }
+  ],
+  "earlierAssistantEvidence": "accident-acceptance.json retains four accepted real-model responses and the cold-model timeout; these visual-only clips add no new assistant acceptance claims."
+}

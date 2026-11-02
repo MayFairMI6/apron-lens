@@ -18,10 +18,14 @@ aircraft. A local external service owns time and offers a short lesson, a normal
 or a guided 30× demonstration that slows for teaching moments and actual assistant responses.
 Models, baselines and playback controls are absent from the learner interface. Earlier
 turnaround/printed-board builds and frozen research results remain historical baselines.
-The longer guided story includes a reported runway wildlife hold, takeoff and landing,
-measured paved taxi turns, a separate engine fire after parking and a dropped-baggage
-incident with distinct recovery and movement-release reports. The bird flock and baggage
-cart use original animated 3D models. Aircraft movements,
+The presentation separates time-scaled scenarios: a reported runway wildlife hold,
+takeoff and landing, dropped baggage, aircraft–vehicle contact, a stand fire and a
+damaging emergency landing. Paved taxi turns use measured geometry. Report updates
+distinguish cleanup or containment from inspection and movement release. These are
+individual teaching examples, not a probable chain of events in one airport hour.
+The driver retains one authored source timeline for the recorded excerpts; chapter
+cuts do not establish independent acceptance runs. The bird flock, baggage cart and
+response vehicles use original animated 3D models. Aircraft movements,
 visual incidents and their reports follow the same external clock. Heathrow/CAA publications
 inform the reporting distinctions; the layout and event timings remain fictional.
 See [training setup and limits](docs/TRAINING_DRIVER.md) and the
@@ -265,3 +269,5 @@ tokens, local runtime logs and APK binaries are excluded from Git history.
 The APK is distributed through Releases. Vuforia/Unity and Qwen retain their
 own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). No open-source
 license has yet been selected for the original project code.
+
+The immediate Checkpoint 1 environment extension adds external-clock rain, snowfall and late-afternoon → dusk → night visuals. Use `--environment rain`, `snow` or `dusk` with `backend.training`; default clear daytime is preserved. These are visual conditions, not aircraft-performance or operational weather models. See [implementation docket](docs/course/IMPLEMENTATION_DOCKET.md) and [weather acceptance](outputs/checkpoint1/weather-acceptance.json).

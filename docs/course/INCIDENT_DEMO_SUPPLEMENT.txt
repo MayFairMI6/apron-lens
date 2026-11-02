@@ -1,3 +1,5 @@
+Current presentation: use TEAM_RECORDING_PLAN.txt and PERSON2_SCRIPT.txt for the approximately 13:25 scenario edit with Person 1 audio. It adds distinct collision/landing cases and uses landscape captures. The portrait supplement and 9:42 combined edit below remain historical source material.
+
 ApronLens: birds and baggage recording supplement
 
 These two short clips were recorded from the updated native iOS Simulator app. They supplement the original 8:27 guided video; its timings and two-person narration plan remain usable. The new clips are portrait recordings. Keep the whole phone view visible when editing so the selected flight, report cutoff and answer remain readable.

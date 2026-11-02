@@ -87,10 +87,10 @@ class GroundIncidentTests(unittest.TestCase):
 
     def test_extra_demo_questions_target_correct_flight_without_changing_scored_questions(self):
         s=TrainingSession(17,'late_arrival','demo',clock=lambda:0)
-        self.assertEqual(len(s.probes),3);self.assertEqual(len(s.demo_probes),7)
+        self.assertEqual(len(s.probes),3);self.assertEqual(len(s.demo_probes),11)
         for i,p in enumerate(s.demo_probes[3:],3):
             s.demo_index=i;s.source_time=p['at'];s._arrive(0)
-            self.assertEqual(s.cue['aircraftId'],'A1' if i<5 else 'A2');self.assertEqual(s.cue['status'],'pending')
+            self.assertEqual(s.cue['aircraftId'],'A1' if i<5 else 'A2' if i<9 else 'A3');self.assertEqual(s.cue['status'],'pending')
             self.assertLess(p['at'],s.scenario['duration'])
 
     def test_dropped_load_is_after_lessons_and_reserves_aircraft_until_cart_clears(self):

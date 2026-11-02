@@ -1,0 +1,249 @@
+{
+  "change": "Aircraft\u2013vehicle contact and damaging-landing demonstrations",
+  "baseCommit": "1292b988d40ec07f981efd14381847031c992850",
+  "sourceSha256": {
+    "backend/lessons.py": "5479121fe6f08c5026f137889c09636e13d0f02cbc8c36a962d2d2c2d9fedfa4",
+    "backend/training_session.py": "0726ed480918095db3fed1ca4b98f0f9f1486ec482bda9e92d0527dee6e1ac8f",
+    "tests/test_flight_cycle.py": "a2943e4b4fcb9c706f87fd240d39006b184280c7e941d8bbb6b01d245cddfab4",
+    "tests/test_ground_incidents.py": "32d26b0c3c086325efd4d5e027219cc1976876b529d46e98a7710a1d1f284a96",
+    "tests/test_training_session.py": "37996fdc077a64a696754a26d72fdcc8bc2bc97a2b2af3f0df262dee22dff7f7",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/IncidentVisualVerification.cs": "048e7f959dc8957039dc8dfd43c1cbf51dfd7d0f92347769372bc333822532d7",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/TrafficVerification.cs": "c0c62c41f7e22bdfcb5df15001800c15e751b7bf4b2aa0c98959f081e595bd94",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/IncidentModels.cs": "cdf58937c760a999c35edc56d09fdd56e12aeb28444a385cbe0750603a9c6d1e",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "bf8175b2f4971ed9a8cbf0b3537577426953fdc7d8bf73eb89594e67976e6679",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/StandReplay.cs": "4e4d9d50f783ec587c0286e039ff569b76da0270397ba0a4da7d5d07242b111c",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingIncidentEffects.cs": "7c19e2fb0ec484597a07dbb991b0c3723f3cdb749267291f7840d21b51ba0e27",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "2ec21d8b35570d7f89060270fe95db01980a2c52b00e1813c84497d1c0013fe3",
+    "backend/accident_scenarios.py": "1e6d5d3121e10df29e5292a1b1c8b0d8ce7407180aff92a282610ff2d71b8a51",
+    "tests/test_accident_scenarios.py": "2a0a428004fb586c0701daf66d89c58fa63ee936d7019cbb8c48229b97e01e9a"
+  },
+  "checks": {
+    "backendTests": 229,
+    "unity": {
+      "conversation": 12,
+      "incidentVisual": 17,
+      "flight": 17,
+      "traffic": 14
+    },
+    "seededWorlds": 60,
+    "researchIntegrity": "passed: 160 result records",
+    "backboneBoundary": "passed",
+    "nativeSimulatorBuild": "passed",
+    "nativeInstallLaunch": "passed"
+  },
+  "runtime": {
+    "platform": "native iOS Simulator",
+    "device": "iPhone 18 Pro",
+    "ios": "27.0",
+    "architecture": "Apple Silicon",
+    "seed": 17,
+    "exercise": "late_arrival",
+    "mode": "demo",
+    "model": "qwen3.5-9b",
+    "profile": "apronlens-v2-mps"
+  },
+  "inspection": {
+    "method": "Authenticated local inspection harness selected collision/landing windows; ordinary model requests and report availability were retained.",
+    "publishedSeekEndpoint": false,
+    "newUninterruptedHourRun": false,
+    "newThreeLessonRun": false,
+    "orientation": "landscape",
+    "sourceWindows": [
+      {
+        "kind": "vehicle_collision",
+        "sourceStart": 1413.0,
+        "sourceEnd": 1506.0372644576664,
+        "complete": true
+      },
+      {
+        "kind": "crash_landing",
+        "sourceStart": 1947.0,
+        "sourceEnd": 2078.3745487916667,
+        "complete": true
+      }
+    ],
+    "visualChecks": [
+      "Aircraft and service vehicle visibly contact and stop on pavement",
+      "Response markers and secured vehicle do not release TRN102",
+      "Approach altitude, touchdown/bounce and damaged rollout visible",
+      "Disabled aircraft stops within the runway and remains stopped",
+      "Contained fire, closure marks and recovery-pending answer visible"
+    ],
+    "presentation": "Distinct edited scenarios; original shared source clock and answer cutoffs remain unchanged."
+  },
+  "responses": [
+    {
+      "requestId": "0f739068c59f4ef795ca3892c028eb3a",
+      "question": "Why has TRN102 stopped on the apron?",
+      "cutoff": 1435.993896484375,
+      "accepted": true,
+      "errors": [],
+      "latencySeconds": 14.389,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "repairs": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: aircraft contact with a ground vehicle on the apron \u2014 current. Event 1428 s; received 1430 s. [L055]\n\nScripted movement: stopped after ground vehicle contact \u2014 current. Event 1428 s; received 1430 s. [L056]",
+        "claims": [
+          {
+            "fact_id": "L055:movement_condition",
+            "value": "hold: aircraft contact with a ground vehicle on the apron",
+            "status": "current",
+            "evidence_ids": [
+              "L055"
+            ]
+          },
+          {
+            "fact_id": "L056:movement_status",
+            "value": "stopped after ground vehicle contact",
+            "status": "current",
+            "evidence_ids": [
+              "L056"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    },
+    {
+      "requestId": "f90ae46566ec4089b545ff3c5d9aa3da",
+      "question": "Can TRN102 move now that the vehicle is secured?",
+      "cutoff": 1485.0,
+      "accepted": true,
+      "errors": [],
+      "latencySeconds": 12.642,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "repairs": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: vehicle secured; aircraft inspection and movement release pending \u2014 current. Event 1478 s; received 1480 s. [L057]\n\nChanged since the previous answer: L055:movement_condition, L057:movement_condition",
+        "claims": [
+          {
+            "fact_id": "L057:movement_condition",
+            "value": "hold: vehicle secured; aircraft inspection and movement release pending",
+            "status": "current",
+            "evidence_ids": [
+              "L057"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    },
+    {
+      "requestId": "ee258eda51424aae837ea388e97ad42b",
+      "question": "Why is Runway 09 closed for TRN103?",
+      "cutoff": 1990.0,
+      "accepted": true,
+      "errors": [],
+      "latencySeconds": 17.736,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "repairs": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: Runway 09 closed: crash landing reported; emergency response active \u2014 current. Event 1980 s; received 1982 s. [L063]\n\nScripted movement: landing gear collapse reported; damaged rollout \u2014 current. Event 1986 s; received 1988 s. [L064]",
+        "claims": [
+          {
+            "fact_id": "L063:movement_condition",
+            "value": "Runway 09 closed: crash landing reported; emergency response active",
+            "status": "current",
+            "evidence_ids": [
+              "L063"
+            ]
+          },
+          {
+            "fact_id": "L064:movement_status",
+            "value": "landing gear collapse reported; damaged rollout",
+            "status": "current",
+            "evidence_ids": [
+              "L064"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    },
+    {
+      "requestId": "cad255e0ff144c5ab921791d0b8d130b",
+      "question": "Has the runway reopened after the fire was contained?",
+      "cutoff": 2042.0,
+      "accepted": true,
+      "errors": [],
+      "latencySeconds": 10.203,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "repairs": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: Runway 09 closed: fire contained; aircraft recovery and inspection pending \u2014 current. Event 2035 s; received 2038 s. [L066]\n\nChanged since the previous answer: L063:movement_condition, L064:movement_status, L065:movement_status, L066:movement_condition",
+        "claims": [
+          {
+            "fact_id": "L066:movement_condition",
+            "value": "Runway 09 closed: fire contained; aircraft recovery and inspection pending",
+            "status": "current",
+            "evidence_ids": [
+              "L066"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    }
+  ],
+  "failures": [
+    {
+      "question": "Why is TRN103 waiting?",
+      "latencySeconds": 50.556,
+      "serverAccepted": true,
+      "viewerOutcome": "Timed out at 40-second deadline; subsequent stale session rejected. Not counted among four successfully displayed new answers.",
+      "repair": "None; original failure retained. Targeted captures use later ordinary model requests."
+    }
+  ],
+  "limits": [
+    "Illustrative authored motion and incident response, not validated aircraft/vehicle/fire physics",
+    "No emergency response time claim",
+    "No reconstruction of a specific Heathrow accident",
+    "No proof of visual reasoning, physical-phone AR or professional competence"
+  ],
+  "recordings": [
+    {
+      "file": "apronlens-vehicle-collision.mp4",
+      "bytes": 102864071,
+      "sha256": "562ad2f6b63c2680741808fd56334eb28e16f7ccfd81c3ae13c3324d87fe337f"
+    },
+    {
+      "file": "apronlens-crash-landing.mp4",
+      "bytes": 70347121,
+      "sha256": "c7701717d9c47dec693375551697129c5dccc7b630c75bf6eaf1cff8400b2ca0"
+    }
+  ],
+  "auditHashes": {
+    "accident-live-conversations.jsonl": "b96cc197c8df2fa04eb6a20f1840cf6db01bb5a903eb658df8caee9c4519f3f4",
+    "accident-live-sessions.jsonl": "dc1f7c606d9876772e68eb25cb733503d50e7057b51ec4d437e3abe5eeea765a",
+    "accident-live-prompts.jsonl": "823990820cae9a2429b8e2a66161c457c3fc050fd06c880a023eb0bbf5a6db8d",
+    "apronlens-accident-preview-run.json": "78e0d6e16a473cff2efcf30a8234cc1858144cbebe6e51d0b3c034018579dfba"
+  }
+}

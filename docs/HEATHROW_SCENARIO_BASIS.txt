@@ -29,3 +29,41 @@ https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-
 Verification and provenance
 The Heathrow current-publications index was checked on 2 November 2026 and listed the versions above. Publications inform exercise design and debrief. They are not inserted as live operational facts or substituted for the aircraft's available reports. Assistant answers still use the ordinary local model request and evidence validator. Sources expands the actual cited reports at that answer's cutoff; Recent reports can include later arrivals.
 https://www.heathrow.com/company/team-heathrow/airside/useful-publications/operational-safety-instructions
+
+Distinct scenarios and realism
+The presentation separates the cases and uses time scaling within them. The core lessons concern operational disruption and evidence interpretation. Dropped loads and wildlife are recognised hazards; aircraft–vehicle contact and stand fire are abnormal events, while a damaging landing is an exceptional emergency example. This is a qualitative teaching distinction, not a measured Heathrow event-frequency model. The current driver authors a shared source timeline for recording; chapter boundaries do not imply that every case was run as an independent acceptance test.
+
+Aircraft–vehicle contact
+Heathrow Airside Incident Reporting and Investigation, ASSMS_OSI_067 v3, section 3.3, explicitly includes dropped loads, aircraft/ground-equipment collisions, failures to give way and incursions. Heathrow's safety-alert index also lists vehicle roll/contact on stand (28 October 2025), failure to give way (24 October and 21 November 2025), and ground collision (11 April 2024). ApronLens's service-vehicle contact is an authored case: the aircraft stops, the route is isolated, the vehicle is secured, and aircraft inspection/release remain pending. Cause, damage extent and injury status remain unconfirmed.
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASSMS_OSI_067_Airside_Incident_Reporting_and_Investigation_v3.pdf
+https://www.heathrow.com/company/team-heathrow/airside/useful-publications/safety-alerts
+
+Damaging landing and runway closure
+The AAIB's AAR 1/2010 concerns G-YMMM at Heathrow on 17 January 2008. It establishes that a serious landing accident is a real hazard category; it does not validate ApronLens's gear-collapse/fire sequence. Our fictional aircraft makes an emergency approach, touches down, decelerates with a damaged-gear illustration and remains stopped. Reports retain the runway closure after fire containment while recovery/inspection are pending. Do not describe this as BA38, a typical arrival, validated flight dynamics or a reconstruction. Containment intervals are compressed teaching timings, not emergency-response standards.
+https://www.gov.uk/aaib-reports/1-2010-boeing-777-236er-g-ymmm-17-january-2008
+
+Winter context
+Heathrow's current winter-operations page publishes an Airside Snow Plan and de-icing material for 2026/27. Snow, de-icing queues and changing surface conditions are credible seasonal training contexts. This immediate Checkpoint 1 extension shows visual snowfall, rain and late-afternoon-to-night lighting. It does not implement snow accumulation, de-icing queues, braking or operational visibility; those require report-grounded tasks in Checkpoint 2. No snowfall frequency is inferred from the existence of a contingency plan.
+https://www.heathrow.com/company/team-heathrow/airside/useful-publications/winter-operations
+
+AI-assisted monitoring at Heathrow
+NATS describes testing AI-driven digital-tower technology at Heathrow to address visibility restrictions. Searidge's AIMEE page describes camera-based aircraft segmentation and notifications when an aircraft clears runway thresholds; it frames AI as assistance to human control. These sources motivate ApronLens's planned Checkpoint 2 comparison with and without camera evidence. They do not establish autonomous Heathrow ATC, a deployed language-model controller, or visual-recognition accuracy for ApronLens. The current assistant selects eligible report facts.
+https://www.nats.aero/our-solutions/digital-towers/
+https://www.searidgetech.com/aimee
+
+Related news: Euronews/AP, 29 November 2024, describes the Heathrow AI assistance trial. The primary sources above govern technical claims.
+https://www.euronews.com/2024/11/29/one-of-the-worlds-busiest-airports-is-piloting-using-ai-to-assist-air-traffic-control
+
+Mobile training fit
+
+Heathrow describes assigned controller positions, headsets and stylus-operated touchscreens; this does not establish routine smartphone use for live control. SESAR has studied handheld/tablet multi-touch interfaces, with further safety evaluation identified. ENAC's ELSA supports controller training on computers and tablets. These sources support investigating portable training, not a claim that ApronLens is suitable for operational control or already validated on phones.
+https://www.heathrow.com/heathrow-blog/behind-the-scenes-inside-the-control-tower
+https://www.sesarju.eu/sesar-solutions/multi-touch-inputs-mti-human-machine-interface-hmi-controller-working-position-cwp
+https://www.enac.fr/en/elsa-training-differently-training-anywhere
+
+Ground-role mobile evidence
+
+RugGear's dnata Singapore case describes rugged smartphones for airside communication, incident reporting, flight/baggage information and checklists. Damarel's FiNDnet Mobile explicitly supports smartphones/tablets for turnaround tracking, service recording and task communication. SITA's 2025 easyJet account documents a mobile passenger-service trial across five UK airports. These are specific deployment/product examples, not a measured ranking of phone-use frequency or proof of current Heathrow adoption. Turnaround coordination is therefore a well-supported candidate for the planned M2 handover task; the delivered M1 controller exercises are not silently relabelled.
+https://www.ruggear.com/use-cases/dnata.html
+https://www.damarel.com/products/findnet-mobile/
+https://www.sita.aero/about-us/pressroom/news-releases/sita-pioneers-mobile-ground-crew-app-with-easyjet-speeding-journeys-for-millions/

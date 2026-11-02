@@ -1,4 +1,4 @@
-Person 1 has already recorded. Preserve that narration unchanged. Prepare the additions for Person 2 only, using PERSON2_SCRIPT.txt and the combined-video cues. Do not assign presenter names or development credit.
+Person 1 has already recorded. Preserve that narration unchanged. Prepare the additions for Person 2 only, using PERSON2_SCRIPT.txt and the current scenario-edit cues. Do not assign presenter names or development credit.
 
 Help me prepare my part of the ApronLens Checkpoint 1 video. My section is [Person 1 / Person 2]. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify the corresponding section. If the section is missing, ask which one before writing my narration. Use only Person 1 and Person 2 as presenter labels.
 
@@ -16,11 +16,12 @@ Read these sources first:
 6. outputs/checkpoint1/heathrow-acceptance.json
 7. docs/TRAINING_DRIVER.md
 8. docs/course/PERSON2_SCRIPT.txt
-9. outputs/checkpoint1/combined-demo-edit.json
+9. outputs/checkpoint1/scenario-demo-edit.json
+10. outputs/checkpoint1/accident-acceptance.json
 The older CHECKPOINT1_DEMO.md and REFLECTION_DRAFT describe historical work. The current achievement/reflection file leaves Coordination and Meetings blank by the owner's request.
 
 Produce only preparation material for my assigned section:
-- A natural narration adapted from my assigned draft, with enough pause time for roughly three minutes for Person 1 or four to five minutes for Person 2. Verify timing in rehearsal rather than forcing a word count. Timing is a suggestion, not an assignment requirement.
+- A natural narration for Person 2 adapted from the updated script, with pauses for movement and readable answers. Preserve the embedded 2:18 Person 1 speech; do not rewrite it. Use the 16:18 video cues and rehearse timing. There is no assignment duration limit.
 - Screen/clip cues with source-video times, explicitly distinguished from scenario time. If you cannot inspect the video, mark those cues as taken from the presenter guide and request the necessary clip for visual verification.
 - Use Person 1 or Person 2 as the section heading.
 - A small claim-to-source checklist and three likely questions with concise answers.
@@ -33,7 +34,7 @@ Keep the important distinctions accurate:
 - The external service owns clock, movements, incidents and report arrivals. The model does not drive the aircraft.
 - Qwen3.5-9B is preselected locally. It selects report facts; validation and answer rendering are deterministic. Requests are genuine, with no canned answers replacing failures.
 - The Unity camera is rendered. The current demo can send cropped scene images, but report-based answers do not establish visual recognition. M1's 40-turn research study had images off; evaluated visual evidence is planned for M2.
-- The original 8:27 demo had five automatic questions and one manual question, all accepted. The new 9:42 silent edit retains five original answers and adds three accepted answers from separately recorded landscape bird/baggage clips. Title cards identify the edits. It is not a new uninterrupted run or a general accuracy score.
+- The original 8:27 demo had five automatic questions and one manual question, all accepted. The historical 9:42 silent edit retained five original answers and added three accepted answers from separately recorded landscape bird/baggage clips. Title cards identify the edits. It is not a new uninterrupted run or a general accuracy score.
 - “Unscored” means the guided recording runs automatically without learner choices or points. The separate practice profile has three scored checkpoints. Explain this in Person 2’s section.
 - The driver runs on the Mac; the simulator is the viewer. The recording shows driver effects, not its console. Give setup instructions from TRAINING_DRIVER.md when asked; a clone alone does not include model weights or the Apple development tools.
 - Frozen M1 results use an earlier configuration: 24/40 for the larger Qwen, 16/40 for the smaller Qwen and 16/40 for the baseline under full AR. There are 40 unique turns, reused across conditions, not 360 independent examples.
@@ -42,3 +43,9 @@ Keep the important distinctions accurate:
 - These are presentation responsibilities, not proof of development authorship. Do not invent meetings, personal contributions, experiments or approvals.
 
 Use the sources supplied and inspect relevant code if needed. Do not modify frozen research results, change app scope, regenerate benchmark claims or publish anything as part of this preparation. If asked to experiment, use my own branch as described in TEAMMATE_SETUP.md and report exactly what you ran. Never request another teammate's model-service token or credentials. Return the script, cues and supporting checklist for my review before I record.
+
+
+Latest presentation update
+Use the new approximately 16:18 scenario edit with supplied Person 1 audio embedded; Person 2 remains to narrate. Preserve Person 1’s speech. Use the updated PERSON2_SCRIPT.txt and CHECKPOINT1_PRESENTER_GUIDE.txt; earlier 9:42 timing instructions are historical. Distinct time-scaled scenario chapters include wildlife, flight movement, baggage spill, aircraft–vehicle contact, stand fire and damaging landing. They retain source clock/cutoffs from the shared driver; do not claim independent runs for every chapter. Four new collision/landing model answers were displayed and accepted; a cold-start timeout remains in the evidence. Review accident-acceptance.json and scenario-demo-edit.json. NATS/Searidge Heathrow trials motivate planned M2 visual evaluation; do not attribute tested visual reasoning to the current report-based assistant.
+
+Weather update: use IMPLEMENTATION_DOCKET.md and outputs/checkpoint1/weather-acceptance.json. Rain/snow and late-afternoon → dusk → night are visual source-clock settings. No braking, de-icing, operational visibility or full 24-hour/sunrise claim. The new video appends these previews in Person 2’s section, keeps Person 1 audio at 00:02, and shifts the evaluation to about 14:57. Preserve older recordings and the frozen M1 results.

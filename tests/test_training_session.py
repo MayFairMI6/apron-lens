@@ -77,7 +77,7 @@ class TrainingTests(unittest.TestCase):
 
     def test_demo_piecewise_integration_independent_of_poll_frequency(self):
         coarse,cn=self.session(mode='demo');fine,fn=self.session(mode='demo')
-        for end in (1,2,15,45,100,180,300,500,700):
+        for end in (1,2,15,45,100,180,300,500,700,900,1100,1400):
             while fn[0]<end:
                 fn[0]=min(end,fn[0]+.1);fine.snapshot()
             cn[0]=end;coarse.snapshot()
@@ -105,7 +105,7 @@ class TrainingTests(unittest.TestCase):
         normal,n=self.session(mode='continuous');fast,f=self.session(mode='demo')
         a=copy.deepcopy(normal.scenario);b=copy.deepcopy(fast.scenario)
         a.pop('scenarioId');b.pop('scenarioId');self.assertEqual(a,b)
-        for t in (24,60,104,120,180,210,900):
+        for t in (24,60,104,120,180,210,900,1450,1550,2000,2100,2200,3599):
             self.assertEqual(received_facts(a,t),received_facts(b,t))
 
     def test_prediction_boundary_and_versioned_available_sources(self):

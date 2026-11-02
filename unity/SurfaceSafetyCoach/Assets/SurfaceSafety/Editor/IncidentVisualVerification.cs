@@ -41,7 +41,23 @@ public static class IncidentVisualVerification {
         }
         effects.RenderAt(incident.end);
         check(effects.GetComponentsInChildren<Renderer>().Length==0,"incident hidden at its external end boundary");
-        Debug.Log("INCIDENT_VISUAL_CHECKS_PASS: 9");
+        var collision=scenario.incidents.First(i=>i.kind=="vehicle_collision");
+        effects.RenderAt(collision.start);
+        var vehicle=effects.GetComponentsInChildren<Transform>().First(t=>t.name=="Service vehicle");
+        var before=vehicle.position;effects.RenderAt(collision.onset);
+        check(Vector3.Distance(vehicle.position,before)>30,"service vehicle approaches contact on the external clock");
+        var contactPosition=vehicle.position;effects.RenderAt(collision.onset+30);
+        check(vehicle.position==contactPosition,"contact vehicle stays stopped");
+        check(effects.GetComponentsInChildren<Transform>().Any(t=>t.name=="Contact area markers"),"contact area is visibly isolated");
+        var crash=scenario.incidents.First(i=>i.kind=="crash_landing");var plane=scenario.aircraft.First(a=>a.id==crash.aircraftId);
+        effects.RenderAt(crash.onset+10);
+        check(effects.GetComponentsInChildren<ParticleSystem>().Sum(p=>p.particleCount)>0,"post-landing fire follows external time");
+        check(plane.GearRetractedAt(crash.onset+10)&&Scenario.BodySink(plane,crash.onset+10)>0,"collapsed gear lowers the aircraft body");
+        check(Scenario.Roll(plane,crash.onset+10)!=0,"damaged rollout has authored roll");
+        effects.RenderAt(crash.clearedAt);
+        check(effects.GetComponentsInChildren<ParticleSystem>().Length==0,"containment removes fire at its reported event boundary");
+        check(effects.GetComponentsInChildren<Transform>().Any(t=>t.name=="Closed runway markers"),"runway closure remains after containment");
+        Debug.Log("INCIDENT_VISUAL_CHECKS_PASS: 17");
     }
     static void Capture(string path,Vector3 centre,Vector3 offset,float fov){
         var go=new GameObject("Incident preview camera");var camera=go.AddComponent<Camera>();

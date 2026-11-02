@@ -53,3 +53,7 @@ The app is a native Unity-built iOS Simulator app. Its virtual camera and extern
 driver are working, but it has not been verified on a physical smartphone in this
 delivery. The assignment explicitly asks for smartphone execution. Keep that gap
 visible; simulator success is not proof of physical AR tracking or phone performance.
+
+Visual environment settings
+
+Add `--environment rain`, `--environment snow` or `--environment dusk` to the existing `backend.training` launch command. Default clear daytime remains unchanged. The same external source clock drives weather/light visuals and traffic, including acceleration and pauses. These settings do not yet change aircraft performance or operational reports. The dusk profile is one late-afternoon-to-night source hour, not a full 24-hour cycle. See IMPLEMENTATION_DOCKET.md for the remaining weather work.

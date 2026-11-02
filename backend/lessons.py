@@ -6,6 +6,7 @@ evidence. Every teaching answer cites reports received before its checkpoint.
 import random
 from backend.traffic import DURATION
 from backend.flight_cycle import add_flight_cycle
+from backend.accident_scenarios import add_accident_scenarios
 from backend.ground_routes import rounded_path, departure_path, timed_path, add_pavement
 
 EXERCISES = ('surface_conflict', 'late_arrival', 'late_baggage')
@@ -129,18 +130,20 @@ def build_lesson(seed, exercise):
     # The scored 210-second lesson is unchanged. A continuous local flight
     # circuit then demonstrates real altitude changes, departure and arrival.
     add_flight_cycle(world,reservations,report)
-    # Reproducible background activity continues across the full hour, with one
-    # whole-circuit reservation at a time. Each aircraft returns to its actual stand.
+    add_accident_scenarios(world,reservations,report)
+    # Background movement needs a free whole-circuit reservation. The incident
+    # showcase keeps the damaged aircraft stopped and the runway closed, so no
+    # later background circuit may restart after that closure.
     slot = max(300, max((s['end'] for s in reservations), default=0)+15)
     order = [1,2]; rng.shuffle(order); cycle = 0
-    while slot < DURATION-400:
+    while not world.get('accidentSequenceEndsMovement') and slot < DURATION-400:
         a=world['aircraft'][order[cycle%len(order)]]; x=a['waypoints'][-1]['x']; z=a['waypoints'][-1]['z']
         start = slot+rng.uniform(3,12)
         end=route(a['id'], start, [(x,-.025),(.28,-.025),(.28,-.14),(-.23,-.14),(-.23,-.005),(x,-.005),(x,z)],
                   speed=rng.uniform(4,6))
         slot=end+15;cycle+=1
     for a in world['aircraft']:
-        p=a['waypoints'][-1];a['waypoints'].append(waypoint(DURATION,p['x'],p['z']))
+        p=a['waypoints'][-1];a['waypoints'].append(dict(p,t=DURATION))
     # Interpolation samples are immutable geometry, not new information boundaries.
     # Stop prediction at report arrivals, phase changes and actual stops/starts.
     world['predictionBoundaries']=sorted({t for r in reservations for k,t in r.items() if k in ('start','end','taxiStart')} |

@@ -56,7 +56,7 @@ public static class TrafficVerification {
             check(runway.transform.Find("Taxiway "+flight.taxiPaths[0].id)!=null,"taxi pavement uses external geometry");
             var wrapped=new AircraftPlan{preciseHeading=true,waypoints=new[]{new Waypoint{t=0,heading=355},new Waypoint{t=10,heading=5}}};
             check(Mathf.Abs(Scenario.Heading(wrapped,5))<.01f,"heading crosses north by the short turn");
-            check(flight.incidents.Length==3&&flight.incidents[0].kind=="wildlife"&&flight.incidents[1].kind=="engine_fire"&&flight.incidents[2].kind=="baggage_spill","wildlife, fire and baggage are separate timed incidents");
+            check(flight.incidents.Select(i=>i.kind).SequenceEqual(new[]{"wildlife","engine_fire","baggage_spill","vehicle_collision","crash_landing"}),"five separate timed incidents preserve the original order");
             r.ApplyTrafficScenario(flight);
             var effectsObject=new GameObject("Incident verification");effectsObject.transform.SetParent(r.Content,false);
             var effects=effectsObject.AddComponent<TrainingIncidentEffects>();effects.Bind(r);
@@ -71,6 +71,7 @@ public static class TrafficVerification {
             check(rejected,"invalid altitude is rejected");
             Debug.Log("FLIGHT_CLIENT_CHECKS_PASS: 17");
         }
+        WeatherVerification.Run();
         Debug.Log("TRAFFIC_CLIENT_CHECKS_PASS: 14 plus conversation regression");
     }
 }

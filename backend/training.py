@@ -7,6 +7,7 @@ from starlette.responses import JSONResponse
 from backend.conversation.server import create_app, ROOT, local_token
 from backend.training_session import TrainingSession, ActionConflict
 from backend.lessons import EXERCISES
+from backend.training_environment import ENVIRONMENTS
 from modelaccess.contract import Settings
 
 def training_app(adapter, settings, driver, token=None, audit_path=None):
@@ -62,13 +63,14 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--exercise',choices=EXERCISES,default='surface_conflict')
     p.add_argument('--mode',choices=('lesson','continuous','demo'),default='lesson')
+    p.add_argument('--environment',choices=ENVIRONMENTS,default='clear',help='Visual conditions driven by scenario time; not weather reports')
     p.add_argument('--seed',type=int,default=17);p.add_argument('--port',type=int,default=8767)
     args=p.parse_args()
     adapter=TrainingAdapter('qwen3.5-9b',profile='apronlens-v2-mps',training_role='controller_awareness',
                             prompt_audit_path=ROOT/'work/training-prompts.jsonl')
     adapter.load() # Preload before announcing that the service is ready.
     # Model startup must not consume exercise time before a viewer can connect.
-    driver=TrainingSession(args.seed,args.exercise,args.mode,audit_path=ROOT/'work/training-sessions.jsonl')
+    driver=TrainingSession(args.seed,args.exercise,args.mode,audit_path=ROOT/'work/training-sessions.jsonl',environment=args.environment)
     settings=Settings(adapter.served_model,768,image_max_side=672)
     local_token();print(f'TRAINING_READY {args.mode} {args.exercise} port={args.port}',flush=True)
     uvicorn.run(training_app(adapter,settings,driver),host='127.0.0.1',port=args.port,access_log=False)

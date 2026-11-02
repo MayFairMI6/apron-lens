@@ -160,6 +160,51 @@ namespace SurfaceSafety {
             }
             return rig;
         }
+        public sealed class ResponseRig {
+            public Transform root,vehicle;public GameObject markers;public bool runway;
+            public void Pose(float t,TrainingIncident plan){
+                float age=t-plan.onset;
+                if(runway){
+                    vehicle.gameObject.SetActive(age>=38);
+                    vehicle.localPosition=new Vector3(Mathf.Lerp(-95,-55,Mathf.Clamp01((age-38)/15)),0,-15);
+                    vehicle.localRotation=Quaternion.Euler(0,90,0);
+                    markers.SetActive(age>=6);
+                }else{
+                    float travel=age<0?Mathf.Lerp(-42,0,Mathf.Clamp01((t-plan.start)/(plan.onset-plan.start))):0;
+                    vehicle.localPosition=new Vector3(0,0,travel);
+                    vehicle.localRotation=Quaternion.Euler(0,age<0?0:8*Mathf.Clamp01(age/.8f),0);
+                    markers.SetActive(age>=5);
+                }
+            }
+        }
+        public ResponseRig Response(Transform parent,bool runway){
+            var rig=new ResponseRig{root=Node(parent,runway?"Runway response":"Ground vehicle contact",Vector3.zero),runway=runway};
+            rig.root.localScale=Vector3.one*.001f;
+            rig.vehicle=Node(rig.root,runway?"Airport response vehicle":"Service vehicle",Vector3.zero);
+            var color=runway?luggage[1]:yellow;
+            Box(rig.vehicle,"Chassis",new Vector3(0,.95f,0),new Vector3(2.6f,1.0f,5.5f),color);
+            Box(rig.vehicle,"Cab",new Vector3(0,2.35f,1.65f),new Vector3(2.4f,2.2f,2.1f),white);
+            Box(rig.vehicle,"Windscreen",new Vector3(0,2.7f,2.71f),new Vector3(2.1f,.85f,.04f),glass);
+            Box(rig.vehicle,"Equipment body",new Vector3(0,2.0f,-.9f),new Vector3(2.5f,1.75f,2.9f),color);
+            for(int side=-1;side<=1;side+=2){
+                Box(rig.vehicle,"Reflective strip",new Vector3(side*1.265f,1.75f,-.9f),new Vector3(.03f,.18f,2.8f),white);
+                Box(rig.vehicle,"Cab side window",new Vector3(side*1.21f,2.7f,1.65f),new Vector3(.03f,.85f,1.6f),glass);
+                for(int j=0;j<2;j++)Wheel(rig.vehicle,new Vector3(side*1.28f,.52f,j==0?-1.8f:1.8f),1.03f);
+                Primitive(rig.vehicle,"Beacon",PrimitiveType.Sphere,new Vector3(side*.8f,3.53f,1.6f),new Vector3(.25f,.25f,.25f),orange);
+            }
+            rig.markers=Node(rig.root,runway?"Closed runway markers":"Contact area markers",Vector3.zero).gameObject;
+            if(runway){
+                for(int end=0;end<2;end++)for(int side=-1;side<=1;side+=2){
+                    var marker=Box(rig.markers.transform,"Runway closed X",new Vector3(end==0?-95:55,.18f,0),new Vector3(12,.18f,1.1f),yellow);
+                    marker.localRotation=Quaternion.Euler(0,side*45,0);
+                }
+            }else for(int i=0;i<4;i++){
+                var pos=new Vector3(i%2==0?-5:5,.06f,i<2?-5:4);
+                Box(rig.markers.transform,"Cone base",pos,new Vector3(.6f,.1f,.6f),rubber);
+                Primitive(rig.markers.transform,"Response marker",PrimitiveType.Cylinder,pos+Vector3.up*.4f,new Vector3(.24f,.38f,.24f),orange);
+            }
+            return rig;
+        }
         void Wheel(Transform p,Vector3 pos,float diameter){
             var wheel=Primitive(p,"Tyre",PrimitiveType.Cylinder,pos,new Vector3(diameter,.13f,diameter),rubber);wheel.localRotation=Quaternion.Euler(0,0,90);
             var hub=Primitive(p,"Hub",PrimitiveType.Cylinder,pos,new Vector3(diameter*.46f,.14f,diameter*.46f),metal);hub.localRotation=Quaternion.Euler(0,0,90);
