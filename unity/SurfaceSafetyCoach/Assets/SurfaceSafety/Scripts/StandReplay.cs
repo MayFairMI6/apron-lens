@@ -137,12 +137,18 @@ namespace SurfaceSafety {
         public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}
         // "While you were away": the reports received while the board was out of view, computed by the app from the
         // scenario (not by a model) when tracking returns, and shown on the Now tab until the user dismisses it.
+        // A card not yet dismissed accumulates later gaps (reports and span), so nothing is lost before the user taps it.
         public string[] AwayNotice {get;private set;}
         public string AwayNoticeSpan {get;private set;}
-        public void DismissAwayNotice(){AwayNotice=null;AwayNoticeSpan=null;Log("away_notice_dismissed");ApplyScene();}
+        readonly List<ScenarioEvent> awayMissed=new List<ScenarioEvent>();
+        float awayFrom,awayTo;
+        public void DismissAwayNotice(){ClearAwayNotice();Log("away_notice_dismissed");ApplyScene();}
+        void ClearAwayNotice(){AwayNotice=null;AwayNoticeSpan=null;awayMissed.Clear();}
         void SetAwayNotice(float from,float to){
-            var missed=Data.events.Where(e=>e.receiptTime>from&&e.receiptTime<=to).OrderBy(e=>e.receiptTime).ThenBy(e=>e.id).ToArray();
-            AwayNoticeSpan=$"{from:0}–{to:0} s";
+            if(AwayNotice==null){awayFrom=from;awayTo=to;}else{awayFrom=Mathf.Min(awayFrom,from);awayTo=Mathf.Max(awayTo,to);}
+            foreach(var e in Data.events.Where(e=>e.receiptTime>from&&e.receiptTime<=to))if(!awayMissed.Contains(e))awayMissed.Add(e);
+            var missed=awayMissed.OrderBy(e=>e.receiptTime).ThenBy(e=>e.id).ToArray();
+            AwayNoticeSpan=$"{awayFrom:0}–{awayTo:0} s";
             AwayNotice=missed.Length==0?new[]{"Nothing new arrived."}:
                 missed.Select(e=>$"{e.aircraftId}  ·  {ShortReport(e)}  ·  received {e.receiptTime:0} s  [{e.id}]").ToArray();
             Log("away_notice");
@@ -161,10 +167,10 @@ namespace SurfaceSafety {
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}
         public void Pause(){Clock.Pause();Log("pause");ApplyScene();}
-        public void Restart(){interruptions.Clear();AwayNotice=null;Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
+        public void Restart(){interruptions.Clear();ClearAwayNotice();Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
         public void Seek(float time){
             if(float.IsNaN(time)||float.IsInfinity(time))return;
-            if(time<Clock.Time){interruptions.Clear();AwayNotice=null;}  // a new timeline: earlier losses no longer describe what was missed
+            if(time<Clock.Time){interruptions.Clear();ClearAwayNotice();}  // a new timeline: earlier losses no longer describe what was missed
             Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
         // AR pointing: the aircraft nearest a tap in the AR view, if one is within the radius (pixels); else -1.
         public int AircraftAtScreen(Vector2 screen,Camera camera,float radius){
