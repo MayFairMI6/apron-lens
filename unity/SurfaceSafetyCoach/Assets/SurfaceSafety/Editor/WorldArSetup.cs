@@ -21,6 +21,7 @@ public static class WorldArSetup {
     const string EnvironmentPath = Folder + "/ApronEnvironment.prefab";
     const string ScenePath = "Assets/SurfaceSafety/Scenes/WorldAR.unity";
     const string SimulationLoader = "UnityEngine.XR.Simulation.SimulationLoader";
+    const float FarClip = 2000f;
     // Eye height, south of the taxiway, phone tilted 12 degrees down so the stands sit in the AR window above the
     // coordinator panels.
     static readonly Vector3 StartPosition = new Vector3(-5f, 1.7f, -105f);
@@ -151,23 +152,31 @@ public static class WorldArSetup {
     static void BuildScene() {
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         Find("UnityEditor.XR.ARFoundation.SceneUtils").GetMethod("CreateARSessionWithParent").Invoke(null, new object[] { null });
-        Find("UnityEditor.XR.ARFoundation.XROriginCreateUtil").GetMethod("CreateXROriginWithParent").Invoke(null, new object[] { null });
+        var origin = (Component)Find("UnityEditor.XR.ARFoundation.XROriginCreateUtil").GetMethod("CreateXROriginWithParent").Invoke(null, new object[] { null });
+        // The Mobile AR default (20 m far clip) suits tabletop AR; the apron spans hundreds of metres.
+        var arCamera = origin.GetComponentInChildren<Camera>(true);
+        arCamera.nearClipPlane = .1f; arCamera.farClipPlane = FarClip;
         new GameObject("World AR replay").AddComponent<WorldArBootstrap>();
         EditorSceneManager.SaveScene(scene, ScenePath);
     }
 
-    // Edit-mode check: renders the apron and the replay from the simulated starting pose (eye height) and checks
+    // Edit-mode check on the saved WorldAR scene and its own AR camera: renders the apron and the replay from the
+    // simulated starting pose (eye height), checks that every aircraft is within the camera's clipping range, and
     // that turning away takes the apron out of view. Writes work/world-ar/*.png for review.
     public static void Check() {
         Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("World AR check failed: " + message); };
-        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         var environment = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(EnvironmentPath));
         check(environment != null, "environment prefab exists");
-        var boot = new GameObject("World AR replay").AddComponent<WorldArBootstrap>(); boot.Initialize();
+        var boot = UnityEngine.Object.FindFirstObjectByType<WorldArBootstrap>(); check(boot != null, "the scene has the world replay");
+        boot.Initialize();
         var replay = boot.Replay; replay.Seek(20); replay.SelectAircraft(1);
-        var cam = new GameObject("Simulated AR camera", typeof(Camera)).GetComponent<Camera>(); cam.tag = "MainCamera";
-        cam.transform.position = StartPosition; cam.transform.rotation = StartRotation;
-        cam.nearClipPlane = .1f; cam.farClipPlane = 2000; cam.fieldOfView = 60; cam.clearFlags = CameraClearFlags.Skybox;
+        var cam = UnityEngine.Object.FindObjectsByType<Camera>(FindObjectsSortMode.None).FirstOrDefault(c => c.CompareTag("MainCamera"));
+        check(cam != null, "the scene has the AR camera");
+        cam.transform.position = StartPosition; cam.transform.rotation = StartRotation; cam.clearFlags = CameraClearFlags.Skybox;
+        foreach (Transform aircraft in replay.Content)
+            if (replay.Data.aircraft.Any(a => a.id == aircraft.name))
+                check(Vector3.Distance(StartPosition, aircraft.position) < cam.farClipPlane * .9f, $"{aircraft.name} is within the AR camera's far clip");
         check(WorldArBootstrap.ApronInView(cam, replay.Content.position), "the apron is in view from the starting pose");
         check(Mathf.Abs(replay.Content.lossyScale.x - WorldArBootstrap.MetresPerBoardUnit) < .01f, "the replay is in metres");
         var output = Path.GetFullPath(Path.Combine(Application.dataPath, "../../../work/world-ar"));
