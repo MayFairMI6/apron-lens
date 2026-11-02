@@ -139,7 +139,7 @@ namespace SurfaceSafety {
             camera.cullingMask=State.phase=="checkpoint"?0:cameraMask;
             camera.rect=landscape?new Rect(.015f,.06f,.61f,.78f):new Rect(.015f,.51f,.97f,.32f);
             var header=Box(root,"Header",new Vector2(0,.87f),Vector2.one,navy);
-            Label(header,"APRONLENS  /  CONTROLLER AWARENESS",new Vector2(.025f,.68f),new Vector2(.98f,.96f),landscape?18:22,muted);
+            Label(header,"APRONLENS",new Vector2(.025f,.68f),new Vector2(.98f,.96f),landscape?18:22,muted);
             title=Label(header,State.title,new Vector2(.025f,.31f),new Vector2(.98f,.75f),landscape?32:34,Color.white);
             clockText=Label(header,"",new Vector2(.025f,.02f),new Vector2(.98f,.33f),landscape?18:22,teal);
             notice=Label(root,"",new Vector2(.025f,0),new Vector2(.98f,.035f),landscape?17:21,new Color(1,.74f,.35f));

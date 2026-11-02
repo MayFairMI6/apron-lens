@@ -1,0 +1,18 @@
+{
+  "change": "Replace APRONLENS / CONTROLLER AWARENESS with APRONLENS in the learner header",
+  "scope": "Cosmetic text change; exercise title and training behavior unchanged",
+  "checks": {
+    "conversationClient": 12,
+    "flightClient": 17,
+    "trafficClient": 14,
+    "iosSimulatorExport": "passed",
+    "nativeXcodeBuild": "passed",
+    "nativeAppInstallAndLaunch": "passed",
+    "screenshotInspection": "APRONLENS displayed above A changing departure estimate; controller-awareness label absent"
+  },
+  "runtime": "Native iOS Simulator on Apple Silicon",
+  "limitations": [
+    "The complete source-hour demo in native-ios-rerun.json predates this cosmetic change.",
+    "This does not verify execution on a physical smartphone."
+  ]
+}

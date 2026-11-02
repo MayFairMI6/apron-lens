@@ -6,6 +6,10 @@ and turnaround implications appear in debrief. A dedicated turnaround task is
 deferred to Checkpoint 2, alongside the planned visual-evidence research. No
 separate pilot course is delivered. The separate video-memory project is deferred.
 
+The learner-facing header is simply APRONLENS followed by the exercise title.
+Controller situational awareness describes the learning objective in developer
+and course documentation; it is not a role selector or a label in the header.
+
 The current preview ran in the iOS Simulator on Apple Silicon. The fictional
 Heathrow-informed environment includes an occupied stand, paved turns, a local
 takeoff/landing circuit, wildlife and a separate stand fire. This recording does
@@ -22,6 +26,11 @@ professional training competence.
   hashes. This is the original pre-publication record, not a new run per commit.
 - [Three-lesson acceptance](../../outputs/checkpoint1/lesson-acceptance.json):
   the initial simulator lesson completions and failures retained for context.
+- [Fresh native rerun](../../outputs/checkpoint1/native-ios-rerun.json): another
+  complete source-hour run with six actual model responses accepted, before the
+  cosmetic header update. The [header verification](../../outputs/checkpoint1/learner-header-verification.json)
+  records the subsequent native rebuild and visual check; the full demo was not
+  repeated for that label-only change.
 - [Frozen M1 report](../../outputs/m1_ar_context/REPORT.md): 40 distinct held-out
   turns, 17 families, four scenarios, two local Qwen models and a deterministic
   baseline in three conditions; images off. Qwen3.5-9B scored 24/40 in full AR.

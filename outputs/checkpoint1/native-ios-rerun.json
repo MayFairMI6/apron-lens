@@ -1,0 +1,249 @@
+{
+  "kind": "native iOS Simulator rerun",
+  "completed": true,
+  "exercise": "late_arrival",
+  "runId": "8087a1dcd8052e4a0a29",
+  "sourceTimeEnd": 3600.0,
+  "recordingWallSeconds": 503.331,
+  "modelRequests": 6,
+  "accepted": 6,
+  "calls": [
+    {
+      "requestId": "89ad76af595c481b9a74cf8b0ea52de4",
+      "question": "Why is TRN103 waiting?",
+      "cutoff": 60.0,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Scripted movement: holding at ground staging area \u2014 current. Event 1 s; received 1 s. [L008]\n\nAuthored movement condition: hold: Stand B occupied by TRN102 \u2014 current. Event 20 s; received 23 s. [L010]",
+        "claims": [
+          {
+            "fact_id": "L008:movement_status",
+            "value": "holding at ground staging area",
+            "status": "current",
+            "evidence_ids": [
+              "L008"
+            ]
+          },
+          {
+            "fact_id": "L010:movement_condition",
+            "value": "hold: Stand B occupied by TRN102",
+            "status": "current",
+            "evidence_ids": [
+              "L010"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "imageUsedForInference": true,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "latencySeconds": 10.782
+    },
+    {
+      "requestId": "171f922c813e4a99ae99f98f12729d56",
+      "question": "Is Stand B confirmed available for TRN103?",
+      "cutoff": 120.0,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: Stand B occupied by TRN102 \u2014 current. Event 20 s; received 23 s. [L010]",
+        "claims": [
+          {
+            "fact_id": "L010:movement_condition",
+            "value": "hold: Stand B occupied by TRN102",
+            "status": "current",
+            "evidence_ids": [
+              "L010"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "imageUsedForInference": true,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "latencySeconds": 7.76
+    },
+    {
+      "requestId": "a9116a8f27e242af8e1747b959c5a4e3",
+      "question": "What changed for TRN103?",
+      "cutoff": 180.0,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: Stand B available; exercise ground hold released \u2014 current. Event 132 s; received 134 s. [L016]\n\nAssigned stand: B \u2014 current. Event 133 s; received 135 s. [L017]\n\nScripted movement: taxiing \u2014 current. Event 140 s; received 141 s. [L018]\n\nChanged since the previous answer: L007:stand, L008:movement_status, L010:movement_condition, L016:movement_condition, L017:stand, L018:movement_status",
+        "claims": [
+          {
+            "fact_id": "L016:movement_condition",
+            "value": "Stand B available; exercise ground hold released",
+            "status": "current",
+            "evidence_ids": [
+              "L016"
+            ]
+          },
+          {
+            "fact_id": "L017:stand",
+            "value": "B",
+            "status": "current",
+            "evidence_ids": [
+              "L017"
+            ]
+          },
+          {
+            "fact_id": "L018:movement_status",
+            "value": "taxiing",
+            "status": "current",
+            "evidence_ids": [
+              "L018"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "imageUsedForInference": true,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "latencySeconds": 10.007
+    },
+    {
+      "requestId": "62c88f6c4117427c899e8fbe8d93fbcd",
+      "question": "Why is TRN101 holding short of the runway?",
+      "cutoff": 451.0,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Scripted movement: holding short \u2014 current. Event 445 s; received 445.5 s. [L028]\n\nAuthored movement condition: hold: birds reported on Runway 09; inspection pending \u2014 current. Event 445 s; received 446 s. [L021]\n\nAuthored movement plan: Stand A to Runway 09; local circuit; return to Stand A \u2014 current. Event 299 s; received 299 s. [L020]",
+        "claims": [
+          {
+            "fact_id": "L028:movement_status",
+            "value": "holding short",
+            "status": "current",
+            "evidence_ids": [
+              "L028"
+            ]
+          },
+          {
+            "fact_id": "L021:movement_condition",
+            "value": "hold: birds reported on Runway 09; inspection pending",
+            "status": "current",
+            "evidence_ids": [
+              "L021"
+            ]
+          },
+          {
+            "fact_id": "L020:route",
+            "value": "Stand A to Runway 09; local circuit; return to Stand A",
+            "status": "current",
+            "evidence_ids": [
+              "L020"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "imageUsedForInference": true,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "latencySeconds": 9.923
+    },
+    {
+      "requestId": "af2329891c9c40029c5be3153a7c7e8b",
+      "question": "Why is TRN101 held at Stand A?",
+      "cutoff": 1131.0,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: engine fire reported at Stand A \u2014 current. Event 1122 s; received 1124 s. [L040]\n\nScripted movement: stopped at Stand A \u2014 current. Event 1122 s; received 1124 s. [L041]",
+        "claims": [
+          {
+            "fact_id": "L040:movement_condition",
+            "value": "hold: engine fire reported at Stand A",
+            "status": "current",
+            "evidence_ids": [
+              "L040"
+            ]
+          },
+          {
+            "fact_id": "L041:movement_status",
+            "value": "stopped at Stand A",
+            "status": "current",
+            "evidence_ids": [
+              "L041"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "imageUsedForInference": true,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "latencySeconds": 12.9
+    },
+    {
+      "requestId": "784caf13c6af4252ab9942f980ed3235",
+      "question": "Is this aircraft ready to depart?",
+      "cutoff": 1148.488525390625,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: engine fire reported at Stand A \u2014 current. Event 1122 s; received 1124 s. [L040]\n\nScripted movement: stopped at Stand A \u2014 current. Event 1122 s; received 1124 s. [L041]",
+        "claims": [
+          {
+            "fact_id": "L040:movement_condition",
+            "value": "hold: engine fire reported at Stand A",
+            "status": "current",
+            "evidence_ids": [
+              "L040"
+            ]
+          },
+          {
+            "fact_id": "L041:movement_status",
+            "value": "stopped at Stand A",
+            "status": "current",
+            "evidence_ids": [
+              "L041"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "imageUsedForInference": true,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "latencySeconds": 12.23
+    }
+  ],
+  "codeBase": "174c04b",
+  "notes": [
+    "Native iOS Simulator app relaunched; all 30 application C# files matched the prepared simulator project before this run.",
+    "Five automatic questions and an additional manual readiness question; actual model responses, no scripted substitutes.",
+    "This rerun predates the cosmetic header change from APRONLENS / CONTROLLER AWARENESS to APRONLENS.",
+    "It verifies simulator execution, not a physical-smartphone run."
+  ]
+}
