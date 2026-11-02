@@ -121,6 +121,7 @@ Record a fresh guided run using a new filename:
 
 ## Submission boundary
 
-The exact Checkpoint 1 rubric, recording limit, upload format and required team
-reflection fields have not yet been matched against the assignment page.
-No course submission or instructor approval is implied by this source snapshot.
+The owner supplied the assignment wording; see [requirement status](CHECKPOINT1_ASSIGNMENT_STATUS.md).
+The required team video, blank Coordination/Meetings sections and physical-phone
+verification remain outstanding. No video duration was specified in the supplied
+wording. No course submission or instructor approval is implied by this snapshot.

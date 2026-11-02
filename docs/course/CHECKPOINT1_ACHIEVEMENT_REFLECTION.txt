@@ -1,0 +1,18 @@
+ApronLens - Checkpoint 1 achievement and reflection
+
+Achievements
+ApronLens now provides three controller situational-awareness exercises: a vehicle obstructing a ground route, an inbound waiting for an occupied stand, and delayed baggage changing a departure estimate. Each combines moving aircraft, a briefing, three formative checkpoints, report-based feedback and a debrief. An external service controls scenario time, movement and report arrivals. The assistant selects relevant received reports, and Sources lets the learner inspect the evidence behind an answer. The extended demonstration also shows a wildlife hold, takeoff and landing, and a separate stand-fire incident.
+
+All three lessons reached debrief in the native iOS Simulator app. The saved extended demo contains six real model responses accepted by the report validator. Separately, the frozen M1 study evaluated 40 held-out turns: Qwen3.5-9B scored 60% under full AR context, compared with 40% for the deterministic baseline. Images were disabled in that study. These results establish an initial context-reasoning baseline, not visual-recognition accuracy or training effectiveness. A physical-smartphone run remains unverified.
+
+Decisions and reflection
+Checkpoint 1 was frozen around controller awareness. Pilot and turnaround implications remain in the debrief; a distinct interactive turnaround task was deferred. The existing baggage lesson already covers service dependencies, so a new role should add a different learning objective. We also kept scenario control separate from the model: reports support answers, while the external driver controls movement. Publishing the current source, driver and setup notes on GitHub addressed a handoff gap caused by changes remaining local. Evidence checks and explicit scope decisions worked well. The extended scope discussion showed the value of recording decisions sooner; the M1 tracking-context result also showed that additional context does not automatically improve answers.
+
+Remaining checkpoints
+Checkpoint 2 will evaluate camera-based evidence, detector-generated observations and viewpoint-dependent questions, including comparisons with images removed. A focused turnaround handover task is planned as a supporting extension. Checkpoint 3 will evaluate the integrated system, including supported-answer quality, failures and latency. Immediate preparation is to record the current features with each member identified, rehearse the explanation, and resolve the physical-phone requirement. Continuous voice and the separate recorded-video memory study remain outside this checkpoint.
+
+Coordination
+
+
+Meetings
+

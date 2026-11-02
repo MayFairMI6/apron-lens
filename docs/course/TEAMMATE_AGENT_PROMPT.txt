@@ -1,0 +1,38 @@
+Help me prepare my assigned part of the ApronLens Checkpoint 1 video. My presenter letter is [A/B/C/D] and my name is [name]. Use the attached TEAM_RECORDING_PLAN.txt to identify my responsibilities. If the letter is missing, ask for it before writing my narration.
+
+Repository: https://github.com/MayFairMI6/apron-lens
+Published Checkpoint 1 branch: codex/checkpoint1-controller-training
+Pull request: https://github.com/MayFairMI6/apron-lens/pull/22
+The default main branch may still be older. Read the named branch or the attached handoff bundle. Record which commit you inspected. Do not assume my environment has the model, Unity, Xcode or an authenticated service.
+
+Read these sources first:
+1. docs/course/CHECKPOINT1_CURRENT.md
+2. docs/course/TEAM_RECORDING_PLAN.txt
+3. docs/course/CHECKPOINT1_PRESENTER_GUIDE.txt
+4. docs/course/CHECKPOINT1_ASSIGNMENT_STATUS.md
+5. outputs/m1_ar_context/REPORT.md
+6. outputs/checkpoint1/heathrow-acceptance.json
+7. docs/TRAINING_DRIVER.md
+The older CHECKPOINT1_DEMO.md and REFLECTION_DRAFT describe historical work. The current achievement/reflection file leaves Coordination and Meetings blank by the owner's request.
+
+Produce only preparation material for my assigned section:
+- A natural narration of about 170-220 words, with enough pause time for the proposed two-minute segment. Timing is a suggestion, not an assignment requirement.
+- Screen/clip cues with source-video times, explicitly distinguished from scenario time. If you cannot inspect the video, mark those cues as taken from the presenter guide and request the necessary clip for visual verification.
+- The title containing my actual name that should appear before my segment.
+- A small claim-to-source checklist and three likely questions with concise answers.
+- A list of any missing evidence, setup obstacle or inaccurate claim you find. Keep uncertainty visible.
+
+The supplied assignment says the app should already run on a smartphone; the video must show current features with each member narrating or identified by text titles before their work. A separate achievement/reflection is at most one page and covers functionality, teamwork, remaining checkpoints, coordination, meetings and decision-making. No video time limit was supplied. Native iOS Simulator execution has been verified; a physical-phone run is still unverified. Do not certify that requirement from a simulator screenshot.
+
+Keep the important distinctions accurate:
+- Current training is controller-first, with pilot/turnaround perspectives in debrief. Dedicated interactive roles are not implemented in this checkpoint.
+- The external service owns clock, movements, incidents and report arrivals. The model does not drive the aircraft.
+- Qwen3.5-9B is preselected locally. It selects report facts; validation and answer rendering are deterministic. Requests are genuine, with no canned answers replacing failures.
+- The Unity camera is rendered. The current demo can send cropped scene images, but report-based answers do not establish visual recognition. M1's 40-turn research study had images off; evaluated visual evidence is planned for M2.
+- The saved final demo had five automatic questions and one manual question, all accepted. This is functional verification, not 100% general accuracy. A new rerun may have a different count; use its actual record.
+- Frozen M1 results use an earlier configuration: 24/40 for the larger Qwen, 16/40 for the smaller Qwen and 16/40 for the baseline under full AR. There are 40 unique turns, reused across conditions, not 360 independent examples.
+- Sources supports the answer's cutoff; Recent reports can be newer. An estimate, service completion or fire containment does not automatically establish permission to move in these exercises.
+- Heathrow publications inform fictional scenarios and geometry; there is no live Heathrow feed or professional validation.
+- These are presentation responsibilities, not proof of development authorship. Do not invent meetings, personal contributions, experiments or approvals.
+
+Use the sources supplied and inspect relevant code if needed. Do not modify frozen research results, change app scope, regenerate benchmark claims or publish anything as part of this preparation. If asked to experiment, use my own branch as described in TEAMMATE_SETUP.md and report exactly what you ran. Never request another teammate's model-service token or credentials. Return the script, cues and supporting checklist for my review before I record.

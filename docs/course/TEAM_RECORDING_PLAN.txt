@@ -1,0 +1,37 @@
+ApronLens - team recording plan
+
+Working allocation: four presenters, including the project owner. Assign real names before recording. These are speaking responsibilities, not claims about who developed each feature.
+
+Assignment requirements supplied in the discussion
+The app should already run on a smartphone. The video is worth 10 points and must show current project features, with each member verbally narrating or using text titles identifying the member before their work. Achievement and reflection is worth 10 points: at most one page, covering functionality, teamwork, remaining checkpoints, what went well and improvements, structured around coordination, meetings and decision-making. The supplied wording does not specify a video duration.
+
+Suggested edited video: about eight minutes, with roughly two minutes per presenter. This is a planning choice, not an assignment limit. The full saved demonstration is 8:27; use labelled excerpts rather than playing the whole recording plus eight more minutes of narration.
+
+Presenter A - project owner: purpose, scope and learner flow (0:00-2:00)
+Explain the controller-awareness objective and the three exercises. Show the selected flight, overview and learner-debrief screenshot. Explain briefing, practice, three four-choice checkpoints, feedback and debrief. Identify pilot/turnaround as supporting perspectives. Establish that this is a native iOS Simulator preview, with physical-phone verification pending. Keep research results for Presenter D.
+Handoff: The next section shows how the scene and its events evolve.
+
+Presenter B - teammate 1: scene, camera and external driver (2:00-4:00)
+Explain Apron, Runway and Follow flight views, pan and zoom. Show movement through paved turns, the runway hold, takeoff, landing and the separate stand fire. Explain that one external service owns the clock, paths, incidents and report arrivals, with repeatable seeded scenarios. Quiet demo periods run at 30 times speed and teaching moments at normal speed. These are authored traffic and a rendered camera, not live Heathrow traffic or a physical camera/ARKit-tracking test.
+Useful source-video excerpts: 1:47-2:26 wildlife hold; 3:15-3:40 liftoff/climb; 4:20-5:20 landing and exit; 5:26-5:40 stand fire. Choose short portions and leave time for the scene to be visible.
+Handoff: The assistant explains what the received reports establish at each moment.
+
+Presenter C - teammate 2: assistant, changing reports and Sources (4:00-6:00)
+Use the occupied-stand question, followed by the later availability update. Explain selected-flight context, the answer's evidence cutoff and the distinction between Sources and Recent reports. Show that containment does not reopen the stand. Qwen chooses report facts at request time, a validator checks them, and the UI renders the accepted facts. The scenario reports are authored, but there are no canned substitute model answers. An accepted answer is not proof of complete semantic correctness.
+Useful source-video excerpts: 0:43-1:35 stand availability and change; 5:35-6:05 fire answer; 6:50-7:03 post-containment update. Locate the visible Sources expansion in the recording before choosing its exact cut. Never claim to have clicked a control live when showing a recording.
+Handoff: The final section separates the working demonstration from the research evaluation.
+
+Presenter D - teammate 3: results, limitations and next checkpoints (6:00-8:00)
+Present the frozen M1 study: 40 distinct turns in 17 families across four scenarios, reused under three context conditions. Qwen3.5-9B, Qwen3-VL-4B and a deterministic baseline were compared. Full-AR scores were 24/40, 16/40 and 16/40 respectively. Images were off. Removing pointing reduced the smaller model from 40% to 25%; tracking context did not help in this setup. Acknowledge the small sample and uncertainty. Contrast the scope of the saved demo evidence: six accepted requests, not a general accuracy estimate. Explain M2 visual evidence and the planned turnaround task, then M3 integrated evaluation. State physical-phone verification remains outstanding.
+
+What every member receives
+The published Checkpoint 1 branch, current-status guide, presenter guide, this role allocation, the frozen M1 report, saved demo acceptance and source-video excerpts or the full recording. Each member also receives the shared agent prompt with their assigned letter and name.
+
+What each member returns
+A short narration with on-screen cues; a list of source files supporting the claims; the clips/screenshots needed; and a recording of their own part. Aim for 170-220 spoken words plus time to watch the demonstration. Verify the actual duration in rehearsal. Titles must identify the real member before their section. Describe individual development contributions only when that person confirms them.
+
+Editing and review
+Use the same build and source recording across members. One editor assembles the sections. Keep useful aircraft movement visible and answers readable. Label edited jumps and recorded excerpts. Show at least one scored checkpoint or clearly labelled learner-debrief evidence separately: the guided video itself is unscored. Do not replace a failed model answer with narrated scripted output. Have each member check their own segment and name title before export.
+
+Current limitations
+The existing footage proves native simulator execution, not the assignment's physical-smartphone condition. No completed visual-reasoning evaluation, dedicated pilot/turnaround modes, continuous voice or full Heathrow reconstruction is claimed. Coordination and Meetings in the one-page reflection are intentionally blank for the project owner.

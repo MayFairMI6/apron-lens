@@ -1,19 +1,24 @@
 # Checkpoint 1 documentation
 
-Start with [current status and setup](CHECKPOINT1_CURRENT.md) and the
-[presenter guide](CHECKPOINT1_PRESENTER_GUIDE.txt).
+Start with [current setup](CHECKPOINT1_CURRENT.md), the
+[presenter guide](CHECKPOINT1_PRESENTER_GUIDE.txt) and the
+[assignment status](CHECKPOINT1_ASSIGNMENT_STATUS.md).
 
-| Material | Status |
-|---|---|
-| Current implementation and simulator setup | Prepared |
-| Spoken walkthrough and shorter excerpt route | Prepared; proposed durations are not assignment requirements |
-| Frozen M1 methods, results and limitations | Completed in `outputs/m1_ar_context/REPORT.md` |
-| Simulator verification and real assistant response records | Preserved in `outputs/checkpoint1/` |
-| Heathrow design references and asset attribution | Included; fictional geometry is identified |
-| Team reflection | Historical draft; current achievements and actual member experiences need reconciliation |
-| Exact rubric, recording limit and submission format | Not verified against the assignment page |
-| Final multi-presenter recording and submission | Not completed by publishing this snapshot |
+- [One-page achievement and reflection](CHECKPOINT1_ACHIEVEMENT_REFLECTION.pdf)
+  and [editable text](CHECKPOINT1_ACHIEVEMENT_REFLECTION.txt). Coordination and
+  Meetings are blank at the owner's request; substantive achievements, decisions
+  and remaining checkpoints are filled.
+- [Team recording allocation](TEAM_RECORDING_PLAN.txt).
+- [Teammate agent prompt](TEAMMATE_AGENT_PROMPT.txt).
+- [Fork, clone and setup instructions](TEAMMATE_SETUP.md).
+- Frozen M1 methods/results: `outputs/m1_ar_context/REPORT.md`.
+- Saved simulator acceptance: `outputs/checkpoint1/`.
 
-`CHECKPOINT1_DEMO.md` retains the previous Unity-editor plan as history.
-Its controls and timings do not describe the current guided run. Application
-scope is frozen; presentation preparation does not add roles or complete M2.
+The exact assignment requirements supplied in the discussion are recorded in the
+status page. The final member-narrated video, blank reflection sections and
+physical-smartphone verification remain outstanding. The existing guided video
+is not by itself the completed team recording.
+
+CHECKPOINT1_DEMO.md and CHECKPOINT1_REFLECTION_DRAFT.md retain earlier editor-build
+material as history. Current application scope is frozen; presentation preparation
+does not add roles or complete M2 visual research.
