@@ -12,9 +12,9 @@ Turnaround/ramp: a supporting debrief perspective covering service completion, e
 
 An earlier prototype retains three role-specific assistant profiles and a common-world comparison service. Those profiles change suggested questions and the assistant's emphasis. The current guided lesson service preselects controller awareness; it does not expose three role modes to the learner. Do not present the older profiles as three completed courses.
 
-Suggested presentation: about ten minutes
+Using the combined recording
 
-Use the 8 minute 27 second recording, with a 30–40 second introduction and a short conclusion. The cues below refer to the VIDEO PLAYER time, not the exercise clock shown inside the app. Live inference may change these timings. Speak at the important moments and leave room to watch the aircraft.
+Use apronlens-combined-demo.mp4, a 9:42 silent edit of the original recording and fresh landscape incident captures. Title cards identify the separately recorded additions. Keep Person 1’s existing narration; the new explanations belong to Person 2. TEAM_RECORDING_PLAN.txt and PERSON2_SCRIPT.txt provide the two-person narration. The cues below refer to VIDEO PLAYER time, not the exercise clock shown inside the app. Original stand, flight and Sources timings remain within a tenth of a second. Allow time to read answers and watch movement; no assignment duration limit was supplied.
 
 Opening, before starting the recording
 
@@ -38,9 +38,9 @@ The third question starts around 01:13; its answer appears around 01:24.
 
 “Now the availability update has arrived. The assistant changes its answer using that new report. This is the core behaviour: the answer follows the evidence available at the time.”
 
-01:47–02:26 — Wildlife hold
+01:50–02:24 — Updated wildlife hold
 
-Show the flock, the stopped aircraft and the report summary. The wildlife question starts around 01:53 and its answer appears around 02:03.
+The preceding title card identifies the separately recorded update. Show the articulated birds flapping and gliding, the stopped aircraft and the genuine report summary visible near 02:16. These original procedural models are illustrative, not photorealistic.
 
 “Here the aircraft is held short because birds have been reported near the runway entry. A wildlife sighting is different from a confirmed strike. The exercise waits for an inspection report and a separate controller release before the aircraft enters.”
 
@@ -72,7 +72,15 @@ The post-containment update is a manual Latest update request, made around 06:43
 
 “The fire is now reported contained, but the stand remains closed pending inspection. The assistant preserves that restriction. It does not turn the disappearance of the visual fire into permission to move.”
 
-07:05–08:27 — Explain the learner flow and evidence
+07:06–08:23 — Dropped baggage and the continuing hold
+
+The title card at 07:03 introduces the separately recorded baggage incident. Bags spill around 07:13; the first assistant answer is visible near 07:32. The cleanup answer is visible near 08:10 and a separate movement release follows near 08:20.
+
+“The cart has dropped baggage in the service area, and the aircraft is held. The assistant identifies that restriction from received reports. At the later answer’s cutoff, the bags have been collected, but inspection and release are still pending. Visible cleanup, service completion and permission to move are separate states.”
+
+Keep the answer cutoff visible. The scene may already show an inspection update while an earlier answer remains correctly tied to its request cutoff. Collection does not mean the baggage service has finished.
+
+08:25–09:42 — Explain the learner flow and evidence
 
 The remainder advances through the quiet part of the hour and ends in debrief.
 
@@ -80,7 +88,9 @@ The remainder advances through the quiet part of the hour and ends in debrief.
 
 Then give the results, keeping two kinds of evidence separate:
 
-“For functional verification, all three lessons reached debrief in the iOS simulator. Automated checks covered sixty seeded worlds. This final recording contains six real model requests, all accepted by the evidence checks. Those six demonstration answers are not a general accuracy estimate.”
+“For functional verification, all three lessons reached debrief in the iOS simulator. Automated checks covered sixty seeded worlds. The answers shown here came from real local-model requests and passed the evidence checks. These are verified examples, not a general accuracy estimate.”
+
+Preparation detail: the original recording had six accepted responses. This edit retains five and adds three accepted responses from separate landscape captures, for eight shown across recordings. It is not a new uninterrupted acceptance run. The new incident responses took approximately 13–18 seconds.
 
 “Separately, the earlier frozen M1 context study evaluated forty turns in seventeen conversation families, with images off. Qwen3.5-9B scored twenty-four out of forty, or sixty percent; the deterministic baseline scored sixteen out of forty, or forty percent. Removing pointing reduced the smaller model from forty to twenty-five percent. Providing tracking-interruption context did not improve scores in that setup. These are results from the earlier frozen configuration, not a fresh evaluation of this controller interface.”
 
@@ -90,17 +100,25 @@ Conclusion, after the recording
 
 Five-minute route
 
-Use approximately 30 seconds to introduce the project and roles. Show 00:43–01:35 for the stand update, 01:47–02:15 for wildlife, 03:15–03:30 for liftoff, 04:20–04:35 for landing, and 05:35–06:05 for the fire answer. Then jump to 06:50–07:03 for the continuing stand closure and to the final debrief. Use the remaining time to explain the learner checkpoints, report the M1 results, and state the M2 plan. Introduce the jumps as selected excerpts from the recorded run; do not describe a recording as a live request.
+For a shorter edit, show 00:43–01:35 for the stand update, 01:50–02:24 for wildlife, 03:15–03:30 for liftoff, 04:20–04:35 for landing, 05:35–06:05 for the fire answer, and excerpts around 07:32 and 08:10 for the baggage answers. Add the learner-debrief evidence, M1 results and next-checkpoint plan. Introduce the footage as selected recorded excerpts. Preserve Person 1’s existing section and put the new incident explanation in Person 2’s part. Rehearse rather than forcing all clips into five minutes.
 
 Live demonstration preparation
 
 Open the current iOS app in landscape. Use the existing local training service and confirm the app is connected before presenting. If the guided run is at its completion screen, Try again starts a fresh run. Keep the saved recording open as a clearly labelled recorded run in case the live service is unavailable. Exact startup commands are in apronlens-run-guide.txt.
 
-During a live answer, avoid changing the selected aircraft until it finishes; doing so correctly discards the old response. Model answers in the final recording took approximately six to twelve seconds. During the wait, explain that the traffic continues and the request retains its evidence cutoff. If a request fails, show the failure and the available reports. Do not substitute a rehearsed answer as though it came from the model.
+During a live answer, avoid changing the selected aircraft until it finishes; doing so correctly discards the old response. Model answers in the original recording took approximately six to twelve seconds; the fresh landscape incident answers took thirteen to eighteen seconds. During the wait, explain that the traffic continues and the request retains its evidence cutoff. If a request fails, show the failure and the available reports. Do not substitute a rehearsed answer as though it came from the model.
 
 To show the actual learning flow, use the short lesson profile, read the briefing, choose Ready and let the first checkpoint arrive at one minute of exercise time. Choose one answer, then show the report-based feedback. The guided recording does not contain these scored checkpoints. Use the saved learner-debrief screen if the presentation time is too short to run a checkpoint.
 
 Likely questions
+
+What does “unscored” mean?
+Guided demonstration runs the scenario and assistant questions automatically. It asks the viewer for no checkpoint choices and awards no points. The separate lesson profile pauses for three multiple-choice questions, deterministic scoring and report-based feedback. This distinction belongs in Person 2’s added narration.
+
+Is the external driver in the recording, and how do I access it?
+The recording shows its effects: time changes, movement, incidents and reports. It does not show a separate console. The driver is included in the published branch. After setting up the repository and local model, run from the repository folder:
+.venv-candidates/bin/python -m backend.training --exercise late_arrival --mode demo --seed 17
+Then open the configured iOS Simulator app. Use --mode lesson for scored practice or --mode continuous for the hour at normal speed. Run one service on port 8767 at a time. See docs/TRAINING_DRIVER.md and docs/course/TEAMMATE_SETUP.md. The model answers questions; it does not control aircraft.
 
 What does the AI do?
 The local Qwen model interprets the question and selected-flight context and selects relevant eligible report facts. A deterministic validator checks support, identity and timing; the interface renders the accepted facts as a concise report summary. The external driver controls the scenario and movements.
@@ -117,15 +135,18 @@ The interactive course is controller-first. Pilot and turnaround implications ap
 Is it real Heathrow?
 Heathrow and UK CAA publications inform the scenario design and reporting distinctions. The geometry, aircraft identifiers and timings are fictional, and the app is not connected to live airport operations.
 
-Does 6/6 mean 100 percent model accuracy?
-No. It describes this demonstration's six requests. The separate M1 held-out study provides the initial research results, with limited sample size and uncertainty.
+Do accepted demo answers mean 100 percent model accuracy?
+No. The original six responses and the combined edit’s eight responses across captures are functional examples. The separate M1 held-out study provides the initial research results, with limited sample size and uncertainty.
 
 What remains after Checkpoint 1?
 M2 remains planned in the existing research roadmap. Its original scope includes visual evidence and a detector; any narrower controller-focused replacement should be explicitly agreed and checked against the course proposal. Snow is a credible future exercise but is not in this build. Continuous voice and physical-device AR testing are also not demonstrated here. The recorded-video memory project remains separate and deferred.
 
 Files to have open
 
-apronlens-heathrow-informed-demo.mp4 — full recorded demonstration, 8:27.
+apronlens-combined-demo.mp4 — combined silent footage, 9:42; title cards identify separate captures.
+apronlens-person-2-script.txt — updated Person 2 narration; Person 1 remains unchanged.
+apronlens-combined-demo-verification.json — edit timeline, source hashes and response provenance.
+apronlens-heathrow-informed-demo.mp4 — original full recorded demonstration, 8:27; preserved.
 apronlens-heathrow-acceptance.json — current implementation and demo verification.
 apronlens-m1-research-results.md — unchanged copy of the earlier frozen M1 report.
 controller-arrival-debrief.png — completed learner-mode debrief.

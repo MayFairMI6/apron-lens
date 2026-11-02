@@ -1,3 +1,5 @@
+Person 1 has already recorded. Preserve that narration unchanged. Prepare the additions for Person 2 only, using PERSON2_SCRIPT.txt and the combined-video cues. Do not assign presenter names or development credit.
+
 Help me prepare my part of the ApronLens Checkpoint 1 video. My section is [Person 1 / Person 2]. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify the corresponding section. If the section is missing, ask which one before writing my narration. Use only Person 1 and Person 2 as presenter labels.
 
 Repository: https://github.com/MayFairMI6/apron-lens
@@ -13,10 +15,12 @@ Read these sources first:
 5. outputs/m1_ar_context/REPORT.md
 6. outputs/checkpoint1/heathrow-acceptance.json
 7. docs/TRAINING_DRIVER.md
+8. docs/course/PERSON2_SCRIPT.txt
+9. outputs/checkpoint1/combined-demo-edit.json
 The older CHECKPOINT1_DEMO.md and REFLECTION_DRAFT describe historical work. The current achievement/reflection file leaves Coordination and Meetings blank by the owner's request.
 
 Produce only preparation material for my assigned section:
-- A natural narration adapted from my assigned draft, with enough pause time for roughly three minutes for Person 1 or three to four minutes for Person 2. Verify timing in rehearsal rather than forcing a word count. Timing is a suggestion, not an assignment requirement.
+- A natural narration adapted from my assigned draft, with enough pause time for roughly three minutes for Person 1 or four to five minutes for Person 2. Verify timing in rehearsal rather than forcing a word count. Timing is a suggestion, not an assignment requirement.
 - Screen/clip cues with source-video times, explicitly distinguished from scenario time. If you cannot inspect the video, mark those cues as taken from the presenter guide and request the necessary clip for visual verification.
 - Use Person 1 or Person 2 as the section heading.
 - A small claim-to-source checklist and three likely questions with concise answers.
@@ -29,7 +33,9 @@ Keep the important distinctions accurate:
 - The external service owns clock, movements, incidents and report arrivals. The model does not drive the aircraft.
 - Qwen3.5-9B is preselected locally. It selects report facts; validation and answer rendering are deterministic. Requests are genuine, with no canned answers replacing failures.
 - The Unity camera is rendered. The current demo can send cropped scene images, but report-based answers do not establish visual recognition. M1's 40-turn research study had images off; evaluated visual evidence is planned for M2.
-- The saved final demo had five automatic questions and one manual question, all accepted. This is functional verification, not 100% general accuracy. A new rerun may have a different count; use its actual record.
+- The original 8:27 demo had five automatic questions and one manual question, all accepted. The new 9:42 silent edit retains five original answers and adds three accepted answers from separately recorded landscape bird/baggage clips. Title cards identify the edits. It is not a new uninterrupted run or a general accuracy score.
+- “Unscored” means the guided recording runs automatically without learner choices or points. The separate practice profile has three scored checkpoints. Explain this in Person 2’s section.
+- The driver runs on the Mac; the simulator is the viewer. The recording shows driver effects, not its console. Give setup instructions from TRAINING_DRIVER.md when asked; a clone alone does not include model weights or the Apple development tools.
 - Frozen M1 results use an earlier configuration: 24/40 for the larger Qwen, 16/40 for the smaller Qwen and 16/40 for the baseline under full AR. There are 40 unique turns, reused across conditions, not 360 independent examples.
 - Sources supports the answer's cutoff; Recent reports can be newer. An estimate, service completion or fire containment does not automatically establish permission to move in these exercises.
 - Heathrow publications inform fictional scenarios and geometry; there is no live Heathrow feed or professional validation.

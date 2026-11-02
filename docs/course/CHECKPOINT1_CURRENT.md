@@ -10,6 +10,12 @@ The subsequent requested visual update adds articulated birds and a dropped-bagg
 incident to the extended guided story. It leaves the three scored lessons unchanged.
 Use the [supplemental clip guide](INCIDENT_DEMO_SUPPLEMENT.txt) for these additions;
 the original full recording and its timestamps remain historical evidence.
+The new 9:42 combined edit keeps the original stand, flight, fire and Sources
+footage, replaces the bird window and inserts the baggage clip. Title cards
+identify separate captures. See [Person 2’s updated script](PERSON2_SCRIPT.txt)
+and the [edit record](../../outputs/checkpoint1/combined-demo-edit.json).
+Person 1’s spoken script remains unchanged. The combined edit is silent footage
+for narration; it is not a new uninterrupted acceptance run.
 
 The learner-facing header is simply APRONLENS followed by the exercise title.
 Controller situational awareness describes the learning objective in developer

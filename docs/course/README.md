@@ -10,6 +10,11 @@ Start with [current setup](CHECKPOINT1_CURRENT.md), the
   and remaining checkpoints are filled.
 - [Two-person recording allocation and spoken scripts](TEAM_RECORDING_PLAN.txt):
   sections labelled Person 1 and Person 2, with narration and clip guidance.
+- [Person 2’s updated narration](PERSON2_SCRIPT.txt): external driver, guided
+  demonstration versus scored practice, birds and baggage. Person 1’s existing
+  spoken section remains unchanged. The combined silent video is 9:42; its
+  [edit record](../../outputs/checkpoint1/combined-demo-edit.json) identifies the
+  original recording and separate incident captures.
 - [Teammate agent prompt](TEAMMATE_AGENT_PROMPT.txt).
 - [Bird and baggage recording supplement](INCIDENT_DEMO_SUPPLEMENT.txt): new native
   incident clips, their separate provenance and concise narration suggestions.

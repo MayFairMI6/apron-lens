@@ -6,11 +6,11 @@ Make one narrated video
 
 Use selected excerpts from the recorded native iOS Simulator run and record each person's voice over their assigned part. Introduce the footage as a recorded run. Use natural present-tense explanation such as “Here the aircraft is waiting,” rather than implying that a recorded click is happening live.
 
-Aim for roughly six to eight minutes in the final edit: about three minutes for Person 1 and three to four minutes for Person 2, including pauses. This is a suggested structure; the supplied assignment has no stated duration limit. Rehearse and adjust the timing rather than rushing the words.
+Keep Person 1's existing recording. Allow roughly four to five minutes for Person 2, including pauses for the new incidents. The final narrated edit can use selected excerpts; its length depends on the existing recording and how much movement you leave on screen. The supplied assignment has no stated duration limit.
 
 The guided demonstration supplies footage; it does not need its own extra presentation section. Show the learner flow briefly, then selected assistant and movement clips. The guided run is unscored. The three scored checkpoints belong to the separate learner mode, so show an actual learner-mode capture or the labelled saved debrief evidence when explaining that flow. Do not present the guided run as evidence of completing scored questions.
 
-The source recording is 8:27. Its compressed narration copy preserves the full 507.21-second duration and the presenter's source-video timestamps. It was recorded before the cosmetic header change from APRONLENS / CONTROLLER AWARENESS to APRONLENS. The current-header screenshot shows that later change. The compression is for sharing; the full-resolution original remains available separately.
+The combined source video is 9:42: apronlens-combined-demo.mp4. It preserves the original stand-availability, flight, fire and Sources footage, replaces the bird segment with a fresh landscape recording, and inserts the baggage incident after the fire response. Short title cards identify the separately recorded updates. The original 8:27 video remains available. The combined video is silent footage for narration, not a new uninterrupted acceptance run. Person 1's spoken script below is unchanged; the existing stand and Sources cues remain aligned to within a tenth of a second. Download: https://drive.google.com/file/d/1LQA8na9VdeyPOaI17TRSGRaEKvPoTakl/view
 
 Person 1
 
@@ -35,8 +35,7 @@ Next, we will look at how the moving scenario is driven and what we have evaluat
 
 Person 2
 
-
-Use short excerpts from 01:47-02:26 for the wildlife hold, 02:27-03:40 for line-up and takeoff, 04:20-05:20 for landing and runway exit, 05:26-06:05 for the separate stand incident, and 06:50-07:03 for the post-containment answer. Leave several seconds of unobstructed movement. Show the frozen M1 result figures while discussing research. Edited jumps must be clear; the full guided recording does not need to play again.
+Use 01:50–02:24 for the updated birds and runway-hold answer; 02:27–03:40 for line-up and takeoff; 04:20–05:20 for landing and exit; 05:26–06:05 for the stand fire; 06:50–07:03 for the post-containment answer; and 07:06–08:23 for the new baggage incident. In the baggage segment, the spill is visible around 07:13, the first answer around 07:32, the cleanup answer around 08:10 and the separate release near 08:20. The final quiet period and debrief run from 08:25 to 09:42. These are combined-video player times, not the scenario clock. The new narration belongs to Person 2; keep Person 1's recorded speech unchanged.
 
 Suggested narration:
 
@@ -44,17 +43,33 @@ Suggested narration:
 
 For the demonstration, quiet periods run at thirty times normal speed. Teaching moments and pending assistant answers run at normal speed, with time afterward to read the response. This makes a one-hour scenario practical to show in a short video.
 
-Here, the aircraft waits near the runway because birds have been reported and an inspection is pending. Later, the run shows line-up, takeoff, climb, approach, touchdown and the curved runway exit. The camera views let us follow the selected aircraft or look across the apron and runway.
+This is Guided demonstration: the scenario runs and assistant questions appear automatically, without the learner choosing answers or receiving points. In the separate practice lessons, the learner answers three multiple-choice checkpoints and receives a score and report-based feedback. The new incident clips were recorded separately in the updated build and edited into this walkthrough.
+
+Here, the birds flap and glide across the runway area while the aircraft holds short. The assistant explains the hold from the wildlife report and pending inspection. Seeing the birds leave does not itself establish permission to enter the runway. The flight circuit then shows line-up, takeoff, climb, approach, touchdown and the curved runway exit. The camera can follow the selected aircraft or show the apron and runway.
 
 After parking, there is a separate engine-fire incident at the stand. The earlier wildlife report is not established as its cause. Even after the fire is reported contained, the stand remains closed pending inspection. A change in the picture alone does not establish permission to move.
 
-We verified all three short lessons reaching debrief in the native iOS Simulator. The recorded extended demo contains six actual model requests, all accepted by the evidence checks. That verifies this run; it is not a general accuracy score.
+The next incident shows bags falling from a cart beside a parked aircraft. The assistant identifies the dropped baggage and the movement hold from the received reports. Later, the bags have been collected, but the aircraft still awaits inspection and release at the answer's cutoff. Those arrive as separate updates. The learning point is to distinguish visible cleanup, service completion and permission to move.
+
+We verified all three short lessons reaching debrief in the native iOS Simulator. The responses shown here came from actual local-model requests and passed the evidence checks. That verifies these examples; it is not a general model-accuracy score or a new uninterrupted acceptance run.
 
 Our separate frozen Milestone 1 study used forty distinct question-and-answer turns. Under its full-context condition, Qwen3.5-9B scored twenty-four out of forty, while Qwen3-VL-4B and the deterministic baseline each scored sixteen out of forty. Images were off, and tracking context did not improve performance in this setup. These results come from the earlier evaluation configuration, not a new benchmark of this interface.
 
 Checkpoint 2 will test whether visible evidence adds useful information, including comparisons with and without images. A distinct turnaround handover task is also planned. Checkpoint 3 will evaluate the integrated experience, including failures and latency. Physical-phone verification is still outstanding.
 
 The current result is a working training workflow in which aircraft, reports and answers change over time. The next step is to measure what the camera evidence contributes.”
+
+Driver access for Person 2 — preparation notes, not a passage to read aloud
+
+The video shows the driver's effects: the clock, 30×/normal-speed changes, aircraft paths, incident animation and arriving reports. It does not show a separate driver console. The driver runs on the Mac, independently of the Unity viewer and the language model, and is included in the published repository.
+
+After the repository and local model are set up, run this from the repository folder:
+.venv-candidates/bin/python -m backend.training --exercise late_arrival --mode demo --seed 17
+
+Use --mode lesson for three scored checkpoints, or --mode continuous for the hour at normal speed. Run one service at a time on port 8767. Open the configured iOS Simulator app after the model finishes loading. The model and driver stay on the Mac; the simulator is the viewer. A clone alone does not install the model, Unity or Xcode.
+
+Access and setup: https://github.com/MayFairMI6/apron-lens/blob/codex/checkpoint1-controller-training/docs/TRAINING_DRIVER.md
+Implementation: backend/lessons.py creates the seeded world and reports; backend/training_session.py owns time and lesson state; backend/training.py exposes the service; ExternalTrafficDriver.cs receives it in Unity.
 
 Recording checklist
 
@@ -73,4 +88,4 @@ No TestFlight build has been published. The current service listens only on the 
 
 Evidence for preparation
 
-Use CHECKPOINT1_CURRENT.md, CHECKPOINT1_PRESENTER_GUIDE.txt, CHECKPOINT1_ASSIGNMENT_STATUS.md, outputs/m1_ar_context/REPORT.md, outputs/checkpoint1/heathrow-acceptance.json, outputs/checkpoint1/native-ios-rerun.json and docs/TRAINING_DRIVER.md on the published Checkpoint 1 branch. The earlier four-presenter allocation is superseded by this two-person plan.
+Use CHECKPOINT1_CURRENT.md, CHECKPOINT1_PRESENTER_GUIDE.txt, CHECKPOINT1_ASSIGNMENT_STATUS.md, outputs/m1_ar_context/REPORT.md, outputs/checkpoint1/heathrow-acceptance.json, outputs/checkpoint1/native-ios-rerun.json, outputs/checkpoint1/combined-demo-edit.json and docs/TRAINING_DRIVER.md on the published Checkpoint 1 branch. The original run had six accepted model responses. The combined edit retains five of those and shows three accepted responses from the fresh landscape incident captures; do not describe all eight as one new run or as a benchmark. The earlier four-presenter allocation is superseded by this two-person plan.

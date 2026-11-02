@@ -1,0 +1,23 @@
+Person 2
+
+Keep Person 1’s existing recording. This is the updated spoken section, including the demonstration/practice distinction, external driver, birds and baggage. Use the full plan for clip timings and setup commands.
+
+“The scene is driven by an external scenario service. It owns the exercise clock, aircraft paths, incidents and report arrivals. The language model answers questions about the reports; it does not control the aircraft. A seed lets us repeat the scenario for testing.
+
+For the demonstration, quiet periods run at thirty times normal speed. Teaching moments and pending assistant answers run at normal speed, with time afterward to read the response. This makes a one-hour scenario practical to show in a short video.
+
+This is Guided demonstration: the scenario runs and assistant questions appear automatically, without the learner choosing answers or receiving points. In the separate practice lessons, the learner answers three multiple-choice checkpoints and receives a score and report-based feedback. The new incident clips were recorded separately in the updated build and edited into this walkthrough.
+
+Here, the birds flap and glide across the runway area while the aircraft holds short. The assistant explains the hold from the wildlife report and pending inspection. Seeing the birds leave does not itself establish permission to enter the runway. The flight circuit then shows line-up, takeoff, climb, approach, touchdown and the curved runway exit. The camera can follow the selected aircraft or show the apron and runway.
+
+After parking, there is a separate engine-fire incident at the stand. The earlier wildlife report is not established as its cause. Even after the fire is reported contained, the stand remains closed pending inspection. A change in the picture alone does not establish permission to move.
+
+The next incident shows bags falling from a cart beside a parked aircraft. The assistant identifies the dropped baggage and the movement hold from the received reports. Later, the bags have been collected, but the aircraft still awaits inspection and release at the answer's cutoff. Those arrive as separate updates. The learning point is to distinguish visible cleanup, service completion and permission to move.
+
+We verified all three short lessons reaching debrief in the native iOS Simulator. The responses shown here came from actual local-model requests and passed the evidence checks. That verifies these examples; it is not a general model-accuracy score or a new uninterrupted acceptance run.
+
+Our separate frozen Milestone 1 study used forty distinct question-and-answer turns. Under its full-context condition, Qwen3.5-9B scored twenty-four out of forty, while Qwen3-VL-4B and the deterministic baseline each scored sixteen out of forty. Images were off, and tracking context did not improve performance in this setup. These results come from the earlier evaluation configuration, not a new benchmark of this interface.
+
+Checkpoint 2 will test whether visible evidence adds useful information, including comparisons with and without images. A distinct turnaround handover task is also planned. Checkpoint 3 will evaluate the integrated experience, including failures and latency. Physical-phone verification is still outstanding.
+
+The current result is a working training workflow in which aircraft, reports and answers change over time. The next step is to measure what the camera evidence contributes.”
