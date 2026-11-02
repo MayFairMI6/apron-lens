@@ -55,3 +55,6 @@ unity/**/.vs/
 slurm-*.out
 # models/ may be a symlink to /data storage on GAIVI
 /models
+
+# Vuforia runtime data written during editor Play mode
+unity/SurfaceSafetyCoach/QCAR/
