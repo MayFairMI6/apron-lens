@@ -7,8 +7,8 @@ namespace SurfaceSafety {
     [Serializable] public class FlightPhase {public float t;public string id,label;}
     [Serializable] public class RunwayPlan {public string id;public float x,z,length,width;}
     [Serializable] public class TaxiPoint {public float x,z;}
-    [Serializable] public class TaxiPath {public string id;public float width;public TaxiPoint[] points;}
-    [Serializable] public class TrainingIncident {public string id,kind,aircraftId;public float start,end,x,y,z;}
+    [Serializable] public class TaxiPath {public string id,kind;public float width;public TaxiPoint[] points;}
+    [Serializable] public class TrainingIncident {public string id,kind,aircraftId;public float start,onset,clearedAt,end,x,y,z;}
     // An aircraft flies one flight (legacy "flightInstance") or several rotations, in the
     // same format as backend/conversation/identity.py: ordered, non-overlapping
     // {flightInstance, from, until}; the last may omit "until" (open). Bindings come only

@@ -5,6 +5,7 @@ departs and returns, continuously; the runway and ground circuit are reserved.
 Movement geometry remains rendering input. Only received reports reach answers.
 """
 from backend.ground_routes import departure_path, rounded_path, timed_path, add_pavement
+from backend.baggage_incident import add_baggage_incident
 
 def add_flight_cycle(world, reservations, report):
     start=max(300.,max((r['end'] for r in reservations),default=0)+30)
@@ -58,6 +59,7 @@ def add_flight_cycle(world, reservations, report):
     world['incidents']=[dict(id='wildlife-runway',kind='wildlife',aircraftId='A1',
         start=start+143,end=start+173,x=-.775,y=.001,z=-.4)]
     world['flightTeachingWindows'].insert(0,dict(start=start+140,end=start+197))
+    world['flightShowcases'].insert(0,dict(id='wildlife-detail',aircraftId='A1',start=start+140,end=start+178))
     world['demoQuestions']=[dict(id='wildlife-hold',at=start+151,aircraftId='A1',
         assistantQuestion='Why is TRN101 holding short of the runway?')]
     report('A1wildlifeHold','A1',start+145,'movement_condition','hold: birds reported on Runway 09; inspection pending',
@@ -94,4 +96,5 @@ def add_flight_cycle(world, reservations, report):
             'Apron movement is held during the exercise emergency response at Stand A.',2,'ground-control')
         report(aid+'emergencyRelease',aid,fire+105,'movement_condition','exercise ground hold released; keep clear of closed Stand A',
             'Apron movement may resume outside closed Stand A. TRN101 remains held.',2,'ground-control')
+    add_baggage_incident(world,reservations,report,fire+125)
     return start+787

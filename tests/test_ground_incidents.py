@@ -87,10 +87,47 @@ class GroundIncidentTests(unittest.TestCase):
 
     def test_extra_demo_questions_target_correct_flight_without_changing_scored_questions(self):
         s=TrainingSession(17,'late_arrival','demo',clock=lambda:0)
-        self.assertEqual(len(s.probes),3);self.assertEqual(len(s.demo_probes),5)
+        self.assertEqual(len(s.probes),3);self.assertEqual(len(s.demo_probes),7)
         for i,p in enumerate(s.demo_probes[3:],3):
             s.demo_index=i;s.source_time=p['at'];s._arrive(0)
-            self.assertEqual(s.cue['aircraftId'],'A1');self.assertEqual(s.cue['status'],'pending')
+            self.assertEqual(s.cue['aircraftId'],'A1' if i<5 else 'A2');self.assertEqual(s.cue['status'],'pending')
             self.assertLess(p['at'],s.scenario['duration'])
+
+    def test_dropped_load_is_after_lessons_and_reserves_aircraft_until_cart_clears(self):
+        for exercise in EXERCISES:
+            for seed in range(20):
+                world,slots,probes=build_lesson(seed,exercise)
+                incident=next(i for i in world['incidents'] if i['kind']=='baggage_spill')
+                self.assertGreater(incident['start'],210)
+                self.assertEqual([p['at'] for p in probes],[60,120,180])
+                self.assertTrue(incident['start']<incident['onset']<incident['clearedAt']<incident['end'])
+                for boundary in ('start','onset','clearedAt','end'):
+                    self.assertIn(incident[boundary],world['predictionBoundaries'])
+                plane=world['aircraft'][1]
+                before=[p for p in plane['waypoints'] if p['t']<=incident['start']][-1]
+                after=[p for p in plane['waypoints'] if p['t']>=incident['end']][0]
+                self.assertEqual((before['x'],before['z']),(after['x'],after['z']))
+                self.assertGreater(after['t'],incident['end'])
+                self.assertAlmostEqual(incident['x'],before['x']+.018)
+                self.assertAlmostEqual(incident['z'],before['z']-.018)
+                self.assertFalse(any(s['start']<incident['end'] and s['end']>incident['start']
+                    and s.get('kind')!='dropped-load-response' for s in slots))
+
+    def test_collecting_bags_does_not_release_hold_or_leak_future_reports(self):
+        world,_,_=build_lesson(17,'late_arrival')
+        spill=next(i for i in world['incidents'] if i['kind']=='baggage_spill');start=spill['start']
+        def current(at):
+            return {f['property']:f['value'] for f in classify(received_facts(world,at),at)
+                    if f['aircraftId']=='A2' and f['status']=='current'}
+        self.assertNotIn('spilled',str(current(spill['onset']+.9)))
+        self.assertIn('Stand C',current(start+14)['movement_condition'])
+        self.assertEqual(current(start+14)['baggage_status'],'paused: bags spilled from cart')
+        self.assertEqual(current(start+47)['movement_condition'],'hold: bags collected; inspection and movement release pending')
+        self.assertEqual(current(start+62)['baggage_status'],'complete')
+        phases=world['aircraft'][1]['phases']
+        self.assertEqual([p for p in phases if p['t']<=start+62][-1]['label'],'Area inspected · movement held')
+        self.assertIn('release pending',current(start+71.99)['movement_condition'])
+        self.assertTrue(current(start+72)['movement_condition'].startswith('exercise ground hold released'))
+        self.assertNotIn('overall_readiness',current(start+72))
 
 if __name__=='__main__':unittest.main()

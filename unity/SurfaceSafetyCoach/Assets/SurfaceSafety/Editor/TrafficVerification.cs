@@ -56,7 +56,7 @@ public static class TrafficVerification {
             check(runway.transform.Find("Taxiway "+flight.taxiPaths[0].id)!=null,"taxi pavement uses external geometry");
             var wrapped=new AircraftPlan{preciseHeading=true,waypoints=new[]{new Waypoint{t=0,heading=355},new Waypoint{t=10,heading=5}}};
             check(Mathf.Abs(Scenario.Heading(wrapped,5))<.01f,"heading crosses north by the short turn");
-            check(flight.incidents.Length==2&&flight.incidents[0].kind=="wildlife"&&flight.incidents[1].kind=="engine_fire","wildlife and fire are separate timed incidents");
+            check(flight.incidents.Length==3&&flight.incidents[0].kind=="wildlife"&&flight.incidents[1].kind=="engine_fire"&&flight.incidents[2].kind=="baggage_spill","wildlife, fire and baggage are separate timed incidents");
             r.ApplyTrafficScenario(flight);
             var effectsObject=new GameObject("Incident verification");effectsObject.transform.SetParent(r.Content,false);
             var effects=effectsObject.AddComponent<TrainingIncidentEffects>();effects.Bind(r);
@@ -65,6 +65,7 @@ public static class TrafficVerification {
             check(effects.GetComponentsInChildren<ParticleSystem>().All(p=>p.main.scalingMode==ParticleSystemScalingMode.Hierarchy),"effects inherit the world metre scale");
             effects.RenderAt(flight.incidents[1].end);
             check(effects.GetComponentsInChildren<ParticleSystem>().Length==0,"contained fire is hidden at its external boundary");
+            IncidentVisualVerification.Run(r,flight,effects);
             UnityEngine.Object.DestroyImmediate(effectsObject);
             plane.waypoints[0].y=float.NaN;bool rejected=false;try{flight.Validate();}catch(ArgumentException){rejected=true;}
             check(rejected,"invalid altitude is rejected");

@@ -1,10 +1,15 @@
 # ApronLens Checkpoint 1
 
-The application scope is frozen: controller situational-awareness training,
+The core application scope remains controller situational-awareness training,
 three scored exercises, moving aircraft and a report-grounded assistant. Pilot
 and turnaround implications appear in debrief. A dedicated turnaround task is
 deferred to Checkpoint 2, alongside the planned visual-evidence research. No
 separate pilot course is delivered. The separate video-memory project is deferred.
+
+The subsequent requested visual update adds articulated birds and a dropped-baggage
+incident to the extended guided story. It leaves the three scored lessons unchanged.
+Use the [supplemental clip guide](INCIDENT_DEMO_SUPPLEMENT.txt) for these additions;
+the original full recording and its timestamps remain historical evidence.
 
 The learner-facing header is simply APRONLENS followed by the exercise title.
 Controller situational awareness describes the learning objective in developer
@@ -35,6 +40,10 @@ professional training competence.
   turns, 17 families, four scenarios, two local Qwen models and a deterministic
   baseline in three conditions; images off. Qwen3.5-9B scored 24/40 in full AR.
 - [Training driver](../TRAINING_DRIVER.md) and [scenario sources](../HEATHROW_SCENARIO_BASIS.txt).
+- [Bird and baggage acceptance](../../outputs/checkpoint1/incident-acceptance.json):
+  226 backend tests, 52 Unity checks, native build/install and targeted native clips
+  with actual model responses. These clips use explicit source-time jumps between
+  incident windows; they are not another uninterrupted full-hour acceptance run.
 
 The assistant uses Qwen3.5-9B to select eligible report facts, checked by a
 deterministic validator and rendered as a report summary. Images are sent in
@@ -44,7 +53,8 @@ Six accepted demo answers are not a model benchmark.
 
 The saved 8:27 recording is an unscored guided demonstration with five automatic
 questions and one manual post-containment question. The short learner profile
-has three scored checkpoints and ends at 3:30 of source time.
+has three scored checkpoints and ends at 3:30 of source time. A fresh extended
+demo now includes seven automatic questions after the baggage addition.
 
 ## Try the source without model weights
 

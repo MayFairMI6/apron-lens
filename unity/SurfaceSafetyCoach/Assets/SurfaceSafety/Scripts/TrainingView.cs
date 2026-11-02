@@ -33,7 +33,7 @@ namespace SurfaceSafety {
         StandReplay replay;ConversationClient assistant;Camera camera;
         Canvas canvas;RectTransform root,side,tagRoot;Font font;
         Text title,subtitle,clockText,focusText,answerText,answerHeading,notice,motionText;
-        GameObject runwayGeometry;TrainingIncidentEffects incidentEffects;string seenSpotlight="";bool followFlight;
+        GameObject runwayGeometry;TrainingIncidentEffects incidentEffects;string seenSpotlight="";bool followFlight;TrainingIncident focusIncident;
         AircraftPlan SelectedPlane=>replay.Data.aircraft[replay.SelectedAircraftIndex];
         InputField input;Button askButton;ScrollRect answerScroll;
         string viewKey="",message="Choose a question or ask about the selected flight.",messageStatus="",seenCue="",pendingCue="";
@@ -80,6 +80,10 @@ namespace SurfaceSafety {
                 if(spotlight!=""){
                     var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.spotlightAircraft);
                     if(selected>=0){replay.SelectAircraft(selected);ground=false;Focus();distance=spotlight=="stand-incident"?95:190;}
+                    if(spotlight=="wildlife-detail"||spotlight=="baggage-incident"){
+                        focusIncident=Array.Find(replay.Data.incidents??new TrainingIncident[0],i=>i.kind==(spotlight=="wildlife-detail"?"wildlife":"baggage_spill"));
+                        followFlight=false;distance=spotlight=="wildlife-detail"?38:45;
+                    }
                 }else{Overview();var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.targetAircraft);if(selected>=0)replay.SelectAircraft(selected);}
             }
             RebuildIfNeeded();
@@ -256,23 +260,31 @@ namespace SurfaceSafety {
             }
             actionBusy=false;Connected=false;
         }
-        void Overview(){followFlight=false;ground=false;centre=new Vector3(75,0,-25);distance=320;}
-        void RunwayView(){followFlight=false;ground=false;centre=new Vector3(0,0,-400);distance=1600;}
-        void Focus(){followFlight=true;centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));distance=ground?85:190;}
+        void Overview(){focusIncident=null;followFlight=false;ground=false;centre=new Vector3(75,0,-25);distance=320;}
+        void RunwayView(){focusIncident=null;followFlight=false;ground=false;centre=new Vector3(0,0,-400);distance=1600;}
+        void Focus(){focusIncident=null;followFlight=true;centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));distance=ground?85:190;}
         bool OverUI(Vector2 p){hits.Clear();EventSystem.current?.RaycastAll(new PointerEventData(EventSystem.current){position=p},hits);return hits.Count>0;}
         void MoveCamera(){
             if(State.phase=="checkpoint")return;
             Vector2 pos=Input.mousePosition;bool begin=Input.GetMouseButtonDown(0),held=Input.GetMouseButton(0),end=Input.GetMouseButtonUp(0);
             if(Input.touchCount>0){var t=Input.GetTouch(0);pos=t.position;begin=t.phase==TouchPhase.Began;held=t.phase!=TouchPhase.Ended&&t.phase!=TouchPhase.Canceled;end=!held;}
-            if(begin){dragging=camera.pixelRect.Contains(pos)&&!OverUI(pos);lastPointer=pos;if(dragging)followFlight=false;}
+            if(begin){dragging=camera.pixelRect.Contains(pos)&&!OverUI(pos);lastPointer=pos;if(dragging){followFlight=false;focusIncident=null;}}
             if(dragging&&held){var delta=pos-lastPointer;lastPointer=pos;centre+=new Vector3(-delta.x,0,-delta.y)*distance/Mathf.Max(1,Screen.height);}
             if(end)dragging=false;
             if(Input.touchCount==2){var a=Input.GetTouch(0);var b=Input.GetTouch(1);if(!OverUI(a.position)&&!OverUI(b.position)){
                 var before=(a.position-a.deltaPosition-(b.position-b.deltaPosition)).magnitude;distance-=((a.position-b.position).magnitude-before)*.25f;}}
-            distance=Mathf.Clamp(distance-Input.mouseScrollDelta.y*10,65,2400);
+            distance=Mathf.Clamp(distance-Input.mouseScrollDelta.y*10,focusIncident==null?65:28,2400);
             if(followFlight)centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));
+            if(focusIncident!=null){
+                var p=new Vector3(focusIncident.x,focusIncident.y+.002f,focusIncident.z);
+                if(focusIncident.kind=="wildlife"){
+                    float age=Mathf.Max(0,replay.Clock.Time-focusIncident.start),leave=Mathf.Clamp01((replay.Clock.Time-focusIncident.end+8)/8);
+                    p.z+=-.035f+age*.0025f+leave*leave*.06f;p.y+=leave*leave*.018f;
+                }
+                centre=replay.Content.TransformPoint(p);
+            }
             centre.x=Mathf.Clamp(centre.x,-5000,5000);centre.z=Mathf.Clamp(centre.z,-4000,500);
-            camera.transform.rotation=Quaternion.Euler(ground?12:followFlight?24:48,0,0);
+            camera.transform.rotation=Quaternion.Euler(focusIncident!=null?(focusIncident.kind=="wildlife"?18:38):ground?12:followFlight?24:48,0,0);
             camera.transform.position=centre-camera.transform.forward*distance;camera.fieldOfView=55;
         }
         void BuildTags(){for(int i=0;i<replay.Data.aircraft.Length;i++){

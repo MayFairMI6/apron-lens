@@ -20,7 +20,7 @@ namespace SurfaceSafety {
             Mark(root.transform,"27",new Vector3(.73f,.0004f,plan.z),white);
             if(paths!=null)foreach(var path in paths){
                 Ribbon(root.transform,"Taxiway "+path.id,path,path.width,.00012f,asphalt);
-                Ribbon(root.transform,"Centreline "+path.id,path,.0007f,.00044f,yellow);
+                if(path.kind!="service")Ribbon(root.transform,"Centreline "+path.id,path,.0007f,.00044f,yellow);
             }
             for(int i=0;i<4;i++)Box(root.transform,"Hold-short marking",new Vector3(-.8f,.0005f,-.365f-i*.0015f),new Vector3(.023f,.0001f,.0006f),yellow);
             return root;

@@ -146,7 +146,7 @@ def build_lesson(seed, exercise):
     world['predictionBoundaries']=sorted({t for r in reservations for k,t in r.items() if k in ('start','end','taxiStart')} |
         {p['t'] for a in world['aircraft'] for p in a.get('phases',[])} |
         {p['t'] for a in world['groundVehicles'] for p in a['waypoints']} |
-        {i[k] for i in world.get('incidents',[]) for k in ('start','end')})
+        {i[k] for i in world.get('incidents',[]) for k in ('start','onset','clearedAt','end') if k in i})
     world['events'].sort(key=lambda e:(e['receiptTime'],e['id']))
     checkpoints=[]
     for i,(question,choices,correct,explanation,refs) in enumerate(probes):
