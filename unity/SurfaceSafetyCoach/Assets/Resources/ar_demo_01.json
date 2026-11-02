@@ -1,0 +1,42 @@
+{
+ "scenarioId": "AR-DEMO-01",
+ "duration": 120.0,
+ "targetWidth": 0.24,
+ "livery": "uniform",
+ "clockWhileUntracked": "runs",
+ "aircraft": [
+  {"id": "A1", "flightInstance": "F1-R1",
+   "waypoints": [{"t": 0, "x": -0.045, "z": 0.04}, {"t": 120, "x": -0.045, "z": 0.04}]},
+  {"id": "A2", "rotations": [{"flightInstance": "F2-R1", "from": 0, "until": 80}, {"flightInstance": "F2-R2", "from": 80}],
+   "waypoints": [{"t": 0, "x": 0.035, "z": 0.04}, {"t": 100, "x": 0.035, "z": 0.04}, {"t": 110, "x": 0.035, "z": -0.025}, {"t": 120, "x": 0.1, "z": -0.025}]},
+  {"id": "A3", "flightInstance": "F3-R1",
+   "waypoints": [{"t": 0, "x": -0.1, "z": -0.025}, {"t": 60, "x": 0.1, "z": -0.025}]}
+ ],
+ "visualProps": [
+  {"id": "P1", "aircraftId": "A2", "flightInstance": "F2-R1", "kind": "fuel_vehicle", "states": [{"t": 0, "value": "connected"}, {"t": 30, "value": "departed"}]},
+  {"id": "P2", "aircraftId": "A2", "flightInstance": "F2-R1", "kind": "cargo_door", "states": [{"t": 0, "value": "open"}, {"t": 40, "value": "closed"}]},
+  {"id": "P3", "aircraftId": "A1", "flightInstance": "F1-R1", "kind": "fuel_vehicle", "states": [{"t": 0, "value": "connected"}, {"t": 45, "value": "departed"}]}
+ ],
+ "events": [
+  {"id": "D01", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "stand-planning", "eventTime": 0, "receiptTime": 0,
+   "facts": [{"property": "stand", "value": "A"}], "message": "A1 assigned Stand A."},
+  {"id": "D02", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "stand-planning", "eventTime": 0, "receiptTime": 0,
+   "facts": [{"property": "stand", "value": "B"}], "message": "A2 arriving rotation F2-R1 assigned Stand B."},
+  {"id": "D03", "aircraftId": "A3", "flightInstance": "F3-R1", "source": "ground-control", "eventTime": 0, "receiptTime": 0,
+   "facts": [{"property": "route", "value": "taxi east along the main taxiway"}], "message": "A3 cleared to taxi east along the main taxiway."},
+  {"id": "D04", "aircraftId": "A2", "flightInstance": "F2-R2", "source": "airline-ops", "eventTime": 10, "receiptTime": 10,
+   "facts": [{"property": "tobt", "value": "95 s"}], "message": "A2 next rotation F2-R2: target off-block 95 s."},
+  {"id": "D05", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 30, "receiptTime": 32,
+   "facts": [{"property": "fuel_status", "value": "complete"}], "message": "A2 fuelling complete."},
+  {"id": "D06", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "ground-handling", "eventTime": 35, "receiptTime": 36,
+   "facts": [{"property": "stand", "value": "C"}], "message": "A1 reported on Stand C."},
+  {"id": "D07", "aircraftId": "A2", "flightInstance": "F2-R1", "source": "ground-handling", "eventTime": 40, "receiptTime": 48,
+   "facts": [{"property": "baggage_status", "value": "complete"}], "message": "A2 baggage loading complete (late report)."},
+  {"id": "D08", "aircraftId": "A2", "flightInstance": "F2-R2", "source": "airline-ops", "eventTime": 50, "receiptTime": 52,
+   "facts": [{"property": "tobt", "value": "105 s", "supersedes": ["D04:tobt"]}], "message": "A2 next rotation F2-R2: target off-block revised to 105 s."},
+  {"id": "D09", "aircraftId": "A1", "flightInstance": "F1-R1", "source": "stand-planning", "eventTime": 55, "receiptTime": 56,
+   "facts": [{"property": "stand", "value": "A", "supersedes": ["D01:stand", "D06:stand"]}], "message": "A1 confirmed on Stand A; the Stand C report was in error."},
+  {"id": "D10", "aircraftId": "A2", "flightInstance": "F2-R2", "source": "ground-control", "eventTime": 100, "receiptTime": 100,
+   "facts": [{"property": "movement_status", "value": "started"}], "message": "A2 rotation F2-R2 pushing back."}
+ ]
+}

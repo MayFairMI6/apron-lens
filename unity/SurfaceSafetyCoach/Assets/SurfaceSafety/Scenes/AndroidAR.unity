@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1707437993
+--- !u!1 &66797348
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1707437995}
-  - component: {fileID: 1707437994}
+  - component: {fileID: 66797350}
+  - component: {fileID: 66797349}
   m_Layer: 0
   m_Name: SurfaceSafetyBootstrap
   m_TagString: Untagged
@@ -136,13 +136,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1707437994
+--- !u!114 &66797349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707437993}
+  m_GameObject: {fileID: 66797348}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be2825060fb4d4767be3f6795ba0ae35, type: 3}
@@ -150,13 +150,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurfaceSafety.SceneBootstrap
   previewMode: 0
   scenarioResource: milestone1
---- !u!4 &1707437995
+  scenarioJson: 
+--- !u!4 &66797350
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707437993}
+  m_GameObject: {fileID: 66797348}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -169,4 +170,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1707437995}
+  - {fileID: 66797350}

@@ -10,7 +10,9 @@ using SurfaceSafety;
 
 public static class MilestoneBuild {
     static string Output => Path.GetFullPath(Path.Combine(Application.dataPath,"../../../outputs/milestone1"));
-    public static void Prepare(){
+    public static void Prepare(){Prepare("milestone1");}
+    // scenario: the Resources scenario the built scenes start with (milestone1, or ar_demo_01 for the AR demo build).
+    static void Prepare(string scenario){
         Directory.CreateDirectory(Output);
         var importer=(TextureImporter)AssetImporter.GetAtPath("Assets/Resources/AirportBoard.png");
         importer.isReadable=true;importer.textureCompression=TextureImporterCompression.Uncompressed;
@@ -34,7 +36,8 @@ public static class MilestoneBuild {
         var input=settings.FindProperty("activeInputHandler");if(input!=null){input.intValue=0;settings.ApplyModifiedPropertiesWithoutUndo();}
         foreach(bool preview in new[]{true,false}){
             var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
-            var g=new GameObject("SurfaceSafetyBootstrap");g.AddComponent<SceneBootstrap>().previewMode=preview;
+            var g=new GameObject("SurfaceSafetyBootstrap");var bootstrap=g.AddComponent<SceneBootstrap>();
+            bootstrap.previewMode=preview;bootstrap.scenarioResource=scenario;
             EditorSceneManager.SaveScene(scene,"Assets/SurfaceSafety/Scenes/"+(preview?"DesktopReplay":"AndroidAR")+".unity");
         }
         EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene("Assets/SurfaceSafety/Scenes/AndroidAR.unity",true)};
@@ -94,15 +97,33 @@ public static class MilestoneBuild {
         QwenIntegrationVerification.CaptureScreen("coordinator-compact.png",720,1280);
         Debug.Log("MILESTONE1_RENDER_PASS");
     }
-    public static void Android(){
+    static void AndroidTools(){
         var tools=Path.GetFullPath(Path.Combine(EditorApplication.applicationContentsPath,"../../PlaybackEngines/AndroidPlayer"));
         UnityEditor.Android.AndroidExternalToolsSettings.sdkRootPath=Path.Combine(tools,"SDK");
         UnityEditor.Android.AndroidExternalToolsSettings.ndkRootPath=Path.Combine(tools,"NDK");
         UnityEditor.Android.AndroidExternalToolsSettings.jdkRootPath=Path.Combine(tools,"OpenJDK");
+    }
+    public static void Android(){
+        AndroidTools();
         Prepare();
         var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),
             locationPathName=Path.Combine(Output,"ApronLens-M1.apk"),target=BuildTarget.Android,options=BuildOptions.Development});
         if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Android build failed: "+report.summary.result);
         Debug.Log("MILESTONE1_ANDROID_BUILD_PASS");
+    }
+    // The AR demo build for the course checkpoint: same settings, starting on ar_demo_01 (pointing among identical
+    // aircraft, a next-rotation correction, and a clock that runs while the board is out of view). Written to the
+    // ignored work/ folder, not outputs/. Restores the milestone scenes afterwards.
+    public static void AndroidArDemo(){
+        AndroidTools();
+        Prepare("ar_demo_01");
+        PlayerSettings.bundleVersion="1.6-ar-demo";PlayerSettings.Android.bundleVersionCode=7;
+        var path=Path.GetFullPath(Path.Combine(Application.dataPath,"../../../work/checkpoint1/ApronLens-AR-demo.apk"));
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),
+            locationPathName=path,target=BuildTarget.Android,options=BuildOptions.Development});
+        Prepare("milestone1");PlayerSettings.bundleVersion="1.5";PlayerSettings.Android.bundleVersionCode=6;
+        if(report.summary.result!=BuildResult.Succeeded)throw new Exception("AR demo build failed: "+report.summary.result);
+        Debug.Log("AR_DEMO_ANDROID_BUILD_PASS: "+path);
     }
 }

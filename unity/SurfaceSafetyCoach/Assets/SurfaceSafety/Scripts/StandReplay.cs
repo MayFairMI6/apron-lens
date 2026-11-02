@@ -135,6 +135,18 @@ namespace SurfaceSafety {
             return flat.ToArray();
         }
         public void ClearInterruptionsThrough(int count){interruptions.RemoveAll(i=>i.id<=count);}
+        // "While you were away": the reports received while the board was out of view, computed by the app from the
+        // scenario (not by a model) when tracking returns, and shown on the Now tab until the user dismisses it.
+        public string[] AwayNotice {get;private set;}
+        public string AwayNoticeSpan {get;private set;}
+        public void DismissAwayNotice(){AwayNotice=null;AwayNoticeSpan=null;Log("away_notice_dismissed");ApplyScene();}
+        void SetAwayNotice(float from,float to){
+            var missed=Data.events.Where(e=>e.receiptTime>from&&e.receiptTime<=to).OrderBy(e=>e.receiptTime).ThenBy(e=>e.id).ToArray();
+            AwayNoticeSpan=$"{from:0}–{to:0} s";
+            AwayNotice=missed.Length==0?new[]{"Nothing new arrived."}:
+                missed.Select(e=>$"{e.aircraftId}  ·  {ShortReport(e)}  ·  received {e.receiptTime:0} s  [{e.id}]").ToArray();
+            Log("away_notice");
+        }
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
@@ -143,16 +155,16 @@ namespace SurfaceSafety {
                 var last=interruptions[interruptions.Count-1];
                 // A loss during which no replay time passed (playback paused by hand) hid nothing: discard it.
                 if(last.at>=Clock.Time)interruptions.RemoveAt(interruptions.Count-1);
-                else interruptions[interruptions.Count-1]=(last.id,last.at,Clock.Time);
+                else{interruptions[interruptions.Count-1]=(last.id,last.at,Clock.Time);SetAwayNotice(last.at,Clock.Time);}
             }
             Clock.SetTracking(found);Content.gameObject.SetActive(found);ApplyScene();
         }
         public void Play(){Clock.Play();Log("play");ApplyScene();}
         public void Pause(){Clock.Pause();Log("pause");ApplyScene();}
-        public void Restart(){interruptions.Clear();Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
+        public void Restart(){interruptions.Clear();AwayNotice=null;Clock.Restart();InvalidateAi();Log("restart");ApplyScene();}
         public void Seek(float time){
             if(float.IsNaN(time)||float.IsInfinity(time))return;
-            if(time<Clock.Time)interruptions.Clear();  // a new timeline: earlier losses no longer describe what was missed
+            if(time<Clock.Time){interruptions.Clear();AwayNotice=null;}  // a new timeline: earlier losses no longer describe what was missed
             Clock.Seek(time);InvalidateAi();Log("seek");ApplyScene();}
         // AR pointing: the aircraft nearest a tap in the AR view, if one is within the radius (pixels); else -1.
         public int AircraftAtScreen(Vector2 screen,Camera camera,float radius){
@@ -221,7 +233,8 @@ namespace SurfaceSafety {
             if(!VisibleReports.Any(e=>e.id==InspectedReportId))InspectedReportId="";
             if(clockLabel!=null)clockLabel.text=$"{Clock.Time:00.0}<size=33> / {Data.duration:00} s</size>";
             if(status!=null){status.text=previewMode?"Desktop preview · tracking untested":
-                (Clock.Tracked?"Board tracked · "+(Clock.Playing?"replaying":"paused"):"Find printed board · playback paused");status.color=Clock.Tracked?teal:amber;}
+                (Clock.Tracked?"Board tracked · "+(Clock.Playing?"replaying":"paused"):
+                Clock.RunsUntracked&&Clock.Playing?"Board out of view · apron keeps running":"Find printed board · playback paused");status.color=Clock.Tracked?teal:amber;}
             if(playLabel!=null)playLabel.text=Clock.Playing?"Pause":"Play";
             if(playButton!=null)playButton.interactable=Clock.Tracked;
             if(selectionLabel!=null)selectionLabel.text=SelectedAircraft.id+" · "+CurrentSceneState+" · simulated";
@@ -232,7 +245,7 @@ namespace SurfaceSafety {
             if(slider!=null){updatingSlider=true;slider.SetValueWithoutNotify(Clock.Time);updatingSlider=false;}
             UpdateSafeArea();
             var key=SelectedAircraftIndex+"|"+SelectedFlight+"|"+SelectedTab+"|"+AllFlightsHistory+"|"+InspectedReportId+"|"+
-                string.Join(",",Data.KnownAt(Clock.Time).Select(e=>e.id))+"|"+CurrentSceneState+"|"+aiStatus+"|"+aiText+"|"+showBaseline+"|"+showAiDetails+"|"+showTools+"|"+logCopied;
+                string.Join(",",Data.KnownAt(Clock.Time).Select(e=>e.id))+"|"+CurrentSceneState+"|"+aiStatus+"|"+aiText+"|"+showBaseline+"|"+showAiDetails+"|"+showTools+"|"+logCopied+"|"+(AwayNotice==null?"":AwayNoticeSpan+string.Join(";",AwayNotice));
             if(key!=bodyKey){bodyKey=key;RebuildBody();}
         }
         void RemoveCollider(GameObject obj){
@@ -388,6 +401,7 @@ namespace SurfaceSafety {
             return report.message.Length>75?report.message.Substring(0,72)+"…":report.message;
         }
         void BuildNow(){
+            if(AwayNotice!=null){BuildAwayNotice();return;}
             var latest=SelectedReports.LastOrDefault();
             var update=Card("Latest change",.325f,.965f);
             Label(update,"LATEST RECEIVED UPDATE",new Vector2(.015f,.78f),new Vector2(.985f,.98f),33,TextAnchor.MiddleLeft,muted);
@@ -402,6 +416,16 @@ namespace SurfaceSafety {
             readiness.gameObject.AddComponent<Button>().onClick.AddListener(()=>{showBaseline=true;SelectTab("why");});
             Label(readiness,"Departure readiness",new Vector2(.015f,0),new Vector2(.69f,1),39);
             Label(readiness,"Unknown  ›",new Vector2(.69f,0),new Vector2(.985f,1),39,TextAnchor.MiddleRight,amber);
+        }
+        void BuildAwayNotice(){
+            var notice=Card("While you were away",.035f,.965f);
+            notice.gameObject.AddComponent<Button>().onClick.AddListener(DismissAwayNotice);
+            Label(notice,"WHILE YOU WERE AWAY  ·  "+AwayNoticeSpan,new Vector2(.015f,.84f),new Vector2(.985f,.98f),33,TextAnchor.MiddleLeft,amber);
+            const int shown=4;
+            for(int i=0;i<Mathf.Min(shown,AwayNotice.Length);i++)
+                Label(notice,AwayNotice[i],new Vector2(.015f,.66f-i*.16f),new Vector2(.985f,.82f-i*.16f),30);
+            var more=AwayNotice.Length>shown?$"+{AwayNotice.Length-shown} more in History  ·  ":"";
+            Label(notice,more+"Tap to dismiss",new Vector2(.015f,.02f),new Vector2(.985f,.14f),30,TextAnchor.MiddleRight,teal);
         }
         void ScrollText(Transform parent,string value,Vector2 min,Vector2 max,int size){
             var viewport=Panel(parent,"Scrollable text",min,max,Color.clear);viewport.gameObject.AddComponent<RectMask2D>();
