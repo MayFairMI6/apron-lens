@@ -8,5 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SurfaceSafety/Scenes/AndroidAR.unity
     guid: 551800cdaaa8040b5adb28a6757f699a
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 4b30527339da24a1781e10bdd58e9b64, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: eefe5a650b1674642a131df9980bc386, type: 2}
   m_UseUCBPForAssetBundles: 0

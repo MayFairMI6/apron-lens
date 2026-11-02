@@ -3,18 +3,48 @@
 ApronLens is an AR project. Its development results so far treated AR as a
 pointer and a picture, and the picture added nothing measurable (ledger D-078).
 From here, the research question is answered through three AR-specific
-conditions, all measured inside the Unity simulation (physical device tests
-stay out of scope, D-010):
+conditions, all measured inside a fully simulated world-scale AR workflow (see
+below). There is no printed board, tabletop or physical device work (D-010,
+D-090):
 
 1. **AR pointing.** The user selects or taps an aircraft in the AR view. This
    is compared with a text-only user, who names the aircraft, stand or flight
    in words.
-2. **Tracking interruptions.** The user looks away and the board leaves the
+2. **Tracking interruptions.** The user turns away and the apron leaves the
    camera's view, while reports keep arriving. When tracking returns, the
    assistant must say what changed while the user wasn't looking.
 3. **The user's viewpoint as evidence.** The evidence image is what the AR
    camera sees from where the user stands, not a crop of the whole scene.
    Props hidden from that viewpoint, or aircraft outside it, aren't visible.
+
+## The workflow: simulated world-scale AR
+
+The AR camera sees a simulated real-world environment, not a marker:
+
+- **The environment** is a full-scale fictional apron in Unity, built by
+  `WorldArSetup`: asphalt and grass, stand pads with lead-in lines, stop bars
+  and stand letters, a taxiway, a terminal with glazing, jet bridges and
+  floodlight masts. It is the XR Simulation environment, so it is the "real
+  world" the camera sees. Realistic licensed models come in M2, each approved by
+  the user.
+- **The AR device** is AR Foundation 6.7 with its XR Simulation provider: an AR
+  session with world tracking, and the simulated camera feed. In the editor you
+  walk and look around at eye height; the same app code would run with ARKit or
+  ARCore on a device. Scene: `Assets/SurfaceSafety/Scenes/WorldAR.unity`.
+- **The replay** is laid out in metres on that apron (`WorldArBootstrap`,
+  1 board unit = 1000 m): the stands sit on the painted stands and the taxiing
+  aircraft on the taxiway. In this study the aircraft are the AR replay drawn on
+  the apron.
+- **Tracking** follows the camera. The apron is in view while its centre lies in
+  the camera's view; turning away interrupts it, so the "While you were away"
+  card and `awayIntervals` work unchanged. Per-aircraft "last seen" times are M2.
+- **Pointing** is a tap on an aircraft in the camera view.
+- **Checks:** `WorldArSetup.Check` renders the eye-height view
+  (`work/world-ar/`) and tests the in-view logic. The Unity regression checks
+  run in the editor as before.
+
+The earlier marker-based replay (Vuforia, the tabletop board) stays in the
+repository for the M1 history, but no new work uses it.
 
 ## The connecting idea: a shared situation model
 
@@ -119,18 +149,18 @@ All are optional unless a set requires them.
   selected. Its `expect` replaces the turn's `expect` when the right outcome
   differs; for example, when the words alone can't identify the aircraft, the
   right status is `clarify`. Without `expect`, the turn's `expect` applies.
-- **`lastSeen`:** the replay time (seconds) when the board was last in the
+- **`lastSeen`:** the replay time (seconds) when the apron was last in the
   camera's view before this turn. The user looked away from `lastSeen` until
   the turn's `cutoff` while reports kept arriving. It must be below `cutoff`,
   and not below the previous turn's `cutoff` in the family. Label the changes
   the user should hear about with `mustCite` (and `explanationChanged` on a
   follow-up). A scenario with `lastSeen` turns sets
   `"clockWhileUntracked": "runs"`, so the Unity replay keeps running while the
-  board is out of view (the default, `"pauses"`, is the Milestone 1 behaviour).
-- **`backInView`** (optional, with `lastSeen`): the replay time the board came
+  apron is out of view (the default, `"pauses"`, is the Milestone 1 behaviour).
+- **`backInView`** (optional, with `lastSeen`): the replay time the apron came
   back into view, when that was before the turn's `cutoff`. Reports after it
   were watched arrive, so only the interval from `lastSeen` to `backInView`
-  counts as unseen. Without it, the board came back at the `cutoff`. The app
+  counts as unseen. Without it, the apron came back at the `cutoff`. The app
   itself sends every loss since the last committed turn as `awayIntervals`
   (`[start, end, start, end, ...]`), so the time watched between two losses is
   never counted as unseen.
@@ -144,7 +174,7 @@ All are optional unless a set requires them.
   previous turn's `cutoff`, "changed since your last answer" already covers it.
 - **`viewpoint`** (M2; its exact coordinates are fixed in M2): the AR camera
   pose for the turn's image, as `{"position": [x, y, z], "lookAt": [x, y, z]}`
-  in board metres, with y up. Observation labels describe what is visible from
+  in apron metres (world coordinates), with y up. Observation labels describe what is visible from
   that pose; a prop outside the frame or hidden from that side is labelled
   `null`. Without it, the default overview pose is used.
 

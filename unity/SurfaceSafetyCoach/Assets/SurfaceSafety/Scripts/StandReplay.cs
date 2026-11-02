@@ -153,6 +153,17 @@ namespace SurfaceSafety {
                 missed.Select(e=>$"{e.aircraftId}  ·  {ShortReport(e)}  ·  received {e.receiptTime:0} s  [{e.id}]").ToArray();
             Log("away_notice");
         }
+        // World-scale AR (WorldArBootstrap): the replay laid out in metres on a simulated full-scale apron, seen through
+        // the AR camera. The tabletop board image and stand blocks are hidden; the apron's own markings replace them.
+        public bool WorldScale {get;private set;}
+        public void UseWorldScale(float metresPerUnit){
+            WorldScale=true;Content.localScale=Vector3.one*metresPerUnit;
+            foreach(Transform t in Content)
+                if(t.name=="Board image"||t.name.StartsWith("Stand ",StringComparison.Ordinal))
+                    foreach(var r in t.GetComponentsInChildren<Renderer>())r.enabled=false;
+            if(selectionRing!=null)selectionRing.widthMultiplier*=metresPerUnit;  // line width ignores transform scale
+            ApplyScene();
+        }
         public void Tracking(bool found){
             if(Clock==null)return;
             if(Clock.Tracked!=found)Log(found?"target_found":"target_lost");
@@ -238,7 +249,9 @@ namespace SurfaceSafety {
             if(selectionRing!=null){selectionRing.transform.localPosition=Scenario.Position(SelectedAircraft,Clock.Time);selectionRing.startColor=selectionRing.endColor=SelectedAircraftIndex==1?new Color(1f,.72f,.33f):new Color(.28f,.84f,.78f);}
             if(!VisibleReports.Any(e=>e.id==InspectedReportId))InspectedReportId="";
             if(clockLabel!=null)clockLabel.text=$"{Clock.Time:00.0}<size=33> / {Data.duration:00} s</size>";
-            if(status!=null){status.text=previewMode?"Desktop preview · tracking untested":
+            if(status!=null&&WorldScale){status.text=Clock.Tracked?"Simulated world AR · apron in view":
+                Clock.RunsUntracked&&Clock.Playing?"Apron out of view · it keeps running":"Apron out of view · playback paused";status.color=Clock.Tracked?teal:amber;}
+            else if(status!=null){status.text=previewMode?"Desktop preview · tracking untested":
                 (Clock.Tracked?"Board tracked · "+(Clock.Playing?"replaying":"paused"):
                 Clock.RunsUntracked&&Clock.Playing?"Board out of view · apron keeps running":"Find printed board · playback paused");status.color=Clock.Tracked?teal:amber;}
             if(playLabel!=null)playLabel.text=Clock.Playing?"Pause":"Play";

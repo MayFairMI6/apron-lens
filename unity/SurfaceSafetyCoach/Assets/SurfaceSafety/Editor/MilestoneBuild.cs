@@ -31,9 +31,10 @@ public static class MilestoneBuild {
         PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android,false);
         PlayerSettings.SetGraphicsAPIs(BuildTarget.Android,new[]{UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3});
         PlayerSettings.MTRendering=false;PlayerSettings.Android.forceInternetPermission=true;
-        // Pin legacy uGUI input for the first milestone; no Input System dependency.
+        // Both input handlers: uGUI and taps use the legacy manager; AR Foundation's XR Simulation (WorldArSetup)
+        // navigates with the Input System, which the project now carries.
         var settings=new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/ProjectSettings.asset")[0]);
-        var input=settings.FindProperty("activeInputHandler");if(input!=null){input.intValue=0;settings.ApplyModifiedPropertiesWithoutUndo();}
+        var input=settings.FindProperty("activeInputHandler");if(input!=null){input.intValue=2;settings.ApplyModifiedPropertiesWithoutUndo();}
         foreach(bool preview in new[]{true,false}){
             var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             var g=new GameObject("SurfaceSafetyBootstrap");var bootstrap=g.AddComponent<SceneBootstrap>();

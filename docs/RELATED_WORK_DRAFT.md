@@ -70,7 +70,7 @@ a reproduction of either benchmark.
 Eye2Eye studies cognitive alignment between a person and an AI through a
 shared first-person perspective, with revisable memory and feedback [13].
 ApronLens studies the narrower problem of reconciling conversational
-corrections with independently arriving, source-backed reports on a phone. It
+corrections with independently arriving, source-backed reports in a simulated AR view. It
 uses a tap on the aircraft in the AR view rather than gaze. Pro²Assist provides step-aware
 proactive assistance from egocentric perception during procedural tasks [14].
 It motivates ApronLens's later, separate study of when to tell a user that new
