@@ -167,6 +167,22 @@ public static class ConversationClientVerification {
         check(client.BuildRequest("Anything new?").awayIntervals.Length == 0, "a restart discards the earlier loss");
         replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(10); replay.Tracking(true); replay.Seek(10);
         check(client.BuildRequest("Anything new?").awayIntervals.Length == 0, "a backward seek discards the earlier loss");
+        // 7. "While you were away": looking away from 25 to 50 s in the demo scenario lists the three reports received
+        //    meanwhile (32, 36 and 48 s), not the one at 52 s; a tap dismisses it.
+        var demo = boot("ar_demo_01"); replay = demo.Replay;
+        replay.Seek(25); replay.Clock.Play(); replay.Tracking(false); replay.Clock.Advance(25); replay.Tracking(true);
+        var notice = replay.AwayNotice;
+        check(notice != null && notice.Length == 3 && notice[0].Contains("[D05]") && notice[1].Contains("[D06]") && notice[2].Contains("[D07]")
+              && replay.AwayNoticeSpan == "25–50 s", "the notice lists the reports received while away");
+        // A flicker before the card is dismissed adds to it rather than replacing it.
+        replay.Tracking(false); replay.Clock.Advance(1); replay.Tracking(true);
+        check(replay.AwayNotice.Length == 3 && replay.AwayNotice[0].Contains("[D05]") && replay.AwayNoticeSpan == "25–51 s",
+              "an undismissed card keeps its reports through a later empty gap");
+        replay.DismissAwayNotice();
+        check(replay.AwayNotice == null, "a tap dismisses the notice");
+        replay.Tracking(false); replay.Clock.Advance(2); replay.Tracking(true);
+        check(replay.AwayNotice != null && replay.AwayNotice.Length == 1 && replay.AwayNotice[0].Contains("[D08]"),
+              "after a dismissal, a later look-away gets its own card");
         Debug.Log("AR_CONTEXT_CHECKS_PASSED");
     }
 
