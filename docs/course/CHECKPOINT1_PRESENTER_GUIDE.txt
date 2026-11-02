@@ -14,7 +14,7 @@ What to show
 09:54: Emergency arrival, damaging landing and runway closure; recovery/inspection remain pending after containment.
 12:08: Rain preview.
 12:33: Snowfall preview.
-12:58–14:57: One source hour of late afternoon → dusk → night at 30×.
+12:58–14:57: One source hour of late afternoon → dusk → night at 30×. Use this passage to explain the planned learning tasks: track traffic as lighting changes, recognise uncertain visual evidence, and consult reports for missing confirmation. M2 compares assistant answers with/without images and adds reported weather dependencies; M3 evaluates errors, response times and learner usability across conditions. State explicitly that the current visuals have not demonstrated a learning benefit.
 14:57: Earlier frozen M1 evaluation.
 15:29: Heathrow AI trials and planned visual-evidence evaluation.
 
