@@ -148,7 +148,7 @@ namespace SurfaceSafety {
 
         public void Ask(string question) {
             if (Busy || string.IsNullOrWhiteSpace(question)) return;
-            if (!replay.Clock.Tracked) { Show("SCENE UNAVAILABLE", "Acquire the printed board before asking."); return; }
+            if (!replay.Clock.Tracked) { Show("SCENE UNAVAILABLE", replay.WorldScale ? "Turn back to the apron before asking." : "Acquire the printed board before asking."); return; }
             LoadConnection();
             if (!Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) || (uri.Scheme != "http" && uri.Scheme != "https") || string.IsNullOrWhiteSpace(token)) {
                 Show("CONNECTION NEEDED", $"Open More → Model connection and enter the Mac address and token. Questions go to the same host on port {ServicePort}."); return;

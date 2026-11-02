@@ -7,6 +7,9 @@ Simulation:
   around it at eye height;
 - the replay's aircraft, reports and the assistant are drawn on that apron.
 
+For a full guide to the app (every screen, control and message), see
+[the user manual](../USER_MANUAL.md).
+
 ## What runs where
 
 - **Unity editor:** the project's editor at `work/unity-editor/Unity.app`, with
