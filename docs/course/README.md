@@ -9,8 +9,7 @@ Start with [current setup](CHECKPOINT1_CURRENT.md), the
   Meetings are blank at the owner's request; substantive achievements, decisions
   and remaining checkpoints are filled.
 - [Two-person recording allocation and spoken scripts](TEAM_RECORDING_PLAN.txt):
-  the teammate opens with the learner flow and assistant; the project owner
-  presents moving scenarios, the external driver, research results and conclusion.
+  sections labelled Person 1 and Person 2, with narration and clip guidance.
 - [Teammate agent prompt](TEAMMATE_AGENT_PROMPT.txt).
 - [Fork, clone and setup instructions](TEAMMATE_SETUP.md).
 - Frozen M1 methods/results: `outputs/m1_ar_context/REPORT.md`.

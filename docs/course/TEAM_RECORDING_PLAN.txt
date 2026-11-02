@@ -1,20 +1,19 @@
 ApronLens - two-person video plan and narration
 
-There are two presenters: the project owner and one teammate. The teammate opens; the project owner presents the moving scenario, technical explanation, research results and conclusion. Replace the name placeholders before recording. These are speaking responsibilities, not statements of development authorship.
+The video is divided into two parts: Person 1 and Person 2.
 
 Make one narrated video
 
-Use selected excerpts from the recorded native iOS Simulator run and record each person's voice over their assigned part. Identify the speaker by name before their section. Introduce the footage as a recorded run. Use natural present-tense explanation such as “Here the aircraft is waiting,” rather than implying that a recorded click is happening live.
+Use selected excerpts from the recorded native iOS Simulator run and record each person's voice over their assigned part. Introduce the footage as a recorded run. Use natural present-tense explanation such as “Here the aircraft is waiting,” rather than implying that a recorded click is happening live.
 
-Aim for roughly six to eight minutes in the final edit: about three minutes for the teammate and three to four minutes for the project owner, including pauses. This is a suggested structure; the supplied assignment has no stated duration limit. Rehearse and adjust the timing rather than rushing the words.
+Aim for roughly six to eight minutes in the final edit: about three minutes for Person 1 and three to four minutes for Person 2, including pauses. This is a suggested structure; the supplied assignment has no stated duration limit. Rehearse and adjust the timing rather than rushing the words.
 
 The guided demonstration supplies footage; it does not need its own extra presentation section. Show the learner flow briefly, then selected assistant and movement clips. The guided run is unscored. The three scored checkpoints belong to the separate learner mode, so show an actual learner-mode capture or the labelled saved debrief evidence when explaining that flow. Do not present the guided run as evidence of completing scored questions.
 
-The source recording is 8:27. Its compressed narration copy preserves the full 507.21-second duration and the presenter's source-video timestamps. It was recorded before the cosmetic header change from APRONLENS / CONTROLLER AWARENESS to APRONLENS. The current-header screenshot shows that later change. The compression is for sharing; the full-resolution original remains available from the project owner.
+The source recording is 8:27. Its compressed narration copy preserves the full 507.21-second duration and the presenter's source-video timestamps. It was recorded before the cosmetic header change from APRONLENS / CONTROLLER AWARENESS to APRONLENS. The current-header screenshot shows that later change. The compression is for sharing; the full-resolution original remains available separately.
 
-Part A - teammate: purpose, learner workflow and report-grounded assistant
+Person 1
 
-Name title: [Teammate name] - Learner experience and assistant
 
 Show the opening overview, then the occupied-stand questions at 00:43-01:35. Add the saved learner-debrief image when explaining the scored lesson. For Sources, locate the visible expansion within 05:47-06:34 and label it as an excerpt from later in the same recording. These are video-player times, not the scenario clock. Confirm each cut against the video before editing.
 
@@ -32,11 +31,10 @@ Sources opens the reports supporting that particular answer. Recent reports can 
 
 The local Qwen model selects relevant report facts. A separate checker checks the claims against eligible facts, and the app displays the accepted summary. The responses in this recording came from actual requests; they were not replaced with rehearsed answers.
 
-I will hand over to my teammate to show how the moving scenario is driven and what we have evaluated.”
+Next, we will look at how the moving scenario is driven and what we have evaluated.”
 
-Part B - project owner: moving scenario, external driver, results and conclusion
+Person 2
 
-Name title: [Your name] - Scenario system, demonstration and results
 
 Use short excerpts from 01:47-02:26 for the wildlife hold, 02:27-03:40 for line-up and takeoff, 04:20-05:20 for landing and runway exit, 05:26-06:05 for the separate stand incident, and 06:50-07:03 for the post-containment answer. Leave several seconds of unobstructed movement. Show the frozen M1 result figures while discussing research. Edited jumps must be clear; the full guided recording does not need to play again.
 
@@ -60,16 +58,16 @@ The current result is a working training workflow in which aircraft, reports and
 
 Recording checklist
 
-1. Fill in both names and put each name title before that person's segment. Each member narrates their own part. Describe personal implementation work only after confirming who did it.
+1. Record each part separately, then combine the two sections.
 2. Download the video before editing. Use the source-player times above. Keep the assistant answer large enough to read and leave short pauses for movement.
 3. Record voice in short paragraphs while watching the selected clips. Explain what is happening, what the learner should notice, and what the evidence supports. Do not read every report aloud.
 4. Use a brief labelled learner-flow capture/debrief image, then the guided excerpts. One combined video is enough. A freeze-frame for explanation is fine if its use is clear.
-5. Review both sections together for repeated explanations, readable sources, names and accurate claims. The saved footage has genuine answers; do not replace a failed answer with scripted output.
-6. Submit the final narrated edit separately from the reflection. Coordination and Meetings in the reflection remain for the project owner to complete.
+5. Review both sections together for repeated explanations, readable sources and accurate claims. The saved footage has genuine answers; do not replace a failed answer with scripted output.
+6. Submit the final narrated edit separately from the reflection. Coordination and Meetings in the reflection remain to be completed.
 
 Running or sharing the app
 
-The native iOS Simulator app has been built and tested. Running it again requires both the installed app and the local scenario/model service. The repository's TEAMMATE_SETUP.md and CHECKPOINT1_CURRENT.md explain the Apple Silicon Mac, Unity, Xcode and model setup. A teammate can prepare narration from the recording without installing that environment.
+The native iOS Simulator app has been built and tested. Running it again requires both the installed app and the local scenario/model service. The repository's TEAMMATE_SETUP.md and CHECKPOINT1_CURRENT.md explain the Apple Silicon Mac, Unity, Xcode and model setup. Both people can prepare narration from the recording without installing that environment.
 
 No TestFlight build has been published. The current service listens only on the original Mac's loopback address. A phone-distributable build would need device signing and an accessible authenticated service, followed by App Store Connect/TestFlight setup. For this video, the shared recording is the immediately usable route. Simulator verification does not establish the assignment's physical-smartphone requirement.
 

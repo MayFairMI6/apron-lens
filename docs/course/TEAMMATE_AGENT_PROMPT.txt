@@ -1,4 +1,4 @@
-Help me prepare my assigned part of the ApronLens Checkpoint 1 video. My presenter letter is [A/B] and my name is [name]. There are two presenters: A is the teammate opening with learner workflow and assistant; B is the project owner covering moving scenarios, the external driver, results and conclusion. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify my responsibilities. If the letter is missing, ask for it before writing my narration.
+Help me prepare my part of the ApronLens Checkpoint 1 video. My section is [Person 1 / Person 2]. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify the corresponding section. If the section is missing, ask which one before writing my narration. Use only Person 1 and Person 2 as presenter labels.
 
 Repository: https://github.com/MayFairMI6/apron-lens
 Published Checkpoint 1 branch: codex/checkpoint1-controller-training
@@ -16,9 +16,9 @@ Read these sources first:
 The older CHECKPOINT1_DEMO.md and REFLECTION_DRAFT describe historical work. The current achievement/reflection file leaves Coordination and Meetings blank by the owner's request.
 
 Produce only preparation material for my assigned section:
-- A natural narration adapted from my assigned draft, with enough pause time for roughly three minutes for A or three to four minutes for B. Verify timing in rehearsal rather than forcing a word count. Timing is a suggestion, not an assignment requirement.
+- A natural narration adapted from my assigned draft, with enough pause time for roughly three minutes for Person 1 or three to four minutes for Person 2. Verify timing in rehearsal rather than forcing a word count. Timing is a suggestion, not an assignment requirement.
 - Screen/clip cues with source-video times, explicitly distinguished from scenario time. If you cannot inspect the video, mark those cues as taken from the presenter guide and request the necessary clip for visual verification.
-- The title containing my actual name that should appear before my segment.
+- Use Person 1 or Person 2 as the section heading.
 - A small claim-to-source checklist and three likely questions with concise answers.
 - A list of any missing evidence, setup obstacle or inaccurate claim you find. Keep uncertainty visible.
 
