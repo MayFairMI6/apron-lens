@@ -45,5 +45,6 @@ ledger persists across sessions; it does not imply an always-running process.
 ## Proportionate agent effort
 
 Follow `docs/AGENT_EXECUTION_POLICY.md`. User preference: Sol medium for routine
-ledger, handoff, reference and implementation work; targeted high effort only for
+ledger, text handoff, text reference and nonvisual implementation work; Astra
+low/medium for all visual reasoning and visual handoffs; targeted high effort only for
 a concrete difficult problem or final scientific review. No extra-high default.
