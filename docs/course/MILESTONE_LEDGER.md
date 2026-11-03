@@ -4,13 +4,15 @@
 experiment for typed review only.** The user's explicit instruction supersedes
 the previous stop on new training. Local design/data preparation is authorised;
 training and final evaluation require the independent design/data/leakage gates
-in ML-041. No adapter has been trained, evaluated or approved for deployment.
+in ML-041. ML-044 accepts the full-model hardware gate; root reports that the
+fixed candidate training run has started. No completed candidate, model-evaluation
+result or deployment is accepted yet.
 Keep the pinned base weights, shipping app, approved video and all old results
 unchanged. The older 18 exposed typed cases are development-only evidence.
 ML-042 accepts the corrected data-v2 semantic/family gate and locked executable
-sources; the enforced GPU compatibility receipt remains necessary before the full run.
+sources; ML-044 records the subsequently passed GPU compatibility receipt.
 ML-043 refreshes that conditional approval for the documented gradient-scale
-compatibility amendment; the full smoke gate is still pending.
+compatibility amendment. Training remains in progress; final evaluation is pending.
 
 **B04 has reached a bounded, mixed disposition in CURRENT:** ordinary-assistant
 v8 with the narrowed reference guard (B04a) and startup inference warmup (the
@@ -2357,3 +2359,29 @@ not test-guided tuning. The matching full-model smoke must still demonstrate a
 real adapter update and finite save/reload parity. The existing data, recipe,
 evaluation, no-promotion and preservation boundaries otherwise stand. No further
 model calls or held-out-output inspection were performed by this reviewer.
+
+## ML-044 — Full-model hardware gate accepted; fixed training in progress
+
+3 November 2026. Independently checked the
+[full-smoke receipt](../../outputs/typed-review-lora/full-smoke.json) from root's
+job 571259 against the conditional approval and current files. All eight source
+hashes match exactly, as do the amended protocol and unchanged data manifest.
+Receipt SHA-256 is
+`d665660c7f6d466f4fcf5a91b7d500d5082d0772694944295633ea742c43aa42`.
+The pinned revision ran on TITAN RTX using the recorded NF4/float16 runtime.
+
+The accepted code enforces finite gradients, an actual adapter parameter update
+and finite save/reload parity before issuing this receipt. Initial training-row
+loss was 0.3121598363; saved and reloaded loss both equal 0.2850112915. Reload uses
+a second named adapter on the same frozen base. This passes the planned hardware
+compatibility gate; a loss decrease on one training example is not a candidate
+quality result or native-app/cross-runtime compatibility claim. Earlier failed
+preflights and the scaling diagnostic remain preserved.
+
+Root reports that job 571259 has now entered the fixed training run. Training is
+**in progress**, with no completion, selected-checkpoint or evaluation acceptance.
+The next review is the completed training/validation record and selection/source
+lock before sealed evaluation. This reviewer made no model calls or remote
+actions. Local HEAD is `6e7fdfda8e98621bb3344cbdd90712d693aa6c33`; remote
+publication is not independently confirmed in this review. App, video and all
+earlier research remain unchanged.
