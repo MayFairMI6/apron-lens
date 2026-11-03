@@ -12,8 +12,10 @@ and `AGENTS.md` requests this review for feature/scope changes and completion
 claims. Reuse that named agent when available. If the current tool surface does
 not expose it, start an independent reviewer with this file and the ledger as
 instructions. Do not mistake a saved configuration or a standing instruction for
-an executing process. The definition inherits the default model; this role does
-not need a model change to establish independence.
+an executing process. The user-selected routine runtime is Sol at medium reasoning effort; follow
+[the agent execution policy](../AGENT_EXECUTION_POLICY.md). Do not inherit extra-high
+effort for ordinary ledger decisions. Independence comes from separate evidence
+review, not from a more expensive model.
 
 The reviewer decides where a bounded unit of work best belongs: **CURRENT, M2, M3,
 defer, or reject**. CURRENT is always a valid option while that checkpoint remains

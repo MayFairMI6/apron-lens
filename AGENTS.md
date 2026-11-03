@@ -41,3 +41,9 @@ recording impact and the user's current priorities. State missing information;
 do not invent a deadline or imply that adding a separate agent removes bias.
 Record recommendation changes and evidence before marking work verified. The
 ledger persists across sessions; it does not imply an always-running process.
+
+## Proportionate agent effort
+
+Follow `docs/AGENT_EXECUTION_POLICY.md`. User preference: Sol medium for routine
+ledger, handoff, reference and implementation work; targeted high effort only for
+a concrete difficult problem or final scientific review. No extra-high default.
