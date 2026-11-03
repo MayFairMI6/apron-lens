@@ -1,12 +1,24 @@
 # AirfieldLens milestone ledger
 
+**B03, question-aware history scoring and a new varied-scenario comparison, has
+passed bounded independent acceptance in CURRENT; publication is pending.** The user requests correcting the
+history-question scoring, creating new scenario families, preserving old results
+and updating GitHub. This is a separate evaluation version: v5 and v6 remain
+frozen, the app default remains v5, and B02's failed promotion gate is unchanged.
+Both frozen versions score 22/24 on the new questions, with the same readiness-
+uncertainty omission and wrong-flight answer. All 48 actual replies, audits and
+saved-response replays have been checked. ML-036 records the pre-run review and
+ML-037 accepts the scoring remedy and measurement; no application repair or
+prompt promotion is claimed.
+
 **B02, bounded prompt tuning and new-question testing, is authorised CURRENT
 work; its candidate development, measurement and report have passed independent
 acceptance, while v6 does not meet its locked promotion gate.** The
 observed regression result is 18/18; both versions score 23/24 on the new questions.
 Their sole strict failure is the same accurate, explicitly labelled readiness
-history, not a factual error. The app default is restored byte-for-byte to v5;
-publication remains pending. Keep the original 54-response comparison
+history, not a factual error. The app default is restored byte-for-byte to v5.
+The reviewer now sees the accepted deliverable committed locally at `70948a7`;
+this scope review does not provide a new remote publication/CI readback. Keep the original 54-response comparison
 at `cb2e062` unchanged. The new work targets general inference/readiness uncertainty
 and must test positive reported readiness, receipt boundaries, direct-status and
 identity controls. It adds no graph, backbone, visual or learner-grading changes.
@@ -198,7 +210,8 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
-| B02 — prompt tuning and new-question testing | Bounded candidate/report accepted after all 66 saved results and audit records verified; v6 promotion gate fails; v5 default restored; publication pending | CURRENT / Checkpoint 1, explicit user instruction | The authorised tuning and measurement produced a preserved candidate and a defensible no-promotion decision. No new-question advantage was demonstrated. | Publish the versioned candidate/report and failed gate unchanged. Both strict failures are accurate labelled history, not stale-as-current errors. No native v6 adoption or deployed semantic repair is claimed. |
+| B02 — prompt tuning and new-question testing | Bounded candidate/report accepted; locally committed at `70948a7`; v6 promotion gate fails; v5 default restored | CURRENT / Checkpoint 1, explicit user instruction | The authorised tuning and measurement produced a preserved candidate and a defensible no-promotion decision. No new-question advantage was demonstrated. | Preserve the versioned candidate/report and failed gate unchanged. Both strict failures are accurate labelled history, not stale-as-current errors. No native v6 adoption or deployed semantic repair is claimed. |
+| B03 — question-aware scoring and new report-world comparison | Scorer remedy and 48-response measurement/report independently accepted; both versions 22/24; publication pending | CURRENT / Checkpoint 1, explicit user instruction | The corrected scorer accepts appropriate labelled history; varied report families reveal remaining uncertainty and identity errors in both versions. | Publish the reviewed evidence and update GitHub. Preserve old scores/default v5; close only the bounded scorer remedy after publication checks, keep semantic #60 open; no prompt promotion. |
 | B01 / #70 — bounded multi-turn AI-assistant comparison | Measurement/report accepted: 54 saved first-attempt responses, scores/audits independently checked; publication/task readback pending | CURRENT / Checkpoint 1 | The bounded study answers the adopted local comparison question while preserving the baseline's better observed result and current-path omission. It is not an external SOTA benchmark. | Publish the reviewed results and close #70 as measurement/report completion. Keep the separate semantic omission in #60 open; no production prompt repair, graph migration or new native/video claim follows. |
 | #67/#69 — current reliability corrections | Bounded remedies accepted and published as `b69d69b`; both issues closed and both CI runs successful in independent live readback | CURRENT / Checkpoint 1 corrections; failure records do not add task counts | The training-only nonempty guard/one-retry policy and finite label layout address the observed defects within their tested limits. Actual spontaneous empty-answer recovery was not observed. | Preserve deadline, fallback-free behavior, finite-label and semantic limits. No further correction work is outstanding for these accepted remedies; do not add numeric grading or task counts. |
 | R01 — four-type aircraft models and dimensions | Bounded functional acceptance, local media review and source/evidence publication complete; #64 closed in recorded readback | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Preserve original acceptance and texture-import failure history. The later #69 correction needs its own evidence; no physical-phone claim. |
@@ -1000,11 +1013,18 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from ML-035: B02's candidate/report audit is accepted and its locked promotion gate failed.
+Resume from ML-037: B03's scorer remedy and completed measurement/report have
+passed independent acceptance. Root should publish the reviewed result and record
+final CI/tracker readback; no new inference or prompt change is pending. The root
+owns implementation, execution and GitHub updates; this reviewer owns the ledger
+and bounded independent review. Both versions score 22/24 with the same two
+semantic failures; #60 remains open. B02's candidate/report
+audit is accepted and its locked promotion gate failed.
 Both versions scored 23/24 on the new questions, with the same accurate labelled
 history rejected by the inherited current-only rule. The reviewer verified v5
-restored as the byte-identical app default and v6 preserved separately. Root should
-publish the accepted versioned findings and record final CI/tracker readback.
+restored as the byte-identical app default and v6 preserved separately; local
+`70948a7` now commits that deliverable. B03 must retain these versions/results and
+report its own provenance, scorer version, varied-scenario results and limitations.
 Do not tune on these now-exposed new questions or silently redefine the gate.
 The authorised development bound was two revisions before new-question exposure.
 This explicitly permits a new version; it does not permit overwriting B01's 17/18
@@ -1700,3 +1720,186 @@ research action without claiming deployment. No new video, graph, model training
 native v6 run or extra feature is required to complete this outcome. Existing
 semantic issue #60, the original M2/M3 research commitments and course submission
 gates #30/#31/#32 retain their separate scope.
+
+## ML-036 — Current question-aware scoring and new scenario comparison
+
+3 November 2026. The user explicitly authorises fixing history-question scoring,
+testing more varied new scenarios, preserving old results and updating GitHub.
+Assign **B03 to CURRENT / Checkpoint 1**, in progress and unaccepted. The reviewer
+read the current ledger/protocol, comparison methods and source state at local
+`70948a7` before placement. No implementation or new inference is performed by
+this reviewer. Concrete new scorer/fixture paths will be added when supplied.
+
+The reason to act now is an observed measurement mismatch: the old rule penalises
+accurate labelled history in a question asking what changed. A separate scoring
+version and new report worlds address that narrow problem using the existing
+assistant/evidence pipeline. The strongest case for M2 is combining a broader
+evaluation with C02's evidence checker and the original visual study. That remains
+appropriate for those larger claims, but is not a prerequisite for this explicit
+current request. M3 retains integrated empirical evaluation and bounded formal
+verification; it would add unnecessary dependencies to this correction. Defer a
+large independent benchmark, operational expert validation or training study until
+their scope/data are established. Reject retroactive replacement of primary
+scores, loosening source/identity/time checks merely to improve totals, or treating
+this new evaluation as automatic permission to deploy v6. Effort and completion
+time are not estimated.
+
+Root's bounded design is an evaluation-only scorer v2 with declared `current`,
+`history` and `change` modes, required fact-ID/value/status coverage, and new authored
+report-world families for weather-restriction updates, stand reassignment,
+service/readiness withdrawal and aircraft-reference corrections. New identifiers,
+timings, multiple updates, delayed receipt and corrections should provide changed
+event structures, not merely rename the old questions. These are fictional
+report exercises, not an operational weather simulation or newly implemented app
+lessons. Both preserved v5 and v6 receive the same available evidence, runtime,
+question sequences and normal history conditions. No prompt, model-weight,
+renderer, backbone or app-default change is included.
+
+Acceptance gates for the new measurement are:
+
+- **Declare intent and evidence before inference.** Lock each natural-language
+  question's mode, expected identity, required claims/unknowns and allowed evidence
+  scope, alongside source/world hashes and scoring/reporting rules. The answer key
+  and mode labels are evaluation inputs, not hints added to the model prompt.
+  Ambiguous question/key combinations must be resolved before outputs are seen.
+- **Allow useful history without accepting temporal errors.** All facts must be
+  received by the question cutoff, match their source value and their actual
+  status at that cutoff, and belong to the intended flight. A `current` question
+  still rejects non-current claims. `history` or `change` permits only relevant,
+  explicitly labelled historical facts; it does not excuse arbitrary old reports.
+  Define question-specific before/after coverage for a change question. A question
+  about only an earlier report need not acquire an unrelated current-answer gate.
+- **Verify discriminating counterexamples.** Independently test correct labelled
+  history, stale-as-current assertions, omitted required current updates, wrong
+  aircraft, wrong values/citations, future or not-yet-received facts, unrelated
+  history, and false/omitted unknowns. Show that a blanket abstention or dumping all
+  report history cannot pass. Keep task relevance, factual support, identity,
+  temporal correctness and structural acceptance distinguishable in the report.
+- **Preserve study boundaries.** Freeze the new scorer, fixtures and versions
+  before the run; retain all calls, outputs, failures, costs and timing. Existing
+  54-response and 66-response primary results, locks and adoption decisions remain
+  unchanged. Any old-answer rescoring uses a separate artifact explicitly labelled
+  post-hoc diagnostic, not replacement primary evidence. These newly authored
+  families broaden development coverage; they do not create an independent
+  operational/SOTA benchmark merely by having new names or seeds.
+- **Accept an honest measurement, regardless of winner.** Verify the completed
+  run and raw prompt/audit records independently, including remaining failures and
+  scorer limitations, then publish this separate result and update GitHub. No
+  superiority or perfect-score requirement is imposed to complete the requested
+  study. No automatic or retroactive v6 promotion follows from a better score.
+
+The immediate action is root's concrete scorer/fixture implementation followed
+by independent pre-run review. The existing frozen v5/v6 modules and receipt/status
+mechanisms are available dependencies; no external dataset, model training or graph
+database is required for this bounded authored comparison. Broader claims would
+need separate data and validation. Recording impact is none: preserve approved
+videos and narration, and do not imply that new evaluation scenarios are already
+in the app. Keep C02/C03 in M2, C04 in M3, the original visual study intact and
+course gates #30/#31/#32 separate. Revisit placement if the implementation requires
+new app behavior, new modalities or a wider dataset than this declared scope.
+
+**Concrete pre-run review accepted.** The reviewer inspected
+[history_evaluation.py](../../scripts/history_evaluation.py),
+[its tests](../../tests/test_history_evaluation.py) and
+[evaluate_history_questions.py](../../scripts/evaluate_history_questions.py).
+The four newly authored report worlds have distinct flights/identifiers and event
+sequences: delayed weather-route restrictions, repeated stand reassignment,
+baggage-completion withdrawal/reconfirmation with a separate readiness withdrawal,
+and successive off-block estimate corrections with an aircraft switch and
+follow-up. They use no original lesson builder. The 24 questions comprise thirteen
+current, eight change and three history questions. Required/allowed IDs, together
+with the locked world and receipt cutoff, specify exact values and temporal status.
+Question wording and keys agree in the reviewed fixtures.
+
+All twelve scorer tests and the runner's validation-only path passed independently.
+Additional deterministic checks covered all 24 reference answers and rejected
+wrong identity, false uncertainty and empty blanket abstention across all cases;
+wrong values and temporal statuses across the 22 fact-bearing cases; omission in
+both uncertainty-only cases; and an event that had occurred but whose report had
+not yet been received. These checks used no model calls. The scorer permits only
+current/superseded facts within these authored modes. It does not establish
+scheduled, expired or conflicting-report coverage, or unrestricted language quality.
+
+The runner saves full worlds/questions, scorer version and five source hashes
+before loading the model. It compares preserved v5 and v6 with a shared loaded
+engine, the same pinned model/768-token setting, no images or aircraft selection,
+and eight independent conversation sessions. The intended run is 48 turn results;
+actual call/attempt totals must be read from the audit records, not assumed.
+The reviewer verified all seventeen prior comparison/revision artifacts and all
+three default/v5/v6 adapter files match `70948a7` byte-for-byte. The separate old-
+answer diagnostic recomputes only the two known readiness-history answers: both
+pass change mode, while their original failures and failed promotion stay intact.
+The diagnostic is explicitly post-hoc and does not write old results.
+
+Reviewed source hashes: scorer
+`f4afaabf2fbe5ad27e4839ffcafd74b438641d8fac782a07913b5715bb6e22a2`;
+test file `ece18f64cc307ca7c73ea95274ad2795e690eb389eafcc5e23a73759c1b27a80`;
+runner `d933363be84199174908338ce99156d2ccf4078d53638ea736a847305e5fd213`.
+Canonical sorted-JSON worlds/cases hash:
+`ec4e36a0ee9649aa94f6b3a50b9c9accd68a192e2e4edb1bdcf10a3cb59029ab`.
+There is no blocking pre-run finding. Root may execute the reviewed version;
+no actual result, native acceptance, deployment or superiority is accepted yet.
+
+## ML-037 — History-scoring remedy and varied-scenario measurement accepted
+
+3 November 2026. **Accept B03's bounded scorer correction, new report-world
+measurement and report in CURRENT.** The [independent review](../../outputs/history-evaluation/independent-review.json)
+audits the [new run](../../outputs/history-evaluation/run-v1.json) and actual prompt
+records, and agrees with the [results report](../../outputs/history-evaluation/RESULTS.md).
+Publication and final GitHub/CI readback remain root's next actions. This accepts
+the evaluation work, not a deployed semantic repair or v6 promotion.
+
+Both frozen versions pass **22/24**: current 12/13, history 3/3 and change 7/8.
+Each scores 5/6 weather-route, 5/6 stand-reassignment, 6/6 service-withdrawal and
+6/6 estimate-correction tasks. There are no paired improvements or regressions.
+All 48 responses are structurally accepted, but each version makes the same two
+semantic errors:
+
+- Weather-route turn 6 truthfully cites WX410's current route-inspection hold but
+  omits the requested `overall_readiness` unknown. It does not fabricate readiness
+  or clearance. The new wording/context shows that v6's readiness instructions
+  have not resolved this failure generally.
+- Stand-reassignment turn 5 abandons the ST204 conversation referent and returns
+  ST406's actual current E4 assignment, instead of comparing ST204's superseded
+  E4 with current D18. This is a wrong-flight answer and omitted comparison.
+  Citation/support checks fail relative to expected ST204; the returned S5 fact
+  and source are genuine for ST406, not fabricated. Both versions handle the
+  following explicit correction to ST305.
+
+All 48 case keys, scores, exact inference prompts, receipt-eligible fact pools,
+raw-selection expansions, model identities and token counts match their saved
+audit entries. There are 48 actual single-call attempts across eight independent
+sessions. Deterministic replay of saved responses through the normal training
+handler, session and validator reproduces every result and base prompt. No new
+model calls or native operations were performed by this reviewer. All 48 displayed
+answers and four failed raw selections were read. The summary, mode/family tables
+and two-row post-hoc diagnostic reproduce exactly.
+
+Five locked source hashes and two reporting/test hashes match. All seventeen old
+result artifacts and three default/v5/v6 adapter files remain byte-identical to
+`70948a7`. The new scorer and world/case hash still match the pre-run review. The
+old diagnostic now accepts the two accurately labelled readiness histories under
+declared change mode, without replacing the old scores or B02's failed promotion
+gate. Fourteen targeted history/scoring/diagnostic/reporting tests passed
+independently. Root reports the final full suite passed 325 tests in 39.221 seconds,
+plus 160-record frozen integrity and backbone checks; this reviewer did not rerun
+that larger suite.
+
+All actual token totals are known. Median saved latency is 5.530 seconds for v5
+and 5.532 for v6; the largest saved latency is 6.864 seconds, with no 35/40-second
+overruns. The fixed version order is not a controlled speed comparison, offline
+execution did not enforce native deadlines, and engine stop reasons remain
+inferred. The [service receipt](../../outputs/history-evaluation/service-restoration.json)
+reports restored ready with the pinned model and unchanged v5 default; the reviewer
+read that receipt rather than querying/restarting the service.
+
+The scorer remedy is demonstrated within current/superseded report states and
+declared question scope. It does not establish scheduled, expired or conflicting
+state coverage, broad accuracy, operational safety, unrestricted language quality
+or learning benefit. Correct structural validation does not imply correct semantic
+coverage or flight identity. Root may close the bounded scorer-remedy issue
+[#71](https://github.com/MayFairMI6/apron-lens/issues/71) after publication checks;
+keep semantic [#60](https://github.com/MayFairMI6/apron-lens/issues/60) open with
+the new evidence. Do not change prompts, weights, application behavior or previous
+results to turn this tie into an improvement. Original M2/M3 work and course
+submission gates #30/#31/#32 remain separate.

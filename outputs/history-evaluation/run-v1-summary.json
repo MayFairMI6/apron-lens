@@ -1,0 +1,98 @@
+{
+  "v5": {
+    "passed": 22,
+    "total": 24,
+    "accepted": 24,
+    "byMode": {
+      "current": {
+        "passed": 12,
+        "total": 13
+      },
+      "history": {
+        "passed": 3,
+        "total": 3
+      },
+      "change": {
+        "passed": 7,
+        "total": 8
+      }
+    },
+    "byEpisode": {
+      "weather_route": {
+        "passed": 5,
+        "total": 6
+      },
+      "stand_reassignment": {
+        "passed": 5,
+        "total": 6
+      },
+      "service_withdrawal": {
+        "passed": 6,
+        "total": 6
+      },
+      "estimate_correction": {
+        "passed": 6,
+        "total": 6
+      }
+    },
+    "calls": 24,
+    "retriedTurns": 0,
+    "usage": {
+      "input_tokens": 19594,
+      "known_input_tokens": 19594,
+      "output_tokens": 800,
+      "known_output_tokens": 800
+    },
+    "medianSeconds": 5.53,
+    "over35Seconds": 0,
+    "over40Seconds": 0
+  },
+  "v6": {
+    "passed": 22,
+    "total": 24,
+    "accepted": 24,
+    "byMode": {
+      "current": {
+        "passed": 12,
+        "total": 13
+      },
+      "history": {
+        "passed": 3,
+        "total": 3
+      },
+      "change": {
+        "passed": 7,
+        "total": 8
+      }
+    },
+    "byEpisode": {
+      "weather_route": {
+        "passed": 5,
+        "total": 6
+      },
+      "stand_reassignment": {
+        "passed": 5,
+        "total": 6
+      },
+      "service_withdrawal": {
+        "passed": 6,
+        "total": 6
+      },
+      "estimate_correction": {
+        "passed": 6,
+        "total": 6
+      }
+    },
+    "calls": 24,
+    "retriedTurns": 0,
+    "usage": {
+      "input_tokens": 23002,
+      "known_input_tokens": 23002,
+      "output_tokens": 800,
+      "known_output_tokens": 800
+    },
+    "medianSeconds": 5.532,
+    "over35Seconds": 0,
+    "over40Seconds": 0
+  }
+}

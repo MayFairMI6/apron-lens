@@ -1,0 +1,865 @@
+{
+  "version": "varied-history-evaluation-v1",
+  "scorerVersion": "report-question-scorer-v2",
+  "episodes": [
+    {
+      "name": "weather_route",
+      "world": {
+        "scenarioId": "HISTORY-V2-weather-route",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "WX410"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "WX522"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "WX633"
+          }
+        ],
+        "events": [
+          {
+            "id": "W1",
+            "aircraftId": "K1",
+            "flightInstance": "WX410",
+            "eventTime": 5,
+            "receiptTime": 12,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: reduced visibility"
+              }
+            ],
+            "message": "hold: reduced visibility"
+          },
+          {
+            "id": "W2",
+            "aircraftId": "K1",
+            "flightInstance": "WX410",
+            "eventTime": 30,
+            "receiptTime": 45,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "ground route open under escort",
+                "supersedes": [
+                  "W1:movement_condition"
+                ]
+              }
+            ],
+            "message": "ground route open under escort"
+          },
+          {
+            "id": "W3",
+            "aircraftId": "K1",
+            "flightInstance": "WX410",
+            "eventTime": 65,
+            "receiptTime": 80,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: route inspection",
+                "supersedes": [
+                  "W2:movement_condition"
+                ]
+              }
+            ],
+            "message": "hold: route inspection"
+          },
+          {
+            "id": "W4",
+            "aircraftId": "K2",
+            "flightInstance": "WX522",
+            "eventTime": 8,
+            "receiptTime": 10,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: service vehicle crossing"
+              }
+            ],
+            "message": "hold: service vehicle crossing"
+          },
+          {
+            "id": "W5",
+            "aircraftId": "K3",
+            "flightInstance": "WX633",
+            "eventTime": 6,
+            "receiptTime": 9,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "route",
+                "value": "east service route"
+              }
+            ],
+            "message": "east service route"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 20,
+          "question": "What is the reported restriction for WX410?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "WX410",
+          "required": [
+            "W1:movement_condition"
+          ],
+          "allowed": [
+            "W1:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 44.999,
+          "question": "What restriction is still in effect for it in received reports?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "WX410",
+          "required": [
+            "W1:movement_condition"
+          ],
+          "allowed": [
+            "W1:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 45,
+          "question": "Compare its earlier restriction with the new route condition. Cite both.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "WX410",
+          "required": [
+            "W1:movement_condition",
+            "W2:movement_condition"
+          ],
+          "allowed": [
+            "W1:movement_condition",
+            "W2:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 46,
+          "question": "What was its restriction before the escort update?",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "WX410",
+          "required": [
+            "W1:movement_condition"
+          ],
+          "allowed": [
+            "W1:movement_condition",
+            "W2:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 80,
+          "question": "What replaced the escort condition? Give the previous and current conditions.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "WX410",
+          "required": [
+            "W2:movement_condition",
+            "W3:movement_condition"
+          ],
+          "allowed": [
+            "W2:movement_condition",
+            "W3:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 81,
+          "question": "Does its current ground restriction establish overall departure readiness?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "WX410",
+          "required": [],
+          "allowed": [
+            "W3:movement_condition"
+          ],
+          "unknowns": [
+            "overall_readiness"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stand_reassignment",
+      "world": {
+        "scenarioId": "HISTORY-V2-stand-reassignment",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "ST204"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "ST305"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "ST406"
+          }
+        ],
+        "events": [
+          {
+            "id": "S1",
+            "aircraftId": "K1",
+            "flightInstance": "ST204",
+            "eventTime": 2,
+            "receiptTime": 4,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "D12"
+              }
+            ],
+            "message": "D12"
+          },
+          {
+            "id": "S2",
+            "aircraftId": "K1",
+            "flightInstance": "ST204",
+            "eventTime": 21,
+            "receiptTime": 38,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "E4",
+                "supersedes": [
+                  "S1:stand"
+                ]
+              }
+            ],
+            "message": "E4"
+          },
+          {
+            "id": "S3",
+            "aircraftId": "K1",
+            "flightInstance": "ST204",
+            "eventTime": 60,
+            "receiptTime": 75,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "D18",
+                "supersedes": [
+                  "S2:stand"
+                ]
+              }
+            ],
+            "message": "D18"
+          },
+          {
+            "id": "S4",
+            "aircraftId": "K2",
+            "flightInstance": "ST305",
+            "eventTime": 3,
+            "receiptTime": 5,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "F7"
+              }
+            ],
+            "message": "F7"
+          },
+          {
+            "id": "S5",
+            "aircraftId": "K3",
+            "flightInstance": "ST406",
+            "eventTime": 4,
+            "receiptTime": 6,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "E4"
+              }
+            ],
+            "message": "E4"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 15,
+          "question": "Which stand is assigned to ST204?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "ST204",
+          "required": [
+            "S1:stand"
+          ],
+          "allowed": [
+            "S1:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 38,
+          "question": "Show its stand reassignment: the earlier stand and the replacement.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "ST204",
+          "required": [
+            "S1:stand",
+            "S2:stand"
+          ],
+          "allowed": [
+            "S1:stand",
+            "S2:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 39,
+          "question": "Which stand did it have before E4?",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "ST204",
+          "required": [
+            "S1:stand"
+          ],
+          "allowed": [
+            "S1:stand",
+            "S2:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 75,
+          "question": "Which stand is assigned to it now? Give only the current assignment.",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "ST204",
+          "required": [
+            "S3:stand"
+          ],
+          "allowed": [
+            "S3:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 76,
+          "question": "Compare its E4 assignment with the latest replacement.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "ST204",
+          "required": [
+            "S2:stand",
+            "S3:stand"
+          ],
+          "allowed": [
+            "S2:stand",
+            "S3:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 77,
+          "question": "Correction: I mean ST305. What is its assigned stand?",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "ST305",
+          "required": [
+            "S4:stand"
+          ],
+          "allowed": [
+            "S4:stand"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "service_withdrawal",
+      "world": {
+        "scenarioId": "HISTORY-V2-service-withdrawal",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "SV708"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "SV819"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "SV920"
+          }
+        ],
+        "events": [
+          {
+            "id": "B1",
+            "aircraftId": "K1",
+            "flightInstance": "SV708",
+            "eventTime": 4,
+            "receiptTime": 7,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "complete"
+              }
+            ],
+            "message": "complete"
+          },
+          {
+            "id": "B2",
+            "aircraftId": "K1",
+            "flightInstance": "SV708",
+            "eventTime": 22,
+            "receiptTime": 35,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "reopened: additional bags to load",
+                "supersedes": [
+                  "B1:baggage_status"
+                ]
+              }
+            ],
+            "message": "reopened: additional bags to load"
+          },
+          {
+            "id": "B3",
+            "aircraftId": "K1",
+            "flightInstance": "SV708",
+            "eventTime": 52,
+            "receiptTime": 64,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "complete after additional loading",
+                "supersedes": [
+                  "B2:baggage_status"
+                ]
+              }
+            ],
+            "message": "complete after additional loading"
+          },
+          {
+            "id": "B4",
+            "aircraftId": "K1",
+            "flightInstance": "SV708",
+            "eventTime": 65,
+            "receiptTime": 70,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "overall_readiness",
+                "value": "ready"
+              }
+            ],
+            "message": "ready"
+          },
+          {
+            "id": "B5",
+            "aircraftId": "K1",
+            "flightInstance": "SV708",
+            "eventTime": 83,
+            "receiptTime": 95,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "overall_readiness",
+                "value": "not ready: additional check required",
+                "supersedes": [
+                  "B4:overall_readiness"
+                ]
+              }
+            ],
+            "message": "not ready: additional check required"
+          },
+          {
+            "id": "B6",
+            "aircraftId": "K2",
+            "flightInstance": "SV819",
+            "eventTime": 2,
+            "receiptTime": 5,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "loading"
+              }
+            ],
+            "message": "loading"
+          },
+          {
+            "id": "B7",
+            "aircraftId": "K3",
+            "flightInstance": "SV920",
+            "eventTime": 3,
+            "receiptTime": 6,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "fuel_status",
+                "value": "complete"
+              }
+            ],
+            "message": "complete"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 15,
+          "question": "Is baggage loading reported complete for SV708?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "SV708",
+          "required": [
+            "B1:baggage_status"
+          ],
+          "allowed": [
+            "B1:baggage_status"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 35,
+          "question": "How did its baggage status change? Include the earlier completion and the new status.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "SV708",
+          "required": [
+            "B1:baggage_status",
+            "B2:baggage_status"
+          ],
+          "allowed": [
+            "B1:baggage_status",
+            "B2:baggage_status"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 64,
+          "question": "What is its baggage status now?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "SV708",
+          "required": [
+            "B3:baggage_status"
+          ],
+          "allowed": [
+            "B3:baggage_status"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 69.999,
+          "question": "Is overall departure readiness established for it by the received reports?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "SV708",
+          "required": [],
+          "allowed": [
+            "B3:baggage_status"
+          ],
+          "unknowns": [
+            "overall_readiness"
+          ]
+        },
+        {
+          "cutoff": 70,
+          "question": "What is its reported overall readiness now?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "SV708",
+          "required": [
+            "B4:overall_readiness"
+          ],
+          "allowed": [
+            "B4:overall_readiness"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 95,
+          "question": "Compare its earlier overall readiness with the latest readiness report.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "SV708",
+          "required": [
+            "B4:overall_readiness",
+            "B5:overall_readiness"
+          ],
+          "allowed": [
+            "B4:overall_readiness",
+            "B5:overall_readiness"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "estimate_correction",
+      "world": {
+        "scenarioId": "HISTORY-V2-estimate-correction",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "ET111"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "ET222"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "ET333"
+          }
+        ],
+        "events": [
+          {
+            "id": "T1",
+            "aircraftId": "K1",
+            "flightInstance": "ET111",
+            "eventTime": 2,
+            "receiptTime": 5,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "14:10"
+              }
+            ],
+            "message": "14:10"
+          },
+          {
+            "id": "T2",
+            "aircraftId": "K1",
+            "flightInstance": "ET111",
+            "eventTime": 20,
+            "receiptTime": 32,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "14:40",
+                "supersedes": [
+                  "T1:tobt"
+                ]
+              }
+            ],
+            "message": "14:40"
+          },
+          {
+            "id": "T3",
+            "aircraftId": "K1",
+            "flightInstance": "ET111",
+            "eventTime": 42,
+            "receiptTime": 55,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "14:25",
+                "supersedes": [
+                  "T2:tobt"
+                ]
+              }
+            ],
+            "message": "14:25"
+          },
+          {
+            "id": "T4",
+            "aircraftId": "K2",
+            "flightInstance": "ET222",
+            "eventTime": 3,
+            "receiptTime": 6,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "15:05"
+              }
+            ],
+            "message": "15:05"
+          },
+          {
+            "id": "T5",
+            "aircraftId": "K2",
+            "flightInstance": "ET222",
+            "eventTime": 58,
+            "receiptTime": 72,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "15:20",
+                "supersedes": [
+                  "T4:tobt"
+                ]
+              }
+            ],
+            "message": "15:20"
+          },
+          {
+            "id": "T6",
+            "aircraftId": "K3",
+            "flightInstance": "ET333",
+            "eventTime": 4,
+            "receiptTime": 7,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "16:00"
+              }
+            ],
+            "message": "16:00"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 15,
+          "question": "What off-block time is estimated for ET111?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "ET111",
+          "required": [
+            "T1:tobt"
+          ],
+          "allowed": [
+            "T1:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 32,
+          "question": "Compare its first estimate with the received revision.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "ET111",
+          "required": [
+            "T1:tobt",
+            "T2:tobt"
+          ],
+          "allowed": [
+            "T1:tobt",
+            "T2:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 55,
+          "question": "What is its latest estimate? Give only the current one.",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "ET111",
+          "required": [
+            "T3:tobt"
+          ],
+          "allowed": [
+            "T3:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 56,
+          "question": "What estimate did it have immediately before 14:25?",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "ET111",
+          "required": [
+            "T2:tobt"
+          ],
+          "allowed": [
+            "T2:tobt",
+            "T3:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 57,
+          "question": "I meant ET222 instead. What is its estimate?",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "ET222",
+          "required": [
+            "T4:tobt"
+          ],
+          "allowed": [
+            "T4:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 72,
+          "question": "Compare the previous and new estimates for that flight.",
+          "mode": "change",
+          "aircraftId": "K2",
+          "flight": "ET222",
+          "required": [
+            "T4:tobt",
+            "T5:tobt"
+          ],
+          "allowed": [
+            "T4:tobt",
+            "T5:tobt"
+          ],
+          "unknowns": []
+        }
+      ]
+    }
+  ],
+  "sourceCommit": "70948a73373aa3a8ff55a12c846360e825586a82",
+  "sourceHashes": {
+    "scripts/history_evaluation.py": "f4afaabf2fbe5ad27e4839ffcafd74b438641d8fac782a07913b5715bb6e22a2",
+    "scripts/evaluate_history_questions.py": "d933363be84199174908338ce99156d2ccf4078d53638ea736a847305e5fd213",
+    "backend/training_adapter_v5.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_adapter_v6.py": "238107a29f3bcd2c250fd86b45ffcf0662774bcfffb8befd279a02b5bd8f4ea8",
+    "backend/training_turn.py": "d155aa0e78c236c61df58eebe88b4a2ab288446c059c847a870d0130ac6061c2"
+  },
+  "originalResultHashes": {
+    "outputs/assistant-comparison/RESULTS.md": "a16667e382b41e52ac5468a79e7f13eb3caf623cc8399fcb338722cccd2d56a0",
+    "outputs/assistant-comparison/independent-review.json": "685b6dd8a07cd84e5a9d03143b4082fa464fe7618164ee0fac445c7d8bf9908b",
+    "outputs/assistant-comparison/run-v1-summary.json": "3b963825984847daec4c21aee25487d7e2d9c3b2733074a0bf88dcbcacc05bf2",
+    "outputs/assistant-comparison/run-v1.json": "8356aa83482e7ee13914f4b1f5471cec2d40c6ba4c0d24f8388d6822b9bbea29",
+    "outputs/assistant-comparison/run-v1.prompts.jsonl": "11aa31f9452369aeea00497552139b0e969e86d3ab3be1dfa9d79106667da8ad",
+    "outputs/assistant-comparison/source-manifest.json": "149b7189d46fae4b70e94b7a8410deb39742d7359b06a4a895799b5f431e9a33",
+    "outputs/prompt-revision/RESULTS.md": "678d8aa537ba539cdf35fa49b896caa2cce35ffa07d276450e20ffaa40acabdb",
+    "outputs/prompt-revision/independent-review.json": "6a7389628f3e90eeca3a0ece40eb8efb6eccf5d5483aa8757ed30e2599d49929",
+    "outputs/prompt-revision/original-results-hashes.json": "6f62389dfa1899ebe6ec98b7ee73247b993328e57f83754137bbea97461f4b5d",
+    "outputs/prompt-revision/preservation.json": "2f4561bf13ea6a3fe53b912c3c0768528b0da607b4b905c850e8d1314ca5f250",
+    "outputs/prompt-revision/runner-at-run.py": "2a3f3aaf7bb3638f3dab8184b6431b80532a1d7d75a6e102d8df3f3d3e9d705e",
+    "outputs/prompt-revision/service-restoration.json": "4262f20c73f8f410d37c2b82188ae99a9f5c224102ddcb3e3be04c21b6ff439e",
+    "outputs/prompt-revision/v6-run-summary.json": "53997b2e368836dfe39803180c5906a56163c8fc1076e938b8292ef9a5c5a9dc",
+    "outputs/prompt-revision/v6-run.json": "f78e9a72a8e35c695785c8e8ff58479badff2afb2449e40331cd89856d1c6ce4",
+    "outputs/prompt-revision/v6-run.lock.json": "d7d40d65ab422328d34ad4fcf5de55e795a6b665bceb312ec5ddbb119803ea72",
+    "outputs/prompt-revision/v6-run.v5.prompts.jsonl": "a9ef7b0b44222f86284bff3d44618c573515b3e37f6209e31735c8f2f50d5327",
+    "outputs/prompt-revision/v6-run.v6.prompts.jsonl": "7d6cf149c2a95e49d77ae9466c3fb155bf31ca208929240f21c6ab11122f5483"
+  },
+  "design": "4 authored report families, 24 dependent turns each version; no prompt edits, no promotion rule; no images/selection; identical receipt cutoffs and separate sessions.",
+  "limits": "Authored development evaluation; fixed version order; no operational/learner validation; offline deadlines; stop reason inferred by unchanged adapter."
+}

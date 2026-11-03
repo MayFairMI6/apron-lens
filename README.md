@@ -41,6 +41,9 @@ Start the current controller lesson with
 The preselected local Qwen3.5-9B configuration is unchanged. The separately versioned
 [v6 readiness candidate](docs/course/PROMPT_REVISION.md) preserves the original v5
 [assistant comparison](outputs/assistant-comparison/RESULTS.md) and records new-question tests. The fresh-question result tied; v5 remains the app default.
+A separate [history-aware evaluation](docs/course/HISTORY_EVALUATION.md) distinguishes
+current status, past reports and changes across four new authored report families;
+its results do not overwrite either earlier comparison.
  Continuous voice, full Heathrow
 reconstruction and physical-device AR testing remain separate work. The shared-backbone
 extension and recorded-video experiment are deferred by the current priority decision.

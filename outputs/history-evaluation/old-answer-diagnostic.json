@@ -1,0 +1,95 @@
+{
+  "kind": "Post-hoc diagnostic only; no model rerun and no replacement of original scores or promotion gate.",
+  "originalFile": "outputs/prompt-revision/v6-run.json",
+  "originalSha256": "f78e9a72a8e35c695785c8e8ff58479badff2afb2449e40331cd89856d1c6ce4",
+  "records": [
+    {
+      "version": "v5",
+      "requestId": "86080ebfb88143ddac7608596bb6986c",
+      "originalScore": {
+        "passed": false,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "complete": true,
+        "unknownsCorrect": true,
+        "citationValid": true,
+        "staleClaims": true,
+        "emptyAnswer": false,
+        "errors": []
+      },
+      "diagnosticScore": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      },
+      "key": {
+        "aircraftId": "A2",
+        "flight": "TRN102",
+        "cutoff": 220,
+        "mode": "change",
+        "required": [
+          "EVAL_READY:overall_readiness",
+          "EVAL_NOT_READY:overall_readiness"
+        ],
+        "allowed": [
+          "EVAL_READY:overall_readiness",
+          "EVAL_NOT_READY:overall_readiness"
+        ],
+        "unknowns": []
+      }
+    },
+    {
+      "version": "v6",
+      "requestId": "78fe9ee8ef2743909284256a76818287",
+      "originalScore": {
+        "passed": false,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "complete": true,
+        "unknownsCorrect": true,
+        "citationValid": true,
+        "staleClaims": true,
+        "emptyAnswer": false,
+        "errors": []
+      },
+      "diagnosticScore": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      },
+      "key": {
+        "aircraftId": "A2",
+        "flight": "TRN102",
+        "cutoff": 220,
+        "mode": "change",
+        "required": [
+          "EVAL_READY:overall_readiness",
+          "EVAL_NOT_READY:overall_readiness"
+        ],
+        "allowed": [
+          "EVAL_READY:overall_readiness",
+          "EVAL_NOT_READY:overall_readiness"
+        ],
+        "unknowns": []
+      }
+    }
+  ]
+}
