@@ -67,3 +67,30 @@ RugGear's dnata Singapore case describes rugged smartphones for airside communic
 https://www.ruggear.com/use-cases/dnata.html
 https://www.damarel.com/products/findnet-mobile/
 https://www.sita.aero/about-us/pressroom/news-releases/sita-pioneers-mobile-ground-crew-app-with-easyjet-speeding-journeys-for-millions/
+
+Scenario-coverage audit: rejected takeoff and missing runway tasks
+
+The current code and video were checked against the ten older report-led catalogue entries. The prioritisation below is a design recommendation for controller situational-awareness practice, not a statistical risk ranking or a claim of complete Heathrow procedure coverage. The next proposed demonstrations are rejected takeoff, occupied-runway go-around and runway incursion/stop-bar conflict. They are not implemented by this audit.
+
+Rejected takeoff
+AAIB-27362, published in the March 2022 bulletin, investigates Heathrow pitot/static events between 9 June and 19 July 2021, including two rejected takeoffs. Its operational discussion describes these two rejections as relatively low-speed events, followed by return to stand without external assistance. This supports a bounded non-crash example. It does not justify assigning those causes or performance figures to the fictional aircraft. The learner's task is to track the reported rejection, stopped/occupied state and outstanding confirmation; a separate exercise report must establish subsequent runway status. The legacy rejected_takeoff profile supplies apron restriction reports only and is absent from the current visual sequence.
+https://assets.publishing.service.gov.uk/media/6221e05fe90e0710be03550f/Various_CAT_03-22.pdf
+
+Occupied-runway go-around and runway incursions
+Heathrow's explanatory account of go-arounds names an uncleared runway and strong winds as possible contexts. A proposed case can therefore depict an arrival climbing away while another aircraft has not vacated, without making every go-around an emergency or accident. Heathrow's runway-safety package emphasises stop bars and prevention of runway incursions. The AAIB D-AEAD investigation documents cancellation of takeoff clearance after a disorientated maintenance-vehicle driver entered the runway on 26 February 2019. This is a distinct hazard from the app's apron vehicle obstruction/contact. The proposed three cases remain separate; the RTO is not automatically caused by the incursion, and the go-around need not end in a crash.
+https://mediacentre.heathrow.com/pressrelease/detail/4150
+https://www.heathrow.com/company/team-heathrow/airside/useful-publications/runway-safety-awareness-package
+https://www.gov.uk/aaib-reports/aaib-investigation-to-airbus-a300b4-622r-f-d-aead
+
+Low visibility and runway debris
+Heathrow's Low Visibility Operations OSI 052 v3.1, 1 October 2026, distinguishes preparatory safeguarding from procedures in force, and notes that safeguarding may remain after procedures are cancelled. This provides a specific future task about which restrictions remain supported by received reports. The app's dusk, rain and snow visuals establish none of these operating states. OSI 081 v2.1, 30 October 2024, describes FOD hazards and response, supporting a runway-debris/inspection task beyond the existing stand baggage spill. No procedures or numeric thresholds are copied into the current app by this audit.
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASWeather_OSI_052_v3-1.pdf
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASGrOps_OSI_081-Airside-Cleanliness-and-FOD-Management_v-2.pdf
+
+Communication, surface condition and recovery gaps
+The CAA's occurrence examples include callsign confusion, loss of communication, runway-surface problems, wildlife strikes and rejected takeoffs. These support distinct information tasks: who a report concerns, whether an instruction was acknowledged, and what is confirmed about a hazard. They do not provide occurrence frequencies. Heathrow also publishes an Aircraft Recovery Plan. The present damaging-landing scene keeps recovery/inspection pending; it does not complete towing, inspection and reopening. A non-fire disabled-aircraft recovery is a useful later branch. Fuel interruption, conflicting stand assignments and departure sequencing remain older report-led profiles or partial coverage, not new scored lessons. See IMPLEMENTATION_DOCKET.md for the full coverage matrix.
+https://www.caa.co.uk/about-us/make-a-report-or-complaint/report-something/mor/the-mors-code/
+https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASEO_OSI_069_Aircraft_Recovery_Plan_v2.pdf
+
+Source-check limits
+The current Heathrow publication index and the specific sources above were checked on 2 November 2026. The index's spillage-reporting PDF link returned 404; no new claims are based on that inaccessible document. FOD guidance separately identifies fuel/oil contamination as a hazard. Historic investigations and explanatory articles establish examples, not the present frequency of Heathrow events. The audit changes documentation only; aircraft paths, scored questions, model requests and current recording remain unchanged.

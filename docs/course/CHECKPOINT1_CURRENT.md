@@ -14,6 +14,17 @@ are not presented as probable events in one airport hour. Geometry, response
 intervals and incident physics remain authored illustrations. Heathrow sources
 support the hazard categories; they do not establish our timings or probabilities.
 
+A coverage audit identified important omissions from this recording: rejected
+takeoff exists only in the older report-led catalogue; an occupied-runway go-around
+and runway incursion/stop-bar conflict are not implemented. These are the next
+recommended demonstration supplements. Low-visibility operating states, runway
+debris and communication-error tasks also remain incomplete. The current three
+scored lessons and their acceptance remain valid within their stated scope; they
+do not establish comprehensive controller-training coverage. See the
+[scenario coverage correction](IMPLEMENTATION_DOCKET.md#scenario-coverage-correction)
+for priorities, current status and acceptance gates. No new case has been added to
+the video by this documentation audit.
+
 The [16:18 scenario and weather edit](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view?usp=drivesdk) includes Person 1's supplied audio, aligned with the learner
 flow, stand-availability answers and Sources. Person 2's section awaits narration.
 [Person 2's script](PERSON2_SCRIPT.txt) and the [two-person plan](TEAM_RECORDING_PLAN.txt)
