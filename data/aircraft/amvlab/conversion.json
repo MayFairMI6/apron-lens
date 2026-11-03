@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "source": "https://github.com/amvlab/aircraft-models",
+  "commit": "91d835e8e851b2317fe79af291c9fed6153fd525",
+  "license": "CC BY 4.0",
+  "attribution": "AMV Lab (amvlab), 2026",
+  "changes": "Transforms baked, +Z nose, reference envelope normalized, textures extracted; original gear added by AirfieldLens. Family exterior geometry, not exact variant CAD.",
+  "records": [
+    {
+      "type": "a320_200",
+      "source": "A320_nologo.glb",
+      "sha256": "08cc60caafe3d0937f3e12e72c28bcb96dfdb39763ac124bcd4da8adaea11ab9",
+      "vertices": 4628,
+      "triangles": 5229,
+      "sourceScale": [
+        0.027939999476075172,
+        0.027939999476075172,
+        0.027939997613430023
+      ],
+      "bakedAxisScales": [
+        0.9970437783505958,
+        0.9812663121152874,
+        1.0090558649944854
+      ],
+      "referenceLength": 37.57,
+      "referenceSpan": 35.8,
+      "referenceHeight": 11.76,
+      "authoredMinimumExteriorClearance": 0.65,
+      "noseAheadMainGear": 17.71
+    },
+    {
+      "type": "b737_800",
+      "source": "B737_nologo.glb",
+      "sha256": "fa1f96261ac9e29d0c7c9ce239fde72f1109029527e1540794e237d581435d2d",
+      "vertices": 2963,
+      "triangles": 2670,
+      "sourceScale": [
+        0.009999999776482582,
+        0.009999999776482582,
+        0.009999999776482582
+      ],
+      "bakedAxisScales": [
+        1.0422018188875475,
+        1.014321173489277,
+        1.0014912343129854
+      ],
+      "referenceLength": 39.47,
+      "referenceSpan": 35.79,
+      "referenceHeight": 12.55,
+      "authoredMinimumExteriorClearance": 0.5,
+      "noseAheadMainGear": 19.69
+    },
+    {
+      "type": "b787_8",
+      "source": "B787_nologo.glb",
+      "sha256": "3d7e235d73f071fee1c93bd751fc537416cac26540152464bd584133f0afc2d8",
+      "vertices": 3127,
+      "triangles": 3378,
+      "sourceScale": [
+        0.02539999969303608,
+        0.02539999969303608,
+        0.0031326834578067064
+      ],
+      "bakedAxisScales": [
+        1.0024391595354936,
+        0.98139933027486,
+        1.0364703309583772
+      ],
+      "referenceLength": 56.72,
+      "referenceSpan": 60.12,
+      "referenceHeight": 16.92,
+      "authoredMinimumExteriorClearance": 0.9,
+      "noseAheadMainGear": 28.19
+    },
+    {
+      "type": "a380_800",
+      "source": "A380_nologo.glb",
+      "sha256": "785045c8467e8db10ba3b89a01a2d3c0184669b977964487a3a57825fa7c4619",
+      "vertices": 3056,
+      "triangles": 3338,
+      "sourceScale": [
+        -0.002429549815133214,
+        -0.002429549815133214,
+        -0.002429549815133214
+      ],
+      "bakedAxisScales": [
+        0.4133540804210832,
+        0.4264932485208276,
+        0.4164809924857773
+      ],
+      "referenceLength": 72.73,
+      "referenceSpan": 79.75,
+      "referenceHeight": 24.12,
+      "authoredMinimumExteriorClearance": 1.5,
+      "noseAheadMainGear": 36.85
+    }
+  ]
+}

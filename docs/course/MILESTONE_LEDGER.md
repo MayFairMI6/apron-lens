@@ -1,16 +1,26 @@
 # AirfieldLens milestone ledger
 
+**The user has reopened CURRENT / Checkpoint 1 for R01, four type-specific aircraft
+models and dimensions, and R02, improved authored trajectories. Both are in
+progress, not accepted or published.** The requested fleet is Airbus A320-200
+Sharklet, Airbus A380-800, Boeing 737-800 and Boeing 787-8 in four isolated fleet
+profiles with distinct unfolding incidents/outcomes and fresh run identities. This explicitly authorised increment preserves legacy
+scenario worlds, frozen research and earlier videos. It does not add full flight
+physics, detector research or a weather-capacity system to M1. ML-027 supersedes
+the earlier 787-9 variant and records bounded 09R reference adoption, passing
+backend/editor checks and native acceptance still outstanding.
+
 **F03, the fog restriction lesson, and T01, agent review of typed learner responses,
 have passed limited qualitative-prototype functional acceptance. C01's bounded
-contract/evidence work is complete. Current feature scope is frozen and the 30:33.5
+contract/evidence work is complete. That prior feature increment was frozen and the 30:33.5
 video, implementation and shared documents are published. The handoff package and
 separate submission requirements are tracked independently.** The user explicitly requested
 typed responses processed by an agent. The actual model must review each response
 against that checkpoint's eligible reports and rubric, recognise paraphrases and
 identify missing, contradictory and unknown points. Feedback is qualitative
 practice guidance, not a validated numerical score. Fixed-choice assessment stays
-as an internal regression path. The freeze allows corrections and acceptance fixes;
-new feature work requires explicit scope changes. Acceptance does not establish
+as an internal regression path. ML-024 reopens only the two newly requested units;
+the earlier acceptance remains historical evidence. Acceptance does not establish
 general semantic reliability, validated grading or a completed course submission.
 
 The user has now adopted the bounded correctness progression in the
@@ -128,6 +138,10 @@ The updated F03/T01 flow has now passed its bounded functional acceptance and
 that feature scope is frozen. This does not waive the separate course submission
 requirements below.
 
+ML-024 subsequently reopens the current checkpoint for R01/R02 only. Their fresh
+acceptance is outstanding; the closed F03/T01/C01 units and the separate submission
+requirements are not silently reclassified or made complete by this new work.
+
 | Submission item | Exact remaining gate | Relationship to app work |
 |---|---|---|
 | Member contribution in video | Complete Person 2's narration/contribution and verify that both members are identified before their contributions using the assignment's permitted narration/text method. Preserve Person 1's approved speech. | Finish the presentation; no new app feature is required. |
@@ -150,6 +164,8 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
+| R01 — four-type aircraft models and dimensions | In progress; bounded source/geometry/editor-render review passed; native integration acceptance pending after two missing-texture export failures | CURRENT / Checkpoint 1, newly reopened increment | User explicitly requested realistic models of different sizes and both manufacturers; this uses the existing renderer without requiring M2 perception research. | Verify A320-200 Sharklet, A380-800, B737-800 and B787-8 in the native app, including contact/gear and 3→4→3 replay changes; refresh the changed editor-checker hash in final evidence. |
+| R02 — authored fleet trajectories and distinct unfolding incidents | In progress; four profiles implemented with bounded 09R references; root reports 288 backend tests passing, including 11 fleet tests; native/model acceptance pending | CURRENT / Checkpoint 1, newly reopened increment | User requested unique incidents/outcomes as well as realistic motion; independent profiles preserve scenario causality and prior worlds. | Root completes each native profile and genuine staged assistant answers; independent reviewer checks the final implementation, cutoffs and evidence before acceptance. |
 | F01 — fog visual profile | Implemented; native acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | Extends an existing external-clock presentation path; it does not require a detector, scoring or queue generation. | Delivered for this increment; preserve evidence and review future changes. |
 | F02 — bounded report-led fog demonstration | `fog_visibility` implemented; source-hour native/model acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | A distinct, source-supported information task uses the available assistant and standalone demo machinery. | Delivered for this increment; preserve unscored status. |
 | F03 — fog restriction lesson | Implemented and accepted within limited prototype scope; video published; source/document/ZIP publication pending | CURRENT / Checkpoint 1, feature scope frozen | The authorised lesson tests partial cancellation and unconfirmed departure authority using the established report sequence. | Finish source/document/handoff publication. Preserve full fog evidence separately from positioned checks and pre-typed MCQ history. |
@@ -707,6 +723,147 @@ task and the original visual study. Defer an exact approach/impact reconstructio
 neither the existing flat road representation nor the preliminary narrative
 validates its geometry or flight behavior.
 
+## R01/R02 — current aircraft and trajectory increment
+
+The initial read-only discovery found one generic twinjet mesh in
+[AircraftVisual.cs](../../unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/AircraftVisual.cs),
+no type/dimension profile in
+[AircraftPlan](../../unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs),
+linear waypoint position interpolation and sparse authored airborne paths in
+[flight_cycle.py](../../backend/flight_cycle.py). Ground paths already use tangent
+circular arcs in [ground_routes.py](../../backend/ground_routes.py). Reuse that
+working geometry and the external clock; do not replace known paths globally to
+make one new demonstration look smoother.
+
+R01 and R02 are firm CURRENT assignments following explicit user steering, not
+optional M2 suggestions. The stronger case for doing them now is that recognisable
+type/size and motion improvements are directly requested and separable from the
+camera/perception study. The strongest case for later placement is the additional
+geometry, clearance and native acceptance burden of large aircraft. That burden
+is a current gate, not evidence of an unavailable dependency or a measured delay.
+M2 retains detector training, viewpoint evidence and visual evaluation; M3 retains
+integrated comparisons. Defer aerodynamic/system fidelity and reject an implied
+accident reconstruction or operational flight-performance claim. No implementation
+duration or new benchmark result is established.
+
+The user's subsequent requests for unique outcomes and then unfolding incidents
+replace the initial single `fleet_operations` design with four independent
+incident profiles. Each contains all four
+visible aircraft types, with the remaining aircraft parked or serving an explicit
+occupancy role rather than taking unrelated incident turns in one source hour:
+
+| Focal aircraft | Authored profile outcome | Evidence boundary |
+|---|---|---|
+| A320-200 Sharklet | Bird-reported hold, dispersal, inspection, separate release, then departure | Dispersal or completed inspection alone does not release the aircraft. A bird report does not establish a strike or damage. |
+| B737-800 | Reported unreliable-airspeed concern, rejected takeoff, stop/assessment; release unconfirmed | Separate the reported concern from diagnosed cause; stopping or assessment does not establish runway release. |
+| B787-8 | Reported hydraulic concern, priority landing, runway stop and inspection/recovery updates | The reported concern does not establish a simulated hydraulic failure, damage extent or a recovery/reopening result before its update. |
+| A380-800 | Go-around with the runway occupied; next approach unconfirmed | Keep both aircraft identities and runway status clear; a go-around does not establish the later landing outcome. |
+
+Each profile needs its own scenario/run identity, reports, cutoffs and timing.
+These outcomes arise from authored circumstances, not an inference that a given
+aircraft type inherently has bird, airspeed or hydraulic problems or goes around.
+The scenario-to-type assignment is not a manufacturer-defect or incident-probability
+claim, and no hydraulic-system simulation is included. Do not stack these
+events into one claimed airport-hour sequence or use the type choice as causal
+evidence of performance.
+
+The active 787 variant is now **B787-8**, superseding the earlier B787-9 assignment:
+the reviewed free family exterior's dimensions better match the -8. Source and
+Unity profiles both use `b787_8`. The adopted AMV Lab exteriors and manufacturer
+dimension references do not establish exact variant CAD or certified performance.
+The four independent IDs are `fleet_a320_birds`, `fleet_b737_rejected_takeoff`,
+`fleet_b787_priority_landing` and `fleet_a380_go_around`; they remain isolated from
+legacy demonstration lists and practice lessons.
+
+The bounded [Heathrow procedure reference](../HEATHROW_PROCEDURE_REFERENCE.md)
+pins AIRAC 29 October 2026 and informs threshold/alignment, approach-reference
+height/slope and the initial straight-ahead missed-approach altitude. Timing,
+speed, flare, transitions and incidents remain authored. Review local versus
+AMSL height, the displaced threshold, true versus magnetic alignment, and the
+approximation of the chart reference at the visual root. Do not apply the
+radio-failure turn to an ordinary occupied-runway go-around. A full SID, further
+vectoring/re-approach and live operational applicability are not implemented or
+established. Broader procedure reuse remains unresolved; this increment links
+sources without redistributing chart PDFs, images or NATS branding. These limits
+do not silently move the authorised bounded R01/R02 work to M2.
+
+Current evidence is partial. Root reports 288 backend tests passing, including
+11 fleet tests; the inspected test source exercises 20 seeds per profile for
+defined determinism, report, motion and clock boundaries. The ledger reviewer did
+not rerun those tests. The separate [fleet review](/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/fleet-independent-review.json)
+records passing bounded source/static/editor-render checks. This reviewer matched
+five of its six source hashes; `AircraftTypeVerification.cs` has since changed,
+so its final review/hash needs refreshing. The [procedure review](/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/heathrow-procedure-reference-review.json)
+records the cited reference and reuse limits. Two native-export attempts failed
+with `Missing aircraft texture: a320_200`; their retained logs are
+`W/work/fleet-export-texture-failure.log` and
+`W/work/fleet-export-texture-second-failure.log`, where W is the current chat
+workspace. The later `W/work/fleet-export-geometry-pass.log` contains
+`AIRCRAFT_TYPE_CHECKS_PASS`. Editor success is not native scene contact, a complete
+profile run or actual assistant acceptance. All those delivery gates remain open.
+
+Acceptance for this increment is separate from every earlier video and test total:
+
+- **Four distinct types and provenance.** Record authoritative dimension sources,
+  model/geometry provenance and free reuse terms, local axes, origin, units and
+  measured rendered bounds for A320-200 Sharklet, A380-800, B737-800 and B787-8.
+  Preserve the original assets or authored geometry inputs. Review type-specific
+  silhouettes and proportions; a uniform resize of the old generic jet does not
+  establish the requested type models. State remaining visual approximations.
+- **Size-aware fit.** Validate stand spacing, runway use, turning envelopes and
+  nearby obstacles using each type's dimensions. Check wheel paths against
+  pavement separately from the swept wing/body envelope against obstacles. Do not
+  reuse small-aircraft clearance assumptions for the A380 or silently rescale the
+  airport. Any changed placement needs the standing reference/independent review.
+- **Authored motion.** Verify continuous position, phase-consistent heading,
+  pitch/bank, gear and ground contact, bounded speed transitions and turns without
+  unintended path overshoot, teleportation or shortcuts. Keep the new scenario's
+  assumptions explicit; visual plausibility is not aerodynamic validation.
+- **Bounded procedure use.** Match only the adopted reference facts and stated
+  visual approximation to the pinned source. Verify datum conversions and the
+  threshold once, and keep authored flare/timing and the ordinary go-around
+  separate from SID, radio-failure and full-route claims. Preserve source/reuse
+  limits and do not package the chart PDFs.
+- **Driver and evidence.** The external driver remains authoritative. Check
+  aircraft/flight identity, reservations, event/receipt cutoffs and genuine assistant
+  answers at the unfolding incident stages. Keep requests, reports, inspection,
+  recovery and separate release distinct; later outcomes cannot leak into earlier
+  answers. Visual type, motion or clearer conditions cannot grant a clearance or
+  invent evidence. Check equivalent state at matched source times under normal
+  and accelerated playback, pause/checkpoints and interrupted connections.
+- **Isolation and seeded checks.** Exercise each of the four new profiles over
+  20 fixed seeds, covering all requested types and relevant movement/clearance boundaries.
+  Retain failures. Verify unchanged legacy worlds and frozen research records;
+  introduce no held-out edits or repeated research evaluation. These are functional
+  checks, not a reliability or learning-benefit benchmark.
+- **Native acceptance and recording.** Complete each configured profile in the
+  native app, inspect each type and representative turns/flight transitions in
+  supported orientations, and retain source hashes, cutoffs, actual answers and
+  captures. The root performs native inspection; a different agent reviews the
+  implementation. Acceptance, new capture, edited video and publication each need
+  their own recorded status. Do not replace the prior delivered videos before a
+  new edit is authorised and verified.
+
+Ownership: root owns backend/integration, `fog_implementation` owns Unity visuals,
+and a separate reference reviewer supplies source and independent review. This ledger
+role owns only placement/protocol. The current handoff records new task issues
+[#64](https://github.com/MayFairMI6/apron-lens/issues/64) and
+[#65](https://github.com/MayFairMI6/apron-lens/issues/65); root owns their updates and
+the [tracker overview](https://github.com/MayFairMI6/apron-lens/issues/23).
+This review did not query their current remote states. Previously accepted issues remain
+closed with their original evidence. The [failure log](https://github.com/MayFairMI6/apron-lens/issues/49)
+keeps user-report origins; reopening a historical failure requires a reproduced
+regression, not merely this requested upgrade. The island-view verification gap
+is separate from fleet realism.
+
+The user now requests a concise significant-features video retaining the approved
+opening narration, plus a longer explanatory walkthrough and a silent counterpart.
+These new edits are authorised but unfinished. Preserve the delivered 30:28.5
+local narrated/silent masters and their audio; the older 30:33.5 Drive version is
+separate. Select verified new fleet footage only after its native gates pass,
+retain failures/limitations in the supporting evidence, and review each final
+edit independently. No specific duration limit or new publication is established.
+
 ## Recording and assignment impact
 
 For the current publication, preserve Person 1's approved audio and the existing
@@ -778,16 +935,21 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from [EXECUTION_QUEUE.md](EXECUTION_QUEUE.md) and ML-021: F03/T01 limited
-functional acceptance and C01's bounded evidence work are complete; feature scope
-is frozen. Exact v2 remains selected and the companion correctness record is aligned.
-The 30:33.5 video is published with preserved audio and root-verified size/readability.
-Finish source, shared-document and handoff ZIP publication and record their actual
-references. Do not carry MCQ acceptance over to typed review or label
-positioned checks as full runs. Do not start C02–C04 or inferred new scenarios
-during publication; the development suite is not their evaluation.
-Preserve Person 1 and earlier footage and use concise, accurate future-work wording.
-Source/document/ZIP publication remains pending until those concrete artifacts pass review.
+Resume from ML-027 and the R01/R02 acceptance gates: inspect the four independent
+fleet profiles, four type models, reference review and new seed/native evidence
+before changing delivery status. Use B787-8 and the bounded pinned 09R references;
+refresh the changed editor-checker evidence and verify the repaired texture export
+in the native app. Both units are in progress;
+no fresh native acceptance, new video or publication is claimed. Root owns tracker
+updates. Do not start C02–C04 or infer additional accident/physics work.
+
+F03/T01 limited functional acceptance and C01 remain complete within their bounds.
+The final prior source is `fa31c53ba8be77f8265a7ecbad634140c6177c44`; the workspace
+publication receipt records both CI successes and the published 90-file ZIP.
+The 30:33.5 video remains on Drive. The subsequently delivered 30:28.5 local narrated
+and silent copies remove internal presenter divider cards and are separate from
+that Drive version. Preserve all versions and approved narration. Do not carry
+MCQ acceptance over to typed review or label positioned checks as full runs.
 Preserve F01/F02 evidence and
 the user's narration requirements. Complete the separate submission gates:
 Person 2 participation/identification, final reflection content/≤1-page review,
@@ -821,3 +983,69 @@ publication are the root agent's separate work.
 ## ML-023 — Source and shared-document publication
 
 Root verified implementation commit `af2137b0584e84baa99969f2376992efd216e91a` on the existing GitHub branch and updated PR #22 around four typed practice topics and their bounded acceptance. The native recording guide and scenario register were updated in place and read back; Person 1’s section remained unchanged, A15 was added to the coverage table, and six raw handoff documents were replaced in place. The reflection was not edited. The 30:33.5 video remains at the existing Drive URL. Package identity and delivery are recorded separately in its manifest and the workspace publication receipt; publication does not complete narration, reflection or physical-phone evidence.
+
+## ML-024 — Explicit current fleet-realism increment
+
+3 November 2026. The user requested more realistic motion and actual aircraft
+models of different sizes, then specified both Airbus and Boeing. Assign R01's
+A320-200 Sharklet, A380-800, B737-800 and B787-9 models/dimensions and R02's improved
+authored trajectories to CURRENT in the isolated `fleet_operations` scenario.
+Both are in progress with fresh source, size-aware clearance, 20-seed and native
+acceptance outstanding. This supersedes ML-021's freeze only for these two units;
+it does not revoke the accepted baseline, reopen frozen research or make full
+physics, M2 visual research or existing submission requirements complete. Root
+owns the two new GitHub tasks. This reviewer changed only the ledger/protocol;
+it did not implement, test, operate the app, commit or publish this increment.
+
+## ML-025 — Four independent fleet outcomes (incident content superseded by ML-026)
+
+3 November 2026. The user then required unique scenario outcomes. Replace
+ML-024's single `fleet_operations` design with four independent profiles: A320
+normal departure/climb, B737 rejected takeoff/stopped with release unconfirmed,
+B787 approach/landing/exit/taxi, and A380 go-around with occupied runway and next
+approach unconfirmed. All four types appear in each profile, with explicit parked
+or occupancy context. R01/R02 remain CURRENT and in progress. Require 20 seeds
+per profile, distinct identities/reports/cutoffs and fresh native evidence; none
+is accepted yet. This changes scenario structure, not the aircraft-physics or
+research boundary. Earlier delivered videos remain archived evidence.
+
+## ML-026 — Distinct unfolding incidents per fleet profile
+
+3 November 2026. The user further requested unique incidents unfolding for each
+type. Keep four independent CURRENT profiles and refine their content: A320 bird
+hold/dispersal/inspection/separate release/departure; B737 unreliable-airspeed
+concern/RTO/stop/assessment with release unconfirmed; B787 reported hydraulic
+concern/priority landing/runway stop/inspection-recovery updates; A380 occupied-runway
+go-around/climb with future approach unconfirmed. This supersedes ML-025's normal
+A320 departure and B787 exit/taxi outcomes. All profiles remain in progress and
+need fresh staged report-cutoff answers, 20-seed checks and native acceptance.
+The assignment of circumstances to aircraft types conveys no manufacturer-defect
+probability, hydraulic-system physics or operational performance validation.
+
+## ML-027 — B787-8, bounded 09R references and unfinished native acceptance
+
+3 November 2026. Reconcile the active fleet to A320-200 Sharklet, B737-800,
+**B787-8** and A380-800. The reviewed family exterior better matches -8 dimensions;
+this supersedes ML-024's -9 variant without claiming exact variant CAD. Keep
+ML-026's four independent incidents. Adopt only the pinned threshold/alignment,
+approach-reference and initial straight-ahead missed-approach facts documented in
+[HEATHROW_PROCEDURE_REFERENCE.md](../HEATHROW_PROCEDURE_REFERENCE.md). Full SID,
+subsequent routing, live operational applicability and broader procedure reuse
+remain unresolved/outside this bounded implementation; no chart PDF is redistributed.
+
+Root reports 288 passing backend tests including 11 fleet tests. The ledger
+reviewer read the test source, independent fleet/procedure receipts and retained
+export failures, and matched five of six fleet-review source hashes. Refresh the
+changed `AircraftTypeVerification.cs` hash/review. Two missing-texture export
+failures precede a passing editor geometry marker; neither the marker nor source
+review completes native acceptance. R01/R02 remain CURRENT, in progress and
+unpublished. The next gate is the repaired native build plus all four profile runs,
+actual cutoff-grounded assistant answers and independent/root inspection.
+
+The user's concise significant-features video, longer walkthrough and silent
+counterpart are authorised future edits of this increment. Preserve the approved
+opening and delivered 30:28.5 local copies; the 30:33.5 Drive edit remains distinct.
+Native acceptance, capture, edit and publication each need their own evidence.
+No new benchmark, full-physics, phone or whole-assignment completion claim follows.
+This review changes only the ledger/protocol; it did not rerun tests or operate,
+commit or publish the app.

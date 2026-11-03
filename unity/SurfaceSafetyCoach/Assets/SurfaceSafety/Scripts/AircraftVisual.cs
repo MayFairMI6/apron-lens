@@ -52,15 +52,15 @@ namespace SurfaceSafety {
                 new Vector3(0,.38f,-.48f),new Vector3(0,.14f,-.47f)},Vector3.right*.012f,accent);
             Sphere(model,"Nose wheel",new Vector3(0,-.052f,.32f),new Vector3(.024f,.030f,.030f),rubber);
         }
-        static Material Material(Color color,float metallic,float smoothness) {
+        internal static Material Material(Color color,float metallic,float smoothness) {
             var m=new Material(Shader.Find("Standard"));m.color=color;m.SetFloat("_Metallic",metallic);m.SetFloat("_Glossiness",smoothness);return m;
         }
-        static void MeshObject(Transform parent,string name,List<Vector3> vertices,List<int> triangles,Material material) {
+        internal static void MeshObject(Transform parent,string name,List<Vector3> vertices,List<int> triangles,Material material) {
             var obj=new GameObject(name,typeof(MeshFilter),typeof(MeshRenderer));obj.transform.SetParent(parent,false);
             var mesh=new Mesh{name=name};mesh.SetVertices(vertices);mesh.SetTriangles(triangles,0);mesh.RecalculateNormals();mesh.RecalculateBounds();
             obj.GetComponent<MeshFilter>().sharedMesh=mesh;obj.GetComponent<MeshRenderer>().sharedMaterial=material;
         }
-        static void Loft(Transform parent,string name,Vector3 origin,float[] z,float[] radius,float[] centerY,float heightRatio,Material material,int sides) {
+        internal static void Loft(Transform parent,string name,Vector3 origin,float[] z,float[] radius,float[] centerY,float heightRatio,Material material,int sides) {
             var v=new List<Vector3>();var t=new List<int>();
             for(int row=0;row<z.Length;row++)for(int j=0;j<sides;j++) {
                 float a=j*Mathf.PI*2/sides;v.Add(origin+new Vector3(Mathf.Sin(a)*radius[row],centerY[row]+Mathf.Cos(a)*radius[row]*heightRatio,z[row]));
@@ -71,13 +71,13 @@ namespace SurfaceSafety {
             }
             MeshObject(parent,name,v,t,material);
         }
-        static void Disk(Transform parent,string name,Vector3 center,float radius,Material material,int sides,bool reverse=false) {
+        internal static void Disk(Transform parent,string name,Vector3 center,float radius,Material material,int sides,bool reverse=false) {
             var v=new List<Vector3>{center};var t=new List<int>();
             for(int i=0;i<sides;i++){float a=i*Mathf.PI*2/sides;v.Add(center+new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,0));}
             for(int i=0;i<sides;i++){int a=i+1,b=(i+1)%sides+1;t.AddRange(reverse?new[]{0,b,a}:new[]{0,a,b});}
             MeshObject(parent,name,v,t,material);
         }
-        static void Prism(Transform parent,string name,Vector3[] polygon,Vector3 extrusion,Material material) {
+        internal static void Prism(Transform parent,string name,Vector3[] polygon,Vector3 extrusion,Material material) {
             var v=new List<Vector3>();var t=new List<int>();
             var normal=Vector3.Cross(polygon[1]-polygon[0],polygon[2]-polygon[0]);
             if(Vector3.Dot(normal,extrusion)<0)System.Array.Reverse(polygon);

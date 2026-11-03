@@ -10,6 +10,7 @@ import time
 from backend.lessons import EXERCISES, HOUR_EXERCISES, TITLES, OBJECTIVES, build_lesson
 from backend.fog_lesson import FOG_LESSON
 from backend.runway_scenarios import DEMONSTRATIONS, TITLES as DEMO_TITLES, OBJECTIVES as DEMO_OBJECTIVES, build_demonstration
+from backend.fleet_scenarios import FLEET_DEMONSTRATIONS, TITLES as FLEET_TITLES, OBJECTIVES as FLEET_OBJECTIVES, build_fleet
 from backend.training_environment import attach_environment, ENVIRONMENTS
 from evidencekit import SourceRecord, check_references
 from backend.training_assessment import MAX_RESPONSE_CHARS, ReviewContext, rubric_for, typed_question_for
@@ -20,8 +21,8 @@ class ReviewBusy(ActionConflict): pass
 class TrainingSession:
     def __init__(self, seed, exercise='surface_conflict', mode='lesson', clock=time.monotonic, audit_path=None, environment=None, assessment_mode='typed'):
         if mode not in ('lesson','continuous','demo'): raise ValueError('Unknown training mode')
-        if exercise not in EXERCISES+DEMONSTRATIONS: raise ValueError('Unknown exercise')
-        if mode=='lesson' and exercise in DEMONSTRATIONS: raise ValueError('This case is a demonstration, not a practice lesson; use --mode demo or continuous')
+        if exercise not in EXERCISES+DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('Unknown exercise')
+        if mode=='lesson' and exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('This case is a demonstration, not a practice lesson; use --mode demo or continuous')
         if exercise==FOG_LESSON:
             if mode!='lesson':raise ValueError('fog_restrictions is a 210-second lesson with typed practice feedback; use --mode lesson, or fog_visibility for the separate one-hour demonstration')
             if environment not in (None,'fog'):raise ValueError('The fog practice lesson requires its fog timeline; omit --environment or use fog')
@@ -39,11 +40,11 @@ class TrainingSession:
     def _reset(self):
         self.run_id=secrets.token_hex(10);self.revision=0;self.source_time=0.;self.last_wall=self.clock()
         self.started_wall=self.last_wall;self.phase='briefing' if self.mode=='lesson' else 'practice'
-        builder=build_demonstration if self.exercise in DEMONSTRATIONS else build_lesson
+        builder=build_fleet if self.exercise in FLEET_DEMONSTRATIONS else build_demonstration if self.exercise in DEMONSTRATIONS else build_lesson
         self.scenario,self.reservations,self.probes=builder(self.seed,self.exercise)
-        self.title={**TITLES,**DEMO_TITLES}[self.exercise]
-        self.objective={**OBJECTIVES,**DEMO_OBJECTIVES}[self.exercise]
-        self.target='A1' if self.exercise in DEMONSTRATIONS or self.exercise==FOG_LESSON else 'A3' if self.exercise=='late_arrival' else 'A2'
+        self.title={**TITLES,**DEMO_TITLES,**FLEET_TITLES}[self.exercise]
+        self.objective={**OBJECTIVES,**DEMO_OBJECTIVES,**FLEET_OBJECTIVES}[self.exercise]
+        self.target='A1' if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise==FOG_LESSON else 'A3' if self.exercise=='late_arrival' else 'A2'
         effective_environment='fog' if self.exercise in ('fog_visibility',FOG_LESSON) else self.environment
         # The short scored lesson already owns a validated 210-second fog curve.
         # Applying the hour-long visual profile would extend it past its clock.
@@ -165,7 +166,7 @@ class TrainingSession:
                 if self.assessment_mode=='typed':result['checkpoint']['question']=typed_question_for(self.exercise,p)
             if self.phase=='feedback':result['feedback']=self._feedback(self.answers[-1])
             if self.phase=='debrief':result['reviews']=[self._feedback(a) for a in self.answers]
-            if self.exercise in DEMONSTRATIONS or self.exercise==FOG_LESSON:
+            if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise==FOG_LESSON:
                 result['perspectives']=[
                     dict(role='Controller',text=self.objective),
                     dict(role='Pilot',text='Review the latest report for your flight and identify what still needs confirmation.'),
@@ -225,7 +226,7 @@ class TrainingSession:
                     self._log('assistant_cue_end',cueId=self.cue['id'],success=body.get('success') is True)
             elif action in ('retry','next') and self.phase=='debrief':
                 if action=='next':
-                    sequence=DEMONSTRATIONS if self.exercise in DEMONSTRATIONS else (
+                    sequence=FLEET_DEMONSTRATIONS if self.exercise in FLEET_DEMONSTRATIONS else DEMONSTRATIONS if self.exercise in DEMONSTRATIONS else (
                         EXERCISES if self.mode=='lesson' else HOUR_EXERCISES)
                     self.exercise=sequence[(sequence.index(self.exercise)+1)%len(sequence)]
                 self._reset()

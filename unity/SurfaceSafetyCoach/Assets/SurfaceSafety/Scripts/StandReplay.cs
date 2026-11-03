@@ -13,7 +13,10 @@ namespace SurfaceSafety {
         public ReplayClock Clock {get;private set;}
         public bool LiveTraffic {get;private set;}
         public bool TrainingPresentation {get;private set;}
-        public void UseTrainingPresentation(){TrainingPresentation=true;if(safeRoot!=null)safeRoot.gameObject.SetActive(false);}
+        public void UseTrainingPresentation(){
+            TrainingPresentation=true;if(safeRoot!=null)safeRoot.gameObject.SetActive(false);
+            if(Content!=null)foreach(Transform child in Content)if(child.name.EndsWith(" authored path",StringComparison.Ordinal))child.GetComponent<LineRenderer>().enabled=false;
+        }
         string trafficStatus="Connecting to traffic…";
         public string TrainingTitle {get;set;}="";
         public bool AwarenessTrack => LiveTraffic && (Data.trainingRole=="controller_awareness" || Data.trainingRole=="pilot_awareness");
@@ -77,6 +80,7 @@ namespace SurfaceSafety {
         }
         Transform[] planes;
         Transform[][] landingGear;
+        AircraftTypeRig[] aircraftRigs;
         GameObject[] propObjects;
         VisualProp[] props;
         LineRenderer selectionRing;
@@ -200,14 +204,19 @@ namespace SurfaceSafety {
         }
         public void ApplyTrafficScenario(Scenario incoming){
             incoming.Validate();
-            if(incoming.aircraft.Length!=Data.aircraft.Length || incoming.aircraft.Where((a,i)=>a.id!=Data.aircraft[i].id).Any())
-                throw new ArgumentException("Traffic aircraft do not match the apron.");
             bool changed=incoming.scenarioId!=Data.scenarioId;
             if(!changed)return; // A session's plan is immutable; only its clock updates.
+            string selectedId=SelectedAircraft.id,selectedFlight=SelectedFlight;
+            bool visualsChanged=incoming.aircraft.Length!=Data.aircraft.Length||incoming.aircraft.Where((a,i)=>i>=Data.aircraft.Length||a.id!=Data.aircraft[i].id||a.aircraftType!=Data.aircraft[i].aircraftType).Any();
             bool tracked=Clock.Tracked;Data=incoming;Clock=new ReplayClock(Data.duration,true);Clock.SetTracking(tracked);
+            int selection=Array.FindIndex(Data.aircraft,a=>a.Flies(selectedFlight));
+            if(selection<0)selection=Array.FindIndex(Data.aircraft,a=>a.id==selectedId);
+            SelectedAircraftIndex=selection>=0?selection:0;
+            if(visualsChanged){BuildAircraft();BuildAircraftChips(safeRoot.Find("Header"));}
             interruptions.Clear();ClearAwayNotice();InspectedReportId="";
-            foreach(var obj in propObjects)obj.SetActive(false);
-            props=new VisualProp[0];propObjects=new GameObject[0];bodyKey=null;
+            foreach(var obj in propObjects??new GameObject[0])if(obj!=null)ReleaseObject(obj);
+            props=new VisualProp[0];propObjects=new GameObject[0];BuildProps();BuildPaths();bodyKey=null;InvalidateAi();
+            slider.maxValue=Data.duration;
             GetComponent<ConversationClient>()?.ResetForExercise();Log("traffic_session_started");
         }
         public void UpdateTrafficTime(float time,string state){
@@ -308,7 +317,7 @@ namespace SurfaceSafety {
             if(planes==null||Data==null||Clock==null)return;
             for(int i=0;i<planes.Length;i++) {
                 planes[i].gameObject.SetActive(!Data.aircraft[i].hidden);
-                planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*((TrainingPresentation?.00235f:.003f)-Scenario.BodySink(Data.aircraft[i],Clock.Time));
+                planes[i].localRotation=Quaternion.identity;
                 var direction=Scenario.Direction(Data.aircraft[i],Clock.Time);
                 if(direction.sqrMagnitude>0.000001f)planes[i].localRotation=Quaternion.LookRotation(direction,Vector3.up);
                 if(Data.aircraft[i].phases!=null&&new Vector2(direction.x,direction.z).sqrMagnitude>0.000001f)
@@ -316,7 +325,12 @@ namespace SurfaceSafety {
                 if(Data.aircraft[i].preciseHeading)
                     planes[i].localRotation=Quaternion.Euler(0,Scenario.Heading(Data.aircraft[i],Clock.Time),0)*Quaternion.Euler(-Scenario.Pitch(Data.aircraft[i],Clock.Time),0,0);
                 planes[i].localRotation*=Quaternion.Euler(0,0,Scenario.Roll(Data.aircraft[i],Clock.Time));
-                if(landingGear!=null)foreach(var part in landingGear[i])part.gameObject.SetActive(!Data.aircraft[i].GearRetractedAt(Clock.Time));
+                var rig=aircraftRigs[i];
+                float offset=rig==null?(TrainingPresentation?.00235f:.003f):
+                    (Data.aircraft[i].surfaceHeightMetres+rig.ContactOffsetMetres(planes[i].localRotation))*.001f;
+                planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*(offset-Scenario.BodySink(Data.aircraft[i],Clock.Time));
+                if(rig!=null)rig.SetGear(Data.aircraft[i].GearRetractedAt(Clock.Time));
+                else if(landingGear!=null)foreach(var part in landingGear[i])part.gameObject.SetActive(!Data.aircraft[i].GearRetractedAt(Clock.Time));
             }
             if(propObjects!=null)for(int i=0;i<propObjects.Length;i++){
                 var v=Scenario.PropValueAt(props[i],Clock.Time);propObjects[i].SetActive(v=="connected"||v=="open");
@@ -390,20 +404,29 @@ namespace SurfaceSafety {
             Shape(PrimitiveType.Cube,"Terminal",new Vector3(0,.004f,.061f),new Vector3(.18f,.008f,.017f),terminal,Content);
             for(int i=0;i<2;i++)Shape(PrimitiveType.Cube,"Stand "+(i==0?"A":"B"),
                 new Vector3(i==0?-.045f:.035f,.002f,.047f),new Vector3(.004f,.004f,.015f),new Color(.5f,.61f,.65f),Content);
-            planes=new Transform[Data.aircraft.Length];
-            landingGear=new Transform[Data.aircraft.Length][];
-            for(int i=0;i<planes.Length;i++) {
-                var root=new GameObject(Data.aircraft[i].id).transform;root.SetParent(Content,false);planes[i]=root;
-                AircraftVisual.Build(root,LiveryOf(i));
-                landingGear[i]=root.GetComponentsInChildren<Transform>(true).Where(t=>t.name=="Main wheel"||t.name=="Nose wheel"||t.name=="Gear strut").ToArray();
-            }
+            BuildAircraft();
             BuildProps();
             // Occluders (for example a service canopy) are neutral roof slabs; they hide what lies under them from the camera.
             foreach(var o in Data.occluders??new Occluder[0])
                 Shape(PrimitiveType.Cube,"Occluder "+o.id,new Vector3(o.x,o.height,o.z),new Vector3(o.width,.0008f,o.depth),new Color(.62f,.66f,.68f),Content);
+            BuildPaths();
+        }
+        static void ReleaseObject(GameObject obj){obj.SetActive(false);if(Application.isPlaying)Destroy(obj);else DestroyImmediate(obj);}
+        void BuildAircraft(){
+            foreach(var old in planes??new Transform[0])if(old!=null)ReleaseObject(old.gameObject);
+            planes=new Transform[Data.aircraft.Length];landingGear=new Transform[planes.Length][];aircraftRigs=new AircraftTypeRig[planes.Length];
+            for(int i=0;i<planes.Length;i++){
+                var root=new GameObject(Data.aircraft[i].id).transform;root.SetParent(Content,false);planes[i]=root;
+                if(string.IsNullOrEmpty(Data.aircraft[i].aircraftType))AircraftVisual.Build(root,LiveryOf(i));
+                else aircraftRigs[i]=AircraftTypeVisual.Build(root,LiveryOf(i),Data.aircraft[i].aircraftType);
+                landingGear[i]=root.GetComponentsInChildren<Transform>(true).Where(t=>t.name=="Main wheel"||t.name=="Nose wheel"||t.name=="Gear strut").ToArray();
+            }
+        }
+        void BuildPaths(){
+            foreach(Transform child in Content.Cast<Transform>().ToArray())if(child.name.EndsWith(" authored path",StringComparison.Ordinal))ReleaseObject(child.gameObject);
             foreach(var a in Data.aircraft) {
                 var g=new GameObject(a.id+" authored path");g.transform.SetParent(Content,false);
-                var l=g.AddComponent<LineRenderer>();l.useWorldSpace=false;l.positionCount=a.waypoints.Length;l.widthMultiplier=.0007f;
+                var l=g.AddComponent<LineRenderer>();l.enabled=!TrainingPresentation;l.useWorldSpace=false;l.positionCount=a.waypoints.Length;l.widthMultiplier=.0007f;
                 l.sharedMaterial=new Material(Shader.Find("Sprites/Default"));l.startColor=l.endColor=a.id=="A1"?Color.cyan:new Color(1,.7f,.2f);
                 l.SetPositions(a.waypoints.Select(w=>new Vector3(w.x,.0003f,w.z)).ToArray());
             }
@@ -431,6 +454,20 @@ namespace SurfaceSafety {
             safeRoot.anchorMin=new Vector2(safe.xMin/Screen.width,safe.yMin/Screen.height);
             safeRoot.anchorMax=new Vector2(safe.xMax/Screen.width,safe.yMax/Screen.height);
         }
+        void BuildAircraftChips(Transform head){
+            foreach(var old in aircraftChips??new Image[0])if(old!=null)ReleaseObject(old.gameObject);
+            int count=Data.aircraft.Length;float gap=.03f,width=(.93f-(count-1)*gap)/count;
+            aircraftChips=new Image[count];aircraftChipLabels=new Text[count];
+            for(int i=0;i<count;i++){
+                int index=i;var a=Data.aircraft[i];
+                var r=Button(head,ChipLabel(a),
+                    new Vector2(.035f+i*(width+gap),.025f),new Vector2(.035f+i*(width+gap)+width,.455f),()=>SelectAircraft(index),panel,count==2?39:33);
+                aircraftChips[i]=r.GetComponent<Image>();aircraftChipLabels[i]=r.GetComponentInChildren<Text>();
+                // Uniform-livery scenarios use one neutral marker so the chips do not imply colour identity.
+                Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),Data.UniformLivery?muted:i==0?teal:i==1?amber:LiveryOf(i));
+                if(WorldScale)r.anchorMax=new Vector2(r.anchorMax.x,.60f);
+            }
+        }
         void BuildUI(){
             font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             var canvas=new GameObject("Coordinator UI",typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));canvas.transform.SetParent(transform,false);
@@ -441,17 +478,7 @@ namespace SurfaceSafety {
             var head=Panel(safeRoot,"Header",new Vector2(0,.84f),Vector2.one,card);
             Label(head,"AirfieldLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
-            // Chips share the header width; with two aircraft this is the original layout.
-            int count=Data.aircraft.Length;float gap=.03f,width=(.93f-(count-1)*gap)/count;
-            aircraftChips=new Image[count];aircraftChipLabels=new Text[count];
-            for(int i=0;i<count;i++){
-                int index=i;var a=Data.aircraft[i];
-                var r=Button(head,ChipLabel(a),
-                    new Vector2(.035f+i*(width+gap),.025f),new Vector2(.035f+i*(width+gap)+width,.455f),()=>SelectAircraft(index),panel,count==2?39:33);
-                aircraftChips[i]=r.GetComponent<Image>();aircraftChipLabels[i]=r.GetComponentInChildren<Text>();
-                // Uniform-livery scenarios use one neutral marker so the chips do not imply colour identity.
-                Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),Data.UniformLivery?muted:i==0?teal:i==1?amber:LiveryOf(i));
-            }
+            BuildAircraftChips(head);
             var caption=Panel(safeRoot,"Selected scene identity",new Vector2(.035f,.529f),new Vector2(.965f,.565f),new Color(.055f,.095f,.13f,.9f));captionPanel=caption;
             selectionLabel=Label(caption,"",Vector2.zero,Vector2.one,33,TextAnchor.MiddleCenter,Color.white);
             var tabs=Panel(safeRoot,"View tabs",new Vector2(0,.455f),new Vector2(1,.522f),card);tabsPanel=tabs;

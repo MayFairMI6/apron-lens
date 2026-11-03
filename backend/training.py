@@ -12,6 +12,7 @@ from backend.training_session import TrainingSession, ActionConflict, ReviewBusy
 from backend.training_assessment import generate_review
 from backend.lessons import EXERCISES
 from backend.runway_scenarios import DEMONSTRATIONS
+from backend.fleet_scenarios import FLEET_DEMONSTRATIONS
 from backend.training_environment import ENVIRONMENTS
 from modelaccess.contract import Settings
 
@@ -131,12 +132,12 @@ def main():
     import uvicorn
     from backend.training_adapter import TrainingAdapter
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--exercise',choices=EXERCISES+DEMONSTRATIONS,default='surface_conflict')
+    p.add_argument('--exercise',choices=EXERCISES+DEMONSTRATIONS+FLEET_DEMONSTRATIONS,default='surface_conflict')
     p.add_argument('--mode',choices=('lesson','continuous','demo'),default='lesson')
     p.add_argument('--environment',choices=ENVIRONMENTS,default=None,help='Visual conditions only; defaults to clear except fog cases, which use their own fog timeline. The fog practice lesson rejects conflicting conditions.')
     p.add_argument('--seed',type=int,default=17);p.add_argument('--port',type=int,default=8767)
     args=p.parse_args()
-    if args.exercise in DEMONSTRATIONS and args.mode=='lesson':
+    if args.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS and args.mode=='lesson':
         p.error('Incident cases require --mode demo or --mode continuous; choose one of the four practice lessons for lesson mode.')
     if args.exercise=='fog_restrictions':
         if args.mode!='lesson':p.error('fog_restrictions is a short practice lesson (210 source seconds); use --mode lesson, or choose fog_visibility for a one-hour demonstration.')

@@ -16,6 +16,8 @@ namespace SurfaceSafety {
     [Serializable] public class RotationPlan { public string flightInstance; public float from; public float until = -1; }
     [Serializable] public class AircraftPlan {
         public string id, flightInstance;
+        public string aircraftType; // Optional free-model family; omitted preserves the legacy visual.
+        public float surfaceHeightMetres; // Pavement elevation, independent of path altitude.
         public bool preciseHeading;
         public bool hidden; // Nonparticipant identity slots in regional scenarios; legacy default is visible.
         public RotationPlan[] rotations;
@@ -113,6 +115,7 @@ namespace SurfaceSafety {
                 throw new ArgumentException("Duplicate aircraft identity.");
             var owner = new System.Collections.Generic.Dictionary<string, string>();
             foreach (var a in aircraft) {
+                AircraftTypeVisual.Validate(a);
                 if (a.waypoints == null || a.waypoints.Length < 2)
                     throw new ArgumentException("Missing trajectory.");
                 if ((a.rotations == null || a.rotations.Length == 0) && string.IsNullOrEmpty(a.flightInstance))

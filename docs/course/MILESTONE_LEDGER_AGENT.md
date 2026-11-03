@@ -134,11 +134,66 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 3 November resume point is publication of accepted F03/T01 plus C01
-in Checkpoint 1. Start from [EXECUTION_QUEUE.md](EXECUTION_QUEUE.md) and ML-021.
+The current 3 November resume point is ML-027: the user explicitly reopened
+Checkpoint 1 for R01's four-type aircraft models/dimensions and R02's improved
+authored trajectories with distinct unfolding incidents. Both are in progress, not accepted.
+The types are A320-200 Sharklet, A380-800, B737-800 and **B787-8**. The earlier -9
+assignment is superseded because the reviewed family exterior better matches -8;
+the backend and Unity now use `b787_8`. Do not describe the family mesh as exact
+variant CAD. The latest steering
+replaces the initial single `fleet_operations` design with four independent
+profiles: A320 bird hold/dispersal/inspection/separate release/departure; B737
+unreliable-airspeed concern/RTO/stop/assessment with release unconfirmed; B787
+reported hydraulic concern/priority landing/runway stop/inspection-recovery updates;
+A380 go-around/climb with runway occupied and next approach unconfirmed.
+Each profile shows all four types in its explicit
+movement/parked/occupancy context. Outcomes follow circumstances and reports, not
+inherent type performance or manufacturer-defect probabilities. No hydraulic-system
+physics is included. Do not combine them into one incident-filled hour.
+
+The four IDs are `fleet_a320_birds`, `fleet_b737_rejected_takeoff`,
+`fleet_b787_priority_landing` and `fleet_a380_go_around`. The bounded
+[Heathrow reference](../HEATHROW_PROCEDURE_REFERENCE.md) is adopted within R02:
+pinned threshold/alignment, approach-reference height/slope and the initial
+straight-ahead missed-approach altitude. Check the datum/threshold conversion and
+visual-root approximation; timing, speed, flare and incident behavior remain
+authored. No full SID, radio-failure turn, later routing or live operational/NOTAM
+validity is established. Broader procedure reuse remains unresolved; do not
+redistribute chart PDFs/images or infer a licence from source accessibility.
+
+Root reports 288 passing backend tests including 11 fleet tests. A separate source,
+static and editor-render review passed, but the ledger reviewer matched only five
+of its six current hashes: `AircraftTypeVerification.cs` changed after that review.
+Refresh that evidence before final acceptance. Two retained export attempts failed
+on the A320 texture; a later export log contains `AIRCRAFT_TYPE_CHECKS_PASS`.
+Read `W/outputs/fleet-independent-review.json`,
+`W/outputs/heathrow-procedure-reference-review.json` and the retained
+`W/work/fleet-export-texture-{failure,second-failure}.log` and
+`W/work/fleet-export-geometry-pass.log` (W is the current chat workspace).
+Do not promote backend/editor success to native acceptance. Inspect the repaired
+native build, all four profile runs, scene contact/gear, actual assistant cutoffs
+and independent review before completing either R01 or R02. The ledger reviewer
+read source/records; it did not rerun tests or operate the app.
+
+Read the ledger's R01/R02 gates, then inspect actual implementation and fresh
+reference/acceptance evidence. Root owns backend/integration, the Unity implementer
+owns visuals and a separate agent owns source/independent review. Require sourced
+type dimensions/provenance, size-aware stand/route/runway clearance, 20 fixed seeds
+per profile, staged genuine assistant answers with causal report cutoffs/identities,
+source-time equivalence and fresh
+native completion of each profile. Archive old videos and preserve legacy worlds,
+frozen research and held-out separation. These units do not introduce full physics,
+model training, a new benchmark or completion of M2's visual study. Root owns two
+new task issues #64/#65 according to the current handoff; recheck remote status
+when updating the tracker. Do not reopen closed accepted units or resolved failures merely
+because the user requested this new increment.
+
+The earlier F03/T01 plus C01 increment remains accepted. Start from
+[EXECUTION_QUEUE.md](EXECUTION_QUEUE.md) and ML-021 for that historical evidence.
 Exact v2 is restored; the full native typed fog run and separate positioned
 original-lesson/Next checks have passed limited functional review. C01's bounded
-contract/evidence work is complete. Current feature scope is frozen. ML-022 records
+contract/evidence work is complete. Its freeze is superseded only for R01/R02.
+ML-022 records
 the 30:33.5 video published to Drive. ML-023 records source and shared-document
 publication; CI portability and package identity are documented in their separate acceptance records. C02–C04 stay in M2/M3. The user
 requested agent processing of typed learner responses; ML-011 extends ML-010
@@ -175,8 +230,8 @@ flow predate typed review. Preserve that history without carrying its acceptance
 over. Check the updated request lifecycle, evidence isolation, real-model native
 feedback and failure/retry; a failed request must keep the checkpoint available
 and must not trigger scripted success or a fallback assessment. Publish the new
-increment with the bounded acceptance and known limitations now recorded; current
-feature scope is frozen. F01/F02 and
+increment with the bounded acceptance and known limitations now recorded; do not
+relabel its acceptance as coverage for the new fleet profiles. F01/F02 and
 the earlier 27:48 video remain preserved in publication history; the current
 published video is the 30:33.5 typed update.
 
@@ -196,6 +251,18 @@ the model/native flow.
 The companion correctness record is aligned with the final native artifact.
 Preserve that coverage without reopening passed functional checks or removing
 the unresolved semantic/device limitations.
+
+The final prior source/90-file package publication is recorded at `fa31c53` in the
+workspace receipt. The latest local delivered videos are the 30:28.5 narrated and
+silent copies with internal presenter dividers removed; Drive remains the earlier
+30:33.5 version. Preserve these artifacts. New fleet acceptance, capture, edit and
+publication must be recorded separately, and no whole-assignment completion follows.
+The user has authorised a concise significant-features video preserving the
+approved opening narration, plus a longer explanatory walkthrough and silent
+counterpart. These new fleet edits are unfinished. Preserve the existing 30:28.5
+masters and approved words/audio; use accepted actual fleet footage, inspect final
+cuts, and keep each edit/publication status separate. Do not invent a target
+duration, replace earlier evidence or restore internal Person1/Person2 title cards.
 
 ML-013 adopts the correctness progression as queued scope, not accomplished
 verification: C01 M1 documents current contracts and evidence without rewriting

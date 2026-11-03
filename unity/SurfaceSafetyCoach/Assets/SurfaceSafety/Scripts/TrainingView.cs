@@ -101,6 +101,12 @@ namespace SurfaceSafety {
                     if(selected>=0){replay.SelectAircraft(selected);ground=false;Focus();distance=spotlight=="stand-incident"?95:spotlight=="crash-landing"?125:190;}
                     if(Regional){distance=State.exercise=="water_landing"?260:State.exercise=="occupied_runway_go_around"?750:340;
                         if(spotlight=="incursion_vehicle"){followFlight=false;distance=100;}else if(spotlight=="runway_incursion"){followFlight=false;centre=new Vector3(replay.Data.geography.focusX*1000,0,replay.Data.geography.focusZ*1000);distance=2000;}}
+                    // Imported fleet models use their reference length for readable framing.
+                    // Incident close-ups and overview spotlights below keep their existing views.
+                    if(Regional&&selected>=0&&(State.exercise??"").StartsWith("fleet_",StringComparison.Ordinal)){
+                        var profile=AircraftTypeVisual.Find(replay.Data.aircraft[selected].aircraftType);
+                        if(profile!=null)distance=profile.LengthMetres*3.5f;
+                    }
                     if(spotlight=="goaround_overview")RunwayView();
                     if(spotlight=="region_intro")Overview();
                     if(spotlight=="wildlife-detail"||spotlight=="baggage-incident"||spotlight=="vehicle-collision"){
