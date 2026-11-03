@@ -42,3 +42,8 @@ Validation loss selects one of24/48/72-step checkpoints; the selected adapter an
 all executable prompt/runtime dependencies must be locked before sealed evaluation.
 No new false acceptance is permitted for promotion, and a separate native-runtime
 acceptance check is required before changing the app.
+
+The pinned download completed and GAIVI job571256 was submitted for the full-model
+compatibility gate followed, only on success, by the fixed training run. Final
+paired evaluation is a separate step after independent checkpoint-lock review.
+Job submission is not evidence of completed training or improved accuracy.
