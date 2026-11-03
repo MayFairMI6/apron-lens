@@ -4,15 +4,15 @@
 experiment for typed review only.** The user's explicit instruction supersedes
 the previous stop on new training. Local design/data preparation is authorised;
 training and final evaluation require the independent design/data/leakage gates
-in ML-041. ML-044 accepts the full-model hardware gate; root reports that the
-fixed candidate training run has started. No completed candidate, model-evaluation
-result or deployment is accepted yet.
+in ML-041. ML-044 accepts the full-model hardware gate; ML-045 accepts completed
+fixed training and validation-only selection of checkpoint 48. Frozen paired
+evaluation may now proceed; no evaluation result or deployment is accepted yet.
 Keep the pinned base weights, shipping app, approved video and all old results
 unchanged. The older 18 exposed typed cases are development-only evidence.
 ML-042 accepts the corrected data-v2 semantic/family gate and locked executable
 sources; ML-044 records the subsequently passed GPU compatibility receipt.
 ML-043 refreshes that conditional approval for the documented gradient-scale
-compatibility amendment. Training remains in progress; final evaluation is pending.
+compatibility amendment. Training/selection are accepted; final evaluation is pending.
 
 **B04 has reached a bounded, mixed disposition in CURRENT:** ordinary-assistant
 v8 with the narrowed reference guard (B04a) and startup inference warmup (the
@@ -2385,3 +2385,45 @@ lock before sealed evaluation. This reviewer made no model calls or remote
 actions. Local HEAD is `6e7fdfda8e98621bb3344cbdd90712d693aa6c33`; remote
 publication is not independently confirmed in this review. App, video and all
 earlier research remain unchanged.
+
+
+## ML-045 — Fixed training and validation-only checkpoint selection accepted
+
+3 November 2026. Independently reviewed downloaded job 571259 artifacts, the
+[training receipt](../../outputs/typed-review-lora/training-receipt.json),
+[72-step record](../../outputs/typed-review-lora/training-steps.jsonl),
+[selection lock](../../outputs/typed-review-lora/selection-lock.json) and unchanged
+training/runtime/evaluation sources. The
+[selection review](../../outputs/typed-review-lora/selection-review.json) preserves
+exact receipt, approval, source-lock and all three checkpoint file hashes. Root
+reports scheduler completion with exit 0; this reviewer did not contact the
+scheduler, execute a model or inspect sealed row contents/model outputs.
+
+All 72 consecutive step records contain finite losses and increasing elapsed
+times. The unchanged approved trainer checks finite loss and gradients before
+each logged update. Validation completion-token losses are 0.08236424685087018
+at step 24, 0.005455288917700371 at 48 and 0.008497968811224211 at 72. The declared
+minimum-loss/earliest-tie rule therefore selects **checkpoint 48** without test
+access. All eight source hashes, amended protocol, data manifest and all split
+file hashes match approval, smoke, training and selection evidence. Publication
+copies byte-match downloads. The selected directory has exactly the three locked
+files; its adapter tensor SHA-256 is
+`8f15eacbffb180af0ff6fd9036adcedb6ae95cac46b86d3b0ccff1727c3063a1`.
+The local approval hash is preserved in the review; the trainer records matching
+approved values rather than an approval-file hash. No recipe change was found.
+
+Training and smoke metadata match: pinned Qwen revision, TITAN RTX, CUDA 11.8,
+NF4 double quantisation/float16, eager attention, seed 17 and all five recorded
+package versions. **Training and checkpoint selection pass; the frozen paired
+evaluation may now proceed** with this checkpoint, source map and runtime. The
+runner records runtime metadata but does not enforce package-version equality;
+root must compare its evaluation runtime receipt with the accepted training
+receipt. Keep identical prompt, strict validator, greedy 900-token budget and
+alternating paired order, with no retries or post-test tuning.
+
+This is no semantic-quality result, native-runtime acceptance or promotion.
+Independent final explanation/comment review and the locked negative-control/
+useful-feedback gates remain pending. App, video, previous results, #60/#61/#62
+and the separate course/M2/M3 commitments remain unchanged. Next review: completed
+paired receipts and bounded independent semantic findings; do not train or select
+again from sealed outcomes.

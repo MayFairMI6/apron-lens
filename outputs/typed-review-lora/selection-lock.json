@@ -1,0 +1,23 @@
+{
+  "selected": "checkpoint-48",
+  "step": 48,
+  "selection": "validation completion-token loss only",
+  "files": {
+    "README.md": "7b4006fc734deb18b0419702f7e2883d8197eebda2f149220e5856ddbd1819a3",
+    "adapter_model.safetensors": "8f15eacbffb180af0ff6fd9036adcedb6ae95cac46b86d3b0ccff1727c3063a1",
+    "adapter_config.json": "ba642583332b7ba9bd8429656950fbd1daf24ec9104795d2fca459e4efaeff8d"
+  },
+  "runner_sha256": "1d09df965fedf0262b861f5b075a2ff8cc7ff48c8ddf63cc2767afc9da3e5dd0",
+  "protocol_sha256": "f8da1e012c7371d53ed390830167903681b63bb43d5e2bee107a31056bee27f9",
+  "data_manifest_sha256": "67c0a67d65a76e4096a222332fa87a9bd41f76fef154947a646ade74ec2be214",
+  "source_hashes": {
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "experiments/typed_review_lora/build_data.py": "9704a78d4953e002064ee0e1f0edb01bc96ebd5941d4ea9b500d05993d975178",
+    "experiments/typed_review_lora/evaluate.py": "1d09df965fedf0262b861f5b075a2ff8cc7ff48c8ddf63cc2767afc9da3e5dd0",
+    "experiments/typed_review_lora/gpu_preflight.py": "bb9cb0d555d8f3169e2d3bd74b19bc1a2ed99a0d27560959f38e2438d1ed73f6",
+    "experiments/typed_review_lora/protocol.json": "f8da1e012c7371d53ed390830167903681b63bb43d5e2bee107a31056bee27f9",
+    "experiments/typed_review_lora/runtime.py": "7dd2296b6851f86264942463428bfe862ed3a28a569bf70b9f63dbbc3efd146d",
+    "experiments/typed_review_lora/train.py": "ecb674afbd53206ee835f75fd067caccb54c30a5d36ca4fd477e4b346108a71b",
+    "modelaccess/contract.py": "fe8ffdef43360fc01ba15fa7c0760a77d14f8fda46be7ccecb633dab8b5bed3a"
+  }
+}

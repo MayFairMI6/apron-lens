@@ -61,3 +61,11 @@ loss0.2850112915 (initial loss0.3121598363). These are compatibility measurement
 on one training example, not evaluation accuracy. The job then proceeds to the
 fixed72-step training run. Training completion, selected checkpoint and paired
 sealed evaluation remain unconfirmed.
+
+Training job571259 completed successfully in13:46 with72 recorded updates.
+Validation completion-token losses were0.08236425 at24,0.00545529 at48 and
+0.00849797 at72. Checkpoint48 was selected by the fixed rule. Independent
+selection-review.json and ML-045 verified sources, data, runtime and adapter
+hashes before evaluation. Paired evaluation job571262 is submitted; its wrapper
+requires runtime metadata equality with the training receipt before inference.
+No held-out accuracy result or deployment approval is available yet.
