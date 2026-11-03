@@ -30,3 +30,11 @@ paired evaluation after independent checkpoint-lock review.
 It uses the experiment's isolated GAIVI environment and never starts the application.
 See `outputs/typed-review-lora/STATUS.md` for actual execution status rather than
 assuming the presence of scripts means the experiment has run.
+
+The exact approved data-v2 bytes are preserved in
+`outputs/typed-review-lora/data-v2.tar.gz`, including the original generation
+manifest. Restore this archive for the approved run; its case-file hashes are
+verified at load. Rebuilding after a protocol amendment creates a new manifest
+and requires a new review. The initial protocol and approval remain in the
+`*-before-scaling.json` receipts. The scale correction changed numerical setup
+only, after a failed compatibility check and before candidate training.

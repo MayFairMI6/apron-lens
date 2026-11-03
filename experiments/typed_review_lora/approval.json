@@ -1,19 +1,19 @@
 {
-  "record_version": 1,
+  "record_version": 2,
   "reviewer": "milestone_ledger",
   "review_date": "2026-11-03",
   "accepted": true,
   "approval_scope": "B05 exact protocol, corrected data-v2 and executable source gate; conditional on the separately enforced full-model GPU compatibility receipt. Not training, evaluation or deployment completion.",
   "data_manifest_sha256": "67c0a67d65a76e4096a222332fa87a9bd41f76fef154947a646ade74ec2be214",
-  "protocol_sha256": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+  "protocol_sha256": "f8da1e012c7371d53ed390830167903681b63bb43d5e2bee107a31056bee27f9",
   "source_hashes": {
     "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
     "experiments/typed_review_lora/build_data.py": "9704a78d4953e002064ee0e1f0edb01bc96ebd5941d4ea9b500d05993d975178",
     "experiments/typed_review_lora/evaluate.py": "1d09df965fedf0262b861f5b075a2ff8cc7ff48c8ddf63cc2767afc9da3e5dd0",
-    "experiments/typed_review_lora/gpu_preflight.py": "daeeb2c8cf1a1f83a2f30591241fbbcf0672c68d8e08afad8f9ec6bc4c23f93a",
-    "experiments/typed_review_lora/protocol.json": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+    "experiments/typed_review_lora/gpu_preflight.py": "bb9cb0d555d8f3169e2d3bd74b19bc1a2ed99a0d27560959f38e2438d1ed73f6",
+    "experiments/typed_review_lora/protocol.json": "f8da1e012c7371d53ed390830167903681b63bb43d5e2bee107a31056bee27f9",
     "experiments/typed_review_lora/runtime.py": "7dd2296b6851f86264942463428bfe862ed3a28a569bf70b9f63dbbc3efd146d",
-    "experiments/typed_review_lora/train.py": "d75de8a41970cff865c9b12d99a8bc847f8651369ec70f6e7a72534bc13df15f",
+    "experiments/typed_review_lora/train.py": "ecb674afbd53206ee835f75fd067caccb54c30a5d36ca4fd477e4b346108a71b",
     "modelaccess/contract.py": "fe8ffdef43360fc01ba15fa7c0760a77d14f8fda46be7ccecb633dab8b5bed3a"
   },
   "data_directory": "work/typed-review-lora/data-v2",
@@ -95,19 +95,19 @@
     "training": "Only train and validation files are loaded; original production review_prompt; completion-only masked labels including EOS; no target truncation;72 optimiser steps,4-way accumulation, rank8; validation completion-token loss selects24/48/72 checkpoint with earliest tie",
     "weights": "Declared language attention LoRA parameters only; non-adapter trainables rejected; frozen base/vision; actual compatibility still unverified",
     "locks": "Training requires approval protocol/data/source equality plus full-model smoke with identical source map. Selection and evaluation carry/verify executable dependencies including runtime, actual protocol and production prompt/validator. Selected adapter files are hashed.",
-    "gradient_smoke": "All present gradients finite, at least one nonzero, adapter parameter change checked, saved/reloaded losses finite and within tolerance; training separately rejects non-finite gradients before optimizer update.",
+    "gradient_smoke": "All present gradients finite, at least one nonzero, adapter parameter change checked, saved/reloaded losses finite and within tolerance; training separately rejects non-finite gradients before optimizer update. Initial GradScaler scale is now explicitly1.0 in both smoke and training; all existing checks remain.",
     "paired_scoring": "Criterion-level false acceptance retained; a deterministic criterion-swap counterexample is rejected even when total case errors do not increase. All negative criteria remain in denominator; positive supported acceptance and structural validity guard against always-withhold success.",
     "evaluation": "Same loaded quantized model with adapter disabled/enabled, alternating paired order, fixed greedy900-token budget, strict validator; no retries or post-test tuning. Comments/explanations still need independent semantic review beyond status matching."
   },
   "remaining_gates": {
-    "gpu_compatibility": "PENDING: actual full pinned-model CUDA load/backward/update/save/reload receipt with these exact source hashes. The small quantized-layer probe or environment import alone is insufficient.",
+    "gpu_compatibility": "PENDING: full pinned-model CUDA load/backward/actual adapter update/finite save-reload parity receipt with the amended source hashes. Finite-gradient diagnostic571257 alone is insufficient.",
     "evaluation": "After training/validation selection, independently review selected checkpoint and final runner/source lock before sealed model outputs are opened.",
     "deployment": "Separate future decision and native app-runtime compatibility/latency acceptance required; current approval never deploys the candidate."
   },
   "root_reported_checks": {
     "tokenizer": "192 train/validation examples,890–962 tokens; actual inference prefix equals masked training prefix; target EOS retained; max4096 not exceeded",
     "tests": "340 tests plus research integrity and backbone boundary passed before final smoke/gradient guard edits",
-    "runtime": "Small CUDA quantized-layer probe571255 passed; receipt inspected separately. Its earlier source snapshot is not the full-model smoke gate. Full pinned-model load/backward/update/save/reload remains pending model download."
+    "runtime": "Small probe passed; full-model571256 failed finite-gradient gate. Training-row-only571257 diagnostic atscale1 had finite gradients. A new matching full-model update/save/reload smoke is pending."
   },
   "limitations": [
     "Supplied-report semantic pilot; all relevant report facts are already received. R2 is an unrelated received distractor.",
@@ -119,5 +119,38 @@
     "Production typed v2,ordinary v8,60-second server wait,approved videos and all prior results remain unchanged.",
     "Any reviewed code/protocol/data hash change invalidates this approval until re-reviewed."
   ],
-  "next_action": "Run the train/development-only compatibility preflight. The fixed training command may proceed only when its matching full-model hardware gate passes; preserve actual failures. No new data or model tuning is authorized by this review."
+  "next_action": "Run the train/development-only compatibility preflight. The fixed training command may proceed only when its matching full-model hardware gate passes; preserve actual failures. No new data or model tuning is authorized by this review.",
+  "generation_protocol_sha256": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+  "generation_protocol_archive": "outputs/typed-review-lora/protocol-before-scaling.json",
+  "compatibility_amendment": {
+    "protocol_version": "typed-review-lora-pilot-v1.1",
+    "accepted": true,
+    "initial_gradient_scale": 1.0,
+    "prior_approval": "outputs/typed-review-lora/approval-before-scaling.json",
+    "failure": {
+      "job": 571256,
+      "result": "Model loaded; full-model preflight rejected invalid adapter gradients",
+      "log": "outputs/typed-review-lora/run-571256.log",
+      "sha256": "e9aa2db3f2490254fe05f8bc57c4c2a6d02462a438535377739d00c838e4bae2"
+    },
+    "diagnostic": {
+      "job": 571257,
+      "input": "root-reported train[0] only",
+      "loss": 0.31215983629226685,
+      "scale": 1,
+      "gradients": 64,
+      "nonfinite": 0,
+      "nonzero": 32,
+      "log": "outputs/typed-review-lora/diagnostic-571257.log",
+      "sha256": "e3d9b187583f122b0b4ef2858a86ff226195327668203d6d6314eb0637ab4cea"
+    },
+    "independent_checks": [
+      "Only train.py and gpu_preflight.py initial GradScaler argument changed; removing that argument reconstructs the exact previous approved source hashes",
+      "Protocol logical differences limited to version,initial_gradient_scale and compatibility amendment text",
+      "All data-v2 files and manifest byte-identical; original generation protocol preserved",
+      "No held-out outputs inspected; no reviewer model calls"
+    ],
+    "full_model_update_save_reload_passed": false,
+    "candidate_training_started": false
+  }
 }

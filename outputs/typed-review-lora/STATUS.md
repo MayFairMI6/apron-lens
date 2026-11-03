@@ -47,3 +47,10 @@ The pinned download completed and GAIVI job571256 was submitted for the full-mod
 compatibility gate followed, only on success, by the fixed training run. Final
 paired evaluation is a separate step after independent checkpoint-lock review.
 Job submission is not evidence of completed training or improved accuracy.
+
+Job571256 failed at the full-model gradient check after loading the pinned model;
+training did not start. Diagnostic571257 used the same training example with
+unscaled loss (scale1): loss0.3121598363,64 finite gradients and32 nonzero gradients.
+Protocolv1.1 changes the initial gradient scale from the default65536 to1 before
+any candidate training. Original protocol/approval and both logs are preserved.
+This diagnostic does not establish adapter save/reload compatibility or accuracy.

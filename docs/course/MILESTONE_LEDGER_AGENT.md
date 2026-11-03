@@ -155,6 +155,12 @@ held-out model outputs or using test results for selection. This pilot shares
 schema and error categories and does not establish independent linguistic or
 temporal-retrieval generalisation.
 
+ML-043 refreshes conditional approval for protocol v1.1's initial gradient scale
+of 1 after the retained full-model gradient failure and training-row diagnostic.
+Data-v2 retains its original generation-protocol hash; approval pins the amended
+training protocol separately. This is not a passed full smoke or a trained
+candidate. Require the matching update/save/reload receipt before the fixed run.
+
 Before training, independently review family/template allocation, provenance,
 training/development target quality, normalised duplicate checks and sealed-set
 metadata. Split families before variants; old18 exposed cases are development

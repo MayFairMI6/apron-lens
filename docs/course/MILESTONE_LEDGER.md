@@ -9,6 +9,8 @@ Keep the pinned base weights, shipping app, approved video and all old results
 unchanged. The older 18 exposed typed cases are development-only evidence.
 ML-042 accepts the corrected data-v2 semantic/family gate and locked executable
 sources; the enforced GPU compatibility receipt remains necessary before the full run.
+ML-043 refreshes that conditional approval for the documented gradient-scale
+compatibility amendment; the full smoke gate is still pending.
 
 **B04 has reached a bounded, mixed disposition in CURRENT:** ordinary-assistant
 v8 with the narrowed reference guard (B04a) and startup inference warmup (the
@@ -2326,3 +2328,32 @@ evaluation has passed yet. A smoke check uses training/development data only.
 Independently review the selected checkpoint and final evaluation lock before
 opening test outputs. Do not reopen accepted labels or repeat inference merely
 to maintain the ledger. Current app/video and earlier results remain unchanged.
+
+## ML-043 — Gradient-scale compatibility amendment, no candidate training yet
+
+3 November 2026. Full-model preflight 571256 loaded the model but failed the
+finite-gradient check. The [failed log](../../outputs/typed-review-lora/run-571256.log)
+is retained. Root's training-row-only diagnostic 571257 used initial scale 1 and
+recorded loss 0.3121598363 with 64 finite gradients, 32 nonzero; the reviewer read
+[that diagnostic](../../outputs/typed-review-lora/diagnostic-571257.log). This is
+compatibility evidence, not a successful optimiser/update/save/reload gate or
+trained candidate.
+
+The conditional [approval](../../experiments/typed_review_lora/approval.json) is
+refreshed for protocol v1.1. Reconstructing the prior source by removing
+`init_scale=1.0` from `train.py` and `gpu_preflight.py` exactly matches the prior
+approved hashes. All other executable sources are unchanged; the protocol adds
+only its version, initial scale and explicit compatibility rationale. All data-v2
+files and its manifest remain byte-identical. The manifest continues to record
+the original generation-protocol hash, which matches the preserved
+[old protocol](../../outputs/typed-review-lora/protocol-before-scaling.json);
+the approval separately records the amended training protocol. No misleading
+regeneration or label change is claimed. The
+[prior approval](../../outputs/typed-review-lora/approval-before-scaling.json)
+is preserved.
+
+This is an accepted numerical-compatibility amendment before candidate training,
+not test-guided tuning. The matching full-model smoke must still demonstrate a
+real adapter update and finite save/reload parity. The existing data, recipe,
+evaluation, no-promotion and preservation boundaries otherwise stand. No further
+model calls or held-out-output inspection were performed by this reviewer.

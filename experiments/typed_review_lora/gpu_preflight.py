@@ -21,7 +21,7 @@ def main():
         row=rows(a.data,'train')[0];batch={k:v.cuda() for k,v in encode(processor,row,True).items()}
         params=[p for p in model.parameters() if p.requires_grad]
         opt=torch.optim.AdamW(params,lr=1e-4);model.train()
-        scaler=torch.amp.GradScaler('cuda')
+        scaler=torch.amp.GradScaler('cuda',init_scale=1.0)
         with torch.autocast('cuda',dtype=torch.float16):loss=model(**batch).loss
         if not torch.isfinite(loss):raise RuntimeError('non-finite full model loss')
         scaler.scale(loss).backward();scaler.unscale_(opt)

@@ -22,7 +22,7 @@ def main():
     batches=[encode(processor,r,True) for r in train]; validation=[encode(processor,r,True) for r in val]
     params=[p for p in model.parameters() if p.requires_grad]
     opt=torch.optim.AdamW(params,lr=1e-4)
-    scaler=torch.amp.GradScaler('cuda')
+    scaler=torch.amp.GradScaler('cuda',init_scale=1.0)
     receipt=metadata()|{'protocol_sha256':sha(protocol),'data_manifest_sha256':sha(a.data/'manifest.json'),
         'trainable_parameters':sum(p.numel() for p in params),'source_hashes':source_hashes(),'validation':[]}
     (a.out/'receipt.json').write_text(json.dumps(receipt,indent=2))

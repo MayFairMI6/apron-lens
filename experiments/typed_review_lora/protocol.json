@@ -1,5 +1,5 @@
 {
-  "version": "typed-review-lora-pilot-v1",
+  "version": "typed-review-lora-pilot-v1.1",
   "status": "preflight",
   "base_model": "Qwen/Qwen3.5-9B",
   "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
@@ -7,9 +7,22 @@
   "production_validator": "typed-review-contract-v2",
   "seed": 17,
   "families": {
-    "train": ["stand_occupancy", "service_dependency", "ground_hold", "departure_estimate", "position_destination", "visibility_safeguarding"],
-    "validation": ["inspection_release", "service_withdrawal"],
-    "test": ["route_authority", "dispatch_conflict"]
+    "train": [
+      "stand_occupancy",
+      "service_dependency",
+      "ground_hold",
+      "departure_estimate",
+      "position_destination",
+      "visibility_safeguarding"
+    ],
+    "validation": [
+      "inspection_release",
+      "service_withdrawal"
+    ],
+    "test": [
+      "route_authority",
+      "dispatch_conflict"
+    ]
   },
   "episodes_per_family": 4,
   "responses_per_episode": 6,
@@ -26,18 +39,38 @@
     "batch_size": 1,
     "gradient_accumulation": 4,
     "max_sequence_tokens": 4096,
-    "checkpoint_steps": [24, 48, 72],
+    "checkpoint_steps": [
+      24,
+      48,
+      72
+    ],
     "selection": "minimum validation completion-token loss; earliest on ties",
-    "loss": "assistant completion only; fail on truncation; include end-of-turn token"
+    "loss": "assistant completion only; fail on truncation; include end-of-turn token",
+    "initial_gradient_scale": 1.0
   },
   "evaluation": {
     "paired": "same pinned 4-bit model, processor, prompt, greedy decoding, 900-token limit and strict validator; adapter disabled versus selected adapter",
     "primary": "negative-criterion false acceptance: predicted met where gold is not met; count even when overall verdict needs_review",
-    "secondary": ["exact criterion statuses", "correct supported-case acceptance", "missing versus contradicted", "structural rejection", "citation eligibility", "latency", "token use"],
+    "secondary": [
+      "exact criterion statuses",
+      "correct supported-case acceptance",
+      "missing versus contradicted",
+      "structural rejection",
+      "citation eligibility",
+      "latency",
+      "token use"
+    ],
     "selection_test_access": "none; lock selected checkpoint and runner hashes before final test",
     "promotion": "no new paired false acceptance; lower false acceptance overall and no loss in supported-case acceptance or structural validity; separate native-runtime check required",
     "interpretation": "small authored engineering pilot; four episode variants are correlated, not independent samples; no real-world training efficacy claim"
   },
-  "gates": ["independent semantic target review", "family and normalized-content leakage audit", "GPU load/backward/save/reload smoke test", "frozen recipe and source hashes", "test remains sealed until checkpoint selection"],
-  "preservation": "existing app, videos and all previous results unchanged; failed candidates retained"
+  "gates": [
+    "independent semantic target review",
+    "family and normalized-content leakage audit",
+    "GPU load/backward/save/reload smoke test",
+    "frozen recipe and source hashes",
+    "test remains sealed until checkpoint selection"
+  ],
+  "preservation": "existing app, videos and all previous results unchanged; failed candidates retained",
+  "compatibility_amendment": "Default65536 scale produced invalid gradients in full-model preflight571256. Training-row-only diagnostic571257 atscale1 had64finite gradients,32nonzero. Setinitialscale1 beforeanycandidate training; data/splits/labels unchanged."
 }
