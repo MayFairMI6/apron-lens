@@ -1,5 +1,12 @@
 # Checkpoint 1 assignment status
 
+**Scope freeze:** the accepted feature/demo implementation and bounded research
+work are frozen for Checkpoint 1 (ML-047). Existing demo footage can remain; the
+recent trained adapter was rejected and is not deployed. This does not close the
+three submission gates below. Current evidence and limits are in the milestone
+ledger; the older test counts later in this document describe their historical
+acceptance runs.
+
 The project owner supplied these requirements in the discussion: the app should
 already run on a smartphone; a 10-point current-features video must identify each
 member before their narration/work (or use identifying text titles); a 10-point

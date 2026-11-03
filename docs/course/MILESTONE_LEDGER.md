@@ -1,5 +1,13 @@
 # AirfieldLens milestone ledger
 
+**Checkpoint 1 feature/research scope is frozen at the accepted application and
+completed B01–B05 studies.** ML-047 records the scope freeze and unchanged demo
+footage. This is not whole-submission completion: video participation #30,
+reflection #31 and smartphone validation/course acceptance #32 remain open.
+Known limitations #59–62 remain visible. No new feature or tuning cycle is required
+for this freeze; reopen only for a demonstrated submission/demo blocker, a verified
+course requirement or an explicit new user priority.
+
 **B05 experiment completed; candidate rejected for this iteration.**
 The fixed 72-step run and validation-only checkpoint-48 selection passed ML-045.
 Evaluation571262 completed with96 paired responses. The frozen gate failed:
@@ -2458,3 +2466,45 @@ separate prioritisation and fresh evaluation evidence after these test outcomes
 are used for development. Current user recommendation: stop tuning now, keep the
 working app/video, and finish documentation/publication. Course submission gates
 and other previously open issues remain separate.
+
+## ML-047 — Freeze Checkpoint 1 scope; preserve footage; retain submission gates
+
+3 November 2026. User asks to freeze Checkpoint 1 and whether substantive work or
+a changed video is needed. Coordinator decision after reading current ledger,
+assignment-status document and live GitHub issues/comments #30/#31/#32 and #59–62.
+The attempted independent Sol-medium scope-review agent could not start because
+the agent service returned its thread limit. This entry does not claim a fresh
+independent review or a new visual inspection of the video.
+
+**Freeze the implemented feature and completed research scope.** The recorded
+simulator prototype, fourth fog lesson, typed practice, external movement/time
+control, fleet/media increments and bounded assistant studies retain their prior
+acceptance limits. B05 finishes with a failed candidate; no adapter is adopted and
+no further tuning is needed now. Visual-evidence research, a distinct turnaround
+handover task and later evaluation remain assigned to M2/M3. No new cockpit mode,
+renderer, aircraft, scenario or model work is required for the current freeze.
+
+**Preserve the existing demo footage.** The concise local presentation is8:06.4;
+the extended walkthrough is40:02.1, each with a silent counterpart. The recent
+assistant experiments did not change the footage or deploy a new trained model.
+The video need not be recaptured to show these research experiments. Existing
+footage remains the demonstration of the accepted prototype, with approximate
+geometry and fallible model feedback, not an exact operational airport system.
+
+**Whole submission remains unverified.** #30 still requires both actual members'
+narration or identifying contribution titles and final submitted-version review.
+The available local film has the approved opening audio; it is not established as
+a fully narrated two-member submission. If the team completed that work externally,
+record the final artifact rather than redo it. #31 requires the completed factual
+teamwork/reflection text and an at-most-one-page final export, preserving the user's
+Coordination and Meetings content. #32 requires a physical-smartphone run with its
+real service connection or explicit instructor acceptance of the native simulator.
+Native simulator acceptance is not itself proof of physical-phone operation.
+The phone gate is substantive validation as well as a submission requirement.
+
+The open semantic, quotation and slow/stuck-worker limitations #60–62, and the
+unverified user-reported geometry observation #59, are not declared fixed or closed.
+The scope freeze permits submission work and correction of an actually demonstrated
+blocker; it does not require eliminating every research limitation. Record the
+limits honestly in the reflection/report. No claim that all substantive limitations
+or every assignment requirement has been resolved is warranted.
