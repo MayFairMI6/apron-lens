@@ -116,7 +116,7 @@ class ConversationRequest(BaseModel):
         return None if info.data.get('imageBase64') is None else value
 
 
-def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_PATH):
+def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_PATH, turn_handler=run_turn):
     @asynccontextmanager
     async def lifespan(app):
         app.state.token = token or local_token()
@@ -177,7 +177,7 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
             raise HTTPException(429, 'Model is answering another request; retry shortly')
         async with app.state.busy:
             try:
-                served = await run_in_threadpool(run_turn, session, data, turn, adapter, settings)
+                served = await run_in_threadpool(turn_handler, session, data, turn, adapter, settings)
             except (StaleRevision, SeekBackwardInFormalRun, DuplicateRequestConflict) as exc:
                 raise HTTPException(409, str(exc)) from exc
             except ValueError as exc:

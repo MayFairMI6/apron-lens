@@ -249,3 +249,26 @@ The first GitHub run exposed a missing CI-only server dependency and a raw float
 
 
 The current bounded fleet increment adds A320, B737, B787 and A380 family exteriors with nominal size references and authored landing gear, plus four independent bird-hold, rejected-takeoff, priority-landing and occupied-runway-go-around demonstrations. The external driver owns all movement and report timing. See [the fleet guide](../FLEET_DEMONSTRATION.md), [asset attribution](../../data/aircraft/amvlab/ATTRIBUTION.md) and [published 09R reference limits](../HEATHROW_PROCEDURE_REFERENCE.md). The final code passed 289 backend tests and native Editor/build checks. Four independent native runs reached their one-hour debriefs and displayed twelve nonempty, actual model answers; available-source references were checked. The first A380 run failed when question cues overlapped; it remains preserved alongside the spacing fix and successful full rerun. See [fleet acceptance](../../outputs/checkpoint1/fleet-native-acceptance.json) and [independent review](../../outputs/checkpoint1/fleet-independent-review.json). These are functional examples, not an accuracy benchmark. Portrait rebind checks and a positioned occupancy overview are separate supplemental inspections. No full SID, aircraft-system simulation or evaluated visual-reasoning claim follows from this increment.
+
+
+## Current reliability corrections
+
+The live training selector now rejects an identified-flight response with neither
+facts nor missing-property statements. It allows one model retry using exactly the
+same eligible reports, image and cutoff, then displays an explicit failure if still
+empty. Both attempts are audited; this does not establish general semantic
+completeness. The client and driver deadlines are unchanged. The frozen research
+runner remains unchanged; live training uses a separate handler.
+
+Aircraft labels use selected-flight priority, collision checks, bounded offsets
+and leader lines in both orientations. Lower-priority labels can be hidden when
+nearby space is exhausted, while aircraft selection remains available. See the
+[correction evidence](../../outputs/checkpoint1/reliability-fix/acceptance.json).
+The existing presentation and walkthrough videos are preserved.
+
+The application remains scenario-based learning and review, not live operational
+ATC monitoring. Typed responses receive qualitative feedback on report-supported
+points, missing distinctions and unconfirmed conditions; they receive no numerical
+grade. Monitoring the simulated situation and practising an explanation serve the
+same learning objective. Real-world operational reliability and measured learning
+benefit are not established by this milestone.

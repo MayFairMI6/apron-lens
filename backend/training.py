@@ -10,6 +10,7 @@ from starlette.responses import JSONResponse
 from backend.conversation.server import create_app, ROOT, local_token
 from backend.training_session import TrainingSession, ActionConflict, ReviewBusy
 from backend.training_assessment import generate_review
+from backend.training_turn import run_turn as training_turn
 from backend.lessons import EXERCISES
 from backend.runway_scenarios import DEMONSTRATIONS
 from backend.fleet_scenarios import FLEET_DEMONSTRATIONS
@@ -19,7 +20,7 @@ from modelaccess.contract import Settings
 def training_app(adapter, settings, driver, token=None, audit_path=None, review_audit_path=None):
     scenarios={driver.scenario['scenarioId']:driver.scenario}
     app=create_app(adapter,settings,token=token,scenarios=scenarios,
-                   audit_path=audit_path or ROOT/'work/training-conversations.jsonl')
+                   audit_path=audit_path or ROOT/'work/training-conversations.jsonl',turn_handler=training_turn)
     app.state.review_timeout_seconds=60.
     app.state.assessment_tasks=set()
     review_audit_path=review_audit_path or (Path(audit_path).with_name(Path(audit_path).stem+'-assessments.jsonl') if audit_path else ROOT/'work/training-assessments.jsonl')

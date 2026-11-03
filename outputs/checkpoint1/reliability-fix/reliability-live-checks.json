@@ -1,0 +1,127 @@
+[
+  {
+    "question": "Does inspection completion release TRN101?",
+    "wallSeconds": 7.581,
+    "requestId": "reliability-live-0",
+    "turnId": "t0",
+    "sessionId": "reliability-live-0",
+    "cutoff": 230.0,
+    "accepted": true,
+    "errors": [],
+    "display": {
+      "resultStatus": "answer",
+      "validatorVersion": "conversation-validator-v2",
+      "answer": "Authored movement condition: hold: inspection complete; separate departure release awaited \u2014 superseded. Event 85 s; received 86 s. [F003]\n\nAuthored movement condition: exercise departure release received \u2014 current. Event 100 s; received 101 s. [F004]",
+      "claims": [
+        {
+          "fact_id": "F003:movement_condition",
+          "value": "hold: inspection complete; separate departure release awaited",
+          "status": "superseded",
+          "evidence_ids": [
+            "F003"
+          ]
+        },
+        {
+          "fact_id": "F004:movement_condition",
+          "value": "exercise departure release received",
+          "status": "current",
+          "evidence_ids": [
+            "F004"
+          ]
+        }
+      ],
+      "unknowns": [],
+      "observations": [],
+      "interpretation": null,
+      "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+    },
+    "referent": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+    },
+    "currentReferent": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+    },
+    "changes": [],
+    "imageUsedForInference": false,
+    "provider": "local-backbone",
+    "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "finishReason": "stop",
+    "inputTokens": 844,
+    "outputTokens": 43,
+    "latencySeconds": 7.571,
+    "ignoredSettings": [],
+    "rawJsonValid": true,
+    "repairs": [],
+    "selectionSent": true,
+    "awayIntervals": [],
+    "referentSource": "model",
+    "promptVersion": "conversation-prompt-v6",
+    "referentRule": "referent-rule-v3",
+    "validatorVersion": "conversation-validator-v2",
+    "repairPolicy": "json-repair-v1",
+    "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+    "trainingAttemptCount": 1,
+    "trainingEmptyAnswer": false,
+    "trainingKnownInputTokens": 844,
+    "trainingKnownOutputTokens": 43,
+    "revision": 1
+  },
+  {
+    "question": "Is fuel service complete for TRN101?",
+    "wallSeconds": 6.294,
+    "requestId": "reliability-live-1",
+    "turnId": "t1",
+    "sessionId": "reliability-live-1",
+    "cutoff": 230.0,
+    "accepted": true,
+    "errors": [],
+    "display": {
+      "resultStatus": "answer",
+      "validatorVersion": "conversation-validator-v2",
+      "answer": "Fuel service: no unambiguous current value in received reports.",
+      "claims": [],
+      "unknowns": [
+        "fuel_status"
+      ],
+      "observations": [],
+      "interpretation": null,
+      "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+    },
+    "referent": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+    },
+    "currentReferent": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+    },
+    "changes": [],
+    "imageUsedForInference": false,
+    "provider": "local-backbone",
+    "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "finishReason": "stop",
+    "inputTokens": 846,
+    "outputTokens": 30,
+    "latencySeconds": 6.266,
+    "ignoredSettings": [],
+    "rawJsonValid": true,
+    "repairs": [],
+    "selectionSent": true,
+    "awayIntervals": [],
+    "referentSource": "model",
+    "promptVersion": "conversation-prompt-v6",
+    "referentRule": "referent-rule-v3",
+    "validatorVersion": "conversation-validator-v2",
+    "repairPolicy": "json-repair-v1",
+    "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+    "trainingAttemptCount": 1,
+    "trainingEmptyAnswer": false,
+    "trainingKnownInputTokens": 846,
+    "trainingKnownOutputTokens": 30,
+    "revision": 1
+  }
+]

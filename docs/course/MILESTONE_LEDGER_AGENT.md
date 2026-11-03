@@ -134,11 +134,46 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 3 November resume point is ML-028: the user explicitly reopened
+The current 3 November resume point is ML-030: the user authorised fixing
+#67 empty ordinary-assistant selections and #69 overlapping regional aircraft
+labels as CURRENT reliability corrections. Their bounded remedies are accepted;
+publication and existing failure-record closure/readback remain pending. These
+failure records do not add duplicate milestone task counts. Read the new
+[acceptance record](../../outputs/checkpoint1/reliability-fix/acceptance.json) and
+[independent label review](../../outputs/checkpoint1/reliability-fix/label-fix-review.json)
+without carrying earlier fleet acceptance over to the changed paths.
+
+The retry keeps the same eligible candidates, cutoff, image and settings, adds
+one correction instruction and makes at most one further real model call. Retain
+the unchanged validator, genuine unknown/clarification paths and honest withheld
+failure. Keep 35-second client / 40-second driver deadlines; do not promise that
+retry completes within them or that background generation is cancelled. Audit
+every attempt, preserve known partial usage, leave unknown totals unknown, and
+never manufacture a successful answer. The initial exception-accounting defect
+is fixed in the reviewed source/tests. The initial frozen-runner modification was
+rejected: original `conversation/turns.py` is restored, `training_turn.py` handles
+only live training and `create_app` defaults to the original handler. Recheck final
+freeze/integrity results rather than claiming that isolation from intent alone.
+Seven completeness, ten selector and six freeze checks passed independently at
+the reviewed stages; the final receipt records 296 full-suite tests and 160-record
+integrity passing. The one-call diagnostic label is now corrected in reviewed
+source. Three actual model calls (two HTTP, one native) succeeded on their first
+attempt, including a genuine fuel unknown; spontaneous empty-answer recovery was
+not observed. Recovery/failure checks use fixtures and must remain labelled as
+such. Independent native portrait/landscape label review passed with root selection/
+zoom/orientation checks; the finite seven-slot layout may hide lower-priority text
+while retaining aircraft selection. Source hashes and both reviewed screenshot
+hashes match. These are bounded acceptance results, not universal semantic or
+layout reliability. Preserve failures and publish the records without restarting
+frozen research or replacing the four delivered videos.
+
+Previously, the user explicitly reopened
 Checkpoint 1 for R01's four-type aircraft models/dimensions and R02's improved
 authored trajectories with distinct unfolding incidents. Both have passed bounded
 functional acceptance, and the new local edits have passed independent review.
-Final evidence/document publication and tracker readback remain pending.
+Final source/evidence publication and tracker readback are recorded at `918c1a9`;
+the current handoff reports both publication CI runs green. #64/#65 and fixes
+#66/#68 are closed in the saved tracker receipt, while #67/#69 remain open.
 The types are A320-200 Sharklet, A380-800, B737-800 and **B787-8**. The earlier -9
 assignment is superseded because the reviewed family exterior better matches -8;
 the backend and Unity now use `b787_8`. Do not describe the family mesh as exact
@@ -278,7 +313,11 @@ The remainder has no new narration. Preserve the existing 30:28.5
 masters and approved words/audio; keep final evidence/document publication and
 the older Drive edit separate. Do not invent a target
 duration, replace earlier evidence or restore internal Person1/Person2 title cards.
-The next task is publication/readback, not another feature. Submission #30 member
+The next task is publication/readback of the accepted #67/#69 correction, not a
+new fleet feature. The latest grading question asked for recommendations and
+authorised no grading redesign: current typed practice remains qualitative
+feedback with no validated numerical grade.
+Submission #30 member
 participation, #31 reflection and #32 phone/course acceptance remain open; this
 increment does not complete the whole assignment. Reconsider CURRENT if the user
 explicitly requests a further bounded addition.

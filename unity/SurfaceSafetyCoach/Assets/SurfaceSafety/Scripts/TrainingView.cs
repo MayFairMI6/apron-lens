@@ -49,6 +49,10 @@ namespace SurfaceSafety {
         Vector2 lastPointer;Vector3 centre=new Vector3(75,0,-25);float distance=320;bool ground,terminalView;
         readonly List<RaycastResult> hits=new List<RaycastResult>();
         readonly List<RectTransform> tags=new List<RectTransform>();
+        readonly List<RectTransform> tagLeaders=new List<RectTransform>();
+        readonly List<int> tagSlots=new List<int>();
+        readonly List<Rect> occupiedTags=new List<Rect>();
+        RectTransform vehicleLeader;int vehicleSlot=-1;
         readonly List<GameObject> vehicles=new List<GameObject>();
         readonly Color navy=new Color(.025f,.055f,.08f),panel=new Color(.045f,.085f,.12f,.98f),
             muted=new Color(.66f,.75f,.79f),teal=new Color(.07f,.64f,.58f),line=new Color(.14f,.23f,.28f);
@@ -173,7 +177,7 @@ namespace SurfaceSafety {
             var key=State.runId+"|"+State.revision+"|"+landscape;
             if(key==viewKey)return;viewKey=key;
             foreach(Transform child in root)Destroy(child.gameObject);
-            tags.Clear();vehicleTag=null;input=null;answerText=null;answerHeading=null;focusText=null;askButton=null;motionText=null;
+            tags.Clear();tagLeaders.Clear();tagSlots.Clear();vehicleSlot=-1;vehicleLeader=null;vehicleTag=null;input=null;answerText=null;answerHeading=null;focusText=null;askButton=null;motionText=null;
             responseInput=null;reviewButton=null;reviewNotice=null;
             var scaler=canvas.GetComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution=landscape?new Vector2(1600,900):new Vector2(900,1600);scaler.matchWidthOrHeight=.5f;
@@ -199,7 +203,7 @@ namespace SurfaceSafety {
             motionText=Label(motion,"",new Vector2(.025f,0),new Vector2(.98f,1),landscape?22:24,Color.white);
             if(Regional){
                 Label(root,"Training scenario · Map © OpenStreetMap contributors",new Vector2(.03f,landscape?.12f:.555f),new Vector2(landscape?.62f:.97f,landscape?.15f:.58f),landscape?15:17,Color.white);
-                if(vehicles.Count>0){vehicleTag=Box(tagRoot,"Vehicle label",Vector2.zero,Vector2.zero,panel);vehicleTag.sizeDelta=new Vector2(190,36);Label(vehicleTag,"Maintenance vehicle",Vector2.zero,Vector2.one,17,Color.white);}
+                if(vehicles.Count>0){vehicleTag=Box(tagRoot,"Vehicle label",Vector2.zero,Vector2.zero,panel);vehicleTag.sizeDelta=new Vector2(190,36);vehicleTag.pivot=new Vector2(.5f,0);vehicleLeader=BuildTagLeader();Label(vehicleTag,"Maintenance vehicle",Vector2.zero,Vector2.one,17,Color.white);}
             }
             side=Box(root,"Exercise panel",new Vector2(landscape?.65f:.025f,.045f),new Vector2(.98f,landscape?.85f:.495f),panel);
             if(State.phase=="debrief")BuildDebrief();else BuildAssistant();
@@ -393,18 +397,51 @@ namespace SurfaceSafety {
         void BuildTags(){for(int i=0;i<replay.Data.aircraft.Length;i++){
             int n=i;var r=Box(tagRoot,"Flight "+i,Vector2.zero,Vector2.zero,panel);r.sizeDelta=new Vector2(125,39);r.pivot=new Vector2(.5f,0);
             Label(r,replay.Data.aircraft[i].flightInstance,Vector2.zero,Vector2.one,20,Color.white);
-            r.gameObject.AddComponent<Button>().onClick.AddListener(()=>replay.SelectAircraft(n));tags.Add(r);
+            r.gameObject.AddComponent<Button>().onClick.AddListener(()=>replay.SelectAircraft(n));tags.Add(r);tagSlots.Add(-1);tagLeaders.Add(BuildTagLeader());
         }}
-        void UpdateTags(){for(int i=0;i<tags.Count;i++){
-            if(replay.Data.aircraft[i].hidden){tags[i].gameObject.SetActive(false);continue;}
-            var aircraft=replay.Content.Find(replay.Data.aircraft[i].id);if(aircraft==null)continue;
-            var screen=camera.WorldToScreenPoint(aircraft.position+Vector3.up*14);
-            tags[i].gameObject.SetActive(screen.z>0&&camera.pixelRect.Contains(screen));
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(root,screen,null,out var point);
-            tags[i].anchorMin=tags[i].anchorMax=new Vector2(.5f,.5f);tags[i].anchoredPosition=point;
-            tags[i].GetComponent<Image>().color=i==replay.SelectedAircraftIndex?new Color(.04f,.44f,.40f):panel;
+        RectTransform BuildTagLeader(){
+            var line=Box(tagRoot,"Label connector",Vector2.zero,Vector2.zero,new Color(.8f,.9f,.9f,.8f),false);
+            line.pivot=new Vector2(0,.5f);line.SetAsFirstSibling();return line;
         }
-            if(vehicleTag!=null&&vehicles.Count>0){var screen=camera.WorldToScreenPoint(vehicles[0].transform.position+Vector3.up*10);vehicleTag.gameObject.SetActive(screen.z>0&&camera.pixelRect.Contains(screen));RectTransformUtility.ScreenPointToLocalPointInRectangle(root,screen,null,out var p);vehicleTag.anchorMin=vehicleTag.anchorMax=new Vector2(.5f,.5f);vehicleTag.anchoredPosition=p;}
+        bool PlaceTag(RectTransform tag,RectTransform leader,Vector3 world,Rect bounds,ref int slot,bool selected){
+            var screen=camera.WorldToScreenPoint(world);
+            if(screen.z<=0||!camera.pixelRect.Contains(screen)){tag.gameObject.SetActive(false);leader.gameObject.SetActive(false);return false;}
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(root,screen,null,out var point);
+            bool visible=TrainingLabelLayout.Place(point,tag.sizeDelta,bounds,occupiedTags,
+                selected?0:slot,tag.gameObject.activeSelf,out var rect,out var nextSlot);
+            tag.gameObject.SetActive(visible);leader.gameObject.SetActive(false);
+            if(!visible)return false;
+            slot=nextSlot;occupiedTags.Add(rect);
+            tag.anchorMin=tag.anchorMax=new Vector2(.5f,.5f);tag.anchoredPosition=new Vector2(rect.center.x,rect.yMin);
+            // A short connector identifies displaced labels without intercepting taps.
+            var end=new Vector2(Mathf.Clamp(point.x,rect.xMin,rect.xMax),Mathf.Clamp(point.y,rect.yMin,rect.yMax));
+            var start=new Vector2(Mathf.Clamp(point.x,bounds.xMin,bounds.xMax),Mathf.Clamp(point.y,bounds.yMin,bounds.yMax));
+            var delta=end-start;
+            if(delta.magnitude>3){
+                leader.gameObject.SetActive(true);leader.anchorMin=leader.anchorMax=new Vector2(.5f,.5f);
+                leader.anchoredPosition=start;leader.sizeDelta=new Vector2(delta.magnitude,2);
+                leader.localRotation=Quaternion.Euler(0,0,Mathf.Atan2(delta.y,delta.x)*Mathf.Rad2Deg);
+            }
+            return true;
+        }
+        void UpdateTags(){
+            if(tags.Count==0)return;
+            occupiedTags.Clear();
+            // Keep full tags clear of camera controls, phase strip, map credit and side panel.
+            var bounds=new Rect(root.rect.xMin+root.rect.width*.025f,root.rect.yMin+root.rect.height*(landscape?.16f:.59f),
+                root.rect.width*(landscape?.585f:.945f),root.rect.height*(landscape?.61f:.215f));
+            var order=Enumerable.Range(0,tags.Count).OrderBy(i=>i==replay.SelectedAircraftIndex?0:
+                replay.Data.aircraft[i].id==State.spotlightAircraft?1:replay.Data.aircraft[i].id==State.targetAircraft?2:3).ThenBy(i=>i);
+            foreach(int i in order){
+                var plan=replay.Data.aircraft[i];var aircraft=replay.Content.Find(plan.id);
+                if(plan.hidden||aircraft==null){tags[i].gameObject.SetActive(false);tagLeaders[i].gameObject.SetActive(false);continue;}
+                bool selected=i==replay.SelectedAircraftIndex;int slot=tagSlots[i];
+                PlaceTag(tags[i],tagLeaders[i],aircraft.position+Vector3.up*14,bounds,ref slot,selected);tagSlots[i]=slot;
+                tags[i].GetComponent<Image>().color=selected?new Color(.04f,.44f,.40f):panel;
+                tags[i].GetComponentInChildren<Text>(true).text=plan.FlightAt(replay.Clock.Time);
+            }
+            if(vehicleTag!=null&&vehicles.Count>0)
+                PlaceTag(vehicleTag,vehicleLeader,vehicles[0].transform.position+Vector3.up*10,bounds,ref vehicleSlot,false);
         }
         void BuildVehicles(){
             foreach(var v in vehicles)Destroy(v);vehicles.Clear();

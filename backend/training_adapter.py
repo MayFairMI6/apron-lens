@@ -12,9 +12,13 @@ from dataclasses import replace
 from pathlib import Path
 from backend.evidence import FIELDS
 from modelaccess.local_backbone import LocalBackboneAdapter
-from modelaccess.contract import Adapter
+from modelaccess.contract import Adapter, ProviderReply, FinishReason, Usage
 
-TRAINING_PROMPT_VERSION='training-evidence-selector-v4'
+TRAINING_PROMPT_VERSION='training-evidence-selector-v5'
+COMPLETENESS_POLICY_VERSION='nonempty-selection-one-retry-v1'
+
+class EmptySelectionError(ValueError):
+    pass
 SELECTOR_FORMAT_VERSION='single-json-or-fence-v1'
 ROLES={r['id']:r for r in json.loads((Path(__file__).resolve().parents[1]/'data/training/role_profiles.json').read_text())}
 
@@ -80,6 +84,8 @@ def expand_selection(text,candidates):
         explanationChanged=bool(changes) if previous else None,changesNotDiscussed=[i for i in changes if i not in ids],
         memoryUpdate=None,rationale='',observations=[])
     if ref is None and (ids or unknowns):raise ValueError('ambiguous selection with claims')
+    if ref is not None and not ids and not unknowns:
+        raise EmptySelectionError('empty_answer')
     return json.dumps(proposal)
 
 class _PracticeReviewAdapter(Adapter):
@@ -99,12 +105,46 @@ class TrainingAdapter(LocalBackboneAdapter):
         return _PracticeReviewAdapter(self).generate(request)
     def _generate(self,request,effective):
         prompt,candidates=selector_context(request.messages[0][1],self.training_role)
-        reply=super()._generate(replace(request,messages=(('user',prompt),)),effective)
-        original=reply.text
-        try:reply.text=expand_selection(original,candidates)
-        except (ValueError,TypeError,KeyError):pass # invalid JSON/schema is withheld downstream
-        self.prompt_audit_path.parent.mkdir(parents=True,exist_ok=True)
-        with self.prompt_audit_path.open('a') as audit:
-            audit.write(json.dumps(dict(requestId=request.request_id,promptVersion=TRAINING_PROMPT_VERSION,trainingRole=self.training_role,
-                selectorFormatVersion=SELECTOR_FORMAT_VERSION,prompt=prompt,rawSelectorOutput=original,expandedProposal=reply.text))+'\n')
+        # Retry only an empty, otherwise well-formed selection. The immutable prompt,
+        # candidates, cutoff and image are reused; no new reports or canned claims.
+        attempts=[]
+        usage=[]
+        for attempt in range(2):
+            current_prompt=prompt if attempt==0 else prompt+(
+                '\nYour previous selection contained neither facts nor missing properties. '
+                'Answer the same question using ONLY the same flights and reports above. '
+                'Select relevant fact IDs, or name the requested missing properties in unknowns. '
+                'Do not invent evidence or choose unrelated properties just to fill the answer. '
+                'Use null identities only if the intended flight is genuinely ambiguous.')
+            try:
+                reply=super()._generate(replace(request,messages=(('user',current_prompt),)),effective)
+            except Exception as exc:
+                reply=ProviderReply('',None,'provider_exception',FinishReason.ERROR,Usage(),
+                                    metadata={'providerErrorType':type(exc).__name__})
+            original=reply.text
+            error=None
+            try: reply.text=expand_selection(original,candidates)
+            except EmptySelectionError: error='empty_answer'
+            except (ValueError,TypeError,KeyError): error='invalid_selection'
+            usage.append(reply.usage)
+            attempts.append(dict(attempt=attempt+1,rawSelectorOutput=original,
+                                 expandedProposal=reply.text,completenessError=error,
+                                 finishReason=reply.finish_reason.value,
+                                 returnedModel=reply.returned_model,usage=dict(vars(reply.usage)),
+                                 providerErrorType=reply.metadata.get('providerErrorType')))
+            self.prompt_audit_path.parent.mkdir(parents=True,exist_ok=True)
+            with self.prompt_audit_path.open('a') as audit:
+                audit.write(json.dumps(dict(requestId=request.request_id,promptVersion=TRAINING_PROMPT_VERSION,
+                    trainingRole=self.training_role,selectorFormatVersion=SELECTOR_FORMAT_VERSION,
+                    completenessPolicy=COMPLETENESS_POLICY_VERSION,prompt=current_prompt,**attempts[-1]))+'\n')
+            allowed={request.settings.model,*request.settings.accepted_returned_models}
+            if error!='empty_answer' or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
+        # Aggregate usage over actual calls, preserving unknown usage as unknown.
+        for field in ('input_tokens','output_tokens','reasoning_tokens','image_tokens','cached_input_tokens'):
+            values=[getattr(u,field) for u in usage]
+            setattr(reply.usage,field,sum(values) if all(v is not None for v in values) else None)
+        reply.metadata.update(trainingCompletenessPolicy=COMPLETENESS_POLICY_VERSION,
+                              trainingAttemptCount=len(attempts),trainingEmptyAnswer=error=='empty_answer',
+                              trainingKnownInputTokens=sum(a['usage']['input_tokens'] or 0 for a in attempts),
+                              trainingKnownOutputTokens=sum(a['usage']['output_tokens'] or 0 for a in attempts))
         return reply

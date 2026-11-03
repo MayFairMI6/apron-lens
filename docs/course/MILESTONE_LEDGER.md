@@ -1,9 +1,16 @@
 # AirfieldLens milestone ledger
 
+**Current work is the explicitly authorised reliability patch for #67, empty
+ordinary-assistant selections, and #69, overlapping regional aircraft labels. It
+has passed bounded acceptance; publication and tracker readback remain pending.** These are
+corrections to the current app, not new research tasks or duplicate milestone
+counts. ML-029 preserves the scope/review history; ML-030 records the verified
+remedies and the distinction between deterministic retry tests and actual calls.
+
 **The user has reopened CURRENT / Checkpoint 1 for R01, four type-specific aircraft
 models and dimensions, and R02, improved authored trajectories. Both have passed
-bounded functional acceptance; the new local edits are reviewed, while final
-evidence/document publication remains pending.** The requested fleet is Airbus A320-200
+bounded functional acceptance; the local edits are reviewed and final
+evidence/source publication is recorded at `918c1a9`.** The requested fleet is Airbus A320-200
 Sharklet, Airbus A380-800, Boeing 737-800 and Boeing 787-8 in four isolated fleet
 profiles with distinct unfolding incidents/outcomes and fresh run identities. This explicitly authorised increment preserves legacy
 scenario worlds, frozen research and earlier videos. It does not add full flight
@@ -165,8 +172,9 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
-| R01 — four-type aircraft models and dimensions | Bounded source/editor/native functional acceptance complete; local media reviewed; final evidence publication pending | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Publish final evidence for #64; preserve the fixed texture-import history and known regional-label overlap. No physical-phone claim. |
-| R02 — authored fleet trajectories and distinct unfolding incidents | Four full source-hour native runs and 12 actual answers accepted; corrected A380 rerun verified; local media reviewed; final evidence publication pending | CURRENT / Checkpoint 1 | Independent incident profiles, bounded 09R references and causal report answers meet the authorised demonstration scope. | Publish final evidence for #65 and record the verified #68 fix; keep #67 empty-claim completeness limitation open. Preserve original failed run and all claim limits. |
+| #67/#69 — current reliability corrections | Bounded remedies accepted; 296 tests and 160-record integrity pass recorded; three first-attempt actual answers and independent native label review pass; publication/readback pending | CURRENT / Checkpoint 1 corrections; failure records do not add task counts | The training-only nonempty guard/one-retry policy and finite label layout address the observed defects within their tested limits. Actual spontaneous empty-answer recovery was not observed. | Publish the reviewed patch/evidence and update/read back the existing failure records. Preserve deadline, fallback-free behavior, finite-label and semantic limits; do not add numeric grading or new task counts. |
+| R01 — four-type aircraft models and dimensions | Bounded functional acceptance, local media review and source/evidence publication complete; #64 closed in recorded readback | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Preserve original acceptance and texture-import failure history. The later #69 correction needs its own evidence; no physical-phone claim. |
+| R02 — authored fleet trajectories and distinct unfolding incidents | Four full source-hour native runs and 12 actual answers accepted; source/evidence published; #65/#68 closed in recorded readback | CURRENT / Checkpoint 1 | Independent incident profiles, bounded 09R references and causal report answers meet the authorised demonstration scope. | Preserve all runs and cutoff evidence. The later #67 correction does not retroactively change recorded answers or establish general reliability. |
 | F01 — fog visual profile | Implemented; native acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | Extends an existing external-clock presentation path; it does not require a detector, scoring or queue generation. | Delivered for this increment; preserve evidence and review future changes. |
 | F02 — bounded report-led fog demonstration | `fog_visibility` implemented; source-hour native/model acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | A distinct, source-supported information task uses the available assistant and standalone demo machinery. | Delivered for this increment; preserve unscored status. |
 | F03 — fog restriction lesson | Implemented and accepted within limited prototype scope; prior video/source/document/ZIP publication complete | CURRENT / Checkpoint 1, accepted baseline | The authorised lesson tests partial cancellation and unconfirmed departure authority using the established report sequence. | Preserve full fog evidence separately from positioned checks and pre-typed MCQ history. Later fleet publication does not reopen this unit. |
@@ -888,9 +896,10 @@ ledger reviewer matched all four output hashes to that receipt. Verification
 sidecars preserve the approved compressed opening AAC unchanged at time zero;
 root separately verified matching compressed video in each silent/narrated pair
 and zero audio tracks in the silent copies. The remaining footage has no new narration. Preserve the delivered 30:28.5 local
-masters and distinguish the older 30:33.5 Drive version. Final evidence/document
-publication remains separate; no Drive replacement or new duration requirement
-is implied. Member participation still needs its own assignment check.
+masters and distinguish the older 30:33.5 Drive version. Final source/evidence
+publication is recorded at `918c1a9`; no Drive replacement or new duration
+requirement is implied. Member participation still needs its own assignment
+check. The later reliability patch does not silently replace these reviewed videos.
 
 ## Recording and assignment impact
 
@@ -907,8 +916,8 @@ Root inspected portrait entry, feedback and future-work frames, uploaded it to t
 existing Drive file and verified the size by metadata readback. The first
 113,362,347-byte upload was rejected by the 100 MiB tool limit and is preserved as
 history; it did not replace the prior Drive file. This reviewer read the updated
-edit record, not the entire video. Source, shared-document and ZIP publication
-remain pending.
+edit record, not the entire video. The prior source, shared-document and ZIP
+publication was subsequently completed; see ML-023 and the `fa31c53` handoff.
 
 | Unit | Recording impact if delivered | What the presentation may claim |
 |---|---|---|
@@ -963,14 +972,16 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from ML-028: R01/R02 bounded functional acceptance and independent local
-media review are complete. Root's next action is final evidence/document
-publication and tracker readback, with #64/#65 and the verified #66/#68 fixes
-handled separately from #67's unresolved completeness issue. Do not repeat passed
-native/model runs unless a new change or finding requires it. Preserve all failures,
-source hashes, B787-8 identity and bounded pinned 09R limits. No new feature is
-needed to close this authorised increment. Do not start C02–C04 or infer additional
-accident/physics work; CURRENT remains a valid placement if the user later reopens it.
+Resume from ML-030: R01/R02 publication and the #67/#69 bounded remedy acceptance
+are complete. Root's next action is publication of the reliability patch/evidence
+and tracker readback. Preserve the distinct evidence: seven deterministic recovery/
+failure cases, three first-attempt actual calls and sampled native label review.
+Do not claim observed spontaneous retry recovery, universal label placement or
+general semantic reliability. Existing 35-second client / 40-second driver limits
+remain; timeouts are honest failure. Earlier videos remain unchanged. No further
+feature or grading redesign is authorised by the latest grading question. Do not
+start C02–C04 or infer additional accident/physics work. Reopen CURRENT only through
+new user steering or a concrete acceptance-blocking finding.
 
 F03/T01 limited functional acceptance and C01 remain complete within their bounds.
 The final prior source is `fa31c53ba8be77f8265a7ecbad634140c6177c44`; the workspace
@@ -1131,3 +1142,111 @@ This supersedes ML-027's pending native/editor-hash/media statuses, without eras
 its failure history. Submission #30 member participation, #31 final reflection
 and #32 smartphone/course acceptance remain open. No additional feature is needed
 for this bounded increment; future explicit user requests can still reopen CURRENT.
+
+## ML-029 — Fleet publication and authorised current reliability corrections
+
+3 November 2026. The current chat handoff records source/evidence publication at
+`918c1a926cb38b818d52afb982f14bed6be0ec26`, green publication CI
+41642353505/41642342060 and preserved 160 research records. The reviewer read the
+saved [tracker receipt](/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/github-milestone-current-fleet.json):
+#64/#65/#66/#68 are closed; #67/#69 remain open. This closes ML-028's publication
+pending status on root's recorded readback, not a new independent remote query.
+
+The user then explicitly authorised fixing #67's empty ordinary-assistant answer
+and #69's overlapping regional aircraft labels **now in CURRENT**. These are
+bounded reliability corrections within existing app work, not additional task
+counts or a new research milestone. Current placement addresses observed defects
+with reusable infrastructure. The strongest reason to delay closure is fresh
+acceptance cost: a retry can outlast the client deadline, and label displacement
+can create new clipping or selection problems. Those are repair/verification
+gates now, not a reason for automatic M2 deferral. M2's original visual study,
+its repair comparison and C02–C04 remain separately assigned and uncompleted.
+
+For #67, the reviewed implementation rejects an empty selected-flight answer and
+allows one further real model call, using the same receipt-eligible candidates,
+cutoff, image and settings plus a correction instruction. Genuine missing-property
+answers and clarification retain their existing paths. The original validator
+still rejects future evidence and contradictory unknowns. Two empty responses
+must be withheld with retry/Sources guidance; no canned successful answer or
+extra report is inserted. Retry is limited to a normal-stop response from an
+allowed model. The 35-second client and 40-second driver limits remain unchanged;
+a second call may therefore produce an honest timeout. Those limits do not imply
+that background inference has been cancelled or that retry always finishes.
+
+The ledger review found a second-call exception defect: two attempts produced
+only one audit record, lost first-call usage and reported one attempt. Root fixed
+it by recording each failure/attempt, preserving known partial usage separately
+and leaving aggregate usage unknown when an attempted call's usage is unknown.
+Root's full test run also detected a frozen-runner hash change. The revised design
+restores `backend/conversation/turns.py` byte for byte and routes only the live
+training app through [training_turn.py](../../backend/training_turn.py); the general
+server defaults to its original handler. No frozen prompt, validator, research
+result or held-out data is changed by this correction.
+
+The reviewer independently ran seven completeness tests, ten selector tests and
+six freeze tests at the reviewed stages; all passed. These use controlled model
+fixtures, not actual-model recovery evidence. A bounded injected length-stop case
+was safely withheld after one call but labelled `empty_answer_after_retry`; root
+was asked to make that error label agree with the actual attempt count. Review
+the final revision before resolving that finding. Root reports passing label
+editor checks/native build; this ledger review has not inspected the label
+implementation or native result and does not accept #69 from compilation alone.
+
+Remaining gates: finish that diagnostic label, run the applicable full regression
+and frozen-integrity checks, retain actual-model attempt/cutoff/usage evidence and
+native failure/retry behavior under unchanged deadlines; independently inspect
+regional labels and selection/readability in supported orientations. Keep #67/#69
+open until their observed remedies are verified and published. Preserve all older
+fleet videos and acceptance; any new capture or edit gets its own status. The
+separate course gates #30/#31/#32 remain open. This reviewer owns only these two
+ledger files and did not change backend, Unity, model settings, commits or trackers.
+
+## ML-030 — Bounded acceptance of #67/#69 remedies
+
+3 November 2026. Accept the current reliability corrections within the coverage
+recorded in [acceptance.json](../../outputs/checkpoint1/reliability-fix/acceptance.json).
+It records 296 passing suite tests and the 160-record frozen-integrity/source-hash
+check. Earlier independent review ran seven deterministic completeness tests,
+ten selector tests and six freeze tests. The final source correctly labels a
+one-call empty result `empty_answer` and reserves `empty_answer_after_retry` for
+two attempts. The prior audit/accounting and frozen-runner findings are resolved;
+their history remains in ML-029 and the acceptance record.
+
+Two [actual HTTP checks](../../outputs/checkpoint1/reliability-fix/reliability-live-checks.json)
+and one [native answer](../../outputs/checkpoint1/reliability-fix/native-answer.json)
+passed on their first attempt. They cover a report-history/current-release answer,
+a genuine missing fuel-service value and the initial bird-hold report shown in
+the app. No spontaneous empty selection occurred in those three calls. Recovery,
+exhaustion, false unknown, future citation and provider-exception behavior were
+exercised with controlled model fixtures; do not present them as actual-model
+recovery observations or a measured reliability improvement. The remedy prevents
+an empty selected-flight answer being accepted as useful content, attempts one
+real retry when eligible, and otherwise withholds it. The unchanged 35/40-second
+client/driver limits still permit timeout; no canned success or cancellation
+guarantee has been added.
+
+The [label review](../../outputs/checkpoint1/reliability-fix/label-fix-review.json)
+records independent static/editor-log and sampled native portrait/landscape
+acceptance. Four clustered labels are readable, selected aircraft are highlighted,
+connectors preserve association and controls remain clear. Root exercised
+selection, zoom and orientation changes. The inactive-text lookup defect was
+corrected before acceptance. The bounded seven-slot search can hide lower-priority
+text when no nearby slot fits; aircraft remain selectable and selected-flight
+labels take priority. Two screenshots do not validate every pan/zoom frame.
+
+This ledger reviewer read both receipts and all three actual outputs, verified
+the final diagnostic branch, matched all seven acceptance source hashes, all three
+label-review source hashes and both native label screenshot hashes. It did not
+operate the app, rerun the final full suite or repeat the other reviewer's visual
+inspection. Acceptance receipt SHA-256:
+`7da9912d95832b616f48a3284f46723931561b56a13189adfc91105d18df9bc6`;
+label-review receipt SHA-256:
+`a3fcf1cfe17378f833855a24d5eeb27292eabfa30be3738cbe264fbdb5f13b6c`.
+
+Publication and existing failure-record closure/readback are the remaining steps;
+no new milestone task counts are added. The four delivered videos are unchanged.
+The user's grading question requested recommendations, not a scope pivot: typed
+practice still provides qualitative feedback, with no validated numerical grade
+or newly authorised grading redesign. Course requirements #30 member participation,
+#31 reflection and #32 smartphone/course acceptance remain open. This acceptance
+does not establish general semantic correctness or whole-assignment completion.
