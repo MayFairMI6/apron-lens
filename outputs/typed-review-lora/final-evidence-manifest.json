@@ -1,0 +1,31 @@
+{
+  "status": "completed experiment; candidate rejected; no deployment",
+  "evaluation_job": 571262,
+  "training_job": 571259,
+  "files": {
+    "RESULTS.md": "e2be595a96a371c11999730c652e0e7a4213254e025e4dfaa4cc43081fa42f25",
+    "STATUS.md": "f7b7e9abdab873bd43f5dcd41c500f0043a4f28310ab450da0610f1e74d108a2",
+    "approval-before-scaling.json": "c908f40e3be7b096e8119a8042313eb17b0043544e7d1d53ed918a485c462e8d",
+    "data-v2-manifest.json": "67c0a67d65a76e4096a222332fa87a9bd41f76fef154947a646ade74ec2be214",
+    "data-v2.tar.gz": "b570acb5e464ffb854953a3c60b3eedd6d9b0037bc6caa7563b9d46f1f859087",
+    "diagnostic-571257.log": "e3d9b187583f122b0b4ef2858a86ff226195327668203d6d6314eb0637ab4cea",
+    "draft-v1-manifest.json": "7f7954fc4db18f52b5284822463a0bc40e33e0f2a6a10c930cd1976ce06568a1",
+    "evaluation-571262.log.gz": "355cf3c47c244ad6a5a6ab34b84f56126c6975073d04fe4b160b5cfe4532aab3",
+    "evaluation-audit.json": "1e1ef8f6b73a9b5eda8a68d6349a428946c17491e33b4c3702d248304f473983",
+    "evaluation-v1/pre-evaluation-lock.json": "48285289c976d4469872f6136b4990d74a2bce757ea8f830c1f07df31a3e37fa",
+    "evaluation-v1/records.jsonl": "863329b4b9856ba4c80a30f855996d523d822f8aa1fc68ff960e15354a2b26c6",
+    "evaluation-v1/runtime.json": "119dbc72360bba1cac52ee16e72fca28a490f1207c8afa7c16811f96fb249c4d",
+    "evaluation-v1/summary.json": "d692158ca8f90e9dc96e867490728bdc3b736d340bfd6b5712d93d797efb46dc",
+    "full-smoke.json": "d665660c7f6d466f4fcf5a91b7d500d5082d0772694944295633ea742c43aa42",
+    "prior-results-preservation.json": "fd2116f193324159612e6283bd979f95218a33f2d99483bac03f2b718d594f8b",
+    "probe-571254.log": "badea0f3a5bb8a82ed2341904be4faf5f7bb3059246ce54262aea2cbcc39ca8f",
+    "probe-571255.json": "81f1e90ff4459137a8eab25989a8f28f8b927628110ec72ad2978cc23d539f7b",
+    "protocol-before-scaling.json": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+    "run-571256.log": "e9aa2db3f2490254fe05f8bc57c4c2a6d02462a438535377739d00c838e4bae2",
+    "selection-lock.json": "48285289c976d4469872f6136b4990d74a2bce757ea8f830c1f07df31a3e37fa",
+    "selection-review.json": "e9caaadc1cd1a6b944809b0ec8525c6a20a52d81570643673347427c59d4f345",
+    "semantic-review.json": "b976e6853a075120ef6bfb53dc8f07b4d6a76124c810c11fedb713fa95e4476b",
+    "training-receipt.json": "1b2f4b5d23784e10d60926460912a43216df63240ae52e053c5a3e39db328942",
+    "training-steps.jsonl": "494bb81f6b44f67e7c59b8173c4abf0661fa1749a3e0dd3c42ecab5aa045c2f1"
+  }
+}

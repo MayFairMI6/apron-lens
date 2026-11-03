@@ -1,0 +1,31 @@
+{
+  "base": {
+    "valid": 32,
+    "false_acceptance": 3,
+    "negative_criteria": 48,
+    "correct_statuses": 90,
+    "criteria": 144,
+    "supported_case": 16,
+    "supported_accepted": 9,
+    "exact": 26,
+    "count": 48,
+    "mean_latency_seconds": 14.817666067147607
+  },
+  "adapter": {
+    "valid": 44,
+    "false_acceptance": 4,
+    "negative_criteria": 48,
+    "correct_statuses": 113,
+    "criteria": 144,
+    "supported_case": 16,
+    "supported_accepted": 16,
+    "exact": 33,
+    "count": 48,
+    "mean_latency_seconds": 10.64679652240496
+  },
+  "new_false_acceptance_cases": [
+    "dispatch_conflict-0-unsupported_extra"
+  ],
+  "research_gate_passed": false,
+  "deployment_approved": false
+}

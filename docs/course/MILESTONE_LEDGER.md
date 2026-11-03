@@ -1,18 +1,12 @@
 # AirfieldLens milestone ledger
 
-**B05 is now adopted CURRENT candidate research: a bounded supervised LoRA
-experiment for typed review only.** The user's explicit instruction supersedes
-the previous stop on new training. Local design/data preparation is authorised;
-training and final evaluation require the independent design/data/leakage gates
-in ML-041. ML-044 accepts the full-model hardware gate; ML-045 accepts completed
-fixed training and validation-only selection of checkpoint 48. Frozen paired
-evaluation may now proceed; no evaluation result or deployment is accepted yet.
-Keep the pinned base weights, shipping app, approved video and all old results
-unchanged. The older 18 exposed typed cases are development-only evidence.
-ML-042 accepts the corrected data-v2 semantic/family gate and locked executable
-sources; ML-044 records the subsequently passed GPU compatibility receipt.
-ML-043 refreshes that conditional approval for the documented gradient-scale
-compatibility amendment. Training/selection are accepted; final evaluation is pending.
+**B05 experiment completed; candidate rejected for this iteration.**
+The fixed 72-step run and validation-only checkpoint-48 selection passed ML-045.
+Evaluation571262 completed with96 paired responses. The frozen gate failed:
+accepted false credit rose from3/48 to4/48 negative criteria, with one new accepted
+error. Keep the app, video and prior results unchanged; no further tuning is needed
+now. ML-046 records the measured failure and review coverage, not deployment or
+whole-course completion. The old18 exposed cases remain development-only evidence.
 
 **B04 has reached a bounded, mixed disposition in CURRENT:** ordinary-assistant
 v8 with the narrowed reference guard (B04a) and startup inference warmup (the
@@ -2427,3 +2421,40 @@ useful-feedback gates remain pending. App, video, previous results, #60/#61/#62
 and the separate course/M2/M3 commitments remain unchanged. Next review: completed
 paired receipts and bounded independent semantic findings; do not train or select
 again from sealed outcomes.
+
+## ML-046 — Completed B05 comparison; reject candidate and stop this iteration
+
+3 November 2026. Coordinator outcome record following the fixed automatic gate;
+not a claim of a new full independent acceptance review. Completed evaluation
+job571262 (exit0,20:52) contains exactly96 responses:48 cases in each arm, no
+missing/duplicate pairs or retries. Every stored score replayed, and the runtime
+matches the independently accepted training receipt. See
+[RESULTS.md](../../outputs/typed-review-lora/RESULTS.md),
+[evaluation-audit.json](../../outputs/typed-review-lora/evaluation-audit.json) and
+[semantic-review.json](../../outputs/typed-review-lora/semantic-review.json).
+
+Base→adapter: valid responses32→44/48; valid exact-status responses26→33/48;
+fully correct learner responses accepted9→16/16; accepted false credit3→4/48
+negative criteria. One newly accepted error is
+`dispatch_conflict-0-unsupported_extra`: an unsupported pushback-completion claim
+passes the adapter's format-valid supported judgment, while the base's similarly
+wrong raw judgment is rejected for an empty quote. The locked gate is false.
+Mean latency14.82→10.65seconds and cleaner formatting do not override this failure.
+Route-authority exact success15→24/24 contrasts with dispatch11→9/24.
+
+The independent semantic reviewer audited all48 gold rows and the first48 actual
+outputs. The coordinator reviewed the remaining48 actual outputs and replayed all
+scores. Independent continuation and replacement attempts returned the service's
+agent-thread-limit error; full independent96-response semantic review is not
+claimed. This procedural limit does not change the automatic rejection or justify
+promotion. No new model run or review escalation is needed to retain a failed
+candidate. Existing issue60 remains open; app/native acceptance is not attempted.
+
+All232 previously tracked evidence files match their pre-B05 hashes. Training,
+selection, failed setup attempts, raw evaluation outputs and the rejected adapter
+are preserved. Research execution is complete with a negative primary result;
+implementation of the candidate in the app is rejected. Further tuning would need
+separate prioritisation and fresh evaluation evidence after these test outcomes
+are used for development. Current user recommendation: stop tuning now, keep the
+working app/video, and finish documentation/publication. Course submission gates
+and other previously open issues remain separate.

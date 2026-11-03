@@ -136,33 +136,23 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 3 November resume point is **ML-041 / B05**, an explicitly authorised
-CURRENT supervised LoRA candidate experiment for typed review. Read the newest
-user steering and concrete experiment protocol before resuming. The base
-Qwen3.5-9B revision stays pinned; only a separate reviewer adapter may be trained.
-No candidate is trained/accepted by this planning record, and deployment is a
-separate decision. Shipping ordinary v8 and original typed v2, the 60-second typed
-server wait, prior results and approved videos remain preserved.
+The current 3 November resume point is **ML-046 / completed B05 comparison**.
+The candidate failed the frozen acceptance gate and remains unadopted. Read
+`outputs/typed-review-lora/RESULTS.md` and the explicit semantic-review coverage.
+Training/selection were independently accepted in ML-045; all96 evaluation scores
+replay, but full independent96-response semantic review is not claimed after the
+agent service reached its thread limit. The first48 outputs were independently
+reviewed; the coordinator reviewed the remaining48. This limit is not a reason to
+promote or retrain a candidate that already fails the locked negative-control gate.
 
-ML-042 accepts corrected `data-v2` training/validation semantics and disjoint
-family/input metadata for the small supplied-report pilot. Read its pre-training
-note for exact hashes and pending gates. Earlier v1 target defects remain recorded.
-Source/runtime dependency locks are conditionally approved at their recorded
-hashes; the separately enforced GPU load/backward/save/reload receipt must pass
-before the full training run. Re-review changed source hashes, and inspect the
-selected-checkpoint/final-evaluation lock before test outputs are opened.
-The latest scoped instruction permits reviewing
-authored gold construction before any inference; it does not permit inspecting
-held-out model outputs or using test results for selection. This pilot shares
-schema and error categories and does not establish independent linguistic or
-temporal-retrieval generalisation.
+Do not restart tuning, reopen the held-out set as a fresh test, deploy an adapter,
+or change the approved video. Retain ordinary v8 and original typed v2, the
+60-second typed wait and all earlier results. Future training is a new priority
+requiring appropriate fresh evaluation evidence. Historical ML-041–045 retain
+split/label/source reviews, the numerical compatibility amendment and successful
+training/selection receipts; do not repeat those stages for this completed run.
 
-ML-043 refreshes conditional approval for protocol v1.1's initial gradient scale
-of 1 after the retained full-model gradient failure and training-row diagnostic.
-Data-v2 retains its original generation-protocol hash; approval pins the amended
-training protocol separately. This is not a passed full smoke or a trained
-candidate. Require the matching update/save/reload receipt before the fixed run.
-
+For a separately authorised future experiment, apply the following gates.
 Before training, independently review family/template allocation, provenance,
 training/development target quality, normalised duplicate checks and sealed-set
 metadata. Split families before variants; old18 exposed cases are development

@@ -1,0 +1,7 @@
+{
+  "reference_commit": "a90e3d63a43ba24f47d430d364550eb2a1139f3a",
+  "checked_tracked_output_files": 232,
+  "changed": [],
+  "method": "working-tree git blob hashes equal every outputs/ blob at the pre-B05 commit",
+  "scope": "Tracked repository evidence only; does not claim a new video-content audit."
+}

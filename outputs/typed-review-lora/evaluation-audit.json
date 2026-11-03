@@ -1,0 +1,179 @@
+{
+  "base": {
+    "count": 48,
+    "confusion": {
+      "met -> met": 54,
+      "met -> rejected": 39,
+      "missing -> rejected": 8,
+      "contradicted -> contradicted": 36,
+      "met -> contradicted": 3,
+      "contradicted -> rejected": 1,
+      "contradicted -> met": 3
+    },
+    "by_family": {
+      "route_authority": {
+        "count": 24,
+        "valid": 18,
+        "exact": 15,
+        "false_acceptance": 0,
+        "supported_accepted": 6,
+        "supported_case": 8
+      },
+      "dispatch_conflict": {
+        "count": 24,
+        "valid": 14,
+        "exact": 11,
+        "false_acceptance": 3,
+        "supported_accepted": 3,
+        "supported_case": 8
+      }
+    },
+    "by_kind": {
+      "correct": {
+        "count": 8,
+        "valid": 4,
+        "exact": 4,
+        "false_acceptance": 0,
+        "supported_accepted": 4,
+        "supported_case": 8
+      },
+      "paraphrase": {
+        "count": 8,
+        "valid": 5,
+        "exact": 5,
+        "false_acceptance": 0,
+        "supported_accepted": 5,
+        "supported_case": 8
+      },
+      "omission": {
+        "count": 8,
+        "valid": 0,
+        "exact": 0,
+        "false_acceptance": 0,
+        "supported_accepted": 0,
+        "supported_case": 0
+      },
+      "contradiction": {
+        "count": 8,
+        "valid": 8,
+        "exact": 8,
+        "false_acceptance": 0,
+        "supported_accepted": 0,
+        "supported_case": 0
+      },
+      "wrong_core": {
+        "count": 8,
+        "valid": 8,
+        "exact": 8,
+        "false_acceptance": 0,
+        "supported_accepted": 0,
+        "supported_case": 0
+      },
+      "unsupported_extra": {
+        "count": 8,
+        "valid": 7,
+        "exact": 1,
+        "false_acceptance": 3,
+        "supported_accepted": 0,
+        "supported_case": 0
+      }
+    },
+    "median_latency": 15.749239348049741,
+    "p95_latency": 17.115345792029984,
+    "input_tokens": 36906,
+    "output_tokens": 12807,
+    "stop_reasons": {
+      "eos": 48
+    },
+    "errors": {}
+  },
+  "adapter": {
+    "count": 48,
+    "confusion": {
+      "met -> met": 81,
+      "missing -> missing": 4,
+      "contradicted -> contradicted": 28,
+      "met -> contradicted": 11,
+      "missing -> contradicted": 4,
+      "contradicted -> rejected": 8,
+      "met -> rejected": 4,
+      "contradicted -> met": 4
+    },
+    "by_family": {
+      "route_authority": {
+        "count": 24,
+        "valid": 24,
+        "exact": 24,
+        "false_acceptance": 0,
+        "supported_accepted": 8,
+        "supported_case": 8
+      },
+      "dispatch_conflict": {
+        "count": 24,
+        "valid": 20,
+        "exact": 9,
+        "false_acceptance": 4,
+        "supported_accepted": 8,
+        "supported_case": 8
+      }
+    },
+    "by_kind": {
+      "correct": {
+        "count": 8,
+        "valid": 8,
+        "exact": 8,
+        "false_acceptance": 0,
+        "supported_accepted": 8,
+        "supported_case": 8
+      },
+      "paraphrase": {
+        "count": 8,
+        "valid": 8,
+        "exact": 8,
+        "false_acceptance": 0,
+        "supported_accepted": 8,
+        "supported_case": 8
+      },
+      "omission": {
+        "count": 8,
+        "valid": 8,
+        "exact": 4,
+        "false_acceptance": 0,
+        "supported_accepted": 0,
+        "supported_case": 0
+      },
+      "contradiction": {
+        "count": 8,
+        "valid": 8,
+        "exact": 5,
+        "false_acceptance": 0,
+        "supported_accepted": 0,
+        "supported_case": 0
+      },
+      "wrong_core": {
+        "count": 8,
+        "valid": 4,
+        "exact": 4,
+        "false_acceptance": 0,
+        "supported_accepted": 0,
+        "supported_case": 0
+      },
+      "unsupported_extra": {
+        "count": 8,
+        "valid": 8,
+        "exact": 4,
+        "false_acceptance": 4,
+        "supported_accepted": 0,
+        "supported_case": 0
+      }
+    },
+    "median_latency": 10.449172379972879,
+    "p95_latency": 12.471735928906128,
+    "input_tokens": 36906,
+    "output_tokens": 8446,
+    "stop_reasons": {
+      "eos": 48
+    },
+    "errors": {}
+  }
+}

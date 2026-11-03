@@ -1,4 +1,11 @@
-# B05: bounded typed-review weight-training pilot
+# B05: completed experiment; candidate rejected
+
+**Final disposition:** evaluation completed with96 paired responses. The adapter
+failed the frozen gate (accepted false credit3→4; one new case). Keep the app
+unchanged and stop tuning for this iteration. See [RESULTS.md](RESULTS.md).
+
+The notes below preserve the execution chronology; their pending statements
+reflect earlier stages, superseded by the final disposition above.
 
 Implementation and local checks are prepared; no trained-candidate accuracy result
 or deployment is claimed. The existing application, video and historical results

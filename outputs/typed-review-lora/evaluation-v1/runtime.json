@@ -1,0 +1,15 @@
+{
+  "packages": {
+    "torch": "2.7.1+cu118",
+    "transformers": "5.22.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "accelerate": "1.15.0"
+  },
+  "gpu": "NVIDIA TITAN RTX",
+  "cuda": "11.8",
+  "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "quantization": "nf4-double-float16",
+  "attention": "eager",
+  "seed": 17
+}

@@ -1,0 +1,209 @@
+{
+  "coverage": {
+    "independent_agent": "typed_semantic_review (Sol high)",
+    "independent_gold_rows": 48,
+    "independent_actual_responses": 48,
+    "independent_actual_scope": "route_authority family, both arms",
+    "coordinator_actual_remaining": 48,
+    "coordinator_method": "All dispatch outputs inspected in role-preserving normalized groups with complete48-record coverage; automatic scores replayed on all96.",
+    "independent_continuation": "Unavailable: followup and replacement spawn returned agent thread limit reached. Full independent96-response review is not claimed."
+  },
+  "records_sha256": "863329b4b9856ba4c80a30f855996d523d822f8aa1fc68ff960e15354a2b26c6",
+  "findings": [
+    {
+      "id": "route_authority-0-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes an omitted alternative-route statement to the learner."
+    },
+    {
+      "id": "route_authority-1-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes an omitted alternative-route statement to the learner."
+    },
+    {
+      "id": "route_authority-1-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": true,
+      "finding": "Falsely says the learner claimed alternative approval despite awaits approval wording."
+    },
+    {
+      "id": "route_authority-2-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes an omitted alternative-route statement to the learner."
+    },
+    {
+      "id": "route_authority-2-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": true,
+      "finding": "Falsely says the learner claimed alternative approval despite awaits approval wording."
+    },
+    {
+      "id": "route_authority-3-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes an omitted alternative-route statement to the learner."
+    },
+    {
+      "id": "route_authority-3-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": true,
+      "finding": "Falsely says the learner claimed alternative approval despite awaits approval wording."
+    },
+    {
+      "id": "dispatch_conflict-0-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes a replacement-status claim to a response that omits it."
+    },
+    {
+      "id": "dispatch_conflict-0-omission",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Treats omission as contradiction and rejects the correct assignment statement."
+    },
+    {
+      "id": "dispatch_conflict-0-contradiction",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Wrongly marks the correct assignment statement contradicted."
+    },
+    {
+      "id": "dispatch_conflict-0-wrong_core",
+      "arm": "adapter",
+      "structurally_accepted": false,
+      "finding": "Overall verdict/explanation is inconsistent with the actual contradiction; episodes0/1 also wrongly credit grounding."
+    },
+    {
+      "id": "dispatch_conflict-0-unsupported_extra",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Accepts unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-0-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Accepts or explicitly ignores unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-1-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes a replacement-status claim to a response that omits it."
+    },
+    {
+      "id": "dispatch_conflict-1-omission",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Treats omission as contradiction and rejects the correct assignment statement."
+    },
+    {
+      "id": "dispatch_conflict-1-wrong_core",
+      "arm": "adapter",
+      "structurally_accepted": false,
+      "finding": "Overall verdict/explanation is inconsistent with the actual contradiction; episodes0/1 also wrongly credit grounding."
+    },
+    {
+      "id": "dispatch_conflict-1-unsupported_extra",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Accepts unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-1-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": true,
+      "finding": "Accepts or explicitly ignores unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-2-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes a replacement-status claim to a response that omits it."
+    },
+    {
+      "id": "dispatch_conflict-2-omission",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Treats omission as contradiction and rejects the correct assignment statement."
+    },
+    {
+      "id": "dispatch_conflict-2-contradiction",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Wrongly marks the correct assignment statement contradicted."
+    },
+    {
+      "id": "dispatch_conflict-2-wrong_core",
+      "arm": "adapter",
+      "structurally_accepted": false,
+      "finding": "Overall verdict/explanation is inconsistent with the actual contradiction; episodes0/1 also wrongly credit grounding."
+    },
+    {
+      "id": "dispatch_conflict-2-unsupported_extra",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Accepts unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-2-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": true,
+      "finding": "Accepts or explicitly ignores unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-3-omission",
+      "arm": "base",
+      "structurally_accepted": false,
+      "finding": "Falsely attributes a replacement-status claim to a response that omits it."
+    },
+    {
+      "id": "dispatch_conflict-3-omission",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Treats omission as contradiction and rejects the correct assignment statement."
+    },
+    {
+      "id": "dispatch_conflict-3-contradiction",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Wrongly marks the correct assignment statement contradicted."
+    },
+    {
+      "id": "dispatch_conflict-3-wrong_core",
+      "arm": "adapter",
+      "structurally_accepted": false,
+      "finding": "Overall verdict/explanation is inconsistent with the actual contradiction; episodes0/1 also wrongly credit grounding."
+    },
+    {
+      "id": "dispatch_conflict-3-unsupported_extra",
+      "arm": "adapter",
+      "structurally_accepted": true,
+      "finding": "Accepts unsupported pushback completion."
+    },
+    {
+      "id": "dispatch_conflict-3-unsupported_extra",
+      "arm": "base",
+      "structurally_accepted": true,
+      "finding": "Accepts or explicitly ignores unsupported pushback completion."
+    }
+  ],
+  "counts": {
+    "base": {
+      "raw_semantic_error_responses": 15,
+      "accepted_semantic_error_responses": 6,
+      "rejected_semantic_error_responses": 9
+    },
+    "adapter": {
+      "raw_semantic_error_responses": 15,
+      "accepted_semantic_error_responses": 11,
+      "rejected_semantic_error_responses": 4
+    }
+  },
+  "precision_concern": "Some base route feedback describes unauthorized entry as logically contradicting pending approval; pending approval does not exclude unauthorized movement. Keep separate from unambiguous wrong-status/misattribution findings.",
+  "generic_feedback": "Generic but true feedback is not counted as a semantic error.",
+  "disposition": "Reject candidate under frozen automatic gate; no further tuning for current iteration; no deployment."
+}
