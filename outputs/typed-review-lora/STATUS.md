@@ -54,3 +54,10 @@ unscaled loss (scale1): loss0.3121598363,64 finite gradients and32 nonzero gradi
 Protocolv1.1 changes the initial gradient scale from the default65536 to1 before
 any candidate training. Original protocol/approval and both logs are preserved.
 This diagnostic does not establish adapter save/reload compatibility or accuracy.
+
+Replacement job571259 passed the full pinned-model compatibility gate. Its
+`full-smoke.json` records an actual adapter update and identical saved/reloaded
+loss0.2850112915 (initial loss0.3121598363). These are compatibility measurements
+on one training example, not evaluation accuracy. The job then proceeds to the
+fixed72-step training run. Training completion, selected checkpoint and paired
+sealed evaluation remain unconfirmed.
