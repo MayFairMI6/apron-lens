@@ -3,8 +3,8 @@
 **F03, the fog restriction lesson, and T01, agent review of typed learner responses,
 have passed limited qualitative-prototype functional acceptance. C01's bounded
 contract/evidence work is complete. Current feature scope is frozen and the 30:33.5
-video is published to Drive; source, shared-document and ZIP publication plus
-separate submission requirements remain pending.** The user explicitly requested
+video, implementation and shared documents are published. The handoff package and
+separate submission requirements are tracked independently.** The user explicitly requested
 typed responses processed by an agent. The actual model must review each response
 against that checkpoint's eligible reports and rubric, recognise paraphrases and
 identify missing, contradictory and unknown points. Feedback is qualitative
@@ -23,7 +23,7 @@ of the current F03/T01 acceptance and C01 closure work. C01's contract and bound
 test/evidence artifact are complete, with explicit semantic limits. The full native
 typed fog run and separate positioned checks in the original three lessons have
 been reviewed; F03/T01 functional acceptance is complete within that coverage,
-with the updated video published and source/document/ZIP publication pending.
+with the updated video, source and shared documents published.
 The v3 prompt diagnostic was rejected and the exact v2 prompt
 restored. C02–C04 remain queued in M2/M3; this
 instruction does not pull them forward or introduce a current reasoning rewrite.
@@ -55,7 +55,7 @@ implementation is also committed and pushed as `c81812167361a73ceca8d944ffc3510b
 The publication record is committed/pushed as `92fd08bbb1db3f9c89af09a97b711846317ae8db`.
 PR #22 remains open and unmerged in the latest checked record. F03/T01 are built
 and accepted as a limited functional prototype; their 30:33.5 video is now published
-at the existing Drive URL. Source/document/ZIP publication remains pending. T01 is a
+at the existing Drive URL. Implementation commit `af2137b0584e84baa99969f2376992efd216e91a` is pushed to the existing branch; PR #22 remains open and unmerged. The recording and scenario Google Docs are updated and read back. T01 is a
 newly assigned unit beyond the original five-unit review.
 Placement, implementation, acceptance and publication are separate statuses in
 this ledger.
@@ -816,3 +816,8 @@ implementation, verification and recording status independently. The initial
 reviewer wrote only this ledger and its protocol; it did not build, commit, push,
 publish or send messages outside this agent collaboration. Implementation and
 publication are the root agent's separate work.
+
+
+## ML-023 — Source and shared-document publication
+
+Root verified implementation commit `af2137b0584e84baa99969f2376992efd216e91a` on the existing GitHub branch and updated PR #22 around four typed practice topics and their bounded acceptance. The native recording guide and scenario register were updated in place and read back; Person 1’s section remained unchanged, A15 was added to the coverage table, and six raw handoff documents were replaced in place. The reflection was not edited. The 30:33.5 video remains at the existing Drive URL. Package identity and delivery are recorded separately in its manifest and the workspace publication receipt; publication does not complete narration, reflection or physical-phone evidence.

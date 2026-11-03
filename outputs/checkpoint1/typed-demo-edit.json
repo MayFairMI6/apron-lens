@@ -1,6 +1,6 @@
 {
   "recordVersion": 1,
-  "status": "published to existing Drive video; source/document publication in progress",
+  "status": "published to existing Drive video; implementation and shared documents published",
   "video": "airfieldlens-typed-share-person1-audio.mp4",
   "sha256": "48327c8695239218f9d6338386b15f8cbfe62fcdbf9e7ae607d065825370369b",
   "durationSeconds": 1833.5,
@@ -225,5 +225,6 @@
     "id": "1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ",
     "bytes": 92255039,
     "url": "https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view"
-  }
+  },
+  "sourceCommit": "af2137b0584e84baa99969f2376992efd216e91a"
 }
