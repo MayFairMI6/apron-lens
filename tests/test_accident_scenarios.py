@@ -1,6 +1,6 @@
 import math
 import unittest
-from backend.lessons import build_lesson, EXERCISES
+from backend.lessons import build_lesson, HOUR_EXERCISES
 from backend.evidence import received_facts, classify
 
 
@@ -10,7 +10,7 @@ class AccidentScenarioTests(unittest.TestCase):
                 if f['aircraftId']==aid and f['status']=='current'}
 
     def test_sixty_worlds_incident_order_continuity_and_disabled_aircraft(self):
-        for exercise in EXERCISES:
+        for exercise in HOUR_EXERCISES:
             for seed in range(20):
                 world,slots,probes=build_lesson(seed,exercise)
                 bag,collision,crash=world['incidents'][2:]

@@ -1,0 +1,496 @@
+{
+  "purpose": "Isolated actual-model semantic checks with explicitly positioned checkpoints; not full native lessons or a general-accuracy benchmark.",
+  "rows": [
+    {
+      "index": 0,
+      "case": {
+        "exercise": "surface_conflict",
+        "checkpointId": "check-1",
+        "responseText": "TRN102 is being held because a service vehicle is blocking its ground route."
+      },
+      "runId": "feb854b2d97f5ded2be3",
+      "actionId": "ba1aa00abddf48e48cbd9a3646a304d7",
+      "question": "Which flight is held, and what reported obstruction explains the hold?",
+      "cutoff": 60.0,
+      "elapsedSeconds": 45.988298916,
+      "phase": "feedback",
+      "reviewStatus": "idle",
+      "reviewError": "",
+      "feedback": {
+        "kind": "typed",
+        "checkpointId": "check-1",
+        "question": "Which flight is held, and what reported obstruction explains the hold?",
+        "chosen": "TRN102 is being held because a service vehicle is blocking its ground route.",
+        "cutoff": 60.0,
+        "reports": [
+          {
+            "aircraftId": "A2",
+            "episodeId": "LESSON-feb854b2d97f5ded2be3",
+            "eventTime": 25.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: vehicle obstructing ground route"
+              }
+            ],
+            "flightInstance": "TRN102",
+            "id": "L010",
+            "message": "TRN102 is held because a service vehicle is obstructing its ground route.",
+            "receiptTime": 27.56595172913748,
+            "source": "ground-control"
+          }
+        ],
+        "verdict": "supported",
+        "explanation": "The learner correctly identified TRN102 as the held aircraft and accurately cited the service vehicle obstruction as the reason. The response contains no unsupported extra facts or invented clearances.",
+        "points": [
+          {
+            "criterionId": "flight",
+            "status": "met",
+            "comment": "The learner correctly identified TRN102 as the held flight.",
+            "evidenceIds": [
+              "L010"
+            ],
+            "learnerQuote": "TRN102 is being held"
+          },
+          {
+            "criterionId": "reason",
+            "status": "met",
+            "comment": "The learner correctly identified the service vehicle obstruction as the cause.",
+            "evidenceIds": [
+              "L010"
+            ],
+            "learnerQuote": "because a service vehicle is blocking its ground route"
+          },
+          {
+            "criterionId": "grounding",
+            "status": "met",
+            "comment": "The response is fully grounded in the provided report without adding unsupported facts or clearances.",
+            "evidenceIds": [
+              "L010"
+            ],
+            "learnerQuote": "TRN102 is being held because a service vehicle is blocking its ground route"
+          }
+        ]
+      },
+      "semanticExpectationMatched": true
+    },
+    {
+      "index": 1,
+      "case": {
+        "exercise": "surface_conflict",
+        "checkpointId": "check-2",
+        "responseText": "The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released."
+      },
+      "runId": "fb34c2895c70d1d4add5",
+      "actionId": "b0f36d7341fc428693a45eb5a0940737",
+      "question": "What happened to TRN102's ground hold, and which reported change explains it?",
+      "cutoff": 120.0,
+      "elapsedSeconds": 48.139714082999994,
+      "phase": "feedback",
+      "reviewStatus": "idle",
+      "reviewError": "",
+      "feedback": {
+        "kind": "typed",
+        "checkpointId": "check-2",
+        "question": "What happened to TRN102's ground hold, and which reported change explains it?",
+        "chosen": "The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released.",
+        "cutoff": 120.0,
+        "reports": [
+          {
+            "aircraftId": "A2",
+            "episodeId": "LESSON-fb34c2895c70d1d4add5",
+            "eventTime": 25.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: vehicle obstructing ground route"
+              }
+            ],
+            "flightInstance": "TRN102",
+            "id": "L010",
+            "message": "TRN102 is held because a service vehicle is obstructing its ground route.",
+            "receiptTime": 27.56595172913748,
+            "source": "ground-control"
+          },
+          {
+            "aircraftId": "A2",
+            "episodeId": "LESSON-fb34c2895c70d1d4add5",
+            "eventTime": 100.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "supersedes": [
+                  "L010:movement_condition"
+                ],
+                "value": "exercise ground hold released"
+              }
+            ],
+            "flightInstance": "TRN102",
+            "id": "L011",
+            "message": "The vehicle is clear. The exercise ground hold for TRN102 is released.",
+            "receiptTime": 104.0,
+            "source": "ground-control"
+          }
+        ],
+        "verdict": "supported",
+        "explanation": "The learner correctly identified the release of the ground hold and linked it to the specific report stating the vehicle is clear. No unsupported facts or attributions were made.",
+        "points": [
+          {
+            "criterionId": "release",
+            "status": "met",
+            "comment": "The learner explicitly stated the ground hold was released.",
+            "evidenceIds": [
+              "L011"
+            ],
+            "learnerQuote": "the exercise ground hold for TRN102 has been released."
+          },
+          {
+            "criterionId": "change",
+            "status": "met",
+            "comment": "The learner correctly connected the release to the report about the vehicle being clear.",
+            "evidenceIds": [
+              "L010",
+              "L011"
+            ],
+            "learnerQuote": "The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released."
+          },
+          {
+            "criterionId": "grounding",
+            "status": "met",
+            "comment": "The response accurately reflects the reports without adding unsupported details or attributing clearance.",
+            "evidenceIds": [
+              "L011"
+            ],
+            "learnerQuote": "The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released."
+          }
+        ]
+      },
+      "semanticExpectationMatched": true
+    },
+    {
+      "index": 2,
+      "case": {
+        "exercise": "surface_conflict",
+        "checkpointId": "check-3",
+        "responseText": "Takeoff clearance is still unconfirmed. The reported release concerns the apron ground hold; it does not give permission to take off."
+      },
+      "runId": "ff5aaa433ae93df88980",
+      "actionId": "dcfc7355e586444e82d46f614551169d",
+      "question": "What permission is still unconfirmed, and how does it differ from the reported ground-hold release?",
+      "cutoff": 180.0,
+      "elapsedSeconds": 52.109154625,
+      "phase": "feedback",
+      "reviewStatus": "idle",
+      "reviewError": "",
+      "feedback": {
+        "kind": "typed",
+        "checkpointId": "check-3",
+        "question": "What permission is still unconfirmed, and how does it differ from the reported ground-hold release?",
+        "chosen": "Takeoff clearance is still unconfirmed. The reported release concerns the apron ground hold; it does not give permission to take off.",
+        "cutoff": 180.0,
+        "reports": [
+          {
+            "aircraftId": "A2",
+            "episodeId": "LESSON-ff5aaa433ae93df88980",
+            "eventTime": 2.0,
+            "facts": [
+              {
+                "property": "route",
+                "value": "apron ground circuit"
+              }
+            ],
+            "flightInstance": "TRN102",
+            "id": "L006",
+            "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+            "receiptTime": 2.0,
+            "source": "ground-control"
+          },
+          {
+            "aircraftId": "A2",
+            "episodeId": "LESSON-ff5aaa433ae93df88980",
+            "eventTime": 100.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "supersedes": [
+                  "L010:movement_condition"
+                ],
+                "value": "exercise ground hold released"
+              }
+            ],
+            "flightInstance": "TRN102",
+            "id": "L011",
+            "message": "The vehicle is clear. The exercise ground hold for TRN102 is released.",
+            "receiptTime": 104.0,
+            "source": "ground-control"
+          }
+        ],
+        "verdict": "supported",
+        "explanation": "The learner correctly identified that takeoff clearance is unconfirmed and distinguished the ground-hold release from takeoff permission. All claims are grounded in the provided reports without unsupported extra facts.",
+        "points": [
+          {
+            "criterionId": "unknown",
+            "status": "met",
+            "comment": "The learner explicitly states takeoff clearance is unconfirmed, aligning with the reports which only show apron activity.",
+            "evidenceIds": [
+              "L006",
+              "L011"
+            ],
+            "learnerQuote": "Takeoff clearance is still unconfirmed."
+          },
+          {
+            "criterionId": "scope",
+            "status": "met",
+            "comment": "The learner correctly distinguishes the ground-hold release (apron) from takeoff permission, noting the release does not grant takeoff authority.",
+            "evidenceIds": [
+              "L006",
+              "L011"
+            ],
+            "learnerQuote": "The reported release concerns the apron ground hold; it does not give permission to take off."
+          },
+          {
+            "criterionId": "grounding",
+            "status": "met",
+            "comment": "All claims are supported by reports L006 and L011. No unsupported facts or invented clearances are present.",
+            "evidenceIds": [
+              "L006",
+              "L011"
+            ],
+            "learnerQuote": "The reported release concerns the apron ground hold; it does not give permission to take off."
+          }
+        ]
+      },
+      "semanticExpectationMatched": true
+    },
+    {
+      "index": 3,
+      "case": {
+        "exercise": "late_arrival",
+        "checkpointId": "check-1",
+        "responseText": "The inbound TRN103 is waiting for Stand B, which is occupied by TRN102."
+      },
+      "runId": "d8fe0627db67d3cec478",
+      "actionId": "a76a815c381c4f5e866145d63d92c0bd",
+      "question": "Which inbound flight is waiting, and which stand and occupying aircraft explain the hold?",
+      "cutoff": 60.0,
+      "elapsedSeconds": 47.234438834,
+      "phase": "checkpoint",
+      "reviewStatus": "failed",
+      "reviewError": "The model review was unavailable or did not pass the response checks. Your response is saved; please retry.",
+      "feedback": {},
+      "semanticExpectationMatched": false
+    }
+  ],
+  "stage": "v1 development; fourthcase semanticfailure retained, notacceptance",
+  "modelAudit": [
+    {
+      "runId": "feb854b2d97f5ded2be3",
+      "checkpointId": "check-1",
+      "actionId": "ba1aa00abddf48e48cbd9a3646a304d7",
+      "promptVersion": "typed-practice-review-v1",
+      "validatorVersion": "typed-review-contract-v1",
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-feb854b2d97f5ded2be3\",\n\"checkpointId\":\"check-1\",\n\"verdict\":\"supported\",\n\"explanation\":\"The learner correctly identified TRN102 as the held aircraft and accurately cited the service vehicle obstruction as the reason. The response contains no unsupported extra facts or invented clearances.\",\n\"points\":[\n{\n\"criterionId\":\"flight\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly identified TRN102 as the held flight.\",\n\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"TRN102 is being held\"\n},\n{\n\"criterionId\":\"reason\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly identified the service vehicle obstruction as the cause.\",\n\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"because a service vehicle is blocking its ground route\"\n},\n{\n\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"The response is fully grounded in the provided report without adding unsupported facts or clearances.\",\n\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"TRN102 is being held because a service vehicle is blocking its ground route\"\n}\n]\n}\n",
+      "elapsedSeconds": 45.98124649999954,
+      "contractAccepted": true,
+      "error": null,
+      "modelResult": {
+        "request_id": "typed-feb854b2d97f5ded2be3-ba1aa00abddf48e48cbd9a3646a304d7",
+        "provider": "local-backbone",
+        "configured_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returned_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "text": "{\n\"episodeId\":\"LESSON-feb854b2d97f5ded2be3\",\n\"checkpointId\":\"check-1\",\n\"verdict\":\"supported\",\n\"explanation\":\"The learner correctly identified TRN102 as the held aircraft and accurately cited the service vehicle obstruction as the reason. The response contains no unsupported extra facts or invented clearances.\",\n\"points\":[\n{\n\"criterionId\":\"flight\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly identified TRN102 as the held flight.\",\n\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"TRN102 is being held\"\n},\n{\n\"criterionId\":\"reason\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly identified the service vehicle obstruction as the cause.\",\n\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"because a service vehicle is blocking its ground route\"\n},\n{\n\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"The response is fully grounded in the provided report without adding unsupported facts or clearances.\",\n\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"TRN102 is being held because a service vehicle is blocking its ground route\"\n}\n]\n}\n",
+        "finish_reason": "stop",
+        "raw_finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1632,
+          "output_tokens": 285,
+          "reasoning_tokens": 0,
+          "image_tokens": null,
+          "cached_input_tokens": 0
+        },
+        "latency_seconds": 45.979871583000204,
+        "effective_settings": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "max_output_tokens": 900,
+          "image_max_side": 672
+        },
+        "ignored_settings": [],
+        "library_version": "0.2.0",
+        "error": null,
+        "metadata": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "modelName": "qwen3.5-9b",
+          "runtimeProfile": "apronlens-v2-mps",
+          "device": "mps",
+          "dtype": "float16",
+          "attn_implementation": "eager",
+          "engineRuntime": {
+            "device": "mps",
+            "dtype": "float16",
+            "attn_implementation": "eager",
+            "torch": "2.15.0",
+            "transformers": "5.22.1",
+            "backbone": "1.2.0"
+          }
+        }
+      }
+    },
+    {
+      "runId": "fb34c2895c70d1d4add5",
+      "checkpointId": "check-2",
+      "actionId": "b0f36d7341fc428693a45eb5a0940737",
+      "promptVersion": "typed-practice-review-v1",
+      "validatorVersion": "typed-review-contract-v1",
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-fb34c2895c70d1d4add5\",\n\"checkpointId\":\"check-2\",\n\"verdict\":\"supported\",\n\"explanation\":\"The learner correctly identified the release of the ground hold and linked it to the specific report stating the vehicle is clear. No unsupported facts or attributions were made.\",\n\"points\":[\n{\"criterionId\":\"release\",\n\"status\":\"met\",\n\"comment\":\"The learner explicitly stated the ground hold was released.\",\n\"evidenceIds\":[\"L011\"],\n\"learnerQuote\":\"the exercise ground hold for TRN102 has been released.\"\n},\n{\"criterionId\":\"change\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly connected the release to the report about the vehicle being clear.\",\n\"evidenceIds\":[\"L010\",\"L011\"],\n\"learnerQuote\":\"The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released.\"\n},\n{\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"The response accurately reflects the reports without adding unsupported details or attributing clearance.\",\n\"evidenceIds\":[\"L011\"],\n\"learnerQuote\":\"The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released.\"\n}\n]\n}\n",
+      "elapsedSeconds": 48.12649908399908,
+      "contractAccepted": true,
+      "error": null,
+      "modelResult": {
+        "request_id": "typed-fb34c2895c70d1d4add5-b0f36d7341fc428693a45eb5a0940737",
+        "provider": "local-backbone",
+        "configured_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returned_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "text": "{\n\"episodeId\":\"LESSON-fb34c2895c70d1d4add5\",\n\"checkpointId\":\"check-2\",\n\"verdict\":\"supported\",\n\"explanation\":\"The learner correctly identified the release of the ground hold and linked it to the specific report stating the vehicle is clear. No unsupported facts or attributions were made.\",\n\"points\":[\n{\"criterionId\":\"release\",\n\"status\":\"met\",\n\"comment\":\"The learner explicitly stated the ground hold was released.\",\n\"evidenceIds\":[\"L011\"],\n\"learnerQuote\":\"the exercise ground hold for TRN102 has been released.\"\n},\n{\"criterionId\":\"change\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly connected the release to the report about the vehicle being clear.\",\n\"evidenceIds\":[\"L010\",\"L011\"],\n\"learnerQuote\":\"The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released.\"\n},\n{\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"The response accurately reflects the reports without adding unsupported details or attributing clearance.\",\n\"evidenceIds\":[\"L011\"],\n\"learnerQuote\":\"The newer report says the vehicle is clear, so the exercise ground hold for TRN102 has been released.\"\n}\n]\n}\n",
+        "finish_reason": "stop",
+        "raw_finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1912,
+          "output_tokens": 307,
+          "reasoning_tokens": 0,
+          "image_tokens": null,
+          "cached_input_tokens": 0
+        },
+        "latency_seconds": 48.12567741699968,
+        "effective_settings": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "max_output_tokens": 900,
+          "image_max_side": 672
+        },
+        "ignored_settings": [],
+        "library_version": "0.2.0",
+        "error": null,
+        "metadata": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "modelName": "qwen3.5-9b",
+          "runtimeProfile": "apronlens-v2-mps",
+          "device": "mps",
+          "dtype": "float16",
+          "attn_implementation": "eager",
+          "engineRuntime": {
+            "device": "mps",
+            "dtype": "float16",
+            "attn_implementation": "eager",
+            "torch": "2.15.0",
+            "transformers": "5.22.1",
+            "backbone": "1.2.0"
+          }
+        }
+      }
+    },
+    {
+      "runId": "ff5aaa433ae93df88980",
+      "checkpointId": "check-3",
+      "actionId": "dcfc7355e586444e82d46f614551169d",
+      "promptVersion": "typed-practice-review-v1",
+      "validatorVersion": "typed-review-contract-v1",
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-ff5aaa433ae93df88980\",\n\"checkpointId\":\"check-3\",\n\"verdict\":\"supported\",\n\"explanation\":\"The learner correctly identified that takeoff clearance is unconfirmed and distinguished the ground-hold release from takeoff permission. All claims are grounded in the provided reports without unsupported extra facts.\",\n\"points\":[\n{\n\"criterionId\":\"unknown\",\n\"status\":\"met\",\n\"comment\":\"The learner explicitly states takeoff clearance is unconfirmed, aligning with the reports which only show apron activity.\",\n\"evidenceIds\":[\"L006\",\"L011\"],\n\"learnerQuote\":\"Takeoff clearance is still unconfirmed.\"\n},\n{\n\"criterionId\":\"scope\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly distinguishes the ground-hold release (apron) from takeoff permission, noting the release does not grant takeoff authority.\",\n\"evidenceIds\":[\"L006\",\"L011\"],\n\"learnerQuote\":\"The reported release concerns the apron ground hold; it does not give permission to take off.\"\n},\n{\n\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"All claims are supported by reports L006 and L011. No unsupported facts or invented clearances are present.\",\n\"evidenceIds\":[\"L006\",\"L011\"],\n\"learnerQuote\":\"The reported release concerns the apron ground hold; it does not give permission to take off.\"\n}\n]\n}\n",
+      "elapsedSeconds": 52.09946604099969,
+      "contractAccepted": true,
+      "error": null,
+      "modelResult": {
+        "request_id": "typed-ff5aaa433ae93df88980-dcfc7355e586444e82d46f614551169d",
+        "provider": "local-backbone",
+        "configured_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returned_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "text": "{\n\"episodeId\":\"LESSON-ff5aaa433ae93df88980\",\n\"checkpointId\":\"check-3\",\n\"verdict\":\"supported\",\n\"explanation\":\"The learner correctly identified that takeoff clearance is unconfirmed and distinguished the ground-hold release from takeoff permission. All claims are grounded in the provided reports without unsupported extra facts.\",\n\"points\":[\n{\n\"criterionId\":\"unknown\",\n\"status\":\"met\",\n\"comment\":\"The learner explicitly states takeoff clearance is unconfirmed, aligning with the reports which only show apron activity.\",\n\"evidenceIds\":[\"L006\",\"L011\"],\n\"learnerQuote\":\"Takeoff clearance is still unconfirmed.\"\n},\n{\n\"criterionId\":\"scope\",\n\"status\":\"met\",\n\"comment\":\"The learner correctly distinguishes the ground-hold release (apron) from takeoff permission, noting the release does not grant takeoff authority.\",\n\"evidenceIds\":[\"L006\",\"L011\"],\n\"learnerQuote\":\"The reported release concerns the apron ground hold; it does not give permission to take off.\"\n},\n{\n\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"All claims are supported by reports L006 and L011. No unsupported facts or invented clearances are present.\",\n\"evidenceIds\":[\"L006\",\"L011\"],\n\"learnerQuote\":\"The reported release concerns the apron ground hold; it does not give permission to take off.\"\n}\n]\n}\n",
+        "finish_reason": "stop",
+        "raw_finish_reason": "stop",
+        "usage": {
+          "input_tokens": 2015,
+          "output_tokens": 344,
+          "reasoning_tokens": 0,
+          "image_tokens": null,
+          "cached_input_tokens": 0
+        },
+        "latency_seconds": 52.0986315409973,
+        "effective_settings": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "max_output_tokens": 900,
+          "image_max_side": 672
+        },
+        "ignored_settings": [],
+        "library_version": "0.2.0",
+        "error": null,
+        "metadata": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "modelName": "qwen3.5-9b",
+          "runtimeProfile": "apronlens-v2-mps",
+          "device": "mps",
+          "dtype": "float16",
+          "attn_implementation": "eager",
+          "engineRuntime": {
+            "device": "mps",
+            "dtype": "float16",
+            "attn_implementation": "eager",
+            "torch": "2.15.0",
+            "transformers": "5.22.1",
+            "backbone": "1.2.0"
+          }
+        }
+      }
+    },
+    {
+      "runId": "d8fe0627db67d3cec478",
+      "checkpointId": "check-1",
+      "actionId": "a76a815c381c4f5e866145d63d92c0bd",
+      "promptVersion": "typed-practice-review-v1",
+      "validatorVersion": "typed-review-contract-v1",
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-d8fe0627db67d3cec478\",\"checkpointId\":\"check-1\",\"verdict\":\"needs_review\",\"explanation\":\"The learner incorrectly identifies the stand for TRN103. Report L010 states TRN103 is waiting in the ground staging area, not Stand B. While TRN102 is at Stand B, the learner conflates the waiting location with the occupied stand.\",\n\"points\":[\n{\"criterionId\":\"flight\",\"status\":\"contradicted\",\"comment\":\"Learner claims TRN103 is waiting for Stand B, but reports indicate it is waiting in the ground staging area.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"The inbound TRN103 is waiting for Stand B\"},\n{\"criterionId\":\"occupant\",\"status\":\"met\",\"comment\":\"Learner correctly identifies TRN102 as occupying Stand B.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"occupied by TRN102\"},\n{\"criterionId\":\"grounding\",\"status\":\"contradicted\",\"comment\":\"The claim that TRN103 is waiting for Stand B is an unsupported extra fact contradicted by the report stating it is in the ground staging area.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"The inbound TRN103 is waiting for Stand B\"}\n]\n}\n",
+      "elapsedSeconds": 47.22563445799824,
+      "contractAccepted": false,
+      "error": "ValueError: review verdict inconsistent with points",
+      "modelResult": {
+        "request_id": "typed-d8fe0627db67d3cec478-a76a815c381c4f5e866145d63d92c0bd",
+        "provider": "local-backbone",
+        "configured_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returned_model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "text": "{\n\"episodeId\":\"LESSON-d8fe0627db67d3cec478\",\"checkpointId\":\"check-1\",\"verdict\":\"needs_review\",\"explanation\":\"The learner incorrectly identifies the stand for TRN103. Report L010 states TRN103 is waiting in the ground staging area, not Stand B. While TRN102 is at Stand B, the learner conflates the waiting location with the occupied stand.\",\n\"points\":[\n{\"criterionId\":\"flight\",\"status\":\"contradicted\",\"comment\":\"Learner claims TRN103 is waiting for Stand B, but reports indicate it is waiting in the ground staging area.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"The inbound TRN103 is waiting for Stand B\"},\n{\"criterionId\":\"occupant\",\"status\":\"met\",\"comment\":\"Learner correctly identifies TRN102 as occupying Stand B.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"occupied by TRN102\"},\n{\"criterionId\":\"grounding\",\"status\":\"contradicted\",\"comment\":\"The claim that TRN103 is waiting for Stand B is an unsupported extra fact contradicted by the report stating it is in the ground staging area.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"The inbound TRN103 is waiting for Stand B\"}\n]\n}\n",
+        "finish_reason": "stop",
+        "raw_finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1766,
+          "output_tokens": 303,
+          "reasoning_tokens": 0,
+          "image_tokens": null,
+          "cached_input_tokens": 0
+        },
+        "latency_seconds": 47.224889499997516,
+        "effective_settings": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "max_output_tokens": 900,
+          "image_max_side": 672
+        },
+        "ignored_settings": [],
+        "library_version": "0.2.0",
+        "error": null,
+        "metadata": {
+          "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "modelName": "qwen3.5-9b",
+          "runtimeProfile": "apronlens-v2-mps",
+          "device": "mps",
+          "dtype": "float16",
+          "attn_implementation": "eager",
+          "engineRuntime": {
+            "device": "mps",
+            "dtype": "float16",
+            "attn_implementation": "eager",
+            "torch": "2.15.0",
+            "transformers": "5.22.1",
+            "backbone": "1.2.0"
+          }
+        }
+      }
+    }
+  ],
+  "finding": "At late_arrival/check-1, the model misread waiting FOR Stand B as already AT Stand B. It also returned a verdict inconsistent with v1 point aggregation; that contract rejection withheld the misleading review. V2 must pass both original positive wording and the opposite false-occupancy case."
+}

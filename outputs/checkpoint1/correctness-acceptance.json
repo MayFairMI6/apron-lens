@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "artifact": "C01 correctness acceptance",
+  "status": "bounded_qualitative_prototype_functional_acceptance_met_source_publication_in_progress",
+  "reviewedAtUtc": "2026-11-03T05:03:39.204125+00:00",
+  "testRuns": [
+    {
+      "command": [
+        ".venv-candidates/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_typed_review_independent",
+        "tests.test_training_assessment",
+        "tests.test_training_session",
+        "tests.test_training_adapter",
+        "tests.test_fog_lesson"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 12.909294874996704,
+      "output": "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-candidates/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa\n.................................................\n----------------------------------------------------------------------\nRan 49 tests in 12.559s\n\nOK\n",
+      "sourceHashesBefore": {
+        "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+        "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+        "backend/training_assessment.py": "d95ddbcf8fa103485acf8b1fe07da0e26b97dd9a0440227a78836d05e4477632",
+        "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+        "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+        "tests/test_typed_review_independent.py": "df08193bb29d6ed52d9b2df0a0fcdef8c984969c7591681af776f34e3e99d429",
+        "tests/test_training_assessment.py": "bea0b907e9202c91e5a72524c30f9331c0e99c8a295832b961e5186639b8ffc9",
+        "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+        "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+        "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "sourceHashesAfter": {
+        "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+        "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+        "backend/training_assessment.py": "d95ddbcf8fa103485acf8b1fe07da0e26b97dd9a0440227a78836d05e4477632",
+        "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+        "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+        "tests/test_typed_review_independent.py": "df08193bb29d6ed52d9b2df0a0fcdef8c984969c7591681af776f34e3e99d429",
+        "tests/test_training_assessment.py": "bea0b907e9202c91e5a72524c30f9331c0e99c8a295832b961e5186639b8ffc9",
+        "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+        "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+        "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "filesChangedDuringRun": [],
+      "testCount": 49,
+      "reportedSeconds": 12.559,
+      "result": "passed"
+    },
+    {
+      "command": [
+        ".venv-candidates/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_typed_review_independent",
+        "tests.test_training_assessment"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 1.615423749997717,
+      "output": "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-candidates/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa\n...................\n----------------------------------------------------------------------\nRan 19 tests in 1.260s\n\nOK\n",
+      "sourceHashesBefore": {
+        "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+        "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+        "backend/training_assessment.py": "d95ddbcf8fa103485acf8b1fe07da0e26b97dd9a0440227a78836d05e4477632",
+        "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+        "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+        "tests/test_typed_review_independent.py": "994f8d43eef81bf0ab75961f5d251e6e48d43a6cf99a358a59db27dfd4e2de7f",
+        "tests/test_training_assessment.py": "bea0b907e9202c91e5a72524c30f9331c0e99c8a295832b961e5186639b8ffc9",
+        "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+        "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+        "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "sourceHashesAfter": {
+        "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+        "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+        "backend/training_assessment.py": "d95ddbcf8fa103485acf8b1fe07da0e26b97dd9a0440227a78836d05e4477632",
+        "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+        "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+        "tests/test_typed_review_independent.py": "994f8d43eef81bf0ab75961f5d251e6e48d43a6cf99a358a59db27dfd4e2de7f",
+        "tests/test_training_assessment.py": "bea0b907e9202c91e5a72524c30f9331c0e99c8a295832b961e5186639b8ffc9",
+        "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+        "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+        "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "filesChangedDuringRun": [],
+      "note": "Adds independent typed freeze regression spanning idle,pending,failed,feedback and resume; test counts overlap earlier run.",
+      "testCount": 19,
+      "reportedSeconds": 1.26,
+      "result": "passed"
+    },
+    {
+      "command": [
+        ".venv-candidates/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_typed_review_independent",
+        "tests.test_training_assessment"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 3.518679417000385,
+      "output": "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-candidates/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa\nExecuting <Task pending name='Task-2' coro=<IndependentTypedConcurrencyTests.test_cancelled_http_request_does_not_cancel_or_unlock_active_worker() running at /Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_typed_review_independent.py:295> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/futures.py:389, Task.task_wakeup()] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:448> cb=[_run_until_complete_cb() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:181] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py:100> took 0.120 seconds\n...................\n----------------------------------------------------------------------\nRan 19 tests in 2.390s\n\nOK\n",
+      "testCount": 19,
+      "reportedSeconds": 2.39,
+      "result": "passed",
+      "sourceHashesBefore": {
+        "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+        "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+        "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+        "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+        "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+        "tests/test_typed_review_independent.py": "994f8d43eef81bf0ab75961f5d251e6e48d43a6cf99a358a59db27dfd4e2de7f",
+        "tests/test_training_assessment.py": "d4d6aa07e22fe609f80b776dd06c279363f3b207c897dda2f52c69d19bcb8f0b",
+        "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+        "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+        "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "sourceHashesAfter": {
+        "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+        "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+        "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+        "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+        "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+        "tests/test_typed_review_independent.py": "994f8d43eef81bf0ab75961f5d251e6e48d43a6cf99a358a59db27dfd4e2de7f",
+        "tests/test_training_assessment.py": "d4d6aa07e22fe609f80b776dd06c279363f3b207c897dda2f52c69d19bcb8f0b",
+        "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+        "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+        "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "filesChangedDuringRun": [],
+      "note": "Exact restored v2 candidate; prompt equality independently verified against original actual-v2 audit; counts overlap earlier runs."
+    }
+  ],
+  "contractVersion": "C01-v1",
+  "scope": "Existing typed lesson/review correctness boundaries; executable tests and code review, not a formal proof or new formal-checker architecture.",
+  "rules": [
+    {
+      "id": "C01-01",
+      "title": "Receipt cutoff and immutable evidence",
+      "requirement": "Review input is a copied immutable snapshot of the current episode with receiptTime <= the authored checkpoint cutoff. Event occurrence alone never makes a later-received report available. Citations must be allowed for the criterion and eligible at that cutoff.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_all_twelve_private_rubrics_use_eligible_sources_and_public_typed_questions",
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_snapshot_is_immutable_and_late_old_run_completion_is_discarded",
+        "tests.test_training_session.TrainingTests.test_source_guard_rejects_future_other_episode_and_invalid_times",
+        "tests.test_training_adapter.TrainingSelectorTests.test_stand_answer_uses_only_reports_received_at_cutoff"
+      ],
+      "implementation": [
+        "backend/training_session.py:prepare_response",
+        "backend/training_assessment.py:validate_review"
+      ],
+      "limit": "Citation eligibility does not establish that free-form feedback is semantically entailed by those citations."
+    },
+    {
+      "id": "C01-02",
+      "title": "Episode, run, checkpoint and aircraft identity",
+      "requirement": "The server selects the lesson target and checkpoint; input/run/revision/checkpoint and output episode/checkpoint must match. A report about another aircraft is allowed only when authorized by the criterion, such as the occupying aircraft in a stand-availability task.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_all_twelve_private_rubrics_use_eligible_sources_and_public_typed_questions",
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_learner_instructions_stay_json_data_and_invalid_citations_or_quotes_fail",
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_http_body_and_identity_rejections_leave_checkpoint_unchanged"
+      ],
+      "implementation": [
+        "backend/training_session.py:prepare_response",
+        "backend/training_session.py:finish_response",
+        "backend/training_assessment.py:validate_review"
+      ],
+      "limit": "Valid identities do not prove that an unconstrained natural-language or visual referent was understood correctly; this contract binds typed checkpoint reviews to the server-selected target."
+    },
+    {
+      "id": "C01-03",
+      "title": "External clock and checkpoint freeze",
+      "requirement": "Source time stops at each checkpoint during idle, pending, failed review and feedback. Continue resumes from that cutoff without accumulating the wall time spent waiting; model latency does not advance the scenario.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_typed_clock_freezes_through_pending_failure_and_feedback",
+        "tests.test_training_assessment.TypedAssessmentTests.test_duplicate_conflicting_stale_and_failure_retry_flow",
+        "tests.test_training_assessment.TypedAssessmentTests.test_complete_typed_lesson_has_reviews_and_count_without_numerical_score"
+      ],
+      "implementation": [
+        "backend/training_session.py:_rate",
+        "backend/training_session.py:_boundary",
+        "backend/training_session.py:advance"
+      ],
+      "limit": "Driver freeze is automated-tested and native fog transition samples support60/120/180 freezing. Source-time-jump absence and visual display behavior are root-reported; this is not a formal trace proof."
+    },
+    {
+      "id": "C01-04",
+      "title": "Authenticated bounded learner data",
+      "requirement": "The typed request is authenticated, has exactly five required fields, a true integer revision and nonblank responseText of 1–1,200 characters. Its streamed body is capped at 16,384 bytes before JSON parsing. Learner instructions remain JSON string data under the fixed prompt.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_http_body_and_identity_rejections_leave_checkpoint_unchanged",
+        "tests.test_training_assessment.TypedAssessmentTests.test_typed_body_limit_precedes_json_parse_including_chunked_input",
+        "tests.test_training_assessment.TypedAssessmentTests.test_immutable_input_bounded_text_and_injection_is_data",
+        "tests.test_training_assessment.TypedAssessmentTests.test_api_auth_duplicate_failure_audit_and_retry_without_scripted_feedback"
+      ],
+      "implementation": [
+        "backend/training.py:gate_questions",
+        "backend/training.py:response",
+        "backend/training_session.py:prepare_response",
+        "backend/training_assessment.py:review_prompt"
+      ],
+      "limit": "This is a bounded application-input contract, not a general security or prompt-injection-resistance certification."
+    },
+    {
+      "id": "C01-05",
+      "title": "Duplicate and conflicting requests",
+      "requirement": "Within the current in-memory attempt, the same actionId and body returns its pending or cached result without another inference or answer. Reusing the ID with changed data is rejected.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_training_assessment.TypedAssessmentTests.test_duplicate_conflicting_stale_and_failure_retry_flow",
+        "tests.test_training_assessment.TypedAssessmentTests.test_api_auth_duplicate_failure_audit_and_retry_without_scripted_feedback",
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_timeout_retains_lock_discards_late_result_and_allows_clean_retry"
+      ],
+      "implementation": [
+        "backend/training_session.py:prepare_response",
+        "backend/training_session.py:action"
+      ],
+      "limit": "Idempotency is scoped to the running service/attempt; no persistence across process restart is claimed."
+    },
+    {
+      "id": "C01-06",
+      "title": "Stale completion rejection",
+      "requirement": "A completion may change state only when immutable run, revision, phase, checkpoint, actionId, fingerprint and stored review context still match. A timed-out, replaced or old-run result is discarded.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_snapshot_is_immutable_and_late_old_run_completion_is_discarded",
+        "tests.test_training_assessment.TypedAssessmentTests.test_duplicate_conflicting_stale_and_failure_retry_flow",
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_timeout_retains_lock_discards_late_result_and_allows_clean_retry"
+      ],
+      "implementation": [
+        "backend/training_session.py:finish_response"
+      ],
+      "limit": "This checks context correctness, not the semantic correctness of an otherwise current model response."
+    },
+    {
+      "id": "C01-07",
+      "title": "Single inference and timeout ownership",
+      "requirement": "Typed review and ordinary conversation share one app inference lock. A retained background task holds it until inference finishes, including after the 60-second typed wait or client disconnection; a competing retry receives 429. Late timed-out output is not applied.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_timeout_retains_lock_discards_late_result_and_allows_clean_retry",
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_cancelled_http_request_does_not_cancel_or_unlock_active_worker",
+        "tests.test_training_assessment.TypedAssessmentTests.test_loaded_training_adapter_review_bypasses_selector_without_reloading"
+      ],
+      "implementation": [
+        "backend/training.py:perform_review",
+        "backend/training.py:response",
+        "backend/training_adapter.py:review"
+      ],
+      "limit": "Verified with gated fake inference. The lock is process-local, not distributed; an indefinitely hung inference can remain unavailable until it ends or the service is deliberately restarted."
+    },
+    {
+      "id": "C01-08",
+      "title": "Visible failure, retry and no scripted fallback",
+      "requirement": "Invalid output or model failure leaves the checkpoint and original learner text available with an error. It adds no answer and substitutes no scripted positive feedback. A fresh retry succeeds after the prior worker has finished.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_training_assessment.TypedAssessmentTests.test_api_auth_duplicate_failure_audit_and_retry_without_scripted_feedback",
+        "tests.test_training_assessment.TypedAssessmentTests.test_duplicate_conflicting_stale_and_failure_retry_flow",
+        "tests.test_typed_review_independent.IndependentTypedConcurrencyTests.test_timeout_retains_lock_discards_late_result_and_allows_clean_retry"
+      ],
+      "implementation": [
+        "backend/training.py:perform_review",
+        "backend/training_session.py:finish_response"
+      ],
+      "limit": "Legacy choice checks require explicit internal choice mode and are not an automatic fallback for typed responses."
+    },
+    {
+      "id": "C01-09",
+      "title": "Strict review contract and semantic boundary",
+      "requirement": "A review needs exact JSON/schema, unique keys, ordered criteria, eligible citations, exact learner substrings for met/contradicted points and a consistent verdict. Any contradicted point means needs_review; missing uses an empty quote. No prose extraction, quote repair or answer fabrication is applied.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_training_assessment.TypedAssessmentTests.test_schema_context_eligible_citations_quotes_and_verdict_are_strict",
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_v2_contradiction_has_priority_in_all_status_combinations",
+        "tests.test_training_assessment.TypedAssessmentTests.test_observed_invented_and_missing_quote_failures_remain_guarded"
+      ],
+      "implementation": [
+        "backend/training_assessment.py:validate_review",
+        "backend/training_assessment.py:generate_review"
+      ],
+      "limit": "Automated validation does not prove entailment, attribution, omission detection, teaching quality or broad injection resistance. V2 had 14 usable reviews and 4 withheld failures; the later v3 diagnostic displayed two semantic errors and was rejected. A limited v2 functional acceptance claim cannot be treated as semantic-reliability validation."
+    },
+    {
+      "id": "C01-10",
+      "title": "Typed public state and qualitative feedback",
+      "requirement": "Normal lessons use typed responses. Before submission, the public checkpoint exposes only id, at and question; it contains no choices or answer key. Typed feedback/debrief has no numerical score, and a legacy answer action cannot switch the mode.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_legacy_answer_cannot_downgrade_typed_checkpoint_or_reveal_keys",
+        "tests.test_typed_review_independent.IndependentTypedContractTests.test_all_twelve_private_rubrics_use_eligible_sources_and_public_typed_questions",
+        "tests.test_training_assessment.TypedAssessmentTests.test_complete_typed_lesson_has_reviews_and_count_without_numerical_score"
+      ],
+      "implementation": [
+        "backend/training_session.py:state",
+        "backend/training_session.py:action",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs:BuildModal",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs:BuildDebrief"
+      ],
+      "limit": "Private authored rubrics guide practice feedback. This is not validated grading, certification or a competence assessment."
+    },
+    {
+      "id": "C01-11",
+      "title": "Native stale-response and draft guard",
+      "requirement": "The typed response coroutine checks activeReviewId, run, checkpoint and phase before changing current UI state; older revisions are ignored. Drafts are keyed by run/checkpoint outside the rebuilt input widget and retained during polling and layout changes.",
+      "verificationStatus": "code_review_and_root_reported_native_fog_checks_pass_supplemental_pending",
+      "tests": [],
+      "implementation": [
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs:Apply",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs:ResponseRequest",
+        "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs:TrainingResponseRequest"
+      ],
+      "limit": "Full native fog checks cover draft rotation, pending polls, actual error/edit/retry and Try again. This reviewer independently checked saved audits, hashes and transition records, not the native UI. No exhaustive Unity race test, physical-device or process-restart draft-persistence claim."
+    },
+    {
+      "id": "C01-12",
+      "title": "Visual and reported authority stay separate",
+      "requirement": "Authored fog improvement is visual context. Low-visibility procedures, safeguarding, hold status and departure-clearance confirmation come from received reports; one cancellation or a clearer view cannot grant clearance. The short lesson uses authored timings, not operational durations or RVR thresholds.",
+      "verificationStatus": "automated_checks_pass",
+      "tests": [
+        "tests.test_fog_lesson.FogLessonTests.test_visual_recovery_and_procedure_status_do_not_authorise_departure",
+        "tests.test_fog_lesson.FogLessonTests.test_twenty_seeds_have_scored_causal_stationary_short_worlds",
+        "tests.test_fog_lesson.FogLessonTests.test_service_checkpoint_guards_preserve_all_received_sources"
+      ],
+      "implementation": [
+        "backend/fog_lesson.py",
+        "backend/training_environment.py"
+      ],
+      "limit": "Official source distinctions support the lesson design; no live Heathrow procedure activation, calibrated RVR, operational instruction or exact incident reconstruction is claimed."
+    }
+  ],
+  "sourceHashes": {
+    "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+    "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+    "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+    "tests/test_typed_review_independent.py": "994f8d43eef81bf0ab75961f5d251e6e48d43a6cf99a358a59db27dfd4e2de7f",
+    "tests/test_training_assessment.py": "d4d6aa07e22fe609f80b776dd06c279363f3b207c897dda2f52c69d19bcb8f0b",
+    "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+    "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+    "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+  },
+  "versions": {
+    "prompt": "typed-practice-review-v2",
+    "validator": "typed-review-contract-v2",
+    "validatorSliceSha256": "079dab8d66d31a2057b2348ae2e0c8de2b2f642351fcd0e22318b1c97d33c47a"
+  },
+  "semanticEvidence": {
+    "artifact": "outputs/checkpoint1/typed-review-independent.json",
+    "sha256": "ea939d741d09ad9bed8296374208614db12076e23549cd9d0a3d825c9e0f72dd",
+    "v1": {
+      "attempted": 4,
+      "usable": 3,
+      "rejected": 1
+    },
+    "v2": {
+      "distinctAuthoredCases": 18,
+      "usableSemanticallySound": 14,
+      "rejected": 4,
+      "underlyingSemanticFailures": 2,
+      "quotationOnlyFailures": 2,
+      "timeouts": 0,
+      "latencySeconds": {
+        "minimum": 32.43218495799999,
+        "maximum": 54.363787167,
+        "median": 40.43061633350001
+      }
+    },
+    "v3Status": "rejected_diagnostic_stopped_after_five_returned_cases",
+    "scope": "Authored positioned-checkpoint development checks, not held-out performance, natural learner testing or a general accuracy benchmark.",
+    "v3ObservedFinding": {
+      "caseId": "false_occupancy",
+      "actionId": "a0952df8f81d4bac88cac95c6c63924a",
+      "displayed": true,
+      "incorrectCriterion": "occupant",
+      "actualStatus": "met",
+      "expectedStatus": "contradicted",
+      "note": "Displayed comment credits TRN102 as learner-identified occupant although the learner explicitly says TRN103 occupies B instead of TRN102. Exact quotation and eligible citation pass, so structural validation does not catch the semantic attribution failure."
+    },
+    "v3Summary": {
+      "plannedCases": 18,
+      "returnedCases": 5,
+      "publicFeedbackReturned": 4,
+      "semanticallySoundReturnedReviews": 2,
+      "semanticallyWrongReturnedReviews": 2,
+      "contractRejectedReturnedCases": 1,
+      "completedEighteenCaseSuite": false,
+      "interruptedRequest": {
+        "actionId": "48350e48872e429eb805d3335653dcc5",
+        "runId": "b43d0af5fa3c2c5eec26",
+        "checkpointId": "check-2",
+        "case": "surface_conflict/check-2",
+        "clientStatus": "Diagnostic HTTP client interrupted by root; not a returned JSON row",
+        "backgroundCompleted": true,
+        "modelElapsedSeconds": 52.85063262500262,
+        "contractAccepted": true,
+        "stateApplied": true,
+        "independentAssessment": "Allmet raw review is semantically sound; correct release/vehicle-clear relation, exact learner quotes and eligible citations. Background result applied to server after client interruption; no native observation or returned-row success is claimed.",
+        "includedInReturnedCaseTotals": false,
+        "auditModelRecordSha256": "d4dd09789de70e2a351ccb7551310b029aeace0b90e65fd503c5e93f51dfc96f"
+      }
+    },
+    "selectedPrototypeVersion": "typed-practice-review-v2",
+    "candidateRestorationVerified": true
+  },
+  "nativeAcceptance": {
+    "status": "full_fog_and_positioned_supplemental_functional_checks_completed",
+    "reviewerExecutedNativeActions": false,
+    "required": [
+      "Full normal typed fog lesson through three responses and debrief",
+      "Readable qualitative feedback and report sources",
+      "Portrait/landscape draft preservation and pending polls",
+      "Visible failure/retry retaining learner text",
+      "Checkpoint clock freezes and next/retry stale-state handling"
+    ],
+    "physicalDeviceStatus": "not_verified",
+    "preflight": {
+      "status": "root_reported_landscape_keyboard_entry_only",
+      "fullAcceptance": false,
+      "actualInputFieldTyping": true,
+      "reviewButtonEnabled": true,
+      "reviewerIndependentlyOperatedUi": false,
+      "installedSourceHashesReportedByRoot": {
+        "TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+        "ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+      },
+      "canonicalHashesIndependentlyMatched": true
+    },
+    "auditProgress": "Full fog run independently reviewed: three sound accepted reviews and one preserved quotation failure followed by successful native edit/retry. Both ordinary question outputs and Try again record reviewed. Native interaction observations remain root-reported.",
+    "openInputCaveat": "Initial truncated ordinary request remains preserved as root-reported automation-focus timing failure. A later full ordinary question is independently confirmed in the audit; native full-field evidence remains root-reported.",
+    "acceptanceArtifact": "outputs/checkpoint1/typed-native-acceptance.json",
+    "artifactSha256AtReview": "d082aaba8867568a4f1d7210becedb2c7e6627ca2915a1f0ed6b7de3f721a33b",
+    "frozenFogCoreSha256": "7597777247fee01712d53a10938c9c86ccd9c9f6d7c2eeaea1fd9fd6d40ed7b1",
+    "runId": "8bcf9253d6cda521c198",
+    "sourceDuration": 210,
+    "wallDuration": 765.217701541,
+    "attempts": 4,
+    "acceptedSemanticallySoundReviews": 3,
+    "withheldQuoteFailures": 1,
+    "rootReportedCompletedChecks": [
+      "Briefing to Ready, practice, all three checkpoints and debrief at 210 source seconds without source-time jumps.",
+      "Scene, assistant and history hidden during questions.",
+      "First response edited and submitted in upright portrait; draft and pending request survived rotation to landscape.",
+      "Scenario clock stayed at 60/120/180 through question, pending, failure and feedback; Continue resumed time.",
+      "Checkpoint 2 genuine quote-contract failure was shown, input retained, edited response retried and accepted.",
+      "Feedback and supporting-report scrolling inspected in native UI.",
+      "Complete ordinary question was typed and submitted; actual answer and expanded source R006 inspected.",
+      "Debrief displayed 3 responses with no numerical score.",
+      "Try again started run 1d70bffb2bdef1cab3a4 at briefing/source 0 with empty responseText."
+    ],
+    "independentReadOnlyChecks": [
+      "All 4 typed outputs, learner texts and eligible report sets match original immutable audits.",
+      "All 3 accepted typed meanings and 2 ordinary report answers reviewed against eligible sources; initial ordinary question truncation preserved.",
+      "All 6 source hashes match canonical code.",
+      "Complete capture SHA256 matches274,504,389-byte recording.",
+      "All 6 screenshot files exist and match canonical/workspace copies.",
+      "17 transition samples are monotonic and consistent with normal-speed practice/frozen checkpoints; end210/debrief.",
+      "All five supplemental review outputs, learner texts, eligible report sets and private criteria match original audits; all five validator outcomes replayed.",
+      "All twelve screenshot hashes match canonical and workspace copies; full-fog evidence core remains unchanged after supplemental additions."
+    ],
+    "pending": [
+      "Physical-device, phone-hosted-model and software-keyboard acceptance remain outside this completed scope."
+    ],
+    "requiredChecksForFogSatisfiedByRootReportAndAudit": true,
+    "supplementalAuditProgress": "Five positioned native requests reviewed: four semantically sound accepted reviews and one preserved criterion-citation failure. Baggage retry and readiness checks passed. Root reports native Next from the positioned baggage debrief to a new fog briefing with zero time, empty response and empty reviews.",
+    "artifactSha256AtFinalReview": "145644f40639698f6d6291db9996cdef803707612e2cb394aeb5f4b50e62ab98",
+    "frozenFogCoreUnchangedAfterSupplement": true,
+    "supplementalChecks": {
+      "requests": 5,
+      "acceptedSemanticallySound": 4,
+      "withheldCitationScopeFailure": 1,
+      "fullLessonRuns": false,
+      "nativeNavigation": {
+        "fromRun": "7b560638c0b3e48befd3",
+        "fromExercise": "late_baggage",
+        "method": "Native Continue after positioned checkpoint 3, normal remaining 30 source seconds, then native Next exercise button. This was not a full baggage lesson.",
+        "resultRun": "8a7d3a0b50973e73995d",
+        "resultExercise": "fog_restrictions",
+        "phase": "briefing",
+        "sourceTime": 0,
+        "responseText": "",
+        "reviews": []
+      }
+    }
+  },
+  "knownLimits": [
+    "Citation eligibility does not establish that free-form feedback is semantically entailed by those citations.",
+    "Valid identities do not prove that an unconstrained natural-language or visual referent was understood correctly; this contract binds typed checkpoint reviews to the server-selected target.",
+    "Driver freeze is automated-tested and native fog transition samples support60/120/180 freezing. Source-time-jump absence and visual display behavior are root-reported; this is not a formal trace proof.",
+    "This is a bounded application-input contract, not a general security or prompt-injection-resistance certification.",
+    "Idempotency is scoped to the running service/attempt; no persistence across process restart is claimed.",
+    "This checks context correctness, not the semantic correctness of an otherwise current model response.",
+    "Verified with gated fake inference. The lock is process-local, not distributed; an indefinitely hung inference can remain unavailable until it ends or the service is deliberately restarted.",
+    "Legacy choice checks require explicit internal choice mode and are not an automatic fallback for typed responses.",
+    "Automated validation does not prove entailment, attribution, omission detection, teaching quality or broad injection resistance. V2 had 14 usable reviews and 4 withheld failures; the later v3 diagnostic displayed two semantic errors and was rejected. A limited v2 functional acceptance claim cannot be treated as semantic-reliability validation.",
+    "Private authored rubrics guide practice feedback. This is not validated grading, certification or a competence assessment.",
+    "Full native fog checks cover draft rotation, pending polls, actual error/edit/retry and Try again. This reviewer independently checked saved audits, hashes and transition records, not the native UI. No exhaustive Unity race test, physical-device or process-restart draft-persistence claim.",
+    "Official source distinctions support the lesson design; no live Heathrow procedure activation, calibrated RVR, operational instruction or exact incident reconstruction is claimed."
+  ],
+  "noFormalProof": true,
+  "noLiveModelCallsByReviewer": true,
+  "noServiceOrUiActionsByReviewer": true,
+  "noSecretsOrRawAuditsIncluded": true,
+  "acceptanceDecision": {
+    "C01": "Complete for the bounded contract/evidence task, including automated checks, independent semantic review, full native fog evidence and positioned supplemental navigation. This is not a formal proof.",
+    "T01": "Bounded qualitative-prototype functional acceptance met with known semantic failures and latency. No validated grade or general feedback-reliability claim.",
+    "semanticReliability": "Unvalidated with known attribution/omission errors. Four v2 rejected development results are failures, not semantic passes. Rejected v3 evidence remains preserved.",
+    "native": "One full native typed fog run; separately positioned surface, arrival and baggage checks plus Next. The original three full-native historical lesson records used choice mode.",
+    "publication": "Verified 30:33.5 share video published. Source/document publication is being finalized; Person 2 narration remains pending."
+  },
+  "rejectedV3SourceHashes": {
+    "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+    "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+    "backend/training_assessment.py": "d95ddbcf8fa103485acf8b1fe07da0e26b97dd9a0440227a78836d05e4477632",
+    "backend/training_adapter.py": "d5f94727e5f5dd04a04c9ef39f01badc3ede83bf0ca1d2e79cf89cee7c4044cc",
+    "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+    "tests/test_typed_review_independent.py": "994f8d43eef81bf0ab75961f5d251e6e48d43a6cf99a358a59db27dfd4e2de7f",
+    "tests/test_training_assessment.py": "bea0b907e9202c91e5a72524c30f9331c0e99c8a295832b961e5186639b8ffc9",
+    "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
+    "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+    "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+  },
+  "restorationVerification": {
+    "status": "passed",
+    "promptEqualsOriginalV2AuditPrefix": true,
+    "assessmentFileSha256": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "rejectedV3SourceArtifact": "outputs/checkpoint1/typed-review-v3-development-source.py.txt",
+    "rejectedV3SourceSha256": "d95ddbcf8fa103485acf8b1fe07da0e26b97dd9a0440227a78836d05e4477632"
+  },
+  "contractDocument": {
+    "path": "docs/CORRECTNESS_CONTRACT.md",
+    "sha256": "bac128a302c22a80b3f078d0cfd15ac6b6fa78e789777ab47b80a98117ed911d"
+  },
+  "presentationPublication": {
+    "video": "airfieldlens-typed-share-person1-audio.mp4",
+    "durationSeconds": 1833.5,
+    "bytes": 92255039,
+    "person1AudioPacketsUnchanged": true,
+    "person1AudioSha256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "verificationRecordSha256": "046299aa2d9b22f436969af4a21f4e6bbfe0efce459d50730947b0e933595f4e",
+    "driveFileId": "1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ",
+    "driveUploadAndSizeReadback": "root-reported verified",
+    "selectedShareFramesReviewedByRoot": [
+      1680,
+      1750,
+      1829
+    ],
+    "reviewerIndependentlyViewedLocalMasterFrame": 1750,
+    "person2Narration": "pending",
+    "sourceDocumentPublication": "being_finalized"
+  }
+}

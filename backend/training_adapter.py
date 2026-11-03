@@ -12,6 +12,7 @@ from dataclasses import replace
 from pathlib import Path
 from backend.evidence import FIELDS
 from modelaccess.local_backbone import LocalBackboneAdapter
+from modelaccess.contract import Adapter
 
 TRAINING_PROMPT_VERSION='training-evidence-selector-v4'
 SELECTOR_FORMAT_VERSION='single-json-or-fence-v1'
@@ -81,12 +82,21 @@ def expand_selection(text,candidates):
     if ref is None and (ids or unknowns):raise ValueError('ambiguous selection with claims')
     return json.dumps(proposal)
 
+class _PracticeReviewAdapter(Adapter):
+    """Contract validation over the already-loaded engine, without the selector."""
+    def __init__(self, owner):
+        super().__init__(owner.capabilities);self.owner=owner;self.provider=owner.provider
+    def _generate(self, request, effective):
+        return LocalBackboneAdapter._generate(self.owner,request,effective)
+
 class TrainingAdapter(LocalBackboneAdapter):
     def __init__(self,*args,prompt_audit_path,training_role='controller_awareness',**kwargs):
         super().__init__(*args,**kwargs)
         self.prompt_audit_path=Path(prompt_audit_path)
         if training_role not in ROLES:raise ValueError('Unknown training role')
         self.training_role=training_role
+    def review(self,request):
+        return _PracticeReviewAdapter(self).generate(request)
     def _generate(self,request,effective):
         prompt,candidates=selector_context(request.messages[0][1],self.training_role)
         reply=super()._generate(replace(request,messages=(('user',prompt),)),effective)

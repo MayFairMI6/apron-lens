@@ -17,7 +17,13 @@ not need a model change to establish independence.
 
 The reviewer decides where a bounded unit of work best belongs: **CURRENT, M2, M3,
 defer, or reject**. CURRENT is always a valid option while that checkpoint remains
-open. Earlier recommendations and already-published footage are context, not a
+open. When the user explicitly assigns a unit or requests firm milestone
+categories, record the settled assignment and its real acceptance gates; do not
+keep presenting assigned work as optional or provisional. A user-requested feature
+freeze closes new feature scope while allowing submission work, corrections and
+fixes needed for existing acceptance. Recheck the latest steering before recording
+a freeze; a subsequent instruction may reopen or complete the intended scope. Earlier
+recommendations and already-published footage are context, not a
 veto. New feature requests also require reasons and acceptance evidence; the role
 does not automatically endorse every expansion.
 
@@ -31,7 +37,8 @@ does not automatically endorse every expansion.
    authorisations, private authentication and unrelated work.
 3. Read `MILESTONE_LEDGER.md`, `CHECKPOINT1_CURRENT.md`,
    `CHECKPOINT1_ASSIGNMENT_STATUS.md`, `IMPLEMENTATION_DOCKET.md` and
-   `TRAINING_SCENARIO_REGISTER.md`. Consult `docs/AR_SCOPE.md` for original research
+   `TRAINING_SCENARIO_REGISTER.md`, then [EXECUTION_QUEUE.md](EXECUTION_QUEUE.md)
+   for adopted execution order and data/model prerequisites. Consult `docs/AR_SCOPE.md` for original research
    commitments, while checking newer steering for supersession.
 4. Inspect the actual branch, revision and working tree, relevant implementation,
    tests and acceptance records. Do not treat a catalogue name, planned feature,
@@ -58,7 +65,9 @@ For each unit, record its present status, learning/user value, dependencies,
 evidence paths, acceptance gates, recording impact, uncertainty and chosen stage.
 Compare all five destinations. Give the strongest reason to move it earlier and
 the strongest reason to move it later, including what evidence would change the
-decision. State whether the recommendation is firm, conditional or provisional.
+decision. Record an explicitly assigned unit as firm scope, with prerequisites
+and acceptance still tracked separately. For genuinely undecided new work, state
+the remaining uncertainty without weakening already-settled assignments.
 
 Use concrete dependencies and observed failures. Avoid unsupported time estimates,
 numeric priority scores that imply measurement, claims of being unbiased, an
@@ -125,15 +134,120 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 2 November resume point follows delivery of F01/F02. Consolidated
-native/report acceptance has been reviewed, with source hashes and answer facts
-independently matched. The 27:48 video is published to Drive and implementation
-commit `c81812167361a73ceca8d944ffc3510bac1335ae` is pushed to the checkpoint branch;
-local and remote heads matched on review. PR #22 remains open/unmerged. The root
-will save this final publication record and handoff. The required reconsideration has moved F03 from
-provisional M2 to CURRENT as the planned next increment, outside this F01/F02 delivery claim. Review
-its implementation/assessment evidence when undertaken; placement does not mark
-it built or delivered. M2 and M3 recommendations are not automatic
-completion criteria or permanent deferrals. The root should reconcile the older
-blanket fog-later wording in the course documents with the ledger's separate
-decisions and preserve remaining assignment requirements.
+The current 3 November resume point is publication of accepted F03/T01 plus C01
+in Checkpoint 1. Start from [EXECUTION_QUEUE.md](EXECUTION_QUEUE.md) and ML-021.
+Exact v2 is restored; the full native typed fog run and separate positioned
+original-lesson/Next checks have passed limited functional review. C01's bounded
+contract/evidence work is complete. Current feature scope is frozen. ML-022 records
+the 30:33.5 video published to Drive; source/shared-document/ZIP publication remains
+pending. C02–C04 stay in M2/M3. The user
+requested agent processing of typed learner responses; ML-011 extends ML-010
+and supersedes a multiple-choice-only learner interface. The root owns native
+typed-input/feedback integration, the backend implementer owns model processing,
+and an independent reviewer owns contract review. Require actual model feedback
+using only checkpoint-eligible reports and the rubric, with paraphrases and
+missing/contradictory/unknown points handled as qualitative practice feedback.
+Do not claim validated scoring. Fixed MCQ remains internal regression only.
+
+Read [the correctness contract](../CORRECTNESS_CONTRACT.md),
+[its acceptance record](../../outputs/checkpoint1/correctness-acceptance.json) and
+[the native typed record](../../outputs/checkpoint1/typed-native-acceptance.json).
+The accepted fog run contains three responses from four model attempts, including
+one quotation failure safely withheld and a successful native edit/retry. The
+five supplemental attempts across the original three lessons include four sound
+accepted reviews and one baggage citation-scope failure withheld before retry.
+That failure used a received/superseded report outside the criterion's permitted
+set, not a future report. Continue/Next from a positioned baggage checkpoint led
+to fresh fog briefing with empty response/reviews. Those targeted inspections are
+not full typed runs of the original lessons. The independent reviewer checked saved
+evidence; the root performed native actions. The ledger reviewer read all nine
+attempts and matched source/contract hashes without operating the app.
+The existing 18-case v2 development set and the rejected v3 diagnostic remain
+development history, not a benchmark. V3 produced semantic errors despite passing
+output validation. V2 also has known underlying attribution/omission limitations;
+withholding those outputs did not make their meanings correct. General semantic
+reliability remains unvalidated. C01 completion means the contracts, tested bounds
+and failures are documented, not that interpretation is proved or every app flow
+has passed. Preserve actual coverage and provenance when publishing these results.
+
+The 257 root-reported backend checks, 62 independent checks and partial native MCQ
+flow predate typed review. Preserve that history without carrying its acceptance
+over. Check the updated request lifecycle, evidence isolation, real-model native
+feedback and failure/retry; a failed request must keep the checkpoint available
+and must not trigger scripted success or a fallback assessment. Publish the new
+increment with the bounded acceptance and known limitations now recorded; current
+feature scope is frozen. F01/F02 and
+the earlier 27:48 video remain preserved in publication history; the current
+published video is the 30:33.5 typed update.
+
+The accepted typed-flow presentation should preserve Person 1's
+approved audio and earlier footage, append a short actual typed checkpoint, and
+describe C02–C04 concisely as future work. C01 supports a documented/tested-contract
+claim, not a formal-proof claim. Do not mark the revision, contract, capture or
+publication complete from execution authorisation alone. C01's reviewed contract
+artifact is complete within its stated bounds. The reviewed typed edit record
+now identifies the published 30:33.5, 92,255,039-byte, 1280×590 share copy, with
+unchanged Person 1 AAC. Root inspected selected frames and verified the existing
+Drive file's new size after upload. Preserve the earlier rejected 113 MB upload
+in history. The next action is source/shared-document/ZIP publication, not another
+feature or repeated native run.
+The companion correctness record is aligned with the final native artifact.
+Preserve that coverage without reopening passed functional checks or removing
+the unresolved semantic/device limitations.
+
+ML-013 adopts the correctness progression as queued scope, not accomplished
+verification: C01 M1 documents current contracts and evidence without rewriting
+reasoning; C02 M2 builds a small executable typed-claim/evidence checker supporting
+the original visual-evidence study; C03 M2 specifies bounded driver/evidence state
+alongside Q01 queues; C04 M3 uses TLC model checking, implementation-trace
+correspondence and comparative empirical checker evaluation. Do not add a parallel
+standalone Dafny project or automated question generator; both are outside this
+adopted scope. Record implementation and formal results only when evidence exists.
+
+C01–C04 do not require a new external dataset or foundation-model training. Keep
+the existing frozen Qwen model for learner-language parsing/review. Curate
+development and separate frozen evaluation examples from authored scenarios,
+reports and learner responses; split scenario/template/episode families before
+variants and include paraphrase, negative, conflict, correction, future and stale
+cases. Existing typed development cases remain development-only. Follow existing
+held-out separation; never create/read/change held-out answers during planning.
+TLC explores formal states/transitions, not an ML dataset. State bounds and trusted
+assumptions, and keep model interpretation/perception truth outside any checker
+soundness claim. The original M2 detector training and visual data remain
+separately assigned. Tests, bounded model checking and proofs must never be
+described as interchangeable achievements.
+
+The remaining assignments are firm: Checkpoint 2 includes one bounded Q01
+weather-queue task alongside the original visual-evidence study and turnaround
+task; Checkpoint 3 includes A01 controlled size/demand comparisons alongside
+integrated evaluation. Retain prerequisites and acceptance requirements without
+recasting those assignments as optional suggestions.
+
+ML-012 records the new engine/structural-failure topics within those future tasks:
+E01 one-engine emergency return with successful landing in M2's existing return
+task; E02 both-engine thrust loss/reduction on approach in M3 integrated emergency
+cases; E03 reported wing/structural damage in M3 incident comparison. All are
+unbuilt. They do not start current implementation, displace F03/T01 or authorise
+full aircraft physics/pilot training. Existing gear-collapse/fire animation and a
+loss-of-thrust report do not establish these specific models. Preserve the AAIB
+BA38 distinction: restricted fuel flow and reduced thrust are not evidence of
+exploding engines or wing failure. Recheck sources and actual case acceptance
+when each bounded variation is implemented.
+
+ML-016–018 record researched K01–K05 proposals from later accident questions:
+bird-report/return, cabin-smoke/response, existing recovery continuation and
+runway-vehicle conflict within M2 tasks; road-boundary/correction comparison in
+M3. They are unbuilt recommendations, not permission to interrupt current work.
+ML-020 records Heathrow-specific queue/configuration/weather context inside Q01/M2,
+not another course. Recheck dated primary sources when authoring. Preserve the
+distinctions between a fire truck and a fuel truck, aircraft–obstacle impact and
+secondary debris–vehicle contact, preliminary facts and final causes. Report-only
+variants do not establish accident physics, operational capacity or TBS/Pairwise
+implementation. Later exploratory questions are not automatically adopted scope.
+
+Track the separate submission gates: Person 2 contribution/member identification,
+the current reflection's required content and ≤1-page layout while preserving
+user teamwork additions, and the unresolved physical-phone requirement under
+simulator-only evidence. Assigned or implemented features do not automatically
+close those gates. The root owns any requested reminder; no reminder or automatic
+follow-up is created by this reviewer protocol.

@@ -1,0 +1,279 @@
+{
+  "reviewVersion": 1,
+  "reviewer": "terminal3_reference_review independent reviewer",
+  "reviewedAtUtc": "2026-11-03T03:25:05.246418+00:00",
+  "baselineCommit": "92fd08bbb1db3f9c89af09a97b711846317ae8db",
+  "scope": "Fourth scored fog_restrictions lesson, backend integration and focused tests. Existing renderer and map reused; no native/service/model actions by reviewer.",
+  "conclusion": "No blocking finding. The new lesson has three unambiguous scored checkpoints and causal report references, preserves the original lessons and hour-long fog demonstration, and keeps visual improvement separate from procedural status and departure authority. Native quiz acceptance remains pending root review.",
+  "sourceBasis": [
+    {
+      "title": "Heathrow Low Visibility Operations OSI052",
+      "version": "3.1",
+      "publicationDate": "2026-10-01",
+      "url": "https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASWeather_OSI_052_v3-1.pdf",
+      "reusedVerification": true,
+      "sections": [
+        "3.1.2\u20133.1.3",
+        "6.4",
+        "7.6",
+        "13.1 note",
+        "13.2"
+      ],
+      "relevance": "Safeguarding and LVP are separate stages; safeguarding precedes LVP and may continue after LVP cancellation. Its cancellation is separately confirmed."
+    },
+    {
+      "title": "NATS low-visibility procedures explanation",
+      "publicationDate": "2025-10-02",
+      "url": "https://nats.aero/blog/2025/10/low-visibility-procedures-what-you-need-to-know/",
+      "reusedVerification": true,
+      "relevance": "General context for measured visibility, ATC procedures and ILS protection; no specific Heathrow incident or operational training validation claimed."
+    }
+  ],
+  "learningObjective": "In this condensed practice exercise, use the reports to distinguish low-visibility procedures, safeguarding and departure clearance.",
+  "timingAndAuthorityBoundaries": {
+    "durationSeconds": 210,
+    "checkpoints": [
+      60,
+      120,
+      180
+    ],
+    "allTeachingTimesAuthored": true,
+    "metadata": {
+      "kind": "authored-short-lesson",
+      "duration": 210,
+      "relatedDemonstration": "fog_visibility",
+      "demonstrationDuration": 3600,
+      "note": "Independently retimed for three scored checkpoints; not operational response times or a one-hour playback."
+    },
+    "learnerFacingBoundary": "Generic aircraft; authored flight paths, elapsed times and report delays. No recovered flight-data trajectory, operational clearance or performance validation. Fog attenuation, event timings and the flight-specific hold are authored. No measured visibility, RVR, operational minima, capacity forecast or current Heathrow procedure compliance is asserted. This short scored practice is separate from the full-hour demonstration. Its timing is fictional.",
+    "separateHourDemonstration": "fog_visibility remains 3600 seconds and is not a scored lesson.",
+    "operationalThresholdsOrRvrAdded": false,
+    "departurePermissionFromVisuals": false,
+    "departurePermissionFromSafeguardingCancellation": false,
+    "aircraftPosition": "Stationary mapped Terminal 3 apron; no flight or taxi movement added.",
+    "newIncidents": false,
+    "newRunwayReservations": false
+  },
+  "checkpointReview": [
+    {
+      "cutoff": 60.0,
+      "question": "At this checkpoint, which restrictions are reported for TRN101?",
+      "choicesSeed17": [
+        "Low-visibility procedures and safeguarding are active; TRN101 remains held",
+        "Only low-visibility procedures remain; safeguarding was cancelled",
+        "Safeguarding was requested but has not been confirmed",
+        "TRN101 may depart because no aircraft is moving nearby"
+      ],
+      "correctIndexSeed17": 0,
+      "correctAnswer": "Low-visibility procedures and safeguarding are active; TRN101 remains held",
+      "semanticReview": "Safeguarding is confirmed, LVP is active and the flight remains held.",
+      "supportedChoiceCount": 1,
+      "distractorReview": "The other three alternatives either repeat superseded status, claim a cancellation not yet reported, or infer departure authority that the reports explicitly leave unconfirmed.",
+      "aircraftId": "A1",
+      "evidenceIds": [
+        "R004",
+        "R005"
+      ],
+      "latestCurrentCondition": "hold: low-visibility procedures in force; safeguarding remains; departure held",
+      "latestCurrentConditionReceipt": 36.73124695255797,
+      "allReferencesReceived": true
+    },
+    {
+      "cutoff": 120.0,
+      "question": "After low-visibility procedures are cancelled, what still applies to TRN101?",
+      "choicesSeed17": [
+        "Safeguarding is already confirmed cancelled",
+        "All restrictions ended with the low-visibility procedures",
+        "Safeguarding and the reported hold remain; departure is not cleared",
+        "The clearer view authorises TRN101 to depart"
+      ],
+      "correctIndexSeed17": 2,
+      "correctAnswer": "Safeguarding and the reported hold remain; departure is not cleared",
+      "semanticReview": "LVP has been cancelled, but safeguarding and the flight hold remain.",
+      "supportedChoiceCount": 1,
+      "distractorReview": "The other three alternatives either repeat superseded status, claim a cancellation not yet reported, or infer departure authority that the reports explicitly leave unconfirmed.",
+      "aircraftId": "A1",
+      "evidenceIds": [
+        "R005",
+        "R006"
+      ],
+      "latestCurrentCondition": "hold: low-visibility procedures cancelled; safeguarding remains; departure held",
+      "latestCurrentConditionReceipt": 106.34937658557465,
+      "allReferencesReceived": true
+    },
+    {
+      "cutoff": 180.0,
+      "question": "Safeguarding cancellation is confirmed. What is still unconfirmed for TRN101?",
+      "choicesSeed17": [
+        "Safeguarding cancellation, which is still only a request",
+        "Whether low-visibility procedures were cancelled",
+        "Nothing; cancellation of safeguarding confirms departure clearance",
+        "Departure clearance; the flight remains parked"
+      ],
+      "correctIndexSeed17": 3,
+      "correctAnswer": "Departure clearance; the flight remains parked",
+      "semanticReview": "Safeguarding cancellation is confirmed; departure clearance remains unconfirmed.",
+      "supportedChoiceCount": 1,
+      "distractorReview": "The other three alternatives either repeat superseded status, claim a cancellation not yet reported, or infer departure authority that the reports explicitly leave unconfirmed.",
+      "aircraftId": "A1",
+      "evidenceIds": [
+        "R006",
+        "R007",
+        "R008"
+      ],
+      "latestCurrentCondition": "hold: safeguarding cancelled; departure clearance still unconfirmed",
+      "latestCurrentConditionReceipt": 162.08037077875997,
+      "allReferencesReceived": true
+    }
+  ],
+  "receiptCutoffChecksSeed17": [
+    {
+      "sourceSecond": 60,
+      "eventId": "R005",
+      "condition": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+    },
+    {
+      "sourceSecond": 100,
+      "eventId": "R005",
+      "condition": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+    },
+    {
+      "sourceSecond": 105,
+      "eventId": "R005",
+      "condition": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+    },
+    {
+      "sourceSecond": 108,
+      "eventId": "R006",
+      "condition": "hold: low-visibility procedures cancelled; safeguarding remains; departure held"
+    },
+    {
+      "sourceSecond": 120,
+      "eventId": "R006",
+      "condition": "hold: low-visibility procedures cancelled; safeguarding remains; departure held"
+    },
+    {
+      "sourceSecond": 145,
+      "eventId": "R006",
+      "condition": "hold: low-visibility procedures cancelled; safeguarding remains; departure held"
+    },
+    {
+      "sourceSecond": 148,
+      "eventId": "R007",
+      "condition": "hold: safeguarding cancellation requested; confirmation pending; departure held"
+    },
+    {
+      "sourceSecond": 150,
+      "eventId": "R007",
+      "condition": "hold: safeguarding cancellation requested; confirmation pending; departure held"
+    },
+    {
+      "sourceSecond": 160,
+      "eventId": "R007",
+      "condition": "hold: safeguarding cancellation requested; confirmation pending; departure held"
+    },
+    {
+      "sourceSecond": 163,
+      "eventId": "R008",
+      "condition": "hold: safeguarding cancelled; departure clearance still unconfirmed"
+    },
+    {
+      "sourceSecond": 180,
+      "eventId": "R008",
+      "condition": "hold: safeguarding cancelled; departure clearance still unconfirmed"
+    },
+    {
+      "sourceSecond": 210,
+      "eventId": "R008",
+      "condition": "hold: safeguarding cancelled; departure clearance still unconfirmed"
+    }
+  ],
+  "visualReportIndependence": {
+    "clearVisualFrameSecond": 100,
+    "reportStatusAtClearFrame": "LVP in force; safeguarding remains; departure held",
+    "lvpCancellationEventSecond": 105,
+    "reportDelaySeconds": "Seeded 1\u20133 seconds preserved from demonstration",
+    "result": "Clearer imagery precedes the cancellation event and receipt, and changes no report fact."
+  },
+  "flowReview": {
+    "target": "A1/TRN101 in session state, checkpoint metadata, feedback and cue fallback.",
+    "briefing": "Identifies a condensed practice exercise; scenario basis states fictional timing.",
+    "beforeAnswer": "Public checkpoint exposes only id/at/question/choices. Correct index, feedback and reviews are absent.",
+    "checkpointClock": "Source freezes at60/120/180 and remains frozen during answer/feedback.",
+    "wrongAnswers": "All-wrong 20-seed paths end score0/3; feedback shows selected/correct answer and eligible cited reports.",
+    "debrief": "Ends at210 with three reviews; laterReports is scoped to A1 and later receipt times, separate from original checkpoint evidence.",
+    "retry": "New run identity, zero score, same seeded scenario apart from run identifier; repeated identical retry is idempotent.",
+    "next": "Lesson cycle includes fog after late_baggage and wraps to surface_conflict. Ordinary demo/continuous cycles omit the short scored lesson.",
+    "staleAndDuplicate": "Identical answer/transition requests return saved result; changed payload with reused ID, stale run and stale revision are rejected.",
+    "modeBoundary": "fog_restrictions accepts lesson only; use fog_visibility for hour-long demo/continuous mode.",
+    "environmentBoundary": "Omitted option automatically uses short fog curve; explicit fog accepted; clear/rain/snow/dusk rejected before CLI model load. Existing fog_visibility clear-option compatibility retained."
+  },
+  "legacyAndSeedChecks": {
+    "newFogSeeds": 20,
+    "newFogReproducible": true,
+    "fourDistinctChoicesPerCheckpoint": true,
+    "answerPositionsSeededAndShuffled": true,
+    "allReferencesReceiptEligible": true,
+    "preReceiptExclusionChecked": true,
+    "directPublishedBaselineComparison": {
+      "originalLessons": 60,
+      "hourFogDemonstrations": 20,
+      "result": "Exactly equal complete builder outputs."
+    },
+    "testFingerprintComparison": {
+      "existingCases": 8,
+      "seedsPerCase": 20,
+      "covers": "Three original lessons and five demonstrations; complete worlds, reservations and probes.",
+      "result": "All unchanged."
+    },
+    "hourTestScopeChange": "HOUR_EXERCISES retains only the original three hour-world builders. Dedicated fog tests assert210 seconds, no flight/incident showcases, stationary aircraft and no reservations; this avoids imposing unrelated hour-world requirements on the new lesson."
+  },
+  "verification": {
+    "independentlyRun": [
+      {
+        "command": ".venv-candidates/bin/python -m unittest tests.test_fog_lesson tests.test_training_session tests.test_training_environment tests.test_runway_scenarios tests.test_training_adapter",
+        "tests": 47,
+        "seconds": 16.927,
+        "result": "passed"
+      },
+      {
+        "command": ".venv-candidates/bin/python -m unittest tests.test_flight_cycle tests.test_ground_incidents tests.test_accident_scenarios",
+        "tests": 15,
+        "seconds": 2.559,
+        "result": "passed"
+      }
+    ],
+    "independentAdHocChecks": [
+      "Compare complete original lesson outputs against published HEAD for20 seeds each",
+      "Compare complete hour-long fog demonstration outputs against published HEAD for20 seeds",
+      "Validate20 new fog worlds and short environment contracts",
+      "Check every report excluded immediately before receipt and all checkpoint references eligible",
+      "Confirm clear100-second scene still has active LVP facts"
+    ],
+    "harnessCorrection": "Initial direct baseline demonstration comparison lacked __file__ in an exec namespace; supplied the original module path and reran successfully. This was a reviewer harness error, not an application defect.",
+    "fullSuite": "Owned by implementer/root; not marked passed by this focused review.",
+    "nativeQuiz": {
+      "status": "pending root acceptance",
+      "passedByThisReviewer": false,
+      "remaining": [
+        "Portrait/landscape four-choice readability",
+        "At least one wrong-answer feedback and one correct answer",
+        "Three checkpoint freezes and 210-second debrief",
+        "Native retry and next-lesson UI flow"
+      ]
+    },
+    "physicalDevice": "Not verified."
+  },
+  "findings": [],
+  "reviewedFilesSha256": {
+    "backend/fog_lesson.py": "c0020d877ebd814c414d041a1aa2efbfb0011e07d8ea2101a4f984f1151f6764",
+    "backend/lessons.py": "cfd467efc9febf2f71ca8e19480aa8e1f7a79d9a2868257423cc03a3776642a2",
+    "backend/training_session.py": "22bc19e994991513459b7f38d03aca93f6769abe053367cdd70b937309704e62",
+    "backend/training.py": "305442b661657bf5929c146fcc83e43e747a8a88590b869fa8b295eed0c34f10",
+    "tests/test_fog_lesson.py": "7252737116410dc0cde487f235738b245d1efd2aa97ad35c52a05e9bc93f2770",
+    "tests/test_training_session.py": "520b412c4e7074ea41fcba0ed1fcc9e8bb9ccb68ae55e03cc0057bc045bb6b0f",
+    "tests/test_flight_cycle.py": "1599a44aaa9c784558f575f2db0ff100f79a384c7f7bc43a2e421601e99a060b",
+    "tests/test_ground_incidents.py": "a78d84ef8756f2765b90ecac1b7adfebe1c7e38d417b6722b258cce312a9a66c",
+    "tests/test_accident_scenarios.py": "966b078f34f9364784d25ba9ed709e8d5502229f2389a716430aadb9ebbfde00"
+  }
+}

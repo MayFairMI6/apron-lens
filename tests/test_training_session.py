@@ -1,4 +1,4 @@
-"""External time, causal assessment, live service guards and 60 seeded worlds."""
+"""External time, causal assessment, live service guards and seeded worlds."""
 import copy
 import json
 import tempfile
@@ -15,11 +15,11 @@ from modelaccess.mock import MockAdapter
 
 class TrainingTests(unittest.TestCase):
     def session(self,exercise='surface_conflict',mode='lesson',seed=17):
-        now=[0.];return TrainingSession(seed,exercise,mode,clock=lambda:now[0]),now
+        now=[0.];return TrainingSession(seed,exercise,mode,clock=lambda:now[0],assessment_mode='choice'),now
     def act(self,s,action,**kw):
         return s.action(dict(actionId=str(len(s.actions))+'-'+action,runId=s.run_id,revision=s.revision,action=action,**kw))
 
-    def test_sixty_worlds_replayable_reserved_and_causal(self):
+    def test_all_lesson_worlds_replayable_reserved_and_causal(self):
         for exercise in EXERCISES:
             for seed in range(20):
                 world,slots,probes=build_lesson(seed,exercise)
@@ -27,7 +27,7 @@ class TrainingTests(unittest.TestCase):
                 validate_scenario(world)
                 for a in world['aircraft']:
                     times=[p['t'] for p in a['waypoints']]
-                    self.assertEqual(times,sorted(set(times)));self.assertEqual(times[-1],3600)
+                    self.assertEqual(times,sorted(set(times)));self.assertEqual(times[-1],world['duration'])
                 self.assertTrue(all(a['end']<b['start'] for a,b in zip(slots,slots[1:])))
                 for p in probes:
                     known={f['event_id'] for f in received_facts(world,p['at'])}

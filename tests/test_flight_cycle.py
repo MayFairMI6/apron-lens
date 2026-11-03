@@ -1,11 +1,11 @@
 import unittest
-from backend.lessons import build_lesson, EXERCISES
+from backend.lessons import build_lesson, HOUR_EXERCISES
 from backend.evidence import received_facts, classify
 from backend.training_session import TrainingSession
 
 class FlightCycleTests(unittest.TestCase):
     def test_sixty_circuits_depart_and_land_continuously_after_scored_lesson(self):
-        for exercise in EXERCISES:
+        for exercise in HOUR_EXERCISES:
             for seed in range(20):
                 world,reservations,probes=build_lesson(seed,exercise)
                 plane=world['aircraft'][0];phases={p['id']:p['t'] for p in plane['phases'] if p['id'] not in ('pushback','taxi_in','parked')}

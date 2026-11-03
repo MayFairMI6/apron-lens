@@ -1,24 +1,30 @@
-"""Three authored controller lessons over reproducible hour-long ground worlds.
+"""Four authored controller lessons with reproducible external source clocks.
 
 Answer keys stay on the service. Movement plans are rendering input, never model
 evidence. Every teaching answer cites reports received before its checkpoint.
 """
 import random
 from backend.traffic import DURATION
+from backend.fog_lesson import FOG_LESSON, TITLE as FOG_TITLE, OBJECTIVE as FOG_OBJECTIVE, build_fog_lesson
 from backend.flight_cycle import add_flight_cycle
 from backend.accident_scenarios import add_accident_scenarios
 from backend.ground_routes import rounded_path, departure_path, timed_path, add_pavement
 
-EXERCISES = ('surface_conflict', 'late_arrival', 'late_baggage')
+# Only these original lessons also define a full-hour continuous/demo world.
+HOUR_EXERCISES = ('surface_conflict', 'late_arrival', 'late_baggage')
+EXERCISES = HOUR_EXERCISES + (FOG_LESSON,)
 TITLES = dict(surface_conflict='A vehicle on the route', late_arrival='An occupied arrival stand',
-              late_baggage='A changing departure estimate')
+              late_baggage='A changing departure estimate', fog_restrictions=FOG_TITLE)
 OBJECTIVES = dict(surface_conflict='Follow a reported hold, recognise its release, and keep unknowns separate.',
                   late_arrival='Track the inbound aircraft and the stand it needs as the situation changes.',
-                  late_baggage='Distinguish service progress, departure estimates and confirmed readiness.')
+                  late_baggage='Distinguish service progress, departure estimates and confirmed readiness.',
+                  fog_restrictions=FOG_OBJECTIVE)
 
 def build_lesson(seed, exercise):
     if exercise not in EXERCISES:
         raise ValueError('Unknown lesson')
+    if exercise == FOG_LESSON:
+        return build_fog_lesson(seed)
     rng = random.Random(seed)
     world = dict(scenarioId=f'LESSON-{exercise}-{seed}', duration=DURATION, targetWidth=.7, livery='uniform',
         clockWhileUntracked='runs', trainingProfile=exercise, trainingRole='controller_awareness',

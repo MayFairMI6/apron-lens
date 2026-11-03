@@ -1,6 +1,6 @@
 import math
 import unittest
-from backend.lessons import build_lesson, EXERCISES
+from backend.lessons import build_lesson, HOUR_EXERCISES
 from backend.ground_routes import rounded_path, departure_path
 from backend.training_session import TrainingSession
 from backend.evidence import received_facts, classify
@@ -35,7 +35,7 @@ class GroundIncidentTests(unittest.TestCase):
             self.assertAlmostEqual(taxi[18]['heading'],90 if side>0 else 270)
 
     def test_all_sixty_worlds_ground_movements_have_pavement_and_monotone_times(self):
-        for exercise in EXERCISES:
+        for exercise in HOUR_EXERCISES:
             for seed in range(20):
                 world,_,_=build_lesson(seed,exercise)
                 segments=[(a,b,p['width']/2) for p in world['taxiPaths'] for a,b in zip(p['points'],p['points'][1:])]
@@ -94,7 +94,7 @@ class GroundIncidentTests(unittest.TestCase):
             self.assertLess(p['at'],s.scenario['duration'])
 
     def test_dropped_load_is_after_lessons_and_reserves_aircraft_until_cart_clears(self):
-        for exercise in EXERCISES:
+        for exercise in HOUR_EXERCISES:
             for seed in range(20):
                 world,slots,probes=build_lesson(seed,exercise)
                 incident=next(i for i in world['incidents'] if i['kind']=='baggage_spill')

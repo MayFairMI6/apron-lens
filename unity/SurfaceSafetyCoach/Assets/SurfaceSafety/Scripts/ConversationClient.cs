@@ -112,6 +112,14 @@ namespace SurfaceSafety {
             request.SetRequestHeader("Content-Type","application/json");
             request.SetRequestHeader("Authorization","Bearer "+token);return request;
         }
+        public UnityWebRequest TrainingResponseRequest(string json){
+            LoadConnection();
+            var request=new UnityWebRequest(endpoint+"/training/response","POST");
+            request.uploadHandler=new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+            request.downloadHandler=new DownloadHandlerBuffer();request.timeout=90;
+            request.SetRequestHeader("Content-Type","application/json");
+            request.SetRequestHeader("Authorization","Bearer "+token);return request;
+        }
         public void NewSession() { Cancel(); SessionId = Guid.NewGuid().ToString("N"); Revision = 0; Pending = null; LastResponse = null; interruptionsCarried.Clear(); }
 
         // Request ID -> how many tracking losses the request carried (as awayIntervals), so a committed turn clears

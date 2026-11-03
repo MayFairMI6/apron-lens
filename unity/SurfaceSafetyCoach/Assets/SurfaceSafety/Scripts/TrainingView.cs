@@ -12,7 +12,10 @@ namespace SurfaceSafety {
     [Serializable] public class TrainingFeedback {
         public string checkpointId,question,chosen,correctAnswer,explanation;public bool correct;public float cutoff;
         public ScenarioEvent[] reports,laterReports;
+        public string kind,verdict;public TrainingReviewPoint[] points;
     }
+    [Serializable] public class TrainingReviewPoint {public string criterionId,status,comment,learnerQuote;public string[] evidenceIds;}
+    [Serializable] public class TrainingResponse {public string actionId,runId,checkpointId,responseText;public int revision;}
     [Serializable] public class TrainingCue {public string id,question,status,aircraftId;public float cutoff;}
     [Serializable] public class TrainingPerspective {public string role,text;}
     [Serializable] public class TrainingState {
@@ -21,6 +24,7 @@ namespace SurfaceSafety {
         public float sourceTime,rate,nextBoundary;
         public TrainingCheckpoint checkpoint;public TrainingFeedback feedback;public TrainingFeedback[] reviews;
         public TrainingCue demoCue;public TrainingPerspective[] perspectives;
+        public string assessmentMode,reviewStatus,reviewError,responseText;
     }
     [Serializable] public class TrainingAction {
         public string actionId,runId,action,checkpointId,cueId;public int revision,choice;public bool success;
@@ -38,6 +42,8 @@ namespace SurfaceSafety {
         bool Regional=>TrainingGeography.Present(replay.Data.geography);
         AircraftPlan SelectedPlane=>replay.Data.aircraft[replay.SelectedAircraftIndex];
         InputField input;Button askButton;ScrollRect answerScroll;
+        InputField responseInput;Button reviewButton;Text reviewNotice;
+        string responseDraft="",responseDraftKey="",responseError="",activeReviewId="";bool reviewBusy;
         string viewKey="",message="Choose a question or ask about the selected flight.",messageStatus="",seenCue="",pendingCue="";
         string selection="";bool sources,history,actionBusy,landscape,dragging;
         Vector2 lastPointer;Vector3 centre=new Vector3(75,0,-25);float distance=320;bool ground,terminalView;
@@ -68,6 +74,10 @@ namespace SurfaceSafety {
             if(State!=null&&State.runId==state.runId&&state.revision<State.revision)return;
             bool run=State==null||State.runId!=state.runId;
             bool phase=run||State.revision!=state.revision;
+            var draftKey=state.runId+"|"+(state.checkpoint?.id??"");
+            if(state.phase=="checkpoint"&&draftKey!=responseDraftKey){responseDraftKey=draftKey;responseDraft=state.responseText??"";responseError="";activeReviewId="";reviewBusy=false;}
+            if(run){responseDraftKey=state.phase=="checkpoint"?draftKey:"";responseDraft=state.responseText??"";responseError="";reviewBusy=false;activeReviewId="";}
+            if(state.phase!="checkpoint"){activeReviewId="";reviewBusy=false;responseError="";}
             State=state;
             if(phase){assistant.NewSession();assistant.TrainingQuestionBlocked=state.phase!="practice"&&state.phase!="debrief";pendingCue="";
                 messageStatus="";message="Ask about the selected flight using the reports received so far.";sources=false;history=false;}
@@ -137,6 +147,13 @@ namespace SurfaceSafety {
                 motionText.text=phase==null?"APRON  ·  Ground routes":replay.SelectedFlight+"  ·  "+phase.label+"  ·  "+altitude.ToString("0")+" m  ·  "+Scenario.Heading(SelectedPlane,replay.Clock.Time).ToString("000")+"°";}
             if(notice!=null)notice.text=!Connected?"Connection interrupted · waiting for the exercise service":actionBusy?"Updating exercise…":weather!=null?weather.ConditionLabel:"";
             if(askButton!=null)askButton.interactable=Connected&&!assistant.Busy&&!assistant.TrainingQuestionBlocked;
+            if(reviewButton!=null){
+                bool pending=reviewBusy||State.reviewStatus=="pending";
+                reviewButton.interactable=Connected&&!pending&&!string.IsNullOrWhiteSpace(responseDraft);
+                if(responseInput!=null)responseInput.interactable=!pending;
+                reviewNotice.text=pending?"Reviewing your answer against the checkpoint reports…":!string.IsNullOrEmpty(responseError)?responseError:
+                    State.reviewStatus=="failed"?(string.IsNullOrEmpty(State.reviewError)?"Your answer could not be reviewed. Please try again.":State.reviewError):"Explain what the reports establish and what remains unknown.";
+            }
             if(history)RefreshAnswer();
             MoveCamera();UpdateTags();
             var plans=replay.Data.groundVehicles??new AircraftPlan[0];
@@ -151,6 +168,7 @@ namespace SurfaceSafety {
             if(key==viewKey)return;viewKey=key;
             foreach(Transform child in root)Destroy(child.gameObject);
             tags.Clear();vehicleTag=null;input=null;answerText=null;answerHeading=null;focusText=null;askButton=null;motionText=null;
+            responseInput=null;reviewButton=null;reviewNotice=null;
             var scaler=canvas.GetComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution=landscape?new Vector2(1600,900):new Vector2(900,1600);scaler.matchWidthOrHeight=.5f;
             bool modal=State.phase=="checkpoint"||State.phase=="feedback"||State.phase=="briefing";
@@ -185,17 +203,28 @@ namespace SurfaceSafety {
             var card=Box(root,"Lesson card",new Vector2(landscape?.22f:.045f,.075f),new Vector2(landscape?.78f:.955f,.81f),panel);
             if(State.phase=="briefing"){
                 Label(card,"YOUR BRIEFING",new Vector2(.05f,.83f),new Vector2(.95f,.94f),22,teal);
-                ScrollText(card,State.objective+"\n\nWatch the aircraft, follow reports and ask the assistant.\n\nThree questions pause the scene. Answer, then review the evidence.\n\nYour answers and review set the pace.",new Vector2(.05f,.23f),new Vector2(.95f,.79f),landscape?25:29,out _);
+                ScrollText(card,State.objective+"\n\nWatch the aircraft, follow reports and ask the assistant.\n\nThree questions pause the scene. "+(State.assessmentMode=="typed"?"Write your answer in your own words, then review the feedback and reports. This is practice feedback, not a competence grade.":"Answer, then review the evidence.")+"\n\nYour answers and review set the pace.",new Vector2(.05f,.23f),new Vector2(.95f,.79f),landscape?25:29,out _);
                 Button(card,"Ready",new Vector2(.05f,.06f),new Vector2(.95f,.18f),()=>SendAction("ready"),true);
             }else if(State.phase=="checkpoint"){
                 var p=State.checkpoint;
-                Label(card,"CHECKPOINT "+State.checkpointNumber+" OF 3  ·  "+p.at.ToString("0")+" s",new Vector2(.05f,.88f),new Vector2(.95f,.96f),20,teal);
-                Label(card,p.question,new Vector2(.05f,.64f),new Vector2(.95f,.87f),landscape?28:32,Color.white);
-                for(int i=0;i<4;i++){int choice=i;float y=.49f-i*.145f;
+                Label(card,"CHECKPOINT "+State.checkpointNumber+" OF "+State.checkpointCount+"  ·  "+p.at.ToString("0")+" s",new Vector2(.05f,.88f),new Vector2(.95f,.96f),20,teal);
+                Label(card,p.question,new Vector2(.05f,.65f),new Vector2(.95f,.87f),landscape?28:32,Color.white);
+                if(State.assessmentMode=="typed"){
+                    var field=Box(card,"Your answer",new Vector2(.05f,.29f),new Vector2(.95f,.63f),line);
+                    responseInput=field.gameObject.AddComponent<InputField>();responseInput.characterLimit=1200;
+                    responseInput.lineType=InputField.LineType.MultiLineNewline;
+                    responseInput.textComponent=Label(field,"",new Vector2(.025f,.04f),new Vector2(.975f,.96f),landscape?24:29,Color.white);
+                    responseInput.textComponent.alignment=TextAnchor.UpperLeft;
+                    var hint=Label(field,"Write your answer…",new Vector2(.025f,.04f),new Vector2(.975f,.96f),landscape?24:29,muted);
+                    hint.alignment=TextAnchor.UpperLeft;responseInput.placeholder=hint;responseInput.text=responseDraft;
+                    responseInput.onValueChanged.AddListener(value=>{responseDraft=value;responseError="";});
+                    reviewNotice=Label(card,"",new Vector2(.05f,.18f),new Vector2(.95f,.28f),landscape?19:23,muted);
+                    reviewButton=Button(card,"Review my answer",new Vector2(.05f,.04f),new Vector2(.95f,.16f),ReviewResponse,true);
+                }else for(int i=0;i<4;i++){int choice=i;float y=.49f-i*.145f;
                     Button(card,((char)('A'+i))+"   "+p.choices[i],new Vector2(.05f,y),new Vector2(.95f,y+.12f),()=>SendAction("answer",choice,p.id));}
             }else{
                 var f=State.feedback;
-                Label(card,f.correct?"That’s right":"Let’s review that",new Vector2(.05f,.84f),new Vector2(.95f,.95f),30,f.correct?teal:new Color(1,.72f,.34f));
+                Label(card,f.kind=="typed"?"Feedback on your answer":f.correct?"That’s right":"Let’s review that",new Vector2(.05f,.84f),new Vector2(.95f,.95f),30,f.kind=="typed"||f.correct?teal:new Color(1,.72f,.34f));
                 ScrollText(card,FeedbackText(f),new Vector2(.05f,.22f),new Vector2(.95f,.8f),landscape?24:28,out _);
                 Button(card,"Continue",new Vector2(.05f,.05f),new Vector2(.95f,.17f),()=>SendAction("continue"),true);
             }
@@ -219,7 +248,7 @@ namespace SurfaceSafety {
             RefreshAnswer();
         }
         void BuildDebrief(){
-            Label(side,State.mode=="lesson"?"Your debrief  ·  "+State.score+" / 3":"Demonstration complete",new Vector2(.05f,.88f),new Vector2(.95f,.98f),28,Color.white);
+            Label(side,State.mode=="lesson"?"Your debrief  ·  "+(State.assessmentMode=="typed"?State.answered+" responses":State.score+" / "+State.checkpointCount):"Demonstration complete",new Vector2(.05f,.88f),new Vector2(.95f,.98f),28,Color.white);
             var text=State.mode=="lesson"?string.Join("\n\n──────────\n\n",(State.reviews??new TrainingFeedback[0]).Select(FeedbackText)):"Review what changed, which restrictions remain, and what still needs confirmation.";
             text+="\n\nOTHER PERSPECTIVES\n\n"+string.Join("\n\n",(State.perspectives??new TrainingPerspective[0]).Where(p=>p.role!="Scenario basis").Select(p=>p.role+"\n"+p.text));
             ScrollText(side,text,new Vector2(.05f,.24f),new Vector2(.95f,.87f),landscape?22:27,out _);
@@ -228,6 +257,16 @@ namespace SurfaceSafety {
             Button(side,"Next exercise",new Vector2(.05f,.035f),new Vector2(.95f,.13f),()=>SendAction("next"),true);
         }
         string FeedbackText(TrainingFeedback f){
+            if(f.kind=="typed"){
+                var reviewed=f.question+"\n\nYour answer: "+f.chosen+"\n\nPRACTICE FEEDBACK\n"+f.explanation;
+                foreach(var point in f.points??new TrainingReviewPoint[0]){
+                    var label=point.status=="met"?"Supported point":point.status=="missing"?"Missing point":point.status=="contradicted"?"Recheck this point":"Needs clarification";
+                    reviewed+="\n\n"+label+"\n"+point.comment;
+                    if(!string.IsNullOrWhiteSpace(point.learnerQuote))reviewed+="\nYour words: “"+point.learnerQuote+"”";
+                    if(point.evidenceIds!=null&&point.evidenceIds.Length>0)reviewed+="\nReports: "+string.Join(", ",point.evidenceIds);
+                }
+                return reviewed+"\n\nREPORTS AVAILABLE AT "+f.cutoff.ToString("0")+" s\n"+string.Join("\n\n",(f.reports??new ScenarioEvent[0]).Select(ReportText));
+            }
             var text=f.question+"\n\nYour answer: "+f.chosen+"\nAnswer: "+f.correctAnswer+"\n\n"+f.explanation+"\n\nREPORTS AVAILABLE AT "+f.cutoff.ToString("0")+" s\n";
             text+=string.Join("\n\n",(f.reports??new ScenarioEvent[0]).Select(ReportText));
             if(f.laterReports!=null&&f.laterReports.Length>0)text+="\n\nARRIVED AFTER THIS CHECKPOINT\n"+string.Join("\n\n",f.laterReports.Select(ReportText));
@@ -268,6 +307,37 @@ namespace SurfaceSafety {
             var body=new TrainingAction{action=action,actionId=Guid.NewGuid().ToString("N"),runId=State.runId,revision=State.revision,
                 choice=choice,checkpointId=checkpoint??"",cueId=cue??"",success=success};
             StartCoroutine(ActionRequest(body));
+        }
+        void ReviewResponse(){
+            if(State?.checkpoint==null||reviewBusy||State.reviewStatus=="pending"||string.IsNullOrWhiteSpace(responseDraft))return;
+            responseInput?.DeactivateInputField();responseError="";
+            var body=new TrainingResponse{actionId=Guid.NewGuid().ToString("N"),runId=State.runId,revision=State.revision,
+                checkpointId=State.checkpoint.id,responseText=responseDraft};
+            activeReviewId=body.actionId;
+            StartCoroutine(ResponseRequest(body));
+        }
+        IEnumerator ResponseRequest(TrainingResponse body){
+            reviewBusy=true;var json=JsonUtility.ToJson(body);
+            for(int attempt=0;attempt<2;attempt++){
+                using(var request=assistant.TrainingResponseRequest(json)){
+                    yield return request.SendWebRequest();
+                    // Polling can finish this review before its HTTP reply, or
+                    // move to another checkpoint/attempt. An old coroutine must
+                    // never clear a newer request's busy flag or error text.
+                    if(activeReviewId!=body.actionId||State==null||State.runId!=body.runId||
+                        State.phase!="checkpoint"||State.checkpoint?.id!=body.checkpointId)yield break;
+                    if(request.result==UnityWebRequest.Result.Success){
+                        var next=JsonUtility.FromJson<TrainingState>(request.downloadHandler.text);
+                        if(next.runId==State.runId)Apply(next);
+                        if(activeReviewId==body.actionId){activeReviewId="";reviewBusy=false;}yield break;
+                    }
+                    if(request.responseCode==409){responseError="This checkpoint has changed. Your current step will appear shortly.";break;}
+                    if(request.responseCode>=400&&request.responseCode<500){responseError="Your answer could not be reviewed. Please try again.";break;}
+                }
+            }
+            if(activeReviewId!=body.actionId)yield break;
+            activeReviewId="";reviewBusy=false;
+            if(State.phase=="checkpoint"&&string.IsNullOrEmpty(responseError))responseError="The review did not arrive. Your answer is kept here; try again when connected.";
         }
         IEnumerator ActionRequest(TrainingAction body){
             actionBusy=true;var json=JsonUtility.ToJson(body);
