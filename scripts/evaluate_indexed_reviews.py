@@ -1,0 +1,28 @@
+"""Actual-model checks of indexed exact learner quotations; never overwrite trials."""
+import hashlib,json,time,uuid
+from pathlib import Path
+from backend.training_adapter import TrainingAdapter
+from backend.training_assessment_candidate import generate_review
+from backend.training_session import TrainingSession
+from modelaccess.contract import Settings
+
+OUT=Path('outputs/assistant-reliability')
+def main():
+ target=OUT/'typed-indexed-v1.json';lock=OUT/'typed-indexed-v1.lock.json'
+ if target.exists() or lock.exists():raise SystemExit('Refusing overwrite')
+ fixtures=json.loads(Path('tests/fixtures/typed_practice_cases.json').read_text())
+ cases=fixtures['complete']+fixtures['arrival_variations']+fixtures['fog_variations']
+ files=['backend/training_adapter.py','backend/training_assessment_candidate.py','backend/training_turn.py','backend/training.py','tests/fixtures/typed_practice_cases.json',__file__]
+ lock.write_text(json.dumps(dict(cases=cases,sourceHashes={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files}),indent=2)+'\n')
+ adapter=TrainingAdapter('qwen3.5-9b',profile='apronlens-v2-mps',prompt_audit_path=OUT/'indexed-prompts.jsonl');adapter.load();settings=Settings(adapter.served_model,768,image_max_side=672)
+ report=dict(warmup=adapter.warmup(settings),rows=[],completed=False)
+ for c in cases:
+  session=TrainingSession(17,c['exercise']);session.phase='checkpoint';session.active_probe=int(c['checkpointId'][-1])-1;session.source_time=session.probes[session.active_probe]['at']
+  context,_=session.prepare_response(dict(actionId=uuid.uuid4().hex,runId=session.run_id,revision=session.revision,checkpointId=c['checkpointId'],responseText=c['responseText']))
+  start=time.monotonic();review,error=generate_review(adapter,settings,context,OUT/'typed-indexed-audit.jsonl')
+  statuses={p['criterionId']:p['status'] for p in review['points']} if review else {}
+  passed=bool(review) and review['verdict']==c.get('expectedVerdict','supported') and (statuses==c['expectedStatuses'] if 'expectedStatuses' in c else len(statuses)==3 and all(v=='met' for v in statuses.values()))
+  report['rows'].append(dict(case=c,payload=json.loads(context.payload_json),review=review,error=error,elapsedSeconds=time.monotonic()-start,passed=passed));target.write_text(json.dumps(report,indent=2)+'\n')
+  print(c['exercise'],c['checkpointId'],c.get('id','complete'),passed,round(report['rows'][-1]['elapsedSeconds'],2),flush=True)
+ report['completed']=True;target.write_text(json.dumps(report,indent=2)+'\n')
+if __name__=='__main__':main()

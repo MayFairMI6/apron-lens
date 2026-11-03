@@ -272,3 +272,15 @@ points, missing distinctions and unconfirmed conditions; they receive no numeric
 grade. Monitoring the simulated situation and practising an explanation serve the
 same learning objective. Real-world operational reliability and measured learning
 benefit are not established by this milestone.
+
+## Ordinary assistant reliability update
+
+The [B04 reliability record](ASSISTANT_RELIABILITY.md) adopts ordinary-assistant v8
+with a bounded flight-reference retry and model inference before startup readiness.
+Known regression questions passed 24/24; both frozen v5 and v8 passed 24/24 newly
+worded same-family probes. The typed candidate passed 15/18 and made three semantic
+errors, so it was rejected and the published typed reviewer restored exactly.
+The original 60-second typed server budget is retained. Native readiness answering
+and original typed review were checked; this is not a new full lesson acceptance.
+Old results and approved video remain unchanged. Typed semantic/quotation failures
+and indefinite-worker/latency risks remain documented in #60/#61/#62.

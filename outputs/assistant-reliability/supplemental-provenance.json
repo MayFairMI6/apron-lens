@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-11-03T16:15:58.177922+00:00",
+  "timing": "Recorded during run-v2 before typed calls, after initial lock; not claimed pre-locked.",
+  "hashes": {
+    "backend/training_turn.py": "05ffa64f09088459517fbb30de67fea1aea0928423b5db9f32ceec299603d969",
+    "tests/fixtures/typed_practice_cases.json": "f2b607e8ea9a85e521674f55b490c03304875bd96baf4c63f1b9d326d12122fa",
+    "backend/training.py": "8883746995a670730d122e86bb5b01f502de1164ce95709209804d808d88a5b9"
+  }
+}

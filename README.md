@@ -40,7 +40,7 @@ Start the current controller lesson with
 `.venv-candidates/bin/python -m backend.training --mode lesson --exercise surface_conflict --seed 17`.
 The preselected local Qwen3.5-9B configuration is unchanged. The separately versioned
 [v6 readiness candidate](docs/course/PROMPT_REVISION.md) preserves the original v5
-[assistant comparison](outputs/assistant-comparison/RESULTS.md) and records new-question tests. The fresh-question result tied; v5 remains the app default.
+[assistant comparison](outputs/assistant-comparison/RESULTS.md) and records new-question tests. That fresh-question result tied and v6 was not adopted. The subsequent [reliability update](docs/course/ASSISTANT_RELIABILITY.md) adopts ordinary-assistant v8 with a bounded reference retry and startup warmup. Its typed-review candidates were rejected; the original typed reviewer remains in use. Old results are unchanged.
 A separate [history-aware evaluation](docs/course/HISTORY_EVALUATION.md) distinguishes
 current status, past reports and changes across four new authored report families;
 its results do not overwrite either earlier comparison.

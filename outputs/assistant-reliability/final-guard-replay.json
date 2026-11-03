@@ -1,0 +1,295 @@
+{
+  "kind": "Saved-output replay; no new model calls",
+  "total": 48,
+  "allMatched": true,
+  "rows": [
+    {
+      "phase": "regression",
+      "episode": "weather_route",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "weather_route",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "weather_route",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "weather_route",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "weather_route",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "weather_route",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "stand_reassignment",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "stand_reassignment",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "stand_reassignment",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "stand_reassignment",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "stand_reassignment",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "stand_reassignment",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "service_withdrawal",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "service_withdrawal",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "service_withdrawal",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "service_withdrawal",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "service_withdrawal",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "service_withdrawal",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "estimate_correction",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "estimate_correction",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "estimate_correction",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "estimate_correction",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "estimate_correction",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "regression",
+      "episode": "estimate_correction",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "weather_route",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "weather_route",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "weather_route",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "weather_route",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "weather_route",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "weather_route",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "stand_reassignment",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "stand_reassignment",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "stand_reassignment",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "stand_reassignment",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "stand_reassignment",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "stand_reassignment",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "service_withdrawal",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "service_withdrawal",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "service_withdrawal",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "service_withdrawal",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "service_withdrawal",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "service_withdrawal",
+      "turn": 5,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "estimate_correction",
+      "turn": 0,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "estimate_correction",
+      "turn": 1,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "estimate_correction",
+      "turn": 2,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "estimate_correction",
+      "turn": 3,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "estimate_correction",
+      "turn": 4,
+      "matched": true
+    },
+    {
+      "phase": "fresh",
+      "episode": "estimate_correction",
+      "turn": 5,
+      "matched": true
+    }
+  ]
+}

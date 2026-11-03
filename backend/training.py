@@ -3,6 +3,7 @@ import argparse
 import asyncio
 import json
 import secrets
+from contextlib import asynccontextmanager
 from pathlib import Path
 from starlette.concurrency import run_in_threadpool
 from fastapi import Header, HTTPException, Request
@@ -21,6 +22,18 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
     scenarios={driver.scenario['scenarioId']:driver.scenario}
     app=create_app(adapter,settings,token=token,scenarios=scenarios,
                    audit_path=audit_path or ROOT/'work/training-conversations.jsonl',turn_handler=training_turn)
+    original_lifespan=app.router.lifespan_context
+    @asynccontextmanager
+    async def ready_lifespan(app):
+        # Loading weights alone does not warm device kernels. No learner request
+        # or scenario time is consumed by this synthetic startup check.
+        warmup_started=driver.clock()
+        app.state.warmup = await run_in_threadpool(adapter.warmup,settings) if callable(getattr(adapter,'warmup',None)) else []
+        driver.last_wall+=driver.clock()-warmup_started
+        async with original_lifespan(app):
+            print('TRAINING_READY inference warmup complete',flush=True)
+            yield
+    app.router.lifespan_context=ready_lifespan
     app.state.review_timeout_seconds=60.
     app.state.assessment_tasks=set()
     review_audit_path=review_audit_path or (Path(audit_path).with_name(Path(audit_path).stem+'-assessments.jsonl') if audit_path else ROOT/'work/training-assessments.jsonl')
@@ -149,7 +162,7 @@ def main():
     # Model startup must not consume exercise time before a viewer can connect.
     driver=TrainingSession(args.seed,args.exercise,args.mode,audit_path=ROOT/'work/training-sessions.jsonl',environment=args.environment)
     settings=Settings(adapter.served_model,768,image_max_side=672)
-    local_token();print(f'TRAINING_READY {args.mode} {args.exercise} port={args.port}',flush=True)
+    local_token();print(f'TRAINING_STARTING {args.mode} {args.exercise} port={args.port}',flush=True)
     uvicorn.run(training_app(adapter,settings,driver),host='127.0.0.1',port=args.port,access_log=False)
 
 if __name__=='__main__':main()

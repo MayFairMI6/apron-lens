@@ -8,9 +8,12 @@ from backend.conversation.context import snapshot
 from scripts.evaluate_prompt_revision import fresh_suite, make_world, validate_keys
 
 class PromptRevisionTests(unittest.TestCase):
-    def test_unpromoted_default_remains_v5(self):
+    def test_v6_was_not_promoted_by_later_reliability_change(self):
         from backend.training_adapter import TRAINING_PROMPT_VERSION as default_version
-        self.assertEqual(default_version,'training-evidence-selector-v5')
+        self.assertEqual(default_version,'training-evidence-selector-v8')
+        import json
+        result=json.loads(Path('outputs/prompt-revision/v6-run.json').read_text())
+        self.assertFalse(result['adopt'])
 
     def test_v5_file_is_exact_published_adapter(self):
         self.assertEqual(hashlib.sha256(Path('backend/training_adapter_v5.py').read_bytes()).hexdigest(),

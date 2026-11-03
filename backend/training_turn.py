@@ -62,7 +62,11 @@ def run_turn(session, data, turn, adapter, settings):
     referent_source = 'model'
     if reply.ok:
         proposal, raw_valid, repairs, parse_error = parse_json_output(reply.text)
-    if reply.ok and reply.metadata.get('trainingEmptyAnswer'):
+    if reply.ok and reply.metadata.get('trainingSelectionError')=='followup_reference_mismatch':
+        checked = validate_proposal(None, data, cutoff)
+        checked['errors'] = ['followup_reference_mismatch_after_retry' if reply.metadata.get('trainingAttemptCount') == 2 else 'followup_reference_mismatch']
+        checked['display']['answer'] = 'I could not reliably identify the flight in your question. Please name the flight and try again.'
+    elif reply.ok and reply.metadata.get('trainingEmptyAnswer'):
         checked = validate_proposal(None, data, cutoff)
         checked['errors'] = ['empty_answer_after_retry' if reply.metadata.get('trainingAttemptCount') == 2 else 'empty_answer']
         checked['display']['answer'] = ("I couldn’t produce an answer from these reports. Try again or open Sources.")

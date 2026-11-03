@@ -1,0 +1,12 @@
+{
+  "sourceHashes": {
+    "backend/training.py": "8883746995a670730d122e86bb5b01f502de1164ce95709209804d808d88a5b9",
+    "backend/training_adapter.py": "edc97663cad9657193f51e51fb99a56ad303a0b051079975f653fb69a5f702c7",
+    "backend/training_turn.py": "a2406c832c3bb3d90ab23f25e88e8d31a80396d140f0012d307099da014c051b",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "backend/training_assessment_candidate.py": "b43b231522e8d8f4d213ca1466db86237454fe8cb32297ffa0140700e98ab9cc"
+  },
+  "tests": "334 passed; research integrity160 records; backbone boundary passed",
+  "videoChanged": false,
+  "productionTypedRestored": true
+}

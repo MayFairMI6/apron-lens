@@ -14,8 +14,8 @@ from backend.evidence import FIELDS
 from modelaccess.local_backbone import LocalBackboneAdapter
 from modelaccess.contract import Adapter, ProviderReply, FinishReason, Usage
 
-TRAINING_PROMPT_VERSION='training-evidence-selector-v5'
-COMPLETENESS_POLICY_VERSION='nonempty-selection-one-retry-v1'
+TRAINING_PROMPT_VERSION='training-evidence-selector-v8'
+COMPLETENESS_POLICY_VERSION='reference-coverage-one-retry-v3'
 
 class EmptySelectionError(ValueError):
     pass
@@ -37,6 +37,9 @@ def selector_context(base_prompt,role='controller_awareness'):
     prompt=(
         'You select evidence for an airport training question. Return ONLY one compact JSON object: '
         '{"aircraftId":"...","flightInstance":"...","fact_ids":["ID:property"],"unknowns":[]}. '
+        'Resolve the flight BEFORE choosing facts. Explicit flight names or corrections take precedence; '
+        'otherwise pronouns refer to Memory.currentReferent. A stand or time is not a flight identity. '
+        'Do not switch to another flight merely because it shares a value mentioned in the question. '
         'Choose the flight intended by the question and selection or conversation memory. '
         'If ambiguous, use null for both identities and empty lists. '
         'Select at most THREE distinct fact_ids that directly answer the question. '
@@ -50,7 +53,11 @@ def selector_context(base_prompt,role='controller_awareness'):
         'the answer is no, the requested condition is unmet, or a positive confirmation is absent. '
         'Only include properties actually asked about AND listed in that flight\'s missingProperties. '
         'Do not copy unrelated missingProperties into unknowns. If the selected reports answer the '
-        'question, unknowns must be []. Never put the property of a selected current fact in unknowns. '
+        'ENTIRE question, unknowns must be []. A known restriction or service does not answer a separate '
+        'question about overall readiness. When that is asked and overall_readiness is missing, include '
+        'overall_readiness in unknowns even when selecting known service or restriction facts. '
+        'Check every requested property separately before returning. '
+        'Never put the property of a selected current fact in unknowns. '
         'Images do not establish operational clearance or service completion. Do not add observations, '
         'rationale, prose, duplicate IDs or any other keys. Close the JSON object.\n'
         +'Assigned training role: '+ROLES[role]['label']+'. '+ROLES[role]['assistantFocus']+'\n'
@@ -88,6 +95,21 @@ def expand_selection(text,candidates):
         raise EmptySelectionError('empty_answer')
     return json.dumps(proposal)
 
+def reference_error(proposal, prompt, candidates):
+    """Guard only unambiguous pronoun continuity; never choose report facts."""
+    memory=json.JSONDecoder().raw_decode(prompt.split('\nMemory: ',1)[1])[0]
+    question=prompt.rsplit('\nQuestion: ',1)[1]
+    if proposal.get('referent') is None:return None
+    explicit=any(re.search(r'(?<!\w)'+re.escape(c[k])+r'(?!\w)',question,re.I)
+                 for c in candidates for k in ('flightInstance','aircraftId'))
+    # Relative/ambiguous references still belong to the model, not this guard.
+    relative=re.search(r'\b(mean|switch|instead|correction|actually|other|another|next)\b|\b(previous|first|second)\s+(flight|rotation|aircraft)\b',question,re.I)
+    pronoun=re.search(r'\b(it|its|that flight|same flight|that aircraft)\b',question,re.I)
+    ref=memory.get('currentReferent')
+    if ref and pronoun and not explicit and not relative and proposal.get('referent')!=ref:
+        return 'followup_reference_mismatch'
+    return None
+
 class _PracticeReviewAdapter(Adapter):
     """Contract validation over the already-loaded engine, without the selector."""
     def __init__(self, owner):
@@ -103,6 +125,32 @@ class TrainingAdapter(LocalBackboneAdapter):
         self.training_role=training_role
     def review(self,request):
         return _PracticeReviewAdapter(self).generate(request)
+    def warmup(self, settings):
+        """Exercise text and image kernels before the HTTP service becomes ready."""
+        import io
+        import time
+        from PIL import Image
+        from modelaccess.contract import Request, ImageInput
+        buffer=io.BytesIO();Image.new('RGB',(672,672),(110,120,130)).save(buffer,format='PNG')
+        records=[]
+        for name,images in [('text',()),('image',(ImageInput(buffer.getvalue(),'image/png',0),))]:
+            started=time.monotonic()
+            try:
+                reply=self.review(Request('startup-'+name,(('user','Reply with the word ready.'),),
+                                          replace(settings,max_output_tokens=16),images))
+                record=dict(path=name,elapsedSeconds=time.monotonic()-started,
+                            returnedModel=reply.returned_model,finishReason=reply.finish_reason.value,
+                            usage=vars(reply.usage),rawOutput=reply.text,error=reply.error,ok=reply.ok)
+            except Exception as exc:
+                record=dict(path=name,elapsedSeconds=time.monotonic()-started,
+                            returnedModel=None,finishReason='error',usage=None,rawOutput=None,
+                            error=type(exc).__name__,ok=False)
+            records.append(record)
+            self.prompt_audit_path.parent.mkdir(parents=True,exist_ok=True)
+            with self.prompt_audit_path.with_name('startup-inference.jsonl').open('a') as stream:
+                stream.write(json.dumps(record)+'\n')
+            if not record['ok']:raise RuntimeError('Model startup inference failed: '+str(record['error']))
+        return records
     def _generate(self,request,effective):
         prompt,candidates=selector_context(request.messages[0][1],self.training_role)
         # Retry only an empty, otherwise well-formed selection. The immutable prompt,
@@ -111,7 +159,9 @@ class TrainingAdapter(LocalBackboneAdapter):
         usage=[]
         for attempt in range(2):
             current_prompt=prompt if attempt==0 else prompt+(
-                '\nYour previous selection contained neither facts nor missing properties. '
+                '\nThe previous response failed the '+str(error)+' check. '
+                'For an unqualified pronoun, keep Memory.currentReferent; do not switch flights based on a stand value. '
+                'If the previous selection was empty, include relevant facts or requested unknowns. '
                 'Answer the same question using ONLY the same flights and reports above. '
                 'Select relevant fact IDs, or name the requested missing properties in unknowns. '
                 'Do not invent evidence or choose unrelated properties just to fill the answer. '
@@ -123,7 +173,9 @@ class TrainingAdapter(LocalBackboneAdapter):
                                     metadata={'providerErrorType':type(exc).__name__})
             original=reply.text
             error=None
-            try: reply.text=expand_selection(original,candidates)
+            try:
+                reply.text=expand_selection(original,candidates)
+                error=reference_error(json.loads(reply.text),prompt,candidates)
             except EmptySelectionError: error='empty_answer'
             except (ValueError,TypeError,KeyError): error='invalid_selection'
             usage.append(reply.usage)
@@ -138,13 +190,14 @@ class TrainingAdapter(LocalBackboneAdapter):
                     trainingRole=self.training_role,selectorFormatVersion=SELECTOR_FORMAT_VERSION,
                     completenessPolicy=COMPLETENESS_POLICY_VERSION,prompt=current_prompt,**attempts[-1]))+'\n')
             allowed={request.settings.model,*request.settings.accepted_returned_models}
-            if error!='empty_answer' or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
+            if error not in ('empty_answer','followup_reference_mismatch') or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
         # Aggregate usage over actual calls, preserving unknown usage as unknown.
         for field in ('input_tokens','output_tokens','reasoning_tokens','image_tokens','cached_input_tokens'):
             values=[getattr(u,field) for u in usage]
             setattr(reply.usage,field,sum(values) if all(v is not None for v in values) else None)
         reply.metadata.update(trainingCompletenessPolicy=COMPLETENESS_POLICY_VERSION,
                               trainingAttemptCount=len(attempts),trainingEmptyAnswer=error=='empty_answer',
+                              trainingSelectionError=error,
                               trainingKnownInputTokens=sum(a['usage']['input_tokens'] or 0 for a in attempts),
                               trainingKnownOutputTokens=sum(a['usage']['output_tokens'] or 0 for a in attempts))
         return reply
