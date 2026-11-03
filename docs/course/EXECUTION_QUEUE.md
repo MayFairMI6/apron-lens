@@ -103,3 +103,17 @@ Keep formal-property results, semantic answer evaluation and native usability
 evidence separate. Do not change held-out protocols after observing their results;
 do not reuse frozen M1 results as acceptance for new methods. Update this queue
 and the ledger from evidence before describing a task as delivered.
+
+
+## Adopted current-checkpoint addition: B01 / #70
+
+The user approved a bounded AI-assistant comparison on 3 November 2026. Execute
+18 authored questions across three scenarios in lexical-retrieval-plus-selector,
+selector-without-history and selector-with-history configurations. Preserve all
+real responses, failures and costs; publish the protocol and descriptive results.
+This is not learner grading or a new held-out benchmark. No training data, model
+training or graph database is required for this bounded comparison. See
+[protocol](ASSISTANT_COMPARISON.md) and [task #70](https://github.com/MayFairMI6/apron-lens/issues/70).
+Approved videos and the app remain unchanged. The completed run has 54 real responses: lexical/history18/18, selector without
+history14/18, selector with history17/18. Independent review records acceptance
+in the milestone ledger. #30/#31/#32 remain separate submission gates.

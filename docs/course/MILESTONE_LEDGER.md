@@ -1,11 +1,25 @@
 # AirfieldLens milestone ledger
 
-**Current work is the explicitly authorised reliability patch for #67, empty
-ordinary-assistant selections, and #69, overlapping regional aircraft labels. It
-has passed bounded acceptance; publication and tracker readback remain pending.** These are
+**B01, the bounded multi-turn AI-assistant comparison tracked by [#70](https://github.com/MayFairMI6/apron-lens/issues/70),
+has completed measurement/report acceptance in CURRENT; publication and task
+readback remain pending.** Lexical retrieval plus the same selector/history passed
+18/18 authored tasks, the selector without history 14/18, and the current selector
+with history 17/18. The current path's readiness omission remains a known semantic
+failure; completion means measuring/reporting it, not repairing it or establishing
+superiority. No graph database was needed or added. ML-033 records the independent
+review. Frozen research, accepted app/media evidence and the three outstanding
+submission requirements remain separate.
+
+**The prior reliability patch for #67 (empty ordinary-assistant selections) and
+#69 (overlapping regional aircraft labels) has passed bounded acceptance;
+publication and tracker readback are complete.** These are
 corrections to the current app, not new research tasks or duplicate milestone
 counts. ML-029 preserves the scope/review history; ML-030 records the verified
 remedies and the distinction between deterministic retry tests and actual calls.
+ML-031 confirms published `b69d69b`, both successful CI runs and closed #67/#69.
+The previously agreed simulator app/demo scope is complete; submission
+#30/#31/#32 remains open. B01 is now an additional adopted project deliverable,
+not a newly discovered course-rubric requirement.
 
 **The user has reopened CURRENT / Checkpoint 1 for R01, four type-specific aircraft
 models and dimensions, and R02, improved authored trajectories. Both have passed
@@ -172,7 +186,8 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
-| #67/#69 — current reliability corrections | Bounded remedies accepted; 296 tests and 160-record integrity pass recorded; three first-attempt actual answers and independent native label review pass; publication/readback pending | CURRENT / Checkpoint 1 corrections; failure records do not add task counts | The training-only nonempty guard/one-retry policy and finite label layout address the observed defects within their tested limits. Actual spontaneous empty-answer recovery was not observed. | Publish the reviewed patch/evidence and update/read back the existing failure records. Preserve deadline, fallback-free behavior, finite-label and semantic limits; do not add numeric grading or new task counts. |
+| B01 / #70 — bounded multi-turn AI-assistant comparison | Measurement/report accepted: 54 saved first-attempt responses, scores/audits independently checked; publication/task readback pending | CURRENT / Checkpoint 1 | The bounded study answers the adopted local comparison question while preserving the baseline's better observed result and current-path omission. It is not an external SOTA benchmark. | Publish the reviewed results and close #70 as measurement/report completion. Keep the separate semantic omission in #60 open; no production prompt repair, graph migration or new native/video claim follows. |
+| #67/#69 — current reliability corrections | Bounded remedies accepted and published as `b69d69b`; both issues closed and both CI runs successful in independent live readback | CURRENT / Checkpoint 1 corrections; failure records do not add task counts | The training-only nonempty guard/one-retry policy and finite label layout address the observed defects within their tested limits. Actual spontaneous empty-answer recovery was not observed. | Preserve deadline, fallback-free behavior, finite-label and semantic limits. No further correction work is outstanding for these accepted remedies; do not add numeric grading or task counts. |
 | R01 — four-type aircraft models and dimensions | Bounded functional acceptance, local media review and source/evidence publication complete; #64 closed in recorded readback | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Preserve original acceptance and texture-import failure history. The later #69 correction needs its own evidence; no physical-phone claim. |
 | R02 — authored fleet trajectories and distinct unfolding incidents | Four full source-hour native runs and 12 actual answers accepted; source/evidence published; #65/#68 closed in recorded readback | CURRENT / Checkpoint 1 | Independent incident profiles, bounded 09R references and causal report answers meet the authorised demonstration scope. | Preserve all runs and cutoff evidence. The later #67 correction does not retroactively change recorded answers or establish general reliability. |
 | F01 — fog visual profile | Implemented; native acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | Extends an existing external-clock presentation path; it does not require a detector, scoring or queue generation. | Delivered for this increment; preserve evidence and review future changes. |
@@ -825,9 +840,9 @@ change to the frozen M1 research.
 Retain the two texture-import failures (#66) and failed first A380 run
 `d63e908cbf6a8937b7c6` (#68). Commit `706e6a1` moves the second A380 cue to 169
 seconds; successful rerun `3124203f0c40496b4fe7` reached debrief with all three
-client answers. The known warm-up empty-claim response (#67) remains an unresolved
-assistant completeness limitation, despite twelve successful selected calls.
-Regional map labels overlap after the aircraft leaves the exercise area (#69, open), and
+client answers. The original warm-up empty-claim response (#67) remains preserved;
+ML-030's later empty-success remedy does not establish general assistant completeness.
+The original regional-label overlap (#69) was corrected and accepted in ML-030, while
 early approach extends beyond the bounded mapped scenery. These limits prevent
 general reliability, complete operational reconstruction or visual-evaluation
 claims; they do not invalidate the demonstrated bounded outcomes.
@@ -972,16 +987,26 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from ML-030: R01/R02 publication and the #67/#69 bounded remedy acceptance
-are complete. Root's next action is publication of the reliability patch/evidence
-and tracker readback. Preserve the distinct evidence: seven deterministic recovery/
+Resume from ML-033: B01's bounded measurement/report is accepted; root's next step
+is source/result publication and #70 completion/readback. Do not rerun or tune
+prompts to erase the current path's 17/18 result versus lexical retrieval's 18/18.
+Preserve the readiness omission in the open semantic failure record and keep it
+separate from prior typed-review failures. No graph was indicated or added.
+R01/R02 and #67/#69 publication remain complete. Separate assignment work is #30 member/video submission, #31 final
+reflection and #32 smartphone evidence or explicit course acceptance.
+Preserve the distinct evidence: seven deterministic recovery/
 failure cases, three first-attempt actual calls and sampled native label review.
 Do not claim observed spontaneous retry recovery, universal label placement or
 general semantic reliability. Existing 35-second client / 40-second driver limits
 remain; timeouts are honest failure. Earlier videos remain unchanged. No further
-feature or grading redesign is authorised by the latest grading question. Do not
-start C02–C04 or infer additional accident/physics work. Reopen CURRENT only through
-new user steering or a concrete acceptance-blocking finding.
+grading redesign is authorised. Do not start C02–C04 or infer additional
+accident/physics work from this comparison.
+
+The latest clarification concerns comparison of the **AI assistant**, not a learner
+pretest. B01 is now adopted at the user's request; a broad SOTA benchmark is still
+not a supplied assignment requirement or an automatic consequence of this bounded
+comparison. Broader visual and integrated evaluation remain in M2/M3. Do not reuse
+the frozen M1 result as validation of the later live-training selector.
 
 F03/T01 limited functional acceptance and C01 remain complete within their bounds.
 The final prior source is `fa31c53ba8be77f8265a7ecbad634140c6177c44`; the workspace
@@ -1250,3 +1275,221 @@ practice still provides qualitative feedback, with no validated numerical grade
 or newly authorised grading redesign. Course requirements #30 member participation,
 #31 reflection and #32 smartphone/course acceptance remain open. This acceptance
 does not establish general semantic correctness or whole-assignment completion.
+
+## ML-031 — Independent publication readback and completion boundary
+
+3 November 2026. The reviewer queried GitHub directly: [PR #22](https://github.com/MayFairMI6/apron-lens/pull/22)
+is open and unmerged at `b69d69b39974ccba72fc33033dc9399e052f5f5c`, matching the
+clean local checkout. Both [push CI](https://github.com/MayFairMI6/apron-lens/actions/runs/41644746994)
+and [PR CI](https://github.com/MayFairMI6/apron-lens/actions/runs/41644756900)
+show successful backend test, research-integrity and backbone jobs. The final
+receipt records 296 tests and 160 preserved research records. Issues
+[#67](https://github.com/MayFairMI6/apron-lens/issues/67) and
+[#69](https://github.com/MayFairMI6/apron-lens/issues/69) are closed with comments
+linking the bounded remedies and their limits. This closes ML-030's publication
+and tracker-readback steps; it is not another test run or broader model validation.
+
+The agreed simulator app/demo implementation is complete within its recorded
+acceptance and can remain feature-frozen. The whole Checkpoint 1 submission is
+not complete: [#30](https://github.com/MayFairMI6/apron-lens/issues/30) still requires
+both actual members' identification/participation and the final submitted video;
+[#31](https://github.com/MayFairMI6/apron-lens/issues/31) requires the factual final
+reflection and at-most-one-page export; [#32](https://github.com/MayFairMI6/apron-lens/issues/32)
+requires physical-smartphone evidence or explicit course acceptance of the simulator.
+All three were independently read as open. Preserve user-written teamwork content;
+internal presenter labels are not required finished-video titles. No duration
+limit or requirement to merge the PR is supplied by the assignment.
+
+The user's new question is about SOTA/similar **AI-assistant systems**, not learner
+assessment. A new comparison is not automatically adopted and is not an M1
+completion blocker. Existing frozen M1 model/baseline research remains historical
+evidence for its specified method, not a benchmark of the current selector-v5
+training path. A new controlled assistant comparison can be proposed within M2
+development and M3 integrated evaluation; no study, dataset, model change, numerical
+learner grading or new task count is authorised by this completion review.
+
+## ML-032 — Adopted current multi-turn assistant comparison
+
+3 November 2026. The user explicitly authorised a bounded current-milestone
+comparison of AI-assistant multi-turn behavior and answer quality, allowing a
+graph database if needed. Assign **B01 to CURRENT**, in progress; root implements
+a separate runner. This supersedes ML-031's unadopted-study status without changing
+the supplied course requirements or retroactively invalidating the accepted app.
+It authorises no learner pretest, numerical learner grading, model training or
+monitoring deployment. No comparison result, winner or graph benefit exists yet.
+
+The settled scope is three core scenarios, one fixed available model and three
+arms. The implemented baseline is **lexical top-six retrieval plus the same
+selector with history**, compared with full eligible-pool selector without and
+with history. It is not an unconstrained plain RAG assistant, a published-system
+reproduction or an external SOTA-model comparison. Root owns the new
+runner, configuration, raw audit and report paths. Existing live references are
+[training_adapter.py](../../backend/training_adapter.py) and
+[training_turn.py](../../backend/training_turn.py); the separate original M1 report
+is [historical evidence](../../outputs/m1_ar_context/REPORT.md), not the new result.
+
+The inspected [runner](../../scripts/evaluate_training_assistant.py) defines six
+authored turns in each of `surface_conflict`, `late_arrival` and `late_baggage` at
+seed 17: 18 turns across three dependent episodes, evaluated under three arms for
+54 planned turn results. Every arm uses pinned Qwen3.5-9B, 768 output-token budget,
+no images and no selected flight. Lexical retrieval uses IDF-weighted binary token
+overlap with stable receipt/ID tie-breaks, not BM25. No-history creates a fresh
+session per turn; history uses actual live referent/intent memory, not a full
+dialogue transcript. All arms retain selector expansion, validation and the same
+empty-answer retry policy. Root reports no prompt/key tuning after the run began.
+
+The reviewer independently ran all eight [comparison tests](../../tests/test_training_comparison.py),
+which passed and checked the expected values at the authored receipt boundaries.
+Root separately reports the full 304-test suite and 160-record integrity check
+passing. These are runner/scorer checks, not model-comparison results. The live
+run is being saved to `outputs/assistant-comparison/run-v1.json`, with actual
+selector prompts/raw outputs in `run-v1.prompts.jsonl`; completion and results are
+not yet accepted. The first launch used an incompatible local Transformers
+environment and stopped before model requests; root corrected it to the existing
+candidates environment and will retain that failure. At this source review the
+runner SHA-256 was `43f12415307826e135a9b488f2d15992692cd719e0f12dff79ae642155be4959`
+and test SHA-256 was `133ad5462d78ab3a8fd1e9f5c16c8ea23bd7303229b6616fdaefbe1dd360b34d`.
+Because these files were not yet committed, the run's base `sourceCommit` alone
+does not identify its executed source; preserve the actual source/version record.
+
+The bounded code/scoring review identified these reporting limits to retain:
+
+- Generated values/citations are expanded from selected facts, so factual support
+  is partly enforced by the shared architecture. Differences chiefly measure
+  evidence selection, identity, required coverage, unknowns and context/retrieval
+  effects; they do not compare unrestricted answer-generation quality.
+  Supported extra but irrelevant claims can still pass if required content is
+  present; clarity and complete relevance are not separately scored. Describe
+  the automatic pass rate as authored task success and review representative
+  saved outputs for misleading extras before making broader quality statements.
+- The scorer's `staleClaims` flags any non-current claim, including a correctly
+  labelled superseded claim. Its pass rule is strict current-only answering for
+  these authored questions; report that separately from falsely presenting old
+  information as current. Empty answers and wrong identities do not pass merely
+  because their empty claim lists have no unsupported value.
+- Retrieval can omit an available fact; the selector's `missingProperties` is
+  then derived from the retrieved subset, while validation still uses the full
+  eligible world. Resulting false-unknown/rejection effects belong to this baseline
+  design, not proof of a general retrieval or language-model limitation.
+- No selected-flight input makes referent dependence visible but differs from the
+  usual selected-flight app flow. The 54 results are repeated treatments of 18
+  authored turns, not 54 independent cases; only three episode contexts are covered.
+- This offline runner does not impose the app's 35/40-second deadlines. Conditions
+  run in fixed order; warm-up/order effects can affect latency. The local adapter
+  infers stop/length from token counts rather than reading the engine's actual
+  stop reason. Neither observation establishes native responsiveness or general
+  performance. Use the prompt-audit sidecar for actual inference: the main result's
+  `prompt` is the base prompt and `rawModelOutput` is the expanded proposal.
+
+**Placement rationale.** CURRENT is selected because the request is explicit and
+the current model, authored scenarios and report semantics make a small useful
+comparison possible now. The strongest counterargument is the additional case
+annotation/scoring effort and its potential to delay the still-open submission
+items; no measured estimate or deadline is known. M2 remains appropriate for
+expanded visual/claim-checker development and M3 for broader integrated comparison.
+Neither is a prerequisite for B01. Defer a database migration without a concrete
+need; reject a claim of SOTA superiority, learning benefit or general reliability
+from this small local study. Preserve the original M2 visual-evidence commitment.
+
+The must-pass gates are:
+
+- **Versioned, separate design.** Save the new runner/configuration, scenario and
+  turn manifest, expected answer components and scoring rules before looking at
+  comparison outputs. Keep existing frozen methods/results and held-out answers
+  untouched. Label newly authored, developer-visible cases honestly; they are
+  not automatically an unseen test set. Preserve revisions and failed runs if
+  development changes follow observation.
+- **Controlled information and state.** Fix model/revision/runtime, available
+  evidence, receipt cutoffs, selected identities and input modalities across arms.
+  State precisely what history contains and remove only that treatment in the
+  selector ablation. Reset state between episodes; never give one arm another
+  arm's answers, future reports or scoring references. Report any retrieval or
+  output-contract differences as system differences rather than isolating their
+  effects without evidence.
+- **Common answer-quality criteria.** Score factual support, required-answer
+  coverage, source/citation correctness, aircraft/flight identity, temporal and
+  correction/supersession handling, appropriate unknowns/clarification and errors.
+  Include dependent follow-ups and changes of state; a nonempty answer alone is
+  not success. Distinguish safe abstention from useful task completion so an empty
+  or over-abstaining system cannot appear superior by precision alone. Use common
+  expected claims or independently reviewed judgments for semantic coverage; a
+  structural validator passing is not the answer-quality score.
+- **Actual-run accounting.** Retain raw model output, displayed answer, prompt,
+  eligible evidence, history, model settings, attempts, failures, token usage and
+  wall latency. Report first-attempt and final policy outcomes separately where
+  retries differ. Keep unknown usage unknown and record budget/deadline differences;
+  do not hide failed calls or replace them with scripted successes. No positive
+  result is required for completion.
+- **Reviewable report.** Show denominators and per-scenario/arm outcomes, examples
+  of errors, paired comparisons and practical limits. Independently check the
+  scorer/reference labels and representative saved outputs before accepting the
+  report. Distinguish this authored three-scenario comparison from a benchmark
+  against external systems, and from the original frozen M1 experiment.
+
+Graph use is conditional within this authorisation. First test whether the existing
+report identities, receipt times and explicit supersession links answer the required
+queries. Adopt a graph component only after identifying a concrete unresolved
+relation/query/provenance need and showing its bounded benefit without leaking
+future evidence or changing the comparison unfairly. It must not become a mandatory
+new infrastructure project merely because it was mentioned.
+
+The existing four videos and narration remain preserved. A comparison report does
+not silently replace their evidence; any later summary or video addition needs
+actual reviewed results and its own edit/publication status. Next action is to pin
+the study protocol/configuration and inspect the new runner, then collect the
+authorised runs. At ML-032, B01, graph benefit, publication and whole-assignment
+completion remained unverified. The later ML-033 records B01's result review;
+this earlier placement/review history is retained.
+
+## ML-033 — Comparison measurement/report accepted, baseline result preserved
+
+3 November 2026. The separate [comparison report](../../outputs/assistant-comparison/RESULTS.md)
+and [immutable run](../../outputs/assistant-comparison/run-v1.json) contain all
+54 responses: 18 authored turns in three dependent episodes, evaluated in three
+configurations with the same pinned model. The [independent review](../../outputs/assistant-comparison/independent-review.json)
+accepts **B01 as measurement/report completion**, with publication and #70 closure/
+readback still pending. It does not certify improved app semantics.
+
+| Configuration | Authored task success | Validator accepted | Median seconds |
+|---|---:|---:|---:|
+| Lexical top-six retrieval + selector/history | 18/18 | 18/18 | 5.886 |
+| Full-pool selector without history | 14/18 | 17/18 | 6.361 |
+| Current full-pool selector with history | 17/18 | 18/18 | 6.640 |
+
+All 54 requests used one actual model attempt, with complete token accounting;
+none exceeded 35 or 40 seconds. These descriptive latencies come from fixed-order
+offline execution, not an enforced native deadline experiment. The no-history
+misses comprise two clarifications, one sourced answer about the wrong flight
+and one withheld four-ID selection exceeding the three-ID schema limit. The
+current path's surface-conflict readiness answer cited a truthful hold-release
+fact but omitted `overall_readiness` uncertainty. This is incomplete coverage,
+not fabricated departure clearance. Root recorded it as a distinct ordinary-
+assistant finding in the existing [open semantic issue #60](https://github.com/MayFairMI6/apron-lens/issues/60#issuecomment-6605604155);
+do not conflate it with the earlier typed-review path or the fixed empty-answer
+acceptance defect #67.
+
+The reviewer independently matched all 54 case keys, recomputed scores, reconstructed
+actual selector prompts, checked receipt eligibility, model identity, per-call
+usage and expanded-proposal/audit agreement. Summary totals and suite hash match.
+Eight runtime/runner hashes match the source manifest; the original test hash is
+preserved as history and current test/report-helper hashes match its reporting
+section. All nine scorer/report tests pass independently. The reviewer read every
+current-selector displayed answer and all five failed selections/displays, rather
+than rerunning the model. The reporting helper's unknown-usage totals were corrected
+to remain null with known subtotals separate; actual run totals are complete.
+
+The common selector/validator architecture, limited history, no selected-flight
+cue, three dependent episodes/one seed, strict current-only rule and unscored
+clarity/relevance limits remain in the protocol and independent receipt. The
+lexical arm's observed win is preserved; the study supports no SOTA superiority,
+significance, general safety/reliability, learning-benefit or graph-benefit claim.
+Prompts and reference keys were not tuned in response to outputs. The rejected
+wrong-environment startup is retained; no historical frozen research or delivered
+video was changed. Root separately reports the pinned service healthy after
+restoration; this reviewer did not operate or test that service.
+
+The current measurement is complete even with a documented current-path failure.
+Any production repair or broader study is a separate decision; neither is silently
+started to turn a loss into a win. Preserve #30/#31/#32 as the unresolved course
+submission gates. Root owns publication/tracker actions; this reviewer wrote only
+the ledger and the authorised independent-review artifact.

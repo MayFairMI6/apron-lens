@@ -1,0 +1,117 @@
+{
+  "reviewDate": "2026-11-03",
+  "reviewer": "milestone_ledger; independent of runner implementation",
+  "status": "Bounded measurement and report accepted; source publication and task closure are root actions",
+  "scope": "Three authored dependent episodes, eighteen turns, three configurations; development comparison, not held-out/SOTA/learning-gain evaluation",
+  "artifactHashes": {
+    "run-v1.json": "8356aa83482e7ee13914f4b1f5471cec2d40c6ba4c0d24f8388d6822b9bbea29",
+    "run-v1.prompts.jsonl": "11aa31f9452369aeea00497552139b0e969e86d3ab3be1dfa9d79106667da8ad",
+    "run-v1-summary.json": "3b963825984847daec4c21aee25487d7e2d9c3b2733074a0bf88dcbcacc05bf2",
+    "RESULTS.md": "a16667e382b41e52ac5468a79e7f13eb3caf623cc8399fcb338722cccd2d56a0",
+    "source-manifest.json": "149b7189d46fae4b70e94b7a8410deb39742d7359b06a4a895799b5f431e9a33",
+    "docs/course/ASSISTANT_COMPARISON.md": "b22f62bc834c571c3ffdff2e1a8aa840d70f8963101797157c37da9df92db023"
+  },
+  "reviewMethod": {
+    "actualModelRerun": false,
+    "nativeAppOperation": false,
+    "programmatic": "Read all 54 saved results and 54 actual-selector audit records; recompute scores and summary; reconstruct each exact inference prompt from the versioned runner and training selector; compare eligible receipt times, model identity, usage and expanded proposal.",
+    "semanticReading": "Read every current-selector displayed answer and all five failed outputs/raw selections, including the no-history clarification, wrong-flight and schema-withheld cases; inspect protocol and reporting limits."
+  },
+  "verified": {
+    "completedResults": 54,
+    "distinctRequests": 54,
+    "actualAttemptRecords": 54,
+    "attemptsPerTurn": 1,
+    "caseKeysMatch": 54,
+    "scoresRecomputedMatch": 54,
+    "actualPromptsReconstructedMatch": 54,
+    "expandedProposalsMatchAudit": 54,
+    "promptFactsReceiptEligible": 54,
+    "pinnedModelMatches": 54,
+    "usageMatches": 54,
+    "summaryRecomputedMatch": true,
+    "suiteHashMatches": true,
+    "historySessionIsolation": "One separate session per condition/episode; six fresh sessions per episode for no-history; no state sharing between conditions.",
+    "sourceManifest": "All eight runtime/runner source hashes match. Original eight-test file hash is retained as history; current test and reporting-helper hashes match reportingFiles. Runner source is unchanged from the earlier independent review.",
+    "targetedTests": "9 comparison/scoring/reporting tests passed independently after the final reporting fix.",
+    "usage": "All actual calls have complete token counts. Reporting helper now leaves incomplete totals null and keeps known subtotals separately.",
+    "deadlines": "No saved latency exceeded 35 or 40 seconds; the offline runner did not enforce native deadlines.",
+    "perScenarioTable": "Final report per-scenario values match the independently recomputed 6/6/6, 5/4/5 and 5/6/6 rows."
+  },
+  "results": {
+    "lexical_history": {
+      "taskSuccess": 18,
+      "turns": 18,
+      "validatorAccepted": 18,
+      "medianSeconds": 5.886,
+      "inputTokens": 16170,
+      "outputTokens": 641,
+      "perScenario": [
+        6,
+        6,
+        6
+      ]
+    },
+    "selector_no_history": {
+      "taskSuccess": 14,
+      "turns": 18,
+      "validatorAccepted": 17,
+      "medianSeconds": 6.361,
+      "inputTokens": 20122,
+      "outputTokens": 660,
+      "perScenario": [
+        5,
+        4,
+        5
+      ]
+    },
+    "selector_history": {
+      "taskSuccess": 17,
+      "turns": 18,
+      "validatorAccepted": 18,
+      "medianSeconds": 6.64,
+      "inputTokens": 21162,
+      "outputTokens": 637,
+      "perScenario": [
+        5,
+        6,
+        6
+      ]
+    },
+    "scenarioOrder": [
+      "surface_conflict",
+      "late_arrival",
+      "late_baggage"
+    ]
+  },
+  "failureInterpretation": [
+    {
+      "condition": "selector_history",
+      "exercise": "surface_conflict",
+      "turn": 5,
+      "finding": "The accepted answer states the truthful current ground-hold release but omits required overall_readiness uncertainty. This is a semantic coverage failure, not invented departure clearance. Nonempty structural acceptance does not establish a complete answer.",
+      "register": "https://github.com/MayFairMI6/apron-lens/issues/60#issuecomment-6605604155",
+      "registerStatus": "Root reports a distinct ordinary-assistant-path note in the existing open semantic register."
+    },
+    {
+      "condition": "selector_no_history",
+      "finding": "Four task misses: two valid clarification responses with no referent, one internally sourced answer about TRN102 instead of expected TRN103, and one schema-withheld selection containing four fact IDs beyond the maximum of three. identityNotMatched=4 must not be described as four wrong-aircraft claims."
+    }
+  ],
+  "limitations": [
+    "All arms use the same selector, evidence expansion, validator and retry policy; lexical top-six retrieval is not an unconstrained RAG or published external system.",
+    "History is current referent/intent state, not a full dialogue transcript. No selected aircraft is supplied, unlike common native usage.",
+    "Claim values are expanded from facts. Scores chiefly measure selection, identity, requested coverage and uncertainty, not unrestricted prose quality.",
+    "A correctly labelled non-current claim fails the predeclared strict current-only rule; that is not automatically temporal hallucination. No such claims occurred in this run.",
+    "Supported irrelevant extras can pass when required content is present; clarity and complete relevance are not scored. complete/incomplete fields concern required factual values, while unknown coverage is separate.",
+    "Retrieval missingProperties comes from the subset while validation uses the full eligible world.",
+    "There are only three dependent episode contexts and one seed; 54 responses are not 54 independent samples. No significance or general superiority claim is supported.",
+    "Fixed condition order and offline execution make latency descriptive; actual engine stop reasons are unavailable and inferred from token counts.",
+    "No retry occurred in this comparison, so it adds no observed retry-recovery evidence.",
+    "The lexical arm achieved the best observed task success; no production prompt was revised to erase the current-path loss.",
+    "No graph-specific need was demonstrated, no graph database was added, and no learner grading or app-semantic repair is claimed."
+  ],
+  "blockingFindings": [],
+  "preservation": "Run, answer keys, prompts and frozen historical research were not changed by this reviewer. Initial wrong-environment startup failure is retained in the manifest. Existing videos are unchanged.",
+  "remainingActions": "Root publishes source/evidence, closes task #70 as measurement/report completion, preserves semantic issue #60, and confirms service restoration separately. Course #30/#31/#32 remain separate."
+}
