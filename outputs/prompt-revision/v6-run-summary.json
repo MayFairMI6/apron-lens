@@ -1,0 +1,51 @@
+{
+  "summary": {
+    "v5": {
+      "turns": 24,
+      "completeSupported": 23,
+      "accepted": 24,
+      "identityNotMatched": 0,
+      "incomplete": 0,
+      "wrongUnknowns": 0,
+      "noncurrentClaims": 1,
+      "noClaimsOrUnknowns": 0,
+      "clarifications": 0,
+      "calls": 24,
+      "retriedTurns": 0,
+      "inputTokens": 30364,
+      "knownInputTokens": 30364,
+      "outputTokens": 871,
+      "knownOutputTokens": 871,
+      "usageComplete": true,
+      "medianSeconds": 7.273,
+      "over35Seconds": 0,
+      "over40Seconds": 0
+    },
+    "v6": {
+      "turns": 24,
+      "completeSupported": 23,
+      "accepted": 24,
+      "identityNotMatched": 0,
+      "incomplete": 0,
+      "wrongUnknowns": 0,
+      "noncurrentClaims": 1,
+      "noClaimsOrUnknowns": 0,
+      "clarifications": 0,
+      "calls": 24,
+      "retriedTurns": 0,
+      "inputTokens": 33772,
+      "knownInputTokens": 33772,
+      "outputTokens": 847,
+      "knownOutputTokens": 847,
+      "usageComplete": true,
+      "medianSeconds": 7.385,
+      "over35Seconds": 0,
+      "over40Seconds": 0
+    }
+  },
+  "improved": [],
+  "regressed": [],
+  "adoptionGate": false,
+  "regressionPassed": 18,
+  "regressionTotal": 18
+}

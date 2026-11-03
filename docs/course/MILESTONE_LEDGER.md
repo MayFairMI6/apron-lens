@@ -1,5 +1,17 @@
 # AirfieldLens milestone ledger
 
+**B02, bounded prompt tuning and new-question testing, is authorised CURRENT
+work; its candidate development, measurement and report have passed independent
+acceptance, while v6 does not meet its locked promotion gate.** The
+observed regression result is 18/18; both versions score 23/24 on the new questions.
+Their sole strict failure is the same accurate, explicitly labelled readiness
+history, not a factual error. The app default is restored byte-for-byte to v5;
+publication remains pending. Keep the original 54-response comparison
+at `cb2e062` unchanged. The new work targets general inference/readiness uncertainty
+and must test positive reported readiness, receipt boundaries, direct-status and
+identity controls. It adds no graph, backbone, visual or learner-grading changes.
+ML-034 records the gates; ML-035 records the completed audit and unpromoted candidate.
+
 **B01, the bounded multi-turn AI-assistant comparison tracked by [#70](https://github.com/MayFairMI6/apron-lens/issues/70),
 has completed measurement/report acceptance in CURRENT; publication and task
 readback remain pending.** Lexical retrieval plus the same selector/history passed
@@ -186,6 +198,7 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
+| B02 — prompt tuning and new-question testing | Bounded candidate/report accepted after all 66 saved results and audit records verified; v6 promotion gate fails; v5 default restored; publication pending | CURRENT / Checkpoint 1, explicit user instruction | The authorised tuning and measurement produced a preserved candidate and a defensible no-promotion decision. No new-question advantage was demonstrated. | Publish the versioned candidate/report and failed gate unchanged. Both strict failures are accurate labelled history, not stale-as-current errors. No native v6 adoption or deployed semantic repair is claimed. |
 | B01 / #70 — bounded multi-turn AI-assistant comparison | Measurement/report accepted: 54 saved first-attempt responses, scores/audits independently checked; publication/task readback pending | CURRENT / Checkpoint 1 | The bounded study answers the adopted local comparison question while preserving the baseline's better observed result and current-path omission. It is not an external SOTA benchmark. | Publish the reviewed results and close #70 as measurement/report completion. Keep the separate semantic omission in #60 open; no production prompt repair, graph migration or new native/video claim follows. |
 | #67/#69 — current reliability corrections | Bounded remedies accepted and published as `b69d69b`; both issues closed and both CI runs successful in independent live readback | CURRENT / Checkpoint 1 corrections; failure records do not add task counts | The training-only nonempty guard/one-retry policy and finite label layout address the observed defects within their tested limits. Actual spontaneous empty-answer recovery was not observed. | Preserve deadline, fallback-free behavior, finite-label and semantic limits. No further correction work is outstanding for these accepted remedies; do not add numeric grading or task counts. |
 | R01 — four-type aircraft models and dimensions | Bounded functional acceptance, local media review and source/evidence publication complete; #64 closed in recorded readback | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Preserve original acceptance and texture-import failure history. The later #69 correction needs its own evidence; no physical-phone claim. |
@@ -987,11 +1000,20 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from ML-033: B01's bounded measurement/report is accepted; root's next step
-is source/result publication and #70 completion/readback. Do not rerun or tune
-prompts to erase the current path's 17/18 result versus lexical retrieval's 18/18.
-Preserve the readiness omission in the open semantic failure record and keep it
-separate from prior typed-review failures. No graph was indicated or added.
+Resume from ML-035: B02's candidate/report audit is accepted and its locked promotion gate failed.
+Both versions scored 23/24 on the new questions, with the same accurate labelled
+history rejected by the inherited current-only rule. The reviewer verified v5
+restored as the byte-identical app default and v6 preserved separately. Root should
+publish the accepted versioned findings and record final CI/tracker readback.
+Do not tune on these now-exposed new questions or silently redefine the gate.
+The authorised development bound was two revisions before new-question exposure.
+This explicitly permits a new version; it does not permit overwriting B01's 17/18
+current-path versus 18/18 lexical result. The clean review baseline is `cb2e062`,
+which commits the original comparison. Review each new fixture/scorer before its
+model calls and distinguish known regression cases from new developer-authored
+probes. Independently inspect results before any app-default promotion. Preserve
+the original readiness omission and prior typed-review failures separately; the
+broader semantic issue is not closed by a narrow prompt repair. No graph is in scope.
 R01/R02 and #67/#69 publication remain complete. Separate assignment work is #30 member/video submission, #31 final
 reflection and #32 smartphone evidence or explicit course acceptance.
 Preserve the distinct evidence: seven deterministic recovery/
@@ -1493,3 +1515,188 @@ Any production repair or broader study is a separate decision; neither is silent
 started to turn a loss into a win. Preserve #30/#31/#32 as the unresolved course
 submission gates. Root owns publication/tracker actions; this reviewer wrote only
 the ledger and the authorised independent-review artifact.
+
+## ML-034 — Explicit current prompt tuning, separate versions and new probes
+
+3 November 2026. The user authorises tuning the prompt, testing new questions,
+preserving the original results and publishing a new version. Assign **B02 to
+CURRENT**, in progress, with a maximum of two development revisions. Root starts
+v6 alongside v5. The ledger reviewer inspected the clean checkout at `cb2e062`,
+which commits the original comparison; this turn does not claim a fresh remote
+publication or CI readback. B01's study remains accepted historical evidence.
+
+The reason to act now is a concrete observed ordinary-assistant omission and an
+explicit request to improve and test that path. The strongest reason for later
+placement is that more general semantic reliability needs substantially broader
+reference cases and evaluation than a prompt change can supply. That broader
+work remains with M2's claim/checker development and M3 evaluation; it does not
+prevent this bounded current revision. Defer any further tuning beyond the two
+authorised development revisions unless scope is explicitly reopened. Reject
+rewriting old results, feeding scoring keys into inference, hard-coding the known
+answer or claiming the prompt solves general semantics. No time estimate or new
+deadline is established.
+
+Acceptance is separate from the original 54 calls and from eventual publication:
+
+- Preserve `run-v1.json`, its actual-prompt sidecar, report, review and source
+  manifest under `outputs/assistant-comparison/`. Keep v5 selectable/reproducible
+  alongside v6; use new versioned outputs and manifests. The old eighteen turns
+  are now observed regression material, not unseen evaluation of the revision.
+- Author and independently check the new fixture/scorer before running that
+  revision. Include paraphrases of inferential/readiness questions, **explicit
+  positive readiness reports**, known negative/restricted states, absent readiness,
+  immediately-before/at-receipt boundaries, direct-status controls and aircraft/
+  referent changes. A positive report must be answered from its source once
+  eligible; a universal `unknown` policy is not a successful repair. Distinguish
+  readiness, a completed service and a local ground-hold release from departure
+  authority. New authored probes are development data unless a separate independent
+  evaluation split is actually established; no historical held-out answers are read.
+- Pin each prompt version, new questions, labels, model/runtime, token budget,
+  history/selection context, retry policy and scoring before its calls. Never
+  change labels to excuse a model error. If a second development revision is used,
+  retain the first revision's outputs and reasons for changing it. Treat cases
+  already observed during revision one as development on revision two.
+- Evaluate factual support, identity, receipt eligibility, requested factual and
+  uncertainty coverage, false uncertainty, appropriate clarification and failures
+  separately. Audit raw selections and displayed answers, all attempts, usage and
+  latency. Keep partial/unknown usage and withheld failures honest. Existing
+  finite retry and client/driver deadlines remain unless separately justified and
+  authorised; no scripted successful answer substitutes for a failed request.
+- Fix promotion criteria before outputs. The diagnosed omission and positive/
+  boundary/identity controls must have evidence supporting the intended behavior;
+  inspect regressions and all remaining failures before choosing a candidate.
+  Do not invent an arbitrary overall perfect-score requirement or promote a new
+  default solely because one familiar question passes. If evidence does not
+  support promotion within the revision bound, publish the versioned findings
+  and retain the prior app default with the limitation explicit.
+- If a revised prompt becomes the app default, check its actual configured budget,
+  native response and failure behavior separately from offline success, preserve
+  frozen research/integrity checks, and record the selected source version and
+  publication. A completed development report alone is not native acceptance or
+  general grading/semantic reliability.
+
+Root owns prompt/runner/fixture implementation; this reviewer owns ledger placement
+and later independent review only. Planned new fixture/result paths must be added
+when concrete; existing [training adapter](../../backend/training_adapter.py),
+[comparison protocol](ASSISTANT_COMPARISON.md) and
+[B01 report](../../outputs/assistant-comparison/RESULTS.md) are the starting evidence.
+No graph database, backbone change, renderer change, learner assessment or video
+replacement is authorised by B02. The ordinary-assistant readiness finding and
+older typed-review limitations remain distinct within #60; do not close its broader
+scope from a narrow successful probe. #30/#31/#32 remain the separate course gates.
+No new result is claimed and no model run was performed by this reviewer.
+
+**Concrete v6 implementation and fixture review, before result acceptance.** The
+[candidate adapter](../../backend/training_adapter.py) changes instructions only;
+[training_adapter_v5.py](../../backend/training_adapter_v5.py) is byte-identical to
+the published adapter at `cb2e062`. The original comparison runner now explicitly
+imports that v5 snapshot. This reviewer verified that the original run, actual
+prompt sidecar, summary and report hashes still match B01's independent receipt.
+
+The [new runner](../../scripts/evaluate_prompt_revision.py) locks its sources,
+questions, answer keys and promotion gate in
+`outputs/prompt-revision/v6-run.lock.json` before requests. All four locked source
+hashes match the inspected files. It first runs v6 on the eighteen observed
+seed-17 regression turns; only if all pass does it run v5 and v6 on 24 new
+seed-29 questions, for up to 66 turn results with actual attempts accounted
+separately. The new questions comprise four six-turn episodes, including a
+dedicated explicit-readiness episode. Its evaluation-only reports establish
+`ready` at receipt 200 and supersede it with a reported not-ready restriction at
+receipt 220. They are not injected into the app's lessons. Direct fuel/status,
+aircraft-change and immediately-before/at-receipt controls prevent an all-unknown
+answer policy from satisfying the keys.
+
+The predeclared adoption gate is: all eighteen observed regressions pass; v6's
+total exceeds v5 on the 24 new questions; no paired v5-pass/v6-fail regression;
+and all six explicit-readiness-episode probes pass. This is root's conservative
+promotion rule for this revision, not a newly imposed course requirement or proof
+of general reliability. No prompt revision is allowed after opening the new
+question results. If the gate fails, retain the candidate findings and v5 app
+default rather than redefining the gate from observed outcomes. Any second
+development revision must respect the recorded two-revision bound and data exposure.
+
+The reviewer independently ran four [revision-fixture tests](../../tests/test_prompt_revision.py)
+and nine existing scorer/report tests; all passed. Readiness references and receipt
+boundaries match the authored world, whose duration covers every cutoff. The
+candidate contains no expected report IDs or fixed scenario answers, and the
+evidence context is unchanged. The broader wording about answering requested
+properties from current reports does not establish historical-only query behavior;
+that is outside this new battery and must not be covered by a general history-
+reliability claim. Newly authored questions in familiar scenario families remain
+development probes, not independent unseen-airport evaluation. No result or native
+adoption is accepted yet; inspect the new saved run and both prompt sidecars next.
+
+**Completed-run promotion review.** The reviewer read the finished
+[v6 run](../../outputs/prompt-revision/v6-run.json): `completed: true`, eighteen
+observed v6 regressions passed, v5 and v6 each passed 23/24 new-question tasks,
+no paired regressions, and `adopt: false`. This is a bounded decision readback;
+the full audit-sidecar/source verification is still pending.
+
+The only strict failure in each version is explicit-readiness turn 4, at cutoff
+220: “Has the latest update changed its reported readiness?” Both return the same
+two correctly sourced claims: the old `ready` report explicitly **superseded**, and
+the new `not ready: additional inspection required` report explicitly **current**.
+Identity, factual support, required current value, uncertainty and citations all
+pass. The inherited scorer sets `staleClaims` whenever any claim is non-current,
+even when that status is accurately disclosed. It therefore penalises relevant
+history invited by this question. Neither answer asserts old readiness as current;
+do not describe either as a factual, temporal or clearance hallucination.
+
+Preserve the locked 23/24 scores and annotate this measurement limitation. A
+post-hoc semantic reading can recognise both answers as sound; it supplies no
+v6 advantage because the responses are identical. The original readiness omission
+is repaired on the observed regression probe, but the new questions do not show
+an improvement over v5. The strict total-improvement and all-six-readiness gates
+are unmet. **Do not promote v6 under this gate.** Retain its version and findings,
+retain/restore v5 as the app default, and finish the result audit/report and
+publication. No question/key/prompt change or new model run is authorised by this
+review. This failed promotion does not erase the completed current measurement,
+become a new course-submission blocker or displace M2's separate checker work.
+
+## ML-035 — Candidate audit accepted; v6 remains unpromoted
+
+3 November 2026. **Accept B02's bounded development, measurement, preservation and
+report deliverable in CURRENT.** The failed promotion gate is an honest outcome
+of that deliverable. It does not mean v6 is deployed or that the original ordinary-
+assistant omission has been repaired in the app. Publication remains root's next
+step; native v6 was not run or accepted.
+
+The [independent review](../../outputs/prompt-revision/independent-review.json)
+checks all 66 saved results against 66 actual, single-attempt audit entries. Every
+locked case, recomputed score, exact selector prompt, eligible fact pool, expanded
+proposal, model identity and token accounting matches. A deterministic replay of
+the saved replies through the ordinary training turn, validator and session state
+reproduces every stored result and base prompt across eleven isolated sessions.
+This uses saved answers only, with no new model calls. The reviewer read all 66
+displayed answers, including the identical sound history answers penalised by the
+current-only rule. All responses passed the structural validator; the maximum
+saved latency was 9.674 seconds, and none exceeded 35 or 40 seconds. Offline
+execution did not enforce native deadlines, and actual engine stop reasons remain
+unavailable. Six revision tests and nine comparison/scoring/reporting tests passed
+independently. Root subsequently reports the final full suite passed 311 tests
+in 39.424 seconds and the 160-record frozen integrity checks passed; these larger
+checks were not rerun by this reviewer.
+
+The [preservation manifest](../../outputs/prompt-revision/preservation.json)
+correctly maps the lock's former `backend/training_adapter.py` to the byte-identical
+[v6 candidate](../../backend/training_adapter_v6.py), and its executed runner to
+[runner-at-run.py](../../outputs/prompt-revision/runner-at-run.py). The other two
+locked sources are unchanged. All four locked-source and three final-source hashes
+match. The reproducible runner now imports v6 explicitly. The app-default adapter
+and preserved v5 module both exactly match the published adapter at `cb2e062`;
+six original comparison artifacts remain byte-identical. The root's
+[service receipt](../../outputs/prompt-revision/service-restoration.json) reports
+ready with the pinned model and v5 default; this reviewer read the receipt rather
+than querying or restarting the live service.
+
+Keep the strict new-question result **23/24 versus 23/24**, no paired improvements
+or regressions, and `adopt: false`. The observed v6 regression result is 18/18.
+Interpret the shared history penalty as documented in ML-034; a later semantic
+reading supplies no v6 advantage. Only one candidate revision was used. Do not
+tune on these now-exposed questions, edit the keys or redefine this run's gate.
+The user requested tuning, testing and a published new version; publishing the
+tested candidate with the unsuccessful promotion decision satisfies that bounded
+research action without claiming deployment. No new video, graph, model training,
+native v6 run or extra feature is required to complete this outcome. Existing
+semantic issue #60, the original M2/M3 research commitments and course submission
+gates #30/#31/#32 retain their separate scope.

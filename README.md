@@ -13,9 +13,10 @@ setup identifiers remain compatible; archived recordings and frozen results keep
 their original labels.
 
 The current application direction is **controller situational-awareness training**.
-Three exercises cover an obstructed ground route, an occupied arrival stand and a changing
-departure estimate. Each has a briefing, moving aircraft, a report-grounded assistant,
-three scored formative checkpoints and an evidence debrief. Pilot and turnaround perspectives
+Three original exercises cover an obstructed ground route, an occupied arrival stand and a changing
+departure estimate; a fourth covers fog restrictions. Each has a briefing, moving aircraft,
+a report-grounded assistant, three typed practice checkpoints with qualitative feedback
+and an evidence debrief. Pilot and turnaround perspectives
 support the debrief; separate courses and cockpit procedures are outside this milestone.
 The iOS preview has landscape and portrait layouts, an elevated overview and selectable
 aircraft. A local external service owns time and offers a short lesson, a normal-speed hour,
@@ -37,7 +38,10 @@ See [training setup and limits](docs/TRAINING_DRIVER.md) and the
 
 Start the current controller lesson with
 `.venv-candidates/bin/python -m backend.training --mode lesson --exercise surface_conflict --seed 17`.
-The preselected local Qwen3.5-9B configuration is unchanged. Continuous voice, full Heathrow
+The preselected local Qwen3.5-9B configuration is unchanged. The separately versioned
+[v6 readiness candidate](docs/course/PROMPT_REVISION.md) preserves the original v5
+[assistant comparison](outputs/assistant-comparison/RESULTS.md) and records new-question tests. The fresh-question result tied; v5 remains the app default.
+ Continuous voice, full Heathrow
 reconstruction and physical-device AR testing remain separate work. The shared-backbone
 extension and recorded-video experiment are deferred by the current priority decision.
 

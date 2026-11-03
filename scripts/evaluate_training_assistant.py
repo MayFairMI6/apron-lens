@@ -16,7 +16,7 @@ import uuid
 from backend.conversation.state import SessionState
 from backend.conversation.context import snapshot
 from backend.lessons import build_lesson
-from backend.training_adapter import TrainingAdapter, TRAINING_PROMPT_VERSION
+from backend.training_adapter_v5 import TrainingAdapter, TRAINING_PROMPT_VERSION
 from backend.training_turn import run_turn
 from modelaccess.contract import Settings
 
