@@ -18,10 +18,11 @@ namespace SurfaceSafety {
                 if(p.kind=="dusk"){float d=At(p,replay.Clock.Time).daylight;return d>.65f?"Late afternoon":d>.2f?"Dusk":"Night";}
                 return p.kind=="snow"?"Snowfall":p.kind=="rain"?"Rain":"";}
         }
-        public void Bind(StandReplay owner,Camera camera){
+        public void Bind(StandReplay owner,Camera camera,Light sharedSun=null){
             replay=owner;view=camera;originalSky=view.backgroundColor;
             originalAmbient=RenderSettings.ambientLight;originalMode=RenderSettings.ambientMode;
-            foreach(var light in FindObjectsByType<Light>(FindObjectsSortMode.None))if(light.type==LightType.Directional){sun=light;break;}
+            sun=sharedSun;
+            if(sun==null)foreach(var light in FindObjectsByType<Light>(FindObjectsSortMode.None))if(light.isActiveAndEnabled&&light.type==LightType.Directional){sun=light;break;}
             if(sun!=null){originalIntensity=sun.intensity;originalSun=sun.color;originalRotation=sun.transform.rotation;}
         }
         public static EnvironmentFrame At(TrainingEnvironment plan,float t){

@@ -1,6 +1,6 @@
-# ApronLens user manual
+# AirfieldLens user manual
 
-ApronLens is a conversational AR assistant for airport stand coordination. You
+AirfieldLens is a conversational AR assistant for airport stand coordination. You
 stand on a simulated apron, see aircraft and ground vehicles through an AR
 camera, point at an aircraft and ask about it. The assistant answers from the
 operational reports received so far, and every claim it shows is checked

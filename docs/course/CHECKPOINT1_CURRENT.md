@@ -1,10 +1,16 @@
-# ApronLens Checkpoint 1
+# AirfieldLens Checkpoint 1
 
 The core application scope remains controller situational-awareness training,
 three scored exercises, moving aircraft and a report-grounded assistant. Pilot
 and turnaround implications appear in debrief. A dedicated turnaround task is
 deferred to Checkpoint 2, alongside the planned visual-evidence research. No
 separate pilot course is delivered. The separate video-memory project is deferred.
+
+The project is now titled **AirfieldLens** (previously ApronLens). The owner
+approved a voice-matched replacement of Person 1's opening sentence and updated
+video branding. The original narration and earlier recordings remain archived.
+Repository paths, bundle identifiers and frozen research records retain their
+existing names for compatibility.
 
 The presentation uses distinct scenarios, with time scaling within each case.
 Routine operational disruptions anchor the scored lessons; wildlife, dropped
@@ -14,42 +20,41 @@ are not presented as probable events in one airport hour. Geometry, response
 intervals and incident physics remain authored illustrations. Heathrow sources
 support the hazard categories; they do not establish our timings or probabilities.
 
-A coverage audit identified important omissions from this recording: rejected
-takeoff exists only in the older report-led catalogue; an occupied-runway go-around
-and runway incursion/stop-bar conflict are not implemented. These are the next
-recommended demonstration supplements. Low-visibility operating states, runway
-debris and communication-error tasks also remain incomplete. The current three
-scored lessons and their acceptance remain valid within their stated scope; they
-do not establish comprehensive controller-training coverage. See the
-[scenario coverage correction](IMPLEMENTATION_DOCKET.md#scenario-coverage-correction)
-for priorities, current status and acceptance gates. No new case has been added to
-the video by this documentation audit.
+The coverage audit led to four additional independent demonstration profiles:
+rejected takeoff, occupied-runway go-around, vehicle runway incursion and a water
+landing at the geographically positioned Wraysbury Reservoir. Each has its own run
+identity, reports, three ordinary assistant questions and a one-hour source clock.
+The water case is authored; no Heathrow reservoir accident or operational suitability
+is claimed. Official investigations inform event sequence, while generic aircraft,
+kinematics and response timing remain illustrative. The incursion cancels departure
+before the roll, matching the cited D-AEAD sequence. These cases add no scored
+questions. A specific red-stop-bar conflict, operational weather, runway debris,
+communication-error tasks and full recovery/reopening remain later work.
 
-The [16:18 scenario and weather edit](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view?usp=drivesdk) includes Person 1's supplied audio, aligned with the learner
-flow, stand-availability answers and Sources. Person 2's section awaits narration.
-[Person 2's script](PERSON2_SCRIPT.txt) and the [two-person plan](TEAM_RECORDING_PLAN.txt)
-identify the separate cases. The original 8:27, 9:42 and 13:25 pre-weather recordings are preserved. Rain, snowfall and late-afternoon → dusk → night appear as separate environment previews in Person 2’s section.
-The edit uses selected captures; the driver retains a shared source timeline, and
-chapter cuts do not create independent acceptance runs or reset evidence clocks.
+The four additional runway/emergency profiles passed 20 seeds each in the 241-test backend suite and 113 Unity checks. Each selected native run reached its one-hour debrief and displayed three actual accepted model responses, twelve across four runs. These are functional examples, not an accuracy benchmark. The first water capture is retained; its oversized close-view map label was corrected and that case was recorded again. See outputs/checkpoint1/runway-acceptance.json.
+
+The [23:42 AirfieldLens recording](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view) includes the approved opening-name edit, current branding, mapped Terminal 3 and the four additional runway cases. Person 2’s narration remains to be recorded. [The two-person plan](TEAM_RECORDING_PLAN.txt) and [Person 2’s script](PERSON2_SCRIPT.txt) contain current cues. The original recordings remain archived.
+
+The edit uses genuine source footage and model responses. Earlier incident chapters are targeted excerpts; each new runway/emergency profile completed an independent one-hour run. Branding overlays update only the name in earlier footage and the labelled saved debrief. They do not alter answers, scenario clocks or evidence.
 
 Heathrow's AI-assisted digital-tower trials provide relevant motivation for the
 next research stage. NATS describes testing, and Searidge describes camera-based
-monitoring of aircraft and runway thresholds to assist people. ApronLens currently
+monitoring of aircraft and runway thresholds to assist people. AirfieldLens currently
 answers from reports. Checkpoint 2 will test whether images add reliable evidence;
 Checkpoint 3 will evaluate the integrated experience and failures. See the
 [primary-source design notes](../HEATHROW_SCENARIO_BASIS.txt). Rain, snowfall and late-afternoon → dusk → night are implemented as visual conditions on the external source clock. Operational weather decisions, de-icing and visual-evidence evaluation remain Checkpoint 2 work; integrated condition testing belongs to Checkpoint 3. The current dusk profile is one source hour, not a full 24-hour solar cycle. See the [implementation docket](IMPLEMENTATION_DOCKET.md).
 
-The learner-facing header is simply APRONLENS followed by the exercise title.
+The learner-facing header is simply AIRFIELDLENS followed by the exercise title.
 Controller situational awareness describes the learning objective in developer
 and course documentation; it is not a role selector or a label in the header.
 
 The current preview ran in the iOS Simulator on Apple Silicon. The fictional
 Heathrow-informed environment includes an occupied stand, paved turns, a local
 takeoff/landing circuit, wildlife, dropped baggage, ground contact and separate emergency examples. This recording does
-not establish physical-device AR tracking, accurate Heathrow geometry or
+not establish physical-device AR tracking, survey-grade Heathrow accuracy or
 professional training competence.
 
-ApronLens is positioned as portable scenario practice and review for learners, not an operational control workstation. The phone suits a focused flight/report/checkpoint task; a tablet or larger display is the recommended format for a broader traffic overview. This is a design recommendation, not a completed controller-usability finding. Checkpoint 3 should compare phone and larger-screen use with representative learners. See the [mobile-training source note](../HEATHROW_SCENARIO_BASIS.txt).
+AirfieldLens is positioned as portable scenario practice and review for learners, not an operational control workstation. The phone suits a focused flight/report/checkpoint task; a tablet or larger display is the recommended format for a broader traffic overview. This is a design recommendation, not a completed controller-usability finding. Checkpoint 3 should compare phone and larger-screen use with representative learners. See the [mobile-training source note](../HEATHROW_SCENARIO_BASIS.txt).
 
 ## Evidence and presentation
 
@@ -190,3 +195,10 @@ The owner supplied the assignment wording; see [requirement status](CHECKPOINT1_
 The video now contains Person 1’s supplied narration; Person 2’s narration, the
 blank Coordination/Meetings sections and physical-phone verification remain outstanding. No video duration was specified in the supplied
 wording. No course submission or instructor approval is implied by this snapshot.
+
+## Current publication records
+
+- [Runway-case and native acceptance](../../outputs/checkpoint1/runway-acceptance.json).
+- [AirfieldLens video edit and narration verification](../../outputs/checkpoint1/airfieldlens-demo-edit.json).
+- [Approved opening-sentence edit](../../outputs/checkpoint1/airfieldlens-name-edit.json).
+- [Mapped geometry and free-asset provenance](../../data/geography/README.md).

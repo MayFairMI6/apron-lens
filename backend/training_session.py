@@ -8,6 +8,7 @@ import threading
 import time
 
 from backend.lessons import EXERCISES, TITLES, OBJECTIVES, build_lesson
+from backend.runway_scenarios import DEMONSTRATIONS, TITLES as DEMO_TITLES, OBJECTIVES as DEMO_OBJECTIVES, build_demonstration
 from backend.training_environment import attach_environment, ENVIRONMENTS
 from evidencekit import SourceRecord, check_references
 
@@ -16,6 +17,8 @@ class ActionConflict(ValueError): pass
 class TrainingSession:
     def __init__(self, seed, exercise='surface_conflict', mode='lesson', clock=time.monotonic, audit_path=None, environment='clear'):
         if mode not in ('lesson','continuous','demo'): raise ValueError('Unknown training mode')
+        if exercise not in EXERCISES+DEMONSTRATIONS: raise ValueError('Unknown exercise')
+        if mode=='lesson' and exercise in DEMONSTRATIONS: raise ValueError('This case is a demonstration, not a scored lesson; use --mode demo or continuous')
         if environment not in ENVIRONMENTS: raise ValueError('Unknown environment')
         self.environment=environment
         self.seed=seed;self.exercise=exercise;self.mode=mode;self.clock=clock
@@ -25,7 +28,11 @@ class TrainingSession:
     def _reset(self):
         self.run_id=secrets.token_hex(10);self.revision=0;self.source_time=0.;self.last_wall=self.clock()
         self.started_wall=self.last_wall;self.phase='briefing' if self.mode=='lesson' else 'practice'
-        self.scenario,self.reservations,self.probes=build_lesson(self.seed,self.exercise)
+        builder=build_demonstration if self.exercise in DEMONSTRATIONS else build_lesson
+        self.scenario,self.reservations,self.probes=builder(self.seed,self.exercise)
+        self.title={**TITLES,**DEMO_TITLES}[self.exercise]
+        self.objective={**OBJECTIVES,**DEMO_OBJECTIVES}[self.exercise]
+        self.target='A1' if self.exercise in DEMONSTRATIONS else 'A3' if self.exercise=='late_arrival' else 'A2'
         attach_environment(self.scenario,self.environment)
         self.demo_probes=sorted(self.probes+self.scenario.get('demoQuestions',[]),key=lambda p:p['at'])
         self.scenario['scenarioId']='LESSON-'+self.run_id
@@ -124,11 +131,11 @@ class TrainingSession:
         with self.lock:
             self.advance()
             result=dict(runId=self.run_id,revision=self.revision,mode=self.mode,phase=self.phase,
-                title=TITLES[self.exercise],objective=OBJECTIVES[self.exercise],exercise=self.exercise,
+                title=self.title,objective=self.objective,exercise=self.exercise,
                 sourceTime=self.source_time,rate=self._rate(self.clock()),nextBoundary=self._boundary(),
-                checkpointNumber=min(self.active_probe+1,3),checkpointCount=3,
+                checkpointNumber=min(self.active_probe+1,len(self.probes)),checkpointCount=len(self.probes),
                 score=sum(a['correct'] for a in self.answers),answered=len(self.answers),
-                targetAircraft='A3' if self.exercise=='late_arrival' else 'A2',
+                targetAircraft=self.target,
                 checkpoint=None,feedback=None,reviews=[],demoCue=None,
                 perspectives=[dict(role='Controller',text='Follow identity, restrictions and received updates. An occupied stand stays a reported hold until the availability update; birds leaving view do not establish a runway release.'),
                     dict(role='Pilot',text='Review the reported route and restrictions. A time estimate is not a clearance. Report wildlife location and activity; keep a sighting separate from a suspected or confirmed strike.'),
@@ -138,6 +145,12 @@ class TrainingSession:
                 result['checkpoint']={k:p[k] for k in ('id','at','question','choices')}
             if self.phase=='feedback':result['feedback']=self._feedback(self.answers[-1])
             if self.phase=='debrief':result['reviews']=[self._feedback(a) for a in self.answers]
+            if self.exercise in DEMONSTRATIONS:
+                result['perspectives']=[
+                    dict(role='Controller',text=self.objective),
+                    dict(role='Pilot',text='Review the latest report for your flight and identify what still needs confirmation.'),
+                    dict(role='Turnaround',text='Include active restrictions and outstanding confirmations in the handover.'),
+                    dict(role='Scenario basis',text=self.scenario['provenance']['limitations'])]
             if self.cue:result['demoCue']={k:v for k,v in self.cue.items() if k!='deadline'}
             focus=next((f for f in self.scenario.get('flightShowcases',[]) if f['start']<=self.source_time<f['end']),None)
             result['spotlightId']=focus['id'] if focus and self.mode=='demo' else ''
@@ -151,7 +164,7 @@ class TrainingSession:
     def snapshot(self):
         with self.lock:
             state=self.state()
-            return dict(serverTime=state['sourceTime'],scenario=self.scenario,synthetic=True,exerciseTitle=TITLES[self.exercise],
+            return dict(serverTime=state['sourceTime'],scenario=self.scenario,synthetic=True,exerciseTitle=self.title,
                 clock=dict(runId=self.run_id,revision=self.revision,rate=state['rate'],state=self.phase,nextBoundary=state['nextBoundary']),training=state,
                 sourceRecords=[r.wire() for r in self.records if r.available_time<=state['sourceTime']])
 
@@ -187,7 +200,9 @@ class TrainingSession:
                     self.read_until=max(self.read_until,self.clock()+10)
                     self._log('assistant_cue_end',cueId=self.cue['id'],success=body.get('success') is True)
             elif action in ('retry','next') and self.phase=='debrief':
-                if action=='next':self.exercise=EXERCISES[(EXERCISES.index(self.exercise)+1)%len(EXERCISES)]
+                if action=='next':
+                    sequence=DEMONSTRATIONS if self.exercise in DEMONSTRATIONS else EXERCISES
+                    self.exercise=sequence[(sequence.index(self.exercise)+1)%len(sequence)]
                 self._reset()
                 result=self.state();self.transitions[transition]=(fingerprint,copy.deepcopy(result))
                 return result

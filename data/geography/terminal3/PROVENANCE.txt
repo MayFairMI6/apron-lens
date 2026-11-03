@@ -1,0 +1,196 @@
+Terminal 3 reference audit and hybrid import recipe — 2 November 2026
+
+Recommendation
+
+Use the four detailed FlightGear pier objects, retain the CURRENT OSM main-hall
+and concourse outline including its courtyard, and add the separately mapped
+forecourt canopy with the fabricator's documented steel/ETFE design. Do not
+replace current T3 with the entire old FlightGear mesh: its main hall and north
+pier are mostly a simple extrusion, it fills today's mapped courtyard, lacks
+Pier 6 and differs from later additions. This is a source-grounded visual model,
+not an exact current digital twin. No canonical repository, native app or service
+was changed by this subtask.
+
+Stable import files
+
+HeathrowT3-Detail-EastNorth.json / .obj / .mtl:
+  Four source objects: Cylinder.002, Cylinder.003, klima, klima.001.
+  These provide the southwest diagonal pier's columns, facade/roof forms and plant.
+  1,312 triangles. Only klima uses EGLL-t3.png, the original 512 x 128 texture.
+  Vertex coordinates are METRES, x east, y original source up, z north.
+  Origin longitude -0.4609948, latitude 51.4720209.
+  JSON meshes are separated by object/material and contain vertices, UVs, triangles,
+  RGB colors and texture name. No normals; recalculate after assigning triangles.
+  The horizontal reflection's winding correction is already applied.
+  In Unity, create meshes directly from JSON to avoid OBJ importer axis conversion.
+  Put group at Project(origin).x, terrain reference height, Project(origin).z;
+  scale all source coordinates by .001 for the app's kilometre scene units.
+  Do not apply the source heading again; it is already baked into these files.
+  Do not copy the T5 texture or its custom-apron rotation/centring.
+
+osm-t3-remainder.json:
+  Current OSM relation 18911624 outer and courtyard MINUS detailed-pier footprint.
+  Eleven parts; 327 roof triangles, all CCW in lon/lat and projected east/north.
+  Uses the exact app projection (radius 6371.0088 km, fixed cos(latitude 51.47)).
+  Feed these parts through the existing roof builder's CCW-to-upward correction.
+  Omit original full relation extrusion, or it will bury and duplicate the detail.
+  Difference has 99,714.288494 square metres; source detail overlaps 6,595.509479
+  square metres of current mapped T3. Triangle union equals remainder exactly to
+  numerical precision; remainder plus detail covers all current mapped T3.
+  About 1,268.005815 square metres (16.1%) of the source detail's plan lies outside
+  OSM's building footprint: possible eaves/overhangs and old source deviations.
+  This is retained original scenery, not surveyed current architectural detail.
+
+canopy-osm-way-722642847.json:
+  The canopy itself is mapped in source runways-osm.xml but was NOT included in
+  the current heathrow-west.json. Add it as a separate roof, not a solid building.
+  Source way 722642847, version 3, timestamp 2025-03-23T16:14:48Z, building=roof.
+  Includes the complete 25-point geographic outline, including repeated closure.
+  Approximate vertex-average location -0.45782842, 51.470650144.
+  Minimum rectangle: 135.020881 x 30.936001 metres, long bearing 145.325121 degrees
+  (or reverse 325.325121). Area 4,131.956348 square metres. These measurements use
+  the app projection and describe the OSM plan, not a survey.
+  Neither canopy nor detailed pier overlaps another existing mapped building.
+
+Canopy design recipe and evidence
+
+MERO-Schmidlin's own 2007/08 bulletin documents the Foster + Partners T3 canopy
+as 138 m long and 11 m high, using steel plate-girder box beams and inflated ETFE
+cushions with 18 m clear spans and 3.8 m bay width. See printed page 19 (PDF page 9,
+zero-based index 9 in the 17-page spread PDF):
+https://mero.de/wp-content/uploads/2025/06/Vision41.pdf
+https://www.mero.com.sg/wp-content/uploads/2019/01/Vision-No.-41.pdf
+
+Novum, the ETFE specialist, documents 70 air-filled ETFE pillows, 4,000 m² area,
+screen-printed shading and LED illumination:
+https://novumstructures.com/novum_projects/heathrow-airport-terminal-3-forecourt/
+https://novumstructures.com/eu/novum_projects/heathrow-airport-terminal-3-forecourt/
+
+Landscape designer HED independently describes the canopy as 12 m overhead,
+which differs from MERO's 11 m. Use MERO's explicit structure height in the model
+and record the difference; do not average it into a fake precise survey height.
+HED's direct photograph shows long, pale translucent cushion strips between dark
+steel transverse ribs, a central longitudinal beam, slender round columns and
+the terminal's glazed entrance behind. A restrained procedural approximation can
+use the exact mapped perimeter, roughly 3.8 m repeated rib spacing, pale slightly
+convex ETFE panels, dark steel framework and low-gloss glazing. Exact panel count
+partition and column locations are not established by the plan extract; they
+remain authored approximations, even though 70 total pillows is documented.
+Do not extrude the canopy's underside down to the ground.
+https://www.heduk.com/projects/terminal-3-heathrow-london
+
+Source model and license
+
+Official TerraSync directory:
+https://flightgear.sourceforge.net/scenery/Objects/w010n50/w001n51/
+Original files downloaded verbatim and retained beside output:
+EGLL-t3.ac, 132169 bytes, SHA1 8a9ee4b6a23478a8d545e997daa6d38758a04f36
+EGLL-t3.png, 59359 bytes, SHA1 a71ece665234b5cec4ac51323dba4bb914fb7172
+2941786.stg, 25554 bytes, SHA1 00d3565481e77ece8d90d376624e9ee28d6d1b19
+.dirindex confirms all three checksums; snapshot retained.
+Source directory modification timestamp is 2018-03-25, not a verified creation
+or architectural survey date. The asset's missing later components prove it is
+incomplete for today's T3; no precise building/model vintage is asserted.
+
+Source STG line:
+OBJECT_STATIC EGLL-t3.ac -0.4609948 51.4720209 23.28 124.8
+
+STG elevation 23.28 is mean-sea-level placement in the FlightGear world. It is NOT
+a building height. Raw source Y ranges: main mass -2.602477 to 6.083098 metres;
+detailed objects about -.585380 to 11.093223 metres. Bases below zero are retained;
+they likely extend into the source terrain. Do not normalize all vertices by the
+global minimum or stretch the model to 18 m: those introduce unsupported changes.
+All asset Y values are scenery-author choices, not verified surveyed heights.
+
+With h=124.8 degrees, raw AC (x,y,z) maps to:
+east = sin(h)*x - cos(h)*z = .8211492091337041*x + .5707135676844316*z
+north = -cos(h)*x - sin(h)*z = .5707135676844316*x - .8211492091337041*z
+up = y
+This is an axis reflection, hence the exported reversed winding.
+The separate raw HeathrowT3.obj/.mtl retain original AC coordinates and all five
+objects only as an archival diagnostic; do not import that as the final scene.
+
+Official FlightGear scenery is GPL v2; scenery repository currently states
+GPL-2.0+. This is consistent with the existing T5 asset's attribution/COPYING.
+COPYING.txt was copied unchanged from that existing directory. Ship source AC,
+source PNG, COPYING, attribution and conversion script with derived geometry.
+Author names are not present in the source AC; attribute FlightGear TerraSync
+scenery contributors rather than inventing a named author.
+https://wiki.flightgear.org/Howto:Make_an_airport
+https://scenery.flightgear.org/
+OSM polygon-derived outputs remain OpenStreetMap contributors / ODbL:
+https://www.openstreetmap.org/copyright
+
+Conversion details
+
+inspect_convert_t3.py derives the parser approach from the existing repository
+scripts/convert_heathrow_ac.py, but removes its T5 object selection and transform.
+All source object locations are applied. Polygon triangulation preserves UVs.
+72 source klima quads contain duplicate vertices and zero area; they produce no
+triangles. No nonzero surface was omitted. prepare_hybrid_t3.py selects only the
+four detailed objects, applies the geographic orientation, and constructs the
+OSM remainder with Shapely and mapbox-earcut. Initial Delaunay filtering failed
+coverage and was rejected; final earcut outputs pass area and union checks.
+The independent geographic agent confirmed transform against FlightGear's source
+AC conversion/frame code; all 2,924 exported face vertices match transformed AC
+coordinates exactly; remainder/detail overlap is about 1.46e-14 square metres.
+
+Additional reusable photographic references
+
+pier6-night.jpg: Dbx54, own photo uploaded 17 January 2009, public domain.
+Shows a glazed two-level pier wall, vertical mullions and diagonal bracing,
+projecting gate/jetbridge towers and a dark roof fascia. Useful for Pier 6, which
+the FlightGear T3 model omits. Photographer date metadata is inconsistent, so
+avoid claiming an exact exposure date.
+https://commons.wikimedia.org/wiki/File:Heathrow_Terminal_3_Pier_6_night.JPG
+
+aerial-2010.jpg: Panhard, 2 January 2010, color correction Magnolia677 (2015).
+Choose CC BY 2.5 from the file's offered licenses; retain attribution, license link
+and change indication if redistributed. Shows T3's real roof terraces, setbacks,
+service equipment and both diagonal concourses, but is historical and not a
+current survey. Do not flatten its photo onto all terminal facades.
+https://commons.wikimedia.org/wiki/File:Heathrow_Airport_010.jpg
+https://creativecommons.org/licenses/by/2.5/
+
+Entrance C to Terminal 3, October 2022, Nick-D, CC BY-SA 4.0. Page inspected;
+image download was rate-limited (HTTP429), so it is not saved locally.
+https://commons.wikimedia.org/wiki/File:Entrance_C_to_Terminal_3_of_Heathrow_Airport_October_2022.jpg
+
+hed-canopy-reference.jpg is HED's primary project photograph saved for inspection
+only. No redistribution license was found: do not ship it as a runtime texture or
+free-licensed media asset. The facts and visible architectural forms can inform
+the authored canopy geometry. The same distinction applies to MERO/Novum images.
+
+Pier 6 primary design source
+
+Scott Brownrigg documents a completed 2006, 9,000 m² pier for A380 operation and
+paired lounges configurable for two Code C aircraft or one A380. This supports
+the repeated large gate arrangement, but does not establish a roof height.
+https://www.scottbrownrigg.com/work/projects/pier-6-london-heathrow-airport/
+The project civil engineer's own biography describes the pier as 280 m long:
+https://www.7-engineering.co.uk/people.html
+Current OSM way42432280 supplies its actual plan. No exact pier height found.
+
+Alternative asset audit
+
+No better freely reusable, current, complete T3 model was verified in this bounded
+audit. Zero Dollar Payware's own Heathrow scenery listing still places custom T3
+in future work; the other prominent specific T3 results are paid printed models.
+https://forum.thresholdx.net/profile/7952-stablesystem/content/?type=downloads_file
+Use the verified hybrid above rather than substituting a complete-looking but
+outdated or unlicensed model.
+
+Repository integration
+
+The original texture is shipped at
+unity/SurfaceSafetyCoach/Assets/Resources/HeathrowT3/EGLL-t3.png.
+The source AC and placement line are alongside this record. Source hashes retain
+the original full STG hash; only the relevant placement line is redistributed.
+Use scripts/prepare_terminal3.py for offline source conversion (Shapely 2.0.7,
+mapbox-earcut 2.0.0, NumPy); scripts/bake_terminal3.py emits the runtime resource.
+The latter requires only Python's standard library. scripts/terminal3_source.py
+retains the polygon parser and triangulation. GPL source-model derivatives and
+OSM polygon derivatives retain their respective notices; this renderer does not
+use the reference photos as textures. The remaining mapped building volumes use
+an authored 10 m height; existing detail heights are preserved. It is an
+architectural illustration, not a current surveyed replica.

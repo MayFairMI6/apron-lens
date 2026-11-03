@@ -7,6 +7,7 @@ from starlette.responses import JSONResponse
 from backend.conversation.server import create_app, ROOT, local_token
 from backend.training_session import TrainingSession, ActionConflict
 from backend.lessons import EXERCISES
+from backend.runway_scenarios import DEMONSTRATIONS
 from backend.training_environment import ENVIRONMENTS
 from modelaccess.contract import Settings
 
@@ -61,11 +62,13 @@ def main():
     import uvicorn
     from backend.training_adapter import TrainingAdapter
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--exercise',choices=EXERCISES,default='surface_conflict')
+    p.add_argument('--exercise',choices=EXERCISES+DEMONSTRATIONS,default='surface_conflict')
     p.add_argument('--mode',choices=('lesson','continuous','demo'),default='lesson')
     p.add_argument('--environment',choices=ENVIRONMENTS,default='clear',help='Visual conditions driven by scenario time; not weather reports')
     p.add_argument('--seed',type=int,default=17);p.add_argument('--port',type=int,default=8767)
     args=p.parse_args()
+    if args.exercise in DEMONSTRATIONS and args.mode=='lesson':
+        p.error('Incident cases require --mode demo or --mode continuous; the three scored lessons are unchanged.')
     adapter=TrainingAdapter('qwen3.5-9b',profile='apronlens-v2-mps',training_role='controller_awareness',
                             prompt_audit_path=ROOT/'work/training-prompts.jsonl')
     adapter.load() # Preload before announcing that the service is ready.

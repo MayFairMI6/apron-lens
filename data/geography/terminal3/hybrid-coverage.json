@@ -1,0 +1,20 @@
+{
+  "assetDetailFootprintArea": 7863.515293976848,
+  "detailInsideCurrentT3Area": 6595.509479377254,
+  "detailOutsideCurrentT3Area": 1268.005814599601,
+  "currentT3Area": 106309.79797315721,
+  "remainderArea": 99714.28849378008,
+  "remainderParts": 11,
+  "detailSourceObjectNames": [
+    "Cylinder.002",
+    "Cylinder.003",
+    "klima",
+    "klima.001"
+  ],
+  "detailTriangles": 1312,
+  "sourceOrigin": [
+    -0.4609948,
+    51.4720209
+  ],
+  "note": "Current OSM outer and courtyard preserved in remainder. About 16% of the source detailed roof footprint is outside the current OSM wall footprint (possible overhangs and source deviations); do not represent it as surveyed."
+}

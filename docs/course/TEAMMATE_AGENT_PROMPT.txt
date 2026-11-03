@@ -1,6 +1,6 @@
-Person 1 has already recorded. Preserve that narration unchanged. Prepare the additions for Person 2 only, using PERSON2_SCRIPT.txt and the current scenario-edit cues. Do not assign presenter names or development credit.
+Person 1 has already recorded. Use the owner-approved AirfieldLens opening-sentence edit, and preserve the remainder of that narration. Prepare the additions for Person 2 only, using PERSON2_SCRIPT.txt and the current scenario-edit cues. Do not assign presenter names or development credit.
 
-Help me prepare my part of the ApronLens Checkpoint 1 video. My section is [Person 1 / Person 2]. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify the corresponding section. If the section is missing, ask which one before writing my narration. Use only Person 1 and Person 2 as presenter labels.
+Help me prepare my part of the AirfieldLens Checkpoint 1 video. My section is [Person 1 / Person 2]. Use the attached TEAM_RECORDING_PLAN.txt, which includes draft narration, to identify the corresponding section. If the section is missing, ask which one before writing my narration. Use only Person 1 and Person 2 as presenter labels.
 
 Repository: https://github.com/MayFairMI6/apron-lens
 Published Checkpoint 1 branch: codex/checkpoint1-controller-training
@@ -21,7 +21,7 @@ Read these sources first:
 The older CHECKPOINT1_DEMO.md and REFLECTION_DRAFT describe historical work. The current achievement/reflection file leaves Coordination and Meetings blank by the owner's request.
 
 Produce only preparation material for my assigned section:
-- A natural narration for Person 2 adapted from the updated script, with pauses for movement and readable answers. Preserve the embedded 2:18 Person 1 speech; do not rewrite it. Use the 16:18 video cues and rehearse timing. There is no assignment duration limit.
+- A natural narration for Person 2 adapted from the updated script, with pauses for movement and readable answers. Preserve the approved embedded 2:18 Person 1 narration; only its opening sentence was edited for the new name. Use the 23:42 video cues and rehearse timing. There is no assignment duration limit.
 - Screen/clip cues with source-video times, explicitly distinguished from scenario time. If you cannot inspect the video, mark those cues as taken from the presenter guide and request the necessary clip for visual verification.
 - Use Person 1 or Person 2 as the section heading.
 - A small claim-to-source checklist and three likely questions with concise answers.
@@ -46,6 +46,10 @@ Use the sources supplied and inspect relevant code if needed. Do not modify froz
 
 
 Latest presentation update
-Use the new approximately 16:18 scenario edit with supplied Person 1 audio embedded; Person 2 remains to narrate. Preserve Person 1’s speech. Use the updated PERSON2_SCRIPT.txt and CHECKPOINT1_PRESENTER_GUIDE.txt; earlier 9:42 timing instructions are historical. Distinct time-scaled scenario chapters include wildlife, flight movement, baggage spill, aircraft–vehicle contact, stand fire and damaging landing. They retain source clock/cutoffs from the shared driver; do not claim independent runs for every chapter. Four new collision/landing model answers were displayed and accepted; a cold-start timeout remains in the evidence. Review accident-acceptance.json and scenario-demo-edit.json. NATS/Searidge Heathrow trials motivate planned M2 visual evaluation; do not attribute tested visual reasoning to the current report-based assistant.
+Use the new approximately 23:42 scenario edit with supplied Person 1 audio embedded; Person 2 remains to narrate. Preserve Person 1’s approved narration and its documented opening-name edit. Use the updated PERSON2_SCRIPT.txt and CHECKPOINT1_PRESENTER_GUIDE.txt; earlier 9:42 timing instructions are historical. Distinct time-scaled scenario chapters include wildlife, flight movement, baggage spill, aircraft–vehicle contact, stand fire and damaging landing. They retain source clock/cutoffs from the shared driver; do not claim independent runs for every chapter. Four new collision/landing model answers were displayed and accepted; a cold-start timeout remains in the evidence. Review accident-acceptance.json and scenario-demo-edit.json. NATS/Searidge Heathrow trials motivate planned M2 visual evaluation; do not attribute tested visual reasoning to the current report-based assistant.
 
 Weather update: use IMPLEMENTATION_DOCKET.md and outputs/checkpoint1/weather-acceptance.json. Rain/snow and late-afternoon → dusk → night are visual source-clock settings. No braking, de-icing, operational visibility or full 24-hour/sunrise claim. The new video appends these previews in Person 2’s section, keeps Person 1 audio at 00:02, and shifts the evaluation to about 14:57. Preserve older recordings and the frozen M1 results.
+
+
+The four additional runway/emergency profiles passed 20 seeds each in the 241-test backend suite and 113 Unity checks. Each selected native run reached its one-hour debrief and displayed three actual accepted model responses, twelve across four runs. These are functional examples, not an accuracy benchmark. The first water capture is retained; its oversized close-view map label was corrected and that case was recorded again. See outputs/checkpoint1/runway-acceptance.json.
+The current title is AirfieldLens. Original archives, repository URL and executable identifiers retain ApronLens. The source of the opening-sentence voice edit is documented in airfieldlens-name-edit.json; do not describe the entire original audio as unedited.

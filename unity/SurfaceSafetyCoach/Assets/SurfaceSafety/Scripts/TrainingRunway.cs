@@ -4,7 +4,7 @@ namespace SurfaceSafety {
     // Original lightweight training geometry, separate from the apron taxi lane.
     public static class TrainingRunway {
         public static GameObject Build(Transform parent,RunwayPlan plan,TaxiPath[] paths=null){
-            if(plan==null)return null;
+            if(plan==null||plan.length<=0||plan.width<=0)return null;
             var root=new GameObject("Training runway "+plan.id);root.transform.SetParent(parent,false);
             var asphalt=new Color(.13f,.16f,.18f);var white=new Color(.94f,.94f,.87f);var yellow=new Color(.96f,.72f,.12f);
             Box(root.transform,"Surrounding terrain",new Vector3(0,-.003f,-1),new Vector3(12,.002f,10),new Color(.30f,.39f,.27f));

@@ -43,6 +43,9 @@ def main():
     root = parser.parse_args().export
     path = root / 'Info.plist'
     data = plistlib.loads(path.read_bytes())
+    # Keep the bundle/executable identifiers compatible with existing setup,
+    # while the app's visible name follows the approved project rename.
+    data['CFBundleDisplayName'] = 'AirfieldLens'
     data['UIApplicationSceneManifest'] = {
         'UIApplicationSupportsMultipleScenes': False,
         'UISceneConfigurations': {'UIWindowSceneSessionRoleApplication': [{

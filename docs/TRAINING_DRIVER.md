@@ -74,3 +74,54 @@ Add `--environment rain`, `--environment snow` or `--environment dusk` to any la
 The dusk timeline covers late afternoon through dusk to night across the 3,600-source-second world. It is not a full solar/24-hour cycle and has no sunrise. Rain and snow are separate visual settings, not a meteorological generator; they do not alter braking, aircraft routes, taxi speeds, de-icing, scoring or report evidence. Operational weather lessons are planned in Checkpoint 2; see docs/course/IMPLEMENTATION_DOCKET.md.
 
 The new recording includes separate 30× rain/snow/dusk inspection clips with question/teaching pauses disabled in a private capture harness. The published guided profile retains ordinary 1× teaching/answer pauses. Weather clips are visual checks, not new end-to-end lesson/model acceptance runs.
+
+## Independent runway and water demonstrations
+
+The same external service now also accepts `rejected_takeoff`,
+`occupied_runway_go_around`, `runway_incursion`, and `water_landing`.
+For example:
+
+```sh
+.venv-candidates/bin/python -m backend.training --exercise rejected_takeoff --mode demo --seed 17
+```
+
+Change the exercise name to launch another case. In this set, **Next exercise**
+cycles these four demonstrations after debrief. Each has a fresh run identity,
+its own reports and three ordinary model questions. Each spans 3,600 source seconds;
+quiet periods run at 30×, teaching moments and pending answers at 1×, with ten
+seconds after a response for reading. `--mode continuous` uses normal speed.
+`--mode lesson` explicitly rejects these cases: they have no assessment key and do
+not expand the three scored lessons. Model failures remain visible.
+
+`backend/runway_scenarios.py` supplies the cases. The geographic extract is in
+`data/geography/heathrow-west.json`; its provenance and ODbL attribution are in
+`data/geography/README.md`. **Region** shows the mapped reservoir, both runways and
+terminal footprints. **Terminal 3** provides an architectural view of the mapped
+hall, courtyard and entrance canopy combined with source pier details. **Runway** gives a broad runway view; **Follow flight** centres
+the selected aircraft. The map uses the same kilometre-to-metre scale as movement.
+Only received typed reports reach the assistant; the map is not report evidence.
+
+The T3 source asset, original texture, placement, GPL notice and current-outline
+derivatives are documented in `data/geography/terminal3/PROVENANCE.txt`.
+`scripts/bake_terminal3.py` generates the included Unity resource. Glazing,
+unsurveyed hall heights and façade lettering are illustrative. Scenery changes
+follow the reference/implementation/independent-review workflow in `AGENTS.md`.
+
+The RTO stops within Runway 09R. The go-around stays airborne with TRN102 occupying
+the runway. The incursion keeps TRN101 stationary because cancellation precedes
+its takeoff roll. The water case descends onto the actual Wraysbury polygon and
+slows to a stop inside it. Paths, speeds, water response and timings are authored;
+these are investigation-informed examples, not certified aircraft dynamics or
+exact accident reconstructions. No operational suitability of the reservoir is
+asserted. Details and source links: `docs/HEATHROW_SCENARIO_BASIS.txt`.
+
+For the geography/incident regression suite:
+
+```sh
+.venv-candidates/bin/python -m unittest tests.test_runway_scenarios tests.test_training_session -q
+```
+
+The native editor check `RunwayCaseVerification.Run` consumes one JSON fixture
+per case from `APRONLENS_RUNWAY_FIXTURES`; fixtures are generated with
+`build_demonstration(17, case)[0]`. It checks all four scenarios, sourced shoreline
+triangulation, map rendering, source-clock water effects and legacy compatibility.

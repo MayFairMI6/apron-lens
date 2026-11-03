@@ -307,6 +307,7 @@ namespace SurfaceSafety {
         public void ApplyScene(){
             if(planes==null||Data==null||Clock==null)return;
             for(int i=0;i<planes.Length;i++) {
+                planes[i].gameObject.SetActive(!Data.aircraft[i].hidden);
                 planes[i].localPosition=Scenario.Position(Data.aircraft[i],Clock.Time)+Vector3.up*((TrainingPresentation?.00235f:.003f)-Scenario.BodySink(Data.aircraft[i],Clock.Time));
                 var direction=Scenario.Direction(Data.aircraft[i],Clock.Time);
                 if(direction.sqrMagnitude>0.000001f)planes[i].localRotation=Quaternion.LookRotation(direction,Vector3.up);
@@ -438,7 +439,7 @@ namespace SurfaceSafety {
             if(FindFirstObjectByType<EventSystem>()==null)new GameObject("EventSystem",typeof(EventSystem),typeof(StandaloneInputModule));
             safeRoot=Panel(canvas.transform,"Safe area",Vector2.zero,Vector2.one,Color.clear);safeRoot.GetComponent<Image>().raycastTarget=false;
             var head=Panel(safeRoot,"Header",new Vector2(0,.84f),Vector2.one,card);
-            Label(head,"ApronLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
+            Label(head,"AirfieldLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
             // Chips share the header width; with two aircraft this is the original layout.
             int count=Data.aircraft.Length;float gap=.03f,width=(.93f-(count-1)*gap)/count;

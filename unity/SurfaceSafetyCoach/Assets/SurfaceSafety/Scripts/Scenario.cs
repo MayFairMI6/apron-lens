@@ -17,6 +17,7 @@ namespace SurfaceSafety {
     [Serializable] public class AircraftPlan {
         public string id, flightInstance;
         public bool preciseHeading;
+        public bool hidden; // Nonparticipant identity slots in regional scenarios; legacy default is visible.
         public RotationPlan[] rotations;
         public Waypoint[] waypoints;
         public FlightPhase[] phases;
@@ -50,6 +51,7 @@ namespace SurfaceSafety {
     [Serializable] public class Occluder { public string id; public float x, z, width, depth, height; }
     [Serializable] public class Scenario {
         public TrainingEnvironment environment;
+        public RegionalGeography geography;
         public const int MaxAircraft = 4;
         public string scenarioId;
         public string trainingRole, trainingRoleLabel, trainingObjective;
@@ -98,6 +100,7 @@ namespace SurfaceSafety {
             }
         }
         public void Validate() {
+            TrainingGeography.Validate(geography);
             if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length < 2 || aircraft.Length > MaxAircraft)
                 throw new ArgumentException("Scenario requires positive duration/width and two to " + MaxAircraft + " aircraft.");
             if (!string.IsNullOrEmpty(livery) && livery != "indexed" && livery != "uniform")

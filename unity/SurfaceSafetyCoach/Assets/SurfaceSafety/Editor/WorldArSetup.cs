@@ -27,7 +27,7 @@ public static class WorldArSetup {
     static readonly Vector3 StartPosition = new Vector3(-5f, 1.7f, -170f);
     static readonly Quaternion StartRotation = Quaternion.Euler(3f, 0f, 0f);
 
-    [MenuItem("ApronLens/Rebuild world AR (apron, XR settings, scene)")]
+    [MenuItem("AirfieldLens/Rebuild world AR (apron, XR settings, scene)")]
     public static void Run() {
         if (EditorApplication.isPlayingOrWillChangePlaymode) { Debug.LogWarning("Stop Play mode before rebuilding world AR."); return; }
         Directory.CreateDirectory(Folder + "/Materials");
@@ -175,7 +175,7 @@ public static class WorldArSetup {
     // Edit-mode check on the saved WorldAR scene and its own AR camera: renders the apron and the replay from the
     // simulated starting pose (eye height), checks that every aircraft is within the camera's clipping range, and
     // that turning away takes the apron out of view. Writes work/world-ar/*.png for review.
-    [MenuItem("ApronLens/Check world AR (renders into the work folder)")]
+    [MenuItem("AirfieldLens/Check world AR (renders into the work folder)")]
     public static void Check() {
         if (EditorApplication.isPlayingOrWillChangePlaymode) { Debug.LogWarning("Stop Play mode before checking world AR."); return; }
         Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("World AR check failed: " + message); };

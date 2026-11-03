@@ -1,12 +1,16 @@
-# ApronLens
+# AirfieldLens
 
 [![Checks](https://github.com/MayFairMI6/apron-lens/actions/workflows/checks.yml/badge.svg)](https://github.com/MayFairMI6/apron-lens/actions/workflows/checks.yml)
 
-ApronLens is a smartphone AR research prototype investigating how an assistant
+AirfieldLens is a smartphone AR research prototype investigating how an assistant
 maintains shared context when users refer to objects, correct earlier intent,
 and receive new information between conversational turns. Aviation is the
 application domain: moving aircraft, flight rotations and changing stand reports
 provide a controlled environment for studying spatial and temporal context.
+
+**AirfieldLens was previously called ApronLens.** The repository name and existing
+setup identifiers remain compatible; archived recordings and frozen results keep
+their original labels.
 
 The current application direction is **controller situational-awareness training**.
 Three exercises cover an obstructed ground route, an occupied arrival stand and a changing

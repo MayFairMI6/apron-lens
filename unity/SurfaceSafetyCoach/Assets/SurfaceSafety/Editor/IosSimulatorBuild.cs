@@ -35,6 +35,7 @@ public static class IosSimulatorBuild {
         RenderSettings.ambientLight = new Color(.6f, .65f, .7f);
         const string path = "Assets/SurfaceSafety/Scenes/IosSimulator.unity";
         EditorSceneManager.SaveScene(scene, path);
+        // Retain the build artifact name; patch_ios_simulator_lifecycle.py sets the visible app name to AirfieldLens.
         PlayerSettings.productName = "ApronLens Preview";
         PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.iOS, "edu.airfieldresearch.apronlens.simulator");
         PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;

@@ -1,4 +1,10 @@
-# ApronLens implementation docket
+# AirfieldLens implementation docket
+
+The project owner approved **AirfieldLens** as the current title after reviewing
+a voice-matched opening that replaces the spoken project name. Update the app
+header, title cards and current submission materials consistently. Preserve the
+original recording; document the synthetic opening sentence. Repository/package
+identifiers and frozen research records retain their existing names.
 
 The presentation uses distinct scenarios with time scaling within each. The
 scenario clock describes simulated elapsed time; narration length and video
@@ -11,22 +17,22 @@ The rejected-takeoff review found a delivery gap: the older catalogue contains t
 report-led profiles, but the current lesson service exposes only three scored
 exercises. Later visual additions were not checked against a complete coverage
 matrix. A catalogue entry, animation, recorded answer and scored lesson are
-separate deliverables. The current 16:18 video is not a comprehensive controller
+separate deliverables. The archived 16:18 video is not a comprehensive controller
 scenario set.
 
-The next recommended additions are **rejected takeoff**, **occupied-runway go-around**
-and **runway incursion/stop-bar conflict**, in that implementation order. These are
-proposed Checkpoint 1 supplements, not implemented features or new scored courses.
-The ordering reflects learning value, current architecture and the user's explicit
-rejected-takeoff priority; it is not a Heathrow frequency or risk ranking. Operational
-weather and communication exercises remain Checkpoint 2 work; Checkpoint 3 evaluates
-the resulting experience. Preserve the existing acceptance records and Person 1 audio.
+The three immediate recommendations have now been implemented as independent
+Checkpoint 1 demonstration profiles, together with the user's water-landing request.
+They extend the external driver and use sourced Heathrow geography. They do not add
+scored courses. Native capture and actual-answer verification are recorded separately
+from the older video. Operational weather and communication exercises remain
+Checkpoint 2 work; Checkpoint 3 evaluates the resulting experience.
 
 | Scenario | Verified current coverage | Missing learning task / next step | Priority and stage |
 |---|---|---|---|
-| Rejected takeoff | Legacy `rejected_takeoff` report profile only; no reject/brake/stop animation or current video chapter. | Follow takeoff roll → reported rejection → deceleration → stopped aircraft; distinguish aircraft status, runway occupancy/restriction and later inspection/release. Cause and damage stay unknown unless reported. | First proposed M1 supplement. |
-| Occupied-runway go-around | No go-around branch. Current arrivals land. | Show an arrival discontinuing its approach while the preceding aircraft has not vacated; identify both aircraft and the reported runway status. A go-around does not establish a collision or emergency. | Second proposed M1 supplement. |
-| Runway incursion / stop-bar conflict | An apron obstruction and apron vehicle contact exist; neither is an incorrect presence in a protected runway area. | Show a vehicle or aircraft crossing a defined protected boundary, with received restriction/correction reports and identifiable affected traffic. Distinguish an illuminated stop bar, a reported instruction and actual runway occupancy. | Third proposed M1 supplement. |
+| Rejected takeoff | Independent `rejected_takeoff` profile: roll, rejection, deceleration, runway stop and three model questions. | Follow takeoff roll → reported rejection → deceleration → stopped aircraft; distinguish aircraft status, runway occupancy/restriction and later inspection/release. Cause and damage stay unknown unless reported. | Implemented M1 demonstration; native acceptance recorded separately. |
+| Occupied-runway go-around | Independent go-around profile; TRN101 climbs away while TRN102 occupies the mapped runway. | Show an arrival discontinuing its approach while the preceding aircraft has not vacated; identify both aircraft and the reported runway status. A go-around does not establish a collision or emergency. | Implemented M1 demonstration. |
+| Runway incursion / stop-bar conflict | Independent vehicle runway-incursion profile; takeoff cancelled before roll, vehicle turns and withdraws. Specific red-stop-bar conflict still not implemented. | Show a vehicle or aircraft crossing a defined protected boundary, with received restriction/correction reports and identifiable affected traffic. Distinguish an illuminated stop bar, a reported instruction and actual runway occupancy. | Incursion implemented in M1; specific stop-bar learning task deferred. |
+| Water landing | Independent `water_landing` profile over actual Wraysbury Reservoir geometry; descent, water contact/spray, stopped aircraft, response reports. | Interpret the reported emergency/location and missing evacuation confirmation. No local accident precedent, viable diversion or validated flotation is claimed. | User-requested M1 illustration; formal assessment and performance modelling excluded. |
 | Runway debris and inspection | Dropped bags on a stand and later inspections exist; no runway-debris exercise. | Track a reported debris location, inspection vehicle, recovery and explicit operational update. A clear-looking image cannot establish runway release. | Include inspection/release in RTO first; distinct debris case in M2. |
 | Low visibility / fog | Rain, snow and dusk are visual only; no fog profile or low-visibility operating state. | Distinguish safeguarding, procedures in force and later cancellation; identify uncertain observations and reported restrictions. Darkness alone does not activate these states. | M2 weather/evidence priority. |
 | Wet or snow-contaminated surface / de-icing delay | Rain/snow particles exist; surface reports, clearance operations and de-icing dependencies do not. | Track received surface/inspection/service updates and what remains unconfirmed. Avoid inferring braking action or aircraft readiness from precipitation. | M2 weather and turnaround tasks. |
@@ -105,6 +111,18 @@ those profile durations. Guided demonstration accelerates quiet periods to 30×
 and uses 1× at teaching moments and during pending answers. The short practice
 profile still ends at 210 seconds of source time, with pauses for answers/review.
 
-The preserved 13:25 video with Person 1 narration predates the weather extension and uses fixed daytime. The current 16:18 edit appends labelled rain, snow and dusk/night clips in Person 2’s section; do not claim weather was in an older recording. The earlier accident and M1 research
+The preserved 13:25 video with Person 1 narration predates the weather extension and uses fixed daytime. The archived 16:18 edit appends labelled rain, snow and dusk/night clips in Person 2’s section; do not claim weather was in an older recording. The earlier accident and M1 research
 records remain unchanged. Physical-phone verification and Person 2 narration
 remain outstanding submission tasks.
+
+## Current AirfieldLens publication
+
+The current 23:42 edit is airfieldlens-checkpoint1-person1-audio.mp4. It includes Person 1’s approved opening-name edit and preserves the remaining narration. Person 2’s section shows the earlier distinct incident clips, mapped Heathrow and Terminal 3, four additional runway/emergency cases, and rain, snow and dusk/night previews. The four new cases each completed an independent source-hour run with three actual accepted model responses. The video selects excerpts; source clocks and report cutoffs remain visible. Earlier recordings remain archived. Download: https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view
+
+The four additional runway/emergency profiles passed 20 seeds each in the 241-test backend suite and 113 Unity checks. Each selected native run reached its one-hour debrief and displayed three actual accepted model responses, twelve across four runs. These are functional examples, not an accuracy benchmark. The first water capture is retained; its oversized close-view map label was corrected and that case was recorded again. See outputs/checkpoint1/runway-acceptance.json.
+
+The app header, visible app name, current scripts and shared documents use AirfieldLens. The earlier recordings and frozen research retain their original labels. Terminal 3 combines mapped geometry, attributed free FlightGear detail and authored canopy/facade detail; its lettering is attached to the building. Map labels hide in close views. This is not a surveyed current digital twin.
+
+## Next scenery extension requested after the current recording
+
+The owner requested connecting ground surfaces, roads with passing vehicles, low-rise buildings, terminal areas and nearby water bodies. Source/placement and independent-reference agents are auditing the extension. Terminal 1 must be represented as a former site with phased demolition underway, not an active intact terminal. This extension is not present in the published 23:42 recording. It will use free, attributed assets and authored detail, with movement tied to the external scenario clock.
