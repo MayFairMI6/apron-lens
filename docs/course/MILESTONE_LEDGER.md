@@ -4,8 +4,9 @@
 v8 with the narrowed reference guard (B04a) and startup inference warmup (the
 startup part of B04c) pass independent acceptance. The typed-review candidates
 (B04b) are rejected after displayed semantic failures; the published typed reviewer
-and its 60-second server wait are restored exactly. Publication/tracker updates
-remain pending. This does not resolve every requested error: #60/#61/#62 remain
+and its 60-second server wait are restored exactly. Published in PR22 at `03aa943`
+with tracker/failure updates; both code-revision CI runs (41678166153 and
+41678153288) passed. PR22 remains open/unmerged. This does not resolve every requested error: #60/#61/#62 remain
 open, including typed semantics/quotation failures and slow or stuck workers.
 Old experiments, frozen v5/v6, model weights, scenery and the approved video remain
 preserved. ML-038 records the adopted scope, ML-039 the interim evidence, and
@@ -15,7 +16,8 @@ ML-040 the final acceptance and rejected candidate.
 passed bounded independent acceptance and is published at `a510d72`.** The user requested correcting the
 history-question scoring, creating new scenario families, preserving old results
 and updating GitHub. This is a separate evaluation version: v5 and v6 remain
-frozen, the app default remains v5, and B02's failed promotion gate is unchanged.
+frozen, that evaluation retained v5, and B02's failed promotion gate is unchanged.
+B04 above supersedes the current ordinary-assistant default.
 Both frozen versions score 22/24 on the new questions, with the same readiness-
 uncertainty omission and wrong-flight answer. All 48 actual replies, audits and
 saved-response replays have been checked. ML-036 records the pre-run review and
