@@ -11,6 +11,8 @@ The external driver runs four separate one-hour scenarios. Guided demonstration 
 
 These incidents are assigned to aircraft for variety. They do not represent manufacturer-specific failure rates. Three other aircraft provide size and traffic context in each scenario.
 
+Use the `codex/checkpoint1-controller-training` branch in PR #22; the default branch does not necessarily contain this preview. A teammate who forks the repository should select that branch or fetch it from the source repository. The source includes the external driver and free aircraft assets; model weights, local connection credentials and a signed TestFlight build are not bundled.
+
 Run the driver from the repository using the existing model environment:
 
 ```sh
@@ -24,3 +26,14 @@ The new model exteriors come from AMV Lab under CC BY 4.0, with custom landing g
 Selected Heathrow 09R reference values inform the final approach and initial straight-ahead missed approach. See `docs/HEATHROW_PROCEDURE_REFERENCE.md` for the dated chart references and limits. Speeds, flare, incident timing and subsequent off-scene motion remain authored. No complete SID or operational clearance procedure is reproduced.
 
 The presentation edit preserves the approved opening narration and shows selected significant features. The longer walkthrough retains more of the changing situations and report answers. Excerpts must remain identified as excerpts; neither edit implies an uninterrupted live run or narration throughout. Versions without voiceover are supplied separately. Previous recordings remain preserved.
+
+Suggested narration for the new aircraft section:
+
+“Here, the same airport supports four different situations using Airbus and Boeing aircraft of different sizes. The A320 waits for birds to disperse, but inspection completion still does not mean it has been released. The 737 rejects takeoff after a reported airspeed concern and remains on the runway. The 787 makes a priority landing, while the A380 goes around because the runway is occupied. In each case, the assistant answers from the reports available at that moment. We can distinguish what has happened, what has changed, and what still needs confirmation. The motion makes those reports easier to follow; it is an authored training illustration. The next checkpoints will test whether visual evidence improves answers and evaluate the integrated experience.”
+
+This text is preparation guidance, not additional recorded narration. Keep the approved opening audio intact. No internal presenter labels should appear in the finished video.
+
+
+Delivered local edits: `AirfieldLens-presentation.mp4` (8:06.4), `AirfieldLens-presentation-without-voiceover.mp4`, `AirfieldLens-walkthrough.mp4` (40:02.1), and `AirfieldLens-walkthrough-without-voiceover.mp4`. Both silent copies contain identical compressed video to their narrated counterparts and zero audio tracks. The approved opening's compressed audio is unchanged. Full source recordings and the failed A380 first attempt remain archived separately.
+
+The current functional gate passed four complete source-hour runs and twelve nonempty actual assistant answers after the cue-spacing repair. This does not remove the known occasional empty-answer limitation, establish a learning benefit, or satisfy the separate physical-phone and team-participation requirements.

@@ -1,14 +1,15 @@
 # AirfieldLens milestone ledger
 
 **The user has reopened CURRENT / Checkpoint 1 for R01, four type-specific aircraft
-models and dimensions, and R02, improved authored trajectories. Both are in
-progress, not accepted or published.** The requested fleet is Airbus A320-200
+models and dimensions, and R02, improved authored trajectories. Both have passed
+bounded functional acceptance; the new local edits are reviewed, while final
+evidence/document publication remains pending.** The requested fleet is Airbus A320-200
 Sharklet, Airbus A380-800, Boeing 737-800 and Boeing 787-8 in four isolated fleet
 profiles with distinct unfolding incidents/outcomes and fresh run identities. This explicitly authorised increment preserves legacy
 scenario worlds, frozen research and earlier videos. It does not add full flight
 physics, detector research or a weather-capacity system to M1. ML-027 supersedes
-the earlier 787-9 variant and records bounded 09R reference adoption, passing
-backend/editor checks and native acceptance still outstanding.
+the earlier 787-9 variant; ML-028 records four complete native runs, actual
+cutoff-grounded answers, the repaired A380 run and separately reviewed local media.
 
 **F03, the fog restriction lesson, and T01, agent review of typed learner responses,
 have passed limited qualitative-prototype functional acceptance. C01's bounded
@@ -138,8 +139,8 @@ The updated F03/T01 flow has now passed its bounded functional acceptance and
 that feature scope is frozen. This does not waive the separate course submission
 requirements below.
 
-ML-024 subsequently reopens the current checkpoint for R01/R02 only. Their fresh
-acceptance is outstanding; the closed F03/T01/C01 units and the separate submission
+ML-024 subsequently reopens the current checkpoint for R01/R02 only. Their bounded
+functional acceptance is now recorded in ML-028; the closed F03/T01/C01 units and the separate submission
 requirements are not silently reclassified or made complete by this new work.
 
 | Submission item | Exact remaining gate | Relationship to app work |
@@ -164,18 +165,18 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
-| R01 — four-type aircraft models and dimensions | In progress; bounded source/geometry/editor-render review passed; native integration acceptance pending after two missing-texture export failures | CURRENT / Checkpoint 1, newly reopened increment | User explicitly requested realistic models of different sizes and both manufacturers; this uses the existing renderer without requiring M2 perception research. | Verify A320-200 Sharklet, A380-800, B737-800 and B787-8 in the native app, including contact/gear and 3→4→3 replay changes; refresh the changed editor-checker hash in final evidence. |
-| R02 — authored fleet trajectories and distinct unfolding incidents | In progress; four profiles implemented with bounded 09R references; root reports 288 backend tests passing, including 11 fleet tests; native/model acceptance pending | CURRENT / Checkpoint 1, newly reopened increment | User requested unique incidents/outcomes as well as realistic motion; independent profiles preserve scenario causality and prior worlds. | Root completes each native profile and genuine staged assistant answers; independent reviewer checks the final implementation, cutoffs and evidence before acceptance. |
+| R01 — four-type aircraft models and dimensions | Bounded source/editor/native functional acceptance complete; local media reviewed; final evidence publication pending | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Publish final evidence for #64; preserve the fixed texture-import history and known regional-label overlap. No physical-phone claim. |
+| R02 — authored fleet trajectories and distinct unfolding incidents | Four full source-hour native runs and 12 actual answers accepted; corrected A380 rerun verified; local media reviewed; final evidence publication pending | CURRENT / Checkpoint 1 | Independent incident profiles, bounded 09R references and causal report answers meet the authorised demonstration scope. | Publish final evidence for #65 and record the verified #68 fix; keep #67 empty-claim completeness limitation open. Preserve original failed run and all claim limits. |
 | F01 — fog visual profile | Implemented; native acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | Extends an existing external-clock presentation path; it does not require a detector, scoring or queue generation. | Delivered for this increment; preserve evidence and review future changes. |
 | F02 — bounded report-led fog demonstration | `fog_visibility` implemented; source-hour native/model acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | A distinct, source-supported information task uses the available assistant and standalone demo machinery. | Delivered for this increment; preserve unscored status. |
-| F03 — fog restriction lesson | Implemented and accepted within limited prototype scope; video published; source/document/ZIP publication pending | CURRENT / Checkpoint 1, feature scope frozen | The authorised lesson tests partial cancellation and unconfirmed departure authority using the established report sequence. | Finish source/document/handoff publication. Preserve full fog evidence separately from positioned checks and pre-typed MCQ history. |
-| T01 — agent review of typed responses | Exact v2 restored; limited functional acceptance complete; video published; source/document/ZIP publication pending | CURRENT / Checkpoint 1, feature scope frozen | User explicitly requested typed answers with agent processing in the normal learner flow. | Preserve withheld failures and semantic limits in the final handoff and video. Do not claim validated grading or full typed runs of the original three lessons. |
+| F03 — fog restriction lesson | Implemented and accepted within limited prototype scope; prior video/source/document/ZIP publication complete | CURRENT / Checkpoint 1, accepted baseline | The authorised lesson tests partial cancellation and unconfirmed departure authority using the established report sequence. | Preserve full fog evidence separately from positioned checks and pre-typed MCQ history. Later fleet publication does not reopen this unit. |
+| T01 — agent review of typed responses | Exact v2 restored; limited functional acceptance and prior publication complete | CURRENT / Checkpoint 1, accepted baseline | User explicitly requested typed answers with agent processing in the normal learner flow. | Preserve withheld failures and semantic limits in the handoff and video. Do not claim validated grading or full typed runs of the original three lessons. |
 | Q01 — weather-driven arrival/departure queues | Not built or accepted | Checkpoint 2 | A bounded queue task adds the demand/capacity/reservation system beyond scripted movement and visual weather. | Implement one illustrative queue task with explicit invariants alongside the original visual-evidence study and turnaround task. |
 | A01 — airport-size/demand comparisons | Not built or accepted | Checkpoint 3 | A shared task and controlled variation are needed for a meaningful comparison. | Compare size and demand separately after the task/driver stabilises, alongside integrated evaluation. |
 | E01 — one-engine emergency return with successful landing | New user-requested topic; not built or accepted | Checkpoint 2, within the existing emergency-return task | Adds the missing successful-return outcome and separates the reported engine condition from the eventual landing result. | Author a bounded report/return variation during M2; no implementation now. |
 | E02 — both-engine thrust loss/reduction on approach | New user-requested topic; not built or accepted | Checkpoint 3, within integrated emergency cases | Compare a more involved reported propulsion emergency and its confirmed outcome using the established evidence task. | Develop the bounded integrated case during M3, without claiming a flight-performance model. |
 | E03 — reported wing/structural damage | New user-requested topic; not built or accepted | Checkpoint 3, within incident comparison | Distinguish reported damage, uncertain extent/cause and later inspection or outcome. | Develop a sourced report-comparison case during M3; no wing-break physics is currently implemented. |
-| C01 — explicit correctness contracts and acceptance evidence | Contract and bounded test/evidence work complete; publication pending | CURRENT / Checkpoint 1, within F03/T01 closure | Records tested boundaries, native/supplemental results, failures and unverified claims without a reasoning rewrite or proof claim. | Preserve the aligned acceptance records and all limitations during publication. Completion is of this documentation/evidence unit, not general semantic correctness. |
+| C01 — explicit correctness contracts and acceptance evidence | Contract, bounded test/evidence work and prior publication complete | CURRENT / Checkpoint 1, within F03/T01 closure | Records tested boundaries, native/supplemental results, failures and unverified claims without a reasoning rewrite or proof claim. | Preserve the aligned acceptance records and all limitations. Completion is of this documentation/evidence unit, not general semantic correctness. |
 | C02 — small typed-claim/evidence checker | Queued; not implemented or proved | Checkpoint 2, supporting original visual-evidence study | Separates model interpretation from executable checks over typed evidence and explicit rules. | Use the existing frozen Qwen model to parse learner language; build the bounded checker and evaluate parsing and checking separately. |
 | C03 — bounded driver/evidence-state specification | Queued; not specified or checked | Checkpoint 2, alongside Q01 queues | States event, clock, reservation and request-lifecycle assumptions while the queue design is built. | Define a bounded TLA+ state/transition model and invariants, with a mapping to implementation state. |
 | C04 — bounded model checking and comparative evaluation | Queued; not checked, proved or evaluated | Checkpoint 3, within integrated evaluation | Tests one selected formal core and its relationship to actual behavior without claiming whole-app correctness. | Run TLC on C03's bounded configurations, compare implementation traces, and empirically compare the C02 checker on separate frozen evaluation cases. |
@@ -229,7 +230,9 @@ eligible reports and confirmed the accepted meanings and recorded failure types.
 This completes F03/T01's limited functional acceptance and C01's evidence purpose.
 Preserve the 14 usable/four withheld v2 development cases and rejected v3 diagnostic
 separately; neither suite is a benchmark or proof of reliable interpretation.
-Source/document/ZIP publication remains pending; the updated video is published.
+The prior source/document/ZIP publication is complete as recorded in ML-023 and
+the final `fa31c53` workspace receipt; the updated video is published. This is
+separate from the newer fleet evidence publication.
 The independent reviewer aligned the companion
 correctness record with this final native evidence; its former supplemental-pending
 status is resolved without altering the recorded limitations.
@@ -787,20 +790,39 @@ established. Broader procedure reuse remains unresolved; this increment links
 sources without redistributing chart PDFs, images or NATS branding. These limits
 do not silently move the authorised bounded R01/R02 work to M2.
 
-Current evidence is partial. Root reports 288 backend tests passing, including
-11 fleet tests; the inspected test source exercises 20 seeds per profile for
-defined determinism, report, motion and clock boundaries. The ledger reviewer did
-not rerun those tests. The separate [fleet review](/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/fleet-independent-review.json)
-records passing bounded source/static/editor-render checks. This reviewer matched
-five of its six source hashes; `AircraftTypeVerification.cs` has since changed,
-so its final review/hash needs refreshing. The [procedure review](/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/heathrow-procedure-reference-review.json)
-records the cited reference and reuse limits. Two native-export attempts failed
-with `Missing aircraft texture: a320_200`; their retained logs are
-`W/work/fleet-export-texture-failure.log` and
-`W/work/fleet-export-texture-second-failure.log`, where W is the current chat
-workspace. The later `W/work/fleet-export-geometry-pass.log` contains
-`AIRCRAFT_TYPE_CHECKS_PASS`. Editor success is not native scene contact, a complete
-profile run or actual assistant acceptance. All those delivery gates remain open.
+Current acceptance is bounded to the implemented demonstration. The
+[native receipt](../../outputs/checkpoint1/fleet-native-acceptance.json) records
+source revision `706e6a10b4ab7df8d7ff21ebb8da61c1d1e317b6`, 289 backend tests and
+CI runs 41639870978/41639861809, reported passing by root. The inspected tests
+exercise 20 seeds per profile for defined determinism, report, motion and clock
+boundaries; the added A380 latency regression is documented in the separate
+[fleet review](../../outputs/checkpoint1/fleet-independent-review.json).
+The ledger reviewer did not rerun the suite or query CI. It matched all six native
+source hashes and all seven refreshed independent-review hashes, including the
+previously changed editor checker. The [procedure review](/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/heathrow-procedure-reference-review.json)
+retains the source and reuse limits.
+
+All four accepted native runs reached 3,600 source seconds/debrief with three
+client-answered cues apiece. The ledger reviewer independently checked all twelve
+saved nonempty answers against receipt-eligible fact IDs, values, statuses and
+event IDs at their recorded cutoffs, and matched all four capture hashes.
+Root inspected the native app; the independent reviewer sampled movement/contact
+frames and read complete traces and model audits. Neither this review nor that
+sampling is a full-video or per-frame clearance audit. Supplemental portrait
+four→three→four rebinding and the positioned A380 occupancy view are separate
+checks, not additional complete runs. Images were supplied to these model calls;
+the answers remain report-grounded, with no evaluated visual-reasoning result or
+change to the frozen M1 research.
+
+Retain the two texture-import failures (#66) and failed first A380 run
+`d63e908cbf6a8937b7c6` (#68). Commit `706e6a1` moves the second A380 cue to 169
+seconds; successful rerun `3124203f0c40496b4fe7` reached debrief with all three
+client answers. The known warm-up empty-claim response (#67) remains an unresolved
+assistant completeness limitation, despite twelve successful selected calls.
+Regional map labels overlap after the aircraft leaves the exercise area (#69, open), and
+early approach extends beyond the bounded mapped scenery. These limits prevent
+general reliability, complete operational reconstruction or visual-evaluation
+claims; they do not invalidate the demonstrated bounded outcomes.
 
 Acceptance for this increment is separate from every earlier video and test total:
 
@@ -858,11 +880,17 @@ is separate from fleet realism.
 
 The user now requests a concise significant-features video retaining the approved
 opening narration, plus a longer explanatory walkthrough and a silent counterpart.
-These new edits are authorised but unfinished. Preserve the delivered 30:28.5
-local narrated/silent masters and their audio; the older 30:33.5 Drive version is
-separate. Select verified new fleet footage only after its native gates pass,
-retain failures/limitations in the supporting evidence, and review each final
-edit independently. No specific duration limit or new publication is established.
+The new local presentation is 486.4 seconds (8:06.4) and the walkthrough is
+2,402.0667 seconds (40:02.1), each with a silent counterpart. The independent
+review records sampled readable/upright frames and matching actual answers,
+with no blocking findings; it is not a full watch or new audio audition. The
+ledger reviewer matched all four output hashes to that receipt. Verification
+sidecars preserve the approved compressed opening AAC unchanged at time zero;
+root separately verified matching compressed video in each silent/narrated pair
+and zero audio tracks in the silent copies. The remaining footage has no new narration. Preserve the delivered 30:28.5 local
+masters and distinguish the older 30:33.5 Drive version. Final evidence/document
+publication remains separate; no Drive replacement or new duration requirement
+is implied. Member participation still needs its own assignment check.
 
 ## Recording and assignment impact
 
@@ -935,13 +963,14 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from ML-027 and the R01/R02 acceptance gates: inspect the four independent
-fleet profiles, four type models, reference review and new seed/native evidence
-before changing delivery status. Use B787-8 and the bounded pinned 09R references;
-refresh the changed editor-checker evidence and verify the repaired texture export
-in the native app. Both units are in progress;
-no fresh native acceptance, new video or publication is claimed. Root owns tracker
-updates. Do not start C02–C04 or infer additional accident/physics work.
+Resume from ML-028: R01/R02 bounded functional acceptance and independent local
+media review are complete. Root's next action is final evidence/document
+publication and tracker readback, with #64/#65 and the verified #66/#68 fixes
+handled separately from #67's unresolved completeness issue. Do not repeat passed
+native/model runs unless a new change or finding requires it. Preserve all failures,
+source hashes, B787-8 identity and bounded pinned 09R limits. No new feature is
+needed to close this authorised increment. Do not start C02–C04 or infer additional
+accident/physics work; CURRENT remains a valid placement if the user later reopens it.
 
 F03/T01 limited functional acceptance and C01 remain complete within their bounds.
 The final prior source is `fa31c53ba8be77f8265a7ecbad634140c6177c44`; the workspace
@@ -1049,3 +1078,56 @@ Native acceptance, capture, edit and publication each need their own evidence.
 No new benchmark, full-physics, phone or whole-assignment completion claim follows.
 This review changes only the ledger/protocol; it did not rerun tests or operate,
 commit or publish the app.
+
+## ML-028 — Bounded fleet/native acceptance and reviewed local edits
+
+3 November 2026. Accept R01 and R02 within their authored demonstration scope.
+The [native receipt](../../outputs/checkpoint1/fleet-native-acceptance.json)
+identifies final backend revision `706e6a10b4ab7df8d7ff21ebb8da61c1d1e317b6` and
+the unchanged Unity build separately. It records 289 backend tests and root-reported
+green CI 41639870978/41639861809. All four seed-17 native runs reached 3,600 source
+seconds/debrief with three client-answered cues each:
+
+| Profile | Accepted run |
+|---|---|
+| A320 bird hold/departure | `f0b1d7d4ea9fbb0edd94` |
+| B737 rejected takeoff | `e243e449791642b52069` |
+| B787 priority landing | `e7e7dc3c1ec314ddc64a` |
+| A380 occupied-runway go-around | `3124203f0c40496b4fe7` |
+
+This reviewer matched 6/6 native source hashes, 7/7 refreshed independent source
+hashes and all four capture hashes, and checked the twelve nonempty saved actual
+Qwen answers against receipt-eligible fact IDs/values/statuses/event IDs at their
+cutoffs. The [independent review](../../outputs/checkpoint1/fleet-independent-review.json)
+sampled all four native videos, complete clock traces and outputs, with no blocking
+findings. Root performed the app interactions. Portrait four→three→four rebinding
+and a positioned occupancy overview are supplemental checks, not more full runs.
+No full-video/per-frame audit, operational performance, general model reliability,
+visual-reasoning benchmark or phone execution is claimed.
+
+Retain the two texture-import failures (#66) and initial A380 cue-overlap run
+`d63e908cbf6a8937b7c6` (#68). The scenario-specific spacing fix and successful full
+rerun support the latter's remedy; issue closure remains root's publication task.
+The warm-up empty-claim issue #67 and nonblocking regional-label overlap #69 remain
+open. Twelve selected successful calls do not erase either finding. See
+[failure history](../../outputs/checkpoint1/fleet-failure-history.json) and
+[clock traces](../../outputs/checkpoint1/fleet-native-clock-traces.json).
+
+The independent media review now supports the local 486.4-second presentation and
+2,402.0667-second walkthrough, with matching-duration silent copies. This reviewer
+matched all four media hashes. The sidecars and root's separate identity checks
+record unchanged approved opening AAC at zero, identical compressed video in
+each narrated/silent pair and zero audio tracks in silent versions. The reviewer
+sampled frames and plans rather than watching or auditioning every second. Preserve
+the earlier 30:28.5 masters and distinguish the 30:33.5 Drive copy. No new Drive
+upload is claimed. Final evidence/document publication and tracker readback remain
+pending; app acceptance and local edit review are complete.
+
+At review, native receipt SHA-256 was
+`ee3882d275b292f0f21a892e5132cd4a8701b59db35fa796a059ddce51c572ee` and independent
+receipt SHA-256 was
+`955d6327b78d8c188f14ef08686deca9117198e90f31c99e7a121c2bda4680ca`.
+This supersedes ML-027's pending native/editor-hash/media statuses, without erasing
+its failure history. Submission #30 member participation, #31 final reflection
+and #32 smartphone/course acceptance remain open. No additional feature is needed
+for this bounded increment; future explicit user requests can still reopen CURRENT.

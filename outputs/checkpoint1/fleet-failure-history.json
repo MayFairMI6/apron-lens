@@ -1,0 +1,45 @@
+{
+  "textureImports": {
+    "issue": 66,
+    "status": "fixed",
+    "symptom": "Missing aircraft texture:a320_200 in two native exports",
+    "remedy": "MIME-correct extension, distinct resource keys, complete TextureImporter metadata",
+    "verified": "Native Editor checks, four renders and installed app"
+  },
+  "emptyClaims": {
+    "issue": 67,
+    "status": "open",
+    "records": [
+      {
+        "scenarioId": "LESSON-b171fdb9fa987dfae94d",
+        "question": "Does inspection completion release TRN101?",
+        "cutoff": 0.0,
+        "accepted": true,
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "No supported claim selected.",
+          "claims": [],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "errors": [],
+        "latencySeconds": 9.362
+      }
+    ]
+  },
+  "cueOverlap": {
+    "issue": 68,
+    "failedRun": "d63e908cbf6a8937b7c6",
+    "fixedRun": "3124203f0c40496b4fe7",
+    "remedy": "A380 second cue moved from124 to169 forseed17; first108/third310 unchanged",
+    "regression": "20seeds at15.074,39,41second latency"
+  },
+  "overviewLabels": {
+    "issue": 69,
+    "status": "open",
+    "symptom": "Nearby labels overlap at distant regional zoom"
+  }
+}

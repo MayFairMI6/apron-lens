@@ -134,9 +134,11 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 3 November resume point is ML-027: the user explicitly reopened
+The current 3 November resume point is ML-028: the user explicitly reopened
 Checkpoint 1 for R01's four-type aircraft models/dimensions and R02's improved
-authored trajectories with distinct unfolding incidents. Both are in progress, not accepted.
+authored trajectories with distinct unfolding incidents. Both have passed bounded
+functional acceptance, and the new local edits have passed independent review.
+Final evidence/document publication and tracker readback remain pending.
 The types are A320-200 Sharklet, A380-800, B737-800 and **B787-8**. The earlier -9
 assignment is superseded because the reviewed family exterior better matches -8;
 the backend and Unity now use `b787_8`. Do not describe the family mesh as exact
@@ -161,19 +163,27 @@ authored. No full SID, radio-failure turn, later routing or live operational/NOT
 validity is established. Broader procedure reuse remains unresolved; do not
 redistribute chart PDFs/images or infer a licence from source accessibility.
 
-Root reports 288 passing backend tests including 11 fleet tests. A separate source,
-static and editor-render review passed, but the ledger reviewer matched only five
-of its six current hashes: `AircraftTypeVerification.cs` changed after that review.
-Refresh that evidence before final acceptance. Two retained export attempts failed
-on the A320 texture; a later export log contains `AIRCRAFT_TYPE_CHECKS_PASS`.
-Read `W/outputs/fleet-independent-review.json`,
-`W/outputs/heathrow-procedure-reference-review.json` and the retained
-`W/work/fleet-export-texture-{failure,second-failure}.log` and
-`W/work/fleet-export-geometry-pass.log` (W is the current chat workspace).
-Do not promote backend/editor success to native acceptance. Inspect the repaired
-native build, all four profile runs, scene contact/gear, actual assistant cutoffs
-and independent review before completing either R01 or R02. The ledger reviewer
-read source/records; it did not rerun tests or operate the app.
+Read [fleet native acceptance](../../outputs/checkpoint1/fleet-native-acceptance.json),
+[independent review](../../outputs/checkpoint1/fleet-independent-review.json),
+[clock traces](../../outputs/checkpoint1/fleet-native-clock-traces.json) and
+[failure history](../../outputs/checkpoint1/fleet-failure-history.json).
+The current receipt pins final backend `706e6a1` and the unchanged Unity build
+separately; root reports 289 backend tests and CI 41639870978/41639861809 passing.
+Four complete source-hour native runs contain twelve nonempty actual Qwen answers.
+The ledger reviewer matched 6/6 native and 7/7 independent source hashes, all four
+capture hashes and each saved answer's eligible fact/value/status/event IDs. The
+earlier changed editor hash is now resolved. Root operated/inspected the app; the
+independent reviewer sampled frames and read complete traces/model audits. This
+is not a full-video or per-frame clearance audit. Supplemental portrait rebind
+and positioned occupancy evidence must remain distinct from full runs.
+
+Preserve both texture-import failures (#66) and the first A380 cue-overlap failure
+(#68). Its corrected run `3124203f0c40496b4fe7` passed all three client cues through
+debrief after the second cue moved to 169 seconds. Root owns issue closure/readback.
+Keep #67 warm-up empty-claim completeness and #69 regional-label overlap open.
+Images used in these calls do not establish evaluated visual reasoning or change
+frozen M1 research. Do not rerun accepted tests/model/native flows without a new
+change or finding, or turn bounded acceptance into a general reliability claim.
 
 Read the ledger's R01/R02 gates, then inspect actual implementation and fresh
 reference/acceptance evidence. Root owns backend/integration, the Unity implementer
@@ -259,10 +269,19 @@ silent copies with internal presenter dividers removed; Drive remains the earlie
 publication must be recorded separately, and no whole-assignment completion follows.
 The user has authorised a concise significant-features video preserving the
 approved opening narration, plus a longer explanatory walkthrough and silent
-counterpart. These new fleet edits are unfinished. Preserve the existing 30:28.5
-masters and approved words/audio; use accepted actual fleet footage, inspect final
-cuts, and keep each edit/publication status separate. Do not invent a target
+counterpart. The reviewed local outputs are 486.4 seconds (8:06.4) and 2,402.0667
+seconds (40:02.1), each with a silent copy. The ledger reviewer matched all four
+media hashes; independent frame/plan sampling found no blocking issue. Sidecars
+and root identity checks preserve the opening AAC unchanged at zero and identical
+compressed video within each silent/narrated pair, with no silent-copy audio.
+The remainder has no new narration. Preserve the existing 30:28.5
+masters and approved words/audio; keep final evidence/document publication and
+the older Drive edit separate. Do not invent a target
 duration, replace earlier evidence or restore internal Person1/Person2 title cards.
+The next task is publication/readback, not another feature. Submission #30 member
+participation, #31 reflection and #32 phone/course acceptance remain open; this
+increment does not complete the whole assignment. Reconsider CURRENT if the user
+explicitly requests a further bounded addition.
 
 ML-013 adopts the correctness progression as queued scope, not accomplished
 verification: C01 M1 documents current contracts and evidence without rewriting

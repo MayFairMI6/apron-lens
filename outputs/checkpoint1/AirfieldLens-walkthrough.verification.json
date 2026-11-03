@@ -1,0 +1,14 @@
+{
+  "audioDurationSeconds" : 137.892,
+  "audioPacketsUnchanged" : true,
+  "audioStartSeconds" : 0,
+  "bytes" : 171250300,
+  "durationSeconds" : 2402.0666666666666,
+  "narrationScope" : "Approved opening only; remaining footage has no new narration",
+  "originalAudioDurationSeconds" : 137.98133333333334,
+  "originalCompressedAudioSHA256" : "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+  "originalSamples" : 71,
+  "outputCompressedAudioSHA256" : "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+  "outputSamples" : 275,
+  "video" : "AirfieldLens-walkthrough.mp4"
+}
