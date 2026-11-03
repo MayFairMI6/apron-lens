@@ -1,7 +1,18 @@
 # AirfieldLens milestone ledger
 
+**B04 has reached a bounded, mixed disposition in CURRENT:** ordinary-assistant
+v8 with the narrowed reference guard (B04a) and startup inference warmup (the
+startup part of B04c) pass independent acceptance. The typed-review candidates
+(B04b) are rejected after displayed semantic failures; the published typed reviewer
+and its 60-second server wait are restored exactly. Publication/tracker updates
+remain pending. This does not resolve every requested error: #60/#61/#62 remain
+open, including typed semantics/quotation failures and slow or stuck workers.
+Old experiments, frozen v5/v6, model weights, scenery and the approved video remain
+preserved. ML-038 records the adopted scope, ML-039 the interim evidence, and
+ML-040 the final acceptance and rejected candidate.
+
 **B03, question-aware history scoring and a new varied-scenario comparison, has
-passed bounded independent acceptance in CURRENT; publication is pending.** The user requests correcting the
+passed bounded independent acceptance and is published at `a510d72`.** The user requested correcting the
 history-question scoring, creating new scenario families, preserving old results
 and updating GitHub. This is a separate evaluation version: v5 and v6 remain
 frozen, the app default remains v5, and B02's failed promotion gate is unchanged.
@@ -211,7 +222,10 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
 | B02 — prompt tuning and new-question testing | Bounded candidate/report accepted; locally committed at `70948a7`; v6 promotion gate fails; v5 default restored | CURRENT / Checkpoint 1, explicit user instruction | The authorised tuning and measurement produced a preserved candidate and a defensible no-promotion decision. No new-question advantage was demonstrated. | Preserve the versioned candidate/report and failed gate unchanged. Both strict failures are accurate labelled history, not stale-as-current errors. No native v6 adoption or deployed semantic repair is claimed. |
-| B03 — question-aware scoring and new report-world comparison | Scorer remedy and 48-response measurement/report independently accepted; both versions 22/24; publication pending | CURRENT / Checkpoint 1, explicit user instruction | The corrected scorer accepts appropriate labelled history; varied report families reveal remaining uncertainty and identity errors in both versions. | Publish the reviewed evidence and update GitHub. Preserve old scores/default v5; close only the bounded scorer remedy after publication checks, keep semantic #60 open; no prompt promotion. |
+| B03 — question-aware scoring and new report-world comparison | Scorer remedy and 48-response measurement/report independently accepted and published at `a510d72`; both versions 22/24; #71 closed | CURRENT / Checkpoint 1, explicit user instruction | The corrected scorer accepts appropriate labelled history; varied report families reveal remaining uncertainty and identity errors in both versions. | Preserve old scores and both frozen candidates. B03 itself made no app change; ML-038 separately authorises new reliability work. |
+| B04a — ordinary-assistant identity and uncertainty repair | Ordinary offline run/replay audited: v8 known 24/24; new same-family probes v5/v8 both 24/24; final native acceptance pending | CURRENT / Checkpoint 1 | The known wrong-flight answer recovers through one actual retry, and requested readiness uncertainty is present. | Verify final native interaction and correction/clarification controls; preserve the failed v7 and original v8 guard evidence. No broader superiority claim. |
+| B04b — typed quotation/citation recovery | Bounded same-input recovery implemented; full typed run and native acceptance pending | CURRENT / Checkpoint 1 | One observed quote-error recovery takes 72.9 seconds; the new 80-second server wait fits below the unchanged 90-second native client limit. | Complete semantic/audit review, timeout/exhaustion and native checks; retain actual attempts and failures. The budget change is not faster inference. |
+| B04c — cold-start readiness and timeout handling | Text/image startup warmup and readiness/clock checks implemented; final startup/native evidence pending | CURRENT / Checkpoint 1 | Prepare inference before readiness without consuming scenario time; audit preparation separately from learner replies. | Verify actual final startup and first requests. Keep stuck-worker and later-timeout limitations explicit; ordinary 35/40-second limits remain unchanged. |
 | B01 / #70 — bounded multi-turn AI-assistant comparison | Measurement/report accepted: 54 saved first-attempt responses, scores/audits independently checked; publication/task readback pending | CURRENT / Checkpoint 1 | The bounded study answers the adopted local comparison question while preserving the baseline's better observed result and current-path omission. It is not an external SOTA benchmark. | Publish the reviewed results and close #70 as measurement/report completion. Keep the separate semantic omission in #60 open; no production prompt repair, graph migration or new native/video claim follows. |
 | #67/#69 — current reliability corrections | Bounded remedies accepted and published as `b69d69b`; both issues closed and both CI runs successful in independent live readback | CURRENT / Checkpoint 1 corrections; failure records do not add task counts | The training-only nonempty guard/one-retry policy and finite label layout address the observed defects within their tested limits. Actual spontaneous empty-answer recovery was not observed. | Preserve deadline, fallback-free behavior, finite-label and semantic limits. No further correction work is outstanding for these accepted remedies; do not add numeric grading or task counts. |
 | R01 — four-type aircraft models and dimensions | Bounded functional acceptance, local media review and source/evidence publication complete; #64 closed in recorded readback | CURRENT / Checkpoint 1 | Four recognisable family models and sourced nominal dimensions meet the requested bounded visual scope. Independent sampling and root inspection support it without claiming exact CAD or performance fidelity. | Preserve original acceptance and texture-import failure history. The later #69 correction needs its own evidence; no physical-phone claim. |
@@ -1013,11 +1027,15 @@ for a previous choice or retrofit a passed acceptance record.
 
 ## Next review and exact resume point
 
-Resume from ML-037: B03's scorer remedy and completed measurement/report have
-passed independent acceptance. Root should publish the reviewed result and record
-final CI/tracker readback; no new inference or prompt change is pending. The root
+Resume from ML-039: ordinary B04 results and final-guard saved-output replay have
+passed bounded review; the full typed run, final startup/native checks and
+publication remain pending. The user explicitly reopened current reliability work for
+ordinary semantics, typed quotation/citation failures and cold timeouts. Review
+the concrete new implementation and predeclared checks for each B04 unit before
+acceptance. B03's measurement is complete and published at `a510d72`; #71 is closed.
+The root
 owns implementation, execution and GitHub updates; this reviewer owns the ledger
-and bounded independent review. Both versions score 22/24 with the same two
+and bounded independent review. Both old versions score 22/24 with the same two
 semantic failures; #60 remains open. B02's candidate/report
 audit is accepted and its locked promotion gate failed.
 Both versions scored 23/24 on the new questions, with the same accurate labelled
@@ -1025,9 +1043,10 @@ history rejected by the inherited current-only rule. The reviewer verified v5
 restored as the byte-identical app default and v6 preserved separately; local
 `70948a7` now commits that deliverable. B03 must retain these versions/results and
 report its own provenance, scorer version, varied-scenario results and limitations.
-Do not tune on these now-exposed new questions or silently redefine the gate.
-The authorised development bound was two revisions before new-question exposure.
-This explicitly permits a new version; it does not permit overwriting B01's 17/18
+The B04 instruction authorises a new repair using the now-observed cases as
+development regressions; it does not retroactively change the earlier no-tuning
+rules, scores or failed adoption gate. Pin the new scope and checks before its
+calls. It does not permit overwriting B01's 17/18
 current-path versus 18/18 lexical result. The clean review baseline is `cb2e062`,
 which commits the original comparison. Review each new fixture/scorer before its
 model calls and distinguish known regression cases from new developer-authored
@@ -1903,3 +1922,242 @@ keep semantic [#60](https://github.com/MayFairMI6/apron-lens/issues/60) open wit
 the new evidence. Do not change prompts, weights, application behavior or previous
 results to turn this tie into an improvement. Original M2/M3 work and course
 submission gates #30/#31/#32 remain separate.
+
+## ML-038 — Three current reliability remedies explicitly reopened
+
+3 November 2026. The latest user instruction explicitly requests fixing the
+remaining ordinary-assistant semantic errors, typed quotation/citation failures
+and cold timeouts, preserving old results, updating GitHub and leaving the video
+unchanged. Assign **B04a, B04b and B04c to CURRENT / Checkpoint 1**, in progress,
+with independent acceptance for each. This supersedes the preceding feature-freeze
+recommendation only within those remedies. It does not authorise model-weight
+training, scenery changes, a new grading system or automatic closure of every
+limitation. The approved video remains unchanged; new verification records are
+separate evidence, not a request to recut it.
+
+The prior B03 publication is now observed at local `a510d72`; root supplied the
+publication confirmation, and the preceding independent read-only closure review
+confirmed live scorer issue #71 closed, with #30/#31/#32 and #59–#62 still open.
+This closes ML-037's historical publication-pending state. Its 22/24 result and
+all older failures/results remain evidence, not targets to overwrite.
+
+**Inspected baseline.** In [training_adapter.py](../../backend/training_adapter.py),
+the selector retains the parsed `Memory` object, including `currentReferent`.
+It omits per-candidate `previousAnswer` and change metadata while compacting facts.
+Therefore the wrong-flight failure cannot be attributed simply to a missing
+current referent; that proposed mechanism needs testing. The readiness instructions
+combine related service/movement evidence with uncertainty rules, but their
+behavior is already empirically limited. In
+[training_assessment.py](../../backend/training_assessment.py), `generate_review`
+makes one real attempt then applies strict quote/criterion-evidence validation.
+In [training.py](../../backend/training.py), the command-line startup preloads the
+model before constructing the driver and announcing readiness, but does not run
+inference warmup. The general adapter's `load()` verifies/loads the engine; it
+does not warm it. Typed reviews use a 60-second server wait and a retained worker
+that keeps inference ownership until completion. These observations are source
+facts, not proof that a chosen remedy will remove the reported failures.
+
+The strongest reason for current placement is the user's explicit request plus
+concrete defects/limitations in the already delivered interaction. The narrow
+remedies can improve that path without awaiting the M2 visual study or C02 checker.
+The strongest reason to move broader work later is that reliable unrestricted
+semantics, general grading and robust recovery from every stalled inference need
+more than prompt rules, one retry or a warmup. M2 retains structured-checker work
+and the original visual study; M3 retains integrated evaluation and formal-model
+work. Defer a general model/reliability research programme until separately scoped.
+Reject silently relaxing evidence validation, adding scripted successful answers,
+rewriting prior scores or claiming universal correctness. No new deadline or
+effort estimate is established.
+
+**B04a: ordinary-assistant semantic repair.** Use a new version while keeping the
+published v5/v6 modules and old inference artifacts reproducible. Acceptance needs
+actual answers to the known readiness omission and wrong-flight change question,
+plus distinct controls fixed before the new calls: explicit flight corrections,
+follow-up identity, genuine ambiguity, named past versus current reports, required
+before/after coverage, positive and negative reported readiness, absent readiness,
+direct service questions and receipt boundaries. A stronger referent policy must
+not block an explicit aircraft switch or manufacture an identity when ambiguous.
+No report IDs or expected answer keys may be injected as a hidden fix. Deterministic
+checks may enforce justified contracts but must not turn an unsupported model
+judgment into a displayed success. Retain raw outputs, attempted remedies and
+failures. Treat previously exposed cases as development, and review semantic
+meaning independently of structural acceptance. A bounded successful repair does
+not establish an infallible assistant or resolve the separate typed-review errors.
+
+**B04b: typed quotation/citation recovery.** A bounded validator-guided model retry
+can address the observed formatting/grounding failures without weakening the
+contract. Keep run/checkpoint identity, learner text, rubric, cutoff and permitted
+reports immutable throughout an attempt and recovery. Preserve exact quotation,
+criterion-specific citation, contradiction-priority and stale-result rules. Do not
+silently paraphrase a quoted learner statement, broaden eligible evidence or fill
+in a successful review. Audit every real attempt, error, latency and token usage,
+including failures/unknown usage. Check invalid-then-valid recovery and exhausted
+failure deterministically; actual-model/native evidence must distinguish first-
+attempt success from observed recovery. Retry failure must leave the response
+available for an honest user retry, and duplicate requests must not duplicate
+feedback or calls. Recheck meaning with complete, missing, contradictory and
+uncertain learner responses: valid citations alone do not establish sound feedback.
+
+**B04c: cold readiness and timeouts.** Define a bounded startup/warmup readiness
+contract for the actual training service entry point before testing it. Do not
+announce model readiness merely because weights loaded if required warmup failed
+or is still running. Audit startup/warmup separately from user inference; avoid
+advancing lesson time or adding warmup output to learner history. Measure a fresh
+process's preparation and first actual assistant/typed requests under the service's
+real settings, followed by representative warm requests. If text and image paths
+are claimed, cover those paths explicitly; a text warmup cannot establish image-
+path readiness. Preserve current bounded retries and the applicable client/driver/
+typed timeouts unless a concrete, explicitly reviewed change is made. A timeout
+must remain an honest failure; a late result must not enter a new checkpoint or
+overlap a still-running inference. Warmup may move cold-start cost before readiness;
+it does not prove cancellation of a stuck worker or eliminate every later timeout.
+If that worker limitation remains, state it and keep the corresponding issue scope
+open rather than closing it from a fast warm response.
+
+**Shared completion gates and next action.** Root owns implementation and execution;
+this reviewer owns placement and bounded independent acceptance. Pin the new
+versions, targeted fixes, retry limits, data exposure and test plan before model
+calls; do not run an open-ended sequence until a favourable answer appears. Reuse
+existing regression evidence and add distinct controls without touching frozen
+research or claiming a new held-out benchmark. Preserve previous datasets, keys,
+results, rejected prompts, candidate versions and recordings. Complete appropriate
+unit/boundary checks, actual-model checks and native interaction checks for the
+changed paths, with all attempts and costs retained. Accept/close only each remedy
+whose evidence supports it; record remaining #60/#61/#62 limitations separately.
+Publish the new version and update existing GitHub records without duplicate
+milestone counts. #59's unverified viewpoint and course gates #30/#31/#32 are not
+silently included or resolved by these reliability fixes. No implementation or
+test was performed by this reviewer during placement.
+
+## ML-039 — Ordinary-result audit and measured typed-budget adjustment
+
+3 November 2026; interim B04 review, **not final acceptance**. The reviewer audited
+the completed ordinary portion of
+[run-v2.json](../../outputs/assistant-reliability/run-v2.json) while typed reviews
+were still running. V8 passes all 24 known regressions. On 24 new paraphrase/renamed
+probes from the same four report families, frozen v5 and v8 both pass 24/24. There
+is no demonstrated advantage on those new probes and no independent benchmark
+claim. The ordinary section has 72 results, 73 actual calls and twelve isolated
+sessions. V8's known stand-history failure first selected ST406; the guard rejected
+that selection, and one actual same-context retry returned ST204's required old
+and new stands. Total latency was 14.016 seconds, also the maximum ordinary latency.
+The known readiness question now includes the required unknown.
+
+Every ordinary case, score, exact first/retry prompt, receipt-eligible fact pool,
+expanded proposal, returned model and token total matches its saved audit. The
+reviewer independently replayed all 72 saved selections through the final runtime:
+every result field matches except recomputed latency and the explicitly advanced
+guard-policy version. No new inference was performed. All 48 v8 displayed answers
+were read. The stable ordinary-record section hash, using sorted-key JSON, is
+`d34d41489f5864d5e034eb0be81a080a2eb8c270694ac2773811383445790e58`;
+the full run file remains mutable only as the remaining typed records finish.
+
+The initial guard incorrectly rejected null clarification and descriptive switches.
+That review finding was corrected with explicit exemptions for clarification,
+named aircraft/flight references and descriptive/relative corrections. The final
+guard remains a narrow continuity check, not a complete reference resolver.
+One-call rejection wording now uses the actual attempt count. Seven current
+reliability tests passed independently, including continuous-source time remaining
+zero after warmup and advancing normally afterward. Final live correction and
+native checks remain necessary; saved-output replay is not new model evidence.
+
+The interrupted v7 run remains 17 recorded regression turns, 16 passes and one
+wrong-flight miss, `completed: false`. Exact v7/v8 adapter and runner archives match
+their original locks. All 27 prior comparison/revision/history artifacts remain
+unchanged, and frozen v5/v6 remain byte-identical. The initially omitted handler
+and typed-fixture hashes are explicitly recorded as supplemental, not pre-locked,
+provenance. Later handler/guard/startup changes must receive final source hashes;
+their newer bytes are not asserted to equal those earlier lock records. Initial
+warmup records contain timing/model only; the refined startup now records reply,
+finish, usage and failure separately, with actual final-startup verification pending.
+
+The reviewer also read an actual surface-conflict typed review: its first response
+failed exact-quotation validation at 37.107 seconds, and the same-input second
+attempt passed at 72.866 seconds total. This measured recovery would outlast the
+previous 60-second server wait. Root changed only the typed server wait to
+**80 seconds**, below the existing **90-second** native request timeout verified
+in `ConversationClient.cs`. This is a bounded budget adjustment to accommodate
+two attempts, not a speed improvement or elimination of timeouts. The ordinary
+assistant's 35-second client/40-second driver limits are unchanged. Final acceptance
+still requires the remaining typed semantic/audit review, boundary/late-result
+checks and actual native delivery. A slower or stuck worker must still fail honestly
+and cannot justify closing every aspect of #62. No B04 unit is marked delivered,
+published or generally reliable by this interim record; the video stays unchanged.
+
+## ML-040 — Ordinary repair and startup accepted; typed candidate rejected
+
+3 November 2026. Final bounded independent review of the adopted CURRENT work.
+The [review receipt](../../outputs/assistant-reliability/independent-review.json)
+records source, saved-output, native and preservation checks. Publication and
+GitHub readback are the root agent's next action; they are not yet claimed here.
+This supersedes ML-039's pending acceptance and temporary typed-budget decision,
+while retaining the failed trials and earlier measurements.
+
+| Unit | CURRENT disposition | Remaining boundary |
+| --- | --- | --- |
+| B04a ordinary-assistant repair | Accepted: v8 prompt and reference guard v3, including one genuine wrong-reference recovery. | General semantic correctness and unrestricted reference resolution are not established. |
+| B04b typed quotation/citation recovery | Unsuccessful; candidates rejected and original production typed reviewer restored. | #60/#61 remain open; no typed-reliability fix is delivered. |
+| B04c cold readiness/timeouts | Startup warmup accepted; broader timeout/stuck-worker remedy remains unresolved. | #62 remains open; readiness preparation is not a hard inference-time guarantee or worker cancellation. |
+
+**Ordinary evidence.** The complete earlier audit still applies: all 72 ordinary
+records retain the ML-039 hash, with 73 actual calls. V8 passes 24/24 known
+regressions; both frozen v5 and v8 pass the 24 new same-family paraphrase/renamed
+probes. This is development evidence, not held-out generalisation or superiority
+on the new probes. The genuine wrong-flight retry took 14.016 seconds. All 48 v8
+saved outputs match the final narrowed guard. Its post-lock change relaxes
+validation for clarification and explicit/descriptive switches; it does not
+rewrite selected evidence or model judgments. The prior deterministic controls
+and saved actual-output replay support that bounded change without another full
+inference run; they do not establish new live coverage for every possible switch.
+
+The reviewer checked the final native ordinary audit and screenshot. At cutoff
+173.102 seconds, the actual answer reports TRN102's received ground-hold release
+and pushback, while explicitly retaining `overall_readiness` as unknown. Both
+claims match their received facts and source IDs. The answer took 9.263 seconds,
+used one attempt and ran with final guard v3. This native check used the selected
+aircraft and an attached image; it is distinct from the text-only offline study
+and does not establish a visual-perception contribution.
+
+**Rejected typed work.** The retry-only trial stopped with six recorded cases,
+four passes and two safely withheld quotation failures. The subsequent indexed
+candidate completed 18 cases in 20 attempts: 15 semantically correct reviews and
+three displayed semantic failures. These incorrectly credit a false occupant
+claim, treat a missing hold statement as an implied readiness claim, and overlook
+the learner's unsupported engine-fire claim. All are real judgment errors rather
+than scoring artifacts. All 20 saved attempts replay identically through the
+archived and final candidate expansion; zero passage IDs were used, alongside
+59 literal quotes and one empty quote. Successful literal quotations cannot be
+attributed specifically to ID expansion. The longest recovered response took
+79.491 seconds. Neither this latency nor valid citations makes the candidate
+acceptable for promotion. No further tuning was used to remove these findings.
+
+Production `training_assessment.py` is independently byte-matched to published
+`a510d7297b664a5c36db1b990034752b1ef71692`; the server wait is again 60 seconds.
+Candidate code, source archives, locks, raw attempts and failures remain separate.
+The restored original path received an actual native learner response identifying
+TRN103 waiting for Stand B and TRN102 occupying it. It returned a correct,
+all-met qualitative review in 37.499 seconds, applied to the checkpoint. The
+reviewer validated the raw review against its unchanged payload and inspected
+the screenshot. This is one positioned checkpoint compatibility check, not a
+new full lesson run or evidence that the original semantic limitations are fixed.
+
+**Startup, preservation and limits.** Final service evidence records successful
+synthetic text and image inference before readiness, followed by authenticated
+health and the native answer. Warmup demonstrates preparation, not image accuracy,
+faster subsequent inference or elimination of slow/stuck workers. The prior
+continuous-clock and failure-audit controls remain applicable. The reviewer
+matched all five final source hashes and all 27 preserved older artifacts; the
+ordinary record section is unchanged. Root reports final shipping verification
+of 334 tests, 160 frozen research records and the backbone boundary check. Those
+full totals are attributed to root and were not needlessly rerun in this review.
+
+The current delivery therefore contains two bounded improvements and an honestly
+unsuccessful typed experiment. Do not close #60/#61/#62 or say all requested errors
+are resolved. #59 is outside this increment. Keep the video unchanged; no new
+recording is needed for this backend/evaluation work. Course gates #30 member
+participation/final video submission, #31 final one-page reflection and #32
+physical-smartphone/course acceptance remain separate and open. Existing M2
+visual study/checker and M3 evaluation commitments are preserved, without quietly
+moving the failed typed remedy into a new assigned project. Review again after
+publication, a concrete new failure, a change to the shipping guard/startup path,
+or an explicit decision to undertake further typed-reliability work.
