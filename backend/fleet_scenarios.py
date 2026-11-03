@@ -155,7 +155,7 @@ def build_fleet(seed,exercise):
         report(transition,'movement_condition','go-around: Runway 09R occupied by TRN102','TRN101 goes around because TRN102 has not vacated Runway 09R.')
         report(transition+blend,'movement_status','climbing away after go-around','TRN101 is climbing away; no landing has occurred.')
         report(300,'movement_condition','runway still occupied; another approach unconfirmed','Runway 09R remains occupied. Another approach or landing for TRN101 is not confirmed.')
-        cue(transition+4,'go-around','Why is TRN101 going around?');cue(transition+20,'climb','What is the latest reported movement for TRN101?');cue(310,'next','Is another approach confirmed for TRN101?')
+        cue(transition+4,'go-around','Why is TRN101 going around?');cue(transition+65,'climb','What is the latest reported movement for TRN101?');cue(310,'next','Is another approach confirmed for TRN101?')
         world['flightTeachingWindows']=[dict(start=transition-10,end=transition+35)];end_res=3600
     a['waypoints']=points
     world['runwayReservations']=[dict(aircraftId='A2' if exercise==FLEET_DEMONSTRATIONS[3] else 'A1',start=0,end=end_res,kind=exercise)]

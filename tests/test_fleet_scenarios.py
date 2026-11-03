@@ -167,6 +167,39 @@ class FleetCases(unittest.TestCase):
    self.assertEqual(seen,[q['id'] for q in driver.scenario['demoQuestions']])
    self.assertEqual(driver.state()['phase'],'debrief')
 
+ def test_a380_cues_allow_pending_response_timeout_and_reading_without_overlap(self):
+  # Native regression: the old second cue arrived 16 source seconds after
+  # the first and could replace a still-pending answer. Preserve the global
+  # 40-second timeout and ten-second reading contract with scenario spacing.
+  for seed in range(20):
+   for latency in (15.074,39.,41.):
+    wall=[0.];driver=TrainingSession(seed,'fleet_a380_go_around','demo',clock=lambda:wall[0])
+    cues=driver.scenario['demoQuestions']
+    self.assertGreaterEqual(cues[1]['at']-cues[0]['at'],60)
+    self.assertGreaterEqual(cues[2]['at']-cues[1]['at'],60)
+    for _ in range(200):
+     wall[0]+=.25;state=driver.state()
+     if state.get('demoCue'):break
+    self.assertEqual(state['demoCue']['id'],'go-around')
+    body=dict(scenarioId=driver.scenario['scenarioId'],checkpoint=state['demoCue']['cutoff'],requestId='delayed-first')
+    context=driver.begin_question(body)
+    wall[0]+=latency;pending=driver.state()
+    self.assertEqual(pending['demoCue']['id'],'go-around')
+    self.assertEqual(pending['demoCue']['status'],'pending' if latency<40 else 'timeout')
+    self.assertTrue(driver.end_question(body,context,latency<40))
+    driver.action(dict(action='demo_answer',actionId='first-result',runId=pending['runId'],revision=pending['revision'],cueId='go-around',success=latency<40))
+    result=driver.state()
+    self.assertEqual(result['demoCue']['status'],'answered' if latency<40 else 'timeout')
+    before=result['sourceTime'];wall[0]+=9;reading=driver.state()
+    self.assertAlmostEqual(reading['sourceTime'],before+9)
+    self.assertEqual(reading['demoCue']['id'],'go-around')
+    for _ in range(200):
+     wall[0]+=.25;state=driver.state()
+     if state['demoCue']['id']=='climb':break
+    self.assertEqual(state['demoCue']['id'],'climb')
+    self.assertEqual(state['demoCue']['status'],'pending')
+    self.assertEqual(state['demoCue']['cutoff'],cues[1]['at'])
+
  def test_session_modes_and_legacy_lists(self):
   from backend.runway_scenarios import DEMONSTRATIONS
   self.assertFalse(set(DEMONSTRATIONS)&set(FLEET_DEMONSTRATIONS))
