@@ -353,7 +353,7 @@
     "tests/test_training_assessment.py": "d4d6aa07e22fe609f80b776dd06c279363f3b207c897dda2f52c69d19bcb8f0b",
     "tests/test_training_session.py": "c9dad69e943fdf52972834aebd679a6fe5469752974e11a0ed2a8d24615cfea5",
     "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
-    "tests/test_fog_lesson.py": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+    "tests/test_fog_lesson.py": "2aeed28add7e61158bc3b3887a2cfa55ea5574ba24e853dc76d4738ea5a3da74",
     "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
     "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
   },
@@ -567,5 +567,19 @@
     "reviewerIndependentlyViewedLocalMasterFrame": 1750,
     "person2Narration": "pending",
     "sourceDocumentPublication": "being_finalized"
+  },
+  "ciPortabilityReview": {
+    "artifact": "outputs/checkpoint1/ci-portability-independent-review.json",
+    "sha256": "1542b172172d25726c7a60e78a3914fb751f8398efc6ac841108a0c6592e78ff",
+    "status": "independent_local_review_passed_linux_ci_pending",
+    "testFileChanged": "tests/test_fog_lesson.py",
+    "previousTestFileSha256": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+    "currentTestFileSha256": "2aeed28add7e61158bc3b3887a2cfa55ea5574ba24e853dc76d4738ea5a3da74",
+    "appAndNativeSourceHashesUnchanged": true,
+    "historicalTestRunsPreserved": true,
+    "implementerArtifact": {
+      "path": "outputs/checkpoint1/ci-portability-repair.json",
+      "sha256": "6f4206948f86b42600dfc94fd30b170cc333c42751da6803ef6bc31de86c7f2f"
+    }
   }
 }

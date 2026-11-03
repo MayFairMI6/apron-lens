@@ -2,6 +2,7 @@
 import copy
 import hashlib
 import json
+import math
 import tempfile
 import unittest
 from pathlib import Path
@@ -18,6 +19,25 @@ from backend.training_session import ActionConflict, TrainingSession
 from evidencekit import check_references
 from modelaccess.contract import Settings
 from modelaccess.mock import MockAdapter
+
+
+def fingerprint_bytes(value):
+    """Keep every field; round only finite floats for platform libm portability.
+
+    Nine decimal places is a 1e-9 unit grid (1 micrometre for kilometre
+    coordinates; at most 0.5 micrometre rounding error). Integers, booleans,
+    strings, order and collection contents remain exact. This does not modify
+    production worlds or define their operational accuracy.
+    """
+    def normalize(item):
+        if isinstance(item, float):
+            if not math.isfinite(item):raise ValueError('Non-finite world fingerprint value')
+            rounded = round(item, 9)
+            return 0.0 if rounded == 0 else rounded
+        if isinstance(item, dict):return {key: normalize(child) for key, child in item.items()}
+        if isinstance(item, (list, tuple)):return [normalize(child) for child in item]
+        return item
+    return json.dumps(normalize(value), sort_keys=True, separators=(',', ':'), allow_nan=False).encode()
 
 
 class FogLessonTests(unittest.TestCase):
@@ -204,23 +224,51 @@ class FogLessonTests(unittest.TestCase):
                 self.assertIsNone(state['feedback']); self.assertEqual(state['reviews'], [])
 
     def test_existing_worlds_match_twenty_seed_prechange_fingerprints(self):
-        # Captured before the fourth lesson was added. Covers complete authored
-        # worlds, reservations and probes, not just a few selected fields.
+        # Regenerated from an isolated git archive of pre-fourth-lesson commit
+        # 92fd08bbb1db3f9c89af09a97b711846317ae8db, never from current output.
+        # Complete worlds, reservations and probes, all 20 seeds and 8 cases.
+        # Only float serialization is normalized; no fields are discarded.
         baseline = {
-            'surface_conflict': '065cc6060b3b40590dc6e2a6c63ad032f91c9d8f0e7490090de7b66e59dba57b',
-            'late_arrival': '3ac63da04cd3873605873440716f995af74604a8f4e145909f7edcf3fcfb045a',
-            'late_baggage': 'e5a32b37a3955bfebe241a66b4101423b913a11935556d324a355b9852a2120a',
-            'rejected_takeoff': 'b8be159d50f33006f0cbb929c136dba65be4eade7272b6630be0ee81263b4c02',
-            'occupied_runway_go_around': '7a81a73000f9146d25cfd92fd38d3778dbbb3b9ea0a54a9c0761f3aa63d18ab2',
-            'runway_incursion': 'f694f71f3c22a1bae161c3b9dd1d3d096c1c080d6614c61672f7d2766010e269',
-            'water_landing': 'a345f4c7598d1ac55806881ca41b70f5a7d8802319a69f881fc6a00b03ec36de',
-            'fog_visibility': 'be184b56b1546aa2fdc149a907754db464d9288446d6e44a0ba20f7911a15f38',
+            'surface_conflict': 'a8daf596c22d37f9706ed8663a93d417a83d3fd1798e1bebec6f9ef013bee3a6',
+            'late_arrival': '38e9b1d4cd683a4159ae4859c7ae60884515a39d13a8b7334a13c567dedd644a',
+            'late_baggage': 'dde2b374fb25d8f87e0b7b1690069a62bf4650ce20e09fefd65a398b590bc429',
+            'rejected_takeoff': 'ea8474fa0cb80d015a9d70182cc80a4f6d37362421f8c31704aab87a5b67d9c6',
+            'occupied_runway_go_around': 'e64898e171e1c38e0f478acf0da3d298d7475345b46d3ff83a91b43e4f8bc1d1',
+            'runway_incursion': '1146e65fb998af68e17c7a4f0e5f85d11ec82ae17e168c024015bbfd0cee911c',
+            'water_landing': '71c6c2ac7ba4279073c113919f9c66d7f0561dd8c95f5d82185e9038ad4630ab',
+            'fog_visibility': 'a5aa420ef418fcd7c885ebd6433c0831a800e279c37df0c4d2e120a56f9650df',
         }
         for case, expected in baseline.items():
             digest = hashlib.sha256()
             builder = build_demonstration if case in DEMONSTRATIONS else build_lesson
-            for seed in range(20):digest.update(json.dumps(builder(seed, case), sort_keys=True, separators=(',', ':')).encode())
+            for seed in range(20):digest.update(fingerprint_bytes(builder(seed, case)))
             self.assertEqual(digest.hexdigest(), expected, case)
+
+    def test_portable_fingerprints_keep_meaningful_world_reservation_and_probe_changes(self):
+        original = build_lesson(17, 'surface_conflict')
+        expected = fingerprint_bytes(original)
+        tiny = copy.deepcopy(original)
+        waypoint = tiny[0]['aircraft'][0]['waypoints'][0]
+        waypoint['x'] = math.nextafter(waypoint['x'], math.inf)
+        self.assertEqual(fingerprint_bytes(tiny), expected)
+        mutations = [
+            lambda w: w[0]['aircraft'][0]['waypoints'][0].update(x=w[0]['aircraft'][0]['waypoints'][0]['x'] + 1e-8),
+            lambda w: w[0]['events'][0].update(receiptTime=w[0]['events'][0]['receiptTime'] + 1e-6),
+            lambda w: w[0]['events'][0].update(message='Changed report'),
+            lambda w: w[0]['events'][0]['facts'][0].update(value='Changed fact'),
+            lambda w: w[1][0].update(end=w[1][0]['end'] + .001),
+            lambda w: w[2][0].update(correct=(w[2][0]['correct'] + 1) % 4),
+            lambda w: w[2][0].update(evidenceIds=['Different source']),
+            lambda w: w[0]['aircraft'].reverse(),
+        ]
+        for index, mutate in enumerate(mutations):
+            with self.subTest(mutation=index):
+                changed = copy.deepcopy(original); mutate(changed)
+                self.assertNotEqual(fingerprint_bytes(changed), expected)
+        self.assertEqual(fingerprint_bytes({'zero': -0.0}), fingerprint_bytes({'zero': 0.0}))
+        self.assertNotEqual(fingerprint_bytes({'value': True}), fingerprint_bytes({'value': 1}))
+        for invalid in (math.nan, math.inf, -math.inf):
+            with self.assertRaises(ValueError):fingerprint_bytes({'value': invalid})
 
 
 if __name__ == '__main__':unittest.main()

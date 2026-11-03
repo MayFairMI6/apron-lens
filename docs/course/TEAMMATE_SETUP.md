@@ -41,8 +41,8 @@ contains only main. [Official GitHub fork guidance](https://docs.github.com/en/p
 
 ## Prepare with an agent
 
-Give the agent `TEAMMATE_AGENT_PROMPT.txt`, your presenter letter/name and the
-role plan. Supply the video or selected clips separately if the agent supports
+Give the agent `TEAMMATE_AGENT_PROMPT.txt`, your assigned Person 1 or Person 2 section and the
+recording plan. Supply the video or selected clips separately if the agent supports
 them. The source recording is large and is not stored in Git history. An agent
 without video access can check documents and code, but must not claim to have
 visually reviewed the footage. The handoff bundle includes representative frames.
@@ -56,4 +56,4 @@ visible; simulator success is not proof of physical AR tracking or phone perform
 
 Visual environment settings
 
-Add `--environment rain`, `--environment snow` or `--environment dusk` to the existing `backend.training` launch command. Default clear daytime remains unchanged. The same external source clock drives weather/light visuals and traffic, including acceleration and pauses. These settings do not yet change aircraft performance or operational reports. The dusk profile is one late-afternoon-to-night source hour, not a full 24-hour cycle. See IMPLEMENTATION_DOCKET.md for the remaining weather work.
+Add `--environment rain`, `--environment snow`, `--environment dusk` or `--environment fog` to compatible `backend.training` cases. Other cases default to clear daytime; the two fog cases select their own fog timelines. Use `--exercise fog_restrictions --mode lesson` for the fourth typed practice topic, or `--exercise fog_visibility --mode demo` for the separate source-hour demonstration. The same external source clock drives weather/light visuals and traffic, including acceleration and pauses. These settings do not yet change aircraft performance or operational reports. The dusk profile is one late-afternoon-to-night source hour, not a full 24-hour cycle. See IMPLEMENTATION_DOCKET.md for the remaining weather work.

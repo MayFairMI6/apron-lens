@@ -1,0 +1,193 @@
+{
+  "recordVersion": 1,
+  "recordedAtUtc": "2026-11-03T05:14:26.317648+00:00",
+  "scope": "CI dependency and test fingerprint portability only; no model, prompt, world, inference, native or frozen-result changes.",
+  "testedHead": "75f025513b021fd8c47bc866bd8dcff12583739c",
+  "retainedCiFailures": [
+    {
+      "runId": 41582039869,
+      "jobId": 125738861460,
+      "url": "https://github.com/MayFairMI6/apron-lens/actions/runs/41582039869",
+      "testResult": "276 tests; one error and one failure",
+      "error": "test_cli_rejects_conflicting_lesson_options_before_model_load: ModuleNotFoundError: No module named 'uvicorn'",
+      "failure": "test_existing_worlds_match_twenty_seed_prechange_fingerprints: rejected_takeoff",
+      "observedLinuxDigest": "ab83d9ab5ca62d9a6c051afad42444ac0cb25b0e73abd87ed0f5eba6bc8db826",
+      "formerMacDigest": "b8be159d50f33006f0cbb929c136dba65be4eade7272b6630be0ee81263b4c02",
+      "retainedExcerpt": "work/ci-portability-failure-41582039869.log"
+    },
+    {
+      "runId": 41582034774,
+      "jobId": 125738846039,
+      "url": "https://github.com/MayFairMI6/apron-lens/actions/runs/41582034774",
+      "testResult": "276 tests; one error and one failure",
+      "error": "test_cli_rejects_conflicting_lesson_options_before_model_load: ModuleNotFoundError: No module named 'uvicorn'",
+      "failure": "test_existing_worlds_match_twenty_seed_prechange_fingerprints: rejected_takeoff",
+      "observedLinuxDigest": "ab83d9ab5ca62d9a6c051afad42444ac0cb25b0e73abd87ed0f5eba6bc8db826",
+      "formerMacDigest": "b8be159d50f33006f0cbb929c136dba65be4eade7272b6630be0ee81263b4c02",
+      "retainedExcerpt": "work/ci-portability-failure-41582034774.log"
+    }
+  ],
+  "dependencyRepair": {
+    "added": "uvicorn==0.54.0",
+    "existingPin": "requirements-qwen.lock.txt",
+    "installation": "Fresh venv using only requirements-ci.txt; pip check passed; no torch or transformers installed."
+  },
+  "baseline": {
+    "commit": "92fd08bbb1db3f9c89af09a97b711846317ae8db",
+    "method": "git archive --format=tar 92fd08bbb1db3f9c89af09a97b711846317ae8db backend data modelaccess backbone evidencekit; extract to work/ci-portability-baseline-92fd08b; execute standalone fingerprint script from that directory in a separate Python process.",
+    "script": "work/ci-portability-world-hashes.py",
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "caseCount": 8,
+    "worldCount": 160,
+    "coverage": "Entire builder return: worlds, reservations and probes; no field filtering.",
+    "allRawMacDigestsEqualPrechange": true,
+    "allNormalizedDigestsEqualPrechange": true,
+    "caseDigests": {
+      "surface_conflict": {
+        "rawSha256": "065cc6060b3b40590dc6e2a6c63ad032f91c9d8f0e7490090de7b66e59dba57b",
+        "rounded9Sha256": "a8daf596c22d37f9706ed8663a93d417a83d3fd1798e1bebec6f9ef013bee3a6",
+        "floatCount": 57260,
+        "changedFloatCount": 1180,
+        "maxAbsoluteRoundingDelta": 4.994866742435988e-10
+      },
+      "late_arrival": {
+        "rawSha256": "3ac63da04cd3873605873440716f995af74604a8f4e145909f7edcf3fcfb045a",
+        "rounded9Sha256": "38e9b1d4cd683a4159ae4859c7ae60884515a39d13a8b7334a13c567dedd644a",
+        "floatCount": 52780,
+        "changedFloatCount": 220,
+        "maxAbsoluteRoundingDelta": 3.552713678800501e-15
+      },
+      "late_baggage": {
+        "rawSha256": "e5a32b37a3955bfebe241a66b4101423b913a11935556d324a355b9852a2120a",
+        "rounded9Sha256": "dde2b374fb25d8f87e0b7b1690069a62bf4650ce20e09fefd65a398b590bc429",
+        "floatCount": 57260,
+        "changedFloatCount": 1240,
+        "maxAbsoluteRoundingDelta": 1.1368683772161603e-13
+      },
+      "rejected_takeoff": {
+        "rawSha256": "b8be159d50f33006f0cbb929c136dba65be4eade7272b6630be0ee81263b4c02",
+        "rounded9Sha256": "ea8474fa0cb80d015a9d70182cc80a4f6d37362421f8c31704aab87a5b67d9c6",
+        "floatCount": 782200,
+        "changedFloatCount": 740020,
+        "maxAbsoluteRoundingDelta": 4.999837210917235e-10
+      },
+      "occupied_runway_go_around": {
+        "rawSha256": "7a81a73000f9146d25cfd92fd38d3778dbbb3b9ea0a54a9c0761f3aa63d18ab2",
+        "rounded9Sha256": "e64898e171e1c38e0f478acf0da3d298d7475345b46d3ff83a91b43e4f8bc1d1",
+        "floatCount": 778740,
+        "changedFloatCount": 737820,
+        "maxAbsoluteRoundingDelta": 4.999837210917235e-10
+      },
+      "runway_incursion": {
+        "rawSha256": "f694f71f3c22a1bae161c3b9dd1d3d096c1c080d6614c61672f7d2766010e269",
+        "rounded9Sha256": "1146e65fb998af68e17c7a4f0e5f85d11ec82ae17e168c024015bbfd0cee911c",
+        "floatCount": 784000,
+        "changedFloatCount": 737540,
+        "maxAbsoluteRoundingDelta": 4.999837210917235e-10
+      },
+      "water_landing": {
+        "rawSha256": "a345f4c7598d1ac55806881ca41b70f5a7d8802319a69f881fc6a00b03ec36de",
+        "rounded9Sha256": "71c6c2ac7ba4279073c113919f9c66d7f0561dd8c95f5d82185e9038ad4630ab",
+        "floatCount": 780440,
+        "changedFloatCount": 738900,
+        "maxAbsoluteRoundingDelta": 4.999999997368221e-10
+      },
+      "fog_visibility": {
+        "rawSha256": "be184b56b1546aa2fdc149a907754db464d9288446d6e44a0ba20f7911a15f38",
+        "rounded9Sha256": "a5aa420ef418fcd7c885ebd6433c0831a800e279c37df0c4d2e120a56f9650df",
+        "floatCount": 777700,
+        "changedFloatCount": 737280,
+        "maxAbsoluteRoundingDelta": 4.999837210917235e-10
+      }
+    }
+  },
+  "normalization": {
+    "decimalPlaces": 9,
+    "onlyFiniteFloats": true,
+    "signedZero": "folded to positive float zero",
+    "otherValues": "Strings, integers, booleans, field names and sequence order unchanged; dictionaries retain the original sorted-key JSON serialization.",
+    "gridInFieldUnits": 1e-09,
+    "coordinateGridMetres": 1e-06,
+    "maximumCoordinateRoundingErrorMetres": 5e-07,
+    "operationalAccuracyClaim": false,
+    "productionDataUnmodified": true
+  },
+  "investigation": {
+    "observation": "Unrounded JSON includes high-precision libm-derived projected coordinates, headings and turn geometry. Identical prechange and current trees reproduce the old raw Mac digests, while GitHub Linux reports a different rejected-takeoff raw digest.",
+    "conclusion": "The raw float snapshot is platform-sensitive; nine-decimal quantization removes insignificant arithmetic tails without changing production data. The exact Linux differing fields/libm routine were not available from CI logs, so that specific cause is not claimed proven.",
+    "boundedProbe": "Shifting only the fixed projection cosine by one ULP in either direction did not reproduce the observed Linux digest; retained work/ci-portability-libm-probe.json.",
+    "linuxVerification": "Pending the root-controlled post-push GitHub Actions rerun; local Docker daemon was unavailable and was not started."
+  },
+  "sensitivityRegression": {
+    "ignored": "One ULP coordinate noise and signed zero only in the representative checks.",
+    "detected": [
+      "10-micrometre coordinate change",
+      "one-microsecond receipt-time change",
+      "report message change",
+      "fact value change",
+      "one-millisecond reservation end change",
+      "answer-key change",
+      "evidence-ID change",
+      "aircraft sequence reorder",
+      "boolean versus integer distinction"
+    ],
+    "invalidValuesRejected": [
+      "NaN",
+      "positive infinity",
+      "negative infinity"
+    ]
+  },
+  "validation": {
+    "environment": {
+      "python": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 21.0.0 (clang-2100.0.123.102)]",
+      "platform": "macOS-27.2-arm64-arm-64bit",
+      "dependencies": "work/ci-portability-installed.txt"
+    },
+    "focused": {
+      "command": "work/ci-portability-venv/bin/python -m unittest tests.test_fog_lesson -v",
+      "passed": 9,
+      "seconds": 9.269,
+      "log": "work/ci-portability-focused-tests.log"
+    },
+    "full": {
+      "command": "work/ci-portability-venv/bin/python -m unittest discover -s tests -v",
+      "passed": 277,
+      "seconds": 29.007,
+      "log": "work/ci-portability-full-tests.log"
+    },
+    "researchIntegrity": {
+      "passed": true,
+      "frozenRecords": 160,
+      "log": "work/ci-portability-research-integrity.log"
+    },
+    "backboneBoundary": {
+      "passed": true,
+      "log": "work/ci-portability-backbone-boundary.log"
+    }
+  },
+  "changedFilesSha256": {
+    "requirements-ci.txt": "a590d031ddfbba21c39948ed6cf34d119b015f61820ffff6413ad4025c4477c7",
+    "tests/test_fog_lesson.py": "2aeed28add7e61158bc3b3887a2cfa55ea5574ba24e853dc76d4738ea5a3da74"
+  }
+}

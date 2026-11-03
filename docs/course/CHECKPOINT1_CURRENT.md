@@ -241,3 +241,8 @@ Typed-practice recording
 The 30:33.5 edit preserves the approved Person 1 audio and earlier cue times. The earlier baseline is labelled because its narration describes fixed-choice checkpoints. The appended chapter shows current typed input, actual feedback, a withheld review, edited retry, an ordinary typed assistant question with Sources, and the debrief. It uses selected excerpts from the full 210-source-second fog practice run; it is not another one-hour scenario. Person 2 narration remains outstanding. See [typed edit provenance](../../outputs/checkpoint1/typed-demo-edit.json).
 
 C01 is complete as a contract and evidence record, not a proof or a validated grader. C02/C03 are queued for M2 and C04 for M3. The Heathrow busy-airport refinement combines small illustrative queues, reported runway-use changes and local wind/visibility restrictions within Q01; it is researched and unbuilt.
+
+
+Portability follow-up
+
+The first GitHub run exposed a missing CI-only server dependency and a raw floating-point fingerprint difference on Linux. The repair changes only test dependencies and fingerprint serialization, keeping all production source hashes intact. A fresh environment passed 277 tests; an independent pre-change archive comparison covered all eight cases and twenty seeds. The source artifacts preserve the failed CI runs and local results; the pull request shows subsequent Linux outcomes. See [portability repair](../../outputs/checkpoint1/ci-portability-repair.json) and [independent review](../../outputs/checkpoint1/ci-portability-independent-review.json).

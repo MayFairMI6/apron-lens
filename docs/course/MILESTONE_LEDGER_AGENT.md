@@ -139,8 +139,8 @@ in Checkpoint 1. Start from [EXECUTION_QUEUE.md](EXECUTION_QUEUE.md) and ML-021.
 Exact v2 is restored; the full native typed fog run and separate positioned
 original-lesson/Next checks have passed limited functional review. C01's bounded
 contract/evidence work is complete. Current feature scope is frozen. ML-022 records
-the 30:33.5 video published to Drive; source/shared-document/ZIP publication remains
-pending. C02–C04 stay in M2/M3. The user
+the 30:33.5 video published to Drive. ML-023 records source and shared-document
+publication; CI portability and package identity are documented in their separate acceptance records. C02–C04 stay in M2/M3. The user
 requested agent processing of typed learner responses; ML-011 extends ML-010
 and supersedes a multiple-choice-only learner interface. The root owns native
 typed-input/feedback integration, the backend implementer owns model processing,
@@ -189,8 +189,10 @@ artifact is complete within its stated bounds. The reviewed typed edit record
 now identifies the published 30:33.5, 92,255,039-byte, 1280×590 share copy, with
 unchanged Person 1 AAC. Root inspected selected frames and verified the existing
 Drive file's new size after upload. Preserve the earlier rejected 113 MB upload
-in history. The next action is source/shared-document/ZIP publication, not another
-feature or repeated native run.
+in history. The CI portability correction is documented in `outputs/checkpoint1/ci-portability-repair.json`
+and its independent review; inspect the latest GitHub checks and handoff manifest
+when resuming. Test-dependency or fingerprint-serialization changes do not alter
+the model/native flow.
 The companion correctness record is aligned with the final native artifact.
 Preserve that coverage without reopening passed functional checks or removing
 the unresolved semantic/device limitations.
