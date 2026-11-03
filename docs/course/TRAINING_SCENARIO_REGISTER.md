@@ -23,8 +23,9 @@ A real investigation supplies background and debrief material. The learner must 
 | A11 | Maintenance vehicle runway incursion | Built — independent unscored case | Follow the cancelled departure, vehicle withdrawal and unresolved runway status. |
 | A12 | Emergency water landing | Built — independent unscored case | Track reported loss of thrust, location, water contact and response coordination. |
 | A13 | Rain, snowfall and dusk/night presentation | Built — visual context only | Use presentation conditions while practising existing report reasoning. |
+| A14 | Fog and changing restrictions | Built — independent unscored case; native/model verified | Separate visual improvement, cancellation of low-visibility procedures, safeguarding and unconfirmed departure authority. |
 
-Only A01–A03 are the existing scored lessons. A09–A12 are independent unscored cases; A04–A08 are parts of the continuous demonstration. A13 is visual presentation, not operational weather training. A catalogue title alone does not establish a built exercise. The older ten-item catalogue is therefore not counted as ten further completed cases.
+Only A01–A03 are the existing scored lessons. A09–A12 and A14 are independent unscored cases; A04–A08 are parts of the continuous demonstration. A13 is visual presentation, not operational weather training. A catalogue title alone does not establish a built exercise. The older ten-item catalogue is therefore not counted as ten further completed cases.
 
 ## Proposed work tracker
 
@@ -33,7 +34,7 @@ Only A01–A03 are the existing scored lessons. A09–A12 are independent unscor
 | P01 | P1 | Arriving stand not clear of equipment | Source-backed draft | Not built | Pending | — |
 | P02 | P1 | Pushback clearance and wingtip conflict | Source-backed draft | Not built | Pending | — |
 | P03 | P1 | Aircraft not fully parked protrudes into taxi route | Source-backed draft | Not built | Pending | — |
-| P04 | P1 | Fog and low-visibility restrictions change in stages | Source-backed draft | Not built | Pending | — |
+| P04 | P1 | Scored fog restriction/handover lesson extending A14 | Source-backed scope | Scoring not built; A14 demo verified | Lesson pending | CURRENT next increment; see ledger F03 |
 | P05 | P1 | Works or wind debris closes a route until inspection | Source-backed draft | Not built | Pending | — |
 | P06 | P1 | Connector-road closure and a changed route briefing | Source-backed draft | Not built | Pending | — |
 | P07 | P2 | Winter readiness and surface-condition handover | Source-backed draft | Not built | Pending | — |
@@ -88,19 +89,19 @@ Extends A06 with a new decision task; it is not a second claim that the existing
 
 **Next action.** Add a non-collision hold branch that tests a stale route against a newer obstruction report.
 
-### P04 · Fog and low-visibility restrictions change in stages
+### P04 · Scored fog restriction lesson extending A14
 
-**P1 · Proposed new case — not built.** Setting: Airfield vehicle access / runway approaches.
+**P1 · Scored extension planned for the current checkpoint’s next increment.** A14 already supplies the fog visuals, report sequence and three accepted native assistant answers. The separate learner questions, scoring and feedback are not built. Setting: parked aircraft on the Terminal 3 apron.
 
 **Precedent or operational basis.** Heathrow OSI052 v3.1 distinguishes preparatory safeguarding from full low-visibility procedures. It explicitly allows safeguarding to remain after procedures are cancelled. NATS explains the associated ILS protection and spacing context. [Heathrow OSI052 v3.1: Low Visibility Operations](https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASWeather_OSI_052_v3-1.pdf) [NATS: Low visibility procedures explained](https://nats.aero/blog/2025/10/low-visibility-procedures-what-you-need-to-know/)
 
 **Learner task.** At each cutoff identify which operating state is reported and which restrictions still apply.
 
-**Report sequence to author.** Safeguarding requested → Safeguarding confirmed → LVP in force → LVP cancelled but safeguarding remains → Safeguarding cancellation separately confirmed.
+**Implemented A14 report sequence.** Safeguarding requested → Safeguarding confirmed → LVP in force → LVP cancelled but safeguarding remains → Safeguarding cancellation separately confirmed; departure clearance still unconfirmed. The visual improvement precedes the cancellations.
 
 **Evidence boundary.** Fog visuals do not activate or cancel restrictions. Do not teach unverified numerical minima or generate clearances from weather alone.
 
-**Next action.** Create delayed and superseding status reports; test cancellation without full release.
+**Next action.** Author a separately labelled short lesson with three fixed cutoffs, four choices and source-backed feedback. Re-time its reports deliberately to the short-lesson duration; preserve the completed one-hour demonstration. Test incorrect answers, retry/next, source eligibility and native completion. See [ledger F03](MILESTONE_LEDGER.md).
 
 ### P05 · Works or wind debris closes a route until inspection
 
@@ -223,7 +224,7 @@ These profiles change traffic demand, runway availability, stand capacity, route
 For a fair evaluation, first hold the evidence task and reporting delays fixed while changing traffic density. Then test layout complexity separately. Measure missed updates and unsupported conclusions as well as completion time; more aircraft alone is not evidence of better training.
 Milestones: retain the existing Heathrow walkthrough for Checkpoint 1; define and test one queue or obstruction task in Checkpoint 2; compare the selected task across size and demand profiles in Checkpoint 3 if the evidence and movement checks pass. No additional airport reconstruction is claimed as complete.
 
-Fog status: proposed visual and operational-awareness profile, not implemented. Current profiles are clear, rain, snow and dusk/night. Weather-driven runway capacity is also proposed, not built.
+Fog status: the fog visual profile and A14 report-led demonstration are implemented and native/model verified. Current profiles are clear, rain, snow, dusk/night and fog. P04 is the distinct scored extension recommended next within the current checkpoint; weather-driven runway capacity remains proposed. See [fog acceptance](../../outputs/checkpoint1/fog-acceptance.json) and [milestone ledger](MILESTONE_LEDGER.md).
 
 Editable tracking document: https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk
 

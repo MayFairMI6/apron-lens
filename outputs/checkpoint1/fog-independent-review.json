@@ -1,0 +1,249 @@
+{
+  "reviewVersion": 1,
+  "reviewer": "terminal3_reference_review independent source/code review",
+  "reviewedAtUtc": "2026-11-03T02:47:01.520381+00:00",
+  "scope": "Fog visual extension and separate unscored fog_visibility report demonstration; no map or geometry re-audit.",
+  "conclusion": "No blocking source, report-sequence, clock, state-restoration or renderer-code issue found in reviewed files. Native simulator acceptance remains root-owned and unverified by this reviewer.",
+  "sources": [
+    {
+      "title": "Heathrow Low Visibility Operations OSI052",
+      "version": "3.1",
+      "date": "2026-10-01",
+      "url": "https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASWeather_OSI_052_v3-1.pdf",
+      "sections": [
+        "3.1.2\u20133.1.3",
+        "6.4",
+        "7.6",
+        "10.1",
+        "13.1 note",
+        "13.2"
+      ],
+      "support": "Safeguarding preparation and ATC procedures are distinct. Safeguarding is confirmed before LVP begins and may remain after LVP cancellation. Cancellation of safeguarding is separate. Remote holding has additional approval requirements; this demonstration parks at an apron instead."
+    },
+    {
+      "title": "NATS: Low visibility procedures: what you need to know",
+      "date": "2025-10-02",
+      "url": "https://nats.aero/blog/2025/10/low-visibility-procedures-what-you-need-to-know/",
+      "support": "General UK airport explanation of measured visibility, ATC procedures and ILS protection; not a specific Heathrow fog incident."
+    },
+    {
+      "title": "Unity 6.2 OnRenderImage API",
+      "url": "https://docs.unity3d.com/6000.2/Documentation/ScriptReference/MonoBehaviour.OnRenderImage.html",
+      "support": "Camera image composition is supported by the Built-in pipeline used by this project."
+    }
+  ],
+  "operationalSequence": [
+    {
+      "sourceSecond": 30,
+      "authoredReport": "Safeguarding requested; confirmation pending; aircraft held at stand."
+    },
+    {
+      "sourceSecond": 300,
+      "authoredReport": "Airside Operations confirms safeguarding in place; departure remains held."
+    },
+    {
+      "sourceSecond": 600,
+      "authoredReport": "LVP in force; safeguarding and aircraft hold remain."
+    },
+    {
+      "sourceSecond": 2400,
+      "authoredReport": "Tower cancels LVP; safeguarding and flight hold remain."
+    },
+    {
+      "sourceSecond": 2900,
+      "authoredReport": "Safeguarding cancellation requested; confirmation pending."
+    },
+    {
+      "sourceSecond": 3000,
+      "authoredReport": "Airside Operations confirms cancellation; departure clearance still unconfirmed."
+    }
+  ],
+  "sourceBoundaries": {
+    "allTimesAuthored": true,
+    "heathrowIncidentClaim": false,
+    "operationalThresholdsOrRvrValuesImplemented": false,
+    "rendererCertifiesVisibility": false,
+    "visualRecoveryReleasesRestrictions": false,
+    "safeguardingCancellationIsDepartureClearance": false,
+    "holdingPointRegimeInferred": false,
+    "newScoredLesson": false,
+    "runwayReservationAdded": false
+  },
+  "receiptCutoffChecks": [
+    {
+      "cutoff": 2200,
+      "currentCondition": "LVP in force; safeguarding remains; departure held"
+    },
+    {
+      "cutoff": 2400,
+      "currentCondition": "LVP in force; safeguarding remains; departure held"
+    },
+    {
+      "cutoff": 2403,
+      "currentCondition": "LVP cancelled; safeguarding remains; departure held"
+    },
+    {
+      "cutoff": 2900,
+      "currentCondition": "LVP cancelled; safeguarding remains; departure held"
+    },
+    {
+      "cutoff": 2903,
+      "currentCondition": "Safeguarding cancellation requested; confirmation pending; departure held"
+    },
+    {
+      "cutoff": 3000,
+      "currentCondition": "Safeguarding cancellation requested; confirmation pending; departure held"
+    },
+    {
+      "cutoff": 3003,
+      "currentCondition": "Safeguarding cancelled; departure clearance still unconfirmed"
+    },
+    {
+      "cutoff": 3600,
+      "currentCondition": "Safeguarding cancelled; departure clearance still unconfirmed"
+    }
+  ],
+  "nextEnvironmentTransitions": [
+    {
+      "configured": "clear",
+      "publicActionSequence": [
+        "water_landing/clear",
+        "fog_visibility/fog",
+        "rejected_takeoff/clear"
+      ]
+    },
+    {
+      "configured": "rain",
+      "publicActionSequence": [
+        "water_landing/rain",
+        "fog_visibility/fog",
+        "rejected_takeoff/rain"
+      ]
+    },
+    {
+      "configured": "fog",
+      "publicActionSequence": [
+        "water_landing/fog",
+        "fog_visibility/fog",
+        "rejected_takeoff/fog"
+      ]
+    }
+  ],
+  "independentEvidenceIsolation": {
+    "method": "Deep-copy scenario, replace visual fog-strength curve, compare full conversation evidence snapshot unchanged.",
+    "cutoffs": [
+      650,
+      2200,
+      2450,
+      3050
+    ],
+    "passed": true,
+    "evidenceDigests": {
+      "650": "a2c28b9ec3546608bcc395acea3bb26f1099eb74d86df24912fe5a7e7d1dfc2e",
+      "2200": "a2c28b9ec3546608bcc395acea3bb26f1099eb74d86df24912fe5a7e7d1dfc2e",
+      "2450": "0aecdee72ed0506ceb520267fea4b3fe206c5695092e13df80b84d90867c15c9",
+      "3050": "3bf9419f4ffe24fc0ef14a1e56da35cf2a2d9064d06f9c01e725001ffad19133"
+    }
+  },
+  "clockAndWireReview": {
+    "legacyProfiles": "Version-one rain/snow/dusk frame values preserved; clear omits environment as before.",
+    "fog": "Version-two fogExtinctionPerMetre field; finite bounded coefficient; no precipitation for fog.",
+    "timing": "Interpolation reads replay.Clock.Time; no wall-time weather motion. Same authored curve in normal/accelerated modes and retry.",
+    "predictionBoundaries": [
+      0,
+      300,
+      600,
+      1600,
+      1800,
+      2200,
+      2400,
+      3000,
+      3600
+    ]
+  },
+  "rendererReview": {
+    "pipeline": "Built-in; project m_CustomRenderPipeline is null.",
+    "model": "Camera-local opaque radial distance pass plus exponential attenuation composition. Source scene expands kilometre coordinates by 1000 into metre world units.",
+    "resources": "Depth target resizes with camera, command buffer/material/target released on zero strength, condition change, clear, disable, destroy and rebind.",
+    "lighting": "Fog does not mutate global fog, camera depthTextureMode, shared ambient or sun; prior rain/dusk lighting is restored before entering fog.",
+    "worldAndUi": "Composition affects Standard and opaque unlit scene imagery; ScreenSpaceOverlay UI renders afterward.",
+    "remainingApproximation": "Transparent world pixels use the opaque distance behind them. Transparent canopy and detached transparent labels therefore lack independent volumetric depth; this is an authored visual approximation.",
+    "performanceBoundary": "Per-frame renderer enumeration and extra opaque pass require native runtime observation; no native performance claim made."
+  },
+  "findingsAndFixes": [
+    {
+      "severity": "resolved verification gap",
+      "finding": "Centre-only samples could not detect a vertical depth-texture flip.",
+      "resolution": "Added asymmetric top/bottom depth samples at 128x64 and 64x128; passed in isolated Metal verification."
+    },
+    {
+      "severity": "resolved observed failure",
+      "finding": "Initial editor render check did not invoke rendering callbacks.",
+      "resolution": "Implementer added ExecuteAlways / RequireComponent(Camera); rerun passed. Initial failure retained in work logs."
+    },
+    {
+      "severity": "resolved lifecycle issue",
+      "finding": "Repeated Restore could overwrite newer camera state after earlier restoration.",
+      "resolution": "Restore now releases resources but changes scene state only when bound and applied."
+    }
+  ],
+  "verification": {
+    "independentlyExecutedBackend": {
+      "command": ".venv-candidates/bin/python -m unittest tests.test_training_environment tests.test_runway_scenarios",
+      "count": 16,
+      "elapsedSeconds": 6.697,
+      "result": "passed"
+    },
+    "independentlyExecutedAdHoc": [
+      "Public next actions across water, fog and rejected takeoff for clear/rain/fog settings",
+      "Receipt-time status checks before and after cancellation arrivals",
+      "Full report-evidence snapshot invariant under changed fog visual strengths"
+    ],
+    "unityMetal": {
+      "executedBy": "fog_implementation agent",
+      "reviewerAction": "Read final test source and success log; did not start Unity.",
+      "count": 46,
+      "log": "work/fog-weather-check-second.log",
+      "result": "passed",
+      "actualPixelBlue": {
+        "clear": 0,
+        "near100m": 0.086,
+        "far1000m": 0.529
+      },
+      "includes": [
+        "Source interpolation and validation",
+        "Legacy behavior",
+        "Actual opaque unlit contrast by distance",
+        "Changed FOV and camera movement",
+        "Asymmetric landscape and portrait depth orientation",
+        "Global state preservation and resource cleanup"
+      ]
+    },
+    "native": {
+      "status": "pending root acceptance",
+      "passedByThisReview": false,
+      "required": [
+        "Dense and clearing fog in actual mapped scene",
+        "Landscape and portrait world/UI legibility",
+        "Profile switch restoration",
+        "Runtime responsiveness",
+        "Actual report-answer acceptance and receipt grounding"
+      ]
+    },
+    "physicalDevice": {
+      "status": "not verified"
+    }
+  },
+  "reviewedFilesSha256": {
+    "backend/training_environment.py": "dfc71f5fd7a3e29c0b43e09f19dc071e5ad425b615ad8283257865990abc2676",
+    "backend/runway_scenarios.py": "52ed390ba8940d8123456913458cd62b73c67ee77299dc39e6159b3291a03273",
+    "backend/training_session.py": "35f98c20724c578b8d85056a5aaba74eba59a63fe5f22c617164c63a2459ae52",
+    "tests/test_training_environment.py": "36f731a89da55d0e387ce82e48c43fead241c3ec9f179bf9cacc9b7a24b52c26",
+    "tests/test_runway_scenarios.py": "b1c8fb7ee857c3a8e62e172e8985a04406324a8c3fe7dc85258188f1ab094d22",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingWeather.cs": "cc9250ce89767790a25c3ad7e4085ef3f1b0f834aa5ec5b587f7e62e111f5825",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Resources/TrainingDistanceFog.shader": "f89411cc09ac1229007ac250b95113d50792e68db15c0e0923df0a94c1fd24c5",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Resources/TrainingDistanceFog.shader.meta": "c4dd049725682a032dcba0df619d0a41633389dd1eb3c70afbac1508d7ed7db2",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/WeatherVerification.cs": "f2ad0c30b978b65df0fbc240c3805c24e31c3e975724dbf4590e43913c426e3e",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/RunwayCaseVerification.cs": "bcb97264ae631f420854b6c6273b398e1cc819c9b734c48cba90d8cfb0b3ed27"
+  }
+}

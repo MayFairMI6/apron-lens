@@ -8,7 +8,7 @@ public static class RunwayCaseVerification {
     public static void Run(){
         var folder=Environment.GetEnvironmentVariable("APRONLENS_RUNWAY_FIXTURES");if(string.IsNullOrEmpty(folder))throw new Exception("Runway fixtures required");
         int n=0;Action<bool,string> check=(ok,label)=>{if(!ok)throw new Exception("Runway case: "+label);n++;};
-        foreach(var name in new[]{"rejected_takeoff","occupied_runway_go_around","runway_incursion","water_landing"}){
+        foreach(var name in new[]{"rejected_takeoff","occupied_runway_go_around","runway_incursion","water_landing","fog_visibility"}){
             var json=File.ReadAllText(Path.Combine(folder,name+".json"));var data=JsonUtility.FromJson<Scenario>(json);data.Validate();
             check(TrainingGeography.Present(data.geography),name+" regional data");
             var water=data.geography.features.Single(f=>f.id=="osm-way-147855503");

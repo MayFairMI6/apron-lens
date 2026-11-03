@@ -1,6 +1,6 @@
 AirfieldLens — Checkpoint 1 presenter guide
 
-Use airfieldlens-connected-checkpoint1-person1-audio.mp4, approximately 24:18. It includes Person 1’s narration with the approved opening-name edit from 00:02 to about 02:20. Person 2 narrates the remaining section using PERSON2_SCRIPT.txt. The supplied assignment specifies no duration limit. Introduce the footage as selected native iOS Simulator recordings. The 8:27 original, 9:42 silent edit and 13:25 pre-weather edit remain historical source material.
+Use airfieldlens-fog-checkpoint1-person1-audio.mp4, approximately 27:48. It includes Person 1’s narration with the approved opening-name edit from 00:02 to about 02:20. Person 2 narrates the remaining section using PERSON2_SCRIPT.txt. The supplied assignment specifies no duration limit. Introduce the footage as selected native iOS Simulator recordings. The 8:27 original, 9:42 silent edit and 13:25 pre-weather edit remain historical source material.
 
 What to show
 
@@ -24,7 +24,11 @@ What to show
 22:22: earlier evaluation.
 22:54: Heathrow AI / next checkpoints.
 23:42: connected Terminal 2/3 setting.
-24:12: proposed fog, queue and airport-size learning tasks.
+24:12: fog and changing restrictions.
+24:52: restrictions in force.
+26:24: procedures cancelled; safeguarding remains.
+27:16: departure clearance still unconfirmed.
+27:42: planned scored fog practice, queues and airport comparisons.
 
 These are player times, not source-clock times. Follow the actual visible response rather than promising an exact second. Leave short pauses around answers and movement. Each incident is a distinct scenario in the presentation. The shared driver’s recorded source clock and report cutoff stay unchanged across edits; earlier chapters are targeted excerpts; the four new runway/emergency profiles have separate completed source-hour runs.
 
@@ -71,7 +75,7 @@ For a live demonstration, start the service, open the configured app and confirm
 
 Recording completion
 
-Person 1’s audio is embedded. Add Person 2’s narration to the remaining video and review both portions together. Keep only Person 1 and Person 2 labels. The final team narration, reflection’s blank Coordination/Meetings sections, and physical-phone verification remain submission tasks. No course submission is implied by the uploaded package.
+Person 1’s audio is embedded. Add Person 2’s narration to the remaining video and review both portions together. Keep only Person 1 and Person 2 labels. The final team narration, final review of the editable reflection, including the user’s Coordination/Meetings additions, and physical-phone verification remain submission tasks. No course submission is implied by the uploaded package.
 
 Phone suitability
 
@@ -81,6 +85,13 @@ Connected-airport update
 
 The setting now connects the Queen’s Terminal—Terminal 2—with Terminal 3 and their surrounding roads and buildings. Terminal 2B remains separate above ground, and the former Terminal 1 area is shown as a reference outline. Passing cars follow a mapped one-way road loop using the same scenario clock. The added water outlines preserve their islands. This is a sourced, simplified teaching environment; the traffic is authored, and visible movement does not create operational reports.
 
-The added 36 seconds preserve all earlier cue times and approved narration. The source-hour rerun displayed three genuine accepted answers; a separate cold request timed out and remains documented. The new scenery passed 245 backend tests, 127 Unity checks, road-envelope geometry checks and a native iOS build with landscape/portrait inspection. See connected-setting-acceptance.json. Fog, operational weather capacity and other airport sizes remain proposed.
+The added 36 seconds preserve all earlier cue times and approved narration. The source-hour rerun displayed three genuine accepted answers; a separate cold request timed out and remains documented. The new scenery passed 245 backend tests, 127 Unity checks, road-envelope geometry checks and a native iOS build with landscape/portrait inspection. See connected-setting-acceptance.json. That connected-setting acceptance remains historical. The fog supplement is now accepted separately; operational weather capacity and other airport sizes remain proposed.
 
 Training scenario register: https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk
+
+
+Fog update and milestone decisions
+
+The fog visual profile and separate report-led demonstration are complete for this increment. The native source-hour run displayed three accepted Qwen3.5-9B answers in 11.140, 12.472 and 11.749 seconds. It reached debrief in about 3:35 of wall time. The new video starts the fog chapter at 24:12 and ends at 27:48; all earlier cue times and Person 1’s approved speech remain preserved. See outputs/checkpoint1/fog-acceptance.json and fog-demo-edit.json.
+
+The independent milestone review explicitly compared the current checkpoint, later checkpoints, deferral and rejection. It recommends a short scored fog lesson next within the CURRENT checkpoint; this is planned, not built or included in the three existing scored lessons. Weather-driven queues remain M2 development and airport-size comparisons M3 evaluation, subject to their acceptance gates. The original M2 visual-evidence study remains required. MILESTONE_LEDGER.md is the current decision record; MILESTONE_LEDGER_AGENT.md and the project agent definition make the review reusable across sessions. Persistence is file-based, not an always-running process.

@@ -11,19 +11,24 @@ from pathlib import Path
 from backend.ground_routes import rounded_path, timed_path, add_pavement, heading
 from backend.road_traffic import build_road_traffic
 
-DEMONSTRATIONS = ('rejected_takeoff', 'occupied_runway_go_around', 'runway_incursion', 'water_landing')
+DEMONSTRATIONS = ('rejected_takeoff', 'occupied_runway_go_around', 'runway_incursion', 'water_landing', 'fog_visibility')
 TITLES = dict(zip(DEMONSTRATIONS, ('A rejected takeoff', 'A go-around with the runway occupied',
-                                 'A vehicle entering the runway', 'An emergency water landing')))
+                                 'A vehicle entering the runway', 'An emergency water landing',
+                                 'Fog and changing restrictions')))
 OBJECTIVES = dict(zip(DEMONSTRATIONS, (
     'Separate a reported rejected takeoff, a stopped aircraft and a runway release.',
     'Follow the arrival that goes around and the aircraft still occupying the runway.',
     'Recognise the incursion and cancelled departure; wait for explicit runway status.',
-    'Track the reported emergency and location; keep response and survivor status separate.')))
+    'Track the reported emergency and location; keep response and survivor status separate.',
+    'Distinguish improving visibility, cancelled procedures and the restrictions still reported for your flight.')))
 SOURCES = {
     'rejected_takeoff': ['https://assets.publishing.service.gov.uk/media/6221e05fe90e0710be03550f/Various_CAT_03-22.pdf'],
     'occupied_runway_go_around': ['https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/local-community/noise/reports-and-statistics/reports/anatmt/Heathrow_ANATMT_Annual_Report_2024.pdf'],
     'runway_incursion': ['https://assets.publishing.service.gov.uk/media/5f452cc98fa8f51f7993ac9b/Airbus_A300b4-622R_F__D-AEAD_12-19.pdf'],
     'water_landing': ['https://www.ntsb.gov/investigations/Pages/DCA09MA026.aspx'],
+    'fog_visibility': [
+        'https://www.heathrow.com/content/dam/heathrow/web/common/documents/company/team-heathrow/airside/operational-safety-insttructions/ASWeather_OSI_052_v3-1.pdf',
+        'https://nats.aero/blog/2025/10/low-visibility-procedures-what-you-need-to-know/'],
 }
 
 def project(longitude, latitude):
@@ -172,6 +177,32 @@ def build_demonstration(seed, exercise):
         cue(310,'incursion-release','Is TRN101 now authorised to depart?')
         window(start-3,cleared+15)
         world['geography']['focusX'],world['geography']['focusZ']=along(1100)
+    elif exercise=='fog_visibility':
+        # A stationary flight on a mapped T3 apron keeps this a restriction-
+        # interpretation task. Weather alone never releases or moves it.
+        points=[wp(0,.16,-.19,heading=0),wp(3600,.16,-.19,heading=0)]
+        phase(0,'parked','Parked at Terminal 3')
+        world['provenance']['limitations']+=' Fog attenuation, event timings and the flight-specific hold are authored. No measured visibility, RVR, operational minima, capacity forecast or current Heathrow procedure compliance is asserted.'
+        world['provenance']['localEventClaim']=False
+        world['fogApronSourceId']='osm-way-105366849'
+        report('A1',0,'route','Terminal 3 apron','TRN101 is parked on the Terminal 3 apron.',lag=0)
+        report('A1',0,'movement_status','parked; departure movement not started',
+               'TRN101 remains parked. No departure movement has started.',lag=0)
+        report('A1',30,'movement_condition','hold: safeguarding requested; confirmation pending; departure held',
+               'The exercise tower has requested low-visibility safeguarding. Confirmation is pending. TRN101 is held at its stand.')
+        report('A1',300,'movement_condition','hold: low-visibility safeguarding confirmed; departure held',
+               'Airside Operations confirms safeguarding in place. TRN101 is held pending a further movement update.',source='exercise-airside-operations')
+        report('A1',600,'movement_condition','hold: low-visibility procedures in force; safeguarding remains; departure held',
+               'Low-visibility procedures are now in force. Safeguarding remains active and TRN101 is still held.')
+        report('A1',2400,'movement_condition','hold: low-visibility procedures cancelled; safeguarding remains; departure held',
+               'The exercise tower has cancelled low-visibility procedures, but safeguarding remains in place. TRN101 is still held; this update is not a departure clearance.')
+        report('A1',2900,'movement_condition','hold: safeguarding cancellation requested; confirmation pending; departure held',
+               'The exercise tower has requested safeguarding cancellation. Confirmation is pending and TRN101 remains held.')
+        report('A1',3000,'movement_condition','hold: safeguarding cancelled; departure clearance still unconfirmed',
+               'Airside Operations confirms safeguarding cancellation. The reports still do not confirm a departure clearance for TRN101, which remains parked.',source='exercise-airside-operations')
+        cue(650,'fog-active','What restrictions are reported for TRN101?')
+        cue(2450,'fog-partial-release','What restrictions remain for TRN101 after low-visibility procedures are cancelled?')
+        cue(3050,'fog-authority','Does the safeguarding cancellation confirm that TRN101 may depart?')
     else:
         # Geographical example only: south-to-north crossing inside the REAL
         # Wraysbury polygon. No claim of a feasible emergency diversion to it.
@@ -218,5 +249,5 @@ def build_demonstration(seed, exercise):
         {p['t'] for aircraft in world['aircraft'] for p in aircraft['phases']})
     world['events'].sort(key=lambda e:(e['receiptTime'],e['id']))
     world['runwayReservations']=[dict(aircraftId='A2' if exercise=='occupied_runway_go_around' else 'A1',
-        start=0,end=3600,kind=exercise)] if exercise!='water_landing' else []
+        start=0,end=3600,kind=exercise)] if exercise not in ('water_landing','fog_visibility') else []
     return world,copy.deepcopy(world['runwayReservations']),[]

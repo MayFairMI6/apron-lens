@@ -33,7 +33,7 @@ communication-error tasks and full recovery/reopening remain later work.
 
 The four additional runway/emergency profiles passed 20 seeds each in the 241-test backend suite and 113 Unity checks. Each selected native run reached its one-hour debrief and displayed three actual accepted model responses, twelve across four runs. These are functional examples, not an accuracy benchmark. The first water capture is retained; its oversized close-view map label was corrected and that case was recorded again. See outputs/checkpoint1/runway-acceptance.json.
 
-The [24:18 AirfieldLens recording](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view) includes the approved opening-name edit, current branding, mapped Terminal 3, the four additional runway cases, and an appended connected Terminal 2/3 view. Person 2’s narration remains to be recorded. [The two-person plan](TEAM_RECORDING_PLAN.txt) and [Person 2’s script](PERSON2_SCRIPT.txt) contain current cues. The original recordings remain archived.
+The [27:48 AirfieldLens recording](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view) includes the approved opening-name edit, current branding, mapped Terminal 3, the four additional runway cases, an appended connected Terminal 2/3 view, and the fog case at 24:12. Person 2’s narration remains to be recorded. [The two-person plan](TEAM_RECORDING_PLAN.txt) and [Person 2’s script](PERSON2_SCRIPT.txt) contain current cues. The original recordings remain archived.
 
 The edit uses genuine source footage and model responses. Earlier incident chapters are targeted excerpts; each new runway/emergency profile completed an independent one-hour run. Branding overlays update only the name in earlier footage and the labelled saved debrief. They do not alter answers, scenario clocks or evidence.
 
@@ -193,7 +193,7 @@ Record a fresh guided run using a new filename:
 
 The owner supplied the assignment wording; see [requirement status](CHECKPOINT1_ASSIGNMENT_STATUS.md).
 The video now contains Person 1’s supplied narration; Person 2’s narration, the
-blank Coordination/Meetings sections and physical-phone verification remain outstanding. No video duration was specified in the supplied
+final review of the user-edited Coordination/Meetings content and physical-phone verification remain outstanding. No video duration was specified in the supplied
 wording. No course submission or instructor approval is implied by this snapshot.
 
 ## Current publication records
@@ -209,4 +209,11 @@ The setting now connects the Queen’s Terminal—Terminal 2—with Terminal 3 a
 
 The connected update passed 245 backend tests, 127 Unity checks and a native simulator build. Across 4,000 sampled poses, the full road-vehicle envelope stayed on the rendered pavement. Landscape, portrait and Sources scrolling were inspected. A fresh rejected-takeoff source-hour run produced three real accepted answers (8.465–12.569 seconds); a separate 77.825-second cold request timed out and is retained. The label-only final build was inspected after that capture; it did not rerun model inference. See [connected-setting acceptance](../../outputs/checkpoint1/connected-setting-acceptance.json) and [video edit](../../outputs/checkpoint1/connected-setting-demo-edit.json).
 
-The [scenario register](TRAINING_SCENARIO_REGISTER.md) and [editable Google Doc](https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk) contain 13 existing coverage entries and nine proposals. Fog, weather-driven queues and different airport sizes are proposed for later learning/evaluation work. They are not implemented in this recording.
+The [scenario register](TRAINING_SCENARIO_REGISTER.md) and [editable Google Doc](https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk) contain 14 existing coverage entries and nine proposals. Fog presentation and its report-led demonstration are now included. The scored fog extension remains planned, with CURRENT recommended in the milestone ledger; weather-driven queues and airport-size comparisons remain later proposals.
+
+
+Fog update and milestone decisions
+
+The fog visual profile and separate report-led demonstration are complete for this increment. The native source-hour run displayed three accepted Qwen3.5-9B answers in 11.140, 12.472 and 11.749 seconds. It reached debrief in about 3:35 of wall time. The new video starts the fog chapter at 24:12 and ends at 27:48; all earlier cue times and Person 1’s approved speech remain preserved. See outputs/checkpoint1/fog-acceptance.json and fog-demo-edit.json.
+
+The independent milestone review explicitly compared the current checkpoint, later checkpoints, deferral and rejection. It recommends a short scored fog lesson next within the CURRENT checkpoint; this is planned, not built or included in the three existing scored lessons. Weather-driven queues remain M2 development and airport-size comparisons M3 evaluation, subject to their acceptance gates. The original M2 visual-evidence study remains required. MILESTONE_LEDGER.md is the current decision record; MILESTONE_LEDGER_AGENT.md and the project agent definition make the review reusable across sessions. Persistence is file-based, not an always-running process.

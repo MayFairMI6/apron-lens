@@ -130,4 +130,17 @@ Connected airport scenery
 
 Runway demonstrations carry version-2 mapped geography and an `ambientTraffic` route/vehicle record. `backend/road_traffic.py` supplies a seeded, closed one-way road loop; `TrainingRoadTraffic.cs` renders the cars and van against `StandReplay.Clock.Time`. Movement pauses and freezes with the shared clock. These are illustrative landside vehicles, separate from aircraft identities, incident reports and assistant evidence. No additional learner playback controls are introduced.
 
-The connected setting includes Terminal 2 (the Queen’s Terminal), separate above-ground T2B, Terminal 3, mapped bridges, roads, low-rise buildings and water polygons retaining islands. Former Terminal 1 is an outline rather than an intact active terminal. See data/geography/README.md for historical pavement provenance and authored dimensions. Fog and weather-driven queues remain proposed in docs/course/TRAINING_SCENARIO_REGISTER.md; current rain/snow/dusk settings do not change capacity.
+The connected setting includes Terminal 2 (the Queen’s Terminal), separate above-ground T2B, Terminal 3, mapped bridges, roads, low-rise buildings and water polygons retaining islands. Former Terminal 1 is an outline rather than an intact active terminal. See data/geography/README.md for historical pavement provenance and authored dimensions. The fog visual profile and report-led case are now implemented; weather-driven queues remain proposed in docs/course/TRAINING_SCENARIO_REGISTER.md. No current visual weather profile changes operational capacity.
+
+
+Fog and changing restrictions
+
+```sh
+.venv-candidates/bin/python -m backend.training --exercise fog_visibility --mode demo --seed 17
+```
+
+This independent case automatically uses fog and runs one source hour. Use `--mode continuous` for normal speed; it is not available as a scored lesson. The three ordinary assistant questions occur at 650, 2450 and 3050 source seconds. TRN101 remains parked on the mapped Terminal 3 apron. Safeguarding is requested and confirmed before low-visibility procedures start. Cancelling those procedures leaves safeguarding and the departure hold in place; the separate safeguarding cancellation still leaves departure clearance unconfirmed. Sources uses each answer’s receipt cutoff. No scripted answer is supplied.
+
+The version-two fog profile supplies an authored extinction coefficient and source-time frame boundaries. Unity applies camera-local distance attenuation to opaque scenery while keeping overlay controls readable. Visual improvement precedes the later cancellation reports. This is not measured runway visual range, a clearance generator or a calibrated capacity model. Transparent objects use the opaque distance behind them. Existing clear/rain/snow/dusk version-one behavior is retained. On other cases, `--environment fog` changes appearance only and does not add the fog case’s reports.
+
+The case passed 20 seeded checks, the 249-test backend suite, 175 Unity checks and a native source-hour capture with three accepted real model answers. Landscape, upright portrait, Sources, clear-profile restoration and a bounded-disconnection/recovery check were inspected. See `outputs/checkpoint1/fog-acceptance.json`. The new scored lesson remains a planned next increment, governed by `docs/course/MILESTONE_LEDGER.md`.

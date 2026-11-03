@@ -24,3 +24,20 @@ multi-agent workflow requested by the project owner. Keep work within AirfieldLe
 This workflow does not expand product scope, change existing research results,
 or authorise paid assets. The external driver remains responsible for scenario
 time, movement, conditions and reports; scenery must not invent report evidence.
+
+## Milestone ledger review
+
+For proposed features, scope changes or claims that a checkpoint is complete,
+consult the `milestone_ledger` agent and `docs/course/MILESTONE_LEDGER.md`.
+Its reusable instructions are in `docs/course/MILESTONE_LEDGER_AGENT.md`, with
+a project agent definition in `.codex/agents/milestone_ledger.toml`.
+Reuse the named agent when available; otherwise start an independent reviewer
+from those saved instructions. This is the owner's standing delegation request.
+
+Treat the current checkpoint, later checkpoints, deferral and rejection as real
+options. Earlier assistant recommendations are not assignment requirements.
+Check learning value, implementation evidence, dependencies, acceptance effort,
+recording impact and the user's current priorities. State missing information;
+do not invent a deadline or imply that adding a separate agent removes bias.
+Record recommendation changes and evidence before marking work verified. The
+ledger persists across sessions; it does not imply an always-running process.

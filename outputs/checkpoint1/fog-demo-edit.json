@@ -1,0 +1,72 @@
+{
+  "audioTracks": 0,
+  "bytes": 104103182,
+  "durationSeconds": 1668.4666666666667,
+  "frames": 49656,
+  "height": 590,
+  "segments": [
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-connected-silent.mp4",
+      "outputEnd": 1452.4666666666667,
+      "outputStart": 0,
+      "sourceEnd": 1452.4666666666667,
+      "sourceStart": 0,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "fog-current.mp4",
+      "outputEnd": 1456.4666666666667,
+      "outputStart": 1452.4666666666667,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Fog and changing restrictions"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-fog-native.mp4",
+      "outputEnd": 1662.4666666666667,
+      "outputStart": 1456.4666666666667,
+      "sourceEnd": 214,
+      "sourceStart": 8,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "next-after-fog.mp4",
+      "outputEnd": 1668.4666666666667,
+      "outputStart": 1662.4666666666667,
+      "sourceEnd": 6,
+      "sourceStart": 0,
+      "title": "Next learning tasks"
+    }
+  ],
+  "width": 1280,
+  "audioVerification": {
+    "audioDurationSeconds": 139.892,
+    "audioPacketsUnchanged": true,
+    "audioStartSeconds": 0,
+    "bytes": 104760296,
+    "durationSeconds": 1668.4666666666667,
+    "originalAudioDurationSeconds": 137.98133333333334,
+    "originalCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "originalSamples": 71,
+    "outputCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "outputSamples": 275,
+    "person2Narration": "pending",
+    "video": "airfieldlens-fog-checkpoint1-person1-audio.mp4"
+  },
+  "fogRunId": "ddf9cb22710cd0584d41",
+  "captureSelection": "Native source-hour capture seconds8\u2013214; no source-time or report-text edits",
+  "preservedPrefixSeconds": 1452.4666666666667,
+  "supersededCard": "Previous final six-second card listing fog as proposed",
+  "person2Narration": "pending",
+  "nativeCaptureFullSourceDuration": 3600,
+  "verifiedFrames": [
+    1505,
+    1638,
+    1665
+  ],
+  "videoUrl": "https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view"
+}

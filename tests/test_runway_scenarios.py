@@ -3,11 +3,11 @@ import math
 import unittest
 from pathlib import Path
 from backend.runway_scenarios import DEMONSTRATIONS,build_demonstration,inside_polygon,project,geography
-from backend.evidence import validate_scenario,received_facts
+from backend.evidence import validate_scenario,received_facts,classify
 from backend.training_session import TrainingSession,ActionConflict
 
 class RunwayCases(unittest.TestCase):
-    def test_eighty_seeded_worlds_are_reproducible_and_causal(self):
+    def test_seeded_worlds_are_reproducible_and_causal(self):
         for case in DEMONSTRATIONS:
             for seed in range(20):
                 w,_,checks=build_demonstration(seed,case)
@@ -113,5 +113,30 @@ class RunwayCases(unittest.TestCase):
             for cutoff in [0,60,90,120,300,610,3600]:
                 self.assertEqual(received_facts(a.scenario,cutoff),received_facts(b.scenario,cutoff))
             self.assertTrue(all(r['kind']=='report' for r in b.snapshot()['sourceRecords']))
+
+    def test_fog_improvement_does_not_release_reported_restrictions(self):
+        for seed in range(20):
+            normal=TrainingSession(seed,'fog_visibility','continuous',clock=lambda:0)
+            fast=TrainingSession(seed,'fog_visibility','demo',clock=lambda:0)
+            self.assertEqual(normal.scenario['environment']['kind'],'fog')
+            self.assertEqual(normal.scenario['environment'],fast.scenario['environment'])
+            self.assertEqual(normal.reservations,[])
+            w=normal.scenario;self.assertEqual(w['incidents'],[])
+            apron=next(f for f in w['geography']['features'] if f['id']==w['fogApronSourceId'])
+            for dx,dz in [(-.026,-.026),(-.026,.026),(.026,-.026),(.026,.026)]:
+                self.assertTrue(inside_polygon(.16+dx,-.19+dz,apron['points']))
+            aircraft=w['aircraft'][0]
+            self.assertEqual(aircraft['waypoints'][0]['x'],aircraft['waypoints'][-1]['x'])
+            for cutoff,phrase in [(650,'procedures in force'),(2200,'procedures in force'),
+                                  (2450,'procedures cancelled; safeguarding remains'),
+                                  (3050,'safeguarding cancelled; departure clearance still unconfirmed')]:
+                facts=received_facts(w,cutoff)
+                self.assertEqual(facts,received_facts(fast.scenario,cutoff))
+                values=[f['value'] for f in classify(facts,cutoff) if f['property']=='movement_condition' and f['status']=='current']
+                self.assertEqual(len(values),1);self.assertIn(phrase,values[0])
+            for event in w['events']:
+                before=received_facts(w,event['receiptTime']-.001)
+                self.assertFalse(any(f['event_id']==event['id'] for f in before))
+        with self.assertRaises(ValueError):TrainingSession(17,'fog_visibility','demo',environment='snow')
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "scope": "F01 fog visual profile and F02 unscored report-led demonstration; not a scored fog lesson or visual-perception benchmark",
+  "baselineCommit": "8a96417538c3024abd75a5b3e5abe5dfe266f73c",
+  "exercise": "fog_visibility",
+  "seed": 17,
+  "mode": "demo",
+  "runId": "ddf9cb22710cd0584d41",
+  "sourceDuration": 3600,
+  "wallDurationSeconds": 214.948164542,
+  "phase": "debrief",
+  "capture": "airfieldlens-fog-native.mp4",
+  "captureDurationSeconds": 214.355,
+  "backendTests": 249,
+  "unityChecks": {
+    "total": 175,
+    "conversation": 12,
+    "incident": 17,
+    "flight": 17,
+    "weather": 46,
+    "traffic": 14,
+    "runway": 69
+  },
+  "seedCoverage": "20 seeds per independent case; 5 cases including fog",
+  "native": {
+    "device": "iPhone 18 Pro iOS 27 Simulator",
+    "build": "Unity export and Xcode BUILD SUCCEEDED",
+    "landscape": true,
+    "uprightPortrait": true,
+    "upsideDownPortrait": "Not enabled in build, as before",
+    "views": [
+      "terminal overview",
+      "follow flight",
+      "region"
+    ],
+    "sourcesExpandedAndScrolled": true,
+    "correctAnswersVisuallyInspected": 3,
+    "clearProfileRestored": true,
+    "responsiveness": "Controls responded during capture; no instrumented frame-rate claim",
+    "physicalPhone": false
+  },
+  "responses": [
+    {
+      "requestId": "e5bc0ee51aac401a8bddd98bb381947e",
+      "cutoff": 650.0,
+      "question": "What restrictions are reported for TRN101?",
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: low-visibility procedures in force; safeguarding remains; departure held \u2014 current. Event 600 s; received 601.731 s. [R005]",
+        "claims": [
+          {
+            "fact_id": "R005:movement_condition",
+            "value": "hold: low-visibility procedures in force; safeguarding remains; departure held",
+            "status": "current",
+            "evidence_ids": [
+              "R005"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "inputTokens": 1100,
+      "outputTokens": 58,
+      "latencySeconds": 11.14,
+      "imageUsedForInference": true,
+      "imageSha256": "85b97d4e32eca4e8f3c814d80115a9c0e6a6aeeb250b310b082204e3981319ac",
+      "promptVersion": "conversation-prompt-v6",
+      "validatorVersion": "conversation-validator-v2",
+      "revision": 1
+    },
+    {
+      "requestId": "c88f55b37f9745c9baa64b4316b0887e",
+      "cutoff": 2450.0,
+      "question": "What restrictions remain for TRN101 after low-visibility procedures are cancelled?",
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: low-visibility procedures cancelled; safeguarding remains; departure held \u2014 current. Event 2400 s; received 2401.35 s. [R006]\n\nChanged since the previous answer: R005:movement_condition, R006:movement_condition",
+        "claims": [
+          {
+            "fact_id": "R006:movement_condition",
+            "value": "hold: low-visibility procedures cancelled; safeguarding remains; departure held",
+            "status": "current",
+            "evidence_ids": [
+              "R006"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "inputTokens": 1178,
+      "outputTokens": 63,
+      "latencySeconds": 12.472,
+      "imageUsedForInference": true,
+      "imageSha256": "68d99bf0508e8c6bf37699cff792767131acbc37c4c15cacbd91c5be070cdca4",
+      "promptVersion": "conversation-prompt-v6",
+      "validatorVersion": "conversation-validator-v2",
+      "revision": 2
+    },
+    {
+      "requestId": "e0939f1f3b56428bb86b2185ae641976",
+      "cutoff": 3050.0,
+      "question": "Does the safeguarding cancellation confirm that TRN101 may depart?",
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: safeguarding cancelled; departure clearance still unconfirmed \u2014 current. Event 3000 s; received 3002.08 s. [R008]\n\nChanged since the previous answer: R006:movement_condition, R007:movement_condition, R008:movement_condition",
+        "claims": [
+          {
+            "fact_id": "R008:movement_condition",
+            "value": "hold: safeguarding cancelled; departure clearance still unconfirmed",
+            "status": "current",
+            "evidence_ids": [
+              "R008"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "inputTokens": 1311,
+      "outputTokens": 58,
+      "latencySeconds": 11.749,
+      "imageUsedForInference": true,
+      "imageSha256": "1de8c024eb97b1d01a147bf676794a07f7460b85342da6e3f707ea8d990581f2",
+      "promptVersion": "conversation-prompt-v6",
+      "validatorVersion": "conversation-validator-v2",
+      "revision": 3
+    }
+  ],
+  "reconnection": {
+    "runId": "761098020838833d2512",
+    "serverBefore": 1730.2001775200188,
+    "serverAfter": 2013.418422499999,
+    "method": "Brief local service suspension, 4.5 s and 6.5 s disconnected captures, service resumed in finally",
+    "inspectionOnly": true,
+    "clientFreezeClock": "29:50 at both disconnected captures",
+    "resumedClock": "33:35",
+    "connectionMessage": "Connection interrupted \u00b7 waiting for the exercise service",
+    "regionViewFogAndClockStayedFixed": true
+  },
+  "limitations": [
+    "Authored visibility effect, not measured RVR or operational minima",
+    "Aircraft remains parked; no weather-based capacity/queues or clearance generated",
+    "Transparent content uses the opaque distance behind it",
+    "Images were attached but this is not an evaluated visual-reasoning task",
+    "No new scored lesson, professional competence or physical-device claim"
+  ],
+  "failures": [
+    {
+      "stage": "Initial Unity editor pixel check",
+      "outcome": "failed because camera callbacks did not run in edit mode",
+      "fix": "ExecuteAlways enabled callbacks; 46 checks then passed",
+      "evidence": "fog-independent-review.json"
+    }
+  ],
+  "nativeRequestFailures": 0,
+  "sourceSHA256": {
+    "backend/training_environment.py": "dfc71f5fd7a3e29c0b43e09f19dc071e5ad425b615ad8283257865990abc2676",
+    "backend/runway_scenarios.py": "52ed390ba8940d8123456913458cd62b73c67ee77299dc39e6159b3291a03273",
+    "backend/training_session.py": "35f98c20724c578b8d85056a5aaba74eba59a63fe5f22c617164c63a2459ae52",
+    "tests/test_runway_scenarios.py": "b1c8fb7ee857c3a8e62e172e8985a04406324a8c3fe7dc85258188f1ab094d22",
+    "tests/test_training_environment.py": "36f731a89da55d0e387ce82e48c43fead241c3ec9f179bf9cacc9b7a24b52c26",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingWeather.cs": "cc9250ce89767790a25c3ad7e4085ef3f1b0f834aa5ec5b587f7e62e111f5825",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Resources/TrainingDistanceFog.shader": "f89411cc09ac1229007ac250b95113d50792e68db15c0e0923df0a94c1fd24c5",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/WeatherVerification.cs": "f2ad0c30b978b65df0fbc240c3805c24e31c3e975724dbf4590e43913c426e3e"
+  },
+  "screenshots": [
+    "fog-dense-sources.png",
+    "fog-partial-release.png",
+    "fog-final-answer.png",
+    "fog-portrait.png",
+    "fog-disconnected-1.png",
+    "fog-disconnected-2.png",
+    "fog-reconnected.png",
+    "fog-clear-restoration.png"
+  ]
+}

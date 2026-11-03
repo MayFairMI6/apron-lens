@@ -20,6 +20,8 @@ class TrainingSession:
         if exercise not in EXERCISES+DEMONSTRATIONS: raise ValueError('Unknown exercise')
         if mode=='lesson' and exercise in DEMONSTRATIONS: raise ValueError('This case is a demonstration, not a scored lesson; use --mode demo or continuous')
         if environment not in ENVIRONMENTS: raise ValueError('Unknown environment')
+        if exercise=='fog_visibility' and environment not in ('clear','fog'):
+            raise ValueError('The fog demonstration requires its fog timeline')
         self.environment=environment
         self.seed=seed;self.exercise=exercise;self.mode=mode;self.clock=clock
         self.audit_path=Path(audit_path) if audit_path else None
@@ -33,7 +35,8 @@ class TrainingSession:
         self.title={**TITLES,**DEMO_TITLES}[self.exercise]
         self.objective={**OBJECTIVES,**DEMO_OBJECTIVES}[self.exercise]
         self.target='A1' if self.exercise in DEMONSTRATIONS else 'A3' if self.exercise=='late_arrival' else 'A2'
-        attach_environment(self.scenario,self.environment)
+        effective_environment='fog' if self.exercise=='fog_visibility' else self.environment
+        attach_environment(self.scenario,effective_environment)
         self.demo_probes=sorted(self.probes+self.scenario.get('demoQuestions',[]),key=lambda p:p['at'])
         self.scenario['scenarioId']='LESSON-'+self.run_id
         self.records=[SourceRecord(self.scenario['scenarioId'],e['id'],e['eventTime'],e['receiptTime'],'report')
@@ -44,7 +47,7 @@ class TrainingSession:
             check_references(probe['evidenceIds'],self.records,self.scenario['scenarioId'],probe['at'])
         self.answers=[];self.actions={};self.active_probe=0;self.demo_index=0;self.cue=None
         self.assistant_pending={};self.read_until=0.;self.last_rate=None
-        self._log('start',seed=self.seed,exercise=self.exercise,mode=self.mode,environment=self.environment,
+        self._log('start',seed=self.seed,exercise=self.exercise,mode=self.mode,environment=effective_environment,
                   worldHash=hashlib.sha256(json.dumps({k:v for k,v in self.scenario.items() if k!='scenarioId'},sort_keys=True).encode()).hexdigest())
 
     def _log(self, event, **values):
