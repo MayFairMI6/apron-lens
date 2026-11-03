@@ -134,7 +134,48 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 3 November resume point is ML-030: the user authorised fixing
+The current 3 November resume point is **ML-041 / B05**, an explicitly authorised
+CURRENT supervised LoRA candidate experiment for typed review. Read the newest
+user steering and concrete experiment protocol before resuming. The base
+Qwen3.5-9B revision stays pinned; only a separate reviewer adapter may be trained.
+No candidate is trained/accepted by this planning record, and deployment is a
+separate decision. Shipping ordinary v8 and original typed v2, the 60-second typed
+server wait, prior results and approved videos remain preserved.
+
+ML-042 accepts corrected `data-v2` training/validation semantics and disjoint
+family/input metadata for the small supplied-report pilot. Read its pre-training
+note for exact hashes and pending gates. Earlier v1 target defects remain recorded.
+Source/runtime dependency locks are conditionally approved at their recorded
+hashes; the separately enforced GPU load/backward/save/reload receipt must pass
+before the full training run. Re-review changed source hashes, and inspect the
+selected-checkpoint/final-evaluation lock before test outputs are opened.
+The latest scoped instruction permits reviewing
+authored gold construction before any inference; it does not permit inspecting
+held-out model outputs or using test results for selection. This pilot shares
+schema and error categories and does not establish independent linguistic or
+temporal-retrieval generalisation.
+
+Before training, independently review family/template allocation, provenance,
+training/development target quality, normalised duplicate checks and sealed-set
+metadata. Split families before variants; old18 exposed cases are development
+only. Do not inspect held-out answers or run inference as part of this review.
+Require a pinned training/loading path, trainable-parameter/target-loss check and
+bounded recipe. Before final evaluation, lock the candidate and paired base/
+adapter protocol: identical prompt/runtime/validator, false acceptance including
+incorrect criterion-level credit, negative regressions, useful correct feedback,
+withholding and latency. Reject a candidate that worsens the negative controls;
+do not reward an always-withhold result or silently change production. Candidate
+research can finish honestly with a negative result. Recheck current SSH state
+through root's approved workflow; never capture private authentication. Local
+preparation can continue while access is unresolved.
+
+ML-040 accepted B04a ordinary repair and only the startup part of B04c; B04b typed
+candidates were rejected. Root's publication record is `03aa943`, with local
+publication handoff at `a90e3d6`; #60/#61/#62 remain open. Follow the ledger for
+newer publication evidence. B05 does not erase those failures, the original M2
+visual/checker work, M3 evaluation, or course gates #30/#31/#32.
+
+Historical ML-030: the user authorised fixing
 #67 empty ordinary-assistant selections and #69 overlapping regional aircraft
 labels as CURRENT reliability corrections. Their bounded remedies are accepted;
 publication and existing failure-record closure/readback remain pending. These

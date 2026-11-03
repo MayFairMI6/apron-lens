@@ -1,5 +1,15 @@
 # AirfieldLens milestone ledger
 
+**B05 is now adopted CURRENT candidate research: a bounded supervised LoRA
+experiment for typed review only.** The user's explicit instruction supersedes
+the previous stop on new training. Local design/data preparation is authorised;
+training and final evaluation require the independent design/data/leakage gates
+in ML-041. No adapter has been trained, evaluated or approved for deployment.
+Keep the pinned base weights, shipping app, approved video and all old results
+unchanged. The older 18 exposed typed cases are development-only evidence.
+ML-042 accepts the corrected data-v2 semantic/family gate and locked executable
+sources; the enforced GPU compatibility receipt remains necessary before the full run.
+
 **B04 has reached a bounded, mixed disposition in CURRENT:** ordinary-assistant
 v8 with the narrowed reference guard (B04a) and startup inference warmup (the
 startup part of B04c) pass independent acceptance. The typed-review candidates
@@ -2163,3 +2173,156 @@ visual study/checker and M3 evaluation commitments are preserved, without quietl
 moving the failed typed remedy into a new assigned project. Review again after
 publication, a concrete new failure, a change to the shipping guard/startup path,
 or an explicit decision to undertake further typed-reliability work.
+
+## ML-041 — Typed-review LoRA candidate experiment adopted CURRENT
+
+3 November 2026. The user explicitly accepted a bounded typed-review LoRA
+experiment after the unsuccessful B04b candidates. Assign **B05 to CURRENT /
+Checkpoint 1 as candidate research, in local preparation**, with separate
+pre-training and evaluation gates. This is not automatic deployment, a new video
+requirement or a promise to resolve #60/#61/#62. The reviewed local baseline is
+`a90e3d63a43ba24f47d430d364550eb2a1139f3a`; B04's ordinary v8/startup acceptance and
+rejected typed trials remain intact. GAIVI authentication has expired according
+to root's check; private reauthentication is pending while local preparation
+continues. This reviewer made no model calls or remote authentication attempt.
+
+**Placement.** CURRENT is justified by explicit authorisation and the concrete
+typed semantic/quotation failures now preserved. A small controlled adapter
+experiment can test this remedy without changing the delivered learner flow.
+The strongest reason for later placement is that credible data/labels and runtime
+compatibility are real dependencies, and a tiny authored pilot cannot establish
+general grading reliability. M2 retains the original visual study and C02
+deterministic evidence checker; this experiment neither replaces those nor makes
+them depend on a successful adapter. M3 retains integrated evaluation. Defer a
+broad training/search programme; reject test-guided tuning, weakened validators,
+automatic app replacement or claims that a trained adapter is inherently safer.
+
+**Bounded data design.** Fix genuinely distinct scenario/rubric and response-
+template family IDs before generating episodes, variants or paraphrases. An
+initial planning budget is ten families split six training, two validation and
+two sealed evaluation families. Four episodes per family and six response types
+would give 144/48/48 cases. These are proposed pilot counts for root's concrete
+protocol, not generated data, a power calculation or independent sample sizes.
+Prefer fewer carefully checked cases over inflated variant counts. Include
+correct paraphrases, partial omissions, explicit contradictions, wrong-aircraft
+attribution, a correct core with an unsupported extra clause, and justified
+unknowns. Report updates, delayed receipts, positive confirmations and source
+boundaries must vary within the authored worlds. Do not equate renamed aircraft,
+changed timestamps or paraphrased descendants with independent families.
+
+The existing 18 cases and every exposed descendant remain development-only.
+Trace each new example to its world, episode, response template, source facts,
+cutoff and criterion targets. Keep related counterfactual pairs in one partition.
+Declare shared schema/instructions separately from semantic/template lineage;
+check exact and normalised duplication across partitions. Targets must be
+independently checked against the authored facts and every learner clause, with
+exact quotations and criterion-scoped citations. An unchecked base-model judgment
+cannot be its own gold label. A separate label custodian may check sealed targets;
+the training implementer and this milestone review do not inspect held-out
+answers. Lock dataset/partition/generator/label hashes before optimisation.
+
+**Pre-training gate.** The independent review must accept that manifest, label
+quality and leakage audit using training/development examples and sealed-set
+metadata. Root must verify access, actual hardware and the training/loading path;
+no GPU capacity, library compatibility, time or cost estimate is established yet.
+Pin the existing Qwen3.5-9B revision, tokenizer/chat template, precision and runtime.
+Freeze base/vision weights, train only declared reviewer adapter parameters, and
+verify the trainable-parameter list and completion-only target loss. Do not put
+gold labels, answers or evaluation files into input/training context. Use one
+bounded training recipe with a declared training budget and checkpoint-selection
+rule fixed before optimisation; record failures, seeds and all selected/rejected
+checkpoints. Any technical preflight uses training/development data only. No
+external dataset or paid teacher is required by this scoped design.
+
+**Evaluation gate and outcome.** Before opening sealed results, freeze the
+candidate checkpoint, scoring protocol and paired base-versus-adapter runner.
+Use the same original production typed prompt, reports, runtime/precision,
+decoding, token budget and strict validator; only adapter activation differs.
+Audit literal quotes, source/cutoff validity, criterion decisions, all extra
+claims, schema failures, withheld responses and latency. The primary false-
+acceptance outcome counts erroneous credit for a contradicted/unsupported
+criterion even when the overall verdict says `needs_review`. Use all eligible
+negative cases as its denominator, not just accepted outputs. Also report paired
+negative-control regressions, wrong rejection of correct answers, usable correct
+feedback and abstentions, so withholding everything cannot win. Give family/
+episode breakdowns and acknowledge the few correlated authored families.
+
+Reject a deployment candidate that introduces a new false acceptance on a
+previously correct negative control, increases negative false acceptance, or
+trades away useful correct feedback. A tie does not establish a semantic benefit.
+Successful experiment completion means a reproducible, honestly reported paired
+result, including failure; it does not require promoting the adapter. Do not tune
+after reading sealed results and then reuse them as an untouched test. Any later
+deployment needs a separate reviewed decision and actual compatibility/latency
+acceptance in the app runtime. Preserve production typed v2, its 60-second wait,
+ordinary v8, frozen older studies, model/base hashes and unchanged videos.
+
+**Next review action.** Root prepares the concrete protocol, family allocation,
+training/development samples and sealed metadata. Independently review those
+before training; review the locked checkpoint/paired runner before final
+evaluation. Remaining assignment #30/#31/#32 and original M2/M3 commitments are
+unchanged. Neither authentication success nor data generation is training or
+evaluation acceptance.
+
+## ML-042 — Corrected LoRA pilot data passes its bounded semantic review
+
+3 November 2026. Reviewed the concrete
+[protocol](../../experiments/typed_review_lora/protocol.json), authored generator,
+all 144 training and 48 validation rows, and sealed-test input/hash/family metadata.
+No model calls, remote actions or held-out model-output inspection were performed.
+Root explicitly allowed reviewing authored gold construction before inference;
+the reviewer did not inspect test-row targets. The
+[pre-training approval note](../../experiments/typed_review_lora/approval.json)
+separates data acceptance from remaining runtime/source gates.
+
+The first data draft had three genuine defects: an incomplete baggage report was
+paraphrased as ongoing loading; conflicting waiting/occupancy claims wrongly kept
+the waiting criterion met; and a false claim of reaching the intended destination
+wrongly kept a criterion requiring no such claim met. Root corrected these in a
+separate `data-v2`, retaining `data-v1`. All 192 corrected training/validation
+targets match the reviewed authored construction and unchanged strict validator,
+including every response clause, criterion status, quote and verdict. A correct
+clause does not cancel a contradictory clause about the same criterion.
+
+The 6/2/2 family allocation is disjoint, with 144/48/48 rows. Role-preserving
+normalisation yields 36 training, 12 validation and 12 test input patterns, with
+zero exact normalised cross-split collisions. Four substituted episodes per
+pattern are correlated. This establishes the stated family/input separation,
+not independent linguistic templates or real-world generalisation. Shared output
+schema, status categories, response-error categories and generic feedback wording
+remain explicit. Known exposed lessons contribute development ideas rather than
+an untouched external test population.
+
+This concretises and narrows ML-041's initial data proposal to a **supplied-report
+semantic pilot**. Each case has the relevant received R1 report and an unrelated
+received R2 distractor. Cutoffs include the exact R1 receipt boundary and later
+times; no case tests excluding a future report or retrieving an evolving report
+history. Citations measure structural/criterion eligibility here. Do not claim a
+source-retrieval, temporal-generalisation or independent citation-selection study,
+and do not expand this pilot into one merely to complete the review.
+
+The current scoring code distinguishes criterion IDs, so a newly false-credit
+criterion is detected even if another error disappears in the same case. The
+reviewer checked this with a deterministic counterexample, not model inference.
+The final output review must still assess explanation/comment meaning separately
+from status equality. A successful experiment remains separate from deployment.
+
+**Gate disposition:** data semantics, the bounded family/input leakage review and
+executable source locks are accepted for the exact hashes in `approval.json`.
+Training now rejects stale approval/source hashes or a missing/stale full-model
+GPU load/backward/save/reload receipt. Imported runtime, actual protocol and the
+production prompt/validator are included in the source map; checkpoint selection
+and evaluation preserve and enforce that same map. The smoke check requires
+finite gradients, an actual adapter parameter update, finite saved/reloaded loss
+and reload parity. Training also rejects non-finite gradients before counting an
+update. Root reports all 192 training/validation examples tokenise to 890–962
+tokens with matching inference/training prefixes and preserved target EOS; root
+also reports 340 tests, integrity and boundary checks before the final smoke/gradient
+guard edits. Those reports do not constitute a GPU compatibility pass.
+
+Conditional source/data approval permits the fixed run only after its separate
+hardware gate succeeds with matching sources. No full smoke, training or model
+evaluation has passed yet. A smoke check uses training/development data only.
+Independently review the selected checkpoint and final evaluation lock before
+opening test outputs. Do not reopen accepted labels or repeat inference merely
+to maintain the ledger. Current app/video and earlier results remain unchanged.

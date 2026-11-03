@@ -1,0 +1,123 @@
+{
+  "record_version": 1,
+  "reviewer": "milestone_ledger",
+  "review_date": "2026-11-03",
+  "accepted": true,
+  "approval_scope": "B05 exact protocol, corrected data-v2 and executable source gate; conditional on the separately enforced full-model GPU compatibility receipt. Not training, evaluation or deployment completion.",
+  "data_manifest_sha256": "67c0a67d65a76e4096a222332fa87a9bd41f76fef154947a646ade74ec2be214",
+  "protocol_sha256": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+  "source_hashes": {
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "experiments/typed_review_lora/build_data.py": "9704a78d4953e002064ee0e1f0edb01bc96ebd5941d4ea9b500d05993d975178",
+    "experiments/typed_review_lora/evaluate.py": "1d09df965fedf0262b861f5b075a2ff8cc7ff48c8ddf63cc2767afc9da3e5dd0",
+    "experiments/typed_review_lora/gpu_preflight.py": "daeeb2c8cf1a1f83a2f30591241fbbcf0672c68d8e08afad8f9ec6bc4c23f93a",
+    "experiments/typed_review_lora/protocol.json": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+    "experiments/typed_review_lora/runtime.py": "7dd2296b6851f86264942463428bfe862ed3a28a569bf70b9f63dbbc3efd146d",
+    "experiments/typed_review_lora/train.py": "d75de8a41970cff865c9b12d99a8bc847f8651369ec70f6e7a72534bc13df15f",
+    "modelaccess/contract.py": "fe8ffdef43360fc01ba15fa7c0760a77d14f8fda46be7ccecb633dab8b5bed3a"
+  },
+  "data_directory": "work/typed-review-lora/data-v2",
+  "manifest_splits": {
+    "train": {
+      "file": "train.jsonl",
+      "sha256": "f05ea331bdf1705ef4bacc891bd8bc231444459690e00f0307eb6ca5d8918c5c",
+      "count": 144,
+      "families": [
+        "stand_occupancy",
+        "service_dependency",
+        "ground_hold",
+        "departure_estimate",
+        "position_destination",
+        "visibility_safeguarding"
+      ]
+    },
+    "validation": {
+      "file": "validation.jsonl",
+      "sha256": "0c4aef2b046e6008816573a7b7268ede3b13b072219f442704c38104e9b5bb1a",
+      "count": 48,
+      "families": [
+        "inspection_release",
+        "service_withdrawal"
+      ]
+    },
+    "test": {
+      "file": "test.jsonl",
+      "sha256": "63efe0ba732e29fcd816dcb1d0cbaae374e43cfffd1063ae6815ad144edbbcda",
+      "count": 48,
+      "families": [
+        "route_authority",
+        "dispatch_conflict"
+      ]
+    }
+  },
+  "semantic_review": {
+    "training_rows_reviewed": 144,
+    "validation_rows_reviewed": 48,
+    "method": "Read all authored family/pack rules; checked every train/validation row against the corrected construction and unchanged strict validator. Four role/identifier substitutions per semantic input pattern were checked mechanically. No model calls.",
+    "v1_defects_corrected": [
+      "Service paraphrase no longer infers ongoing loading from incomplete loading",
+      "Stand occupancy conflict marks both affected criteria contradicted",
+      "False arrival at intended destination marks the destination criterion contradicted as its rubric requires"
+    ],
+    "v1_retained": true,
+    "criteria_counts": {
+      "train": {
+        "met": 280,
+        "missing": 24,
+        "contradicted": 128
+      },
+      "validation": {
+        "met": 96,
+        "missing": 8,
+        "contradicted": 40
+      }
+    },
+    "strict_quotes_citations_verdicts_checked": true
+  },
+  "leakage_review": {
+    "family_counts": {
+      "train": 6,
+      "validation": 2,
+      "test": 2
+    },
+    "family_intersections": 0,
+    "normalized_unique_input_patterns": {
+      "train": 36,
+      "validation": 12,
+      "test": 12
+    },
+    "cross_split_normalized_input_collisions": 0,
+    "normalization": "Question, learner response and report messages; collapse whitespace/case and role-preserving AX/BY subject/other and K/M location identifiers. Exclude target output and administrative IDs.",
+    "old_18": "Exposed development only; no old fixture import in the authored generator. Known lesson ideas are not an untouched external population.",
+    "test_access": "File hashes, family/input-normalization metadata and generator construction only; no test-row targets or held-out model outputs inspected. Parent explicitly authorized authored-gold construction review before any inference."
+  },
+  "source_review": {
+    "training": "Only train and validation files are loaded; original production review_prompt; completion-only masked labels including EOS; no target truncation;72 optimiser steps,4-way accumulation, rank8; validation completion-token loss selects24/48/72 checkpoint with earliest tie",
+    "weights": "Declared language attention LoRA parameters only; non-adapter trainables rejected; frozen base/vision; actual compatibility still unverified",
+    "locks": "Training requires approval protocol/data/source equality plus full-model smoke with identical source map. Selection and evaluation carry/verify executable dependencies including runtime, actual protocol and production prompt/validator. Selected adapter files are hashed.",
+    "gradient_smoke": "All present gradients finite, at least one nonzero, adapter parameter change checked, saved/reloaded losses finite and within tolerance; training separately rejects non-finite gradients before optimizer update.",
+    "paired_scoring": "Criterion-level false acceptance retained; a deterministic criterion-swap counterexample is rejected even when total case errors do not increase. All negative criteria remain in denominator; positive supported acceptance and structural validity guard against always-withhold success.",
+    "evaluation": "Same loaded quantized model with adapter disabled/enabled, alternating paired order, fixed greedy900-token budget, strict validator; no retries or post-test tuning. Comments/explanations still need independent semantic review beyond status matching."
+  },
+  "remaining_gates": {
+    "gpu_compatibility": "PENDING: actual full pinned-model CUDA load/backward/update/save/reload receipt with these exact source hashes. The small quantized-layer probe or environment import alone is insufficient.",
+    "evaluation": "After training/validation selection, independently review selected checkpoint and final runner/source lock before sealed model outputs are opened.",
+    "deployment": "Separate future decision and native app-runtime compatibility/latency acceptance required; current approval never deploys the candidate."
+  },
+  "root_reported_checks": {
+    "tokenizer": "192 train/validation examples,890–962 tokens; actual inference prefix equals masked training prefix; target EOS retained; max4096 not exceeded",
+    "tests": "340 tests plus research integrity and backbone boundary passed before final smoke/gradient guard edits",
+    "runtime": "Small CUDA quantized-layer probe571255 passed; receipt inspected separately. Its earlier source snapshot is not the full-model smoke gate. Full pinned-model load/backward/update/save/reload remains pending model download."
+  },
+  "limitations": [
+    "Supplied-report semantic pilot; all relevant report facts are already received. R2 is an unrelated received distractor.",
+    "Cutoff100 equals relevant receipt100; later cutoffs101/120/500. No future-report exclusion or evolving-report retrieval task is evaluated.",
+    "Citation score establishes structural/criterion eligibility, not independent source-selection or temporal generalization.",
+    "Shared output/status schema, error categories and generic feedback wording; four episodes per pattern are correlated; no independent linguistic or real-airport generalization claim.",
+    "Automatic primary score concerns criterion-status false credit; correct labels do not certify explanation/comment truth.",
+    "Same NF4 quantized paired runtime; not a silent comparison with previous unquantized Mac measurements.",
+    "Production typed v2,ordinary v8,60-second server wait,approved videos and all prior results remain unchanged.",
+    "Any reviewed code/protocol/data hash change invalidates this approval until re-reviewed."
+  ],
+  "next_action": "Run the train/development-only compatibility preflight. The fixed training command may proceed only when its matching full-model hardware gate passes; preserve actual failures. No new data or model tuning is authorized by this review."
+}
