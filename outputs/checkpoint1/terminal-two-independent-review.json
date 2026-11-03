@@ -1,0 +1,20 @@
+{
+  "sourceAreaM2": 58271.95526781659,
+  "sourceFloatAreaM2": 58271.95481125605,
+  "roofProjectedAreaM2": 58271.91515740899,
+  "coverageDifferenceVsFloatSourceM2": 0.04232785260987959,
+  "coverageDifferenceVsDoubleSourceM2": 0.05349268542637849,
+  "overlapAreaM2": 0.03033973421801006,
+  "triangleCount": 2218,
+  "minimumHeightMetres": 12.000000104308128,
+  "maximumHeightMetres": 39.99999910593033,
+  "allNormalsUp": true,
+  "hallBoundsKm": [
+    0.5827999711036682,
+    -0.12999999523162842,
+    0.8510000109672546,
+    0.07199999690055847
+  ],
+  "clerestoryFacing": "north +Z",
+  "description": "Float32 emulation of saved C# clipping/height path; compared to independent Shapely union and raw current mapped footprint; no native app run."
+}

@@ -1,0 +1,52 @@
+Historical Heathrow pavement source and conversion
+
+Original official FlightGear scenery:
+https://flightgear.sourceforge.net/scenery/Terrain/w010n50/w001n51/EGLL.btg.gz
+Directory index:
+https://flightgear.sourceforge.net/scenery/Terrain/w010n50/w001n51/.dirindex
+Retrieved 2 November 2026. Source BTG header creation: 2013-10-18T21:44:16Z.
+SHA1: e201b27d860bf4a52df87ee065cdc7ddecd87c5f (matches official directory index)
+SHA256: 4f9d622e54bf3627d8fbdae8073eabba684bc4e727d0d5795232ea64488c7b18
+The original compressed source is preserved as EGLL-official-current.btg.gz.
+
+Attribution: FlightGear scenery contributors. No individual author is recorded
+in the BTG. Official scenery is GPL version 2, as documented by FlightGear:
+https://wiki.flightgear.org/Howto:Make_an_airport
+COPYING.txt contains GPL version 2. The original scenery, derived pavement and
+independently written conversion scripts here are supplied under GPL-2.0.
+No FlightGear textures or unlicensed custom scenery are included.
+
+Only pa_tiedown, pc_tiedown and pa_shoulder_f triangles are selected. The source
+union is clipped within 85 m of OSM aprons 105366843, 105366846 and 105366849 and
+within app metre bounds [-550,-350,1300,700]. Complete current mapped building,
+grass and water polygons, existing apron interiors, and former Terminal 1's
+historical outline are subtracted. The resulting 278232.590872 square metres
+are split into 46 parts on a 200 m grid without simplification. This dated source
+supplies pavement at three approximately 29 m apron-to-taxiway gaps; it is not
+evidence of the exact current pavement edges or a current airport survey.
+
+clip-metre-geometry.json preserves the exact crop and subtraction input, using
+global app east/north metres (not longitude/latitude GeoJSON). Its OSM-derived
+geometry is attributed to OpenStreetMap contributors under ODbL 1.0:
+https://www.openstreetmap.org/copyright
+https://opendatacommons.org/licenses/odbl/1-0/
+Original OSM response URLs/hashes are recorded in ../heathrow-west.json.
+
+BTG decoding follows the published format in FlightGear/SimGear sg_binobj.cxx;
+the decoder here was independently written. Float ECEF vertex offsets are added
+to the double bounding sphere centre, converted to WGS84 geodetic coordinates,
+then projected with the app's radius 6371008.8 m, origin (-.46,51.47) and fixed
+cos(51.47) easting scale. Independent iterative geodetic conversion agreed with
+the Bowring implementation within 1.43e-14 degrees for all 29340 vertices;
+ECEF roundtrip error was at most 2.84e-9 m. Source absolute elevation is not
+added to the intentionally flat scene surface.
+
+Reproduce with an isolated Python 3.9+ environment containing Shapely 2.0.7,
+numpy 2.0.2 and mapbox-earcut 2.0.0:
+  python derive_pavement.py /tmp/heathrow-derived-pavement.json
+The output reproduces the coordinates, holes, roofCoordinates and roofTriangles
+of all 46 flightgear-2013-t3-pavement-* features exactly. Roof triangles use
+counter-clockwise east/north winding; Unity reverses once for upward normals.
+Each triangle union matches its clipped polygon within 1e-6 square metres.
+The OSM collection and this historical scenery retain their respective source
+licenses; the surrounding application retains its own license.

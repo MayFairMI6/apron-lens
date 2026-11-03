@@ -78,7 +78,7 @@ namespace SurfaceSafety {
                 if(apronEnvironment==null)apronEnvironment=GameObject.Find("ApronEnvironment");
                 if(apronEnvironment!=null)apronEnvironment.SetActive(!Regional);
                 if(regional!=null){regional.gameObject.SetActive(false);Destroy(regional.gameObject);}
-                if(Regional){var map=new GameObject("Heathrow regional map");map.transform.SetParent(replay.Content,false);regional=map.AddComponent<TrainingGeography>();regional.Bind(replay,sceneSun);}
+                if(Regional){var map=new GameObject("Heathrow regional map");map.transform.SetParent(replay.Content,false);regional=map.AddComponent<TrainingGeography>();regional.Bind(replay,sceneSun);map.AddComponent<TrainingRoadTraffic>().Bind(replay);}
                 if(runwayGeometry!=null)Destroy(runwayGeometry);runwayGeometry=Regional?null:TrainingRunway.Build(replay.Content,replay.Data.runway,replay.Data.taxiPaths);
                 if(incidentEffects!=null)Destroy(incidentEffects.gameObject);
                 var effects=new GameObject("Training incident effects");effects.transform.SetParent(replay.Content,false);
@@ -166,7 +166,7 @@ namespace SurfaceSafety {
             BuildTags();
             var tools=Box(root,"View controls",new Vector2(.025f,landscape?.78f:.815f),new Vector2(landscape?.61f:.97f,.855f),Color.clear,false);
             Button(tools,Regional?"Region":"Apron",new Vector2(0,0),new Vector2(Regional?.16f:.23f,1),Overview);
-            if(Regional)Button(tools,"Terminal 3",new Vector2(.18f,0),new Vector2(.39f,1),TerminalView);
+            if(Regional)Button(tools,"Terminals",new Vector2(.18f,0),new Vector2(.39f,1),TerminalView);
             Button(tools,"Runway",new Vector2(Regional?.41f:.25f,0),new Vector2(Regional?.57f:.48f,1),RunwayView);
             Button(tools,"Follow flight",new Vector2(Regional?.59f:.50f,0),new Vector2(.77f,1),Focus);
             Button(tools,"−",new Vector2(.79f,0),new Vector2(.88f,1),()=>distance=Mathf.Min(Regional?12000:2400,distance+(distance>400?200:35)));
@@ -287,7 +287,7 @@ namespace SurfaceSafety {
         }
         void Overview(){focusIncident=null;followFlight=false;ground=false;terminalView=false;centre=Regional?new Vector3(-2000,0,-700):new Vector3(75,0,-25);distance=Regional?8200:320;}
         void RunwayView(){focusIncident=null;followFlight=false;ground=false;terminalView=false;centre=Regional?new Vector3(0,0,-570):new Vector3(0,0,-400);distance=Regional?4200:1600;}
-        void TerminalView(){focusIncident=null;followFlight=false;ground=false;terminalView=true;centre=new Vector3(264,8,43);distance=800;}
+        void TerminalView(){focusIncident=null;followFlight=false;ground=false;terminalView=true;centre=new Vector3(480,8,40);distance=1250;}
         void Focus(){focusIncident=null;followFlight=true;terminalView=false;centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));distance=ground?85:190;}
         bool OverUI(Vector2 p){hits.Clear();EventSystem.current?.RaycastAll(new PointerEventData(EventSystem.current){position=p},hits);return hits.Count>0;}
         void MoveCamera(){

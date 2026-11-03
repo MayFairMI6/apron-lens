@@ -125,3 +125,9 @@ The native editor check `RunwayCaseVerification.Run` consumes one JSON fixture
 per case from `APRONLENS_RUNWAY_FIXTURES`; fixtures are generated with
 `build_demonstration(17, case)[0]`. It checks all four scenarios, sourced shoreline
 triangulation, map rendering, source-clock water effects and legacy compatibility.
+
+Connected airport scenery
+
+Runway demonstrations carry version-2 mapped geography and an `ambientTraffic` route/vehicle record. `backend/road_traffic.py` supplies a seeded, closed one-way road loop; `TrainingRoadTraffic.cs` renders the cars and van against `StandReplay.Clock.Time`. Movement pauses and freezes with the shared clock. These are illustrative landside vehicles, separate from aircraft identities, incident reports and assistant evidence. No additional learner playback controls are introduced.
+
+The connected setting includes Terminal 2 (the Queen’s Terminal), separate above-ground T2B, Terminal 3, mapped bridges, roads, low-rise buildings and water polygons retaining islands. Former Terminal 1 is an outline rather than an intact active terminal. See data/geography/README.md for historical pavement provenance and authored dimensions. Fog and weather-driven queues remain proposed in docs/course/TRAINING_SCENARIO_REGISTER.md; current rain/snow/dusk settings do not change capacity.

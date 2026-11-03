@@ -73,7 +73,9 @@ class RunwayCases(unittest.TestCase):
         self.assertLess(max(p['x'] for p in water['points']),min(p['x'] for p in runway['points']))
         self.assertLess(min(p['z'] for p in water['points']),min(p['z'] for p in runway['points']))
         source=json.loads((Path(__file__).resolve().parents[1]/'data/geography/heathrow-west.json').read_text())
-        self.assertTrue(all('osmTimestamp' in f and 'osmVersion' in f for f in source['features']))
+        self.assertTrue(all(('osmTimestamp' in f and 'osmVersion' in f) or
+                            (f.get('sourceType')=='FlightGear BTG' and f.get('sourceSha256') and f.get('license'))
+                            for f in source['features']))
 
     def test_terminal_three_roof_preserves_courtyard(self):
         f=next(f for f in geography()['features'] if f['id']=='osm-relation-18911624')

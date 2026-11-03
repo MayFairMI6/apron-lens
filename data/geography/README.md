@@ -1,10 +1,12 @@
 # Heathrow regional illustration
 
-`heathrow-west.json` is an extract of OpenStreetMap ways and a relation retrieved on 2 November
+`heathrow-west.json` includes OpenStreetMap ways and relations retrieved on 2 November
 2026 from the public OSM map API. It contains Wraysbury Reservoir's shoreline,
 Heathrow runway centrelines, mapped taxiways and terminal footprints. Each feature
 retains its OSM ID, version, timestamp and original longitude/latitude pairs.
 The source URLs and SHA-256 hashes of the downloaded XML responses are recorded.
+Version 2 adds bounded connecting scenery and a separately attributed historical
+FlightGear pavement layer. All original feature IDs and coordinates are retained.
 
 Terminal 3 uses relation 18911624, outer way 151749316 and courtyard way
 1372773206; their separate versions and timestamps are retained. `coordinates`
@@ -19,7 +21,8 @@ checked that their union exactly matches the polygon with its courtyard removed:
 Map data © OpenStreetMap contributors, available under the Open Database License
 (ODbL) 1.0: https://www.openstreetmap.org/copyright and
 https://opendatacommons.org/licenses/odbl/1-0/ . This extracted map database is
-provided under that license. The surrounding application retains its own license.
+provided under that license; the separate FlightGear scenery retains GPL version 2.
+The surrounding application retains its own license.
 The reservoir way credits OS OpenData in the upstream OSM tags. See the individual
 way's history at https://www.openstreetmap.org/way/147855503/history .
 
@@ -46,6 +49,49 @@ response. Their 651 precomputed roof triangles preserve 1,342,476.518 m² of map
 pavement without overlaps or triangulation gaps. These surfaces sit beneath
 buildings and taxiway ribbons. They add no guessed rectangular apron boundary.
 
+The connected setting adds 264 mapped ground road centrelines, five mapped
+pedestrian/parking surfaces, 41 nearby low-rise building footprints, 23 complete
+water polygons and 15 mapped Terminal 2 passenger-bridge paths. Road/building
+selection intersects the central terminal region, from -550 to 1300 m east and
+-350 to 700 m north of the map origin; whole source ways are retained. Roads
+tagged as tunnels, bridges, indoor, or on another layer/level are excluded from
+this flat scene. Widths and absent heights have explicit authored basis fields.
+The bridge plans are mapped; their 3 m width, 5 m walking floor and 3 m body height
+are illustrative. Terminal 2A's 40 m height comes from its OSM tag; detailed roof
+shape and other architectural dimensions remain authored. The
+[T2B connection](https://www.balfourbeatty.com/what-we-do/projects/heathrow-airport-terminal-2b/)
+and [T2–T3 passenger connection](https://www.heathrow.com/at-the-airport/lounges-hotels-spas/heathrow-hotels)
+are underground, so no surface corridor is invented.
+
+Three added water relations preserve 16 island holes. Incomplete multipolygons
+1996194 and 2014584 are excluded because the response lacks some inner ways.
+Every added polygon has precomputed triangulation with its holes removed; the
+largest polygon-versus-triangle-union difference is below 0.000001 m². This is a
+numerical geometry check, not a claim about survey accuracy or water level.
+
+`roadTrafficRoutes` records one exact, shared-node, one-way loop of nine OSM ways,
+1049.167 m long. Its centreline has no terminal intersection and lies at least
+235.196 m from the existing runway/taxiway ribbons. Vehicle count, colour,
+3 m/s speed and centreline lane placement are authored. The external scenario
+clock controls movement; this ambient scenery creates no report evidence.
+
+`referenceSites` keeps the January 2025 OSM outline of former Terminal 1 as an
+outline only. [Heathrow's April 2026 update](https://www.heathrow.com/heathrow-blog/end-of-an-era-demolition-of-terminal-1)
+describes phased demolition starting with Pier 4 while the remaining structure
+supports Terminal 2 baggage. The old outline does not establish the present
+standing extent and is not shown as an active, intact terminal.
+
+The 46 additional pavement pieces come from official FlightGear scenery created
+in October 2013. The limited crop around three T3 aprons excludes current mapped
+grass, buildings, water, apron interiors and the former T1 footprint. Its exact
+historical edges fill three mapped apron-to-taxiway gaps of about 29 m without
+invented strips. All 278,232.591 m² retain source provenance; no claim of current
+survey precision is made. Original BTG, hashes, GPL license, clipping inputs and
+reproducible conversion are in `pavement/PROVENANCE.txt`. The independently
+checked ECEF-to-WGS84 transform agrees to below 1.5e-14 degrees; source elevations
+are flattened to the teaching scene. This dated pavement is a background layer
+under current taxiway markings, not a replacement for current mapped geometry.
+
 Terminal 3 combines its current mapped outline/courtyard with the detailed pier
 from the free FlightGear TerraSync model and a custom entrance canopy based on
 the independently mapped roof and fabricator's references. Original source,
@@ -56,8 +102,8 @@ illustration, not an exact current digital twin. The canopy's mapped plan,
 positions, glass bands and unmeasured remaining building heights are authored.
 Reference photographs without reuse permission are not shipped as textures.
 
-The depiction uses flat ground, generic aircraft, simplified pavement ribbons and
-18 m massing for other terminals. Building heights, service connector, flight trajectories,
+The depiction uses flat ground, generic aircraft and simplified pavement ribbons.
+Unmeasured building heights, service details, flight trajectories,
 water effects and event timing are authored. Displaced-threshold sections are
 included as mapped; runway markings and lighting are not an AIP reproduction.
 This is a geographic teaching illustration, not aerial imagery, a photorealistic
@@ -67,3 +113,5 @@ A real reservoir's presence does not establish a viable landing area. There is n
 claim of a Heathrow reservoir accident, safe approach, obstacle clearance, water
 level, survival outcome or locally achievable rescue time. Hudson Flight 1549 is
 an incident-category precedent only; its location and outcome are not relocated.
+
+For the full road-vehicle envelope check, use an isolated Python environment with Shapely 2.x and run `python scripts/verify_road_footprints.py --output work/road-footprint-check.json` from the repository root. It samples 4,000 poses against the renderer’s ribbons and source-node junctions, including the van’s wheels and lights. This verifies this authored loop, not arbitrary road traffic.

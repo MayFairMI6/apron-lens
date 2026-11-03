@@ -6,11 +6,11 @@ Make one narrated video
 
 Use selected excerpts from the recorded native iOS Simulator run and record each person's voice over their assigned part. Introduce the footage as a recorded run. Use natural present-tense explanation such as “Here the aircraft is waiting,” rather than implying that a recorded click is happening live.
 
-Person 1’s 2:18 narration retains its original timing. With the owner’s approval, only the opening sentence is voice-matched to say AirfieldLens; speech after 7.9 seconds is preserved. Person 2 narrates the remaining scenarios, external driver and evaluation; allow pauses to read genuine answers. The supplied assignment has no stated duration limit. The new edit is approximately 23:42, including title cards and reading time. Person 2’s narration remains to be recorded.
+Person 1’s 2:18 narration retains its original timing. With the owner’s approval, only the opening sentence is voice-matched to say AirfieldLens; speech after 7.9 seconds is preserved. Person 2 narrates the remaining scenarios, external driver and evaluation; allow pauses to read genuine answers. The supplied assignment has no stated duration limit. The new edit is approximately 24:18, including title cards and reading time. Person 2’s narration remains to be recorded.
 
 The guided demonstration supplies footage; it does not need its own extra presentation section. Show the learner flow briefly, then selected assistant and movement clips. The guided run is unscored. The three scored checkpoints belong to the separate learner mode, so show an actual learner-mode capture or the labelled saved debrief evidence when explaining that flow. Do not present the guided run as evidence of completing scored questions.
 
-The current 23:42 edit is airfieldlens-checkpoint1-person1-audio.mp4. It includes Person 1’s approved opening-name edit and preserves the remaining narration. Person 2’s section shows the earlier distinct incident clips, mapped Heathrow and Terminal 3, four additional runway/emergency cases, and rain, snow and dusk/night previews. The four new cases each completed an independent source-hour run with three actual accepted model responses. The video selects excerpts; source clocks and report cutoffs remain visible. Earlier recordings remain archived. Download: https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view
+The current 24:18 edit is airfieldlens-connected-checkpoint1-person1-audio.mp4. It preserves Person 1’s approved opening-name edit and the earlier footage, then adds the connected Terminal 2/3 setting at 23:42. Person 2’s section includes the distinct incident clips, four independent runway/emergency cases, and rain, snow and dusk/night previews. The added terminal clip comes from another completed source-hour rejected-takeoff run with three actual accepted model responses. Earlier recordings remain archived. Fog, weather-driven queues and varying airport sizes are proposed tasks, not implemented features. Download: https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view
 
 Person 1
 
@@ -36,7 +36,7 @@ Person 2
 
 Use the new scenario edit. Person 1’s narration, with the approved opening-name edit, is included from 00:02 to approximately 02:20; begin Person 2 after that handoff. This section is silent until Person 2 records narration. Use only “Person 1” and “Person 2” as presenter labels.
 
-Approximate player cues: 02:23 external driver; 02:41 wildlife; 03:18 takeoff; 04:35 return/landing; 05:40 dropped baggage; 07:00 aircraft–vehicle contact; 08:34 stand fire; 09:51 damaging landing; 12:05 Heathrow and Terminal 3; 12:29 rejected takeoff; 14:13 occupied-runway go-around; 15:40 vehicle runway incursion; 17:30 fictional water landing; 19:30 rain; 19:55 snowfall; 20:20 daylight → dusk → night; 22:22 earlier evaluation; 22:54 Heathrow AI / next checkpoints. Each case has a title card. These are player times, not the source clock. Leave short pauses for the visible answers and movement.
+Approximate player cues: 02:23 external driver; 02:41 wildlife; 03:18 takeoff; 04:35 return/landing; 05:40 dropped baggage; 07:00 aircraft–vehicle contact; 08:34 stand fire; 09:51 damaging landing; 12:05 Heathrow and Terminal 3; 12:29 rejected takeoff; 14:13 occupied-runway go-around; 15:40 vehicle runway incursion; 17:30 fictional water landing; 19:30 rain; 19:55 snowfall; 20:20 daylight → dusk → night; 22:22 earlier evaluation; 22:54 Heathrow AI / next checkpoints. Each case has a title card. These are player times, not the source clock. Leave short pauses for the visible answers and movement. The connected-airport update starts at 23:42; the proposed-task card starts at 24:12.
 
 Suggested narration:
 
@@ -68,7 +68,7 @@ Finally, an aircraft makes an emergency water landing at Wraysbury Reservoir. Th
 
 The realistic part we are practising is how the learner follows evidence and restrictions. The geometry, response timing and animations are authored. Heathrow’s own publications describe occupied stands, dropped loads, wildlife and aircraft–vehicle hazards. The following environment previews add rain, snowfall, and daylight changing through dusk into night. The external driver supplies these timelines, and the viewer renders them against the same source clock as the aircraft and reports. They accelerate and pause with that clock. These captures run at thirty times normal speed to make the changes visible. Rain and snow are separate settings; the dusk preview spans one source hour, not a full twenty-four-hour day. These are visual conditions: they do not yet alter braking, taxi speed, de-icing or reported visibility.
 
-In Checkpoint 2, we plan to turn these conditions into learning tasks. A learner would track an aircraft or ground vehicle as lighting changes, identify when the view no longer supports a confident observation, and use the available reports to explain what remains unconfirmed. Rain and snow exercises would introduce reported surface restrictions or de-icing dependencies; the appearance of weather alone would not establish an operational condition. We would compare assistant answers with and without images to test whether visual evidence helps. In Checkpoint 3, we would evaluate errors and response times across conditions and test whether learners can use the combined view and reports effectively. These are planned tasks; the current visuals have not yet demonstrated a learning benefit.
+In Checkpoint 2, we plan to test questions that require visual evidence, including changes in visibility and what remains unconfirmed. Fog and weather-driven queues are proposed learning tasks: a learner would distinguish a growing arrival or departure queue, a reported restriction and a revised estimate. Current rain, snow and lighting effects do not yet control runway capacity. In Checkpoint 3, we could compare a selected task across small, medium and major-hub layouts and traffic levels, while preserving aircraft scale and evaluating errors and response times. These are proposals in the scenario register, not completed features.
 
 Guided demonstration runs the scene and assistant questions without asking the viewer to choose answers or awarding points. The separate practice lessons have three scored checkpoints and report-based feedback. All three short lessons have reached debrief in the native iOS Simulator. The four new collision and landing answers came from real local-model requests and passed the evidence checks. That verifies these examples, not general model accuracy. The earlier collision and landing clips are targeted captures. The four additional runway/emergency cases each completed a separate source-hour run with three real accepted answers; the video uses selected excerpts from those runs.
 
@@ -125,3 +125,12 @@ https://www.gov.uk/aaib-reports/1-2010-boeing-777-236er-g-ymmm-17-january-2008
 NATS describes Heathrow digital-tower AI testing; Searidge describes AIMEE’s camera-based aircraft/threshold monitoring in the Heathrow trial. This is useful motivation for Checkpoint 2 visual-evidence evaluation. It does not establish autonomous Heathrow ATC or a proven visual-recognition capability in AirfieldLens.
 https://www.nats.aero/our-solutions/digital-towers/
 https://www.searidgetech.com/aimee
+
+
+Person 2 — connected-airport update, from 23:42
+
+The connected view now includes the Queen’s Terminal, Terminal 3, surrounding roads and buildings. Terminal 2B remains separate above ground; the former Terminal 1 is an outline. Passing cars use the same scenario clock, and the water outlines preserve their islands. This is a simplified teaching environment.
+
+Next, we propose fog, weather-related queues and different airport sizes. Those tasks would ask learners to follow changing restrictions and recognise what still needs confirmation.
+
+Training scenario register: https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk

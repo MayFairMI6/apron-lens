@@ -1,0 +1,187 @@
+{
+  "scope": "Connected Heathrow scenery and ambient road traffic; report reasoning unchanged",
+  "backendTests": 245,
+  "unityChecks": 127,
+  "unityCheckGroups": {
+    "runway": 58,
+    "conversation": 12,
+    "incident": 17,
+    "flight": 17,
+    "weather": 9,
+    "traffic": 14
+  },
+  "researchIntegrity": "160 frozen result records and boundary check passed",
+  "mapVersion": 2,
+  "mappedFeatures": 850,
+  "roadEnvelopeCheck": "road-footprint-check.json",
+  "native": {
+    "platform": "iPhone 18 Pro iOS 27.0 Simulator",
+    "build": "Unity export and Xcode succeeded",
+    "landscape": true,
+    "portrait": true,
+    "sourcesExpansionAndScrollbar": true,
+    "waterLabelOverlapCorrected": true,
+    "finalLabelOnlyBuildInspected": true,
+    "physicalPhone": false,
+    "reconnectionRetestedInThisUpdate": false
+  },
+  "run": {
+    "runId": "ec8f4f4dfe661a93a0be",
+    "exercise": "rejected_takeoff",
+    "seed": 17,
+    "sourceSeconds": 3600.0,
+    "finalPhase": "debrief",
+    "wallSeconds": 225.25831762500002,
+    "answers": [
+      {
+        "requestId": "617c23ea93e84ece91a20c6e7fd75147",
+        "cutoff": 94.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: takeoff rejected: crew reported unreliable airspeed; cause unconfirmed \u2014 current. Event 89 s; received 90.6068 s. [R003]",
+          "claims": [
+            {
+              "fact_id": "R003:movement_condition",
+              "value": "takeoff rejected: crew reported unreliable airspeed; cause unconfirmed",
+              "status": "current",
+              "evidence_ids": [
+                "R003"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 10.921,
+        "scenarioId": "LESSON-ec8f4f4dfe661a93a0be",
+        "question": "Why did TRN101 reject takeoff?"
+      },
+      {
+        "requestId": "f61ade9c4b384724b034e06b867174e4",
+        "cutoff": 116.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Scripted movement: stopped on Runway 09R \u2014 current. Event 107 s; received 108.731 s. [R004]\n\nAuthored movement condition: hold: runway occupied; assessment pending \u2014 current. Event 108 s; received 109.349 s. [R005]\n\nChanged since the previous answer: R002:movement_status, R003:movement_condition, R004:movement_status, R005:movement_condition",
+          "claims": [
+            {
+              "fact_id": "R004:movement_status",
+              "value": "stopped on Runway 09R",
+              "status": "current",
+              "evidence_ids": [
+                "R004"
+              ]
+            },
+            {
+              "fact_id": "R005:movement_condition",
+              "value": "hold: runway occupied; assessment pending",
+              "status": "current",
+              "evidence_ids": [
+                "R005"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 8.465,
+        "scenarioId": "LESSON-ec8f4f4dfe661a93a0be",
+        "question": "What is the latest reported movement for TRN101?"
+      },
+      {
+        "requestId": "a972a71aadc6433294f76e7b754e285d",
+        "cutoff": 610.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: runway occupied; recovery assessment continues \u2014 current. Event 600 s; received 602.41 s. [R006]\n\nChanged since the previous answer: R005:movement_condition, R006:movement_condition",
+          "claims": [
+            {
+              "fact_id": "R006:movement_condition",
+              "value": "hold: runway occupied; recovery assessment continues",
+              "status": "current",
+              "evidence_ids": [
+                "R006"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 12.569,
+        "scenarioId": "LESSON-ec8f4f4dfe661a93a0be",
+        "question": "Is the runway released for TRN101?"
+      }
+    ]
+  },
+  "retainedFailure": {
+    "runId": "eca22cd903e245d621c4",
+    "outcome": "Cold model response exceeded client deadline; server eventually accepted it. Later cues failed while the request remained pending. No scripted answer substituted.",
+    "serverResponse": [
+      {
+        "requestId": "34fb2c5e10744911b81ddaaf7fb068d9",
+        "cutoff": 94.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: takeoff rejected: crew reported unreliable airspeed; cause unconfirmed \u2014 current. Event 89 s; received 90.6068 s. [R003]",
+          "claims": [
+            {
+              "fact_id": "R003:movement_condition",
+              "value": "takeoff rejected: crew reported unreliable airspeed; cause unconfirmed",
+              "status": "current",
+              "evidence_ids": [
+                "R003"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "latencySeconds": 77.825,
+        "scenarioId": "LESSON-eca22cd903e245d621c4",
+        "question": "Why did TRN101 reject takeoff?"
+      }
+    ]
+  },
+  "limits": [
+    "Only rejected-takeoff was rerun with this geometry, not all four runway cases.",
+    "Roads, terminal architecture and dated pavement are a sourced teaching illustration, not a current survey.",
+    "Ambient cars do not provide operational evidence.",
+    "Fog, weather-driven capacity, queues and other airport layouts remain proposed.",
+    "The final label-only build was visually checked after the captured inference run."
+  ],
+  "sourceHashes": {
+    "backend/road_traffic.py": "4c622ada8dca7d26127f54791b5a3c8745e939b56805bff9c12eb4a9cbedffaa",
+    "backend/runway_scenarios.py": "bbb13246a11e5cacb5be0aa1f614a31ead6550b7656289837ad4abf51208bbd8",
+    "data/geography/heathrow-west.json": "5081a359bfcb2b09c189e5714be160c3e8ccaab513b41800a416acb7369c689d",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingGeography.cs": "515da46ac148d3641a912625abba71744ea8bb36ebedf2ff363dc5bb2fd72bc3",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingRoadTraffic.cs": "8afcc0c32fea16564d3e910112df7b454b6a0f285c8d32f87b0d17509223b42b",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TerminalTwo.cs": "8c89aa530d18953b8a3d3e6ccc265f3ac59f5ba9236c6b0dc073488af9949417"
+  }
+}

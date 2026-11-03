@@ -9,6 +9,7 @@ import math
 import random
 from pathlib import Path
 from backend.ground_routes import rounded_path, timed_path, add_pavement, heading
+from backend.road_traffic import build_road_traffic
 
 DEMONSTRATIONS = ('rejected_takeoff', 'occupied_runway_go_around', 'runway_incursion', 'water_landing')
 TITLES = dict(zip(DEMONSTRATIONS, ('A rejected takeoff', 'A go-around with the runway occupied',
@@ -37,11 +38,24 @@ def geography():
     for f in source['features']:
         item=dict(id=f['id'],name=f['name'],kind=f['kind'],width=f['widthMetres']/1000,
                   closed=f['closed'],points=points(f['coordinates']))
-        if f.get('holes'):item['holes']=[dict(points=points(ring)) for ring in f['holes']]
+        for key in ('widthBasis','widthAuthored','heightMetres','heightBasis','deckHeightMetres','deckHeightBasis','bodyHeightMetres','bodyHeightBasis'):
+            if key in f:item[key]=f[key]
+        if f.get('holes'):item['holes']=[dict(points=points(ring.get('coordinates') if isinstance(ring,dict) else ring)) for ring in f['holes']]
         if f.get('roofCoordinates'):
             item['roofPoints']=points(f['roofCoordinates']);item['roofTriangles']=f['roofTriangles']
         features.append(item)
-    return dict(version=1, attribution=source['attribution'], features=features,
+    sites=[]
+    for site in source.get('referenceSites',[]):
+        item={k:site[k] for k in ('id','name','renderAs','status','note','statusSource','statusSourceDate') if k in site}
+        item['points']=points(site['coordinates'])
+        item['holes']=[dict(points=points(ring.get('coordinates') if isinstance(ring,dict) else ring)) for ring in site.get('holes',[])]
+        sites.append(item)
+    routes=[]
+    for route in source.get('roadTrafficRoutes',[]):
+        item={k:route[k] for k in ('id','name','closed','oneway','lengthMetres','sourceWayIds','sourceWaySpans','provenance') if k in route}
+        item['points']=points(route['coordinates']);routes.append(item)
+    return dict(version=source.get('version',1), attribution=source['attribution'], features=features,
+                referenceSites=sites,roadTrafficRoutes=routes,
                 note='Heathrow region · authored paths · not a navigation chart')
 
 def inside_polygon(x, z, points):
@@ -69,7 +83,7 @@ def build_demonstration(seed, exercise):
         trainingRoleLabel='Controller awareness',trainingObjective=OBJECTIVES[exercise],
         assistantQuestionLabels=['Latest report','What changed?'],
         assistantQuestions=['What is the latest reported movement for this flight?','What changed for this flight?'],
-        geography=geo,aircraft=[],events=[],visualProps=[],groundVehicles=[],incidents=[],
+        geography=geo,ambientTraffic=build_road_traffic(geo,seed),aircraft=[],events=[],visualProps=[],groundVehicles=[],incidents=[],
         demoQuestions=[],flightShowcases=[],flightTeachingWindows=[],taxiPaths=[],
         provenance=dict(kind='authored-precedent-informed',sources=SOURCES[exercise],
             limitations='Generic aircraft; authored flight paths, elapsed times and report delays. No recovered flight-data trajectory, operational clearance or performance validation.',

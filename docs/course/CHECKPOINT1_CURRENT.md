@@ -33,7 +33,7 @@ communication-error tasks and full recovery/reopening remain later work.
 
 The four additional runway/emergency profiles passed 20 seeds each in the 241-test backend suite and 113 Unity checks. Each selected native run reached its one-hour debrief and displayed three actual accepted model responses, twelve across four runs. These are functional examples, not an accuracy benchmark. The first water capture is retained; its oversized close-view map label was corrected and that case was recorded again. See outputs/checkpoint1/runway-acceptance.json.
 
-The [23:42 AirfieldLens recording](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view) includes the approved opening-name edit, current branding, mapped Terminal 3 and the four additional runway cases. Person 2’s narration remains to be recorded. [The two-person plan](TEAM_RECORDING_PLAN.txt) and [Person 2’s script](PERSON2_SCRIPT.txt) contain current cues. The original recordings remain archived.
+The [24:18 AirfieldLens recording](https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view) includes the approved opening-name edit, current branding, mapped Terminal 3, the four additional runway cases, and an appended connected Terminal 2/3 view. Person 2’s narration remains to be recorded. [The two-person plan](TEAM_RECORDING_PLAN.txt) and [Person 2’s script](PERSON2_SCRIPT.txt) contain current cues. The original recordings remain archived.
 
 The edit uses genuine source footage and model responses. Earlier incident chapters are targeted excerpts; each new runway/emergency profile completed an independent one-hour run. Branding overlays update only the name in earlier footage and the labelled saved debrief. They do not alter answers, scenario clocks or evidence.
 
@@ -202,3 +202,11 @@ wording. No course submission or instructor approval is implied by this snapshot
 - [AirfieldLens video edit and narration verification](../../outputs/checkpoint1/airfieldlens-demo-edit.json).
 - [Approved opening-sentence edit](../../outputs/checkpoint1/airfieldlens-name-edit.json).
 - [Mapped geometry and free-asset provenance](../../data/geography/README.md).
+
+## Connected setting and next tasks
+
+The setting now connects the Queen’s Terminal—Terminal 2—with Terminal 3 and their surrounding roads and buildings. Terminal 2B remains separate above ground, and the former Terminal 1 area is shown as a reference outline. Passing cars follow a mapped one-way road loop using the same scenario clock. The added water outlines preserve their islands. This is a sourced, simplified teaching environment; the traffic is authored, and visible movement does not create operational reports.
+
+The connected update passed 245 backend tests, 127 Unity checks and a native simulator build. Across 4,000 sampled poses, the full road-vehicle envelope stayed on the rendered pavement. Landscape, portrait and Sources scrolling were inspected. A fresh rejected-takeoff source-hour run produced three real accepted answers (8.465–12.569 seconds); a separate 77.825-second cold request timed out and is retained. The label-only final build was inspected after that capture; it did not rerun model inference. See [connected-setting acceptance](../../outputs/checkpoint1/connected-setting-acceptance.json) and [video edit](../../outputs/checkpoint1/connected-setting-demo-edit.json).
+
+The [scenario register](TRAINING_SCENARIO_REGISTER.md) and [editable Google Doc](https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk) contain 13 existing coverage entries and nine proposals. Fog, weather-driven queues and different airport sizes are proposed for later learning/evaluation work. They are not implemented in this recording.

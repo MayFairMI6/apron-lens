@@ -11,7 +11,7 @@ public static class RunwayCaseVerification {
         foreach(var name in new[]{"rejected_takeoff","occupied_runway_go_around","runway_incursion","water_landing"}){
             var json=File.ReadAllText(Path.Combine(folder,name+".json"));var data=JsonUtility.FromJson<Scenario>(json);data.Validate();
             check(TrainingGeography.Present(data.geography),name+" regional data");
-            var water=data.geography.features.Single(f=>f.kind=="water");
+            var water=data.geography.features.Single(f=>f.id=="osm-way-147855503");
             var triangles=TrainingGeography.Triangulate(water.points);
             check(triangles.Length==(water.points.Length-3)*3,"complete concave water triangulation");
             check(data.aircraft.All(a=>a.waypoints.Last().t==3600),name+" complete hour");
@@ -24,12 +24,21 @@ public static class RunwayCaseVerification {
                 check(aircraft.hidden!=expectedVisible&&visible==expectedVisible,name+" "+aircraft.id+" participant visibility");
             }
             var map=new GameObject("Map");map.transform.SetParent(replay.Content,false);var renderer=map.AddComponent<TrainingGeography>();renderer.Bind(replay);
+            var road=map.AddComponent<TrainingRoadTraffic>();road.Bind(replay);
+            check(map.GetComponentsInChildren<Transform>().Count(t=>t.name.StartsWith("Road vehicle "))==6,"six ambient road vehicles");
+            road.RenderAt(20);var car=map.GetComponentsInChildren<Transform>().First(t=>t.name.StartsWith("Road vehicle "));var before=car.localPosition;
+            road.RenderAt(20);check(car.localPosition==before,"paused source clock holds road position");road.RenderAt(21);check((car.localPosition-before).magnitude>0,"source clock moves road traffic");
             if(name=="rejected_takeoff"){
                 var t3=map.GetComponentInChildren<TerminalThree>();check(t3!=null,"Terminal 3 hybrid resource builds");
                 var detail=t3.GetComponentsInChildren<MeshFilter>().Where(m=>m.name.StartsWith("Source ",StringComparison.Ordinal)).ToArray();
                 check(detail.Length==4&&detail.Sum(m=>m.sharedMesh.triangles.Length)==3936,"original detailed pier surfaces retained");
                 check(detail.Any(m=>m.GetComponent<Renderer>().sharedMaterial.mainTexture!=null),"original terminal texture present");
                 check(map.GetComponentsInChildren<MeshFilter>().Count(m=>m.name=="Mapped apron pavement"||m.name=="Cargo Apron pavement")==34,"all sourced apron surfaces present");
+                check(map.GetComponentInChildren<TerminalTwo>()!=null,"Terminal 2 mapped hall builds");
+                check(map.GetComponentsInChildren<MeshFilter>().Any(m=>m.name=="Road centreline junctions"),"road junction paving present");
+                Capture(replay.Content,new Vector3(480,8,40),1250,Path.Combine(folder,"connected-terminals-check.png"),225,40);
+                Capture(replay.Content,new Vector3(720,12,-20),650,Path.Combine(folder,"terminal2-check.png"),180,32);
+                Capture(replay.Content,new Vector3(410,1,193),95,Path.Combine(folder,"road-vehicles-check.png"),225,42);
                 Capture(replay.Content,new Vector3(264,8,43),800,Path.Combine(folder,"terminal3-check.png"),225,32);
                 Capture(replay.Content,new Vector3(264,8.5f,43),100,Path.Combine(folder,"terminal3-canopy-check.png"),225,18);
             }

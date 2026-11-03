@@ -52,6 +52,7 @@ namespace SurfaceSafety {
     [Serializable] public class Scenario {
         public TrainingEnvironment environment;
         public RegionalGeography geography;
+        public AmbientRoadTraffic ambientTraffic;
         public const int MaxAircraft = 4;
         public string scenarioId;
         public string trainingRole, trainingRoleLabel, trainingObjective;
@@ -101,6 +102,7 @@ namespace SurfaceSafety {
         }
         public void Validate() {
             TrainingGeography.Validate(geography);
+            TrainingRoadTraffic.Validate(ambientTraffic);
             if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length < 2 || aircraft.Length > MaxAircraft)
                 throw new ArgumentException("Scenario requires positive duration/width and two to " + MaxAircraft + " aircraft.");
             if (!string.IsNullOrEmpty(livery) && livery != "indexed" && livery != "uniform")
