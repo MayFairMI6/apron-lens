@@ -125,11 +125,12 @@ new blocker or decision that affects ongoing implementation promptly. A future
 session must recheck actual state; the files are a handoff, not a guarantee that
 processes are still running or external publications are unchanged.
 
-The current 2 November resume point is the root's scoped commit/push of F01/F02
-and the ledger, followed by recording the resulting revision. Consolidated
+The current 2 November resume point follows delivery of F01/F02. Consolidated
 native/report acceptance has been reviewed, with source hashes and answer facts
-independently matched. The 27:48 video is edited and published to Drive; Git
-publication remains pending at this update. The required reconsideration has moved F03 from
+independently matched. The 27:48 video is published to Drive and implementation
+commit `c81812167361a73ceca8d944ffc3510bac1335ae` is pushed to the checkpoint branch;
+local and remote heads matched on review. PR #22 remains open/unmerged. The root
+will save this final publication record and handoff. The required reconsideration has moved F03 from
 provisional M2 to CURRENT as the planned next increment, outside this F01/F02 delivery claim. Review
 its implementation/assessment evidence when undertaken; placement does not mark
 it built or delivered. M2 and M3 recommendations are not automatic

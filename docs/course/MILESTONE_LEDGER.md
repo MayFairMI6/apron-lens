@@ -14,8 +14,9 @@ decisions, not a single weather feature assigned wholesale to a later milestone.
 
 At the review baseline all five units below were unimplemented. F01/F02 are now
 implemented, accepted in the native simulator, recorded and included in the
-published 27:48 Drive video, with the reviewed evidence linked below. The root's
-Git commit/push remains pending at this update. F03 is planned and unbuilt.
+published 27:48 Drive video, with the reviewed evidence linked below. The
+implementation is also committed and pushed as `c81812167361a73ceca8d944ffc3510bac1335ae`;
+PR #22 remains open and unmerged. F03 is planned and unbuilt.
 Placement, implementation, acceptance and publication are separate statuses in
 this ledger.
 The reusable reviewer instructions are in [MILESTONE_LEDGER_AGENT.md](MILESTONE_LEDGER_AGENT.md).
@@ -73,8 +74,8 @@ and delivery status are tracked separately.
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
-| F01 — fog visual profile | Implemented; native acceptance/capture passed; edited video published to Drive; Git push pending | CURRENT | Extends an existing external-clock presentation path; it does not require a detector, scoring or queue generation. | Root commits/pushes the reviewed increment and records its revision. |
-| F02 — bounded report-led fog demonstration | `fog_visibility` implemented; source-hour native/model acceptance/capture passed; edited video published to Drive; Git push pending | CURRENT | A distinct, source-supported information task uses the available assistant and standalone demo machinery. | Root commits/pushes the reviewed increment; preserve unscored status. |
+| F01 — fog visual profile | Implemented; native acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | Extends an existing external-clock presentation path; it does not require a detector, scoring or queue generation. | Delivered for this increment; preserve evidence and review future changes. |
+| F02 — bounded report-led fog demonstration | `fog_visibility` implemented; source-hour native/model acceptance/capture passed; edited video published to Drive; source pushed as `c818121` | CURRENT | A distinct, source-supported information task uses the available assistant and standalone demo machinery. | Delivered for this increment; preserve unscored status. |
 | F03 — scored fog lesson | Planned next increment; not built or accepted | CURRENT, conditional on separate assessment acceptance | The demonstrated report sequence now supports a distinct test of partial cancellation and authority; the existing assessment machinery can support a bounded new lesson. | After this F01/F02 increment, author the short lesson/rubric, preserve the demo, and verify targets, evidence cutoffs, feedback and complete native learner flow. |
 | Q01 — weather-driven arrival/departure queues | Not built or accepted | M2 development, conditional on defined scope | Introduces a new demand/capacity/reservation system beyond scripted movement and visual weather. | Specify one illustrative queue task and invariants, then review cost against the original M2 study. |
 | A01 — airport-size/demand comparisons | Not built or accepted | M3 evaluation, conditional on a stable task | A meaningful comparison needs a shared task and controlled variation, rather than several attractive maps. | Define the comparison after the task/driver stabilises; defer extra airport reconstruction until needed. |
@@ -148,9 +149,13 @@ The root reports completed upload and readback verification of the recording-pla
 and scenario-register Google Docs. This reviewer read the edit record and checked
 that local current/register documents now show the 27:48 video, built A14 demo and
 unbuilt P04 scored extension; it did not independently fetch the Drive video.
-Source publication remains pending on
-[`codex/checkpoint1-controller-training`](https://github.com/MayFairMI6/apron-lens/tree/codex/checkpoint1-controller-training)
-until the root commits/pushes this increment.
+Source publication is complete in
+[`c81812167361a73ceca8d944ffc3510bac1335ae`](https://github.com/MayFairMI6/apron-lens/commit/c81812167361a73ceca8d944ffc3510bac1335ae)
+on [`codex/checkpoint1-controller-training`](https://github.com/MayFairMI6/apron-lens/tree/codex/checkpoint1-controller-training).
+This reviewer independently confirmed the local commit and matching remote branch
+head using `git ls-remote`. The root reports that [PR #22](https://github.com/MayFairMI6/apron-lens/pull/22)
+has updated metadata and the same head, and remains open/unmerged; no merge is
+implied. This final publication-record update follows the implementation commit.
 
 This evidence changes the F03 dependency judgment. Its distinctive assessment is
 whether the learner keeps the remaining safeguarding restriction after LVP
@@ -358,13 +363,13 @@ for a previous choice or retrofit a passed acceptance record.
 | ML-005 | 2 November 2026; active reconsideration | Recommend a bounded F03 scored fog lesson for CURRENT as the planned next increment, outside this F01/F02 delivery claim. The source-reviewed working report sequence now supports a distinct learner test of nested restrictions and unknown departure authority. Keep the one-hour demo unchanged; deliberately retime a short lesson and verify its independent rubric/flow. | Supersedes ML-002's provisional F03 M2 placement. Independent source/code review read; root reports actual native answers. Consolidated F01/F02 acceptance and all F03 acceptance remain pending. Counterargument: additional assessment/build cost with unfinished assignment work, recorded above. |
 | ML-006 | 2 November 2026; F01/F02 accepted and captured, publication pending | Reviewed consolidated native acceptance: full source hour/debrief, three actual report-grounded answers, 249 backend/175 Unity checks, both supported orientations, restoration and reconnect inspection. Independently matched source hashes and response facts/cutoffs. | Supersedes ML-004's progress status and closes the F01/F02 acceptance pending at ML-005. Does not include F03, physical-smartphone evidence, a vision benchmark or edited-video publication. |
 | ML-007 | 2 November 2026; F01/F02 edited and Drive-published, Git push pending | Reviewed the 27:48 edit record with unchanged prefix through 24:12.4667, actual native fog answers and matching Person 1 AAC hashes. Root reports successful upload to the existing Drive video and readback of updated shared planning/register documents. Local documents match A14 built and P04 CURRENT planned next. | Supersedes ML-006's video-publication pending status only. Git commit/push is the root's next action; F03 remains unbuilt and all outstanding assignment requirements remain. |
+| ML-008 | 2 November 2026; F01/F02 source publication complete | Root committed/pushed implementation and ledger as [`c81812167361a73ceca8d944ffc3510bac1335ae`](https://github.com/MayFairMI6/apron-lens/commit/c81812167361a73ceca8d944ffc3510bac1335ae). Reviewer independently confirmed the local commit and identical remote branch head. Root reports updated PR #22 metadata; PR remains open and unmerged. | Closes ML-007's historical Git-publication pending status. F03 remains CURRENT planned next increment, unbuilt and not automatically executed as part of this delivery. No model or effort overrides were requested/applied. |
 
 ## Next review and exact resume point
 
-The immediate next action is the root's scoped commit/push of the verified
-F01/F02 increment and ledger, followed by recording the resulting revision.
-Native/report acceptance and Drive video publication are complete; Git publication
-remains pending at this update. F03 placement has been
+The F01/F02 increment is delivered: native/report acceptance, Drive video and
+source publication are complete; PR #22 remains open/unmerged. The root will
+save this final publication record and handoff. The next product scope is F03,
 reconsidered and moved to CURRENT as the planned next increment; it is not part of
 this F01/F02 delivery and is not built or verified. Review its
 implementation/assessment evidence when that increment is undertaken. Reopen placement for a concrete blocker, new
