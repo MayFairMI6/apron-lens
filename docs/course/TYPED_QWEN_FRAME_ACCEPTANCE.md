@@ -719,3 +719,22 @@ same initial controls, no-retry rule and acceptance gates stay unchanged. The
 new source needs a separate freeze/readback before calls; another prompt example
 is an experiment, not a demonstrated general solution. No additional contrast,
 sealed-reserve read, model call, candidate edit or raw repair was performed here.
+
+## V7 pre-inference review and resolved reference-example finding
+
+The first unrun v7 prompt used `They stayed nearby` and declared Leo its unique
+human antecedent. Independent review and the coordinator both flagged that
+singular/plural ambiguity; withdrawing a subject fragment does not logically erase
+the person from discourse. Before any call, the author replaced it with `The person
+who moved the chair stayed nearby`, explicitly linking the reference to the
+corrected mover's prior predicate rather than nearest-name or deleted-person logic.
+
+The corrected frozen candidate is
+`ae4f042b03af15fd0bc534a23be5fa265e6d9bc4444f29e31cfb211b5d53cf61`.
+Independent readback, AST comparison against actual frozen v6 and all 42 offline
+controls pass. Only version/instructions changed. The prompt also contrasts plain
+assertion with explicit confirmation and requires cross-unit antecedent references
+and correction links without resolving genuine alternatives. No concrete blocker
+remains for the unchanged six-case diagnostic. This clearance grants no semantic
+acceptance, automatic fidelity certification or report permission. The reviewer
+made no model call, candidate edit, new contrast inspection or reserve read.
