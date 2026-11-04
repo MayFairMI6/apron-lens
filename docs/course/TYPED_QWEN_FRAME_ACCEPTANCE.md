@@ -1218,3 +1218,56 @@ tests cover empty-map continuation and raw-map survival after second-stage kill.
 No concrete blocker was found for the unchanged six-case diagnostic. Actual map
 and final-frame semantics still require independent review. No model call,
 candidate edit, raw repair or additional contrast/reserve read occurred.
+
+## Actual discourse-first v1 — correction map not yet usable
+
+The [complete run](../../outputs/qwen-discourse-first-v1-initial/summary.json)
+attempted all six controls: **A valid 5/6, B valid 5/5 attempted, combined valid
+5/6**. All eleven actual calls record observed EOS; no timeout/retry occurred.
+Records SHA-256 is
+`c9114a9cf8448a926f1417a56834b94032d533710d4d7a575020fe9022e7211f`;
+stage-audit SHA-256 is
+`f41d62ed89444dacdfd157512ff710f989c6ac4399417792c772f7137e40f3ef`.
+Snapshot/fixture/audit-lock hashes and exact stage-prompt reconstruction match.
+Startup took 10.038 seconds; requests took 8.141–18.120 seconds with 76–165 total
+output tokens. These are exposed failed-diagnostic timings, not pipeline acceptance.
+
+| Case | Map A and all 23 final meaning obligations |
+|---:|---|
+| 12 | Correct empty map. `entities`, `occupancy`, `waiting`: faithful distinct clauses and genuine unnamed-role ambiguity. |
+| 17 | A recognizes a numeric correction and appropriate prior scope, but invents a reconstructed full replacement sentence absent from the original text. Exact binding correctly rejects it and aborts B. `withdrawn-value`, `correction`, `estimate`, `permission-scope`: no final extraction is delivered; raw mapping intent does not replace it. |
+| 19 | Correct empty map. `resolved-items`, `readiness`, `unknown-permission`: faithful connected basis/readiness and Only-unconfirmed meaning without invented confirmation. |
+| 20 | Correct empty map. `not-released`, `held`, `permission`, `lvp`: faithful independent clauses, non-conferral, references and attribution. |
+| 23 | Correct empty map. `cancellation`, `parked`, `condition`: faithful. `clearance`: positive assertion survives, but the original `with that` claimed basis/link is omitted. |
+| 2 | Incorrect empty map misses explicit actor self-correction. `actor-repair`: B copies the whole repair into one active compound without withdrawal/link. `delay`, `fuel`, `baggage-unknown`, `contrast`: source wording remains, but no valid corrected-actor chain is represented. A omission remains failed independently of any apparent B wording preservation. |
+
+The four true nonrepair cases have appropriate empty maps. Actor repair is a
+false negative, and numeric repair is detected but mechanically unusable. Every
+executed B receives an empty map, so actual usable-map acceptance/assignment has
+not yet been exercised; passing assignment mocks does not fill that gap. Initial
+qualification remains unmet.
+
+A bounded prompt-only v2 is defensible: describe the task as finding **speaker
+self-corrections** that replace an earlier word, name or value, and supply complete
+exact numeric JSON rather than a prose description that invites reconstructed
+sentences. A matched B actor/relationship example can demonstrate retaining all
+nonmap claims and `with that` scope while mapping a correction. This tests task
+wording and wire comprehension under the current profile. A physical-repair/jargon
+explanation is unproven because the old prompt already detected the numeric
+correction. No causal, architecture-success or general-capacity claim follows.
+Keep parser/runtime, budgets, original six/23 obligations and all gates fixed;
+exercise actual usable maps/assignments before qualification. No model call,
+candidate edit, raw repair or new contrast/reserve inspection occurred.
+
+## Discourse-first v2 pre-inference source clearance
+
+Frozen candidate `b1abc8342fd598decd2561b0ae07e21c878ab78fc4bfdbbc836c2335d24f1387`
+matches independent readback. AST comparison against actual frozen v1 confirms
+only version and two prompts changed. All 87 offline controls pass. The new exact
+numeric-map example and extended actor/relationship example independently pass
+their strict parsers, retaining false fidelity. Plain self-correction wording,
+nonreconstructed value spans and complete nonmap relationship extraction match
+the bounded proposal without adding aviation answer facts. No concrete blocker
+was found for the unchanged six-case no-retry diagnostic. Parser/runtime, budget,
+original meanings and gates remain fixed. No model call, candidate edit, raw repair
+or additional contrast/reserve inspection occurred.
