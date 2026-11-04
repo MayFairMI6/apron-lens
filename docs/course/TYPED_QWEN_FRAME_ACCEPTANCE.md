@@ -678,3 +678,44 @@ request for both text and unresolved auditing does not retroactively strengthen
 the original semantic obligations. Actual output fidelity remains unassessed,
 initial qualification is unmet, and neither a report stage nor automatic fidelity
 checker is approved. No model call, candidate edit or reserve read was performed.
+
+## Actual v6 — all structures valid, two semantic mechanisms still fail
+
+The [complete v6 run](../../outputs/qwen-frame-extraction-v6-initial/summary.json)
+records **6/6 observed-EOS completions and 6/6 structurally valid outputs**, with
+no timeout or retry. Records SHA-256 is
+`9ac0be6aff36d3123473de8a2fc8242e886e59ffea855f0dda21d2e254ab80c4`.
+Independent source-snapshot, fixture-hash and exact-prompt reconstruction checks
+pass. All six record terminal/EOS token 248044. Startup/warmup took 15.379 seconds;
+requests took 11.137–15.536 seconds and 80–126 output tokens. These remain
+extraction-stage measurements, not complete pipeline budget acceptance.
+
+All 23 unchanged obligations were reviewed; grouping below preserves their IDs:
+
+| Case | All frozen obligations and independent assessment |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful in connected text. The two named aircraft retain unspecified, different occupant/waiter roles and the same Stand B reference. Empty unresolved auditing does not become a new semantic gate or justify inventing named roles. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: faithful. Withdrawn 10:35 is explicitly linked to active 10:20 for the same newest target; separate estimate and non-conferral claims remain. |
+| 19 | `resolved-items`: the sorted-items basis survives, but the extra `Readiness is confirmed` again strengthens assertion into confirmation without stated confirming evidence. `readiness`: the learner's positive TRN102 readiness assertion survives separately. `unknown-permission`: now faithful, including `Only` and unknown rather than denied clearance. The extra confirmation still fails the whole interpretation. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: faithful in connected context, retaining held restriction, non-conferral and tower attribution without invented causality or safeguarding. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful, retaining current confirmation attribution, the learner's cancellation/clearance link, `only`, and the pending slot-opening condition. |
+| 2 | `actor-repair`: improved but incomplete; the subject fragment is now withdrawn, yet the corrected TRN102 row has null `correctionTarget`. `delay`: faithful positive late-bag delay with no invented TRN103 denial. `fuel`: positive completion wording survives, but an unresolved note falsely says `Its` has no identifiable referent, ignoring preceding corrected TRN102 context. `baggage-unknown`: faithful lack of received loading confirmation in connected bag/actor context. `contrast`: known refuelling versus unknown loading remains clear across adjacent propositions; a repeated literal `but` is not required. |
+
+The initial semantic diagnostic remains unqualified despite perfect structural
+delivery. In particular, case 2's wrong unresolved declaration is not a demand
+to repeat names in every claim: it is a false statement about reference ambiguity
+in the whole learner utterance. Missing correction links and invented confirmation
+remain independent, directly visible failures. No parsed-result fidelity or
+report-permission flag is changed.
+
+A bounded prompt-only v7 is supported: demonstrate plain assertion versus an
+explicitly attributed confirmation without upgrading either; treat all learner
+units as one utterance for genuine antecedents; cite adjacent context when a
+resolved interpretation relies on a preceding unit; and require the corrected
+active assertion to link its earlier withdrawn fragment. This must not become
+a rule that resolves genuinely unspecified roles, invents confirmation authority
+or seeks outside operational truth. The parser/runtime, original semantic labels,
+same initial controls, no-retry rule and acceptance gates stay unchanged. The
+new source needs a separate freeze/readback before calls; another prompt example
+is an experiment, not a demonstrated general solution. No additional contrast,
+sealed-reserve read, model call, candidate edit or raw repair was performed here.

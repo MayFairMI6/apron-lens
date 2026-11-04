@@ -5,7 +5,7 @@ import re
 
 from .candidate import FrameError, source_units, _object, _exact_keys, _refs, _has_content
 
-VERSION = 'typed-qwen-claims-extraction-v6'
+VERSION = 'typed-qwen-claims-extraction-v7'
 MAX_OUTPUT_TOKENS = 1000
 CLAIM_COLUMNS = ('id', 'quoteRefs', 'interpretedClaimText', 'lifecycle', 'correctionTarget')
 LIFECYCLES = {'active', 'withdrawn', 'history', 'ambiguous'}
@@ -28,6 +28,9 @@ attribution, negation, conditional future, comparison, reference and retraction.
 An assertion is not independent confirmation: do not strengthen a speaker's
 assertion into "confirmed" unless confirmation itself is stated. Preserve "only"
 with its actual argument and scope; do not drop it or transfer it to another claim.
+Plain "The device is ready." means "The device is ready.", NOT "Readiness is
+confirmed." Contrast "The inspector confirms the device is ready.": preserve
+that explicit attributed confirmation. Minimize edits rather than add certainty.
 Do not turn unconfirmed permission into denied permission; do not turn a future
 condition into an occurred event. Preserve asserted implications and causal links
 as learner claims, even if they might be wrong. Do not merge independent claims
@@ -38,6 +41,11 @@ an uncertainty statement. Preserve causation only when the learner asserts it.
 Context can clarify references only when
 the learner text itself resolves them; unresolved identities/roles stay explicit
 in the interpretation and unresolved list, never filled from outside knowledge.
+All units are ONE continuous learner utterance, not separate answers. Use preceding
+learner context, including its corrections, for a uniquely supported pronoun or
+reference. Include the necessary antecedent units in quoteRefs. Do not discard
+that context because it is in another unit; do not simply choose the nearest name
+or resolve references when competing active referents remain plausible.
 Preserve unresolved alternatives and distinct-role relationships in BOTH places
 when relevant, even if the existential assertions themselves are clear. Unresolved
 means interpretation ambiguity, not a request to verify whether a clear claim is
@@ -50,18 +58,21 @@ later correctionTarget the earlier claim ID. An entity repair may retain an
 earlier noun fragment without inventing a complete earlier predicate.
 Unrelated examples ONLY, never answer content:
 Input u1 "Nora — no, sorry, Leo — moved only the chair, and the lamp may light if the switch closes."
-and u2 "Only the parcel's delivery is unconfirmed." gives:
-{"claims":[["c1",["u1"],"Nora (withdrawn subject fragment).","withdrawn",null],["c2",["u1"],"Leo moved only the chair.","active","c1"],["c3",["u1"],"The lamp may light if the switch closes.","active",null],["c4",["u2"],"Only the parcel's delivery is unconfirmed.","active",null]],"unresolved":[]}
+u2 "Only the parcel's delivery is unconfirmed." and u3 "The person who moved the chair stayed nearby." gives:
+{"claims":[["c1",["u1"],"Nora (withdrawn subject fragment).","withdrawn",null],["c2",["u1"],"Leo moved only the chair.","active","c1"],["c3",["u1"],"The lamp may light if the switch closes.","active",null],["c4",["u2"],"Only the parcel's delivery is unconfirmed.","active",null],["c5",["u1","u2","u3"],"Leo stayed nearby.","active",null]],"unresolved":[]}
+Here "The person who moved the chair" refers through that exact predicate to
+the corrected mover Leo. This is learner-context resolution, not external
+verification, nearest-name selection, or deletion of Nora from the discourse.
 The interrupted noun BEFORE its predicate is repaired, not denied. Contrast input
 u1 "Nora did not move the chair; Leo did." gives:
 {"claims":[["c1",["u1"],"Nora did not move the chair.","active",null],["c2",["u1"],"Leo moved the chair.","active",null]],"unresolved":[]}
 Here a COMPLETE negative proposition is asserted, not withdrawn. Do not treat
 every "no" or "sorry" as a repair. The conditional does not establish that the
 lamp already lit; unconfirmed delivery is not nondelivery. Neither implies a cause.
-Input u1 "Delivery is at 14:00, correction, at 15:00." gives:
-{"claims":[["c1",["u1"],"Delivery is at 14:00.","withdrawn",null],["c2",["u1"],"Delivery is at 15:00.","active","c1"]],"unresolved":[]}
+Input u1 "Delivery is at 14:00." and u2 "Correction: at 15:00." gives:
+{"claims":[["c1",["u1"],"Delivery is at 14:00.","withdrawn",null],["c2",["u1","u2"],"Delivery is at 15:00.","active","c1"]],"unresolved":[]}
 Do not merely mention a correction in one active row: retain the withdrawn
-reading and link its replacement explicitly, as above.
+reading and MUST link its replacement with correctionTarget, even across units.
 Input u1 "That one." gives {"claims":[],"unresolved":[[["u1"],"The referent is not identifiable from this fragment."]]}
 An unresolved reason is a STRING, not a token array. An explicit statement that
 something is unconfirmed remains an active claim, not an unresolved interpretation.
