@@ -1,0 +1,9 @@
+{"event": "worker_started", "recordedAt": 1793798730.1850529, "pid": 3755}
+{"event": "worker_ready", "recordedAt": 1793798739.6394508, "pid": 3755}
+{"event": "worker_request_complete", "recordedAt": 1793798756.750304, "requestId": "two-pass-exposed-v2-12", "elapsedSeconds": 17.11042049999969, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793798782.049686, "requestId": "two-pass-exposed-v2-17", "elapsedSeconds": 25.298799167000197, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793798798.504875, "requestId": "two-pass-exposed-v2-19", "elapsedSeconds": 16.454434958000093, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793798819.076155, "requestId": "two-pass-exposed-v2-20", "elapsedSeconds": 20.570790290999867, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793798837.372092, "requestId": "two-pass-exposed-v2-23", "elapsedSeconds": 18.295251791999817, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793798860.0482612, "requestId": "two-pass-exposed-v2-2", "elapsedSeconds": 22.67565729199987, "ok": true}
+{"event": "worker_stopped", "recordedAt": 1793798860.095694, "pid": 3755, "exitcode": -15}
