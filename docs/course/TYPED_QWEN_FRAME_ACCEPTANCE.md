@@ -889,3 +889,64 @@ All raw selections, annotations, aborted attempts and 23 stage-specific semantic
 obligations still require independent review. No report checker, semantic
 acceptance or reserve eligibility follows. The reviewer edited no candidate and
 read no additional contrast/reserve material.
+
+## Actual two-pass v1 — stage-specific failures, no accepted combined result
+
+The [complete run](../../outputs/qwen-two-pass-v1-initial/summary.json) attempted
+all six inputs: **A selection valid 5/6; B annotation valid 0/5 attempted; combined
+valid 0/6**. Case 19's malformed A aborts B as designed. Every one of the eleven
+actual calls records observed EOS; no timeout or retry occurred. Startup took
+8.441 seconds; aggregate case requests took 13.949–25.985 seconds. These are
+failed-interpretation diagnostic measurements, not pipeline acceptance.
+
+Records SHA-256 is `1a97883b9175d60d04066926c42db44211e0854445765e130f60865442a84c68`;
+durable stage-audit SHA-256 is
+`34ec437550d4d7121c0fef643ad4ba61c6d89ad53bd36dc96a41a0b4160046f3`.
+Independent checks match all frozen source/fixture hashes, every audit lock hash
+and both prompts reconstructed from the frozen source and actual A proposal.
+Original learner-only inputs match the frozen six. A raw/validation events precede
+B starts; all raw failures remain saved. No report, gold or reference annotation
+entered either task.
+
+| Case | All 23 obligations, by selection and annotation stage |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: A selects three faithful clauses, preserving genuine unnamed-role ambiguity and shared resource context. B raw meanings remain faithful, but numeric IDs and duplicated `claims` root keys invalidate the entire annotation. |
+| 17 | `withdrawn-value`, `correction`: A selects both original value/correction spans. B leaves the earlier value active and adds reciprocal/forward links rather than a valid withdrawal/replacement structure. `estimate`, `permission-scope`: A retains both meanings in one compound, failing independent-claim selection; B leaves that compound. Numeric IDs and extra root `notes` also invalidate B. |
+| 19 | `resolved-items`, `readiness`, `unknown-permission`: raw A strings retain the source meanings, including `Only`, without inventing confirmation, but malformed row/bracket structure makes A unusable. Overlapping full statements also do not demonstrate atomic selection. B is correctly not called; all three obligations have no annotation result. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: A correctly selects separate faithful clauses. B merges the first three and reduces four selection IDs to two numeric IDs; duplicate root keys additionally invalidate it. Original meanings remain visible in raw text but stable-ID/atomic annotation fails. |
+| 23 | `cancellation`, `parked`, `condition`: A/raw B preserve the original meanings. `clearance`: positive clearance survives but A omits its `with that` relationship; B also omits it. Numeric IDs and duplicate root keys invalidate B. |
+| 2 | `actor-repair`: A copies the whole correction instead of separate fragment/replacement items, so fixed-ID B cannot supply the required two lifecycle-linked items. `delay`, `fuel`, `baggage-unknown`, `contrast`: original meaning survives in compound selections/raw B, but independent selection and discourse structure remain unmet. B adds numeric IDs, string `none` and extra `notes`; no valid annotation is delivered. |
+
+Stage A demonstrates some benefit on cases 12 and 20, but its repair/compound and
+edge-selection failures remain. B has a distinct systematic wire-format problem:
+all five attempted outputs use numeric IDs, three duplicate `claims` keys, two add
+`notes`, and the subject-repair output uses string `none`. Those failures are not
+evidence that the selected meanings are correct, but also do not by themselves
+establish architectural impossibility. The correction and merged-ID mistakes are
+additional semantic/structural failures beyond JSON spelling.
+
+One controlled prompt-only v2 is defensible: provide a complete unrelated matched
+source/A-selection/B-annotation example showing exact string IDs, null, one root,
+all IDs exactly once, a selected repair fragment with linked replacement, and
+separate conjuncts retaining their asserted relationship. Stage B currently lacks
+a concrete valid wire example. This experiment must keep code/parser/runtime,
+500+500 caps, aggregate deadline, original six/23 obligations and all failure
+denominators fixed. Do not repair historical JSON, let B reselect, or claim success
+from valid formatting alone. A errors remain independently failed even if B
+format improves; complete next outputs must guide any later change rather than a
+prewritten prompt chain. No model call, candidate edit, new contrast inspection,
+raw repair or sealed-reserve read was performed by the reviewer.
+
+## Two-pass v2 pre-inference prompt clearance
+
+Candidate `05aff80bcaa6e3c2448adaa9fb30d644d176d8a29fe590ec268c4b843e9e977f`
+matches independent readback. AST comparison with actual frozen two-pass v1
+confirms only version and the two prompts changed. All 67 offline controls pass;
+the concrete unrelated matched example independently passes both strict parsers
+while fidelity remains false. It demonstrates exact string IDs, null, one root,
+preserved IDs, withdrawn fragment/link and retained conjunct relationship. No
+aviation answer facts enter the examples. No concrete blocker was found for the
+unchanged six-case no-retry diagnostic; code/runtime, budgets, semantic gates and
+failure denominators remain fixed. Formatting improvements cannot erase A's
+selection failures or certify B's meaning. No model call, candidate edit, raw
+repair, additional contrast or reserve read was performed by the reviewer.
