@@ -4009,3 +4009,22 @@ remain unmet. No old reserve is read or repurposed. The deployed reviewer,
 previous accepted runtime/history remedies, all earlier results and final narrated
 video stay unchanged. No defect closure, duplicate milestone completion or
 whole-assignment claim is added.
+
+**4 November 2026 — user selects stronger-model direction; research only now.**
+The user chooses stronger-model evaluation rather than the proposed local repair
+parser or ending the repair, then explicitly narrows the present work to RESEARCH
+ONLY. This supersedes the pending material-choice status above. Root may research
+official model documentation and preserve a research note; implementation and
+inference are deferred at the user's request. No new feature, code/model change,
+provider API call, credential request or test execution is authorized by this
+research-only step. Do not infer accuracy, latency, reliability or acceptance for
+any untested local/hosted candidate from its documentation or general benchmark.
+
+Existing candidate outcomes and gates are unchanged. ML-052's typed repair is
+still unmet; this is a chosen research direction, not an accepted replacement or
+completion claim. Any later execution must follow the user's resumed scope,
+versioned architecture/runtime contract and fixed semantic, fidelity, source,
+latency, reserve/native and publication requirements. The deployed reviewer,
+accepted runtime/history remedies, all old results, sealed reserve and final
+narrated video remain unchanged. This ledger update makes no inference call or
+implementation change.

@@ -195,3 +195,5 @@ generic source-only explicit-correction parser (recommended), a separately
 scoped stronger-model comparison, or pausing the fix. That decision is pending;
 no new parser is implemented. ML-052 and end-to-end acceptance remain unfinished.
 All old evidence and the video remain unchanged; no production promotion.
+
+**4 November 2026 — research-only steering.** The user chose a stronger-model comparison, then explicitly deferred implementation and inference. `STRONGER_MODEL_RESEARCH.md` records official-source candidates, hypothetical costs and a proposed unchanged-gate evaluation. No hosted calls, credential requests or app changes occurred. Resume execution only when requested; the local-parser option is not the chosen direction.
