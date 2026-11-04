@@ -348,3 +348,122 @@ Contents are deliberately not described here beyond the counts below.
   only after the exposed gates pass and both arms are frozen, uncached, on
   identical payloads, with no tuning against its outcomes. If it fails, retire
   it to exposed evidence like fresh-v1.
+
+## R9 exposed development review — not yet qualified (3 November 2026)
+
+Reviewer: the independent semantic acceptance reviewer (Claude Opus 5.5 subagent)
+who also authored fresh-v2. The reviewer made no model or GPU call and edited no
+implementation, fixture or gold label. R9 was not evaluated against fresh-v2.
+Probes below use constructed answers, a mock scorer and exposed checkpoint
+payloads only.
+
+**Freeze and run integrity.** Commit `aa98646` changes only `candidate.py`
+(`547a0f5f…ded`, version `typed-service-relation-review-v9`, MPS module
+`-v9-anli-large-mps`). The hashes of `propositions.py` (`24f66d78…`),
+`mps_candidate.py`, `strong_candidate.py`, the runner, `training_assessment.py`
+and `modelaccess/nli.py` equal R8's. The model artifact hashes and MPS runtime
+profile (float16, batch 8, 512 tokens, no fallback) also equal R8's. In all three
+runs, saved source snapshots match their locks, and payloads and gold equal their
+fixtures. Every planned pair has a raw row: 88 (regressions), 433 (development)
+and 479 (exposed first reserve). There are no pair errors, truncation, nonfinite
+probabilities, cache manifest or cache provenance. All rows come from the pinned
+large model and revision. The maximum input is 479 tokens. Recomputed results:
+6/6, 24/24 and 24/24 exact; 3/3, 12/12 and 12/12 valid exact; all delivered; zero
+false credit. All 58 offline mock-score tests pass.
+
+**Changed outputs, inspected semantically.** No regression output changed. Two
+development outputs changed only in grounding evidence/quote, with unchanged
+statuses. Case 11 now quotes the exact offending clause “TRN103 also has takeoff
+clearance” against TRN103's own route report L009, which is better than before.
+Thirteen first-reserve outputs changed (0, 1, 2, 3, 6, 9, 10, 11, 12, 16, 17,
+18, 22). All quotes are literal, and all cited sources are eligible same-episode
+reports received by the cutoff. All statuses now equal the fixed gold. Cases 6, 9
+and 11 quote only the invented clearance clause against the target's L006 route
+report, which is correct and more precise. Qualifications:
+
+- Case 1 uses the new partial display quote. The separation point is met, but its
+  quote covers only the fuel-completion facet. The non-implication witness exists
+  only in the audit. This is literal and disclosed, but incomplete as feedback.
+- In case 18, `scope` is met with the readiness sentence as its quote. The model
+  also entailed “do not establish takeoff clearance” from “those updates do not
+  confirm overall departure readiness” at 0.996. That is over-generous. The
+  status is still right only because the third sentence also entails both scope
+  facets. A readiness-only answer could therefore receive clearance-scope credit.
+- In case 16, the estimate facet is met only through the new two-sentence window
+  (sentence alone 0.500; window 0.988). “That is an estimate” supplies the
+  estimate meaning, which is legitimate. The quote spans both sentences.
+- Case 18 is the only exposed grounding decision rescued solely by the new
+  support-only antecedent window. It had no contradicting row.
+
+**Source review (diff `621a753..aa98646`).** There is no gold, metadata, fixture
+path or answer whitelist in the code, and no hidden operational fact is inserted.
+The threshold, model, quote limit and source-eligibility checks are unchanged.
+The coverage additions (“tell”, “evidence”, “holding up”, “late bags/batch”,
+“only an estimate” and others) only admit a pair; the classifier still decides.
+They are, however, plainly drawn from first-reserve wording. Only an unseen
+reserve can show whether they generalize. Same-flight relevance for flightless
+messages now uses the report's typed flight. This is principled and corrects
+the first-reserve grounding failures 6, 9 and 11. The support-only antecedent
+window cannot veto. It can turn all-neutral grounding into met, which is
+logically valid only when the classifier correctly entails the whole window.
+
+Concrete defects:
+
+1. **Blocking — demonstrative stripping removes contrary safeguarding claims.**
+   `relation_present(..., 'safeguarding_status')` deletes any “that/this
+   cancellation” phrase before deciding whether a sentence is a safeguarding
+   unit. That deletion is not limited to source-of-inference phrases such as
+   “from that cancellation”. A sentence like “Actually no, that cancellation is
+   still pending.” is no longer compared against the confirmation facet. In a
+   mock probe on the exposed fog checkpoint-3 payload, the first sentence says
+   the cancellation is confirmed and a later sentence says it is still pending.
+   R8 gives `confirmation: uncertain`; R9 gives `confirmation: met`. That is a
+   new false-credit pathway, and it contradicts the rule's own comment that such
+   a mention “does not assert a new” status. The required fix is narrow: strip
+   only the prepositional source-of-inference form, or otherwise keep any clause
+   that predicates a status of the referenced cancellation.
+2. **Non-blocking — takeoff clause rule hedges.** The new
+   `unsupported-positive-takeoff-clause-v2` rule only marks grounding
+   contradicted, so it cannot give credit. It does fire on negative-quantifier
+   hedges, for example “Little in the reports shows that TRN102 is cleared for
+   takeoff.” and “Hardly anything indicates that …”. It also fires on a claim
+   followed by a restricting tail (“… in the learner guide example only.”),
+   because only the clause prefix must match. These are wrong statuses for valid
+   hedged answers. Add negative quantifiers and require the claim to end the
+   clause (or reject trailing qualifiers).
+3. **Non-blocking — correction narrowing in the service rule.** R9 also removed
+   “actually/correction” from the service-relation rule's ambiguity block. No
+   exposed case needs that change; no rule applied to first-reserve case 2. In a
+   mock probe with all-neutral scores, a later “Actually, I had those two the
+   wrong way round.” gave `separation: met` in R9 and `uncertain` in R8. With
+   realistic sentence-level entailment, R8 and R9 already behave the same,
+   because sentence-local review never models a later bare retraction (see 4).
+   Restoring R8's service-rule block is conservative and costs no exposed
+   evidence. The identity-context narrowing in `_sentence_context` is a separate
+   change, and first-reserve case 2 needs it.
+4. **Pre-existing residual risk, disclosed.** A later retraction that does not
+   restate its content (“Sorry, I had those two the wrong way round.”) is
+   ignored by both R8 and R9. The earlier sentence keeps its criterion credit,
+   and only grounding flags the retraction. This is an architectural limit of
+   sentence-local review, not new in R9, so it does not block qualification.
+
+**Decision.** The frozen R9 passes the mandatory exposed gates: 6/6 old
+regressions, 24/24 development, and the exposed first reserve 24/24 as
+development fit. It is **not yet qualified** for the fresh-v2 paired run because
+of blocking defect 1, a false-credit pathway introduced by this revision. It is
+small, general and unexercised by exposed passes. Qualification needs a frozen
+R10 that fixes defect 1, preferably also defects 2 and 3. R10 must then rerun all
+three exposed suites uncached and pass a short delta re-review. Do not change
+gold, thresholds, the quote limit or the gates. All R9 runs remain preserved
+evidence.
+
+**fresh-v2 independence disclosure.** This reviewer authored and froze fresh-v2
+(`cdb4e59b…`) before seeing R9 source. Reading R9 afterward changes nothing in
+fresh-v2, and fresh-v2 was not edited. The reviewer has not evaluated R9, or any
+proposed fix, against fresh-v2, and does not say whether these defects bear on
+it. The defects above come from R9 source and constructed probes on exposed
+payloads. The reviewer does know fresh-v2's contents, though, so it cannot fully
+separate that knowledge from which R9 weaknesses it noticed. Advice to the
+implementer is kept to these general, exposed-derived defects to limit leakage.
+R9 contains no fresh-v2-specific wording (a 4-gram check found only two generic
+phrases also common in exposed text).
