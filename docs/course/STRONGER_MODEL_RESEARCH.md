@@ -4,11 +4,31 @@ Research only, checked 4 November 2026. The user selected stronger-model evaluat
 and then deferred implementation and inference. No hosted model was called, no
 credentials were requested, and the app, video and existing results remain unchanged.
 
-The recommended first candidate is Claude Sonnet 5.5 at medium effort. GPT-6 Astra
-at medium effort is the proposed higher-cost reference if the first candidate fails.
-This recommendation balances a short, text-only interpretation task, documented
-model capabilities and existing provider adapters. It is a test order, not evidence
-that either model fixes AirfieldLens's errors.
+The final user decision assigns this work to Checkpoint 2 (B06 / ML-053),
+prioritizes free downloadable local models, and closes the current planning
+discussion. Implementation, downloads and inference await that milestone.
+
+The first proposed comparison is quantized Qwen3.5-27B against the frozen local
+Qwen3.5-9B baseline. gpt-oss-20B is the independent-family alternative; Qwen3.5-35B-A3B
+is a latency/capacity alternative if the dense 27B configuration is unsuitable.
+These are candidates, not measured improvements. The inspected Mac has an M5 Pro
+and 48 GB unified memory. Ollama lists quantized packages that make the Qwen
+candidates plausible to investigate, but package size is not total runtime memory
+or proof of meeting the response deadline.
+
+Ollama is a model-serving/runtime option, not a model. The existing implementation
+uses Transformers/PyTorch MPS float16. A new local configuration must freeze the
+weight revision/package digest, quantization, prompt template, runtime and context
+limit; changing these together is a configuration comparison, not a pure model-size
+ablation. The model remains Mac-hosted for the phone app. Ollama and Apple-oriented
+alternatives can be assessed during implementation without changing the baseline.
+Sources: [Qwen 27B](https://huggingface.co/Qwen/Qwen3.5-27B),
+[Qwen 35B-A3B](https://huggingface.co/Qwen/Qwen3.5-35B-A3B),
+[Ollama Qwen packages](https://ollama.com/library/qwen3.5),
+[gpt-oss-20B package](https://ollama.com/library/gpt-oss:20b).
+
+The hosted candidates below are retained as background research and a contingent
+fallback. They are not the selected primary execution plan or spending approval.
 
 | Candidate | Proposed use | Standard USD per million input/output tokens |
 |---|---|---:|
@@ -68,13 +88,37 @@ No held-out set is reused for tuning; the sealed reserve remains untouched and
 ineligible under its original contract. Existing full development, fresh-evaluation,
 report-grounding and native end-to-end gates remain necessary before deployment.
 
-A hypothetical 2,000-input/1,000-output-token request costs $0.014 on Sonnet or Sol,
-$0.028 on Opus, and $0.070 on Astra at these standard rates. Eighteen such requests
-would cost $0.252, $0.504 and $1.26 respectively. These are arithmetic examples,
-not measured usage or a spend authorization; actual prompt lengths, reasoning,
-provider overhead, taxes and timeouts can change charges. A future $5 hard cap
-would be a reasonable small pilot proposal once real inputs are counted. This
-stage needs inference access, not weight training.
+The primary local pilot has **$0 provider-token fees** on existing hardware.
+It still consumes electricity, memory, storage and time. Budget for unsuccessful
+requests explicitly: assume a 20% failed-attempt rate for planning only, not as an
+observed prediction. Eighteen primary cases divided by 0.8 gives 22.5 attempts;
+round conservatively to 24 main slots, including six failure/development allowance
+slots. Add three preflight and six repeat-validation slots: **33 slots per new
+configuration**, or 66 if two candidates are evaluated. Use only eligible cases
+and stop at failed gates; an allowance does not require consuming all slots.
+
+At the existing 55-second assessment deadline, 33 slots represent up to 30.25
+minutes of capped request time per configuration; two configurations represent
+60.5 minutes. This excludes downloads, startup, cold compilation, independent
+review and whole-suite/native verification, so it is not a wall-clock completion
+promise. Six unsuccessful slots alone reserve 5.5 minutes per configuration.
+Measure actual energy/runtime rather than inventing an electricity price.
+
+If a hosted comparison is later selected, retain a separate conditional budget.
+At 2,000 input/1,000 output tokens per slot, Sonnet's $0.014 and Astra's $0.070 give
+$2.772 for 33 slots each; a 25% contingency adds $0.693, for **$3.465, rounded to
+$3.50**, with a proposed **$5 ceiling**. This is a pilot allowance, not the cost of
+all Checkpoint 2 work or authorization to spend. Recheck prices and actual prompt
+counts before execution. Unknown billed timeout usage reserves the full assumed
+cap until reconciled. Reasoning counts toward provider output usage where applicable.
+
+For either route, failed, malformed, refused, incomplete and timed-out attempts
+remain in the records. There are no automatic retries; any later development or
+validation attempt has a separately registered purpose and configuration. Repeats
+never erase failure denominators, become independent samples, or authorize tuning
+on held-out data. Broader qualification and native testing require a subsequent
+budget based on measured pilot costs. Weight training is not needed for this first
+comparison.
 
 The repository's hosted adapters mark capabilities unverified and do not currently
 enable schema-constrained output. Their transport, timeout and returned-model

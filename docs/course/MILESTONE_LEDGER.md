@@ -1,5 +1,11 @@
 # AirfieldLens milestone ledger
 
+**ML-053 closes the planning discussion: B06 is a stronger FREE LOCAL comparison
+planned for Checkpoint 2.** Primary: quantized Qwen3.5-27B versus frozen 9B;
+other local candidates are conditional. No implementation/download/inference now,
+and this is not a current-checkpoint blocker. ML-052's failed results and unmet
+typed-fix gates remain unchanged. Hosted spending is not the primary plan.
+
 **ML-052 is authorized for continuous end-to-end development toward its fixed
 acceptance gate.** The latest user instruction removes the per-pass revision cap
 and repeated reopening requests. Tune only exposed development/regression cases;
@@ -274,6 +280,7 @@ not a menu of work left unassigned. Placement and delivery status remain separat
 
 | Unit | Delivery status at review | Active decision | Why this placement | Owner / next action |
 |---|---|---|---|---|
+| B06 — stronger FREE LOCAL structured-interpretation comparison | Planning decision closed; execution planned, no download/implementation/inference or accepted replacement | Checkpoint 2, explicit final user decision (ML-053); not a CURRENT blocker | Primary quantized Qwen3.5-27B versus frozen 9B, with conditional gpt-oss-20B family comparison and Qwen3.5-35B-A3B latency alternative; fit/performance unverified. | Root saves research/handoff. Later execution retains failure-inclusive local-compute accounting and unchanged six/12 then broader gates; hosted comparison is contingent fallback, not the primary plan. |
 | B02 — prompt tuning and new-question testing | Bounded candidate/report accepted; locally committed at `70948a7`; v6 promotion gate fails; v5 default restored | CURRENT / Checkpoint 1, explicit user instruction | The authorised tuning and measurement produced a preserved candidate and a defensible no-promotion decision. No new-question advantage was demonstrated. | Preserve the versioned candidate/report and failed gate unchanged. Both strict failures are accurate labelled history, not stale-as-current errors. No native v6 adoption or deployed semantic repair is claimed. |
 | B03 — question-aware scoring and new report-world comparison | Scorer remedy and 48-response measurement/report independently accepted and published at `a510d72`; both versions 22/24; #71 closed | CURRENT / Checkpoint 1, explicit user instruction | The corrected scorer accepts appropriate labelled history; varied report families reveal remaining uncertainty and identity errors in both versions. | Preserve old scores and both frozen candidates. B03 itself made no app change; ML-038 separately authorises new reliability work. |
 | B04a — ordinary-assistant identity and uncertainty repair | Ordinary offline run/replay audited: v8 known 24/24; new same-family probes v5/v8 both 24/24; final native acceptance pending | CURRENT / Checkpoint 1 | The known wrong-flight answer recovers through one actual retry, and requested readiness uncertainty is present. | Verify final native interaction and correction/clarification controls; preserve the failed v7 and original v8 guard evidence. No broader superiority claim. |
@@ -4028,3 +4035,101 @@ latency, reserve/native and publication requirements. The deployed reviewer,
 accepted runtime/history remedies, all old results, sealed reserve and final
 narrated video remain unchanged. This ledger update makes no inference call or
 implementation change.
+
+## ML-053 — Stronger-model comparison assigned to Checkpoint 2; budget includes failures
+
+4 November 2026. The user explicitly assigns the stronger-model comparison to
+NEXT milestone, Checkpoint 2. Record discrete planned unit B06; this supersedes
+its earlier CURRENT route placement. Present work remains research and budget
+planning only: implementation and inference are still deferred, not authorized by
+this placement or by an estimated cost. Preserve ML-052's actual failed tests,
+unfinished typed repair and all original results. No prior local candidate becomes
+accepted, complete or a successful fix by moving subsequent work to Checkpoint 2.
+Existing deployed review, accepted runtime/history remedies, video and sealed
+reserve remain unchanged.
+
+**B06 scope and acceptance.** Compare the researched stronger-model configurations
+for structured learner interpretation with exact evidence and independent source/
+fidelity checks. Neither hosted-model documentation nor benchmark reputation is
+application-performance evidence. When execution is resumed, freeze actual model
+versions, prompts/contracts, inputs, access boundaries and all-attempt accounting
+before calls. Preserve the initial six interpretation controls and twelve contrasts
+as qualification steps, then the broader exposed/stress, independent source/
+contract, valid frozen reserve, actual runtime/native and publication/remote-CI
+requirements. The same gold/status/quote/false-credit definitions and whole-request
+budgets remain; no gate is weakened, hidden retries added or withheld review
+counted as a correct delivered answer. Any architecture/runtime amendment or
+reserve eligibility decision remains explicit. This is one planned comparison
+unit, not new milestone counts for every prompt, failure or retry.
+
+**Failure-inclusive proposed planning allowance.** Root's budget assumes two
+candidate configurations, Sonnet and Astra, each with 18 eligible primary cases
+and a planning assumption of 2,000 input plus 1,000 output tokens per request.
+A 20% unsuccessful-attempt assumption is conservatively rounded to 24 main attempt
+slots per model: 18 primary slots plus six separately registered failure/revision
+allowance slots. This is a rounded planning envelope, not a claim that six equals
+20% of eighteen. Add three preflight and six repeat-validation slots per model:
+33 slots each, 66 total. Root's pricing assumptions give a token envelope of
+$2.772, plus 25% contingency $0.693, totaling $3.465 (approximately $3.50). A $5
+ceiling is PROPOSED, not spending approval, available credit or a guaranteed bill.
+The research note owns the exact official pricing/model/date assumptions; this
+ledger records the proposed allocation and arithmetic, not independently verified
+current prices. No credential request, provider API call or new model run occurs.
+
+Allowance slots are not automatic retries, an entitlement to use every slot, or
+permission to retune against held-out outcomes. Register each actual attempt's
+purpose/configuration/input identity before execution; preserve unsuccessful,
+partial, refused, timed-out and malformed outputs and observed/unknown usage.
+Reserve the full assumed cap for a timeout whose billed usage is unknown rather
+than treating it as free. Replacement responses never erase failed attempts or
+substitute silently into the primary denominator. Separately declare preflight,
+development/revision, primary evaluation and validation counts, with duplicate-
+input repeats reported as repeats. Any failed fresh acceptance still follows the
+existing exposure/new-reserve placement rules; the monetary contingency does not
+buy a quiet favorable rerun or a weaker gate.
+
+Root may complete the research note and planning record now. B06 execution awaits
+the user's later resumed scope; no implementation, performance conclusion, native
+promotion, issue closure or whole-course completion is claimed. The final narrated
+video SHA-256 stays
+`5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`.
+
+**ML-053 final user decision — free local comparison; planning discussion closed.**
+4 November 2026. The user explicitly selects a stronger FREE LOCAL comparison for
+Checkpoint 2 and closes this discussion. This supersedes the primary hosted
+Sonnet/Astra allocation above. B06's primary planned comparison is quantized
+Qwen3.5-27B against the frozen existing 9B configuration. A gpt-oss-20B comparison
+is conditional if an independent model-family check is needed; Qwen3.5-35B-A3B is
+a conditional latency alternative. These are planned candidates, not tested
+capabilities or accepted replacements. Ollama and MLX are research runtime options,
+not implemented integrations. Fit on the 48 GB Mac is plausible but unverified;
+no model loading, memory/latency or semantic acceptance is claimed.
+
+Planning is settled, with execution assigned to Checkpoint 2 and not a CURRENT
+blocker. No download, implementation, model call or additional comparison now.
+Root preserves the research note and handoff; do not reopen the choice or keep
+iterating this discussion. Future execution must retain exact model/quantization/
+runtime identities, the frozen baseline, all six/12 and broader acceptance gates,
+whole-request limits and independent source/fidelity/native/publication checks.
+ML-052's actual failed outcomes remain failed; the typed defect is not fixed or
+accepted by closing the planning discussion. Existing deployed behavior, historical
+results and final narrated video remain unchanged.
+
+**Local failure allowance.** Provider inference fees are planned at $0 for local
+execution; hardware, electricity and elapsed/operator time are not claimed free.
+For each actually selected configuration, preserve the conservative 20%
+unsuccessful-attempt assumption as 24 main slots for 18 primary cases, including
+six separately registered failure/revision slots. Add three preflight plus six
+repeat-validation slots: 33 slots per configuration. This is an allowance, not
+an automatic retry schedule or authorization to execute every optional candidate.
+Log failed/malformed/timed-out attempts, duplicate-input repeats, compute/device
+and wall-clock time, usage when available, and all raw outcomes. Keep primary,
+preflight, revision and validation denominators separate; wasted local compute
+must not vanish because the provider bill is zero. The no-hidden-retry and
+no-held-out-retuning rules remain unchanged.
+
+The earlier hosted token estimate and proposed $5 ceiling remain historical
+contingent-fallback planning, not the primary authorized plan or spending approval.
+No provider account, credential or paid call is requested. B06 is PLANNED for
+Checkpoint 2; its planning discussion is CLOSED. No feature completion, defect
+closure, duplicate milestone count or whole-course completion follows.

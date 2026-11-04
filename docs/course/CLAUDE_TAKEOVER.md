@@ -197,3 +197,13 @@ no new parser is implemented. ML-052 and end-to-end acceptance remain unfinished
 All old evidence and the video remain unchanged; no production promotion.
 
 **4 November 2026 — research-only steering.** The user chose a stronger-model comparison, then explicitly deferred implementation and inference. `STRONGER_MODEL_RESEARCH.md` records official-source candidates, hypothetical costs and a proposed unchanged-gate evaluation. No hosted calls, credential requests or app changes occurred. Resume execution only when requested; the local-parser option is not the chosen direction.
+
+
+**4 November 2026 — final decision, discussion closed.** B06 / ML-053 belongs to
+Checkpoint 2 and prioritizes free downloadable local models: Qwen3.5-27B against
+frozen 9B, with gpt-oss-20B as a different-family alternative and 35B-A3B as a
+latency/capacity alternative. Research note now includes unsuccessful-attempt
+compute/time allowance; hosted costs are conditional background only. No download,
+implementation or model call occurred. Do not reopen this matter or resume work
+until requested for Checkpoint 2. Moving it does not convert ML-052's failures
+into accepted fixes. App, video and all historical results remain unchanged.
