@@ -467,3 +467,100 @@ separate that knowledge from which R9 weaknesses it noticed. Advice to the
 implementer is kept to these general, exposed-derived defects to limit leakage.
 R9 contains no fresh-v2-specific wording (a 4-gram check found only two generic
 phrases also common in exposed text).
+
+## R10 exposed development review — qualified for the fresh-v2 paired run (3 November 2026)
+
+Reviewer: the same independent semantic acceptance reviewer (and fresh-v2
+author). This was a delta review of `aa98646..28f9777`. The reviewer made no
+model or GPU call, edited no implementation, fixture or gold label, and ran
+neither R10 nor any probe on fresh-v2.
+
+**Freeze and runs.** `candidate.py` is `47da262a…86b5` (version
+`typed-service-relation-review-v10`, MPS `-v10-anli-large-mps`) and
+`propositions.py` is `be36fcfc…80cf`. The `propositions.py` change is only the
+readiness question's scope relation (`clearance_authority`, then
+`readiness_authority`); its hypotheses and relevance are unchanged. All other
+locked sources, the model artifact hashes and the MPS runtime profile equal R9.
+Saved source snapshots match all three locks, and payloads and gold equal their
+fixtures. Every planned pair has a raw row: 88, 432 and 477. There are no errors,
+truncation, nonfinite probabilities or cache use, all rows come from one pinned
+model and revision, and the maximum is 479 tokens. Recomputed results are 6/6,
+24/24 and 24/24 exact, all valid answers exact, all delivered, zero false credit.
+All 63 offline mock-score tests in the relation suite pass.
+
+**Changed outputs.** No status changed in any suite. The only output change is
+first-reserve case 18. Its `scope` quote is now “They establish neither takeoff
+clearance nor completion of every remaining departure prerequisite.” This
+replaces the readiness-only sentence, so the R9 quote-relevance qualification is
+resolved. The removed pairs (1 development, 2 first-reserve) are readiness-only
+comparisons for the clearance facet. The new retraction rule applied to no
+exposed answer. All quotes remain literal, and all sources remain eligible
+same-episode reports received by the cutoff.
+
+**R9 defects rechecked with the same mock probes.**
+
+1. *Fixed (was blocking).* Only “from the/that/this cancellation” is now ignored.
+   In the fog checkpoint-3 confirm-then-retract probe, the pending sentence is
+   compared again, and `confirmation` returns `uncertain`, as R8 did, instead of
+   R9's `met`. A clause predicating a status of “that cancellation” stays a unit.
+2. *Fixed.* The takeoff clause rule no longer fires on “Little in the reports
+   shows…”, “Hardly anything indicates…”, a trailing “… in the learner guide
+   example only” or a trailing relative clause. Plain positive claims, including
+   a trailing “now”, still fire. The rule can only mark grounding contradicted.
+3. *Fixed.* “Actually/correction” again block the service-relation rule; the
+   all-neutral correction probe matches R8 (`uncertain`). The identity-context
+   narrowing that first-reserve case 2 needs is kept.
+4. *Partly addressed.* The new rule handles listed bare retractions. Unlisted
+   wording (for example “Correction: it is the other way round.”) still leaves
+   the earlier requested point credited under sentence-level scoring, as in R8.
+   Only grounding flags it. This remains a disclosed lexical limit.
+
+**New mechanisms: neither can give credit.**
+
+- `explicit-retraction-uncertainty-v1` runs after scoring. It only changes
+  `met` or `contradicted` requested points, quoted entirely before the retraction
+  sentence, into `uncertain` with an empty quote. It never touches grounding and
+  never creates `met`. A downgraded point cannot make the verdict `supported`.
+  It only fires when the sentence's remainder has no content topic, flight or
+  time. Probes confirm that it adds no credit, that a leading “Scratch that.”
+  leaves later points intact, and that “I was wrong to doubt the vehicle report”
+  does not fire. Risk, non-blocking: a pure cue used non-retractively (for
+  example “Don't read it the wrong way round.”) can downgrade a valid earlier
+  point, costing valid exactness but never giving credit. Turning a retracted
+  contradicted point into uncertain can change `needs_review` to
+  `partly_supported` when grounding is otherwise met. That is defensible for an
+  explicitly withdrawn claim, and it is not credit.
+- `clearance_authority` only admits a comparison: it needs clearance,
+  permission, authorisation, “cleared” or takeoff wording plus relation wording.
+  The classifier decides, and the hypothesis is unchanged. In an all-entailment
+  mock probe, a readiness-only answer now gets `scope: missing` instead of
+  clearance-scope credit. An answer that states both the clearance and the
+  prerequisite distinction still compares both facets.
+
+No gold, metadata, fixture path, answer whitelist or hidden fact was added. The
+threshold, model, quote limit and source-eligibility checks are unchanged. The
+new tests reuse the probe sentences this reviewer published in the R9 section;
+these come from exposed checkpoints and are not fresh-v2 text.
+
+**Decision.** Frozen R10 (`candidate.py` `47da262a…`, `propositions.py`
+`be36fcfc…`) is **qualified for the uncached fresh-v2 paired run** against the
+frozen small-NLI v2 CPU baseline. It passes 6/6 regressions and 24/24
+development, and its exposed first-reserve fit is 24/24. It has no remaining
+blocking defect, and the three R9 defects are fixed. Qualification is
+exposed-development fit only. It is not evidence of generalization, production
+readiness, native flow or ML-052 completion. The fixed fresh-v2 gates are
+unchanged: at least 10/12 valid exact, zero false credit, no newly failing
+baseline case, and valid acceptance and delivered yield at least baseline. Run
+both arms on identical payloads, with no tuning and new output directories. If
+the reserve fails, retire it to exposed evidence. Residual risks to read with
+the result: lexical coverage and retraction lists, sentence-local review of
+corrections, partial display quotes for widely separated facets, and the
+classifier's over-generous entailments.
+
+**Independence disclosure.** fresh-v2 (`cdb4e59b…`) is unchanged. This reviewer
+has not evaluated R9, R10 or any probe against it. The qualification is based
+only on R10 source, exposed runs and constructed probes. As before, the reviewer
+cannot fully separate its knowledge of fresh-v2's contents from which
+weaknesses it noticed. The R9 defects and probes it published are general and
+derived from exposed checkpoints, and the implementer used those published
+probes as tests.
