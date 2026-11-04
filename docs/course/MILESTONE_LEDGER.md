@@ -3773,3 +3773,49 @@ reserve eligibility, native and publication gates remain intact. No reserve
 authoring/use, production activation, new weights or media changes are authorized
 by this placement. ML-052 remains unfinished; prior results, deployed review and
 the final narrated video remain unchanged.
+
+**4 November 2026 — fixed-runtime plain-language capacity diagnostic.** The
+independent [Qwen acceptance review](TYPED_QWEN_FRAME_ACCEPTANCE.md) finds the
+two-pass v4 identifier-transfer hypothesis unsupported: both actor codes remain
+grouped without a valid repair chain, and numeric replacement linking regresses.
+Terminal, parseable output is not faithful interpretation. Preserve v4 and all
+earlier results; neither more warning/example stacking nor a transport change
+is justified by those failures alone. They show failure of the tested structured
+framing, not impossibility of interpretation by the pinned model.
+
+Root selects a separately versioned, learner-only plain-language capacity probe
+within CURRENT ML-052. Use exactly the same six original texts and all 23 frozen
+semantic obligations, one identical generic prompt, one call per case, unchanged
+Qwen weights/revision/profile with thinking disabled, maximum 1,000 output tokens
+and the same killable 55-second deadline. No new controls, JSON requirement,
+frame schema, report, question, rubric, grading gold, expected interpretation,
+self-score or fidelity certificate enters the prompt. Ask only for intended
+meaning, initial/corrected reading and retained qualifications/ambiguity. Preserve
+raw prose, effective settings, observed completion/EOS evidence, usage including
+unknown usage, errors and time for every case; no retries or repaired output.
+
+Freeze the new module, capacity contract, generic prompt, runtime/input hashes
+and runner summary policy before calls. The runner may load this explicitly
+registered experimental module but must not apply frame-validity counts to prose.
+Completion, faithful meaning and structured acceptance are separate fields;
+absence of a JSON schema does not make every returned answer "valid." Both
+failure and success need independent full-answer review against all original
+obligations, including unsupported named-role assignment, actual versus withdrawn
+values, correction links, `Only`/conditional/causal scope and unknown-versus-denied
+authority. No conclusion is drawn from selected favorable sentences alone.
+
+Faithful prose would establish capacity on this simpler exposed task, not a
+working structured extractor, automatic runtime fidelity decision, report checker
+or proof of why framing failed. Incorrect prose would provide semantic evidence
+without a required wire format, not a general incapacity theorem. After the
+complete independent diagnostic, choose a mechanism based on that evidence;
+do not automatically convert prose to frames or grade raw text. Thinking remains
+disabled. A later reasoning/profile ablation still requires its explicit versioned
+plan, and changed 650/350 allocation would require matched no-thinking accounting
+before attributing differences to reasoning.
+
+The broader 12 contrasts, runtime fidelity/report-grading prototype, exposed78/
+stress qualification, any replacement reserve, production/native promotion and
+publication acceptance remain blocked until their existing prerequisites pass.
+No gate, gold convention or final quotation requirement changes. ML-052 remains
+unfinished; the deployed reviewer, old results and narrated video stay unchanged.

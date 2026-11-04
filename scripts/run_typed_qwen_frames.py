@@ -28,10 +28,13 @@ def main():
     parser.add_argument('fixture', type=Path)
     parser.add_argument('--module', default='experiments.typed_qwen_frames.candidate',
                         choices=['experiments.typed_qwen_frames.candidate',
-                                 'experiments.typed_qwen_frames.claims_candidate'])
+                                 'experiments.typed_qwen_frames.claims_candidate',
+                                 'experiments.typed_qwen_frames.capacity_candidate'])
     args = parser.parse_args()
     candidate = importlib.import_module(args.module)
     VERSION, prompt_for, parse_frames = candidate.VERSION, candidate.prompt_for, candidate.parse_frames
+    output_kind = getattr(candidate, 'OUTPUT_KIND', 'structured_interpretation')
+    validity_label = 'transportValid' if output_kind == 'plain_language_diagnostic' else 'structurallyValid'
     cases = json.loads(args.fixture.read_text())['cases']
     out = args.output
     out.mkdir(parents=True, exist_ok=False)
@@ -41,6 +44,8 @@ def main():
                 ROOT/'backend/training_worker.py', ROOT/'backend/training_result.py',
                 ROOT/'docs/course/TYPED_QWEN_FRAME_CONTRACT.md'])
     sources += sorted((ROOT/'docs/course').glob('TYPED_QWEN_FRAME_*_ADDENDUM.md'))
+    if output_kind == 'plain_language_diagnostic':
+        sources.append(ROOT/'docs/course/TYPED_QWEN_CAPACITY_CONTRACT.md')
     hashes = {str(p.relative_to(ROOT)): sha(p) for p in sources}
     for path in sources:
         target = out/'source'/path.relative_to(ROOT)
@@ -49,11 +54,14 @@ def main():
     factory = FrameAdapter
     identity = factory().served_model
     settings = Settings(identity, 1000, image_max_side=672)
-    lock = dict(version=VERSION, module=args.module, sourceHashes=hashes, fixtureSHA256=sha(args.fixture),
+    lock = dict(version=VERSION, module=args.module, outputKind=output_kind,
+                sourceHashes=hashes, fixtureSHA256=sha(args.fixture),
                 fixture=str(args.fixture), model=identity, settings=asdict(settings),
                 createdAt=time.time(), runtimeProfile='apronlens-v2-mps',
                 generationTimeoutSeconds=55, retries=0,
-                stage='extraction-only; no grading or report evidence',
+                stage=('plain-language capacity diagnostic; no structured qualification or grading'
+                       if output_kind == 'plain_language_diagnostic'
+                       else 'extraction-only; no grading or report evidence'),
                 modelArtifactSHA256={p.name: sha(p) for p in sorted(model_dir('qwen3.5-9b').iterdir())
                                     if p.is_file()})
     (out/'lock.json').write_text(json.dumps(lock, indent=2)+'\n')
@@ -87,15 +95,15 @@ def main():
             rows.append(row)
             with (out/'records.jsonl').open('a') as stream:
                 stream.write(json.dumps(row, default=str)+'\n')
-            print(case['id'], 'structurally_valid', parsed is not None, error, flush=True)
+            print(case['id'], validity_label, parsed is not None, error, flush=True)
             # Do not conceal a timeout with a recovered/second attempt.
             if owner.status != 'ready':
                 break
     finally:
         owner.close()
-        summary = dict(planned=len(cases), completed=len(rows),
-                       structurallyValid=sum(r['parsed'] is not None for r in rows),
+        summary = dict(planned=len(cases), completed=len(rows), outputKind=output_kind,
                        semanticAcceptance='not assessed by this runner')
+        summary[validity_label] = sum(r['parsed'] is not None for r in rows)
         (out/'summary.json').write_text(json.dumps(summary, indent=2)+'\n')
     if any(sha(ROOT/p) != digest for p, digest in hashes.items()) or sha(args.fixture) != lock['fixtureSHA256']:
         raise RuntimeError('Frozen source or fixture changed during run')

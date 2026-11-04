@@ -1055,3 +1055,74 @@ actors add no aviation facts or expected case labels. No concrete blocker was
 found for the unchanged six-case no-retry diagnostic. Runtime/parser, budgets and
 semantic gates remain unchanged. No model call, candidate edit, new contrast/
 reserve inspection or raw repair was performed.
+
+## Actual two-pass v4 — identifier-example hypothesis unsupported
+
+The [complete v4 run](../../outputs/qwen-two-pass-v4-initial/summary.json) records
+**6/6 structurally valid pairs, twelve observed-EOS calls, no timeout or retry**.
+Records SHA-256 is
+`eaf4fc087cb0702a8d1d658ebbf46d1683b58cbb8f7c295d8090640013dc7be8`;
+stage-audit SHA-256 is
+`f2d5ecd21b631f9caff487decbc4a2cd1e95a7941b80f0a630bfd4259a78dd99`.
+All source/fixture/audit-lock hashes and exact stage-prompt reconstructions match.
+Startup took 9.462 seconds; aggregate requests took 16.455–25.299 seconds with
+133–221 output tokens. No runtime truncation, fallback or repaired result explains
+the errors; these remain exposed extraction-stage measurements.
+
+| Case | All 23 obligations, A selection and B annotation |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful, with named set, unresolved distinct roles and the same stand. |
+| 17 | `withdrawn-value`: retained/withdrawn correctly. `correction`: regresses; actual replacement again has null correctionTarget. A still isolates the repair announcement, and B now labels that announcement withdrawn, but this metalinguistic adherence issue is not a new independent gate. `estimate`, `permission-scope`: faithful. |
+| 19 | `resolved-items`, `readiness`, `unknown-permission`: faithful connected basis/readiness/Only-unconfirmed meaning, with no invented certainty. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: faithful separate selections and annotations in learner context. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful current attribution, claimed relationship and pending condition. |
+| 2 | `actor-repair`: A again groups both actor codes in one item; B now leaves the whole fragment active rather than representing withdrawal/replacement. `delay`: literal predicate/cause remain but corrected actor/link are absent. `fuel`, `baggage-unknown`, `contrast`: wording survives, but no valid corrected-actor chain supports the complete interpretation. |
+
+The initial diagnostic remains unqualified. Alphanumeric device examples did not
+fix the actor grouping, and numeric linking regressed. The controlled identifier-
+transfer hypothesis is unsupported by this run. Current evidence establishes
+failure of the tested no-thinking structured framing; it does not establish that
+the pinned model can never interpret these utterances.
+
+Further same-schema warning/example iterations are not the recommended next step.
+A separately frozen plain-language capacity diagnostic under the **same existing
+no-thinking runtime** offers a narrower test: use one generic learner-only prompt
+on the same six original texts, asking for ordinary explanation of intended meaning
+and any initial-versus-corrected reading, while preserving qualifications. No JSON,
+report facts, grading labels or self-certified score would be requested. Independent
+raw review would still inspect all 23 meanings. Correct prose would demonstrate
+that one simpler task can express the reading, not qualify structured extraction
+or identify the cause of every prior failure; incorrect prose would provide direct
+semantic evidence without wire-format confounding. This is a recommendation, not
+an authorized call or implemented candidate.
+
+Reasoning-enabled generation is a possible later same-model runtime ablation, not
+a silent continuation of the frozen no-thinking profile. It needs an explicit
+versioned placement/source plan and complete reasoning-token/EOS accounting under
+the unchanged total 1,000-token/55-second budget. Changing the stage allocation
+to 650/350 at the same time also changes a second factor: a matched no-thinking
+650/350 arm is needed before attributing a difference to reasoning mode. No profile
+change, relaxed gate or automatic fidelity permission is approved here. The
+reviewer made no model call, candidate/runtime edit, raw repair or new contrast/
+reserve inspection.
+
+## Plain-capacity v1 pre-inference source clearance
+
+Independent readback matches candidate
+`5738b50d5e2432ae93809ca82c885bf3251ddf1ef277fb501c25dd8e49656894`,
+contract `0295d0759cd0d1c22f94ddd5e213932a797d9573262f3e4a8a36dad4f941ef72`,
+and runner `04fc6a4744d4054b022887c9b5bd07cedcc36dde2174aae2f31905070daadbfc`.
+The generic prose prompt contains no examples, aviation answers, evaluator facts
+or self-grading. The same FrameAdapter/no-thinking profile, original six texts,
+1,000 output cap and 55-second isolated deadline remain. Runner changes select
+the module, snapshot the contract and label nonempty delivery `transportValid`
+rather than structured validity; inference behavior is unchanged.
+
+Independent smoke checks pass for exact learner-only prompt construction, unchanged
+input cap, rejection of empty output and false structured/fidelity/report/
+completeness flags. Deliberately supplied `{}` passes nonempty transport without
+claiming prose or semantic success, as the contract explicitly states. No concrete
+blocker was found for the bounded same-six capacity diagnostic. Its actual raw
+meaning still needs all 23 obligations reviewed and cannot qualify structured
+extraction. No generation, candidate/runtime edit, raw repair or additional
+contrast/reserve read was performed by the reviewer.
