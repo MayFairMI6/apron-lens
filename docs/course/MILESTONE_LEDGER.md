@@ -3564,5 +3564,83 @@ ML-052 remains CURRENT and unfinished; this entry records failure evidence and
 the next mechanism review, not a claim that continued iteration will necessarily
 meet the acceptance gate or that submission requirements are complete.
 
+**4 November 2026 — User-approved local Qwen interpretation route.** The user
+explicitly selects "Test the local Qwen approach" for structured interpretation
+with exact quotations and report checks, experiment-only until acceptance. Place
+this route in CURRENT under ML-052; the previous exclusion of automatic Qwen
+option 3 no longer bars this explicitly chosen approach. Root reports base
+`4fb71b4`, 535 passing tests and the verified 3.3A ambiguity guard. Those checks
+support their tested mechanical properties, not semantic qualification: the
+78 exposed cases still fail and no architecture is deployed by this decision.
+Preserve all NLI/source/context experiments and negative results, the accepted
+runtime/history corrections, current production typed reviewer and final video.
+This reviewer made no model call, code change or reserve-content inspection.
+
+**Versioned architecture contract before calls.** Keep the frozen
+[R11 contract](TYPED_REVIEW_R11_CONTRACT.md) immutable. Its section 4 pins the
+large NLI model as the inference configuration; adding a Qwen interpretation
+stage is a material architecture change even if gold, statuses and quotations
+remain identical. Root must freeze a separately versioned addendum identifying
+the actual local Qwen model/revision, prompt/schema, roles of any remaining NLI
+stage, interpretation/report separation, input boundaries, runtime ownership,
+retry limits, output/token limits and total request budget. Explicitly preserve
+the status meanings, exactness/false-credit definitions, multi-quote contract,
+source-attribution convention, same-run/cutoff rules and all semantic/native/
+publication gates. This placement does not silently amend their meaning.
+
+Begin with exposed controls and the complete exposed/stress suites. Exact
+quotation validation proves occurrence, not faithful interpretation. Require
+traceable learner assertions with actor, relation, polarity, modality/time and
+correction links; independently verify that no sentence/unsupported extra is
+omitted and that a rubric/reference answer did not supply missing learner content.
+Report checking must preserve run, receipt cutoff, source/version scope and
+unknown-versus-denied distinctions. If a stage sees expected facts, record that
+access and test answer-completion leakage explicitly; an interpretation intended
+to be learner-only must not receive those facts. Every real attempt, parse error,
+withheld answer and retry is retained. Do not substitute canned successful
+feedback, accept generated quotation/source IDs without validation, or treat
+model confidence/self-attestation as a correctness certificate.
+
+Keep interpretation and report-support errors separately measurable. A faithful
+interpretation with incorrect support, or eligible citations attached to an
+incorrect interpretation, still fails the same exact-status gate. If multiple
+calls/stages are used, enforce and measure the whole 55-second worker request
+budget, 60-second server and 90-second native limits; a per-stage budget cannot
+silently multiply the deadline. Model load/warmup, ownership, device-memory use,
+cleanup and stale-result protection need actual-runtime evidence. Existing
+runtime acceptance does not automatically cover concurrent Qwen/NLI owners or a
+new adapter. No weights, paid service or other project expansion is authorized.
+
+**Third reserve eligibility decision.** The old unread fresh-v3 remains sealed
+and is NOT eligible for Qwen-route acceptance under its original authoring
+contract. R11 explicitly says a post-run contract change voids reserves authored
+under that version; architecture approval does not waive that rule or retroactively
+repin its model. Do not open, relabel or silently reuse that file, and do not
+claim it was tested. Preserve its original hash, authorship, blind labeling and
+adjudication history as an unused ineligible reserve for this route. This is an
+architecture/contract eligibility change, not a failed third-reserve model result.
+
+No replacement reserve is automatically created or authorized for execution by
+this entry. The next reserve step is a bounded independent eligibility/placement
+review of the frozen Qwen addendum and demonstrated exposed qualification. That
+review should decide whether a newly authored reserve can validly test the new
+route, document the old-v3 disposition and explicitly authorize its authoring,
+blind labeling/adjudication and one frozen paired run. It requires no routine new
+user permission: the user has already chosen the architecture and continuous
+repair objective. A new author must be separate from implementation, output/
+failure reviewers and prior reserve readers; a different blind labeler and
+pre-inference adjudication retain the established access limits and agreement
+record. Keep baseline identity/runtime and any changed candidate quote contract
+transparent, with no hidden gold in inputs or outcome-based relabeling.
+
+Until that reserve decision, work remains exposed-only. Full exposed/stress
+qualification, source/contract review, a valid frozen acceptance comparison,
+actual native iOS typing/feedback/retry/staleness checks and publication with
+passing remote CI/readback still define the endpoint. The user-approved route is
+not a reason to weaken those gates or call old experiment completion a fix.
+No duplicate milestone count, #60/#61 closure or whole-submission completion is
+claimed. The final narrated video remains unchanged at SHA-256
+`5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`.
+
 
 **4 November 2026 — R11v3.3 ambiguity guard verified, semantic qualification still open.** The A-only implementation (`8efa29b36be79c7edbc1aaebddf82c4864f6529e04aea259355712a62d649b66`) preserves conflicting stand-availability evidence independently of actor-field supersession. Independent review reproduces the original defect and confirms both resource-specific and global completeness are now withheld. Twenty focused tests and the full 535-test suite pass (42.720 seconds). An uncached old-six replay at `outputs/scoped-content-regression-mps-r11v3-3/` has the same model inputs and assessment statuses as v3.2: 3/6 exact, 2/3 valid exact, 6 delivered, zero false-credit criteria. This verifies a bounded mechanical repair, not semantic acceptance. The proposed schema-word learner-context retrieval was rejected before inference and removed after counterexamples assigned another aircraft's or a vehicle's fuel to the preceding aircraft. No blacklist patch was retained. The broader v3.2 failures remain applicable; the third reserve and production/native promotion remain gated. A concrete question about testing the existing local Qwen model for structured interpretation is pending user choice; no model/architecture switch has occurred. Original results and video remain unchanged.

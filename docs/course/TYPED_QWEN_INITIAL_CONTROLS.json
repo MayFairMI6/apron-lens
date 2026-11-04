@@ -1,0 +1,561 @@
+{
+  "metadata": {
+    "version": "learner-only-initial-controls-v1",
+    "purpose": "Six intentionally difficult exposed extraction controls; no review-grade or population-accuracy claim.",
+    "sourceFixture": "experiments/typed_relation_review/fresh-v2.json",
+    "sourceFixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+    "runtimeInputBoundary": "Only case.input.learnerResponse may be passed to the extractor. References and annotations are evaluator-only.",
+    "annotationPolicy": "Semantic obligations are schema-neutral. Exact occurrence validation is separate from faithful interpretation. A faithful representation may use equivalent structure but must preserve every obligation without invented active claims. Unresolved on a required explicit positive obligation is withholding, not success.",
+    "selectedIndices": [
+      12,
+      17,
+      19,
+      20,
+      23,
+      2
+    ],
+    "reservePolicy": "Only exposed fresh-v2 was read. The sealed fresh-v3 remains unread and is ineligible for this Qwen route."
+  },
+  "cases": [
+    {
+      "id": "exposed-v2-12",
+      "sourceReference": {
+        "path": "experiments/typed_relation_review/fresh-v2.json",
+        "index": 12,
+        "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+        "learnerSHA256": "ce8f06ada31c33eeb55dcf06f92ff678373e21f5642ba33bd8412dbb570b0624"
+      },
+      "input": {
+        "learnerResponse": "Two aircraft are involved, TRN102 and TRN103: one of them occupies Stand B and the other is waiting for it."
+      },
+      "annotations": {
+        "semanticObligations": [
+          {
+            "id": "entities",
+            "exactWitnesses": [
+              {
+                "start": 27,
+                "end": 44,
+                "text": "TRN102 and TRN103"
+              }
+            ],
+            "meaning": "Two distinct aircraft are mentioned; neither role is assigned to a specific aircraft.",
+            "requiredAttributes": {
+              "mentionedActors": [
+                "TRN102",
+                "TRN103"
+              ]
+            }
+          },
+          {
+            "id": "occupancy",
+            "exactWitnesses": [
+              {
+                "start": 46,
+                "end": 74,
+                "text": "one of them occupies Stand B"
+              }
+            ],
+            "meaning": "An unspecified member of the two-aircraft set occupies Stand B.",
+            "requiredAttributes": {
+              "actorCandidates": [
+                "TRN102",
+                "TRN103"
+              ],
+              "actorResolution": "ambiguous",
+              "relation": "occupies",
+              "object": "Stand B",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "waiting",
+            "exactWitnesses": [
+              {
+                "start": 79,
+                "end": 106,
+                "text": "the other is waiting for it"
+              }
+            ],
+            "meaning": "The different member waits for the same Stand B; it refers to the stand, not an aircraft.",
+            "requiredAttributes": {
+              "actorCandidates": [
+                "TRN102",
+                "TRN103"
+              ],
+              "actorResolution": "ambiguous",
+              "relation": "waiting for",
+              "objectReference": "Stand B",
+              "lifecycle": "active",
+              "constraints": [
+                "occupier and waiter are different aircraft"
+              ]
+            }
+          }
+        ],
+        "mustNotInfer": [
+          "Do not assign TRN102 or TRN103 to either role from identifier order.",
+          "Do not invent a report, clearance, current time, or a third aircraft."
+        ]
+      }
+    },
+    {
+      "id": "exposed-v2-17",
+      "sourceReference": {
+        "path": "experiments/typed_relation_review/fresh-v2.json",
+        "index": 17,
+        "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+        "learnerSHA256": "7aa368eb170ce19953dd2b5e1359658fc03fc735f633d3817e017cadd98f5b4f"
+      },
+      "input": {
+        "learnerResponse": "TRN102's newest off-block target reads 10:35 — wait, let me correct that: it is 10:20. A TOBT only estimates off-block timing and grants no permission to depart."
+      },
+      "annotations": {
+        "semanticObligations": [
+          {
+            "id": "withdrawn-value",
+            "exactWitnesses": [
+              {
+                "start": 0,
+                "end": 44,
+                "text": "TRN102's newest off-block target reads 10:35"
+              }
+            ],
+            "meaning": "The initially mentioned current target value is withdrawn by the following explicit correction.",
+            "requiredAttributes": {
+              "actor": "TRN102",
+              "property": "off-block target",
+              "value": "10:35",
+              "lifecycle": "withdrawn"
+            }
+          },
+          {
+            "id": "correction",
+            "exactWitnesses": [
+              {
+                "start": 47,
+                "end": 85,
+                "text": "wait, let me correct that: it is 10:20"
+              }
+            ],
+            "meaning": "The replacement 10:20 is the active current target for the same aircraft/property; it refers to that target.",
+            "requiredAttributes": {
+              "actor": "TRN102",
+              "property": "off-block target",
+              "value": "10:20",
+              "lifecycle": "active",
+              "correctionTarget": "withdrawn-value"
+            }
+          },
+          {
+            "id": "estimate",
+            "exactWitnesses": [
+              {
+                "start": 87,
+                "end": 125,
+                "text": "A TOBT only estimates off-block timing"
+              }
+            ],
+            "meaning": "A generic target off-block time is an estimate of off-block timing.",
+            "requiredAttributes": {
+              "subject": "A TOBT",
+              "relation": "estimates",
+              "object": "off-block timing",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "permission-scope",
+            "exactWitnesses": [
+              {
+                "start": 130,
+                "end": 160,
+                "text": "grants no permission to depart"
+              }
+            ],
+            "meaning": "A TOBT does not confer departure permission; this does not deny actual permission.",
+            "requiredAttributes": {
+              "subjectReference": "A TOBT",
+              "relation": "grants",
+              "polarity": "negative",
+              "object": "permission to depart",
+              "lifecycle": "active"
+            }
+          }
+        ],
+        "mustNotInfer": [
+          "Do not retain 10:35 as the active current target.",
+          "Do not discard the correction because 10:35 appears first.",
+          "Do not convert non-conferral by an estimate into actual permission denied."
+        ]
+      }
+    },
+    {
+      "id": "exposed-v2-19",
+      "sourceReference": {
+        "path": "experiments/typed_relation_review/fresh-v2.json",
+        "index": 19,
+        "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+        "learnerSHA256": "8cdc83cb5af271ebf12900f72df6a868070eddf35ade14a01f7fb5550594a45b"
+      },
+      "input": {
+        "learnerResponse": "Readiness, yes: with fuel, bags and the hold all sorted, TRN102 is ready to depart. Only its takeoff clearance remains unconfirmed."
+      },
+      "annotations": {
+        "semanticObligations": [
+          {
+            "id": "resolved-items",
+            "exactWitnesses": [
+              {
+                "start": 16,
+                "end": 55,
+                "text": "with fuel, bags and the hold all sorted"
+              }
+            ],
+            "meaning": "Fuel, baggage and the hold are described as sorted; this is the learner-stated basis for readiness.",
+            "requiredAttributes": {
+              "items": [
+                "fuel",
+                "bags",
+                "hold"
+              ],
+              "surfaceState": "sorted",
+              "lifecycle": "active",
+              "relationToReadiness": "stated basis"
+            }
+          },
+          {
+            "id": "readiness",
+            "exactWitnesses": [
+              {
+                "start": 57,
+                "end": 82,
+                "text": "TRN102 is ready to depart"
+              }
+            ],
+            "meaning": "The learner affirmatively asserts readiness now, even if later evidence would dispute it.",
+            "requiredAttributes": {
+              "actor": "TRN102",
+              "relation": "ready to depart",
+              "polarity": "positive",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "unknown-permission",
+            "exactWitnesses": [
+              {
+                "start": 84,
+                "end": 131,
+                "text": "Only its takeoff clearance remains unconfirmed."
+              }
+            ],
+            "meaning": "Takeoff-clearance confirmation remains unknown for TRN102; only scopes this as the remaining unknown.",
+            "requiredAttributes": {
+              "actorReference": "TRN102",
+              "property": "takeoff clearance",
+              "epistemic": "unconfirmed",
+              "exclusivityOperator": "Only",
+              "lifecycle": "active"
+            }
+          }
+        ],
+        "mustNotInfer": [
+          "Do not correct asserted readiness into readiness unconfirmed.",
+          "Do not turn unconfirmed clearance into denial of clearance.",
+          "Do not invent a list of departure prerequisites.",
+          "Do not require sorted to mean an explicitly stated ground-hold release."
+        ]
+      }
+    },
+    {
+      "id": "exposed-v2-20",
+      "sourceReference": {
+        "path": "experiments/typed_relation_review/fresh-v2.json",
+        "index": 20,
+        "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+        "learnerSHA256": "5785ba43ffca33dd98be315be7b452eefd6f044369f6b51d294ad209c96799fe"
+      },
+      "input": {
+        "learnerResponse": "TRN101 has not been released: it is still held at its stand, and nothing gives it departure clearance. The tower has put low-visibility procedures in force."
+      },
+      "annotations": {
+        "semanticObligations": [
+          {
+            "id": "not-released",
+            "exactWitnesses": [
+              {
+                "start": 0,
+                "end": 28,
+                "text": "TRN101 has not been released"
+              }
+            ],
+            "meaning": "The learner denies release of TRN101.",
+            "requiredAttributes": {
+              "actor": "TRN101",
+              "relation": "released",
+              "polarity": "negative",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "held",
+            "exactWitnesses": [
+              {
+                "start": 30,
+                "end": 59,
+                "text": "it is still held at its stand"
+              }
+            ],
+            "meaning": "TRN101 remains held at its stand; no stand identifier is supplied.",
+            "requiredAttributes": {
+              "actorReference": "TRN101",
+              "relation": "held",
+              "location": "its stand",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "permission",
+            "exactWitnesses": [
+              {
+                "start": 65,
+                "end": 101,
+                "text": "nothing gives it departure clearance"
+              }
+            ],
+            "meaning": "No departure-clearance conferral is established by the stated situation; this is not an explicit denial by an authority.",
+            "requiredAttributes": {
+              "actorReference": "TRN101",
+              "relation": "gives departure clearance",
+              "polarity": "negative",
+              "scope": "conferral",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "lvp",
+            "exactWitnesses": [
+              {
+                "start": 103,
+                "end": 156,
+                "text": "The tower has put low-visibility procedures in force."
+              }
+            ],
+            "meaning": "The tower is attributed the action of putting low-visibility procedures in force.",
+            "requiredAttributes": {
+              "attribution": "The tower",
+              "property": "low-visibility procedures",
+              "value": "in force",
+              "lifecycle": "active"
+            }
+          }
+        ],
+        "mustNotInfer": [
+          "Do not create any safeguarding claim: safeguarding is absent from the answer.",
+          "Do not identify the unnamed stand from a question or report.",
+          "Do not infer takeoff clearance denied or a future release."
+        ]
+      }
+    },
+    {
+      "id": "exposed-v2-23",
+      "sourceReference": {
+        "path": "experiments/typed_relation_review/fresh-v2.json",
+        "index": 23,
+        "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+        "learnerSHA256": "095440075db79bb4ef5fe1fe0490fad9a2adc024af0e097093377ed31e701b20"
+      },
+      "input": {
+        "learnerResponse": "Airside Operations now confirms safeguarding is cancelled, and with that TRN101 holds a departure clearance; it is only staying parked until a pushback slot opens."
+      },
+      "annotations": {
+        "semanticObligations": [
+          {
+            "id": "cancellation",
+            "exactWitnesses": [
+              {
+                "start": 0,
+                "end": 57,
+                "text": "Airside Operations now confirms safeguarding is cancelled"
+              }
+            ],
+            "meaning": "Current safeguarding cancellation is attributed to Airside Operations confirmation.",
+            "requiredAttributes": {
+              "attribution": "Airside Operations",
+              "property": "safeguarding",
+              "value": "cancelled",
+              "time": "now",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "clearance",
+            "exactWitnesses": [
+              {
+                "start": 63,
+                "end": 107,
+                "text": "with that TRN101 holds a departure clearance"
+              }
+            ],
+            "meaning": "The learner asserts positive departure clearance and links it to the cancellation confirmation.",
+            "requiredAttributes": {
+              "actor": "TRN101",
+              "property": "departure clearance",
+              "polarity": "positive",
+              "lifecycle": "active",
+              "claimedBasis": "cancellation"
+            }
+          },
+          {
+            "id": "parked",
+            "exactWitnesses": [
+              {
+                "start": 109,
+                "end": 134,
+                "text": "it is only staying parked"
+              }
+            ],
+            "meaning": "TRN101 is currently parked; only qualifies the reason or duration, not clearance uncertainty.",
+            "requiredAttributes": {
+              "actorReference": "TRN101",
+              "relation": "staying parked",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "condition",
+            "exactWitnesses": [
+              {
+                "start": 135,
+                "end": 162,
+                "text": "until a pushback slot opens"
+              }
+            ],
+            "meaning": "A slot opening is a condition for ending the parked/waiting state, not an event already reported to have occurred.",
+            "requiredAttributes": {
+              "event": "a pushback slot opens",
+              "modality": "conditional pending event",
+              "temporalOperator": "until",
+              "relationToParked": "stated limiting condition"
+            }
+          }
+        ],
+        "mustNotInfer": [
+          "Do not omit the clearance claim or replace it with unconfirmed clearance.",
+          "Do not omit the learner-stated pushback-slot explanation.",
+          "Do not assert the slot has opened, pushback has started, or the aircraft has departed.",
+          "Do not import report truth to repair the learner assertion."
+        ]
+      }
+    },
+    {
+      "id": "exposed-v2-2",
+      "sourceReference": {
+        "path": "experiments/typed_relation_review/fresh-v2.json",
+        "index": 2,
+        "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+        "learnerSHA256": "fe295e3acbef449e266525e2ca3f7a498c5ced512f4598c7469a7b4ceb94c48f"
+      },
+      "input": {
+        "learnerResponse": "TRN103 — no, sorry, TRN102 — is the one being held up by the late bags. Its refuelling has been completed, but nothing received yet says those bags have been loaded."
+      },
+      "annotations": {
+        "semanticObligations": [
+          {
+            "id": "actor-repair",
+            "exactWitnesses": [
+              {
+                "start": 0,
+                "end": 28,
+                "text": "TRN103 — no, sorry, TRN102 —"
+              }
+            ],
+            "meaning": "The subject identifier is repaired before its predicate: TRN103 is withdrawn, TRN102 is the active actor.",
+            "requiredAttributes": {
+              "withdrawnActor": "TRN103",
+              "activeActor": "TRN102",
+              "repairType": "subject correction before predicate"
+            }
+          },
+          {
+            "id": "delay",
+            "exactWitnesses": [
+              {
+                "start": 29,
+                "end": 70,
+                "text": "is the one being held up by the late bags"
+              }
+            ],
+            "meaning": "TRN102 is delayed by late bags; ordinary delay wording need not assert a separately formal ground-hold authorization state.",
+            "requiredAttributes": {
+              "actorReference": "TRN102",
+              "relation": "held up by",
+              "cause": "late bags",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "fuel",
+            "exactWitnesses": [
+              {
+                "start": 72,
+                "end": 105,
+                "text": "Its refuelling has been completed"
+              }
+            ],
+            "meaning": "Completed refuelling is asserted for the corrected actor TRN102.",
+            "requiredAttributes": {
+              "actorReference": "TRN102",
+              "property": "refuelling",
+              "value": "completed",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "baggage-unknown",
+            "exactWitnesses": [
+              {
+                "start": 111,
+                "end": 164,
+                "text": "nothing received yet says those bags have been loaded"
+              }
+            ],
+            "meaning": "The received information does not confirm loading completion for the previously mentioned bags; this does not assert actual noncompletion.",
+            "requiredAttributes": {
+              "actorReference": "TRN102",
+              "objectReference": "late bags",
+              "property": "loading completion",
+              "epistemic": "no received confirmation",
+              "lifecycle": "active"
+            }
+          },
+          {
+            "id": "contrast",
+            "exactWitnesses": [
+              {
+                "start": 107,
+                "end": 164,
+                "text": "but nothing received yet says those bags have been loaded"
+              }
+            ],
+            "meaning": "Known refuelling completion is contrasted with lack of received baggage-loading confirmation.",
+            "requiredAttributes": {
+              "relation": "contrast",
+              "arguments": [
+                "fuel",
+                "baggage-unknown"
+              ]
+            }
+          }
+        ],
+        "mustNotInfer": [
+          "Do not leave both TRN103 and TRN102 as competing active actors.",
+          "Do not fabricate a completed prior assertion about TRN103 when the repair is only in the subject.",
+          "Do not convert lack of loading confirmation into factual baggage noncompletion.",
+          "Do not add departure readiness or clearance."
+        ]
+      }
+    }
+  ]
+}
