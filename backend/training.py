@@ -30,10 +30,15 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
         warmup_started=driver.clock()
         app.state.warmup = await run_in_threadpool(adapter.warmup,settings) if callable(getattr(adapter,'warmup',None)) else []
         driver.last_wall+=driver.clock()-warmup_started
-        async with original_lifespan(app):
-            print('TRAINING_READY inference warmup complete',flush=True)
-            yield
+        try:
+            async with original_lifespan(app):
+                print('TRAINING_READY inference warmup complete',flush=True)
+                yield
+        finally:
+            close=getattr(adapter,'close',None)
+            if callable(close):await run_in_threadpool(close)
     app.router.lifespan_context=ready_lifespan
+    app.state.inference_status=lambda: getattr(adapter,'status','ready')
     app.state.review_timeout_seconds=60.
     app.state.assessment_tasks=set()
     review_audit_path=review_audit_path or (Path(audit_path).with_name(Path(audit_path).stem+'-assessments.jsonl') if audit_path else ROOT/'work/training-assessments.jsonl')
@@ -145,6 +150,8 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
 def main():
     import uvicorn
     from backend.training_adapter import TrainingAdapter
+    from backend.training_worker import IsolatedTrainingAdapter
+    from functools import partial
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--exercise',choices=EXERCISES+DEMONSTRATIONS+FLEET_DEMONSTRATIONS,default='surface_conflict')
     p.add_argument('--mode',choices=('lesson','continuous','demo'),default='lesson')
@@ -156,9 +163,11 @@ def main():
     if args.exercise=='fog_restrictions':
         if args.mode!='lesson':p.error('fog_restrictions is a short practice lesson (210 source seconds); use --mode lesson, or choose fog_visibility for a one-hour demonstration.')
         if args.environment not in (None,'fog'):p.error('fog_restrictions requires its fog timeline; omit --environment or use fog.')
-    adapter=TrainingAdapter('qwen3.5-9b',profile='apronlens-v2-mps',training_role='controller_awareness',
-                            prompt_audit_path=ROOT/'work/training-prompts.jsonl')
-    adapter.load() # Preload before announcing that the service is ready.
+    factory=partial(TrainingAdapter,'qwen3.5-9b',profile='apronlens-v2-mps',
+                    training_role='controller_awareness',prompt_audit_path=ROOT/'work/training-prompts.jsonl')
+    # Construction reads metadata only. Weights and kernels belong to the child.
+    adapter=IsolatedTrainingAdapter(factory,factory().served_model,
+                    audit_path=ROOT/'work/training-worker.jsonl')
     # Model startup must not consume exercise time before a viewer can connect.
     driver=TrainingSession(args.seed,args.exercise,args.mode,audit_path=ROOT/'work/training-sessions.jsonl',environment=args.environment)
     settings=Settings(adapter.served_model,768,image_max_side=672)

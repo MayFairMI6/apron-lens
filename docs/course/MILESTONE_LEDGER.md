@@ -1,5 +1,12 @@
 # AirfieldLens milestone ledger
 
+**ML-048 accepts a bounded CURRENT worker-lifecycle correction under the user's
+new reliability authorization.** One actual local-model recovery cycle and
+post-recovery typed/ordinary compatibility checks support process isolation and
+replacement readiness, not semantic improvement or universal recovery. #62 is
+only partially remedied; #60/#61 and the incomplete #59 visual review remain open.
+Existing demo footage and the separate submission gates remain unchanged.
+
 **Checkpoint 1 feature/research scope is frozen at the accepted application and
 completed B01–B05 studies.** ML-047 records the scope freeze and unchanged demo
 footage. This is not whole-submission completion: video participation #30,
@@ -2508,3 +2515,63 @@ The scope freeze permits submission work and correction of an actually demonstra
 blocker; it does not require eliminating every research limitation. Record the
 limits honestly in the reflection/report. No claim that all substantive limitations
 or every assignment requirement has been resolved is warranted.
+
+## ML-048 — Bounded CURRENT inference-worker recovery; residual limitations retained
+
+3 November 2026. The user explicitly reopened non-user-reported corrections after
+the scope freeze, and separately included scenery/video review. Place the bounded
+inference-lifecycle remedy in CURRENT; this authorization does not require new
+weight training, another semantic tuning cycle or a new video. The independent
+reviewer inspected the worker/integration source, subsequent cleanup fixes and
+the saved receipts below. No new model execution was performed by this reviewer.
+
+**Lifecycle acceptance.** The live training entry point owns its existing model
+inside a spawned process. A failed request is not implicitly replayed. Timeout
+cleanup terminates and joins the old owner before a replacement can load and
+warm; health reflects starting/failed status rather than readiness during that
+work. The 55-second generation deadline plus two two-second cleanup waits is an
+intended budget beneath the unchanged 60-second typed-server wait, not a universal
+exact wall-clock guarantee. The native 90-second client budget is unchanged.
+Source review verified the later fixes for closed-status preservation, cleanup
+when application lifespan entry fails after warmup, and unstarted-process cleanup.
+Seven actual-spawn/fake-engine controls cover repeated hangs/crashes, initial and
+replacement startup failure, parallel rejection, close during generation/queued
+recovery and unpicklable-factory cleanup. The saved [test log](../../outputs/worker-recovery/tests.log)
+records 351 passing tests; this reviewer read the result rather than rerunning it.
+
+**Actual runtime evidence.** The [lifecycle receipt](../../outputs/worker-recovery/lifecycle.jsonl)
+records Qwen3.5-9B worker PID3014 stopped with exitcode-15 before PID3067 started;
+replacement load/warmup took18.22seconds. The preserved probe forces a120-second
+sleep at the review boundary using a temporary0.2-second deadline, then restores
+the normal55-second bound before actual inference. This demonstrates termination
+of a deliberately blocked request in a loaded real-model process, not an observed
+spontaneous MPS hang. [Smoke output](../../outputs/worker-recovery/smoke.json) and
+[typed audit](../../outputs/worker-recovery/typed.jsonl) show post-recovery typed
+feedback applied at the correct checkpoint in34.90seconds. Its supported verdict,
+three literal learner quotations and eligible report IDs agree with this saved
+response. The ordinary request also completed and passed structural validation,
+but included an unrequested readiness unknown; no semantic-effectiveness claim
+follows. These are compatibility examples through the ASGI application and an
+ordinary training turn, not a new native-phone run or benchmark.
+
+The [verification note](../../outputs/worker-recovery/README.md) preserves the
+earlier wrong-runtime startup ValueError, the successful .venv-candidates runtime,
+and exact smoke source. The real smoke preceded the minor close/start cleanup
+fixes; those changes have focused tests and source review, not an exact-final-source
+real smoke claim. Termination produced a resource-tracker warning about two
+semaphore objects cleaned at parent exit. One real-runtime recovery cycle does
+not establish repeated resource clearance or recovery from every device failure.
+Accept this bounded #62 lifecycle remedy while keeping #62 open for these limits
+and general latency; #60 semantic errors and #61 quotation failures remain open.
+Prompts, rubric, validators, weights, old research results and video were not
+changed by the remedy. Publication and GitHub update/readback are separate next
+steps, not certified by this local acceptance.
+
+**Scenery and submission boundaries.** The [partial visual-review note](../../outputs/worker-recovery/scenery-review-status.md)
+preserves the Astra review of15 existing frames with no evident false-island
+outline in those samples. The reviewer reached its account usage limit before
+regional weather cuts around04:49–05:19 and full durable visual review. This
+text-only reviewer did not inspect or substitute judgment for those images.
+#59 remains open and visual review remains incomplete; no scenery/video edit or
+whole-video acceptance is claimed. Gates #30/#31/#32 and original M2/M3 commitments
+remain separate. This correction adds no duplicate milestone task count.

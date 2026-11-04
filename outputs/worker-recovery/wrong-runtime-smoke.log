@@ -1,0 +1,88 @@
+/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/work/worker_recovery_smoke.py", line 52, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/work/worker_recovery_smoke.py", line 26, in main
+    with TestClient(app) as client:
+         ^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/testclient.py", line 572, in __enter__
+    portal.call(self.wait_startup)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/anyio/from_thread.py", line 340, in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/anyio/from_thread.py", line 265, in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/testclient.py", line 608, in wait_startup
+    await receive()
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/testclient.py", line 599, in receive
+    self.task.result()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/anyio/from_thread.py", line 265, in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/testclient.py", line 589, in lifespan
+    await self.app(scope, self.stream_receive.receive, self.stream_send.send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/applications.py", line 1181, in __call__
+    await lifespan(
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/telemetry/_runtime.py", line 238, in lifespan
+    await app(scope, wrapped_receive, wrapped_send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/middleware/errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/middleware/base.py", line 103, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/middleware/base.py", line 103, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 49, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/routing.py", line 2798, in app
+    await self.lifespan(scope, receive, send)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/routing.py", line 661, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training.py", line 31, in ready_lifespan
+    app.state.warmup = await run_in_threadpool(adapter.warmup,settings) if callable(getattr(adapter,'warmup',None)) else []
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 94, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 85, in _start
+    if kind != 'ready': raise RuntimeError('Worker startup failed: '+str(value))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Worker startup failed: ValueError

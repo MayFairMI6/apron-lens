@@ -145,7 +145,7 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
 
     @app.get('/health', dependencies=[Depends(authenticate)])
     def health():
-        return {'status': 'ready', 'provider': adapter.provider, 'model': settings.model,
+        return {'status': app.state.inference_status() if hasattr(app.state,'inference_status') else 'ready', 'provider': adapter.provider, 'model': settings.model,
                 'promptVersion': PROMPT_VERSION, 'validatorVersion': VALIDATOR_VERSION,
                 'scenarios': sorted(app.state.scenarios)}
 

@@ -1,0 +1,9 @@
+{
+  "baseCommit": "1767221a45541ecd32ffd1b25e7d30eb8256d039",
+  "trackedHistoricalOutputCount": 257,
+  "changedGitNormalizedOutputs": [],
+  "workingTreeByteDifferences": [
+    "outputs/reasoning_v1/per-query.csv"
+  ],
+  "note": "Historical reasoning_v1/per-query.csv uses CRLF in working tree under text:auto; Git-normalized content matches HEAD. No historical files were written by this pass."
+}
