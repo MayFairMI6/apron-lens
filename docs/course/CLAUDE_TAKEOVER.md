@@ -68,3 +68,17 @@ Local handoff checks: 473 unit tests passed in43.933seconds; research integrity 
 | Documentation agent | Claude subagent | This file and `MILESTONE_LEDGER.md` |
 
 **Next concrete action:** implementation agent develops R9+ on exposed data (6 regressions, 24 development cases, exposed `fresh-v1`) without GPU contention; the independent reviewer authors `fresh-v2.json`, withheld from implementation, for the next uncached reserve run. All gates are unchanged.
+
+**3 November 2026 — R9/R10 and second reserve.** Pushed commits `621a753`, `5420cdb`, `aa98646`, `89a660d`, `28f9777`, `8c450e4`, `e47dfbb`, `16dbaf7`. New reserve `fresh-v2.json` (SHA256 `cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f`, 24 cases, independently authored; second label check 24/24, non-blind). R9 was reviewed as NOT qualified (confirm-then-retract false-credit path). R10 (`candidate.py` SHA256 `47da262a...e87556d9961e7a5de4a5286b5`; 6/6, 24/24, 24/24 exposed, 0 false credit; 487 unit tests) was qualified and run once, uncached, paired with the baseline on `fresh-v2`: R10 3/24 exact, 0/12 valid exact, 21/24 delivered, false credit 12 and 17; baseline 4/24, 1/12, 22/24, false credit 9, 12, 17. Newly failing vs baseline: 8, 10, 19. R10 fails all five gates (outputs `outputs/relation-reserve2-mps-r10/`, `outputs/relation-reserve2-baseline-v2/`). Independent audit (`16dbaf7`) confirms rejection; about 13 of 21 failures are structural, and the reviewer judges the current lexical-list plus sentence-NLI architecture unlikely to reach 10/12 on an unseen reserve. `fresh-v2` is exposed; a future acceptance claim needs a third independently validated reserve. ML-052 UNFINISHED; no production promotion or native acceptance; native plan (`0858bc9`) exists, nothing executed. Full detail and the four architecture options are in ML-052.
+
+### Active ownership (updated 3 November 2026)
+
+| Role | Owner | Status |
+|---|---|---|
+| Coordinator | Claude, main session | Integration; commits/pushes to `codex/checkpoint1-controller-training` |
+| Implementation agent | Claude subagent | Idle; implementation paused pending architecture decision. No process running; GPU idle |
+| Independent semantic reviewer | Claude subagent | Idle |
+| Native verification agent | Claude subagent | Idle; plan only, nothing executed |
+| Documentation agent | Claude subagent | `CLAUDE_TAKEOVER.md` and `MILESTONE_LEDGER.md` |
+
+**Next concrete action:** user architecture decision (continue current design; redesign within scope; generative claim extraction verified by NLI; or defer/reject production adoption), then a milestone-ledger placement review before any new revision consumes a third reserve.
