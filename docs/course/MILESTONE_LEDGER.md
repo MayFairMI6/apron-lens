@@ -3476,7 +3476,6 @@ without an artificial revision cap, while ML-052 remains unfinished and earlier
 source/results, production review, narrated video and accepted runtime/history
 remedies remain preserved.
 
-
 **R11v2 uniform content-only actual result (3 November 2026).** Old6=2/6exact,2/3valid,6delivered,0falsecredit; DEV24=9/24exact,6/12valid,24delivered,0falsecredit. Source/rawoutputs in `outputs/content-only-regression-mps-r11v2/` and `outputs/content-only-development-mps-r11v2/`. Independently reviewed core statuses correct5/6old and18/24DEV; nineDEVfailures are grounding-only. R11v2 is unqualified. Independent reviewer supports a bounded source-only normalization/scope and quote-witness repair within the approved design, not a claim of eventual acceptance or necessity of Qwen. Omission, anaphora, unsupported-extra and historical/correction limitations remain. Root full515tests pass41.831seconds; this is code verification, not semantic acceptance. Next implementation is a new scoped_content module preserving v1/v2; no reserve3 consumption or production/native activity.
 
 
@@ -3484,3 +3483,83 @@ remedies remain preserved.
 
 
 **4 November 2026 — R11v3.1 actual result and next bounded repair.** Old6=3/6exact,2/3valid,5delivered; DEV24=13/24exact,8/12valid,22delivered; bothzero falsecredit. Sourceproof retrieval leak repaired; oldconfirmation quote no longer includes unrelated parked fragment; DEV16scope quote retains neededcontext. Remainingvaliddelivery failures old1/DEV4/DEV12 need earlier explicit learneraircraft context despite later sentence not beginning with a pronoun. DEV10 mixes an older cross-aircraft StandB availability assertion with later confirmation because whole-message currentness was incorrectly inferred from peractor/property factcurrentness. Next3.2 addresses those2bounded issues with explicitsource/quoteaudit, preservingactor-specificolderfacts and originalreports. No newstatus/model/gates, noreserve use, noacceptedproduction/nativeclaim. Rawruns at `outputs/scoped-content-regression-mps-r11v3-1/` and `outputs/scoped-content-development-mps-r11v3-1/`.
+
+**4 November 2026 — R11v3.2 complete evidence and strategy review.** Saved
+uncached suites report old6 3/6 exact, 2/3 valid, 6 delivered; DEV24 14/24 exact,
+9/12 valid, 24 delivered; exposed reserve1 12/24 exact, 6/12 valid, 23 delivered;
+exposed reserve2 9/24 exact, 5/12 valid, 21 delivered. Combined exposed total is
+38/78 exact, 22/39 valid exact, 74 delivered and six false-credit criteria.
+The separate [stress set](../../outputs/scoped-content-stress-mps-r11v3-2/summary.json)
+is 8/16 exact, 8/12 valid exact, 16 delivered and one false-credit criterion.
+This ledger reviewer read the latest [independent acceptance review](TYPED_REVIEW_FINAL_ACCEPTANCE.md),
+[takeover record](CLAUDE_TAKEOVER.md), exposed suite summaries and
+[cover diagnostic plan/findings](TYPED_COVER_DIAGNOSTIC_PLAN.md), without model
+calls, new images or fresh-v3 access. All broader qualification gates fail; this
+is not a production/native result. The previously exposed reserve suites are
+not silently restored to unseen status by a new implementation version.
+
+The two pending v3.3 mechanical corrections remain legitimate CURRENT repairs:
+resource ambiguity must survive unrelated actor-field supersession, and exact
+learner antecedents may guide retrieval without manufacturing learner assertions.
+Independent source/quote checks and controls should verify those properties.
+They cannot be credited with repairing wrong correction scope, ambiguous actors,
+unknown-scope substitutions, conjunctions or unrelated high-confidence entailment.
+Source eligibility and accurate context are necessary but do not make bare NLI
+a reliable semantic decision procedure. Do not spend fresh-v3 merely because
+these mechanical defects are fixed or the original 30 cases improve.
+
+**Concrete next mechanism within CURRENT R11.** After preserving the mechanical
+fix's complete results, separate learner interpretation from evidence retrieval
+in an explicit, source-span-bound assertion view. Before another broad patch,
+freeze a small exposed-only feasibility table spanning correction directions,
+competing versus unique actors, report-scope unknown versus learner uncertainty,
+and two conjuncts with an unsupported extra. Independently annotate only these
+semantic attributes from learner text: exact span, candidate/explicit actor,
+predicate/object, polarity, uncertainty/modal scope, temporal scope and explicit
+withdrawal/correction links. These are development annotations for testing the
+mechanism, not inference answers or a new grading convention. The runtime must
+derive any such view uniformly from the actual learner text; it must never read
+annotated frames, report truth or rubric gold to supply missing learner content.
+
+Implement only a bounded, independently reviewed discourse/composition mechanism
+whose transformations retain exact spans and whose rules are stated before the
+next calls. A correction can mark a withdrawn assertion without deleting its
+history from the audit; competing actor candidates must not be resolved from the
+expected answer. Broad readiness unknown cannot be substituted for specific
+clearance unknown. Independent conjuncts and unsupported additions must retain
+separate support obligations; unrecognized syntax/attribution remains uncertain
+and counts against valid acceptance. Preserve the original full answer as an
+audited control, and do not select whichever original/normalized premise gives
+the preferred score. Frame association/aggregation and disagreement behavior must
+be uniform and frozen; NLI may judge content relations after scope is established,
+but a high score cannot supply missing scope or override unresolved ambiguity.
+
+This is a bounded structural/discourse correction inside the chosen R11 redesign,
+not automatic approval of a general semantic parser, phrase whitelist, new model,
+weights, threshold, Qwen option 3 or scripted answers. Root should first show
+that the proposed deterministic/same-model mechanism can derive those attributes
+on exposed controls without response-specific exceptions. Review its errors
+separately from downstream evidence support. If that feasibility is not supported,
+another source-only or quotation patch does not answer the demonstrated semantic
+problem: bring the concrete extraction/design alternative for independent
+placement, with keep-current-reviewer/no-adoption as the comparison. The user's
+continued-work authorization remains valid; no routine reopening question or
+artificial revision cap is imposed, but a material model/architecture choice is
+not silently bundled into a mechanical fix.
+
+**Cover evidence boundary.** The frozen 70-pair cover diagnostic distinguished
+two constructed omission-versus-explicit-uncertainty pairs. It does not prove
+general coverage: reverse non-entailment can also result from an unsupported
+extra, correction history, entity mismatch, incomplete cover or classifier error.
+Do not make reverse entailment a global missing certificate or let its score
+grant met/grounding. Any use needs its own uniform rule, exact-answer retention
+and independent exposed contrast checks; no case-by-case cover or premise choice.
+
+All existing five gates remain unchanged. The unread third reserve stays frozen
+and unavailable until full exposed/stress qualification and independent source/
+contract review. Actual fresh-v3 failure still requires the recorded placement
+review rather than automatic reserve replacement. Production review, accepted
+runtime/history remedies, original results and narrated video remain unchanged.
+ML-052 remains CURRENT and unfinished; this entry records failure evidence and
+the next mechanism review, not a claim that continued iteration will necessarily
+meet the acceptance gate or that submission requirements are complete.
