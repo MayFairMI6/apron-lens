@@ -1,0 +1,9 @@
+{
+  "arm": "on",
+  "thinkingEnabled": true,
+  "planned": 6,
+  "attempted": 0,
+  "startupError": "RuntimeError: Worker startup failed: RuntimeError",
+  "structurallyValid": 0,
+  "semanticAcceptance": "not assessed; all final meanings require independent review"
+}

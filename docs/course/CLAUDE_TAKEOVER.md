@@ -165,3 +165,17 @@ The same frozen source was evaluated uncached on all 78 exposed cases and the se
 
 
 **4 November 2026 — discourse-first v2 remains below acceptance.** Source `5e5527b` completed the same six-input diagnostic at `outputs/qwen-discourse-first-v2-initial/`, with five structurally valid combined outputs. The numeric map now binds exact source mentions, but extraction links its replacement to an old claim still marked active; the validator rejects that inconsistency. The actor correction remains missed by the map stage. The cancellation relationship is retained again. Independent all-obligation audit is pending. A separately controlled same-model reasoning-mode ablation is proposed for review, not yet implemented or run. Current deployed behavior, all earlier evidence and the video remain unchanged.
+
+
+**4 November 2026 — reasoning ablation v1 transport failures preserved.**
+Source `7d0269c` passed 642 tests in 43.102 seconds and the backbone boundary.
+At `outputs/qwen-reasoning-ablation-v1/`, OFF attempted six and rejected all six
+for trailing chat-end markers; ON exhausted its 128-token warmup and attempted
+zero questions. No meaningful ON/OFF accuracy comparison is available. A versioned
+transport correction uses the tokenizer's explicit chat-end EOS in both arms and
+raises both startup allowances to 1,000 tokens while keeping learner deadlines
+and caps fixed. Independent source clearance is pending before a fresh run.
+All 411 original evidence files and the narrated video match recorded hashes.
+The contrast set, full qualification and production/native promotion remain gated.
+
+**V2 pre-call verification:** independent source review cleared the explicit chat EOS and matched startup correction; 644 full tests passed in 42.920 seconds and the backbone boundary check passed. Fresh inference remains a separate acceptance step.

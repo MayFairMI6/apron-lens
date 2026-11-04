@@ -1381,3 +1381,62 @@ Actual delivery, paired meanings and all 23 obligations still require assessment
 no reasoning benefit, fidelity/report permission or complete-task acceptance is
 certified. No model call, candidate edit, raw repair or new contrast/reserve read
 was performed by the reviewer.
+
+## Actual reasoning ablation v1 — failed transport and startup, no ON comparison
+
+The [complete v1 pair](../../outputs/qwen-reasoning-ablation-v1/summary.json)
+preserves **OFF six attempts/six EOS/zero valid frames; ON zero assessment attempts**.
+OFF records SHA-256 is
+`f63d5cc38247ae41f74a57b8d05ff3e00f80fd5e76b554894bc0c96b9217e493`.
+OFF generation-audit hash is
+`480911ea59f48c7e44b2eb959227cabef62f898cff5176fbae5236d9e118353d`;
+ON generation-audit hash is
+`82a5614ef57e7912501092f8915400a979b6d897ea81ed49435155629dad7865`.
+All frozen source/fixture hashes and exact OFF prompts independently match.
+OFF startup took 9.342 seconds and assessment requests 9.625–14.624 seconds.
+ON startup failed after 29.497 seconds: its neutral warmup exhausted 128 generated
+tokens with LENGTH and no EOS. No ON learner output or semantic comparison exists.
+
+Every OFF response generated JSON followed by 248046 (`<|im_end|>`), newline token
+198 and configured EOS 248044 (`<|endoftext|>`). V1 correctly preserved the chat
+marker and strict JSON parsing rejected extra data. No marker was retrospectively
+stripped and no answer reclassified. Local artifacts independently show tokenizer
+EOS 248046 and message-template termination at that token, while text configuration
+supplies EOS 248044; no separate generation-config file supplies the union.
+
+| OFF case | Raw intent across all 23 obligations; none is an accepted frame |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful unnamed distinct roles/set/stand. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: faithful, including withdrawal/replacement link. |
+| 19 | `resolved-items`: stated basis retained but confirmation invented. `readiness`: original positive assertion remains separately. `unknown-permission`: Only-unconfirmed meaning retained. Extra confirmation still fails fidelity. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: faithful connected meanings. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful, including claimed link and pending condition. |
+| 2 | `actor-repair`: withdrawn fragment/active corrected actor are present, but replacement link is null. `delay`: correct positive TRN102 delay. `fuel`: completion wording survives but an unresolved note falsely ignores its antecedent. `baggage-unknown`, `contrast`: faithful in connected context. |
+
+All 23 ON obligations have no assessment result, not a score of semantic failure
+from completed answers. The study failed feasibility/delivery and supplies no
+claim that thinking helps or harms these meanings. All planned/attempted counts
+and startup failure remain visible.
+
+## Reasoning ablation v2 transport/startup correction and source clearance
+
+A fresh version explicitly passes the base EOS IDs plus independently verified
+chat-end 248046 to generation in both arms, with no base-config mutation. Stopping
+at an actual message boundary is a generation policy, not deletion from v1 output.
+Any content after an earlier effective EOS still rejects; all other special tokens
+remain preserved. Both warmups now have 1,000 generated tokens under the existing
+300-second startup limit. Each assessment remains one 1,000-all-token/55-second
+call. Both arms rerun fresh; no warmup retry, automatic increase or historical
+OFF substitution is authorized.
+
+Independent source/contract/test readback matches runtime
+`f44f9e3cc71357377bc8f628767cee368166948037d20067761de4d6083a7623`,
+runner `af678dca5897d5f2efe7cfec2b05b9b7e58f6917aa574db4ed06ad5f4791d750`,
+runtime tests `2dcd11da383a22d42b6cd8f8761f3fc403d5b279d96dec79422be84fcdad5113`,
+and contract `1165b7cd7256f51ca3b75dce48efac6c48492feb6c3803e8a2ad39bbf8b66094`.
+Immutable v6 still matches `da73694...`; the pure helper is unchanged. All 109
+focused offline controls independently pass in 1.172 seconds, including actual
+chat-EOS union, unmutated base and rejection of post-EOS content. No concrete
+blocker remains for the new matched v2 diagnostic. Actual paired meanings/delivery
+remain pending; no model call, candidate edit, output repair or additional contrast/
+reserve read was performed by the reviewer.

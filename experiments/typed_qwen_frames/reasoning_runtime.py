@@ -10,7 +10,7 @@ from modelaccess.contract import Request, ProviderReply, FinishReason, Usage
 from .runtime import FrameAdapter
 from .reasoning_protocol import split_generated, ProtocolError
 
-EXPERIMENT_VERSION = 'qwen-reasoning-ablation-v1'
+EXPERIMENT_VERSION = 'qwen-reasoning-ablation-v2'
 
 
 class ReasoningFrameAdapter(FrameAdapter):
@@ -38,9 +38,12 @@ class ReasoningFrameAdapter(FrameAdapter):
             raise ValueError('Ablation cannot exceed 1000 generated tokens')
         engine = self.load()
         tokenizer = engine.processor.tokenizer
-        for marker, expected in (('<think>', 248068), ('</think>', 248069)):
+        for marker, expected in (('<think>', 248068), ('</think>', 248069), ('<|im_end|>', 248046)):
             if tokenizer.encode(marker, add_special_tokens=False) != [expected]:
                 raise ValueError('Pinned thought token protocol does not match tokenizer')
+        configured_eos = engine.model.generation_config.eos_token_id
+        base_eos = [configured_eos] if isinstance(configured_eos, int) else list(configured_eos or [])
+        eos = list(dict.fromkeys([*base_eos, 248046]))
         base_kwargs = dict(engine.template_kwargs)
         if base_kwargs.get('enable_thinking') is not False:
             raise ValueError('Unexpected base template profile')
@@ -53,7 +56,8 @@ class ReasoningFrameAdapter(FrameAdapter):
         self._audit('generation_started', requestId=request.request_id,
             renderedInput=rendered, renderedInputSHA256=rendered_hash,
             baseTemplateKwargs=base_kwargs, effectiveTemplateKwargs=kwargs,
-            maxGeneratedTokens=request.settings.max_output_tokens)
+            maxGeneratedTokens=request.settings.max_output_tokens,
+            baseEosTokenIds=base_eos, effectiveEosTokenIds=eos)
         inputs = engine.processor(text=[rendered], images=None, return_tensors='pt').to(engine.device)
         input_ids = inputs['input_ids'][0].cpu().tolist()
         input_hash = hashlib.sha256(json.dumps(input_ids, separators=(',', ':')).encode()).hexdigest()
@@ -62,12 +66,10 @@ class ReasoningFrameAdapter(FrameAdapter):
                     inputTokenCount=len(input_ids), renderedInputSHA256=rendered_hash)
         with engine.torch.inference_mode():
             output = engine.model.generate(**inputs, max_new_tokens=request.settings.max_output_tokens,
-                                          do_sample=False)
+                                          do_sample=False, eos_token_id=eos)
         engine.torch.mps.synchronize()
         count = int(inputs['input_ids'].shape[1])
         ids = output[0, count:].cpu().tolist()
-        eos = engine.model.generation_config.eos_token_id
-        eos = [eos] if isinstance(eos, int) else list(eos or [])
         terminal = ids[-1] if ids else None
         stopped = terminal in eos
         finish = (FinishReason.STOP if stopped else FinishReason.LENGTH
@@ -91,7 +93,7 @@ class ReasoningFrameAdapter(FrameAdapter):
             'effectiveTemplateKwargs': kwargs, 'renderedInputSHA256': rendered_hash,
             'inputTokenIdsSHA256': input_hash,
             'rawGeneratedTokenIds': ids, 'rawDecodedText': raw,
-            'terminalTokenId': terminal, 'eosTokenIds': eos, 'observedEOS': stopped,
+            'baseEosTokenIds': base_eos, 'terminalTokenId': terminal, 'eosTokenIds': eos, 'observedEOS': stopped,
             'segments': segment, 'protocolError': error,
             'fidelityVerified': False, 'reportCheckAllowed': False}
         usage = Usage(count, len(ids), None if segment is None else segment['reasoningTokenCount'], 0, 0)
@@ -110,8 +112,8 @@ class ReasoningFrameAdapter(FrameAdapter):
 
     def warmup(self, settings):
         result = self.review(Request('reasoning-warmup', (('user', 'Reply with the word ready.'),),
-                                     replace(settings, max_output_tokens=128)))
+                                     replace(settings, max_output_tokens=1000)))
         if not result.ok or result.finish_reason != FinishReason.STOP:
             raise RuntimeError('Matched ablation warmup failed observed completion/protocol')
         return dict(runtime=result.metadata, usage=asdict(result.usage),
-                    finishReason=result.finish_reason.value, warmupOutputCap=128)
+                    finishReason=result.finish_reason.value, warmupOutputCap=1000)

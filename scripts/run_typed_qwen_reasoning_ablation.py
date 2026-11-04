@@ -54,8 +54,9 @@ def main():
                 model=identity, settings=asdict(settings), createdAt=time.time(),
                 baseRuntimeProfile='apronlens-v2-mps', armOrder=['off', 'on'],
                 soleArmFactor='enable_thinking', generationTimeoutSeconds=55,
-                allGeneratedTokensCap=1000, warmupGeneratedTokensCap=128,
+                allGeneratedTokensCap=1000, warmupGeneratedTokensCap=1000,
                 startupTimeoutSeconds=300, retries=0,
+                eosPolicy='base generation EOS union verified chat-end token 248046',
                 modelArtifactSHA256={p.name: sha(p) for p in sorted(model_dir('qwen3.5-9b').iterdir())
                                     if p.is_file()})
     (out/'lock.json').write_text(json.dumps(lock, indent=2)+'\n')

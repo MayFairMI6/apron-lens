@@ -3926,3 +3926,45 @@ for a regressed numeric correction. The later 12 contrasts, runtime fidelity,
 report checking, exposed/stress qualification, valid reserve process, native and
 publication gates remain unchanged and unmet. No reserve read, production change,
 new weights or media edit is authorized. ML-052 remains unfinished.
+
+**4 November 2026 — reasoning ablation v1 actual protocol failure; v2 pending
+clearance.** The saved [v1 summary](../../outputs/qwen-reasoning-ablation-v1/summary.json)
+records twelve planned questions, six attempted OFF and zero attempted ON.
+OFF produces six terminal completions but all six fail strict final parsing:
+generation continued beyond genuine chat-end token 248046, adding a newline and
+base EOS 248044. ON exhausts its 128-token warmup allowance with LENGTH after
+29.497 seconds, failing startup before any learner question. Root reports source
+`7d0269c` pushed on PR #22. This is a completed failed transport/startup diagnostic,
+not a paired semantic result, reasoning benefit or model-incapacity conclusion.
+Old outputs remain raw failures; no marker is stripped to repair them or old OFF
+answer substituted for a new comparison.
+
+The [versioned contract's v2 amendment](TYPED_QWEN_REASONING_ABLATION_CONTRACT.md)
+is a bounded CURRENT experimental transport/startup correction. It explicitly
+passes both verified chat EOS 248046 and base EOS 248044 as effective generation
+stops in BOTH arms. Local tokenizer configuration declares 248046, the template
+uses it, and base generation uses 248044. Effective union stops new generation
+at a declared message boundary; it does not authorize text stripping, JSON search
+or post-hoc cleanup. Preserve raw token IDs/text, base/effective IDs, observed
+stop and exact suffix evidence; content after an earlier effective EOS still
+fails, and unrelated special tokens remain visible to strict parsing. Shared
+model/runtime defaults and weights remain unchanged.
+
+V2 also changes matched startup warmup to 1,000 tokens in both arms under the
+existing 300-second startup limit. The learner cap remains 1,000 aggregate tokens
+and the single 55-second request deadline in BOTH arms. Keep the immutable v6
+control, original six texts/23 obligations, unchanged arm factor and no-retry/
+fallback policy. All twelve planned learner calls need a fresh directory and
+separate OFF/ON records; startup failures retain zero attempted-question counts.
+Warmup is synthetic preparation, not learner response, semantic evidence or
+permission to change question budgets. Do not merge v1 and v2 as one matched run.
+
+This ledger reviewer read the saved summary, ON startup receipt, latest independent
+review and appended contract, without model or reserve access. Independent code/
+test-source clearance for v2 remains pending; root reports 22 focused tests pass
+and the full suite is running. Those provisional checks do not authorize a call
+before frozen source readback. Root also reports the earlier 411 artifact hashes
+and final narrated-video hash unchanged; keep preservation receipts with the new
+run rather than claim the failed diagnostic fixed anything. No structural or
+semantic acceptance, 12-contrast expansion, report/fidelity stage, reserve use,
+production/native promotion or completion follows. ML-052 remains unfinished.

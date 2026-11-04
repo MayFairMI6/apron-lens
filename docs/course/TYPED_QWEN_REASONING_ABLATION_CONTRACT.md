@@ -136,3 +136,31 @@ text nor searches for JSON. Its acceptance is not fidelity or a final parse. The
 caller retains all raw tokens and errors, checks decoded nonempty text and applies
 the unchanged v6 parser. Experimental runtime/runner source and integration tests
 still require independent frozen readback before calls.
+
+
+## Version 2 transport correction, 4 November 2026
+
+Version 1 is preserved at `outputs/qwen-reasoning-ablation-v1/`. Its OFF
+arm attempted six questions and rejected all six for a trailing chat-end marker.
+Its ON arm exhausted the 128-token startup allowance, so zero questions were
+attempted. These are failures, not retrospectively repaired successes.
+
+The local tokenizer configuration declares `<|im_end|>` (248046) as its EOS;
+the model text configuration supplies `<|endoftext|>` (248044). The local chat
+template terminates messages with 248046. Version 2 explicitly passes the union
+of the base generation EOS IDs and verified chat-end token 248046 to generation
+in both arms. It records base and effective IDs and validates the tokenizer's
+exact marker encoding. This stops generation at the actual message boundary;
+it does not remove a marker from an already returned answer. Any content after
+an earlier effective EOS is rejected. Other special tokens remain in the final
+suffix for strict parsing. The model files and shared runtime defaults stay
+unchanged.
+
+Both startup warmups now receive 1,000 generated tokens instead of 128, using
+the same ready prompt and existing 300-second startup limit. This changes only
+the matched startup allowance; each learner request retains its 1,000-token
+aggregate generation cap and 55-second worker deadline. Both arms are freshly
+run in a new output directory. The unchanged v6 control, six inputs, independent
+23 meanings, no-retry rule and separate structural/semantic reporting remain.
+No historical answer is reclassified or substituted into the new comparison.
+This version requires independent source clearance before its first model call.

@@ -23,7 +23,7 @@ class Processor:
         self.decode_calls = []
         self.final_text = final_text
         self.tokenizer = SimpleNamespace(encode=lambda text, **_: [
-            248068 if text == '<think>' else 248069])
+            {'<think>': 248068, '</think>': 248069, '<|im_end|>': 248046}[text]])
 
     def apply_chat_template(self, messages, **kwargs):
         self.calls.append((messages, kwargs))
@@ -36,7 +36,7 @@ class Processor:
 
     def batch_decode(self, batch, *, skip_special_tokens, clean_up_tokenization_spaces):
         self.decode_calls.append((skip_special_tokens, clean_up_tokenization_spaces))
-        is_full_generation = any(t in (9, 248068, 248069) for t in batch[0])
+        is_full_generation = any(t in (9, 248046, 248068, 248069) for t in batch[0])
         return ['RAW:'+repr(batch[0]) if is_full_generation else self.final_text]
 
 
@@ -133,12 +133,31 @@ class ReasoningRuntimeTests(unittest.TestCase):
         self.assertFalse(result.ok)
         engine.model.generate.assert_not_called()
 
-    def test_both_warmups_receive_identical_128_token_cap(self):
+    def test_chat_eos_is_passed_to_generation_without_mutating_base(self):
+        for thinking, ids in ((False, [42, 248046]), (True, [7, 248069, 42, 248046])):
+            adapter, engine, request = self.adapter(thinking, ids)
+            result = adapter.generate(request)
+            self.assertTrue(result.ok)
+            self.assertEqual(result.finish_reason, FinishReason.STOP)
+            self.assertEqual(result.metadata['terminalTokenId'], 248046)
+            self.assertEqual(result.metadata['baseEosTokenIds'], [9])
+            self.assertEqual(engine.model.generate.call_args.kwargs['eos_token_id'], [9, 248046])
+            self.assertEqual(engine.model.generation_config.eos_token_id, [9])
+            self.assertEqual(result.metadata['segments']['finalTokenIds'], [42])
+
+    def test_post_chat_eos_content_is_rejected_not_stripped(self):
+        adapter, _, request = self.adapter(False, [42, 248046, 198, 9])
+        result = adapter.generate(request)
+        self.assertFalse(result.ok)
+        self.assertIsNotNone(result.metadata['protocolError'])
+        self.assertEqual(result.metadata['rawGeneratedTokenIds'], [42, 248046, 198, 9])
+
+    def test_both_warmups_receive_identical_1000_token_cap(self):
         for thinking, ids in ((False, [42, 9]), (True, [7, 248069, 42, 9])):
             adapter, engine, request = self.adapter(thinking, ids, 'ready')
             response = adapter.warmup(request.settings)
-            self.assertEqual(response['warmupOutputCap'], 128)
-            self.assertEqual(engine.model.generate.call_args.kwargs['max_new_tokens'], 128)
+            self.assertEqual(response['warmupOutputCap'], 1000)
+            self.assertEqual(engine.model.generate.call_args.kwargs['max_new_tokens'], 1000)
 
 
 if __name__ == '__main__':
