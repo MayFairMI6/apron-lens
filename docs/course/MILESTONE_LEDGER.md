@@ -3873,3 +3873,56 @@ blocked until their existing prerequisites pass. No implementation, model call,
 new profile, report stage, reserve access or production acceptance is approved
 by this contract-stage placement. Video, deployed review and old results remain
 unchanged; ML-052 continues unfinished.
+
+**4 November 2026 — matched same-Qwen reasoning ablation placement.** Root
+reports discourse-first v2 still misses the actor-repair map and rejects the
+numeric final lifecycle/link despite correcting its exact first-pass spans.
+Preserve the complete run for independent review; no more warning stacking is
+presumed to resolve it. A controlled reasoning-mode diagnostic remains CURRENT
+within the user's explicit local-Qwen experiment and continued-repair authority.
+This is a material experimental runtime configuration, requiring a separately
+versioned addendum/source clearance before implementation/calls, not another user
+permission question and not a silent override of the thinking-disabled contract.
+
+Use the frozen original SINGLE-PASS v6 candidate
+`da73694d3c3caeeb08fc43039f64f7edfcd93dfdee32a5e7ad355ea90153b0b1`
+with its five-field parser and unchanged prompt, six original learner texts and
+23 meaning obligations. Compare freshly executed OFF/ON arms with only the actual
+chat-template `enable_thinking` factor changed. Keep weights/revision, device,
+dtype, greedy decoding, input/schema/parser, 1,000 aggregate generated-token cap
+and one 55-second isolated request deadline identical. No two-stage 500/500 or
+650/350 allocation, added example or altered correction policy accompanies this
+ablation. The earlier v6 result is preserved context, not a substitute for the
+matched fresh OFF arm. All six cases in both arms count, including failed output.
+
+Freeze the exact profile/template override and verify it is actually applied by
+the engine; record effective metadata rather than relying on a prompt sentence.
+Thought and final tokens BOTH consume the 1,000-token/55-second allowance. Parse
+thought/final boundaries only from pinned tokenizer/template token structure,
+with raw generated token IDs/text and observed terminal evidence retained. An
+unclosed thought segment, absent final answer, nonterminal output or malformed
+final JSON is a failed request, never repaired or treated as valid hidden content.
+Do not strip arbitrary prose or search for favorable JSON. Freeze the distinction
+between supported channel splitting and output repair before calls. The final
+frame parser/semantics remain unchanged. Reasoning text is untrusted model output,
+not learner evidence, report support or a fidelity certificate.
+
+Each arm loads its own isolated owner sequentially, with identical synthetic
+128-token warmup allowance and existing 300-second startup limit, avoiding the
+old 16-token warmup as an asymmetric thinking-mode failure. Retain startup and
+warmup failures, effective thought/final token counts, all raw output and timings;
+no fallback, retry, cache reuse or concurrent model owner. Warmup does not advance
+learner time or enter history. Actual inference checks the total budget, including
+channel splitting/parsing and return transport. Shared-profile/engine defaults
+and production behavior remain unchanged; any experimental override must be local.
+
+Independently inspect all twelve actual final interpretations against every
+frozen obligation. Report transport/EOS, structure, faithful complete meanings,
+partial/unsupported meanings, timeouts and latency separately. Do not expose or
+summarize generated reasoning as an authoritative explanation of the learner.
+An improvement is an exposed paired configuration result, not general reasoning
+superiority or automatic acceptance; a restored actor repair cannot compensate
+for a regressed numeric correction. The later 12 contrasts, runtime fidelity,
+report checking, exposed/stress qualification, valid reserve process, native and
+publication gates remain unchanged and unmet. No reserve read, production change,
+new weights or media edit is authorized. ML-052 remains unfinished.

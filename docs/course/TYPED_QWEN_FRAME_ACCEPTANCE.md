@@ -1271,3 +1271,113 @@ the bounded proposal without adding aviation answer facts. No concrete blocker
 was found for the unchanged six-case no-retry diagnostic. Parser/runtime, budget,
 original meanings and gates remain fixed. No model call, candidate edit, raw repair
 or additional contrast/reserve inspection occurred.
+
+## Actual discourse-first v2 — exact numeric map, invalid withdrawal
+
+The [complete v2 run](../../outputs/qwen-discourse-first-v2-initial/summary.json)
+records **6/6 valid maps, 5/6 valid final frames, twelve observed-EOS calls**, with
+no timeout or retry. Records SHA-256 is
+`d6b7c69279ae499038b2966411d2f32ecf3e5b6f1ecd1cfdaba86f9a10837ded`;
+stage-audit SHA-256 is
+`ab5aa5e3a1dbbec2a100e815017e60357cb5215c3a33855c08d813649b6f365b`.
+All source/fixture/audit-lock hashes and exact stage-prompt reconstructions match.
+Startup took 9.540 seconds; requests took 12.668–29.045 seconds with 108–271 tokens.
+These remain exposed extraction-diagnostic measurements.
+
+| Case | Map audit and all 23 final obligations |
+|---:|---|
+| 12 | Correct empty map; `entities`, `occupancy`, `waiting` faithful. |
+| 17 | A now correctly maps exact old/cue/new values and complete-assertion scope. `withdrawn-value` fails in B: old 10:35 is active. `correction` has a target and assignment but illegally links to that active old item; parser correctly rejects. `estimate`, `permission-scope` survive as raw meanings in a compound, not an accepted final extraction. |
+| 19 | Correct empty map; `resolved-items`, `readiness`, `unknown-permission` faithful, including original certainty and Only scope. |
+| 20 | Correct empty map; `not-released`, `held`, `permission`, `lvp` faithful. |
+| 23 | Correct empty map; `cancellation`, `clearance`, `parked`, `condition` now faithful, including restored `with that`. |
+| 2 | Incorrect empty map still misses actor correction. `actor-repair` is copied as an active compound without withdrawn/replacement structure. `delay`, `fuel`, `baggage-unknown`, `contrast` remain literal but no valid corrected-actor chain is represented. |
+
+The actual usable numeric-map path is now exercised and fails its withdrawal
+constraint; this is distinct from the correctly rejected nonexact map in v1.
+The actor false negative persists. Initial qualification remains unmet, and another
+same-mode prompt warning is not the recommended next step.
+
+The preferred next diagnostic is a separately versioned paired reasoning-mode
+ablation using the immutable original one-pass v6 five-column candidate
+(`da73694d3c3caeeb08fc43039f64f7edfcd93dfdee32a5e7ad355ea90153b0b1`).
+Fresh OFF and ON arms would share the exact prompt/parser, six inputs, pinned
+model/artifact, greedy settings, one call, total 1,000-token cap and 55-second
+deadline; only the supported thinking-template setting differs. This simpler
+paired task avoids stage-allocation and failed-second-stage confounding of a
+selection-only thinking test. It requires explicit runtime-addendum/ledger
+placement and frozen-source review before calls, not a silent change to the
+existing no-thinking profile.
+
+All generated thinking, final text and termination tokens must count within the
+same cap/deadline. Preserve full raw text/token IDs; extract final content only
+through verified model-protocol thought closure, never a search for convenient
+JSON or repaired fences. Missing closure/EOS, truncation and timeout remain
+failures. The proposed 128-token warmup must be identical across arms, with the
+same separate startup bound and no retries. All 23 meanings require independent
+review and correct output on exposed controls is not generalization evidence.
+No reasoning runtime, source change, model call, raw repair or new contrast/
+reserve inspection was performed or approved by this audit alone.
+
+## Paired reasoning-ablation pre-implementation plan clearance
+
+Independent end-to-end review of `TYPED_QWEN_REASONING_ABLATION_CONTRACT.md` finds
+no concrete blocker. Fresh OFF/ON arms use immutable v6, the same six/23 controls,
+one 1,000-token/55-second call, identical 128-token warmup and startup bounds;
+only the declared thinking-template argument differs. Planned and attempted counts
+must remain distinct on startup failure; old OFF responses cannot substitute.
+
+A local artifact read, without model loading, independently confirms tokenizer
+IDs 248068/248069 for opening/closing thought markers and template hash
+`a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715`.
+The template explicitly prefills a closed empty thought for OFF and an open thought
+for ON. The proposed token-only closure/EOS boundary, raw evidence preservation,
+all-generated-token accounting and unchanged strict final parser match the study.
+No JSON search, fence cleanup, partial-output substitution or reasoning-based
+semantic excuse is permitted. Pure helper/runtime/source freezes and controls
+remain required before inference; this is plan clearance only, not evidence of
+reasoning benefit, qualification or report permission. No model call, candidate
+edit, raw repair or additional contrast/reserve read occurred.
+
+## Reasoning ablation pre-call source findings
+
+The immutable v6 copy independently matches its required `da73694...` hash.
+Pure protocol helper `804526d0135daa33f6589abb29b9dd972b82fb26ffe22e4069f379c0cf3d4c7f`
+and tests `73b04f5eeb05abcad74ad1bcc7a387a2810fee369d480850b9a469f7419392b3`
+match the freeze; all thirteen helper controls independently pass. Contract hash is
+`c95e266eb3d4946257b83152b051b401d6e3809c4885f6472d26f396c238f082`.
+
+Full runtime/runner inspection found two concrete pre-call blockers in the first
+runtime freeze. Selected final tokens were decoded with `skip_special_tokens=True`,
+contradicting the contract's preservation of nonremoved special tokens and allowing
+content to disappear before strict parsing. Also, the runtime retained rendered
+input text/hash but omitted required actual processor input token IDs/hash. The
+reviewer requested exact suffix decoding without special-token removal and durable
+actual-input-token evidence before generation, with tests for both. The runner's
+fresh-arm/control-byte/ownership design otherwise matches the plan. No actual call
+is cleared until corrected runtime/source freeze and independent verification.
+No model call, candidate edit, raw repair or new contrast/reserve inspection occurred.
+
+## Reasoning ablation corrected frozen-source clearance
+
+Both pre-call findings are resolved before inference. Corrected runtime SHA-256 is
+`0ec78d65891e25a635dcca68fab31c34a14b2c35f5dd43d25adefc12c7e7b7da`;
+runtime tests are `51ad28d59e5060f700b082087b098de24e2ef12b38d89093bce1ddf43386c69a`.
+Independent full readback confirms raw and final suffix decoding now disables both
+special-token removal and tokenization cleanup. Actual processor input token IDs,
+their canonical hash and count are flushed/fsynced before model generation. The
+new control preserves a nonprotocol special token so the unchanged v6 parser
+rejects the malformed final text rather than accepting a cleaned substitute.
+
+All 107 focused offline controls independently pass in 1.166 seconds. Helper
+`804526d0135daa33f6589abb29b9dd972b82fb26ffe22e4069f379c0cf3d4c7f`,
+runner `8e66b3449e580bc9a30ab5c8b1b1173f7119e7f22d688d4b369460e7990b0a5c`,
+contract `c95e266eb3d4946257b83152b051b401d6e3809c4885f6472d26f396c238f082`
+and exact v6 control `da73694d3c3caeeb08fc43039f64f7edfcd93dfdee32a5e7ad355ea90153b0b1`
+remain unchanged and match. Fresh sequential OFF/ON ownership, identical warmup,
+all-token budget, protocol failure retention and exact final parser remain as
+reviewed. No concrete blocker remains for the matched six-case diagnostic.
+Actual delivery, paired meanings and all 23 obligations still require assessment;
+no reasoning benefit, fidelity/report permission or complete-task acceptance is
+certified. No model call, candidate edit, raw repair or new contrast/reserve read
+was performed by the reviewer.
