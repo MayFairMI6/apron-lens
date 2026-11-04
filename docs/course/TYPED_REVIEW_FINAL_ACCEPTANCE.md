@@ -1151,3 +1151,60 @@ choice, since it is outside the approved same-classifier redesign. Continue the
 bounded authorized repair with empirical controls, then rerun all exposed suites
 before reserve qualification. No new gate or arbitrary stopping cap is imposed;
 no fresh-v3 read, model call or implementation edit was made by this reviewer.
+
+## R11v3 scoped source/quotation diagnostic — not qualified
+
+Frozen `scoped_content.py` SHA-256 is
+`8f0529a48b6f7b1342c29ba583439b7f67438991643dcf2cbeb192cc1a4d726c`.
+This reviewer inspected the compact source-only interpretations, literal
+actor/resource retrieval, reference closure, complete-context decision rule and
+quotation bundles, and independently ran eight offline tests; all passed.
+Current-only waiting-resource, explicitly unrepresented clearance, unreported
+readiness and distinct-service interpretations retain their source preconditions.
+They add no learner/expected-answer fact. Primary raw whole-answer comparisons
+remain unchanged, neutral remains uncertain, and only a single complete scoped
+context can certify either grounding direction. Those are structural checks,
+not evidence that an NLI judgment is correct.
+
+| Actual uncached suite | Exact | Valid exact | Delivered | Correct statuses | False credit |
+|---|---:|---:|---:|---:|---:|
+| [Old six](../../outputs/scoped-content-regression-mps-r11v3/summary.json) | 2/6 | 1/3 | 6/6 | 14/18 | 0 |
+| [Development 24](../../outputs/scoped-content-development-mps-r11v3/summary.json) | 8/24 | 5/12 | 24/24 | 49/72 | 1: case 1 grounding |
+
+Frozen snapshots match the locks. All 71/259 planned old/development comparisons
+have finite matching actual scores without error or truncation, at maximum
+509/512 tokens. Direct startup is 2.801/2.755 seconds; direct reviews take
+0.312–2.427/0.404–2.915 seconds. Mechanical quote contracts pass. These results
+fail the exposed gate and are not native/runtime acceptance.
+
+The new false credit is concrete: DEV1 assigns the vehicle obstruction to TRN103,
+but eligible L010 explicitly assigns it to TRN102. The normalized full source
+context nevertheless entails the incorrect TRN103 whole claim at 0.95605, and
+the identical quotation comparison repeats that error. The relevant contrary
+source was present, so this is a classifier attribution failure, not unavailable
+evidence or a gold ambiguity. Correct source normalization, eligible citations
+and complete context do not establish correct learner attribution. R11v2 had
+returned uncertain grounding here; R11v3 adds false credit.
+
+One bounded implementation mechanism still defeats the intended scoping:
+derived clearance-scope units put all searched report IDs into their dependency
+list. Reference closure then treats those proof dependencies as semantic links,
+reintroducing all source records and aircraft. The old occupancy and fuel/baggage
+answers still exceed one context and become uncertain. Keep complete search
+provenance in the audit while separating it from text/entity retrieval; this is
+not permission to omit wrong-actor evidence or unbound extra assertions.
+
+Quotation context improves DEV16: the chosen scope bundle now includes its
+explicit takeoff/prerequisite statement and antecedent. Confidence ranking also
+introduces an unrelated extra quote in old case 5: the confirmation point quotes
+the full answer split at 160 characters, making its second quote just “parked.”
+That quote describes aircraft position, not safeguarding confirmation. Each
+quote must be relevant to its own point, so bundle confidence alone does not
+clear the frozen semantic quotation requirement. Existing omission,
+unsupported-assertion and correction limitations remain unresolved.
+
+Preserve this diagnostic and both earlier R11 versions. A narrow proof-dependency
+versus semantic-closure repair is still within the authorized source redesign,
+but does not remedy all observed classification/coverage/quotation gaps or
+justify reserve use. No new missing/assertion policy, threshold, gold, gate,
+production change or fresh-v3 inspection is claimed by this review.
