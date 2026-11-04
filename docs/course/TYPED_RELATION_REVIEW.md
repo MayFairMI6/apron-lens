@@ -362,3 +362,67 @@ Limits: fitting the exposed first reserve does not show generalization. The
 lexical anaphora, coverage and permission grammars remain fallible. Acceptance
 still requires the independent held-out reserve under the unchanged gates and
 the separate baseline comparison, then runtime/native review.
+
+## R10 implementation after the R9 review — 3 November 2026
+
+Implementer record. This responds to the "R9 exposed development review" in
+the acceptance report. Neither `fresh-v2.json` nor its label check was opened.
+Model, revision, threshold 0.8, MPS profile, the 160-character quote limit,
+gold labels, the runner and source checks are unchanged.
+
+Frozen candidate: `typed-service-relation-review-v10` (MPS module
+`typed-service-relation-review-v10-anli-large-mps`).
+`candidate.py` SHA-256 `47da262af924687254b43d7ff19806971a876fae87556d9961e7a5de4a5286b5`.
+`propositions.py` SHA-256 `be36fcfcdec80b34834caae404483ea11a47ef2c48991527f657aa407cfc80cf`
+(one relation-mode change, below). `mps_candidate.py` and `strong_candidate.py`
+are unchanged.
+
+Changes:
+
+1. **Blocking fix: safeguarding coverage.** Only the prepositional
+   source-of-inference form ("from that cancellation") is removed before
+   deciding whether a sentence states a safeguarding status. A clause that
+   predicates a status of "that cancellation" ("Actually no, that cancellation
+   is still pending") is compared again. A confirm-then-retract answer gets
+   conflicting rows and stays uncertain (test added).
+2. **Takeoff clause rule.** Negative-quantifier hedges (little, hardly,
+   scarcely, barely, few, seldom, rarely, minimal) refuse the rule, and the
+   claim must end its clause (only "now/already/too/also/as well" may follow).
+   Trailing limiters leave the clause to ordinary NLI (tests added).
+3. **Service rule restored to R8.** "Actually"/"correction" again block the
+   service-independence rule. The narrower identity-context change that
+   first-reserve case 2 needs is kept.
+4. **Clearance-scope facet.** In the readiness question, the takeoff-clearance
+   scope facet now uses a `clearance_authority` relation. It requires clearance,
+   permission, authorisation, "cleared" or takeoff wording. Readiness wording or
+   bare "departure" alone no longer admits that facet. The prerequisite facet is
+   unchanged.
+5. **Explicit retraction cue.** A sentence that only retracts ("Sorry, I had
+   those two the wrong way round", "scratch that", "I take that back") without
+   restating content turns earlier met/contradicted requested points into
+   uncertain with empty quotes. The audit records the affected criteria. A
+   correction that restates content is reviewed normally. No exposed answer
+   contains such a cue.
+
+Uncached runs:
+
+| Suite | Output | Exact | Valid exact | Delivered | False credit |
+|---|---|---:|---:|---:|---:|
+| Old regressions | `outputs/relation-regression-mps-r10/` | 6/6 | 3/3 | 6/6 | 0 |
+| Development | `outputs/relation-development-mps-r10/` | 24/24 | 12/12 | 24/24 | 0 |
+| Exposed first reserve | `outputs/relation-firstreserve-mps-r10/` | 24/24 | 12/12 | 24/24 | 0 |
+
+No status changed from R9 in any suite. The only output change is first-reserve
+case 18. Its `scope` quote is now the clearance sentence ("They establish
+neither takeoff clearance nor …") rather than the readiness-only sentence.
+Planned pairs are 88, 432 and 477 (R9: 88, 433, 479); the removed rows are
+readiness-only clearance-facet comparisons. Each pair has a finite row; maximum
+input is 479 tokens. Startup took 2.66–2.87 seconds, and reviews took
+0.133–3.637 seconds (direct runs, not native-owner latency). Near-threshold flips
+change only development case 8 (0.831), the same pre-existing R8 row. All 487
+unit tests pass.
+
+Limits: the retraction cue is a bounded lexical list; unlisted retraction
+wording is still ignored for requested points, and only grounding sees it. A
+first-sentence-only retraction cannot be resolved; it affects only points
+quoted before it. The first reserve is development fit, not acceptance.

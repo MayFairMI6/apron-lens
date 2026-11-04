@@ -11,7 +11,7 @@ from backend.evidence import classify, FIELDS
 from backend.training_assessment import validate_review
 from experiments.typed_relation_review.propositions import propositions_for,relevance_for,TOPIC_PATTERNS,occupancy_counter_for,relations_for
 
-VERSION = 'typed-service-relation-review-v9'
+VERSION = 'typed-service-relation-review-v10'
 MODEL_ID = 'cross-encoder/nli-deberta-v3-small'
 MODEL_REVISION = 'fa2804872c3b4bd748f38c0185cc85775361e735'
 THRESHOLD = 0.8
@@ -242,9 +242,11 @@ def unsupported_takeoff_clause(sentence,scope):
              r'(?:(?:[\w\x27’-]+\s+){0,6}(?:confirms?|shows?|proves?|means?|establish(?:es)?|demonstrates?|indicates?)\s+that\s+)?')
     for clause in learner_clauses(sentence):
         body=clause['text']
-        if re.search(r'\b(not|no|never|neither|nor|without|cannot|can|must|nothing|none|nobody|no-one|lack\w*|absen\w*|unclear|unknown|unverified|unestablished|fail\w*|refus\w*|assum\w*|suppos\w*|imagin\w*|hypothetical\w*|pending|request\w*|unconfirm\w*|await\w*|deny\w*|deni\w*|will|would|could|should|need\w*|requir\w*|once|until|when|before|after|expected|plan\w*|soon|yet)\b|n[’\x27]t\b',body,re.I):continue
+        if re.search(r'\b(not|no|never|neither|nor|without|cannot|can|must|nothing|none|little|hardly|scarcely|barely|few|seldom|rarely|minimal|nobody|no-one|lack\w*|absen\w*|unclear|unknown|unverified|unestablished|fail\w*|refus\w*|assum\w*|suppos\w*|imagin\w*|hypothetical\w*|pending|request\w*|unconfirm\w*|await\w*|deny\w*|deni\w*|will|would|could|should|need\w*|requir\w*|once|until|when|before|after|expected|plan\w*|soon|yet)\b|n[’\x27]t\b',body,re.I):continue
         for claim in claims:
-            match=re.match(opening+r'(?P<claim>'+claim+r')\b',body,re.I)
+            # v10: the claim must end its clause; a trailing limiter or
+            # restriction leaves the whole clause to ordinary NLI.
+            match=re.match(opening+r'(?P<claim>'+claim+r')(?:\s+(?:now|already|too|also|as\s+well))?[\s.,;:!]*$',body,re.I)
             if not match:continue
             start=clause['start']-sentence['start']+match.start('claim');end=clause['start']-sentence['start']+match.end('claim')
             return dict(rule='unsupported-positive-takeoff-clause-v2',applied=True,
@@ -366,7 +368,7 @@ def service_relation(sentence, payload, current):
     # Flight identity must originate in this learner response, agree with the
     # cutoff's authored target, and have no competing or attributed identity.
     names={x.upper() for x in re.findall(r'\bTRN\d+\b',payload['learnerResponse'],re.I)}
-    if len(names)!=1 or re.search(r'\b(other|another|instead|said|says|told|according\s+to)\b|[\"“”]|\bnot\s+(?:discussing|referring\s+to|talking\s+about|about)\s+TRN\d+|\bdo\s+not\s+mean\s+TRN\d+',payload['learnerResponse'],re.I):
+    if len(names)!=1 or re.search(r'\b(other|another|instead|actually|correction|said|says|told|according\s+to)\b|[\"“”]|\bnot\s+(?:discussing|referring\s+to|talking\s+about|about)\s+TRN\d+|\bdo\s+not\s+mean\s+TRN\d+',payload['learnerResponse'],re.I):
         audit['reason']='service subject flight is ambiguous';return audit
     if not re.search(r'\bTRN\d+\b',text,re.I):
         _,context,ambiguous=_sentence_context(sentence,payload['learnerResponse'],payload)
@@ -507,6 +509,9 @@ def relation_present(text,mode):
     if mode=='stand_hold_link':return has(r'\b(available|availability|free)\b') and has(r'\bhold\b') and has(r'\b(releas\w*|lift\w*)\b')
     if mode=='estimate_authority':return permission and relation
     if mode=='readiness_authority':return (permission or has(r'\bprerequisites?\b')) and relation
+    # v10: a takeoff-clearance scope facet needs clearance/permission wording;
+    # readiness or bare "departure" wording alone is a different claim.
+    if mode=='clearance_authority':return has(r'\b(clearance|permission|authori[sz]\w*|cleared|takeoff|take.off)\b') and relation
     if mode=='readiness_status':return has(r'\b(readiness|ready)\b') and has(r'\b(is|are|remains?|unconfirmed|confirm\w*|unknown|leave|leaves|establish\w*|show\w*|prov\w*)\b')
     if mode=='estimate':return 'time' in topics and has(r'\b\d{1,2}:\d{2}\b')
     if mode=='availability_status':return has(r'\b(available|availability|free)\b') and not has(r'\b(?:not|doesn[’\x27]t)\s+(?:establish|prove|confirm|mean|show)\b')
@@ -514,9 +519,10 @@ def relation_present(text,mode):
     if mode=='service_relation':return {'fuel','baggage'}<=topics and (relation or has(r'\b(pending|delayed|outstanding|incomplete)\b'))
     if mode=='lvp_status':return 'lvp' in topics
     if mode=='safeguarding_status':
-        # A demonstrative or source-of-inference mention ("from that
-        # cancellation") refers back to a status; it does not assert a new one.
-        given=re.sub(r'\b(?:that|this|the\s+same|from\s+(?:the|that|this))\s+(?:cancellation|cancelled|canceled)\b',' ',text,flags=re.I)
+        # v10: only a prepositional source-of-inference mention ("infer ...
+        # from that cancellation") refers back without asserting a status. Any
+        # clause predicating a status of "that cancellation" stays a unit.
+        given=re.sub(r'\bfrom\s+(?:the|that|this|the\s+same)\s+(?:cancellation|cancelled|canceled)\b',' ',text,flags=re.I)
         return bool(re.search(r'\bsafeguard\w*\b',given,re.I) or ('safeguarding' in _topics(given) and 'lvp' not in _topics(given)))
     if mode=='hold_status':return has(r'\bhold\b') and has(r'\b(releas\w*|lift\w*|held|remain\w*)\b')
     if mode=='movement_status':return 'movement' in topics and not (permission and not has(r'\b(hold|held|park\w*|mov\w*)\b'))
@@ -525,9 +531,9 @@ def relation_present(text,mode):
 
 def relation_units(sentence,mode):
     clauses=learner_clauses(sentence)
-    relational={'hold_change_link','authority_distinction','plan_availability_relation','stand_hold_link','service_relation','estimate_authority','readiness_authority'}
+    relational={'clearance_authority','hold_change_link','authority_distinction','plan_availability_relation','stand_hold_link','service_relation','estimate_authority','readiness_authority'}
     candidates=list(clauses)
-    if mode in {'readiness_authority','authority_distinction','plan_availability_relation','service_relation','estimate_authority'}:
+    if mode in {'readiness_authority','clearance_authority','authority_distinction','plan_availability_relation','service_relation','estimate_authority'}:
         return [dict(**sentence,originalSentence=sentence['text'])] if relation_present(sentence['text'],mode) else []
     if mode in relational:
         for start in range(len(clauses)):
@@ -638,6 +644,32 @@ def comparison_context(unit,text,payload,current,evidence_ids=()):
         binding['normalizedReference']=bound_reference
         entity=dict(entity or {},learnerExplicitFlight=binding['flightInstance'],holdReferenceBinding=binding)
     return premise,entity,ambiguous,aliases,antecedents
+
+
+_RETRACTION=(r'\b(?:I\s+(?:had|got)\s+(?:th(?:ose|ese|at|is|em)|it|them|everything)(?:\s+two)?\s+(?:all\s+)?(?:the\s+)?(?:wrong|backwards|mixed\s+up|reversed|confused)'
+    r'|(?:the\s+)?wrong\s+way\s+round|scratch\s+that|I\s+take\s+(?:that|it|this)\s+back|ignore\s+(?:that|this|what\s+I\s+(?:said|wrote))'
+    r'|disregard\s+(?:that|this|what\s+I\s+(?:said|wrote)|my\s+(?:previous|earlier|last))|I\s+was\s+wrong|I\s+mixed\s+(?:them|those|these|it)\s+up'
+    r'|(?:that|this|everything\s+above)\s+(?:was|is)\s+(?:wrong|incorrect|a\s+mistake))\b')
+
+
+def explicit_retraction(text):
+    """v10: an explicit retraction cue that does not restate content.
+
+    Sentence-local review cannot know what was retracted, so earlier requested
+    points lose their met/contradicted status and become uncertain. Only a
+    sentence whose wording is the retraction itself (no restated content
+    topic) qualifies; a correction that restates content is reviewed normally.
+    """
+    for sentence in learner_sentences(text):
+        if sentence['text'].rstrip().endswith('?') or nonassertive_scope(sentence['text']):continue
+        match=re.search(_RETRACTION,sentence['text'],re.I)
+        if not match:continue
+        remainder=re.sub(_RETRACTION,' ',sentence['text'],flags=re.I)
+        if _topics(remainder) or re.search(r'\bTRN\d+\b|\d{1,2}:\d{2}',remainder,re.I):continue
+        return dict(rule='explicit-retraction-uncertainty-v1',applied=True,start=sentence['start'],end=sentence['end'],
+            exactSentence=sentence['text'],reason='explicit retraction without restated content; earlier requested points are not reliably asserted',
+            affectedCriteria=[])
+    return None
 
 
 def anaphoric_windows(sentences,text,mode):
@@ -880,6 +912,15 @@ def evaluate(payload, scorer, deadline):
     points.append(dict(criterionId='grounding',status=status,
         comment='Not established by the received reports.' if status=='contradicted' else 'This passage needs clarification.' if status=='uncertain' else 'Your claims agree with the received reports.',
         evidenceIds=list(dict.fromkeys(ids)),learnerQuote=quote))
+    retraction=explicit_retraction(text)
+    if retraction:
+        scorer.semantic_rule_audit.append(retraction)
+        for point in points:
+            if point['criterionId']=='grounding' or point['status'] not in ('met','contradicted'):continue
+            start=text.find(point['learnerQuote'])
+            if start>=0 and start+len(point['learnerQuote'])<=retraction['start']:
+                retraction['affectedCriteria'].append(dict(criterionId=point['criterionId'],originalStatus=point['status']))
+                point.update(status='uncertain',comment='The meaning needs clarification.',learnerQuote='')
     met=sum(p['status']=='met' for p in points)
     verdict='needs_review' if any(p['status']=='contradicted' for p in points) else 'supported' if met==len(points) else 'partly_supported' if met else 'needs_review'
     result=dict(episodeId=payload['episodeId'],checkpointId=payload['checkpointId'],verdict=verdict,

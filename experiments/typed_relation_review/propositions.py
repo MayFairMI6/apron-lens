@@ -111,7 +111,7 @@ RELATIONS = {
  'late_baggage':[
   {'delay':['baggage_delay'],'separation':['fuel_state','service_relation']},
   {'estimate':['estimate'],'scope':['estimate_authority']},
-  {'unknown':['readiness_status'],'scope':['readiness_authority','readiness_authority']},
+  {'unknown':['readiness_status'],'scope':['clearance_authority','readiness_authority']},
  ],
  'fog_restrictions':[
   {'procedures':['lvp_status','safeguarding_status'],'hold':['movement_status','permission_status']},

@@ -5,7 +5,7 @@ import unittest
 from backend.training_assessment import RUBRICS,TYPED_QUESTIONS
 from experiments.typed_relation_review.candidate import (
     THRESHOLD, NLIEngine, confident_label,evaluate,grounding_context,learner_sentences,service_relation,learner_clauses,relation_present,relation_units,explicit_identity_mismatch,comparison_context,source_text,canonical_source,unreported_readiness,unsupported_readiness_assertion,hold_reference_binding,explicit_unrepresented_takeoff_scope,unsupported_takeoff_assertion,
-    unsupported_takeoff_clause,anaphoric_opening,anaphoric_antecedents,anaphoric_windows,point_quote_span,_same_flight_context)
+    unsupported_takeoff_clause,anaphoric_opening,anaphoric_antecedents,anaphoric_windows,point_quote_span,_same_flight_context,explicit_retraction)
 from experiments.typed_relation_review.propositions import PROPOSITIONS,RELEVANCE
 
 
@@ -790,6 +790,63 @@ class V9CoverageAnaphoraAndQuoteTests(unittest.TestCase):
         self.assertIn('anaphoric_clause_window',coverage)
         windows=[x['hypothesis'] for x in scorer.pairs if x.get('groundingCoverage')=='anaphoric_clause_window']
         self.assertTrue(all(w in p['learnerResponse'] and not w.startswith('but that') for w in windows))
+
+
+class V10ReviewDefectTests(unittest.TestCase):
+    """R10 fixes for the independent R9 review; injected scores only."""
+    def test_confirm_then_retract_cancellation_is_not_credited(self):
+        self.assertTrue(relation_present('Actually no, that cancellation is still pending.','safeguarding_status'))
+        self.assertTrue(relation_present('This cancellation has not been confirmed.','safeguarding_status'))
+        self.assertFalse(relation_present('I cannot infer a departure clearance from that cancellation.','safeguarding_status'))
+        text=('Safeguarding cancellation is confirmed. Actually no, that cancellation is still pending. '
+              'TRN101 remains parked and its departure clearance is unconfirmed.')
+        choose=lambda pair:'contradiction' if 'pending' in pair.get('exactLearnerSentence','') else 'entailment'
+        scorer=FakeScorer(choose);review=evaluate(payload(text),scorer,time.monotonic()+10)
+        self.assertEqual(review['points'][0]['status'],'uncertain')
+        self.assertTrue(any(x['kind']=='criterion' and x['criterionId']=='confirmation' and 'pending' in x['exactLearnerSentence'] for x in scorer.pairs))
+
+    def test_takeoff_clause_rule_refuses_hedges_and_trailing_limiters(self):
+        p=ExplicitTakeoffScopeTests().scoped_payload();scope=explicit_unrepresented_takeoff_scope(grounding_context(p)[0],'A2')
+        for text in ['Little in the reports shows that TRN102 is cleared for takeoff.',
+                     'Hardly anything indicates that TRN102 is cleared for takeoff.',
+                     'Scarcely any report shows that TRN102 has takeoff clearance.',
+                     'Few updates show that TRN102 has takeoff clearance.',
+                     'TRN102 is cleared for takeoff in the learner guide example only.',
+                     'TRN102 has takeoff clearance according to nobody.',
+                     'The tower authorised TRN102 to take off in a different exercise.']:
+            self.assertIsNone(unsupported_takeoff_clause(dict(start=0,end=len(text),text=text),scope),text)
+        for text in ['TRN102 is cleared for takeoff now.','The hold is released, and TRN102 has takeoff clearance too.']:
+            self.assertTrue(unsupported_takeoff_clause(dict(start=0,end=len(text),text=text),scope),text)
+
+    def test_service_rule_correction_markers_restore_r8_ambiguity(self):
+        for text in ['Actually, fuel is complete, but that does not mean baggage loading is complete.',
+                     'Correction: fuel is complete, but that does not mean baggage loading is complete.']:
+            p=service_payload(text);current,_=grounding_context(p)
+            audit=service_relation(learner_sentences(p['learnerResponse'])[1],p,current)
+            self.assertFalse(audit['applied'],text)
+
+    def test_clearance_scope_facet_needs_clearance_wording(self):
+        self.assertFalse(relation_present('Even together, those updates do not confirm overall departure readiness.','clearance_authority'))
+        self.assertTrue(relation_present('Those updates do not confirm overall departure readiness.','readiness_authority'))
+        self.assertTrue(relation_present('They establish neither takeoff clearance nor every departure prerequisite.','clearance_authority'))
+        self.assertTrue(relation_present('Ground release does not grant permission to take off.','clearance_authority'))
+        rows=__import__('experiments.typed_relation_review.propositions',fromlist=['RELATIONS']).RELATIONS['late_baggage'][2]
+        self.assertEqual(rows['scope'],['clearance_authority','readiness_authority'])
+
+    def test_explicit_retraction_downgrades_earlier_points_only(self):
+        self.assertIsNone(explicit_retraction('Correction: TRN102 is held because a vehicle blocks its route.'))
+        self.assertIsNone(explicit_retraction('That was wrong: TRN102 is the held aircraft.'))
+        self.assertIsNone(explicit_retraction('Should I scratch that?'))
+        p=service_payload('Fuel is complete, but that does not mean baggage loading is complete. Sorry, I had those two the wrong way round.')
+        scorer=FakeScorer();review=evaluate(p,scorer,time.monotonic()+10)
+        statuses={x['criterionId']:x['status'] for x in review['points']}
+        self.assertEqual(statuses['delay'],'uncertain');self.assertEqual(statuses['separation'],'uncertain')
+        self.assertTrue(all(x['learnerQuote']=='' for x in review['points'] if x['criterionId']!='grounding'))
+        audit=next(r for r in scorer.semantic_rule_audit if r.get('rule')=='explicit-retraction-uncertainty-v1')
+        self.assertEqual({x['criterionId'] for x in audit['affectedCriteria']},{'delay','separation'})
+        p=service_payload('Scratch that. Fuel is complete, but that does not mean baggage loading is complete.')
+        statuses={x['criterionId']:x['status'] for x in evaluate(p,FakeScorer(),time.monotonic()+10)['points']}
+        self.assertEqual(statuses['separation'],'met')
 
 
 if __name__=='__main__':unittest.main()
