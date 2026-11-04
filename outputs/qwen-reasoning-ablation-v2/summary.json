@@ -1,0 +1,24 @@
+{
+  "arms": [
+    {
+      "arm": "off",
+      "thinkingEnabled": false,
+      "planned": 6,
+      "attempted": 6,
+      "startupError": null,
+      "structurallyValid": 6,
+      "semanticAcceptance": "not assessed; all final meanings require independent review"
+    },
+    {
+      "arm": "on",
+      "thinkingEnabled": true,
+      "planned": 6,
+      "attempted": 1,
+      "startupError": null,
+      "structurallyValid": 0,
+      "semanticAcceptance": "not assessed; all final meanings require independent review"
+    }
+  ],
+  "plannedTotal": 12,
+  "semanticAcceptance": "not assessed; paired exposed diagnostic only"
+}

@@ -3968,3 +3968,44 @@ and final narrated-video hash unchanged; keep preservation receipts with the new
 run rather than claim the failed diagnostic fixed anything. No structural or
 semantic acceptance, 12-contrast expansion, report/fidelity stage, reserve use,
 production/native promotion or completion follows. ML-052 remains unfinished.
+
+**4 November 2026 — matched reasoning v2 actual outcome; next material choice
+pending.** The [fresh v2 summary](../../outputs/qwen-reasoning-ablation-v2/summary.json)
+records OFF six planned/attempted, six structurally valid frames, with request
+elapsed times 9.620–14.498 seconds. ON starts successfully but its first control
+12 times out after 55.095 seconds; the remaining five controls are unattempted,
+not completed semantic failures. No retry or recovered partial generation is
+available. Preserve all raw records and explicit planned/attempted counts. The
+EOS/startup correction remedies v1's particular transport/startup obstacles but
+does not make the interpretation qualified. Root reports retained known OFF
+semantic errors; the complete independent meaning audit remains in progress.
+This ledger reviewer read actual summary/request timing and error records, not
+new inference or sealed data.
+
+No complete paired semantic comparison exists, and no conclusion that reasoning
+helps/harms all six meanings or that the model is universally incapable follows.
+ON's observed first-request timeout fails this tested 1,000-token/55-second
+configuration's delivery gate. Do not extend budgets, rerun until favorable,
+substitute historical responses or count absent ON answers as assessed meanings.
+Root reports both remote CI checks for source `f12c541` successful. CI confirms
+its checked code properties, not semantic acceptance. Final audit/publication
+receipts should retain the distinction.
+
+The user has been asked a material next-route choice: a narrow generic source-
+only explicit-repair parser (recommended), a stronger-model route, or pausing
+this repair. That answer is pending; no new implementation or model run follows
+while the fork is unresolved. The parser proposal would need generic exact-span
+old/cue/new rules with positive/negative contrasts and unresolved ambiguity,
+not aircraft-specific patches or a report-derived answer; it would still require
+its own versioned mechanism plan, unchanged downstream Qwen checks and the full
+acceptance gates. A stronger model is not selected implicitly. Continued repair
+remains authorized, but the pending material choice is not silently answered by
+time passing or more same-prompt tuning.
+
+ML-052 remains CURRENT and unfinished, not a user-requested project pause.
+The 12 contrasts, automatic fidelity/report checking, exposed/stress qualification,
+replacement-reserve eligibility, native promotion and final publication acceptance
+remain unmet. No old reserve is read or repurposed. The deployed reviewer,
+previous accepted runtime/history remedies, all earlier results and final narrated
+video stay unchanged. No defect closure, duplicate milestone completion or
+whole-assignment claim is added.

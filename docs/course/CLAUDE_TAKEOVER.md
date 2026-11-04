@@ -179,3 +179,19 @@ All 411 original evidence files and the narrated video match recorded hashes.
 The contrast set, full qualification and production/native promotion remain gated.
 
 **V2 pre-call verification:** independent source review cleared the explicit chat EOS and matched startup correction; 644 full tests passed in 42.920 seconds and the backbone boundary check passed. Fresh inference remains a separate acceptance step.
+
+
+**4 November 2026 — matched reasoning v2 finished, no candidate qualifies.**
+Source `f12c541` and both GitHub Checks passed. At
+`outputs/qwen-reasoning-ablation-v2/`, OFF completed six valid frames, with four
+independently faithful cases; readiness confirmation and the actor correction
+remain wrong. ON completed startup but timed out on the first question at
+55.095 seconds; no final output was available and the other five were not
+attempted. All available outputs and failures are preserved, with no retries
+or reconstructed answer. A stronger reasoning mode is not supported for this
+local response budget. This does not establish general model incapacity.
+The coordinator has asked the user to choose the next mechanism: a bounded,
+generic source-only explicit-correction parser (recommended), a separately
+scoped stronger-model comparison, or pausing the fix. That decision is pending;
+no new parser is implemented. ML-052 and end-to-end acceptance remain unfinished.
+All old evidence and the video remain unchanged; no production promotion.

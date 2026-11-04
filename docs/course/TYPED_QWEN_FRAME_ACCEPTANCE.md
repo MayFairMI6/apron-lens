@@ -1440,3 +1440,54 @@ chat-EOS union, unmutated base and rejection of post-EOS content. No concrete
 blocker remains for the new matched v2 diagnostic. Actual paired meanings/delivery
 remain pending; no model call, candidate edit, output repair or additional contrast/
 reserve read was performed by the reviewer.
+
+## Actual reasoning ablation v2 — ON delivery failure, OFF semantics still fail
+
+The [complete v2 pair](../../outputs/qwen-reasoning-ablation-v2/summary.json)
+preserves **OFF six attempts/six EOS/six valid frames; ON one timeout/five
+unattempted/zero delivered frames**. OFF records SHA-256 is
+`ba3c01e41e9ca2e5e1ed48ccc1455877250e0cad53637979c702b47512a7527c`;
+ON records SHA-256 is
+`42e319d92bf0a93415045f8d8fac8a888fd73e98ec309ab54764ed7ae9bdc148`.
+Generation-audit hashes are
+`195852455f9fb635b8804f26c88322dde422794e71e55de4b2f1a771fbc31311` (OFF)
+and `ff5d269cb881de8da57eafffe1168fed99ba499e058e4b9caef948c191b2078e` (ON).
+V1 remains unchanged and is not reclassified by this fresh comparison.
+
+Independent checks match all snapshot/fixture hashes, original prompts, input-ID
+hashes, audit lock identities and OFF token segmentation/usage/strict parsing.
+Effective EOS is `[248044, 248046]`, base EOS remains `[248044]`, and every returned
+assessment terminates at 248046. OFF and ON first-case rendered inputs/kwargs
+differ only by the declared thinking template prefix/flag; both retain the same
+prompt, 1,000 generated-token cap and 55-second deadline. No cleanup or replacement
+output was used.
+
+OFF startup took 8.885 seconds; six requests took 9.620–14.498 seconds with 78–124
+generated tokens, all zero generated reasoning. ON startup succeeded in 28.638
+seconds with 153 generated tokens: 150 reasoning (including close) and three final
+(including EOS). Its first learner request timed out at 55.095 seconds; worker
+audit records the deadline failure at 55.006 seconds. Only generation-start/input-
+prepared events exist for that request: no generation-returned event, raw answer,
+EOS or actual generation usage is available. The old worker was terminated; an
+automatic owner-recovery process was then started and cancelled without a second
+assessment call or substituted output. The remaining five cases were not attempted.
+
+| Case | OFF: all 23 frozen meaning obligations | ON assessment disposition |
+|---:|---|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful named set, unidentified distinct roles and shared stand. | Attempted; timeout, no available answer for any obligation. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: faithful withdrawal/link and generic non-conferral. | Not attempted; no result for all four. |
+| 19 | `resolved-items`: basis survives but confirmation is invented. `readiness`: original positive assertion survives separately. `unknown-permission`: Only-unconfirmed meaning is faithful. The extra certainty fails the whole interpretation. | Not attempted; no result for all three. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: faithful connected meanings. | Not attempted; no result for all four. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful attribution, claimed link, only/pending condition. | Not attempted; no result for all four. |
+| 2 | `actor-repair`: old fragment is withdrawn but corrected claim lacks its repair link. `delay`: correct TRN102 assertion. `fuel`: completion wording survives but false unresolved note ignores its antecedent. `baggage-unknown`, `contrast`: faithful connected meanings. Whole interpretation fails. | Not attempted; no result for all five. |
+
+**Do not adopt thinking ON under this exact profile and request budget.** The
+observed failure is practical delivery on the first assessment, not evidence of
+an incorrect completed ON meaning, a measured accuracy difference or general model
+incapacity. Partial reasoning is unavailable and is not reconstructed. OFF remains
+semantically unqualified on two exposed controls despite valid delivery. No arm
+supplies a qualifying candidate, automatic fidelity mechanism, report permission,
+generalization result or completed acceptance gate. Any next experiment needs a
+separate evidence-based plan; this audit does not authorize a larger budget, retry
+or profile fallback. No model call, candidate edit, raw repair or additional
+contrast/reserve read was performed by the reviewer.
