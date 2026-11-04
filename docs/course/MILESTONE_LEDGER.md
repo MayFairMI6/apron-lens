@@ -3369,3 +3369,54 @@ exposed-qualified or any gate fails, not before.
 
 
 **ML-052 third-reserve freeze (3 November 2026).** Independent author, blind labeler and separate adjudicator completed24cases across12checkpoints/4exercises,12valid/12nonvalid,8fuel-baggage. Pre-adjudication agreement23/24cases and71/72statuses; one disagreement resolved before inference, no case content changed. Final fresh-v3 SHA25694f637d91845f1413a5d003faa400c2f8ab6b724f4a757b4693eaa893b2e472c; contractf49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996. Author/labeler/adjudicator were separate from implementation and qualification reviewer; root/implementer have not read answers/gold. Metadata/provenance/manifests retained. This freeze does not authorize inference before exposed qualification; no R11 model call yet.
+
+
+**R11v1 actual exposed diagnostics (3 November 2026).** Frozen structural prototype `deb6190a419288cc39700d1b7bd93e81078750d636d78a912352d8bc2bda5c77` ran uncached on old6 and DEV24. Old6:1/6exact,1/3valid,6delivered,0falsecredit; DEV24:5/24exact,5/12valid,24delivered,falsecreditcase9availability andcase23grounding. Outputs `outputs/redesign-regression-mps-r11v1/` and `outputs/redesign-development-mps-r11v1/`;198+775 actualpairs, maximum511/512tokens, maximum5.910/8.488seconds respectively. All input/output records preserved. The architecture contract passes offline but semantic control probes incorrectly infer corrections/history/coverage and can override direct operational entailment. Candidate REJECTED/unqualified; no production/native step or third-reserve use. Next bounded task is an exposed probe-format diagnostic before another candidate revision; pinnedmodel/threshold/gates remain unchanged.
+
+**ML-052 R11 probe-format diagnostic placement (3 November 2026).** The proposed
+exposed-only diagnostic remains CURRENT within the approved structural redesign;
+it is not another model, weight change, status/quote contract change or scope
+pivot. Its purpose is to identify whether answer-to-bare-facet, lean question/
+answer, or answer-only neutral coverage probes preserve correction, history and
+omission meaning, after R11v1's control probes produced wrong statuses and false
+credit. The user authorizes continued development; no arbitrary per-revision stop
+or new reopening request is imposed. This permission is for diagnosis, not a
+recommendation that any one format will work or a claim that R11 is qualified.
+
+Before calls, freeze a maximum 150-pair matrix, source/configuration identity,
+expected interpretation and scoring/ranking rule. Use only exposed material and
+preselected positive/negative controls: operational paraphrases, genuine omission,
+explicit uncertainty, earlier-versus-current wording, in-sentence correction and
+unrelated but lexically overlapping content. Use the same cases across formats
+where comparison permits; retain every input, score, label, error, token count
+and timing, including unfavorable probes. Existing questions may be included as
+task context, but not gold/expected-answer sentences disguised as question context.
+Neutral topic descriptions must not supply the answer, identity or factual state.
+An authored facet is a reference hypothesis, not evidence that the learner said
+it. Do not browse, open or infer labels from the unread fresh-v3 reserve.
+
+Interpret the diagnostic at two levels: whether each probe asks the intended
+semantic question, and whether the classifier answers it correctly. A generic
+Q/A entailment score cannot certify that a correction/history operation occurred;
+neutral alone cannot establish omission. Preserve original answer text and all
+assertions, with exact attribution/negation; do not strip the offending clause to
+improve a score. Do not introduce expected facts, label-specific wrappers or
+response-specific exceptions. Predeclare how meta-probes may qualify, abstain or
+veto direct operational evidence; R11v1's erroneous control-veto behavior must not
+be replaced by unreviewed precedence or silent selection of the favorable score.
+Keep the pinned large model/revision, MPS profile and 0.8 threshold unchanged.
+Do not expand the matrix or search thresholds after observing a favorable subset.
+
+The complete diagnostic gets bounded independent interpretation before the v2
+rewrite. If all formats fail the targeted structural controls, record that result
+and review the mechanism rather than spending fresh-v3 or patching favorable
+examples into a general rule. A useful diagnostic may justify a candidate design;
+it cannot substitute for uncached full exposed qualification, source/contract
+review, the single frozen third-reserve run, native production acceptance and
+publication/CI gates. Pair counts and current 511-token maximum warrant explicit
+truncation rejection and whole-answer budget checks in any subsequent candidate.
+No contract/gold/gate relaxation is authorized. If a proposed rewrite actually
+changes the frozen R11 contract, apply its explicit amendment/reserve-validity
+rule before further use; a failed fresh-v3 still triggers new placement rather
+than automatic fourth-reserve creation. ML-052 remains unfinished, with production,
+old results, video and prior accepted runtime/history remedies preserved.
