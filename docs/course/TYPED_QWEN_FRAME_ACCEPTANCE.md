@@ -738,3 +738,52 @@ and correction links without resolving genuine alternatives. No concrete blocker
 remains for the unchanged six-case diagnostic. This clearance grants no semantic
 acceptance, automatic fidelity certification or report permission. The reviewer
 made no model call, candidate edit, new contrast inspection or reserve read.
+
+## Actual v7 — prior semantic blockers persist
+
+The [complete v7 run](../../outputs/qwen-frame-extraction-v7-initial/summary.json)
+records **6/6 observed-EOS completions, 5/6 structurally valid results, no timeout**.
+Records SHA-256 is
+`8718257fbc18813eee5db1846336e69a071620687568c8fd6a9732dddd363e81`.
+All snapshot/fixture hashes and reconstructed prompts independently match. Startup
+took 9.804 seconds; requests took 10.874–15.780 seconds with 80–128 output tokens.
+All six record EOS token 248044. No input/prompt truncation or external evaluator
+content explains the failures. These measurements remain extraction-stage only.
+
+| Case | Complete 23-obligation assessment, with v6 deltas |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: unchanged faithful ambiguity in connected text; no named role invented. Missing unresolved-list auditing is not a new semantic-label failure. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: faithful. Replacement now repeats the full target/aircraft description and still explicitly links the withdrawn value. |
+| 19 | `resolved-items`: sorted basis remains but invented `Readiness is confirmed` persists. `readiness`: positive readiness itself remains faithful. `unknown-permission`: faithful, including `Only`. The extra confirmation fails fidelity. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: unchanged faithful meanings and connected references, with no invented cause or actual permission denial. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: unchanged faithful attribution/current state, asserted causal link, `only` and pending `until` condition. |
+| 2 | `actor-repair`: withdrawn noun fragment survives but corrected assertion still has null repair link. `delay`: faithful TRN102 delay, with no active TRN103 denial. `fuel`: completion text survives but an unresolved note again falsely disregards its corrected-actor antecedent. `baggage-unknown`, `contrast`: faithful in connected context. The unresolved row adds a lifecycle third column and is correctly rejected. |
+
+Initial qualification remains failed. The new wording did not remove invented
+confirmation or fix repair-link/context handling, and unresolved syntax regressed.
+The false note that `Its` is not explicitly identified is not legitimate ambiguity
+merely because its antecedent lies in an earlier unit.
+
+A bounded v8 prompt-only wording-preservation mode is a defensible general next
+diagnostic: prefer original clauses/fragments with minimal editing, rather than
+summarizing them into new predicates or certainty. Retain operator arguments,
+attribution, linked causes/conditions, withdrawal/replacement links and licensed
+continuous-utterance references. Shorter prioritized instructions may help but
+remain an empirical hypothesis. Do not add a case-specific banned phrase, enforce
+the earlier brittle exact-slot schema, or repair the raw output afterward.
+Copied words alone cannot certify selection, scope, coverage or lifecycle; the
+same 23 obligations, parser/runtime, inputs, no-retry rule and gates remain in
+force. Frozen-source review and complete actual outputs are still required. No
+model call, candidate edit, raw repair, additional contrast or reserve read occurred.
+
+## V8 pre-inference source clearance
+
+Frozen candidate `095faa86619d7bd3047880b9db35acfdad0c1fafce0f9068dc2ea3fb90416267`
+matches independent readback. AST comparison against actual frozen v7 confirms
+only version/instructions changed; all 42 offline controls independently pass.
+The shorter prioritized prompt requests minimally edited learner clauses, retains
+operator/relationship scope, permits context-supported pronouns, mandates repair
+links and preserves strict unresolved syntax. It does not grant fidelity from
+copying or unit coverage. No concrete blocker was found for the unchanged six-case
+no-retry run. Semantic gates, parser/runtime and untrusted/report flags remain
+unchanged. No model call, candidate edit or additional contrast/reserve read occurred.
