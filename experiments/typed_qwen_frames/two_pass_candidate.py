@@ -6,7 +6,7 @@ import re
 
 from .candidate import FrameError, source_units, _object, _exact_keys, _refs, _bind, _has_content
 
-VERSION = 'typed-qwen-two-pass-v3'
+VERSION = 'typed-qwen-two-pass-v4'
 MAX_STAGE_OUTPUT_TOKENS = 500
 MAX_OUTPUT_TOKENS = 1000
 LIFECYCLES = {'active', 'withdrawn', 'history', 'ambiguous'}
@@ -35,11 +35,14 @@ facts. unresolved reasons are strings for actual selection limitations, not
 pronoun/lifecycle tasks deferred to Stage B or requests to verify claim truth.
 Every nonpunctuation unit must be cited by clauses or unresolved; this coverage
 does not prove semantic completeness. Max24 rows per list; <=500 output tokens.
-Matched unrelated example: u1 "Mira — no, sorry, Leo — moved the chair, and with that the doorway is clear."
+Matched unrelated example: u1 "BOT7 — no, sorry, BOT8 — moved the chair, and with that the doorway is clear."
 gives exactly ONE JSON object:
-{"clauses":[["c1",["u1"],"Mira"],["c2",["u1"],"Leo — moved the chair"],["c3",["u1"],"with that the doorway is clear"]],"unresolved":[]}
+{"clauses":[["c1",["u1"],"BOT7"],["c2",["u1"],"BOT8 — moved the chair"],["c3",["u1"],"with that the doorway is clear"]],"unresolved":[]}
 The interrupted noun is a fragment; the replacement is separate. The conjunct
 retains "with that" and its argument, not merely "the doorway is clear".
+Same-device negative contrast u1 "BOT7 did not move the chair; BOT8 did." gives
+{"clauses":[["c1",["u1"],"BOT7 did not move the chair"],["c2",["u1"],"BOT8 did"]],"unresolved":[]}
+These are complete assertions, not a subject repair merely because IDs differ.
 Numeric example u1 "The delivery is at 14:00 — correction, it is at 15:00." gives
 {"clauses":[["c1",["u1"],"The delivery is at 14:00"],["c2",["u1"],"correction, it is at 15:00"]],"unresolved":[]}
 The cue accompanies its replacement; it is not an extra assertion by itself.
@@ -72,19 +75,25 @@ If an old value is withdrawn and a new value is its explicit correction, the new
 value's correctionTarget MUST point to that old-value ID, not null. Do not attach
 the link merely to a cue or withdraw the corrected actor along with the old one.
 do not invent a denied predicate for an interrupted noun. A complete negative
-assertion remains active unless actually retracted. Examples: "Nora, no, Leo moved"
-can select Nora as a withdrawn fragment and Leo moved as its linked replacement;
-"Nora did not move" is a real negative assertion, not a withdrawn fragment.
+assertion remains active unless actually retracted. Examples: "BOT7, no, BOT8 moved"
+can select BOT7 as a withdrawn fragment and BOT8 moved as its linked replacement;
+"BOT7 did not move" is a real negative assertion, not a withdrawn fragment.
 unresolved has exactly TWO columns, reason STRING, no lifecycle. Max24 per list,
 <=500 output tokens. Your interpretations remain UNTRUSTED, not certified fidelity.
-Matched unrelated example: original u1 "Mira — no, sorry, Leo — moved the chair, and with that the doorway is clear."
+Matched unrelated example: original u1 "BOT7 — no, sorry, BOT8 — moved the chair, and with that the doorway is clear."
 UNTRUSTED_SELECTION is
-{"clauses":[["c1",["u1"],"Mira"],["c2",["u1"],"Leo — moved the chair"],["c3",["u1"],"with that the doorway is clear"]],"unresolved":[]}
+{"clauses":[["c1",["u1"],"BOT7"],["c2",["u1"],"BOT8 — moved the chair"],["c3",["u1"],"with that the doorway is clear"]],"unresolved":[]}
 Output exactly
-{"claims":[["c1",["u1"],"Mira","withdrawn",null],["c2",["u1"],"Leo moved the chair.","active","c1"],["c3",["u1"],"With that, the doorway is clear.","active",null]],"unresolved":[]}
-This does not deny Mira moved something or independently confirm the doorway's
+{"claims":[["c1",["u1"],"BOT7","withdrawn",null],["c2",["u1"],"BOT8 moved the chair.","active","c1"],["c3",["u1"],"With that, the doorway is clear.","active",null]],"unresolved":[]}
+This does not deny BOT7 moved something or independently confirm the doorway's
 state. It preserves the learner's asserted connection. Use actual learner text
 and supplied IDs, never copy example content into another answer.
+Same-device negative contrast: original u1 "BOT7 did not move the chair; BOT8 did."
+UNTRUSTED_SELECTION is
+{"clauses":[["c1",["u1"],"BOT7 did not move the chair"],["c2",["u1"],"BOT8 did"]],"unresolved":[]}
+Output exactly
+{"claims":[["c1",["u1"],"BOT7 did not move the chair.","active",null],["c2",["u1"],"BOT8 did.","active",null]],"unresolved":[]}
+There is no withdrawal or correction link in this complete-negative contrast.
 Numeric matched example: original u1 "The delivery is at 14:00 — correction, it is at 15:00."
 UNTRUSTED_SELECTION is
 {"clauses":[["c1",["u1"],"The delivery is at 14:00"],["c2",["u1"],"correction, it is at 15:00"]],"unresolved":[]}

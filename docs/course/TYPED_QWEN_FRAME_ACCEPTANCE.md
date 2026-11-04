@@ -991,3 +991,67 @@ evidence the problem will be solved; the revised general selection rule is a
 testable hypothesis. Parser/runtime, caps, denominator, original labels and all
 23 obligations stay unchanged. No inference, candidate edit, new contrast/reserve
 inspection or raw repair was performed by the reviewer.
+
+## Two-pass v3 pre-inference source clearance
+
+Frozen candidate `4334bfc0d90b51bf9782b210768daff4969a8de85729d74338e0a1cb93363366`
+matches independent readback and full targeted diff. AST comparison against actual
+frozen v2 confirms only version and two prompts changed. All 67 offline controls
+pass; the new unrelated numeric example independently passes both strict parsers,
+with fidelity still false. General selection rules separate actual old/replacement
+fragments and keep cues with replacement context; B explicitly links the corrected
+value to the withdrawn value. Real negative assertions remain distinct from
+repair. No concrete blocker was found for the unchanged six-case no-retry run.
+Parser/runtime, caps, semantic obligations and acceptance gates remain unchanged.
+No model call, candidate edit, new contrast/reserve inspection or raw repair occurred.
+
+## Actual two-pass v3 — five meaning controls pass, actor repair still fails
+
+The [complete v3 run](../../outputs/qwen-two-pass-v3-initial/summary.json) records
+**6/6 structurally valid pairs, twelve observed-EOS calls, no timeout/retry**.
+Records SHA-256 is
+`edff33d9f8eb262de39f54af5dd108153a6b86a6daff9c5aa4c8bca5b9ed99d6`;
+stage-audit SHA-256 is
+`6c1512f0e2e585dfb360c477ed5e24cac185ee9d7bde9a47cd5e1f8157b24b2c`.
+All source/fixture/audit-lock hashes and exact stage-prompt reconstructions match.
+Startup took 9.539 seconds; aggregate requests took 16.770–25.924 seconds with
+133–220 output tokens. These remain exposed extraction-stage measurements.
+
+| Case | All 23 obligations, A selection and B annotation |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful in both stages; named set, unresolved different roles and shared stand are preserved. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: now faithful, including the actual replacement's link to withdrawn 10:35. A still selects the correction announcement separately and B leaves it active; this is harmless metalinguistic content from the utterance, tracked as prompt adherence rather than a new semantic failure. |
+| 19 | `resolved-items`, `readiness`, `unknown-permission`: faithful; the connected sorted basis/readiness clause and `Only` unknown-clearance clause preserve all meanings without invented certainty. A dependent basis need not be severed from its argument to pass a newly imposed serialization preference. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: faithful independent selections/annotations and connected reference scope. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful, including current attribution, asserted `with that` relationship, `only` and pending `until` condition. |
+| 2 | `actor-repair`: fails in A/B; both actor codes remain in one selected fragment and B withdraws that whole fragment. `delay`: predicate/cause survive, but the corrected actor and replacement link are not represented. `fuel`, `baggage-unknown`, `contrast`: source wording remains, yet the malformed corrected-actor chain prevents a complete faithful result. No active negative TRN103 denial or actual baggage noncompletion is invented. |
+
+Five of the six exposed meaning controls meet their frozen obligations; the
+initial diagnostic remains unqualified because actor repair fails. This is not
+a population-accuracy estimate, reserve result or permission for report checking.
+The repeated code-actor grouping is a model selection error; exact source
+transport/binding retains both identifiers correctly. Current evidence therefore
+does not require a new transport or parser architecture.
+
+A bounded v4 prompt-only identifier-transfer test is defensible: replace human
+names in the matched examples with unrelated alphanumeric device actors while
+preserving the sentence skeleton/action, and contrast the same actors in a true
+complete negative proposition. Keep the numeric example, runtime, parser, budgets
+and all gates unchanged. Prefer this controlled substitution to another warning
+stack. Its purpose is to test grouping of identifier actors, not insert aviation
+facts or infer roles from identifier order. The current data do not establish
+that identifier form causes the failure or that this substitution will solve it;
+the same full actual outputs must answer that. No model call, candidate edit,
+additional contrast/reserve inspection or raw repair was performed here.
+
+## Two-pass v4 pre-inference source clearance
+
+Candidate `d9ec8f449db1a76ca875212943a1c83bed86df9e9551f71718210420da161c8a`
+matches independent readback. AST comparison against actual frozen v3 confirms
+only version/two prompts changed. All 67 offline controls pass. Both new BOT7/BOT8
+repair and complete-negative examples independently pass both strict parsers with
+fidelity false. Matched repair action/skeleton and numeric example remain; device
+actors add no aviation facts or expected case labels. No concrete blocker was
+found for the unchanged six-case no-retry diagnostic. Runtime/parser, budgets and
+semantic gates remain unchanged. No model call, candidate edit, new contrast/
+reserve inspection or raw repair was performed.
