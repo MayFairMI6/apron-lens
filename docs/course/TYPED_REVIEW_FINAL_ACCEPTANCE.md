@@ -1076,3 +1076,78 @@ Remove the disproven meta-probe assumptions, preserve all comparisons/failures,
 and require complete exposed review/gates for any revised candidate before
 fresh-v3. No threshold, gold, contract or acceptance gate was changed. This
 reviewer made no model calls or implementation edits and has not read fresh-v3.
+
+## R11v2 uniform content-only diagnostic — grounding repair remains in scope
+
+Frozen `content_only.py` SHA-256 is
+`76396951b351ca23e05bd0add8ca5eb79584d7ee5878bb4d11821fe75bdcd468`;
+wrapper is `87284502efa04b647a57a872eba9690ff90b590d15673559ac732b5dbd5bb94c`.
+The independent bounded source audit confirms the declared diagnostic: every
+primary criterion pair compares the raw whole answer with a bare facet, with no
+question, meta-judging instruction, learner lexical gate or per-case format.
+Grounding uses literal current reports, typed values, attribution and clock
+provenance; no history rescue or new derived truth is added. Partial records
+cannot certify support, and snippets cannot override a neutral/uncertain whole
+answer. Neutral remains uncertain, never silently missing. All seven offline
+injected-score tests independently pass.
+
+| Actual uncached exposed diagnostic | Exact | Valid exact | Delivered | Correct criterion statuses | False credit |
+|---|---:|---:|---:|---:|---:|
+| [Old six](../../outputs/content-only-regression-mps-r11v2/summary.json) | 2/6 | 2/3 | 6/6 | 14/18 | 0 |
+| [Development 24](../../outputs/content-only-development-mps-r11v2/summary.json) | 9/24 | 6/12 | 24/24 | 51/72 | 0 |
+
+This reviewer independently inspected the actual case-level meanings, core and
+grounding comparisons, quotations and source coverage. Frozen source snapshots
+match their locks; all 69 old-six and 276 development planned pairs have finite
+actual scores and matching metadata, with no truncation/error. Maximum inputs
+are 481 and 511 tokens respectively. Direct startup is 2.772/2.768 seconds and
+reviews take 0.333–2.626/0.479–3.943 seconds. These are direct-run observations,
+not native-owner acceptance. Both suites fail the unchanged exposed gate.
+
+The raw requested-point path is substantially clearer in this diagnostic:
+requested core statuses are exact on five of six old cases and 18/24 development
+cases. Nine development failures are grounding-only; five of the six failed valid
+development answers fail only grounding. Actual examples isolate mechanisms:
+
+- Old valid fuel/baggage grounding is uncertain because the separated service
+  sentence has entailment only 0.5034, although its full answer is entailed at
+  0.9946. DEV8 has relevant report support but an unrelated source chunk wrongly
+  contradicts availability, leaving uncertain grounding.
+- Swapped occupancy and completed-reposition false claims have direct grounding
+  contradictions, but the multichunk policy deliberately returns uncertain.
+- The invented engine-fire assertion is neutral rather than entailed; that alone
+  does not distinguish an unsupported factual extra from an unconfirmed valid
+  paraphrase.
+- Genuine omissions in DEV3/7/15 and the old hold omission remain uncertain.
+  Wrong-flight obstruction attribution (DEV1) and resource/hold anaphora in
+  DEV10/11 remain wrong or uncertain core interpretations. Source-only grounding
+  normalization cannot fix these by itself.
+
+There is also a concrete semantic quotation issue in DEV16: the full answer
+correctly states service/readiness and takeoff distinctions, but the selected
+scope quote is only the first sentence ending “overall readiness unconfirmed.”
+That passage does not specifically establish the takeoff-clearance distinction;
+the next sentence explicitly does. The quote model entails the first at 0.9775
+while classifying the explicit anaphoric second sentence neutral without its
+antecedent. Mechanical multi-quote validity is insufficient. A valid witness may
+need both exact antecedent and scope passages; full-answer correctness cannot
+excuse incomplete point evidence.
+
+**Bounded scope assessment:** a further source-only normalization/grounding repair
+plausibly fits the already approved R11 design and is justified by these observed
+mechanisms. Compact current fact/attribution rendering and explicit source scope
+could reduce split related facts and unrelated conflicts without inserting
+learner or expected-answer facts. This is a development direction, not validated
+success or an approval to make source citations prove correctness. A uniform
+mechanism still needs to distinguish genuine absence from uncertain meaning,
+cover unsupported factual additions and current/history/correction semantics,
+and provide relevant per-facet quotations. Neither neutral-to-missing nor
+neutral-to-contradicted remapping, failed meta-probes or favorable per-case formats
+would meet that requirement.
+
+This diagnostic does not demonstrate that the alternative Qwen claim extractor
+is necessary. Introducing that extractor would require its own placement/user
+choice, since it is outside the approved same-classifier redesign. Continue the
+bounded authorized repair with empirical controls, then rerun all exposed suites
+before reserve qualification. No new gate or arbitrary stopping cap is imposed;
+no fresh-v3 read, model call or implementation edit was made by this reviewer.

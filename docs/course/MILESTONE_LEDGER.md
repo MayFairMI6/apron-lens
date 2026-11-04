@@ -3475,3 +3475,6 @@ review; no automatic fourth reserve. Continuous development remains authorized
 without an artificial revision cap, while ML-052 remains unfinished and earlier
 source/results, production review, narrated video and accepted runtime/history
 remedies remain preserved.
+
+
+**R11v2 uniform content-only actual result (3 November 2026).** Old6=2/6exact,2/3valid,6delivered,0falsecredit; DEV24=9/24exact,6/12valid,24delivered,0falsecredit. Source/rawoutputs in `outputs/content-only-regression-mps-r11v2/` and `outputs/content-only-development-mps-r11v2/`. Independently reviewed core statuses correct5/6old and18/24DEV; nineDEVfailures are grounding-only. R11v2 is unqualified. Independent reviewer supports a bounded source-only normalization/scope and quote-witness repair within the approved design, not a claim of eventual acceptance or necessity of Qwen. Omission, anaphora, unsupported-extra and historical/correction limitations remain. Root full515tests pass41.831seconds; this is code verification, not semantic acceptance. Next implementation is a new scoped_content module preserving v1/v2; no reserve3 consumption or production/native activity.
