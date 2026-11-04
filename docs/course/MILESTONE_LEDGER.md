@@ -3819,3 +3819,57 @@ stress qualification, any replacement reserve, production/native promotion and
 publication acceptance remain blocked until their existing prerequisites pass.
 No gate, gold convention or final quotation requirement changes. ML-052 remains
 unfinished; the deployed reviewer, old results and narrated video stay unchanged.
+
+**4 November 2026 — discourse-first Qwen diagnostic placement, contract stage.**
+The [capacity review](TYPED_QWEN_FRAME_ACCEPTANCE.md) records six terminal prose
+outputs: the numeric and interrupted-actor repairs are correctly expressed in
+that simpler task, but additions concerning confirmation/readiness (19), cause/
+authority/restriction (20) and source attribution (2) prevent whole-prose fidelity.
+This supports testing a different task decomposition before changing reasoning
+mode; it does not qualify prose, frames or an automatic fidelity checker. Preserve
+all raw capacity results and prior failed structured runs.
+
+A separately versioned discourse-first plan/contract is CURRENT within the user's
+existing local-Qwen interpretation authorization. No additional user reopening
+approval is needed. Author the plan/contract only now; independent source/contract
+clearance and a frozen implementation are required before actual calls. Stage A
+identifies only untrusted exact old/cue/new correction spans and whether the old
+reading is a fragment or complete assertion. It is not a claim inventory or a
+requirement that every learner sentence be mapped. Stage B receives the COMPLETE
+original learner answer plus the untrusted map and extracts all frames, including
+all nonrepair facts, operators, attribution, conditions and unresolved alternatives.
+Neither stage receives reports, questions, rubric/gold or the capacity explanation.
+Do not reparse saved prose into a successful map or frame result.
+
+Freeze both schemas/prompts, exact offset/reference binding, duplicate-occurrence
+policy, fragment/assertion scope, lifecycle links, disagreement behavior and
+per-stage audit before calls. An exact map proves where text occurs, not that a
+correction happened. A must be able to emit no repair and to mark unresolved
+scope; real negation, contrast and uncertainty cannot be forced into a repair.
+B must not obey an incorrect map as truth, see only mapped material, or hide an
+A error by silently replacing it. Preserve map/final disagreements and original
+claims; declared uncertainty/withholding must count against delivered fidelity.
+No source fact, named actor, earlier predicate or authority inference may be
+manufactured to complete a fragment.
+
+Keep the same model/revision and thinking-disabled profile. The two planned
+500-token stages share the existing single 55-second isolated review deadline
+and 1,000-token aggregate output maximum; server/native budgets remain 60/90.
+Require observed terminal completion for each stage, no retries or first-stage
+fallback, and retain raw prompts/output, actual usage, failures and per-stage/
+combined elapsed time. Freeze behavior for failed or malformed A before invoking
+B; it must never become an implicitly trusted empty map.
+
+The smallest actual trial remains the same six learner texts and 23 unchanged
+semantic obligations. Independently score A's false repairs, omissions, span/
+scope errors and B's complete interpretation separately. Nonrepair cases supply
+important false-positive controls, while both repair cases test withdrawal and
+replacement. All final additions/omissions still fail fidelity, including those
+outside mapped text. Mechanical controls must show that neither stage agreement
+nor valid map binding sets fidelity/report-check flags. Stage B is not an
+independent verifier of A. The later 12 contrasts and all runtime-fidelity,
+report-grading, exposed/stress, reserve/native and publication gates remain
+blocked until their existing prerequisites pass. No implementation, model call,
+new profile, report stage, reserve access or production acceptance is approved
+by this contract-stage placement. Video, deployed review and old results remain
+unchanged; ML-052 continues unfinished.

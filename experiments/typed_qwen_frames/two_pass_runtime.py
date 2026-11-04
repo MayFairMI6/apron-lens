@@ -15,6 +15,8 @@ from . import two_pass_candidate as candidate
 
 
 class TwoPassFrameAdapter(FrameAdapter):
+    candidate_api = candidate
+
     def __init__(self, *, audit_path, audit_context=None):
         super().__init__()
         self.audit_path = Path(audit_path)
@@ -22,7 +24,7 @@ class TwoPassFrameAdapter(FrameAdapter):
 
     def _audit(self, event, **values):
         self.audit_path.parent.mkdir(parents=True, exist_ok=True)
-        record = dict(event=event, recordedAt=time.time(),
+        record = dict(event=event, recordedAt=time.time(), candidateModule=self.candidate_api.__name__,
                       frozenContext=self.audit_context, **values)
         with self.audit_path.open('a') as stream:
             stream.write(json.dumps(record, allow_nan=False, default=str) + '\n')
@@ -45,6 +47,7 @@ class TwoPassFrameAdapter(FrameAdapter):
         if request.settings.max_output_tokens != 1000:
             raise ValueError('Two-pass aggregate output capacity must be 1000')
         learner = request.messages[0][1]
+        api = self.candidate_api
         started = time.monotonic()
         selection = None
         final = None
@@ -53,8 +56,8 @@ class TwoPassFrameAdapter(FrameAdapter):
         identity = dict(requestId=request.request_id,
                         learnerSHA256=hashlib.sha256(learner.encode()).hexdigest())
         for stage in ('selection', 'annotation'):
-            prompt = (candidate.selection_prompt(learner) if stage == 'selection'
-                      else candidate.annotation_prompt(learner, selection))
+            prompt = (api.selection_prompt(learner) if stage == 'selection'
+                      else api.annotation_prompt(learner, selection))
             stage_request = replace(request, request_id=request.request_id + '-' + stage,
                 messages=(('user', prompt),),
                 settings=replace(request.settings, max_output_tokens=500))
@@ -72,10 +75,10 @@ class TwoPassFrameAdapter(FrameAdapter):
                 if type(result.usage.output_tokens) is not int or not 0 <= result.usage.output_tokens <= 500:
                     raise ValueError('stage_output_usage_unknown_or_over_cap')
                 if stage == 'selection':
-                    parsed = candidate.parse_selection(result.text, learner)
+                    parsed = api.parse_selection(result.text, learner)
                     selection = parsed
                 else:
-                    parsed = candidate.parse_annotation(result.text, learner, selection)
+                    parsed = api.parse_annotation(result.text, learner, selection)
                     final = parsed
             except (ValueError, TypeError, KeyError) as exc:
                 error = stage + ':' + type(exc).__name__ + ':' + str(exc)
@@ -94,7 +97,7 @@ class TwoPassFrameAdapter(FrameAdapter):
             latency_seconds=elapsed,
             effective_settings={**result.effective_settings, 'max_output_tokens': 1000,
                                 'per_stage_max_output_tokens': [500, 500]},
-            metadata={**result.metadata, 'version': candidate.VERSION,
+            metadata={**result.metadata, 'version': api.VERSION, 'candidateModule': api.__name__,
                       'stages': stages, 'selection': selection, 'parsed': final,
                       'observedEOS': len(stages) == 2 and all(
                           s['result']['metadata'].get('observedEOS') for s in stages),

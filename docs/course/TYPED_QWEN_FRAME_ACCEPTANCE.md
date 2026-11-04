@@ -1126,3 +1126,95 @@ blocker was found for the bounded same-six capacity diagnostic. Its actual raw
 meaning still needs all 23 obligations reviewed and cannot qualify structured
 extraction. No generation, candidate/runtime edit, raw repair or additional
 contrast/reserve read was performed by the reviewer.
+
+## Actual plain-capacity v1 — repairs understood, prose fidelity not qualified
+
+The [complete capacity run](../../outputs/qwen-plain-capacity-v1-initial/summary.json)
+records **6/6 observed-EOS completions and nonempty transport**, no timeout/retry.
+Records SHA-256 is
+`c249ecd1cd72ce3c37d03237ae5c6f07c20ce86204ec661ebcc16f5150ae4747`.
+All source/fixture hashes and exact learner-only prompts independently match.
+Startup took 9.416 seconds; requests took 5.671–11.567 seconds with 56–116 tokens.
+These are prose diagnostic measurements, never structured validity or acceptance.
+
+| Case | All 23 obligations, assessed as prose rather than wire fields |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful, explicitly preserving two named aircraft, unidentified distinct roles and the same stand. No named assignment is invented. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: faithful; prose correctly explains the initial reading being replaced and the generic estimate/non-conferral distinction. No wire correctionTarget is required in this diagnostic. |
+| 19 | `resolved-items`: sorted items survive but are described as confirmed without a stated confirming source. `readiness`: positive readiness survives, but prose makes it qualified by unknown clearance and adds a single outstanding departure requirement. `unknown-permission`: unknown rather than denied clearance survives; the added requirement/qualification is not established by `Only ... unconfirmed`. Whole prose fidelity fails. |
+| 20 | `not-released`: retained with an invented cause. `held`: weakened to remaining at a stand, losing restriction. `permission`: strengthened from non-conferral to lacking clearance. `lvp`: tower action remains but becomes an invented condition of the preceding situation. These are changed meanings, not JSON failures. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful attribution/claimed cancellation link and waiting-for-slot explanation, without asserting slot completion. The learner's claimed inference remains a learner claim, not verified report truth. |
+| 2 | `actor-repair`, `delay`, `fuel`, `baggage-unknown`, `contrast`: core meanings are correctly explained, including TRN103 being replaced by TRN102 before the predicate. An added final sentence attributes the lack of confirmation to unspecified reported information rather than direct observation; that source/observation distinction is not established by the original lack of received confirmation. Whole prose fidelity therefore remains unqualified. |
+
+The actor and numeric repairs are within the model's demonstrated expressive
+capacity in one simpler no-thinking task. This weakens an inherent-inability
+claim while not proving the cause of prior structured failures. Other additions
+show that unconstrained prose is also an unsuitable automatic fidelity gate; no
+prose is parsed into accepted correction metadata or adopted downstream.
+
+A bounded discourse-first diagnostic is now better supported than immediately
+changing reasoning mode. A first task could identify only untrusted exact prior,
+cue and corrected source spans, preserving whether the prior reading is a noun
+fragment or complete assertion. A second task would receive the full original
+utterance plus that map and perform source-preserving complete frame extraction.
+The old all-clause selection-ID constraint would no longer apply because A would
+be a discourse map, not a claim inventory. This requires a new versioned contract
+and source plan; it is not a silent repair of the existing experiment.
+
+Exact span binding would validate evidence identity, not whether a correction
+exists. Separately count map omissions, false repairs, incorrect scope and final
+frame additions/omissions against all 23 original meanings. B must not treat the
+map as truth or receive only mapped material; original nonrepair claims remain
+required, and a bad map cannot be hidden by a successful-looking final answer.
+Keep current model/profile and aggregate budgets first. No automatic prose repair,
+report stage, semantic acceptance or reserve eligibility is approved. The reviewer
+made no model call, candidate edit, raw repair or new contrast/reserve inspection.
+
+## Discourse-first pre-implementation contract review
+
+Independent end-to-end review of `TYPED_QWEN_DISCOURSE_FIRST_CONTRACT.md` finds
+no concrete blocker. The correction-only A map does not replace complete claim
+coverage. B retains full original input and all final meaning obligations; exact
+map binding and assignments remain provenance rather than semantic proof.
+
+Four-column assignments explicitly distinguish using an untrusted map from
+rejecting it: two existing claim IDs with null reason and valid withdrawal/link/
+span evidence, or two null IDs with a nonempty map-specific reason. Partial or
+silently omitted assignments must reject. Original A notes remain separately
+visible rather than becoming false persistent final ambiguity. A errors remain
+independent failures even where B later reads the original correctly.
+
+Implementation must preserve existing durable raw-A fsync, aggregate deadline,
+caps, observed EOS and abort/no-fallback behavior, with explicit runtime variant/
+source hashes and default-path regression controls. Assignment multiplicity,
+provenance, source-offset ordering and links need strict validation. Do not add a
+blanket requirement that every mapped replacement be active: an intermediate
+replacement can itself be withdrawn in a later correction; final meaning is
+independently assessed. No new gate, model/profile change or report permission
+is proposed. Frozen source/tests/runtime still need review before calls. No
+candidate edit, model call, raw repair or additional contrast/reserve read occurred.
+
+## Discourse-first v1 frozen-source clearance
+
+Independent full candidate/contract/test readback matches candidate
+`436c4ec40fb6ab87aca77819de8832224aac98b6228de645e4d62a50d3b66e9b`,
+candidate tests `207bf5933aebf04badbdaa1d04946e71facc047790a3fdbc344f986a1ddb62c9`,
+and contract `aa2f0253bb5832c9c762f6b321cd04db8c8e5690999f3dcc37c3eecb3f878d64`.
+Runtime dispatch `38758927a752a0aaa3385762a663ae5a98047f37e11604d3a038b11e0cb1cf0d`,
+subclass `b7092bcf628a789e23f3d998d394e9ff484e360bdca17c9eb9ce03bbbc8d96fd`,
+and runner `784aef221fe16ef29d150e2224c31af172ad106addd77df3e92de10f475b1a2b`
+also match the reviewed freeze. New runtime-test SHA-256 is
+`b7cbddba8cfef25575ee98567fd5ef538f13c5f94c278598830a652f2a43c2ea`.
+All 87 focused offline controls independently pass in 1.190 seconds.
+
+The implementation preserves exact map bindings and input/version/map hashes,
+strict assignment completeness and usable-versus-rejected shapes, earlier
+withdrawn links and mapped-span containment. Original map/notes remain separate;
+B covers the full original utterance. Intermediate replacements may be withdrawn
+later; all fidelity/report/completeness flags remain false. Explicit candidate
+dispatch/audited module identity preserves the old default path. Existing one-
+deadline caps, raw fsync, abort behavior and base warmup remain; fake-process
+tests cover empty-map continuation and raw-map survival after second-stage kill.
+No concrete blocker was found for the unchanged six-case diagnostic. Actual map
+and final-frame semantics still require independent review. No model call,
+candidate edit, raw repair or additional contrast/reserve read occurred.

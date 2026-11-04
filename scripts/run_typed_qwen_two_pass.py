@@ -27,7 +27,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('fixture', type=Path)
+    parser.add_argument('--variant', choices=['clause_first', 'discourse_first'], default='clause_first')
     args = parser.parse_args()
+    adapter_class = TwoPassFrameAdapter
+    if args.variant == 'discourse_first':
+        from experiments.typed_qwen_frames.discourse_runtime import DiscourseFrameAdapter
+        adapter_class = DiscourseFrameAdapter
+        VERSION = adapter_class.candidate_api.VERSION
     cases = json.loads(args.fixture.read_text())['cases']
     out = args.output
     out.mkdir(parents=True, exist_ok=False)
@@ -38,14 +44,20 @@ def main():
                 ROOT/'docs/course/TYPED_QWEN_FRAME_CONTRACT.md',
                 ROOT/'docs/course/TYPED_QWEN_TWO_PASS_CONTRACT.md'])
     sources += sorted((ROOT/'docs/course').glob('TYPED_QWEN_FRAME_*_ADDENDUM.md'))
+    if args.variant == 'discourse_first':
+        sources.append(ROOT/'docs/course/TYPED_QWEN_DISCOURSE_FIRST_CONTRACT.md')
     hashes = {str(p.relative_to(ROOT)): sha(p) for p in sources}
     for path in sources:
         target = out/'source'/path.relative_to(ROOT)
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
-    identity = TwoPassFrameAdapter(audit_path=out/'stages.jsonl').served_model
+    identity = adapter_class(audit_path=out/'stages.jsonl').served_model
     settings = Settings(identity, 1000, image_max_side=672)
-    lock = dict(version=VERSION, sourceHashes=hashes, fixtureSHA256=sha(args.fixture),
+    lock = dict(version=VERSION, variant=args.variant,
+                candidateModule=adapter_class.candidate_api.__name__,
+                stageTasks=(['repair_map', 'full_source_frames'] if args.variant == 'discourse_first'
+                            else ['atomic_source_selection', 'discourse_annotation']),
+                sourceHashes=hashes, fixtureSHA256=sha(args.fixture),
                 fixture=str(args.fixture), model=identity, settings=asdict(settings),
                 createdAt=time.time(), runtimeProfile='apronlens-v2-mps',
                 aggregateGenerationTimeoutSeconds=55, stageOutputCaps=[500, 500],
@@ -53,7 +65,7 @@ def main():
                 modelArtifactSHA256={p.name: sha(p) for p in sorted(model_dir('qwen3.5-9b').iterdir())
                                     if p.is_file()})
     (out/'lock.json').write_text(json.dumps(lock, indent=2)+'\n')
-    factory = partial(TwoPassFrameAdapter, audit_path=str(out/'stages.jsonl'),
+    factory = partial(adapter_class, audit_path=str(out/'stages.jsonl'),
                       audit_context=dict(lockSHA256=sha(out/'lock.json'), version=VERSION,
                                          fixtureSHA256=lock['fixtureSHA256'], sourceHashes=hashes))
     owner = IsolatedTrainingAdapter(factory, identity, audit_path=out/'worker.jsonl',
