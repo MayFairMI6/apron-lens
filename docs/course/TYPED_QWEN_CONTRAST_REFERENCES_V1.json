@@ -1,0 +1,261 @@
+{
+  "metadata": {
+    "version": "learner-only-contrast-references-v1",
+    "purpose": "Independent exposed-development intrinsic-meaning annotations; not grading gold, report truth, or operational truth.",
+    "runtimeBoundary": "This entire reference file must remain outside the extractor prompt, parser, and inference inputs.",
+    "status": "Prepared and frozen before contrast inference; independent review and initial qualification precede any run.",
+    "annotationConvention": "Evidence strings are exact contiguous substrings of the original answer; obligations may require linking multiple spans. Quotation alone does not prove fidelity. Counterfactual interpretations deliberately misread intrinsic meaning, not external facts."
+  },
+  "cases": [
+    {
+      "id": "contrast-01a",
+      "contrastFamily": "subject-repair-versus-negation",
+      "learnerResponse": "TRN417—sorry, TRN628—is waiting for Stand D.",
+      "learnerResponseSHA256": "18d4470de53e157e47249c4082d5d259c846fb31f53edf888283ee313634b3e8",
+      "semanticObligations": [
+        {
+          "exactEvidence": "TRN417—sorry, TRN628—",
+          "meaning": "The initial actor TRN417 is explicitly repaired to TRN628; preserve the repair link and withdrawn actor mention."
+        },
+        {
+          "exactEvidence": "TRN628—is waiting for Stand D.",
+          "meaning": "The committed waiting-for-Stand-D assertion has actor TRN628."
+        }
+      ],
+      "nonInferences": [
+        "The repair does not assert that TRN417 is not waiting for Stand D.",
+        "Do not retain both aircraft as current subjects of the waiting assertion."
+      ],
+      "counterfactualBadInterpretation": "TRN417 is not waiting for Stand D, and TRN628 is waiting for Stand D."
+    },
+    {
+      "id": "contrast-01b",
+      "contrastFamily": "subject-repair-versus-negation",
+      "learnerResponse": "TRN417 is not waiting for Stand D; TRN628 is.",
+      "learnerResponseSHA256": "c62956da9482c50da08def1a2ccef6a5a771ab049976fb50e7d4479fc680deef",
+      "semanticObligations": [
+        {
+          "exactEvidence": "TRN417 is not waiting for Stand D",
+          "meaning": "A negative waiting-for-Stand-D assertion concerns TRN417."
+        },
+        {
+          "exactEvidence": "TRN628 is.",
+          "meaning": "The elliptical second clause positively asserts TRN628 is waiting for Stand D, using the preceding predicate."
+        }
+      ],
+      "nonInferences": [
+        "This is contrastive negation plus ellipsis, not withdrawal of the name TRN417.",
+        "Do not discard the negative TRN417 claim as a correction."
+      ],
+      "counterfactualBadInterpretation": "The learner retracts the name TRN417 and only asserts that TRN628 is waiting for Stand D."
+    },
+    {
+      "id": "contrast-02a",
+      "contrastFamily": "unspecified-versus-identified-roles",
+      "learnerResponse": "Of TRN417 and TRN628, one occupies Stand D; the other waits for that stand.",
+      "learnerResponseSHA256": "477eeff165bce418d8ee2e5dd89235b0936787421cea8a2e30b3c467e6d43bd3",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Of TRN417 and TRN628, one occupies Stand D",
+          "meaning": "Exactly one of the two named aircraft is assigned the occupant role, without specifying which."
+        },
+        {
+          "exactEvidence": "the other waits for that stand.",
+          "meaning": "The remaining aircraft waits for Stand D, without specifying its identity."
+        }
+      ],
+      "nonInferences": [
+        "Do not infer identity from order of mention.",
+        "Neither individual aircraft has an identified occupant or waiting role."
+      ],
+      "counterfactualBadInterpretation": "TRN417 occupies Stand D and TRN628 waits for Stand D."
+    },
+    {
+      "id": "contrast-02b",
+      "contrastFamily": "unspecified-versus-identified-roles",
+      "learnerResponse": "TRN628 occupies Stand D; TRN417 waits for that stand.",
+      "learnerResponseSHA256": "4f15c4084293b35f5bc4c6185062a2054cd6f6e64e2df4b0a6e60ec4f3e4a502",
+      "semanticObligations": [
+        {
+          "exactEvidence": "TRN628 occupies Stand D",
+          "meaning": "The explicitly identified occupant is TRN628."
+        },
+        {
+          "exactEvidence": "TRN417 waits for that stand.",
+          "meaning": "The explicitly identified waiting aircraft is TRN417 and the resource awaited is Stand D."
+        }
+      ],
+      "nonInferences": [
+        "Waiting for the stand does not mean occupying it.",
+        "Do not treat the explicitly identified roles as unresolved merely because two aircraft are named."
+      ],
+      "counterfactualBadInterpretation": "Either TRN417 or TRN628 occupies Stand D; their roles are unspecified."
+    },
+    {
+      "id": "contrast-03a",
+      "contrastFamily": "permission-unknown-versus-denied",
+      "learnerResponse": "Takeoff permission for TRN417? Still unconfirmed.",
+      "learnerResponseSHA256": "f2ca66d7a4dfdf4e6c0b89cdf520717aca39b4701503b9e1b6e3c29e963e0ec2",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Takeoff permission for TRN417? Still unconfirmed.",
+          "meaning": "The learner identifies takeoff permission for TRN417 as unconfirmed; the fragment supplies its own named property and actor."
+        }
+      ],
+      "nonInferences": [
+        "Unconfirmed permission is not denied permission.",
+        "No ground-hold or readiness status is asserted."
+      ],
+      "counterfactualBadInterpretation": "TRN417 has been refused takeoff permission."
+    },
+    {
+      "id": "contrast-03b",
+      "contrastFamily": "permission-unknown-versus-denied",
+      "learnerResponse": "Takeoff permission for TRN417 has been refused.",
+      "learnerResponseSHA256": "b4463b2f1a011f339eeadc09d8516d4557308df2fed43dda74494eedbb807d7d",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Takeoff permission for TRN417 has been refused.",
+          "meaning": "The learner asserts explicit refusal of takeoff permission for TRN417."
+        }
+      ],
+      "nonInferences": [
+        "Do not weaken explicit refusal to mere lack of confirmation.",
+        "No actor granting or refusing permission is identified."
+      ],
+      "counterfactualBadInterpretation": "Takeoff permission for TRN417 is merely unconfirmed; no refusal is asserted."
+    },
+    {
+      "id": "contrast-04a",
+      "contrastFamily": "planned-versus-confirmed-vacancy",
+      "learnerResponse": "Stand planning expects Stand D to be vacated after TRN417 moves.",
+      "learnerResponseSHA256": "b1474285616d6e85fea91eea77bac237ec2050fbe22b1f319dbd526d22497a3f",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Stand planning expects",
+          "meaning": "The expected vacancy is attributed to Stand planning, with expectation rather than confirmation."
+        },
+        {
+          "exactEvidence": "Stand D to be vacated after TRN417 moves.",
+          "meaning": "Stand D vacancy is prospective and follows the mentioned movement of TRN417; completion of either event is not asserted."
+        }
+      ],
+      "nonInferences": [
+        "Do not assert Stand D is already vacant.",
+        "Do not assert TRN417 has already moved or assert its move is operationally authorized.",
+        "An expectation does not establish either current occupancy or current vacancy."
+      ],
+      "counterfactualBadInterpretation": "Stand planning confirms TRN417 has already moved and Stand D is vacant now."
+    },
+    {
+      "id": "contrast-04b",
+      "contrastFamily": "planned-versus-confirmed-vacancy",
+      "learnerResponse": "Stand planning confirms Stand D has been vacated by TRN417.",
+      "learnerResponseSHA256": "a95062bd2f6fed3a7d3d4acab26788b0f0d97a95ce952d1730c58722f7395a9d",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Stand planning confirms",
+          "meaning": "Confirmation is attributed to Stand planning."
+        },
+        {
+          "exactEvidence": "Stand D has been vacated by TRN417.",
+          "meaning": "The attributed confirmation presents TRN417 vacating Stand D as completed, not merely expected."
+        }
+      ],
+      "nonInferences": [
+        "Preserve attribution; this fixture does not establish operational truth.",
+        "Vacating the stand does not assert takeoff permission or another aircraft assignment."
+      ],
+      "counterfactualBadInterpretation": "Stand planning merely expects TRN417 to vacate Stand D later; no completed vacancy is asserted."
+    },
+    {
+      "id": "contrast-05a",
+      "contrastFamily": "service-completion-versus-unknown-object",
+      "learnerResponse": "TRN417: fuel finished; no confirmation yet that its bags are loaded.",
+      "learnerResponseSHA256": "484660143919832ed7bfea217734e1476766e09400202182ad2c4a7d580648ca",
+      "semanticObligations": [
+        {
+          "exactEvidence": "TRN417: fuel finished",
+          "meaning": "Fuel completion is positively asserted for TRN417."
+        },
+        {
+          "exactEvidence": "no confirmation yet that its bags are loaded.",
+          "meaning": "The baggage-loading completion status for the same aircraft is unconfirmed, not denied."
+        }
+      ],
+      "nonInferences": [
+        "Do not turn unknown baggage loading into incomplete or completed baggage loading.",
+        "Do not infer overall readiness, clearance, or any source attribution."
+      ],
+      "counterfactualBadInterpretation": "TRN417 has completed both fuel and baggage service; only its overall readiness is unknown."
+    },
+    {
+      "id": "contrast-05b",
+      "contrastFamily": "service-completion-versus-unknown-object",
+      "learnerResponse": "TRN417: bags loaded; no confirmation yet of overall departure readiness.",
+      "learnerResponseSHA256": "f7ba295da5aa7ee66a5afcffc0af78a0ee8ff4c5bb9fb3aef0a0408ba0bc5131",
+      "semanticObligations": [
+        {
+          "exactEvidence": "TRN417: bags loaded",
+          "meaning": "Baggage loading is positively asserted complete for TRN417."
+        },
+        {
+          "exactEvidence": "no confirmation yet of overall departure readiness.",
+          "meaning": "Overall departure readiness for the same aircraft remains unconfirmed."
+        }
+      ],
+      "nonInferences": [
+        "Do not substitute unknown takeoff clearance or unknown baggage loading for unknown overall readiness.",
+        "Fuel completion is not stated.",
+        "Do not deny readiness simply because it is unconfirmed."
+      ],
+      "counterfactualBadInterpretation": "TRN417 has completed fuel service, but baggage loading is still unconfirmed."
+    },
+    {
+      "id": "contrast-06a",
+      "contrastFamily": "conditional-versus-completed-attributed-events",
+      "learnerResponse": "Ramp Control says that if TRN628 is repositioned, Stand E will become vacant.",
+      "learnerResponseSHA256": "bb84d15e5442a47c6d1848c9eed96ea8ae1c92be5546e82ad89912d8c8559541",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Ramp Control says",
+          "meaning": "The conditional statement is attributed to Ramp Control."
+        },
+        {
+          "exactEvidence": "if TRN628 is repositioned, Stand E will become vacant.",
+          "meaning": "Repositioning is a conditional antecedent; the vacancy is its future consequent, not a claim that either event has occurred."
+        }
+      ],
+      "nonInferences": [
+        "Do not assert completed repositioning, present vacancy, or that repositioning will definitely occur.",
+        "Do not detach the consequent from its condition."
+      ],
+      "counterfactualBadInterpretation": "Ramp Control reports TRN628 has been repositioned and Stand E is vacant now."
+    },
+    {
+      "id": "contrast-06b",
+      "contrastFamily": "conditional-versus-completed-attributed-events",
+      "learnerResponse": "Ramp Control says TRN628 has been repositioned and Stand E is now vacant.",
+      "learnerResponseSHA256": "4c87fe6ef852cc014a591ba23b52a0af95edde9dbec3a0321d6e771936ddb422",
+      "semanticObligations": [
+        {
+          "exactEvidence": "Ramp Control says",
+          "meaning": "Both coordinated propositions are attributed to Ramp Control."
+        },
+        {
+          "exactEvidence": "TRN628 has been repositioned",
+          "meaning": "Completed repositioning of TRN628 is asserted within that attribution."
+        },
+        {
+          "exactEvidence": "Stand E is now vacant.",
+          "meaning": "Present vacancy of Stand E is independently asserted within the same attribution."
+        }
+      ],
+      "nonInferences": [
+        "Do not downgrade asserted completion to a hypothetical future event.",
+        "No causal link, permission, or operational truth beyond the attributed assertions is established."
+      ],
+      "counterfactualBadInterpretation": "Ramp Control only describes what would happen if TRN628 were repositioned; neither event is asserted to have occurred."
+    }
+  ]
+}
