@@ -172,3 +172,179 @@ inference or tuning was started by this reviewer. Resume by preserving the
 unchanged first-reserve candidate run, completing and independently auditing its
 required CPU-baseline arm, then treating first-reserve failures as exposed
 development for correction under the unchanged acceptance and fresh-reserve rules.
+
+## First reserve paired comparison — baseline arm (3 November 2026)
+
+Reviewer: independent semantic acceptance reviewer (Claude Opus 5.5 subagent),
+separate from the implementation agent. No model, GPU or implementation/fixture
+edit was made; numbers below were recomputed from the saved `records.jsonl`
+files, not copied from `summary.json`.
+
+**Baseline provenance.** [relation-reserved-baseline-v2](../../outputs/relation-reserved-baseline-v2/summary.json)
+(commit `617f092`) ran `experiments.typed_nli_review.candidate`, version
+`discriminative-nli-review-v2`, `cross-encoder/nli-deberta-v3-small` revision
+`fa2804872c3b4bd748f38c0185cc85775361e735`, threshold 0.8, CPU (torch 2.15.0,
+startup 2.469 s), on fixture SHA-256 `3052119f…3eeb6b`. Its locked hashes for
+`candidate.py` (`67698391…`), `propositions.py` (`3a18d476…`) and
+`backend/training_assessment.py` (`5b9d1225…`) are identical to the development
+baseline lock, to the saved source snapshot and to the working tree. Only the
+runner hash differs (`1fb09000…` versus `091e26b9…`); its diff adds MPS-lock,
+development-cache and audit-field branches that are inactive for this module.
+No development cache was used. All 24 saved payloads and gold labels equal the
+fixture. Both arms have every planned pair as a raw row (baseline 267, R8 488),
+finite probabilities, no pair errors or truncation (baseline maximum 112 input
+tokens, R8 479), and one pinned model/revision each.
+
+| Arm (first reserve, exposed) | Exact reviews | Exact valid | Valid accepted (supported) | Delivered | Criterion statuses correct | False-credit criteria |
+|---|---:|---:|---:|---:|---:|---:|
+| Frozen small-NLI v2, CPU | 7/24 | 1/12 | 1/12 | 24/24 | 44/72 | 0 |
+| R8 large NLI, MPS | 11/24 | 3/12 | 3/12 | 23/24 | 52/72 | 0 |
+
+No arm gave a `supported` verdict to an invalid, partial or uncertain case.
+
+| Fixed gate for R8 | Result |
+|---|---|
+| At least 10/12 valid answers exact | **Fail** (3/12) |
+| Zero false-credit criteria | Pass (0) |
+| No newly failing baseline case | **Fail**: cases 10, 11 and 17 are exact in the baseline but not in R8 |
+| Valid acceptance at least baseline | Pass (3 versus 1) |
+| Delivered yield at least baseline | **Fail** (23 versus 24; case 1 raised the 160-character quotation error) |
+
+Paired per-case table. Status codes: M met, X missing, C contradicted,
+U uncertain, “—” no review delivered. Order: requested points, then grounding.
+
+| Case | Exercise / checkpoint | Gold | Baseline | R8 | Pair |
+|---:|---|---|---|---|---|
+| 0 | late_baggage / 1 | M M M | M U C | M X U | both fail |
+| 1 | late_baggage / 1 | M M M | C U C | — | both fail |
+| 2 | late_baggage / 1 | M M M | U M C | U U M | both fail |
+| 3 | late_baggage / 1 | M M M | M C C | X M M | both fail |
+| 4 | late_baggage / 1 | C M C | C U C | C M C | R8 only |
+| 5 | late_baggage / 1 | M C C | M C C | M C C | both exact |
+| 6 | late_baggage / 1 | M M C | M C U | M M U | both fail |
+| 7 | late_baggage / 1 | X X M | X C M | X X M | R8 only |
+| 8 | surface_conflict / 1 | M M M | M U C | M M M | R8 only |
+| 9 | surface_conflict / 2 | M M C | U M C | M M U | both fail |
+| 10 | surface_conflict / 3 | M M M | M M M | M X M | **baseline only** |
+| 11 | surface_conflict / 3 | C C C | C C C | C C U | **baseline only** |
+| 12 | late_arrival / 1 | M M M | U M C | U M M | both fail |
+| 13 | late_arrival / 1 | C C C | C C C | C C C | both exact |
+| 14 | late_arrival / 2 | M M M | M U M | M M M | R8 only |
+| 15 | late_arrival / 3 | M M C | M M U | M M C | R8 only |
+| 16 | late_baggage / 2 | M M M | M U C | U X M | both fail |
+| 17 | late_baggage / 2 | C M C | C M C | C U C | **baseline only** |
+| 18 | late_baggage / 3 | M M M | U C C | X U U | both fail |
+| 19 | late_baggage / 3 | C C C | C C C | C C C | both exact |
+| 20 | fog_restrictions / 1 | M M M | M M C | M M M | R8 only |
+| 21 | fog_restrictions / 2 | M X M | M X U | M X M | R8 only |
+| 22 | fog_restrictions / 3 | M M M | U M M | U M M | both fail |
+| 23 | fog_restrictions / 3 | M C C | M C C | M C C | both exact |
+
+Summary: 4 both exact, 7 exact only in R8, 3 exact only in the baseline, 10 both
+fail. Cases 0, 1, 2, 3, 12, 16, 18 and 22 are valid answers failed by both arms.
+
+**Baseline semantic inspection.** Every delivered baseline quotation is a literal
+substring of the learner answer, and every evidence ID is an eligible
+same-episode report received by the cutoff. The baseline's grounding rule treats
+a sentence that no source entails as contradicted. It therefore marks 9 of 12
+valid answers' grounding contradicted, mostly on correct non-implication or
+explicit-unknown sentences (for example cases 0, 16 and 20). Its exact invalid
+results partly come from this broad rule rather than targeted conflict
+detection. In baseline-exact case 10, the `scope` status is correct, but the
+selected witness is the clearance-unknown sentence rather than the
+release-versus-permission sentence (the small model also entailed scope from
+that weaker sentence at 0.992). In failed case 3, a contradicted `separation`
+quotes the unrelated delay sentence. These qualify, but do not change, the
+status-based paired metrics.
+
+**R8 failure mechanisms on the three newly failing cases (for the implementer).**
+
+- Case 10 (`scope` missing). No scope pair was planned. The
+  `authority_distinction` coverage test requires a word from a fixed relation
+  lexicon. “not evidence of” is absent, so a correct release-versus-permission
+  sentence never reached inference. The baseline scored that sentence entailed
+  at 0.998. This is the same lexical-gate class as valid cases 0 and 3.
+- Case 11 (`grounding` uncertain for an asserted takeoff clearance). Each
+  individual eligible route report (L003/L006/L009, “No runway or takeoff
+  clearance is represented”) gives contradiction 0.978. The veto only consults
+  the concatenated relevant-sources premise, which is neutral at 0.988. Two
+  sub-threshold rows (combined bundle 0.531 and policy-normalized bundle 0.543
+  contradiction) then leave the sentence uncertain. The rubric says an invented
+  clearance is contradicted. Cases 6 and 9 show the same pattern: confident
+  single-route-report contradictions of the clearance clause (0.987 and 0.995)
+  do not act as a veto. In case 9, that clause is also wrongly entailed by L011
+  at 0.953.
+- Case 17 (`scope` uncertain). The only scope pair pairs the hypothesis with an
+  entity-context premise that carries the flight name but not the noun antecedent
+  of “It” (“the latest off-block estimate”). The large model returns neutral at
+  0.998, and any compared-but-neutral facet becomes uncertain. The baseline's
+  equivalent pair was entailed at 0.973. Anaphora loses its antecedent.
+
+Other first-reserve failures, recorded earlier, remain: a contiguous 160-character
+witness that cannot cover separated facets (case 1, no delivered review); lexical
+coverage that misses wording such as “holding up” or “no evidence”;
+corrections; and estimate/readiness meanings split across sentences. Directions
+consistent with this evidence are as follows. Do not let a closed relation
+lexicon suppress inference when the requested topics are present. Carry noun
+antecedents, not only flight identities, into anaphoric premises. Let a confident
+contradiction from an eligible same-flight source veto grounding, rather than
+being outvoted by sub-threshold combined-premise rows. Allow non-contiguous
+bounded witnesses instead of raising. These are directions, not verified fixes.
+
+**Comparison limits.** The arms differ in model, size, device and policy. No
+difference can be attributed to policy alone. The baseline is the rejected
+experimental small-NLI v2 reviewer, not deployed production. No superiority
+claim against production follows from either arm.
+
+**Decision.** The paired first-reserve comparison is now complete. R8 fails the
+valid-exact, no-new-baseline-failure and delivered-yield gates. It passes zero
+false credit and valid acceptance. R8 remains rejected; ML-052 remains
+unfinished. Both arms' first-reserve records are exposed regression evidence.
+A later acceptance claim needs the separately sealed second reserve below.
+
+## Second reserve authored — fresh-v2 (sealed, 3 November 2026)
+
+File: `experiments/typed_relation_review/fresh-v2.json`, SHA-256
+`cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f`.
+Contents are deliberately not described here beyond the counts below.
+
+- **Composition:** 24 new answers: 12 valid and 12 not valid (9 invalid, 2
+  partial, 1 deliberately ambiguous with uncertain gold). All four exercises and
+  all 12 checkpoints are used. Eight late-baggage checkpoint-1 fuel/baggage cases
+  (4 valid, 4 invalid/partial) are included.
+- **Coverage:** paraphrase and colloquial wording, telegraphic/list form,
+  service and flight swaps, other-flight attribution, negation and reversal,
+  unsupported additions, omitted requested content, explicit unknowns,
+  self-corrections in both directions, anaphora/fragment answers, plan or
+  service inference, superseded values and supported extra context. Response
+  length ranges from 47 to 523 characters (median 151; six over 200),
+  all within the 1200-character limit. Several valid answers need witnesses from
+  more than one sentence.
+- **Build:** payloads use `TrainingSession(17, exercise)` at each actual
+  checkpoint and `prepare_response`. `LESSON-<runId>` is normalized to
+  `RELATION-FRESH-V2-<exercise>`. The same builder reproduces all 48
+  fresh-v1/development-v1 payloads byte-for-byte under their own prefixes. Only
+  CPU Python (`.venv-candidates/bin/python`) was used, with no model or GPU call.
+  `category`, `tags`, `expected` and `why` stay outside `payload`.
+- **Validation:** a separate pass rebuilt every payload and checked episode and
+  cutoff eligibility, criterion evidence IDs, status vocabulary and criterion
+  order, length and label absence from payload. It also checked every gold status
+  against the reports received by that cutoff and the rubric text. The author
+  and label validator are the same reviewer. A second independent label check
+  would strengthen this, and its absence is disclosed.
+- **Overlap disclosure:** no answer is identical to any of the 54 prior answers
+  (fresh-v1, development-v1 and the six regressions). The maximum character-sequence
+  similarity is 0.634, with maximum token Jaccard 0.421. Questions, report
+  bundles and error families are necessarily shared within this domain, so this
+  remains an authored same-domain set rather than a population benchmark.
+- **Independence:** authored after reading the exposed fresh-v1 records of both
+  arms and the R8 source (the reviewed line references match the R8 snapshot).
+  The reviewer did not read any R9-or-later implementation source. During
+  authoring, the working-tree `experiments/typed_relation_review/candidate.py`
+  became modified by the implementer and was not opened. Knowing R8's failure
+  modes may bias case selection toward known weaknesses; that is disclosed, not
+  removed. Using a separate agent does not by itself remove authoring bias.
+- **Access rule:** the implementation agent must not read this file. Evaluate it
+  only after the exposed gates pass and both arms are frozen, uncached, on
+  identical payloads, with no tuning against its outcomes. If it fails, retire
+  it to exposed evidence like fresh-v1.
