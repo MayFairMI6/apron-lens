@@ -2540,14 +2540,14 @@ recovery and unpicklable-factory cleanup. The saved [test log](../../outputs/wor
 records 351 passing tests; this reviewer read the result rather than rerunning it.
 
 **Actual runtime evidence.** The [lifecycle receipt](../../outputs/worker-recovery/lifecycle.jsonl)
-records Qwen3.5-9B worker PID3014 stopped with exitcode-15 before PID3067 started;
-replacement load/warmup took18.22seconds. The preserved probe forces a120-second
-sleep at the review boundary using a temporary0.2-second deadline, then restores
-the normal55-second bound before actual inference. This demonstrates termination
+records Qwen3.5-9B worker PID 3014 stopped with exit code -15 before PID 3067 started;
+replacement load/warmup took 18.22 seconds. The preserved probe forces a 120-second
+sleep at the review boundary using a temporary 0.2-second deadline, then restores
+the normal 55-second bound before actual inference. This demonstrates termination
 of a deliberately blocked request in a loaded real-model process, not an observed
 spontaneous MPS hang. [Smoke output](../../outputs/worker-recovery/smoke.json) and
 [typed audit](../../outputs/worker-recovery/typed.jsonl) show post-recovery typed
-feedback applied at the correct checkpoint in34.90seconds. Its supported verdict,
+feedback applied at the correct checkpoint in 34.90 seconds. Its supported verdict,
 three literal learner quotations and eligible report IDs agree with this saved
 response. The ordinary request also completed and passed structural validation,
 but included an unrequested readiness unknown; no semantic-effectiveness claim
@@ -2568,10 +2568,15 @@ changed by the remedy. Publication and GitHub update/readback are separate next
 steps, not certified by this local acceptance.
 
 **Scenery and submission boundaries.** The [partial visual-review note](../../outputs/worker-recovery/scenery-review-status.md)
-preserves the Astra review of15 existing frames with no evident false-island
+preserves the Astra review of 15 existing frames with no evident false-island
 outline in those samples. The reviewer reached its account usage limit before
-regional weather cuts around04:49–05:19 and full durable visual review. This
+regional weather cuts around 04:49–05:19 and full durable visual review. This
 text-only reviewer did not inspect or substitute judgment for those images.
 #59 remains open and visual review remains incomplete; no scenery/video edit or
 whole-video acceptance is claimed. Gates #30/#31/#32 and original M2/M3 commitments
 remain separate. This correction adds no duplicate milestone task count.
+
+Coordinator publication receipt: implementation and evidence pushed as `629fa92`;
+PR #22 remote head verified. Issue #62 comment 6618647701 records the partial
+remedy; issue #59 comment 6618619638 records the incomplete visual review. Both
+issues remain open. No video edits or semantic-error closure were performed.
