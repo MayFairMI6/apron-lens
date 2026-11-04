@@ -1,0 +1,65 @@
+{
+  "version": "unit-support-review-v2",
+  "sourceSHA256": "6f4c039703c13725205fd79ae12cc8971457a3b1bf0fc6afc7c04a02a39eac1c",
+  "cases": [
+    {
+      "exercise": "late_arrival",
+      "checkpointId": "check-1",
+      "responseText": "TRN103 is the inbound flight waiting for Stand B. TRN102 currently occupies that stand."
+    },
+    {
+      "exercise": "late_baggage",
+      "checkpointId": "check-1",
+      "responseText": "TRN102 is delayed by baggage loading. Fuel service is complete; baggage is still outstanding."
+    },
+    {
+      "id": "partial",
+      "exercise": "fog_restrictions",
+      "checkpointId": "check-1",
+      "responseText": "The reports confirm that safeguarding and low-visibility procedures are active.",
+      "expectedStatuses": {
+        "procedures": "met",
+        "hold": "missing",
+        "grounding": "met"
+      },
+      "expectedVerdict": "partly_supported"
+    },
+    {
+      "id": "false_occupancy",
+      "exercise": "late_arrival",
+      "checkpointId": "check-1",
+      "responseText": "Stand B is already occupied by TRN103, not by TRN102.",
+      "expectedStatuses": {
+        "flight": "contradicted",
+        "occupant": "contradicted",
+        "grounding": "contradicted"
+      },
+      "expectedVerdict": "needs_review"
+    },
+    {
+      "id": "correct_core_with_unsupported_extra",
+      "exercise": "fog_restrictions",
+      "checkpointId": "check-3",
+      "responseText": "The safeguarding cancellation has been confirmed. Departure clearance is unknown and TRN101 is parked. Its engine is now on fire.",
+      "expectedStatuses": {
+        "confirmation": "met",
+        "authority": "met",
+        "grounding": "contradicted"
+      },
+      "expectedVerdict": "needs_review"
+    },
+    {
+      "id": "explicit_unknown",
+      "exercise": "fog_restrictions",
+      "checkpointId": "check-3",
+      "responseText": "Safeguarding has been cancelled. There is no received confirmation of departure clearance for TRN101, which is still parked.",
+      "expectedStatuses": {
+        "confirmation": "met",
+        "authority": "met",
+        "grounding": "met"
+      },
+      "expectedVerdict": "supported"
+    }
+  ],
+  "policy": "Exposed development only. No tuning against fresh evaluation. Stop and review any failure before proceeding."
+}

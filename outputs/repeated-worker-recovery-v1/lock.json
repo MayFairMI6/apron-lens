@@ -1,0 +1,10 @@
+{
+  "cycles": [
+    "forced-hang",
+    "forced-crash",
+    "forced-hang"
+  ],
+  "sourceSHA256": "86292273077ebee6f989bcbfb1e470bfdb90fa66aeef8228ce5218ebd2907a4f",
+  "testTimeout": 0.2,
+  "normalTimeout": 55
+}

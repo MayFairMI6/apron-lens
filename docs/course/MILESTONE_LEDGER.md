@@ -1,5 +1,12 @@
 # AirfieldLens milestone ledger
 
+**ML-049 closes the bounded remaining-fixes iteration with a mixed outcome.**
+Worker lifecycle hardening passes bounded acceptance; the second unit-support
+reviewer candidate fails development and is rejected without consuming the fresh
+paired set. The wide scenery audit establishes no demonstrated mismatch requiring
+a patch. #59–62 remain open with distinct residual limits. Preserve the final
+narrated presentation unchanged; publication/readback and submission are separate.
+
 **ML-048 accepts a bounded CURRENT worker-lifecycle correction under the user's
 new reliability authorization.** One actual local-model recovery cycle and
 post-recovery typed/ordinary compatibility checks support process isolation and
@@ -2597,3 +2604,81 @@ block above, not the original issue: the user's reported camera/viewpoint remain
 unidentified, #59 stays open, and no scenery fix or continuous full-video/camera
 clearance is claimed. This ledger reviewer read the Astra receipt rather than
 performing independent visual interpretation.
+
+## ML-049 — Remaining-fixes iteration: lifecycle accepted; semantic candidate rejected
+
+3 November 2026. The user authorizes finishing the remaining corrections,
+publishing evidence and updating the existing failure records, while preserving
+the final narrated video. This independent bounded CURRENT decision reads the
+[remaining-fixes review](../../outputs/remaining-fixes-review.md), source and saved
+receipts. It adds no duplicate milestone unit and does not complete the assignment
+or pull the full M2 visual/checker study or M3 formal evaluation into CURRENT.
+
+**Implemented and tested: worker lifecycle.** The production training worker now
+uses an independent POSIX interpreter, fresh IPC per owner and deadlines around
+whole startup/request communication, including blocked sends and partial receives.
+The intended generation/cleanup budget is 55 + 2 + 2 + 0.25 seconds beneath the
+60-second server wait, with scheduling/communication overhead explicitly outside
+any universal wall-clock guarantee. The final import-path handoff supports
+discover-imported factories. The saved [final suite log](../../outputs/remaining-fixes-tests/airfield-fixes-tests-final.log)
+records 357 passing tests; this reviewer read that log rather than rerunning the
+suite. [Research integrity](../../outputs/remaining-fixes-tests/research-integrity.log)
+and [backbone boundaries](../../outputs/remaining-fixes-tests/backbone-boundary.log)
+have separate saved passing receipts. The [preservation audit](../../outputs/remaining-fixes/preservation.json)
+records zero Git-normalized mismatches across 275 existing tracked output files
+and an unchanged production typed reviewer.
+
+The [three-cycle receipt](../../outputs/repeated-worker-recovery-v1/records.jsonl)
+and [lifecycle log](../../outputs/repeated-worker-recovery-v1/lifecycle.jsonl)
+show hang, crash and hang probes, old-owner stop before replacement start, absence
+of all recorded old owner/descendant PIDs after recovery, and actual model-generated
+ready responses after every replacement. Recovery took 19.73, 23.89 and 21.11
+seconds. The crash exited with code 7 although its caller hit the shortened
+0.2-second probe deadline. Parent RSS was nonmonotonic; shared device allocations
+were not measured. Child resource-tracker cleanup warnings remain preserved in
+the [runtime stderr log](../../outputs/repeated-worker-recovery-v1/airfield-repeat-recovery.log).
+Accept this bounded engineering remedy, keeping #62 open for general latency,
+device-failure and indefinite cleanup limits. The real-run source lock precedes
+the final import-path-only adjustment, which has suite coverage rather than an
+exact-final-source real-model rerun. The [tested worker snapshot](../../outputs/repeated-worker-recovery-v1/worker-source.py)
+matches its locked hash; the [final snapshot](../../outputs/remaining-fixes/worker-source-final.py)
+preserves the import-path adjustment. Prior typed/ordinary compatibility evidence
+is not relabelled as a fresh full native flow.
+
+**Rejected: semantic/quotation reviewer candidate.** Both development versions
+and raw failures are preserved. The six v2 records yield two exact accepted
+reviews, one accepted false-credit review and three withheld reviews. In the
+partial fog answer, the candidate falsely credits hold/no-clearance from omission
+of release; the learner only stated active procedures/safeguarding. Exact source
+spans and eligible citations did not establish coverage. Other records fail schema
+or citation contracts, including one otherwise valid uncertainty answer. The
+development gate fails; stop under the bounded revision rule, do not promote and
+do not spend the fresh paired set. Production typed-practice-review-v2, model
+weights and previous research results remain unchanged. #60 semantic defects and
+#61 quotation/review failures stay open. Completing a rejected experiment is not
+completion of the requested semantic remedy.
+
+**Scenery: investigated, no patch justified.** The saved [Astra wide/reference audit](../../outputs/remaining-fixes/scenery/wide-scenery-audit.md)
+and [machine-readable source receipt](../../outputs/remaining-fixes/scenery/wide-scenery-source-audit.json)
+are preserved with three copied PNGs. This reviewer read those receipts, not new
+images. All 24 current water polygons match the two declared raw OSM sources with
+zero symmetric-difference area; the earlier 23 count concerned added features.
+The inspected saved Region view shows connected airport land and separate western
+reservoir/lakes. No reported false-island mismatch is demonstrated, and removing
+mapped lake holes would invent a remedy. This is saved-view/reference evidence,
+not a fresh current-build render or continuous-video clearance. No simulator was
+booted for the final availability check; the original reported camera remains
+unidentified. Keep #59 open, preserve its user-reported provenance, and require
+that viewpoint before asserting a defect or fix.
+
+**Publication and presentation boundary.** No scenery patch or video recut is
+required by these bounded findings. The user explicitly directs that the final
+narrated 486.4-second presentation remain unchanged. The saved [Drive publication receipt](../../outputs/remaining-fixes/drive-publication.json)
+records completed upload and metadata readback of its 49,176,272-byte file at the
+same Drive video ID `1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ`, with sharing unchanged.
+Local video SHA-256 is `5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`;
+Drive's processed playback was not separately inspected. The [outcome report](../../outputs/remaining-fixes/RESULTS.md)
+aligns the accepted remedy, failed candidate, audit and reproducible commands.
+Git commit/push and GitHub publication/readback remain root's next steps. Gates
+#30/#31/#32 retain their own final-artifact, reflection and smartphone/course
+acceptance requirements; narration publication alone does not complete them.

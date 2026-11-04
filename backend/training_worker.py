@@ -6,6 +6,9 @@ implicitly: replacement warmup prepares a subsequent user request.
 import json
 import multiprocessing as mp
 import threading
+import subprocess
+import sys
+import os
 import time
 from pathlib import Path
 from modelaccess.contract import Result, FinishReason, Usage
@@ -29,6 +32,32 @@ def _serve(connection, factory, settings):
         connection.close()
 
 
+class _ProcessOwner:
+    """Independent interpreter: child resource tracking is not shared with service."""
+    def __init__(self, connection):
+        self.connection = connection
+        self.process = None
+    @property
+    def pid(self): return None if self.process is None else self.process.pid
+    @property
+    def exitcode(self): return None if self.process is None else self.process.poll()
+    def start(self):
+        if os.name != 'posix': raise RuntimeError('Isolated training worker requires POSIX')
+        self.process = subprocess.Popen(
+            [sys.executable, '-m', 'backend.training_worker', str(self.connection.fileno())],
+            pass_fds=(self.connection.fileno(),), stdin=subprocess.DEVNULL,
+            cwd=Path(__file__).resolve().parents[1],
+            env=dict(os.environ, PYTHONPATH=os.pathsep.join(str(p) for p in sys.path if p)))
+    def is_alive(self): return self.process is not None and self.process.poll() is None
+    def terminate(self): self.process.terminate()
+    def kill(self): self.process.kill()
+    def join(self, timeout=None):
+        try: self.process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired: pass
+    def close(self):
+        if self.is_alive(): raise RuntimeError('Cannot close live worker')
+
+
 class IsolatedTrainingAdapter:
     provider = 'local-backbone'
 
@@ -43,6 +72,7 @@ class IsolatedTrainingAdapter:
         self._closed = threading.Event()
         self._process = self._connection = self._settings = None
         self._recovery = None
+        self._startup_transport = None
         self.status = 'starting'
 
     def _record(self, event, **values):
@@ -64,6 +94,12 @@ class IsolatedTrainingAdapter:
             if process.pid is not None: process.join()
             self._record('worker_stopped', pid=pid, exitcode=process.exitcode)
             process.close(); self._process = None
+        if self._startup_transport is not None:
+            self._startup_transport.join(min(.25, self.cleanup_timeout))
+            if self._startup_transport.is_alive():
+                self.status = 'failed'
+                raise RuntimeError('Startup transport has not stopped')
+            self._startup_transport = None
         if self._connection is not None:
             self._connection.close(); self._connection = None
 
@@ -72,17 +108,29 @@ class IsolatedTrainingAdapter:
         if self._closed.is_set(): raise RuntimeError('Service closed')
         self.status = 'starting'
         parent, child = self._context.Pipe()
-        process = self._context.Process(target=_serve, args=(child, self.factory, self._settings), daemon=True)
+        process = _ProcessOwner(child)
         self._connection, self._process = parent, process
         try: process.start()
         finally: child.close()
         self._record('worker_started', pid=process.pid)
+        finished = threading.Event()
+        startup = {}
+        def initialize():
+            try:
+                parent.send((self.factory, self._settings))
+                startup['reply'] = parent.recv()
+            except Exception as exc:
+                startup['error'] = exc
+            finally: finished.set()
+        self._startup_transport = threading.Thread(target=initialize, daemon=True)
+        self._startup_transport.start()
         deadline = time.monotonic()+self.startup_timeout
-        while not parent.poll(.05):
+        while not finished.wait(.05):
             if self._closed.is_set(): raise RuntimeError('Service closed')
             if time.monotonic() >= deadline: raise TimeoutError('Worker startup timed out')
             if not process.is_alive(): raise RuntimeError('Worker exited during startup')
-        kind, value = parent.recv()
+        if 'error' in startup: raise startup['error']
+        kind, value = startup['reply']
         if kind != 'ready': raise RuntimeError('Worker startup failed: '+str(value))
         if self._closed.is_set(): raise RuntimeError('Service closed')
         self.status = 'ready'
@@ -118,11 +166,26 @@ class IsolatedTrainingAdapter:
         try:
             if self.status != 'ready' or self._closed.is_set():
                 return self._failure(request, 'model_worker_unavailable', started)
+            # A stopped worker can block send() before it reads a large image,
+            # or recv() midway through a message. Bound the whole exchange.
+            connection = self._connection
+            finished = threading.Event()
+            exchange = {}
+            def communicate():
+                try:
+                    connection.send((operation, request))
+                    exchange['reply'] = connection.recv()
+                except Exception as exc:
+                    exchange['error'] = exc
+                finally:
+                    finished.set()
+            transport = threading.Thread(target=communicate, daemon=True)
+            transport.start()
             try:
-                self._connection.send((operation, request))
-                if not self._connection.poll(self.generation_timeout):
-                    raise TimeoutError('Model generation deadline exceeded')
-                kind, value = self._connection.recv()
+                if not finished.wait(self.generation_timeout):
+                    raise TimeoutError('Model request deadline exceeded')
+                if 'error' in exchange: raise exchange['error']
+                kind, value = exchange['reply']
                 if kind != 'result': raise RuntimeError('Model worker failed: '+str(value))
                 self._record('worker_request_complete', requestId=request.request_id,
                              elapsedSeconds=time.monotonic()-started, ok=value.ok)
@@ -135,6 +198,10 @@ class IsolatedTrainingAdapter:
                 try: self._stop()
                 except RuntimeError:
                     return self._failure(request, 'model_worker_cleanup_failed', started)
+                transport.join(min(.25, self.cleanup_timeout))
+                if transport.is_alive():
+                    self.status = 'failed'
+                    return self._failure(request, 'model_transport_cleanup_failed', started)
                 if not self._closed.is_set():
                     self._recovery = threading.Thread(target=self._recover, daemon=True)
                     self._recovery.start()
@@ -151,3 +218,13 @@ class IsolatedTrainingAdapter:
         with self._lock:
             self._stop(); self.status = 'closed'
         if self._recovery is not None: self._recovery.join(self.cleanup_timeout)
+
+
+if __name__ == '__main__':
+    from multiprocessing.connection import Connection
+    channel = Connection(int(sys.argv[1]))
+    try:
+        factory, settings = channel.recv()
+        _serve(channel, factory, settings)
+    finally:
+        channel.close()

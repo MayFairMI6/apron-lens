@@ -1,0 +1,9 @@
+{"event": "worker_started", "recordedAt": 1793751332.469758, "pid": 5244}
+{"event": "worker_ready", "recordedAt": 1793751354.826648, "pid": 5244}
+{"event": "worker_request_complete", "recordedAt": 1793751392.737949, "requestId": "claim-dev-0", "elapsedSeconds": 37.897724541000116, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793751433.371051, "requestId": "claim-dev-1", "elapsedSeconds": 40.629310583000006, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793751460.22103, "requestId": "claim-dev-2", "elapsedSeconds": 26.757029500000044, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793751489.7943182, "requestId": "claim-dev-3", "elapsedSeconds": 29.56128741600014, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793751533.964109, "requestId": "claim-dev-4", "elapsedSeconds": 44.08191741699966, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793751570.5881548, "requestId": "claim-dev-5", "elapsedSeconds": 36.53328224999996, "ok": true}
+{"event": "worker_stopped", "recordedAt": 1793751570.76859, "pid": 5244, "exitcode": -15}

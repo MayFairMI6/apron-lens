@@ -1,0 +1,229 @@
+/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+anthropic claude-sonnet-5-5: 1 requests, maximum reservation $0.04 (all input at the uncached rate, full output cap; actual cost is lower).
+anthropic claude-sonnet-5-5: 1 requests, maximum reservation $0.04 (all input at the uncached rate, full output cap; actual cost is lower).
+anthropic claude-sonnet-5-5: 1 requests, maximum reservation $0.04 (all input at the uncached rate, full output cap; actual cost is lower).
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 226, in <module>
+TRAINING_READY inference warmup complete
+Executing <Task pending name='Task-128' coro=<IndependentTypedConcurrencyTests.test_cancelled_http_request_does_not_cancel_or_unlock_active_worker() running at /Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_typed_review_independent.py:295> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/futures.py:389, Task.task_wakeup()] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:448> cb=[_run_until_complete_cb() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:181] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py:100> took 0.117 seconds
+TRAINING_READY inference warmup complete
+Executing <Task pending name='Task-137' coro=<IndependentTypedConcurrencyTests.test_http_body_and_identity_rejections_leave_checkpoint_unchanged() running at /Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_typed_review_independent.py:223> cb=[_run_until_complete_cb() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:181] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py:100> took 0.173 seconds
+TRAINING_READY inference warmup complete
+Executing <Task pending name='Task-144' coro=<IndependentTypedConcurrencyTests.test_timeout_retains_lock_discards_late_result_and_allows_clean_retry() running at /Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_typed_review_independent.py:245> wait_for=<Future pending cb=[_chain_future.<locals>._call_check_cancel() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/futures.py:389, Task.task_wakeup()] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:448> cb=[_run_until_complete_cb() at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:181] created at /opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py:100> took 0.103 seconds
+======================================================================
+ERROR: test_close_cannot_restart_or_serve (test_training_worker.WorkerTests.test_close_cannot_restart_or_serve)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 74, in test_close_cannot_restart_or_serve
+    self.adapter.warmup(self.settings);self.adapter.close()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+======================================================================
+ERROR: test_close_during_generation_and_queued_recovery_stays_closed (test_training_worker.WorkerTests.test_close_during_generation_and_queued_recovery_stays_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 79, in test_close_during_generation_and_queued_recovery_stays_closed
+    self.adapter.warmup(self.settings)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+======================================================================
+ERROR: test_failed_startup_does_not_announce_ready (test_training_worker.WorkerTests.test_failed_startup_does_not_announce_ready)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 70, in test_failed_startup_does_not_announce_ready
+    with self.assertRaises(RuntimeError):self.adapter.warmup(self.settings)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+======================================================================
+ERROR: test_hang_and_crash_stop_old_owner_then_warm_replacement (test_training_worker.WorkerTests.test_hang_and_crash_stop_old_owner_then_warm_replacement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 37, in test_hang_and_crash_stop_old_owner_then_warm_replacement
+    self.adapter.warmup(self.settings)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+======================================================================
+ERROR: test_parallel_request_is_rejected_without_second_owner (test_training_worker.WorkerTests.test_parallel_request_is_rejected_without_second_owner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 96, in test_parallel_request_is_rejected_without_second_owner
+    self.adapter.warmup(self.settings)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+======================================================================
+ERROR: test_replacement_startup_failure_remains_unavailable (test_training_worker.WorkerTests.test_replacement_startup_failure_remains_unavailable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 87, in test_replacement_startup_failure_remains_unavailable
+    self.adapter.warmup(self.settings);self.adapter.factory=BrokenStartup
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+======================================================================
+ERROR: test_stopped_worker_large_send_is_bounded_and_recoverable (test_training_worker.WorkerTests.test_stopped_worker_large_send_is_bounded_and_recoverable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 61, in test_stopped_worker_large_send_is_bounded_and_recoverable
+    self.adapter.warmup(self.settings)
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 142, in warmup
+    try: return self._start()
+                ^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 131, in _start
+    if 'error' in startup: raise startup['error']
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/backend/training_worker.py", line 120, in initialize
+    startup['reply'] = parent.recv()
+                       ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+
+----------------------------------------------------------------------
+Ran 357 tests in 114.782s
+
+FAILED (errors=7)

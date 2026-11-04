@@ -55,6 +55,16 @@ class WorkerTests(unittest.TestCase):
         with self.assertRaises((AttributeError,TypeError)):self.adapter.warmup(self.settings)
         self.assertEqual(self.adapter.status,'failed');self.assertIsNone(self.adapter._process)
 
+    @unittest.skipUnless(os.name=='posix','POSIX stop signal required')
+    def test_stopped_worker_large_send_is_bounded_and_recoverable(self):
+        import signal
+        self.adapter.warmup(self.settings)
+        os.kill(self.adapter._process.pid,signal.SIGSTOP)
+        request=Request('large',(('user','x'*2_000_000),),self.settings)
+        start=time.monotonic();reply=self.adapter.generate(request)
+        self.assertFalse(reply.ok);self.assertLess(time.monotonic()-start,3)
+        self.ready();self.assertTrue(self.adapter.generate(self.request('success')).ok)
+
     def test_failed_startup_does_not_announce_ready(self):
         self.adapter.factory=BrokenStartup
         with self.assertRaises(RuntimeError):self.adapter.warmup(self.settings)

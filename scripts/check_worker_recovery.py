@@ -10,10 +10,7 @@ from modelaccess.contract import Settings,Request
 from fastapi.testclient import TestClient
 # Choose a new output directory for every invocation; prior receipts are immutable.
 OUT=Path(os.environ.get('AIRFIELD_RECOVERY_OUTPUT',str(ROOT/'work/worker-recovery-new-run')))
-class FaultProbeAdapter(TrainingAdapter):
-    def review(self,request):
-        if request.request_id=='forced-hang':time.sleep(120)
-        return super().review(request)
+from scripts.worker_fault_probe import FaultProbeAdapter
 
 def main():
     if OUT.exists():raise RuntimeError('Choose a new AIRFIELD_RECOVERY_OUTPUT directory')
