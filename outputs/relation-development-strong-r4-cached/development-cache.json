@@ -1,0 +1,71 @@
+{
+  "kind": "development-only exact historical measurement reuse",
+  "model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+  "revision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+  "labelOrder": [
+    "contradiction",
+    "entailment",
+    "neutral"
+  ],
+  "runtime": {
+    "torch": "2.15.0",
+    "transformers": "5.22.1",
+    "tokenizers": "0.23.3"
+  },
+  "artifactSHA256": {
+    "added_tokens.json": "cd0141b19e809eb963a8f8244fad72530233f729e1f6960d281e1fbb3537b2fb",
+    "config.json": "7f9d420b616691c5b575bab8839719aefbddc656d8e1316519414b097ce43e3d",
+    "model.safetensors": "c03cd208bf920b4fbbb182a0535859a566e8acc3477d2b536bf87b769978524b",
+    "special_tokens_map.json": "fcfbeb4e25cd37fb5b8030406394253b245230fd3b552750092bab7d24d827da",
+    "spm.model": "c679fbf93643d19aab7ee10c0b99e460bdbc02fedf34b92b05af343b4af586fd",
+    "tokenizer.json": "7aa118770f066a74530d161c7d0b994d0629cc0ff3a0df213f184192773f960a",
+    "tokenizer_config.json": "556a192d83e3edb45a09a6207095dd9295c3b2279062e5cc430feac4cb7a0817"
+  },
+  "device": "cpu",
+  "maxLength": 512,
+  "inferencePrecision": "from_pretrained default, pinned config dtype; same CPU engine as frozen runs",
+  "batchSize": 8,
+  "files": [
+    {
+      "path": "outputs/relation-development-strong-r1/records.jsonl",
+      "sha256": "e01a33fd253929cb447312e6d75bf10455ab650442549cb07f8125b4c132b53d",
+      "startup": {
+        "seconds": 2.5668938329999946,
+        "torch": "2.15.0",
+        "device": "cpu"
+      }
+    },
+    {
+      "path": "outputs/relation-development-strong-r2/records.jsonl",
+      "sha256": "ed63534bb058d46e5a52f34e904f78105b2b2d7fc6d36ba390bb070affa8aafc",
+      "startup": {
+        "seconds": 2.8992163330003677,
+        "torch": "2.15.0",
+        "device": "cpu"
+      }
+    },
+    {
+      "path": "outputs/relation-development-strong-r3/records.jsonl",
+      "sha256": "88ae39e357ef0f60acc9c9b63d8b4e9c9583ff74cc9d06d3a75b9f0b1616cfb4",
+      "startup": {
+        "seconds": 2.692070082999635,
+        "torch": "2.15.0",
+        "device": "cpu"
+      }
+    }
+  ],
+  "duplicateMaxDelta": 2.86102294921875e-05,
+  "conflictingPairs": 0,
+  "provenance": "Pinned local HF revision and unchanged installed runtime in this development pass; historical startup records verify torch. Acceptance always uncached.",
+  "provenanceFileSHA256": {
+    "outputs/relation-development-strong-r1/records.jsonl": "e01a33fd253929cb447312e6d75bf10455ab650442549cb07f8125b4c132b53d",
+    "outputs/relation-development-strong-r1/lock.json": "921c8f8c45f87d35435a8437a8adf278fcb5646f4a303dbdb8dc71738b170ea8",
+    "outputs/relation-development-strong-r1/startup.json": "3db7871451da16f8e5a920dcbb4b37ff3802a97425de79ac11381ca6e8273440",
+    "outputs/relation-development-strong-r2/records.jsonl": "ed63534bb058d46e5a52f34e904f78105b2b2d7fc6d36ba390bb070affa8aafc",
+    "outputs/relation-development-strong-r2/lock.json": "d6db5e8563842626b53229d5fc2199a5d381395d3b69dfcd284618ef6db68f72",
+    "outputs/relation-development-strong-r2/startup.json": "8aa6e07db41e0a292b0656992ec9edc55f3530352532ae63b6e989b968587a16",
+    "outputs/relation-development-strong-r3/records.jsonl": "88ae39e357ef0f60acc9c9b63d8b4e9c9583ff74cc9d06d3a75b9f0b1616cfb4",
+    "outputs/relation-development-strong-r3/lock.json": "f83ab2629be68b0b0e846450a60608d8275d9463ccffe9af028724e753556bef",
+    "outputs/relation-development-strong-r3/startup.json": "d187afdec44251640f4c7a63e34989701bbd561ea36f9ec6cffd745396e83c31"
+  }
+}

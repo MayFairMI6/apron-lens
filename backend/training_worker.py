@@ -77,6 +77,18 @@ class IsolatedTrainingAdapter:
         self._startup_transport = None
         self.status = 'starting'
 
+    @property
+    def status(self):
+        # Startup records readiness while still owning the inference lock.
+        # Publish ready only once a caller can acquire that lock; otherwise a
+        # recovery poll can observe ready and immediately receive unavailable.
+        state = self._status
+        return 'busy' if state == 'ready' and self._lock.locked() else state
+
+    @status.setter
+    def status(self, value):
+        self._status = value
+
     def _record(self, event, **values):
         self.audit_path.parent.mkdir(parents=True, exist_ok=True)
         with self.audit_path.open('a') as stream:
@@ -172,12 +184,20 @@ class IsolatedTrainingAdapter:
                       FinishReason.ERROR, 'worker_failure', Usage(), time.monotonic()-started,
                       {}, (), error=error, metadata={'workerStatus': self.status, 'usageUnknown': True})
 
+    def _validate_result(self, value, request):
+        return checked_training_result(value, request)
+
+    def _runtime_failed(self, value):
+        return value.finish_reason == FinishReason.ERROR
+
     def _call(self, operation, request):
         started = time.monotonic()
         if not self._lock.acquire(blocking=False):
             return self._failure(request, 'model_worker_unavailable', started)
         try:
-            if self.status != 'ready' or self._closed.is_set():
+            # We now own the lock, so inspect internal lifecycle state rather
+            # than public readiness (which correctly reports busy while held).
+            if self._status != 'ready' or self._closed.is_set():
                 return self._failure(request, 'model_worker_unavailable', started)
             # A stopped worker can block send() before it reads a large image,
             # or recv() midway through a message. Bound the whole exchange.
@@ -200,8 +220,8 @@ class IsolatedTrainingAdapter:
                 if 'error' in exchange: raise exchange['error']
                 kind, value = exchange['reply']
                 if kind != 'result': raise RuntimeError('Model worker failed: '+str(value))
-                value = checked_training_result(value, request)
-                if value.finish_reason == FinishReason.ERROR:
+                value = self._validate_result(value, request)
+                if self._runtime_failed(value):
                     self._record('worker_runtime_failure', requestId=request.request_id,
                                  modelResult=asdict(value))
                     raise RuntimeError('Model runtime reported failure')

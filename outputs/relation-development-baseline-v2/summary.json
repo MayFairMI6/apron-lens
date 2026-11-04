@@ -1,0 +1,13 @@
+{
+  "count": 24,
+  "exact": 9,
+  "delivered": 24,
+  "validCount": 12,
+  "validExact": 5,
+  "falseCredit": [
+    {
+      "index": 1,
+      "criterion": "reason"
+    }
+  ]
+}

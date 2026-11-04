@@ -1,0 +1,42 @@
+[
+  {
+    "premise": "A service vehicle blocks the route.",
+    "hypothesis": "The route is obstructed.",
+    "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+    "labelOrder": [
+      "contradiction",
+      "entailment",
+      "neutral"
+    ],
+    "inputTokens": 15,
+    "truncationRejected": false,
+    "probabilities": [
+      0.0008707046508789062,
+      0.98876953125,
+      0.01023101806640625
+    ],
+    "error": null,
+    "elapsedSeconds": 0.4869622080004774
+  },
+  {
+    "premise": "Fuel is complete. Baggage remains delayed.",
+    "hypothesis": "Baggage loading is complete.",
+    "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+    "labelOrder": [
+      "contradiction",
+      "entailment",
+      "neutral"
+    ],
+    "inputTokens": 16,
+    "truncationRejected": false,
+    "probabilities": [
+      0.9990234375,
+      0.0003325939178466797,
+      0.0006999969482421875
+    ],
+    "error": null,
+    "elapsedSeconds": 0.4869622080004774
+  }
+]

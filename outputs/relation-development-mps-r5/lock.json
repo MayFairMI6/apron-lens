@@ -1,0 +1,40 @@
+{
+  "module": "experiments.typed_relation_review.mps_candidate",
+  "version": "typed-service-relation-review-v5-anli-large-mps",
+  "sourceHashes": {
+    "experiments/typed_relation_review/propositions.py": "24f66d78ba1b399e64c667bb5c30fb2d6f1c1292dd05c5632f0f07ca43b24396",
+    "experiments/typed_relation_review/strong_candidate.py": "ab0ab3d9bb937b3fcae1d91daa0545a3473bb881f94fdec0963a641e2eea0d58",
+    "experiments/typed_relation_review/mps_candidate.py": "913d5d136e83c82d9d60d101a7825946bab63e59cc9920b182985f3379d8330c",
+    "experiments/typed_relation_review/candidate.py": "83596ffa8a725a8f30d91d15336955777efb37575a2768bfe38b6a86d92b4d33",
+    "scripts/run_relation_review.py": "1fb090008e70f41716842b8a0dc75874bdbc30e07b875736403e2a9519883e93",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "modelaccess/nli.py": "c77bebc2fc66967e036747cbdaa6f416c69ceb7b297f13bea3b986a924c102ca"
+  },
+  "fixture": "experiments/typed_relation_review/development-v1.json",
+  "fixtureSHA256": "e6ee0e234919c56276e199419f35627aedd6528702f3003c386d57b25654f397",
+  "model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+  "revision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+  "threshold": 0.8,
+  "createdAt": 1793758699.015706,
+  "modelArtifactSHA256": {
+    "added_tokens.json": "cd0141b19e809eb963a8f8244fad72530233f729e1f6960d281e1fbb3537b2fb",
+    "config.json": "7f9d420b616691c5b575bab8839719aefbddc656d8e1316519414b097ce43e3d",
+    "model.safetensors": "c03cd208bf920b4fbbb182a0535859a566e8acc3477d2b536bf87b769978524b",
+    "special_tokens_map.json": "fcfbeb4e25cd37fb5b8030406394253b245230fd3b552750092bab7d24d827da",
+    "spm.model": "c679fbf93643d19aab7ee10c0b99e460bdbc02fedf34b92b05af343b4af586fd",
+    "tokenizer.json": "7aa118770f066a74530d161c7d0b994d0629cc0ff3a0df213f184192773f960a",
+    "tokenizer_config.json": "556a192d83e3edb45a09a6207095dd9295c3b2279062e5cc430feac4cb7a0817"
+  },
+  "runtimeProfile": {
+    "device": "mps",
+    "noFallback": true,
+    "batchSize": 8,
+    "tokenBound": 512,
+    "packages": {
+      "torch": "2.15.0",
+      "transformers": "5.22.1",
+      "tokenizers": "0.23.3",
+      "safetensors": "0.8.0"
+    }
+  }
+}

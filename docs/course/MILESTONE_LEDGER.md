@@ -1,5 +1,11 @@
 # AirfieldLens milestone ledger
 
+**ML-052 is authorized for continuous end-to-end development toward its fixed
+acceptance gate.** The latest user instruction removes the per-pass revision cap
+and repeated reopening requests. Tune only exposed development/regression cases;
+hold the new 24-case acceptance set until development passes. Preserve all raw
+attempts internally, old results and final video. No deployment is accepted yet.
+
 **ML-051 completes the isolated NLI experiment with a rejected candidate.** The
 permitted revision improves exposed-development exact results from 1/6 to 5/6,
 but only 2/3 fully valid answers receive exact reviews, failing the fixed gate.
@@ -3017,3 +3023,162 @@ limits remain intact; #60/#61 stay open, with #59/#62 separate and unchanged.
 Root's source/evidence publication and existing GitHub issue updates/readback are
 next, not claimed complete here. No duplicate milestone unit or whole-assignment
 completion is added by finishing this failed bounded experiment.
+
+## ML-052 — Authorized relation-aware fuel/baggage repair and varied frozen test
+
+3 November 2026. The user explicitly requests correction of the valid fuel/baggage
+failure and more varied new answers, preserving earlier results and video. Place
+a narrow isolated relation-aware review experiment in CURRENT, separate from
+ML-051's rejected source/results. No new weights, renderer, media edit or broad
+research programme is authorized. This entry records planning only, not accepted
+implementation, a successful result, promotion or #60/#61 closure.
+
+**Proposed mechanism and risks.** Require coverage of both service topics before
+using a sentence to judge a cross-service relationship: a baggage-delay sentence
+alone does not contradict a proposition about what completed fuel implies for
+baggage. Distinguish service-state assertions from a claim about their implication.
+A bounded completion/non-implication parser may use distinct authored service
+properties and received facts, but must preserve the full learner clause, flight
+identity, negation, modality and additions. Matching two service words is not proof
+that their relation is supported. Quoted speech, corrections, switched flights,
+ambiguous pronouns, causal claims, double negation, "not only" and unsupported
+tails can defeat a lexical pattern. Ambiguous or unparsed relations must remain
+uncertain or withheld, never silently credited.
+
+Do not let a relation rule certify unrelated facts in the same sentence or skip
+grounding for the remainder. "Fuel complete does not imply baggage complete" is
+different from asserting baggage is complete, still incomplete, or caused a delay.
+Check each asserted service status independently against received same-run,
+cutoff-eligible current facts; retain explicit uncertainty where facts do not
+establish a status. A valid non-implication statement must not become a scripted
+replacement learner answer. No phrase/gold-label whitelist, response-specific
+exception, hidden inference fact or relaxation of quote/source checks. Derive
+feedback only from the actual checked statement/status, and keep the classifier's
+remaining fallibility explicit. Preserve pinned model/revision and threshold
+unless a separately documented pre-evaluation revision changes configuration;
+the explicit Apple MPS runtime amendment below replaces the earlier CPU profile.
+
+**Bounded execution and diagnostic boundary.** Save versioned candidate/rule
+source, configuration, segmentation, model identities, fixture hashes and scoring
+before calls. Use the six exposed regressions and the additional varied 24-case
+development suite; both are explicitly available for iterative tuning. The latest
+user instruction authorizes continuous development without an artificial two-
+revision stop. Complete/retain every run before changing code. The six-case adoption
+gate requires all criterion statuses/verdicts correct, all three valid answers
+reviewed exactly and no false credit. Preserve failures as failures, not successful
+withholding. ML-051 source and outputs must not be rewritten.
+
+The independent reviewer authors and label-validates a NEW frozen 24-case set,
+12 valid and 12 unsafe/partial/contradictory/uncertain, spanning four exercises
+with eight fuel/baggage cases. Include distinct phrasing, service/flight swaps,
+negation, unsupported additions, omitted requested content and explicit unknowns.
+Record family overlap honestly: these are authored varied same-domain cases, not
+a population benchmark. Model inputs exclude gold/scoring metadata. Freeze the
+set before inference and independently check labels, source eligibility and
+case-family suitability; no developer tuning on the reserved answers. Hold these
+24 acceptance cases unexecuted until both the six regressions and varied development suite
+pass their independently reviewed gates.
+
+The latest end-to-end instruction supersedes the earlier permission to execute
+the 24-case diagnostic even when exposed development failed: it is now reserved
+for final acceptance. Run the frozen rejected-v2 classifier baseline and qualified
+candidate on identical inputs/settings with separate audit records; preserve
+every answer and failure. If acceptance fails, do not tune against hidden labels
+and rerun for a favorable claim. Retire that set to exposed regression evidence,
+have root review the failure cause, then independently prepare and validate a new
+fresh reserve before another acceptance attempt. The existing user authorization
+covers continued correction; no reopening permission is needed. Never quietly
+weaken gates, recycle an exposed set as fresh or omit failed attempts.
+
+**Adoption gates and claim limits.** No deployment unless the six regressions
+pass and the new diagnostic has zero accepted false-credit criteria, no newly
+failing case relative to frozen v2, and at least 10/12 valid answers reviewed
+exactly, with valid acceptance and delivered yield no lower than that baseline.
+Inspect every output independently for meaning, coverage, unsupported extras,
+quotation relevance and source associations; report uncertain/withheld results,
+schema validity and exact semantic results separately. A tie or improvement
+against rejected v2 is not a superiority claim against deployed production.
+Preserve the baseline identity in every report; do not relabel it production.
+
+Any eventual production change also needs source/contract checks, actual native
+typed-flow acceptance for correct feedback, saved input/retry and stale-checkpoint
+protection, and whole-request loading/ownership/failure/latency evidence under
+unchanged 55/60/90-second budgets. Fast CPU pair timing alone cannot qualify.
+Until those gates pass, production stays unchanged even if the diagnostic looks
+better. Existing bounded runtime/history acceptance and #59/#62 limits remain
+separate; #60/#61 remain open throughout planning or failed adoption.
+
+Keep the final narrated-video SHA-256
+`5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`,
+historical scores and existing source snapshots. Publish exact configurations,
+all attempted outcomes and independent decisions without duplicate milestone
+counts or whole-submission completion claims.
+
+**Latest ML-052 execution direction.** The user's instruction is to continue
+end-to-end until the fixed acceptance requirements pass, rather than end each
+revision with a separate limitations report. Keep all raw scores, source freezes,
+failures and internal evidence; ordinary revisions do not create new milestone
+units. Consolidate public reporting around the final accepted implementation and
+its retained evidence, with concise progress updates as needed. Ask the user only
+for a genuinely necessary decision, not routine permission to keep fixing.
+
+The intended endpoint is an accepted production integration, actual native iOS
+typed-input/feedback verification, source/evidence publication and passing remote
+CI/readback. Development success or a passing frozen comparison alone is not that
+endpoint. Preserve the narrated video and old results throughout. Continue only
+within this repair scope, report actual blockers honestly, and never translate
+this persistence instruction into a guarantee of universal semantic accuracy or
+authority to silently relax the acceptance contract.
+
+**ML-052 pre-evaluation runtime amendment — Apple MPS.** The varied development
+suite is 24 cases: a valid/invalid pair for each of the twelve lesson questions,
+separate from the independently reserved 24 acceptance cases. The earlier
+"12-case development" wording was incorrect and is superseded above. All six
+old regressions plus all 24 development cases must pass before the reserve is
+used. Continuous development remains authorized; this amendment changes no
+semantic or native/publication gate.
+
+Root reports that the current large-classifier CPU profile exceeds the unchanged
+55-second request budget on the 29-pair DEV14 workload. The saved repository
+`work/nli-mps-smoke.json` and `work/nli-mps-long-smoke.json` receipts show actual
+Apple MPS execution with the same pinned large model:
+`MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli`, revision
+`b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7`. The two-pair probe takes
+1.616 seconds; the same 29-pair workload takes 6.640 seconds, with model identity,
+label order, inputs, probabilities, token lengths and error fields retained.
+This reviewer read the receipts, not model execution or images. These observed
+workload times justify testing an explicit MPS profile in CURRENT instead of
+relaxing the deadline. They do not establish whole-request latency or semantic
+equivalence to CPU, and are not acceptance results.
+
+Before the next development calls, freeze model/tokenizer hashes, device, actual
+dtype, package versions, batch/length policy, threshold 0.8 and candidate source
+in the MPS run lock. No silent CPU fallback, CPU probability-cache reuse or
+cross-profile score mixing is allowed. Rerun all six plus 24 development cases
+uncached on MPS; independently inspect outcomes and near-threshold changes. The
+root-reported r4 cached CPU result (19/24 exact, 11/12 valid, 22 delivered, one
+false-grounding row and two timeouts) remains a failed development record, not
+MPS evidence or a result to overwrite. Preserve all CPU source/cache/output
+artifacts. Subsequent MPS revisions keep their own exact versions and attempts.
+
+Only a development-qualified MPS candidate proceeds to an uncached reserve run.
+The comparison baseline remains the frozen rejected small NLI v2 CPU reviewer,
+not deployed production. The candidate differs in model, device and policy;
+report that configuration comparison without attributing an outcome solely to a
+policy fix, or claiming superiority to production. Zero accepted false credit,
+at least 10/12 exact valid reviews, no newly failing baseline case and all other
+fixed adoption gates remain mandatory. Baseline scores must have their own pinned
+provenance; they are not a cache source for candidate inference.
+
+Before production/native acceptance, measure real startup/load/warmup and complete
+review time under the actual isolated owner, including device synchronization,
+queue/transport, result assembly and failure cleanup. Do not infer that a
+6.640-second isolated pair workload proves this full path. Avoid concurrent MPS
+ownership with the ordinary Qwen model unless an explicitly reviewed safe policy
+supports it; the 55/60/90-second budgets, stale-result guards and honest failure
+retention stay unchanged. Root's inactive integration and readiness-race tests
+are implementation evidence only, not authorization to activate before gates.
+Final narrated video and prior accepted runtime/history scope remain unchanged.
+
+
+**ML-052 handoff update — 3 November 2026.** R8 exposed suites pass6/6 and24/24, independently reviewed. Reserved evaluation fails11/24 exact,3/12valid,23/24delivered,0falsecredit. The reserve is now exposed; no deployment or completion claim. Frozen reserve baseline remains pending. User requests Claude takeover with a common local/GitHub record; see [shared takeover](CLAUDE_TAKEOVER.md). All native/runtime/publication acceptance requirements remain in force; old results and video unchanged.

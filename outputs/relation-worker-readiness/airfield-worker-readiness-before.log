@@ -1,0 +1,32 @@
+test_busy_call_does_not_mask_failed_or_closed_states (tests.test_worker_readiness.WorkerReadinessTests.test_busy_call_does_not_mask_failed_or_closed_states) ... FAIL
+test_recovery_does_not_publish_ready_before_owner_lock_release (tests.test_worker_readiness.WorkerReadinessTests.test_recovery_does_not_publish_ready_before_owner_lock_release) ... FAIL
+test_warmup_does_not_publish_ready_before_owner_lock_release (tests.test_worker_readiness.WorkerReadinessTests.test_warmup_does_not_publish_ready_before_owner_lock_release) ... FAIL
+
+======================================================================
+FAIL: test_busy_call_does_not_mask_failed_or_closed_states (tests.test_worker_readiness.WorkerReadinessTests.test_busy_call_does_not_mask_failed_or_closed_states)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_worker_readiness.py", line 94, in test_busy_call_does_not_mask_failed_or_closed_states
+    self.assertNotEqual(self.adapter.status, 'ready')
+AssertionError: 'ready' == 'ready'
+
+======================================================================
+FAIL: test_recovery_does_not_publish_ready_before_owner_lock_release (tests.test_worker_readiness.WorkerReadinessTests.test_recovery_does_not_publish_ready_before_owner_lock_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_worker_readiness.py", line 78, in test_recovery_does_not_publish_ready_before_owner_lock_release
+    self.assertNotEqual(self.adapter.status, 'ready')
+AssertionError: 'ready' == 'ready'
+
+======================================================================
+FAIL: test_warmup_does_not_publish_ready_before_owner_lock_release (tests.test_worker_readiness.WorkerReadinessTests.test_warmup_does_not_publish_ready_before_owner_lock_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_worker_readiness.py", line 65, in test_warmup_does_not_publish_ready_before_owner_lock_release
+    self.assertNotEqual(self.adapter.status, 'ready')
+AssertionError: 'ready' == 'ready'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.305s
+
+FAILED (failures=3)

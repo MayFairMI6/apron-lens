@@ -18,7 +18,7 @@ from backend.fleet_scenarios import FLEET_DEMONSTRATIONS
 from backend.training_environment import ENVIRONMENTS
 from modelaccess.contract import Settings
 
-def training_app(adapter, settings, driver, token=None, audit_path=None, review_audit_path=None):
+def training_app(adapter, settings, driver, token=None, audit_path=None, review_audit_path=None, typed_review_service=None):
     scenarios={driver.scenario['scenarioId']:driver.scenario}
     app=create_app(adapter,settings,token=token,scenarios=scenarios,
                    audit_path=audit_path or ROOT/'work/training-conversations.jsonl',turn_handler=training_turn)
@@ -29,16 +29,40 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
         # or scenario time is consumed by this synthetic startup check.
         warmup_started=driver.clock()
         app.state.warmup = await run_in_threadpool(adapter.warmup,settings) if callable(getattr(adapter,'warmup',None)) else []
+        if typed_review_service is not None:
+            try:
+                app.state.typed_warmup = await run_in_threadpool(typed_review_service.warmup, None)
+            except BaseException:
+                try:
+                    close=getattr(adapter,'close',None)
+                    if callable(close):await run_in_threadpool(close)
+                finally:
+                    await run_in_threadpool(typed_review_service.close)
+                raise
         driver.last_wall+=driver.clock()-warmup_started
         try:
             async with original_lifespan(app):
                 print('TRAINING_READY inference warmup complete',flush=True)
                 yield
         finally:
-            close=getattr(adapter,'close',None)
-            if callable(close):await run_in_threadpool(close)
+            try:
+                close=getattr(adapter,'close',None)
+                if callable(close):await run_in_threadpool(close)
+            finally:
+                if typed_review_service is not None:
+                    await run_in_threadpool(typed_review_service.close)
     app.router.lifespan_context=ready_lifespan
     app.state.inference_status=lambda: getattr(adapter,'status','ready')
+    if typed_review_service is not None:
+        app.state.typed_review_status=lambda: typed_review_service.status
+        app.state.ordinary_inference_status=lambda: getattr(adapter,'status','ready')
+        def owners_ready():
+            return typed_review_service.status=='ready' and getattr(adapter,'status','ready')=='ready'
+        app.state.inference_admission_ready=owners_ready
+        app.state.inference_status=lambda: next((s for s in
+            (getattr(adapter,'status','ready'),typed_review_service.status) if s!='ready'),'ready')
+    else:
+        def owners_ready():return True
     app.state.review_timeout_seconds=60.
     app.state.assessment_tasks=set()
     review_audit_path=review_audit_path or (Path(audit_path).with_name(Path(audit_path).stem+'-assessments.jsonl') if audit_path else ROOT/'work/training-assessments.jsonl')
@@ -50,7 +74,11 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
         auth(authorization);return driver.snapshot()
     @app.get('/training')
     def training(authorization: str|None=Header(default=None)):
-        auth(authorization);return driver.state()
+        auth(authorization)
+        state=driver.state()
+        if typed_review_service is not None:
+            state['typedReviewStatus']=typed_review_service.status
+        return state
     @app.post('/training/action')
     async def action(request:Request,authorization: str|None=Header(default=None)):
         auth(authorization)
@@ -69,7 +97,12 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
     async def perform_review(context):
         # This retained worker owns the inference lock, independently of the HTTP
         # request's timeout/disconnect. A timed-out MPS call cannot overlap another.
-        inference=asyncio.create_task(run_in_threadpool(generate_review,adapter,settings,context,review_audit_path))
+        if typed_review_service is None:
+            review_function, review_owner = generate_review, adapter
+        else:
+            from backend.typed_review_service import generate_semantic_review
+            review_function, review_owner = generate_semantic_review, typed_review_service
+        inference=asyncio.create_task(run_in_threadpool(review_function,review_owner,settings,context,review_audit_path))
         try:
             try:
                 review,error=await asyncio.shield(inference)
@@ -78,7 +111,7 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
                 driver.finish_response(context,error='Review interrupted. Your response is saved; please retry.')
                 raise
             if error:
-                applied=driver.finish_response(context,error='The model review was unavailable or did not pass the response checks. Your response is saved; please retry.')
+                applied=driver.finish_response(context,error='Your answer could not be reviewed reliably. It is saved; please try again.')
             else:
                 applied=driver.finish_response(context,review=review)
             record_review_event('typed_review_completion',context,stateApplied=applied,modelError=error)
@@ -90,18 +123,33 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
     @app.post('/training/response')
     async def response(request:Request,authorization: str|None=Header(default=None)):
         auth(authorization)
+        acquired=False
         try:
             raw=bytearray()
             async for chunk in request.stream():
                 raw.extend(chunk)
                 if len(raw)>16_384:raise HTTPException(413,'Response request too large')
             body=json.loads(raw)
-            context,cached=driver.prepare_response(body,model_available=not app.state.busy.locked())
+            # Recovery warmup uses the same GPU as the other owner. The shared
+            # request lock plus both readiness states serialize all inference,
+            # including background replacement warmup, without a silent fallback.
+            try:
+                if app.state.busy.locked() or not owners_ready():
+                    # This still returns an already cached duplicate; new work
+                    # is rejected without changing the learner response state.
+                    context,cached=driver.prepare_response(body,model_available=False)
+                else:
+                    await app.state.busy.acquire();acquired=True
+                    context,cached=driver.prepare_response(body,model_available=owners_ready())
+            except BaseException:
+                if acquired:app.state.busy.release();acquired=False
+                raise
         except ReviewBusy as exc:raise HTTPException(429,str(exc))
         except ActionConflict as exc:raise HTTPException(409,str(exc))
         except (ValueError,TypeError,AttributeError) as exc:raise HTTPException(422,str(exc))
-        if context is None:return cached
-        await app.state.busy.acquire()
+        if context is None:
+            if acquired:app.state.busy.release()
+            return cached
         task=asyncio.create_task(perform_review(context))
         app.state.assessment_tasks.add(task);task.add_done_callback(app.state.assessment_tasks.discard)
         try:
@@ -127,6 +175,10 @@ def training_app(adapter, settings, driver, token=None, audit_path=None, review_
         if request.url.path!='/conversation' or request.method!='POST':return await call_next(request)
         try:
             auth(request.headers.get('authorization'))
+            if typed_review_service is not None and not app.state.busy.locked() and (
+                    typed_review_service.status!='ready' or
+                    getattr(adapter,'status','ready')!='ready'):
+                return JSONResponse({'detail':'The assistant is getting ready. Please try again shortly.'},status_code=503)
             # Bound before parsing, including chunked requests; do not bypass the
             # conversation service's body limit in this outer middleware.
             raw=bytearray()

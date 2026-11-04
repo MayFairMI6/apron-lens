@@ -1,0 +1,15 @@
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+======================================================================
+FAIL: test_hang_and_crash_stop_old_owner_then_warm_replacement (tests.test_training_worker.WorkerTests.test_hang_and_crash_stop_old_owner_then_warm_replacement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/tests/test_training_worker.py", line 54, in test_hang_and_crash_stop_old_owner_then_warm_replacement
+    self.assertTrue(self.adapter.generate(self.request('success')).ok)
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 22 tests in 3.555s
+
+FAILED (failures=1)

@@ -1,0 +1,18 @@
+{
+  "module": "experiments.typed_relation_review.strong_candidate",
+  "version": "typed-service-relation-review-v4-anli-large-verifier",
+  "sourceHashes": {
+    "experiments/typed_relation_review/propositions.py": "24f66d78ba1b399e64c667bb5c30fb2d6f1c1292dd05c5632f0f07ca43b24396",
+    "experiments/typed_relation_review/strong_candidate.py": "ab0ab3d9bb937b3fcae1d91daa0545a3473bb881f94fdec0963a641e2eea0d58",
+    "experiments/typed_relation_review/candidate.py": "4e2e913e5505cf35a83cd0ae7158638893f29d7951b087994571a22249007069",
+    "scripts/run_relation_review.py": "7fd7e6537da23feaf37e5bc419fcc5bff530200b6f3fe62fba4d756eb7d7e05f",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "scripts/relation_development_cache.py": "70a2fcf4681c5d1183c7d4675924514db8aa949a4675b246897ed1d8de302020"
+  },
+  "fixture": "experiments/typed_relation_review/development-v1.json",
+  "fixtureSHA256": "e6ee0e234919c56276e199419f35627aedd6528702f3003c386d57b25654f397",
+  "model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+  "revision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+  "threshold": 0.8,
+  "createdAt": 1793757876.9530041
+}

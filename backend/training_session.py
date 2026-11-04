@@ -259,7 +259,7 @@ class TrainingSession:
             if body['checkpointId']!=probe['id']:raise ActionConflict('Checkpoint changed')
             if self.review_status=='pending':raise ActionConflict('A response is already being reviewed')
             if self.assessment_mode!='typed':raise ActionConflict('This attempt uses the legacy choice checks')
-            if not model_available:raise ReviewBusy('The model is still finishing another request; retry shortly')
+            if not model_available:raise ReviewBusy('Feedback is not available yet. Please try again shortly.')
             reports=[dict(copy.deepcopy(e),episodeId=self.scenario['scenarioId']) for e in self.scenario['events'] if e['receiptTime']<=probe['at']]
             criteria=rubric_for(self.exercise,probe,reports)
             for criterion in criteria:check_references(criterion['evidenceIds'],self.records,self.scenario['scenarioId'],probe['at'])
