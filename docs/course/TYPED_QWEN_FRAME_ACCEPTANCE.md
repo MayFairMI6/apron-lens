@@ -534,3 +534,147 @@ reference labels or an automatic fidelity checker. The actual new source/prompt
 must be frozen and independently read before calls; initial qualification remains
 unmet. This reviewer made no model call, edited no candidate, repaired no output
 and read no sealed reserve.
+
+## V5 pre-inference independent prompt-only clearance
+
+Frozen candidate SHA-256 is
+`401c92326a9cb6784e9abc1575da1586ae1b43b842e99c5c6d5b843284c4c260`.
+Independent AST comparison with the actual preserved v4 source confirms that only
+`VERSION` and `INSTRUCTIONS` changed. The five-field parser, constants, sentence
+transport dependency, untrusted/fidelity/report-permission behavior and runtime
+remain unchanged. All 42 offline structural/runtime controls independently pass.
+
+The new unrelated examples demonstrate a withdrawn subject fragment and linked
+replacement, a separate conditional claim, active unknown-confirmation knowledge,
+a numeric correction with explicit lifecycle/link, and a correctly shaped unresolved
+reason. They provide no aviation facts or expected control answers. Instructions
+require independent conjuncts to be split while retaining asserted relationships,
+and prohibit inventing causation, authority, resolved roles or completed future
+events. These requirements remain model behavior to test, not parser guarantees.
+No concrete blocker was found for a single no-retry run of the unchanged six
+initial inputs. Initial qualification and the contrast run remain pending; no
+semantic acceptance, automatic checker or report-stage permission is granted.
+The independent reviewer made no model call, candidate edit or sealed-reserve read.
+
+## Actual v5 — correction structure improves; interpretation still not qualified
+
+The [complete v5 run](../../outputs/qwen-frame-extraction-v5-initial/summary.json)
+attempted all six unchanged controls once: **6/6 observed-EOS completions, 5/6
+structurally valid outputs and no timeouts**. Records SHA-256 is
+`122439054a3532ff6492b37af3a95d69934b14f601fcedc74ca667ecd5a25482`.
+Independent checks match every saved source snapshot, the unchanged input-only
+fixture and each prompt reconstructed from the frozen v5 source. Source reports,
+questions, grading labels and private semantic annotations remain absent from
+runtime inputs. No output was repaired or retried.
+
+| Exposed case | Actual request seconds | Output tokens | Actual delivery |
+|---:|---:|---:|---|
+| 12 | 9.664 | 80 | EOS; structurally valid |
+| 17 | 12.767 | 106 | EOS; structurally valid |
+| 19 | 10.538 | 86 | EOS; structurally valid |
+| 20 | 11.370 | 94 | EOS; structurally valid |
+| 23 | 10.683 | 87 | EOS; structurally valid |
+| 2 | 21.741 | 186 | EOS; three-column unresolved rows rejected |
+
+All six record observed EOS token 248044; startup/warmup took 10.711 seconds.
+These are extraction-stage measurements. The automatic fidelity checker,
+downstream report stage and combined/native runtime gates remain unimplemented
+or unqualified; their budgets cannot be inferred from these times.
+
+The independent assessment covers all 23 unchanged obligations:
+
+| Case / obligation | Independent raw semantic assessment |
+|---|---|
+| 12 `entities` | Faithful raw: both named aircraft and the two-aircraft set are retained in their own row. |
+| 12 `occupancy` | Faithful generic occupant assertion without guessed identity. The explicit unresolved-list audit requested by the prompt is still absent; the interpretation itself does not assign a named role. |
+| 12 `waiting` | Faithful raw: the other aircraft waits for Stand B. Its different-actor relation and resource reference are retained without naming which aircraft. |
+| 17 `withdrawn-value` | Faithful raw and lifecycle: TRN102's newest target at 10:35 is explicitly withdrawn rather than active or epistemically uncertain. |
+| 17 `correction` | Faithful raw and link: active 10:20 links to the earlier withdrawn target. `The target` resolves through that explicit earlier frame, which retains aircraft/property/current scope. Repeating every noun in the replacement row is not independently required. |
+| 17 `estimate` | Faithful raw: only-estimate wording and off-block timing are retained in a separate claim. |
+| 17 `permission-scope` | Faithful raw: a TOBT's non-conferral is separate and does not deny actual authority permission. |
+| 19 `resolved-items` | Partial with added meaning: sorted fuel, bags and hold remain the readiness basis, but the interpretation strengthens the learner assertion into `Readiness is confirmed`. No confirming source or received confirmation was stated. |
+| 19 `readiness` | Faithful positive readiness is retained in a separate row. The additional confirmation assertion elsewhere remains an invented strengthening, so the whole interpretation still fails fidelity. |
+| 19 `unknown-permission` | Partial: clearance for TRN102 is correctly unconfirmed rather than denied, but `Only` and its remaining-unknown scope are dropped. |
+| 20 `not-released` | Faithful raw: TRN101 has not been released, without the prior invented `because`. |
+| 20 `held` | Faithful raw in connected context: `It is still held at its stand` retains restriction rather than mere location; `It` resolves to the preceding TRN101 frame. |
+| 20 `permission` | Faithful raw in connected context: `Nothing gives it departure clearance` retains non-conferral and recipient reference without claiming actual refusal or absence of all possible permission. |
+| 20 `lvp` | Faithful raw: tower attribution and active low-visibility procedures are retained. No safeguarding claim is added. |
+| 23 `cancellation` | Faithful raw: current cancellation confirmation and Airside Operations attribution survive. |
+| 23 `clearance` | Faithful raw: TRN101's asserted positive clearance explicitly retains its claimed cancellation basis. |
+| 23 `parked` | Faithful raw: TRN101 is only staying parked, without weakening or converting clearance to unknown. |
+| 23 `condition` | Faithful raw: the pending pushback-slot opening remains the `until` condition of the parked state, not an occurred event. Keeping this dependent condition with its argument preserves meaning. |
+| 2 `actor-repair` | Incorrect: an active negative proposition about TRN103 is invented; the withdrawn actor fragment and replacement link are absent. The unresolved note calls the interpretation a negation/affirmation pair and seeks outside operational verification, although the task is to interpret the learner's repair, not verify report truth. |
+| 2 `delay` | Faithful raw positive late-bag delay for TRN102 is present, but does not cancel the independently invented TRN103 denial. |
+| 2 `fuel` | Faithful raw in connected context: refuelling completion follows the corrected TRN102 assertion and its exact learner witness. An independent repeated aircraft name is not required in every row. The separate invented TRN103 denial still fails the whole result. |
+| 2 `baggage-unknown` | Faithful raw in connected context: received information does not confirm loading of the previously mentioned bags, rather than asserting actual noncompletion. Preceding TRN102/bag context can supply the reference; the malformed uncertainty notes remain a separate failure. |
+| 2 `contrast` | Faithful raw difference between adjacent known-fuel and unknown-loading propositions in connected context. Repeating the literal word `but` is not required when that relationship survives. The entire result is structurally rejected for three-column unresolved entries. |
+
+V5 provides actual improvement over v4 on numeric correction structure, held
+state, non-conferral and the cancellation/clearance/slot explanation. It still
+does not qualify the initial diagnostic: case 19 adds confirmation and loses
+exclusive scope; case 2 invents a negative assertion and fails its structural
+contract. Faithful ambiguity, source quotations, parsed rows and EOS remain
+separate from semantic acceptance. Existing fidelity/report/completeness flags
+stay false; no report checking or promotion follows.
+
+Qualification uses the frozen schema-neutral obligations, not newly imposed
+serialization preferences. Case 12's explicit two-name set plus one/other roles
+and shared Stand B can preserve faithful ambiguity even with an empty unresolved
+list. That empty list is an instruction/audit omission, not a new independent
+semantic failure or a demand to resolve names the learner leaves unspecified.
+Similarly, connected claim context and the exact learner witness may resolve
+case 2's pronouns; every row need not repeat a stronger actor identifier than the
+original statement. The invented active denial, missing withdrawal/link and
+malformed unresolved rows remain decisive failures without those extra demands.
+
+## Bounded v6 prompt-only recommendation
+
+A further controlled prompt-only diagnostic is supported by these specific
+failures. Its unrelated examples should contrast an interrupted noun corrected
+**before its predicate**, including `no, sorry`, with a complete explicit negative
+proposition. The former retains a withdrawn noun fragment and links the corrected
+actor's active assertion; it must not invent a denied earlier predicate. The latter
+retains the actual negation and must not be erased as a repair. Neither the mere
+word `no` nor a blanket repair phrase rule is a semantic classifier.
+
+Instructions should distinguish a learner's assertion from independently confirmed
+knowledge, preserve `Only` with its actual argument/scope, and require unresolved
+entries to have exactly two columns `[quoteRefs, reason]`, without lifecycle.
+Unknown operational truth does not by itself make the meaning of a clear learner
+statement unresolved; the interpreter must not seek outside verification. The
+five-field parser, constants, same initial inputs/private obligations, model,
+runtime, no-retry policy and status/acceptance gates remain unchanged. A frozen
+source readback is required before any actual call.
+
+This is a bounded experiment recommendation, not evidence that another example
+will solve the repair failure, permission for raw-text grading, or a change to
+semantic labels. Newly authored countercontrols, if separately authorized, need
+independent references frozen before calls and must stay outside prompt examples;
+they do not replace the still-failing original case. No additional contrast or
+sealed-reserve input was read in this review. The reviewer made no model call,
+candidate edit or raw-output repair.
+
+## V6 pre-inference independent prompt-only clearance
+
+Frozen candidate SHA-256 is
+`da73694d3c3caeeb08fc43039f64f7edfcd93dfdee32a5e7ad355ea90153b0b1`.
+Independent AST comparison against the preserved actual v5 source confirms that
+only `VERSION` and `INSTRUCTIONS` changed. All 42 offline frame/runtime controls
+independently pass. The parser, five-column claim schema, exact references,
+untrusted/fidelity/report flags, limits, runtime, inputs and acceptance gates are
+unchanged.
+
+The paired unrelated examples distinguish an interrupted `no, sorry` subject
+repair from a complete negative proposition, retaining the withdrawn fragment and
+replacement link only for the former. They retain conditional and unknown states,
+numeric correction links and properly shaped unresolved reasons. Instructions
+explicitly distinguish assertion from confirmation, preserve `Only` scope, and
+separate interpretive ambiguity from operational truth verification. The model
+still receives no report, question, rubric, source judgment or evaluator annotation.
+
+No concrete blocker was found for the unchanged six-case no-retry diagnostic.
+Faithful ambiguity remains schema-neutral under the clarification above; the new
+request for both text and unresolved auditing does not retroactively strengthen
+the original semantic obligations. Actual output fidelity remains unassessed,
+initial qualification is unmet, and neither a report stage nor automatic fidelity
+checker is approved. No model call, candidate edit or reserve read was performed.

@@ -5,7 +5,7 @@ import re
 
 from .candidate import FrameError, source_units, _object, _exact_keys, _refs, _has_content
 
-VERSION = 'typed-qwen-claims-extraction-v5'
+VERSION = 'typed-qwen-claims-extraction-v6'
 MAX_OUTPUT_TOKENS = 1000
 CLAIM_COLUMNS = ('id', 'quoteRefs', 'interpretedClaimText', 'lifecycle', 'correctionTarget')
 LIFECYCLES = {'active', 'withdrawn', 'history', 'ambiguous'}
@@ -16,7 +16,8 @@ text: no reports, questions, expected answers or outside facts. Do not grade or
 check truth. Do not fill missing names, roles, recipients, permissions or events.
 Output exactly {"claims":[...],"unresolved":[...]}. Each claim is an array of
 exactly FIVE columns: [id, quoteRefs, interpretedClaimText, lifecycle, correctionTarget].
-Each unresolved entry is [quoteRefs, reason]. No object rows or extra columns.
+Each unresolved entry is exactly [quoteRefs, reason], with TWO columns and no
+lifecycle column. No object rows or extra columns.
 quoteRefs are contiguous ascending unit IDs. Units are whole original sentence
 spans, NOT atomic claims. Multiple claims may share a unit; adjacent units may
 be necessary to preserve the full meaning of an interpretation.
@@ -24,6 +25,9 @@ interpretedClaimText is a concise interpretation, NOT an exact quotation or a
 verified fact. Paraphrase is allowed but preserve every meaningful restriction,
 operator and connection: only, now, because, with-that, unknown/unconfirmed,
 attribution, negation, conditional future, comparison, reference and retraction.
+An assertion is not independent confirmation: do not strengthen a speaker's
+assertion into "confirmed" unless confirmation itself is stated. Preserve "only"
+with its actual argument and scope; do not drop it or transfer it to another claim.
 Do not turn unconfirmed permission into denied permission; do not turn a future
 condition into an occurred event. Preserve asserted implications and causal links
 as learner claims, even if they might be wrong. Do not merge independent claims
@@ -34,6 +38,10 @@ an uncertainty statement. Preserve causation only when the learner asserts it.
 Context can clarify references only when
 the learner text itself resolves them; unresolved identities/roles stay explicit
 in the interpretation and unresolved list, never filled from outside knowledge.
+Preserve unresolved alternatives and distinct-role relationships in BOTH places
+when relevant, even if the existential assertions themselves are clear. Unresolved
+means interpretation ambiguity, not a request to verify whether a clear claim is
+true. Do not demand outside operational context to interpret an explicit repair.
 lifecycle is active|withdrawn|history|ambiguous. Distinguish a claim about history
 from a withdrawn current assertion. Unknown knowledge can be active; lifecycle
 is not model confidence or truth. Do not mistake contrast or negation for repair.
@@ -41,11 +49,15 @@ For an explicit correction, retain both readings: earlier lifecycle withdrawn,
 later correctionTarget the earlier claim ID. An entity repair may retain an
 earlier noun fragment without inventing a complete earlier predicate.
 Unrelated examples ONLY, never answer content:
-Input u1 "Nora, sorry, Leo moved only the chair, and the lamp may light if the switch closes."
-and u2 "The parcel's delivery is unconfirmed." gives:
-{"claims":[["c1",["u1"],"Nora (withdrawn subject fragment).","withdrawn",null],["c2",["u1"],"Leo moved only the chair.","active","c1"],["c3",["u1"],"The lamp may light if the switch closes.","active",null],["c4",["u2"],"The parcel's delivery is unconfirmed.","active",null]],"unresolved":[]}
-The name repair is NOT a denial that Nora moved something. The lamp has not
-already lit; unconfirmed delivery is not nondelivery. Neither implies a cause.
+Input u1 "Nora — no, sorry, Leo — moved only the chair, and the lamp may light if the switch closes."
+and u2 "Only the parcel's delivery is unconfirmed." gives:
+{"claims":[["c1",["u1"],"Nora (withdrawn subject fragment).","withdrawn",null],["c2",["u1"],"Leo moved only the chair.","active","c1"],["c3",["u1"],"The lamp may light if the switch closes.","active",null],["c4",["u2"],"Only the parcel's delivery is unconfirmed.","active",null]],"unresolved":[]}
+The interrupted noun BEFORE its predicate is repaired, not denied. Contrast input
+u1 "Nora did not move the chair; Leo did." gives:
+{"claims":[["c1",["u1"],"Nora did not move the chair.","active",null],["c2",["u1"],"Leo moved the chair.","active",null]],"unresolved":[]}
+Here a COMPLETE negative proposition is asserted, not withdrawn. Do not treat
+every "no" or "sorry" as a repair. The conditional does not establish that the
+lamp already lit; unconfirmed delivery is not nondelivery. Neither implies a cause.
 Input u1 "Delivery is at 14:00, correction, at 15:00." gives:
 {"claims":[["c1",["u1"],"Delivery is at 14:00.","withdrawn",null],["c2",["u1"],"Delivery is at 15:00.","active","c1"]],"unresolved":[]}
 Do not merely mention a correction in one active row: retain the withdrawn
