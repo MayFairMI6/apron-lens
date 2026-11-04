@@ -2679,6 +2679,19 @@ same Drive video ID `1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ`, with sharing unchanged.
 Local video SHA-256 is `5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`;
 Drive's processed playback was not separately inspected. The [outcome report](../../outputs/remaining-fixes/RESULTS.md)
 aligns the accepted remedy, failed candidate, audit and reproducible commands.
-Git commit/push and GitHub publication/readback remain root's next steps. Gates
+Coordinator publication readback is recorded below. Gates
 #30/#31/#32 retain their own final-artifact, reflection and smartphone/course
 acceptance requirements; narration publication alone does not complete them.
+
+
+**Coordinator publication receipt, 3 November 2026.** Implementation, diagnostics,
+source snapshots and this ledger decision were published in commit
+`028fba8199b342490d9875c345e43db8a1be81a2`. PR #22 head was remotely read back
+at that revision, OPEN and unmerged. GitHub [Checks run 41747055170](https://github.com/MayFairMI6/apron-lens/actions/runs/41747055170)
+completed SUCCESS, including backend and backbone-boundary checks. Issues #49
+and #59–62 were updated and read back; #59 retains user-reported and #60–62
+retain test-found. All four remain open for the specific residual limits above.
+The PR description now reflects the final implementation and rejected candidates.
+Drive metadata confirms the final narrated presentation at the same file ID, and
+the local video's SHA-256 remains unchanged. This publication receipt is a
+documentation-only follow-up; it does not reopen tests, tuning or the media edit.
