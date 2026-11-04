@@ -893,3 +893,117 @@ multi-quote-candidate/legacy-baseline validation. Both concrete utility findings
 above are resolved. No further blocker was found in this bounded utility review;
 the separate semantic/provenance, inference, native and publication gates remain.
 No reserve-three data or model call was used.
+
+**Unfrozen R11 prototype read.** Before the first actual redesign run, the
+coordinator requested a bounded read of `redesign.py`; the implementer was still
+preparing source and offline tests. The question and exact learner answer are
+separately labeled, with no source facts or criterion hypothesis pasted into the
+learner premise. This is appropriate input separation, but only actual
+omission/unrelated-answer controls can demonstrate that the classifier does not
+credit the question's presuppositions.
+
+Two concrete pre-freeze risks were sent to the implementer. Grounding aggregation
+vetoes support whenever any packed source chunk scores contradiction, even though
+packing includes historical records and unrelated aircraft/properties; an old or
+irrelevant source can therefore be mistaken for a current scoped conflict.
+Separately, splitting an overlong source record at word boundaries can leave later
+chunks without its exact actor/status/header context while marking each comparison
+`sourceCoverageComplete=True`. Lossless text partitioning alone does not preserve
+semantic scope. Conflict decisions need a relevant same-entity/time/source scope,
+and partial-record comparisons need preserved provenance or explicit insufficiency.
+True current conflicts must still block support. These are specific prospective
+findings in an unfinished prototype, not measured R11 defects or a demand to finish
+all modeling before development. No qualification, model call, source edit or
+fresh-v3 inspection was performed by this reviewer.
+
+## R11v1 frozen source and first exposed diagnostic — not qualified
+
+The explicitly frozen redesign source SHA-256 is
+`deb6190a419288cc39700d1b7bd93e81078750d636d78a912352d8bc2bda5c77`;
+MPS wrapper is `f5c545ef560af0291a1570f941a20da41d4da851af10f8d65196b881bbef2fe7`;
+offline tests are `01eaf795aa246bedf7e41f463359fd2db871dc7ad397b5256fa4ddc695106337`.
+This reviewer reread the bounded source changes and independently ran all 14
+offline injected-score tests; all passed. The two prototype structural findings
+were addressed: current-only sources are used unless a semantic history probe
+permits history; split records repeat actor/status provenance and are marked
+incomplete; incomplete records cannot supply positive grounding or a scoped
+conflict; an arbitrary raw contradiction is no longer a global conflict veto.
+These mechanisms still depend on actual model interpretation of their probes.
+
+The complete actual uncached [six-case diagnostic](../../outputs/redesign-regression-mps-r11v1/summary.json)
+is **1/6 exact, 1/3 valid exact, 6/6 delivered, zero accepted false-credit
+criteria**. Only case 0 is exact. Frozen source snapshots and the clarified
+contract hash match the lock. All 198 planned pairs have actual finite-probability
+rows; maximum input is 511 tokens, with no truncation or pair error. Actual direct
+startup is 2.955 seconds; direct reviews take 1.921–5.910 seconds. Every delivered
+review passes the mechanical multi-quote/legacy-projection contract. These timings
+do not certify native-owner runtime acceptance.
+
+Independent inspection of all six statements, final outputs, actual pair scores
+and audits finds legitimate unchanged gold and concrete semantic failures:
+
+- Case 1's correct fuel/baggage answer has ordinary operational entailment
+  0.9917–0.9995, but the correction probe falsely entails a correction at 0.9209.
+  This replaces those correct judgments with neutral “ultimately asserts, after
+  any corrections” comparisons, yielding uncertain delay/separation.
+- Case 2 states only active procedures and safeguarding. Omitted hold is wrongly
+  contradicted. The supplied hold quotation is that same procedure sentence;
+  it is literal but does not assert a conflicting hold state. Mechanical quote
+  validation therefore does not establish relevant semantic evidence.
+- Case 3 correctly contradicts the two swapped occupancy identities, but grounding
+  is uncertain rather than contradicted despite direct source contradictions.
+- Case 4 preserves the correct requested core in the learner text but returns
+  uncertain core and uncertain grounding for the invented engine fire. Case 5's
+  valid cancellation/parked/unknown-permission answer likewise becomes uncertain.
+
+The meta-probes themselves are a measured problem, not established semantic
+controls: current case 0 is classified as historical at 0.9966; a source chunk
+that entails its answer also entails hypotheses saying the answer is unsupported
+or conflicts with the source, at about 0.992. Case 5 is falsely classified as a
+correction at 0.9839. These observations suggest the classifier follows embedded
+operational content without reliably evaluating the surrounding meta assertion;
+that explanation is an inference, while the scores and erroneous decisions are
+direct evidence. Injected-score tests cannot establish this probe validity.
+
+**Decision:** R11v1 fails the mandatory exposed gate and is not qualified. Preserve
+the full run, diagnose these failures using exposed data, and empirically check
+scope/omission/conflict controls before claiming the redesign works. No threshold,
+gold, status or quote-contract relaxation is justified. The 24-case development,
+both exposed earlier reserves, fresh-v3, native and publication gates have not
+passed for R11v1. fresh-v3 remains unread by this reviewer; no reserve inference,
+production promotion or completed ML-052 claim is permitted on this diagnostic.
+
+**R11v1 actual varied-development follow-up.** The complete uncached
+[24-case exposed run](../../outputs/redesign-development-mps-r11v1/summary.json)
+returns **5/24 exact, 5/12 valid exact, 24/24 delivered, 38/72 criterion statuses
+correct, and two false-credit criteria**: case 9 availability and case 23
+grounding. This reviewer recomputed these metrics, inspected all case-level
+outcomes and both false-credit mechanisms, verified frozen source snapshots and
+mechanical multi-quote delivery, and checked all 775 planned/scored rows for
+matching metadata and finite probabilities. Maximum input is 512 tokens without
+truncation; direct startup is 2.956 seconds and reviews take 1.883–8.488 seconds.
+
+Case 9 explicitly says the reposition proves Stand B is free now, contrary to the
+received unconfirmed-availability report. The whole question/answer premise
+nevertheless entails “Stand B is not yet confirmed available” at 0.9707, and the
+quotation probe repeats the same erroneous comparison at 0.9707. This is genuine
+criterion false credit, not a literal-quote success. Whether question context
+causes the reversal requires a controlled comparison; the existing score alone
+does not establish that cause.
+
+Case 23 falsely says safeguarding cancellation is still unconfirmed, despite
+current R008's explicit confirmation. A spurious history classification at 0.9971
+admits superseded reports R003–R007. The resulting chunks entail the incorrect
+current assertion at 0.9873/0.9839; history mode prevents the scoped-conflict veto,
+so support wins, even while the unsupported-claim probes also entail at
+0.9697/0.9165. Grounding incorrectly becomes met. The source clock and genuine
+gold conflict remain explicit in the audit; neither the earlier pending state
+nor broad comparison citations justify this credit.
+
+The coordinator authorizes a bounded exposed-only diagnostic matrix (at most 150
+pairs) comparing raw-answer/bare-facet and alternative question/coverage forms,
+with all scores inspected before a v2 rewrite. It is diagnostic development, not
+acceptance or reserve evaluation. Source-time contrast controls should accompany
+that probe check. Preserve R11v1 and keep model/revision, threshold, contract,
+gold and gates unchanged. This reviewer made no model call or implementation
+change and has not read fresh-v3.
