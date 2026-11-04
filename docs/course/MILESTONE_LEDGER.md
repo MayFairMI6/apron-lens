@@ -1,5 +1,12 @@
 # AirfieldLens milestone ledger
 
+**ML-051 completes the isolated NLI experiment with a rejected candidate.** The
+permitted revision improves exposed-development exact results from 1/6 to 5/6,
+but only 2/3 fully valid answers receive exact reviews, failing the fixed gate.
+Stop: no fresh typed pilot or production adoption. Runtime/history fixes retain
+their bounded ML-050 acceptance; production typed review, old results and the
+narrated video remain unchanged. #60/#61 are not fixed by this experiment.
+
 **ML-050 reaches a mixed CURRENT acceptance decision.** Runtime completion/error
 hardening and the narrow ordinary-history guard/retry pass bounded acceptance.
 The compact typed-review revision fails development and is rejected; production
@@ -2856,3 +2863,157 @@ The existing #59 evidence still lacks the original reported viewpoint; this pass
 does not close it. Publish source, reports and existing-issue updates/readback as
 root's next steps. Acceptance here is local and bounded, not a claim that GitHub
 publication, all reported defects or submission gates #30/#31/#32 are complete.
+
+## ML-051 — Newly authorized NLI classification experiment for typed feedback
+
+3 November 2026. The user explicitly authorizes a different approach to remaining
+typed/citation errors while preserving previous results and the final narrated
+video. Place a small, isolated pretrained cross-encoder NLI classification
+experiment in CURRENT. This is a new bounded method after the compact-reviewer
+stop; it does not reopen or relabel either rejected version. No weight training,
+renderer work, general-purpose checker or full M2/M3 research expansion follows.
+This entry records independent planning/placement only; no model execution,
+implementation acceptance, promotion or failure-record closure is claimed.
+
+**Purpose and mechanism.** Use learner text as premise and authored atomic
+criterion statements as hypotheses to test whether the learner actually states
+the requested meaning. Separately assess grounding from eligible received reports
+to learner sentences. A classifier returns labels/scores rather than generative
+JSON, report IDs or quotations; code assembles statuses, literal input spans,
+eligible authored evidence bundles and verdict. This legitimately targets the
+observed output-format and answer-coverage problems without requiring another
+language-generation prompt revision. Authored criterion meanings are permitted
+assessment inputs, not substitute learner answers. Never supply successful
+feedback merely because a reference statement exists. A missing entailment must
+not be completed from the report or expected answer. No hand-authored response-
+matching exceptions for the exposed cases or scripted successful reviews.
+
+**Semantic hazards to test explicitly.** NLI scores are fallible evidence, not
+logical proof or calibrated assessment probabilities. Freeze the exact model
+repository/revision, tokenizer, runtime, label mapping, preprocessing, max sequence
+length, premise/hypothesis direction, score thresholds and tie/abstention policy
+before development calls. Confirm the classifier's actual label ordering rather
+than assuming it. Silent truncation must not erase a negative or extra claim;
+overlength input should be withheld or handled by a fixed auditable segmentation
+rule. Measure all pair counts and total request time, not a single short pair.
+
+Coverage and factual support remain different: reports entailing the reference
+does not mean the learner said it. Neutral does not mean contradicted; an omitted
+point is missing, an explicit incompatible statement is contradicted, and an
+unclear interpretation is uncertain. An unsupported invented extra may be neutral
+against reports, yet must prevent all-supported grounding. Explicit uncertainty
+about clearance must not become either granted or denied clearance. Test flight
+identity, negation, quantities/times, waiting-for versus occupying, superseded
+facts, correct core plus unrelated addition and uncertainty. Fragment/cross-
+sentence interpretation can fail even if every sentence receives a score.
+
+Build report premises from the correct run, receipt cutoff and applicable
+property/version; indiscriminately concatenating superseded and current reports
+can manufacture conflicting support. Preserve event time versus receipt time and
+corrections. Never promote a high lexical-overlap score to semantic truth. The
+grounding pass must inspect every substantive learner clause, including claims
+inside a broad sentence. Code-derived exact quotations establish occurrence only;
+their relevance and any 160-character/multiple-span limitation need explicit
+checks. Authored citation bundles establish source eligibility, not entailment
+or necessity; review actual bundle relevance and distinguish comparison context
+from support for an unsupported learner claim. Do not fabricate a positive source
+association when detecting an absence of support.
+
+**Fixed development gate.** Preserve all prior artifacts and use the six exposed
+failure/control cases first, with independently reviewed gold. Permit one initial
+configuration and at most one documented development revision in this new pass;
+finish and retain every case of each run before changing anything. A revised
+model, hypothesis, threshold or segmentation policy is a revision and gets a new
+source/configuration identity. Require correct delivered criterion statuses and
+verdicts on all six, accepted reviews for all three fully valid answers, no false
+credit, and honest support/coverage for unsupported additions. Independently
+inspect raw scores, unit/criterion mapping, all output comments and citations.
+Deterministic schema success alone cannot qualify. Failure after the permitted
+versions stops before fresh evaluation; no automatic model shopping or tuning
+until favorable results.
+
+Only a development-passing frozen configuration may proceed to the predeclared
+24-case paired pilot: 12 fully valid and 12 unsafe/partial/contradictory/uncertain,
+compared to unchanged production. The previously authored unused draft must not
+be read for development/tuning; an independent reviewer first validates its labels,
+family suitability and frozen provenance if it is selected for evaluation. Do not
+call it independently validated or unseen before those checks. No newly accepted
+false credit on any matched case/criterion, total false credit no higher than
+production, valid acceptance at least 10/12 and at least production, and no lower
+review yield are mandatory. Report exact statuses, valid rejection, unsupported
+credit, abstentions, quote/citation relevance, all elapsed times and failures
+separately. Independently review every paired output. No tuning or replacement
+test set follows observed fresh results within this pass.
+
+**Integration boundary.** Keep production unchanged until all gates, appropriate
+contract/source checks and an actual native typed-flow compatibility check pass.
+Verify failed input retention/retry, correct checkpoint application and stale
+result rejection. A pretrained classifier is a different inference path: account
+for its loading/readiness and ownership/resource costs without overlapping the
+existing local model unsafely or changing the 55/60/90-second worker/server/client
+budgets. Adoption needs actual whole-request latency and runtime-failure evidence;
+a faster pair or removal of generation is not itself acceptance. Preserve status-
+specific honest feedback without adding numeric grading, scripted success or
+claims of general assessment reliability.
+
+The existing runtime/history remedies keep their bounded ML-050 acceptance and
+limits; they do not certify this classifier. #60/#61 remain open throughout
+planning and failed experiments, with #59/#62 retaining their separate scopes.
+The final-video SHA-256 remains
+`5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`.
+Publish all model/configuration identities, attempted results and independent
+acceptance before changing completion claims. No duplicate milestone count or
+whole-course/submission completion follows.
+
+**ML-051 actual outcome and independent decision, 3 November 2026.** The initial
+version and sole permitted revision are complete. Reject the NLI reviewer for
+production: v1 delivers six schema-valid reviews but only 1/6 exact and 0/3 valid
+answers exactly; v2 delivers six schema-valid reviews, 5/6 exact and 2/3 valid
+answers exactly. The [pass report](../../outputs/typed-nli-pass/RESULTS.md) and
+[independent NLI review](TYPED_NLI_REVIEW.md) preserve both outcomes, source freezes
+and all 102 premise/hypothesis pair rows. The independent reviewer inspected all
+pair inputs/probabilities and all twelve assembled reviews, replaying saved scores
+to reproduce them without new inference. This ledger reviewer read that review
+and saved receipts; no new model call or image inspection was performed.
+
+The method uses pinned `cross-encoder/nli-deberta-v3-small` revision
+`fa2804872c3b4bd748f38c0185cc85775361e735`, a fixed 0.8 threshold and CPU inference.
+No weights were trained. V2 adds topic-scoped sentences, audited identity-only
+context, current report premises and a bounded authored same-flight/resource
+occupancy exclusion. These are declared policies, not general reasoning or
+entailment proof. Exact learner quotations and eligible authored report references
+remain mechanically valid; that does not establish semantic correctness.
+
+The remaining failure is a fully correct baggage/fuel answer. Its baggage-delay
+sentence is classified as contradicting a fuel/baggage separation facet while its
+fuel sentence supports that facet; report grounding also fails to establish the
+complete correct fuel/non-inference sentence. Conservative conflict handling
+therefore returns uncertain separation/grounding and partial support instead of
+the expected fully supported review. The learner's meaning is not made genuinely
+uncertain by the classifier's error. Five other cases receive exact statuses,
+including omitted hold, false occupancy, unsupported fire addition and explicit
+unknown clearance. No observed false credit in the revised six compensates for
+the failed valid-answer requirement. This is partial experimental progress on
+exposed cases, not a completed typed/citation remedy or independent accuracy gain.
+
+The fixed revision cap is exhausted. No further model/proposition/threshold,
+relevance or aggregation revision is authorized within this experiment. The
+24-case authored draft remains unused and not independently label-validated;
+no paired typed comparison, native adoption or new production ownership path
+was attempted. V2's 0.029–0.141-second local per-answer CPU measurements and
+2.556-second startup are development observations, not end-to-end service/device
+latency guarantees. Deadline checks cannot forcibly interrupt an active CPU
+kernel. Do not promote based on speed or schema success.
+
+The [final suite](../../outputs/typed-nli-pass/tests.log) passes 411 tests in
+42.391 seconds; [integrity](../../outputs/typed-nli-pass/integrity.log) passes
+with 160 preserved records and [backbone boundaries](../../outputs/typed-nli-pass/backbone.log)
+pass. [Before](../../outputs/typed-nli-pass/preservation-before.json) and
+[after](../../outputs/typed-nli-pass/preservation-after.json) receipts preserve
+386 earlier output files, empty tracked-output/production/shared-code diffs and
+the fixed final narrated-video SHA-256. No media edit or deployed citation/model
+change follows. ML-050's accepted runtime/history corrections and their residual
+limits remain intact; #60/#61 stay open, with #59/#62 separate and unchanged.
+Root's source/evidence publication and existing GitHub issue updates/readback are
+next, not claimed complete here. No duplicate milestone unit or whole-assignment
+completion is added by finishing this failed bounded experiment.

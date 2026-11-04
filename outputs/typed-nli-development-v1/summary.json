@@ -1,0 +1,44 @@
+{
+  "accepted": 6,
+  "exact": 1,
+  "count": 6,
+  "developmentPass": false,
+  "cases": [
+    {
+      "index": 0,
+      "exact": false,
+      "error": null,
+      "elapsedSeconds": 0.17034333300034632
+    },
+    {
+      "index": 1,
+      "exact": false,
+      "error": null,
+      "elapsedSeconds": 0.2089900420005506
+    },
+    {
+      "index": 2,
+      "exact": true,
+      "error": null,
+      "elapsedSeconds": 0.06724320800003625
+    },
+    {
+      "index": 3,
+      "exact": false,
+      "error": null,
+      "elapsedSeconds": 0.12094958299985592
+    },
+    {
+      "index": 4,
+      "exact": false,
+      "error": null,
+      "elapsedSeconds": 0.12693845800004055
+    },
+    {
+      "index": 5,
+      "exact": false,
+      "error": null,
+      "elapsedSeconds": 0.10644683300051838
+    }
+  ]
+}
