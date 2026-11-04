@@ -5,7 +5,7 @@ import unittest
 from backend.training_assessment import TYPED_QUESTIONS
 from tests.test_typed_redesign import fixture,Scores
 from experiments.typed_relation_review.scoped_content import (
-    raw_sources,source_scope,grounding_context,evaluate,quote_candidates)
+    raw_sources,source_scope,grounding_context,evaluate,quote_candidates,resource_availability_view,current_report_projection )
 
 
 class ScopedContentTests(unittest.TestCase):
@@ -157,5 +157,131 @@ class ProofEdgesAndQuoteContextTests(unittest.TestCase):
         # to attach an independently discussed earlier status.
         denial='It is not true that fuel completion establishes permission.'
         self.assertTrue(all(not b['antecedentSentences'] for b in quote_candidates(first+' '+denial)))
+
+
+class ImplicitContextAndResourceClockTests(unittest.TestCase):
+    def resource_reports(self):
+        old=dict(id='MOVE',episodeId='CLOCK',aircraftId='A2',flightInstance='OP201',source='stand-planning',
+            eventTime=10,receiptTime=12,message='OP201 will reposition from K7 to M2. Stand K7 is not yet confirmed available.',
+            facts=[dict(property='movement_condition',value='reposition to Stand M2')])
+        new=dict(id='AVAILABLE',episodeId='CLOCK',aircraftId='A3',flightInstance='OP202',source='stand-planning',
+            eventTime=30,receiptTime=35,message='Stand K7 is confirmed available for OP202. Its exercise ground hold is released.',
+            facts=[dict(property='movement_condition',value='Stand K7 available; exercise ground hold released')])
+        return [old,new]
+
+    def test_unique_learner_actor_binds_implicit_argument_but_never_multiple_actors(self):
+        first='A late baggage batch is delaying TRN102.'
+        target='Fuel is complete, but that does not establish completed baggage loading.'
+        contextual=next(b for b in quote_candidates(first+' '+target) if b['targetSentence']['text']==target)
+        self.assertEqual(contextual['contextKind'],'implicit_actor_argument')
+        self.assertEqual([s['text'] for s in contextual['antecedentSentences']],[first])
+        self.assertEqual(contextual['text'],first+' '+target)
+        ambiguous='TRN102 and TRN103 are waiting.'
+        for second in [target,'Its fuel service is complete.']:
+            candidate=next(b for b in quote_candidates(ambiguous+' '+second) if b['targetSentence']['text']==second)
+            self.assertEqual(candidate['antecedentSentences'],[])
+        independent='TRN103 fuel service is complete.'
+        candidate=next(b for b in quote_candidates(first+' '+independent) if b['targetSentence']['text']==independent)
+        self.assertEqual(candidate['antecedentSentences'],[])
+
+    def test_resource_clock_crosses_actor_boundary_and_retains_original_plan(self):
+        reports=self.resource_reports();original=copy.deepcopy(reports)
+        p=fixture();p.update(episodeId='CLOCK',cutoff=40,reports=reports)
+        current,_=grounding_context(p)
+        units=raw_sources(current,'A3',reports,40)
+        old=next(u for u in units if u['reportIds']==['MOVE'] and u['sourceFacts'])
+        self.assertIn('OP201 will reposition from K7 to M2.',old['text'])
+        self.assertIn("movement_condition='reposition to Stand M2'",old['text'])
+        self.assertNotIn('not yet confirmed available',old['text'])
+        projection=next(r for r in old['canonicalRules'] if r.get('rule')=='actor-message-resource-clock-projection-v1')
+        stale=next(r for r in projection['resourceAssertions'] if r['origin']=='message')
+        self.assertEqual(stale['value'],'unconfirmed')
+        self.assertEqual(stale['resourceStatus'],'historical_resource')
+        self.assertEqual(stale['exactSpan']['text'],'Stand K7 is not yet confirmed available.')
+        self.assertFalse(projection['messageParts'][1]['inCurrentInput'])
+        self.assertEqual(reports,original)
+
+    def test_receipt_eligibility_and_operative_event_clock_not_last_arrival(self):
+        reports=self.resource_reports()
+        before=resource_availability_view(reports,34)
+        self.assertTrue(all(r['reportId']=='MOVE' for r in before))
+        self.assertEqual(next(r for r in before if r['origin']=='message')['resourceStatus'],'current_resource')
+        delayed=dict(id='DELAYED',episodeId='CLOCK',aircraftId='A4',flightInstance='OP203',source='stand-planning',
+            eventTime=20,receiptTime=39,message='Stand K7 is not yet confirmed available.',
+            facts=[dict(property='movement_status',value='holding')])
+        view=resource_availability_view(reports+[delayed],40)
+        self.assertTrue(all(r['resourceStatus']=='historical_resource' for r in view if r['reportId']=='DELAYED'))
+        self.assertTrue(all(r['value']=='confirmed_available' for r in view if r['resourceStatus']=='current_resource'))
+        # Assignment does not manufacture a new availability update.
+        assignment=copy.deepcopy(delayed);assignment.update(id='ASSIGNED',eventTime=38,receiptTime=39,
+            message='OP203 is assigned Stand K7.',facts=[dict(property='stand',value='K7')])
+        self.assertFalse(any(r['reportId']=='ASSIGNED' for r in resource_availability_view(reports+[assignment],40)))
+
+    def test_same_time_conflict_and_unseparable_mixed_clause_cannot_certify(self):
+        reports=self.resource_reports();conflict=copy.deepcopy(reports[0]);conflict.update(id='CONFLICT',eventTime=30,receiptTime=36)
+        view=resource_availability_view(reports+[conflict],40)
+        self.assertTrue(any(r['resourceStatus']=='ambiguous_resource' for r in view))
+        p=fixture();p.update(episodeId='CLOCK',cutoff=40,reports=reports+[conflict])
+        current,_=grounding_context(p);units=raw_sources(current,'A3',p['reports'],40)
+        self.assertFalse(source_scope(units,'Stand K7 is available.')[1]['complete'])
+        reports=self.resource_reports();reports[0]['message']='Stand K7 is not yet confirmed available and OP201 will reposition.'
+        p.update(reports=reports);current,_=grounding_context(p)
+        unit=next(u for u in raw_sources(current,'A2',reports,40) if u['reportIds']==['MOVE'] and u['sourceFacts'])
+        self.assertIn(reports[0]['message'],unit['text'])
+        self.assertIn('reposition to Stand M2',unit['text'])
+        self.assertFalse(unit['complete'])
+
+    def test_unrecognized_factual_unavailability_is_not_relabelled_unconfirmed(self):
+        reports=self.resource_reports();reports[1]['message']='Stand K7 is unavailable.'
+        reports[1]['facts'][0]['value']='hold at stand'
+        view=resource_availability_view(reports,40)
+        latest=[r for r in view if r['reportId']=='AVAILABLE']
+        self.assertTrue(all(r['value'] is None and r['resourceStatus']=='ambiguous_resource' for r in latest))
+        self.assertFalse(any(r['value']=='unconfirmed' and r['resourceStatus']=='current_resource' for r in view))
+
+    def test_resource_validity_does_not_apply_future_state_or_revive_expired_prior(self):
+        reports=self.resource_reports();reports[1]['facts'][0]['validFrom']=50
+        view=resource_availability_view(reports,40)
+        self.assertTrue(all(r['resourceStatus']=='scheduled' for r in view if r['reportId']=='AVAILABLE'))
+        self.assertTrue(all(r['value']=='unconfirmed' for r in view if r['resourceStatus']=='current_resource'))
+        reports=self.resource_reports();reports[1]['facts'][0]['validUntil']=38
+        view=resource_availability_view(reports,40)
+        self.assertTrue(all(r['resourceStatus']=='expired_resource' for r in view if r['reportId']=='AVAILABLE'))
+        self.assertFalse(any(r['resourceStatus']=='current_resource' for r in view))
+        self.assertTrue(all(r['resourceStatus']=='historical_resource' for r in view if r['reportId']=='MOVE'))
+
+    def test_actor_supersession_does_not_retract_independent_resource_confirmation(self):
+        reports=self.resource_reports();later=copy.deepcopy(reports[1]);later.update(id='ACTOR-UPDATE',eventTime=36,receiptTime=37,
+            message='OP202 remains parked.',facts=[dict(property='movement_condition',value='parked',supersedes=['AVAILABLE:movement_condition'])])
+        p=fixture();p.update(episodeId='CLOCK',cutoff=40,reports=reports+[later])
+        current,historical=grounding_context(p)
+        self.assertNotIn('AVAILABLE',{r['id'] for r in current})
+        units=raw_sources(current,'A3',p['reports'],40)
+        resource=next(u for u in units if u['reportIds']==['AVAILABLE'])
+        self.assertIn('Stand K7 is confirmed available for OP202.',resource['text'])
+        self.assertNotIn('ground hold is released',resource['text'])
+        self.assertEqual(resource['properties'],['stand.availability_confirmation'])
+
+
+class IndependentResourceAmbiguityGuardTests(unittest.TestCase):
+    def test_resource_ambiguity_survives_both_actor_field_supersessions(self):
+        reports=[]
+        for actor,aircraft,state in [('TRN102','A2','Stand B is confirmed available.'),('TRN103','A3','Stand B is not yet confirmed available.')]:
+            old=dict(id=actor+'OLD',episodeId='e',aircraftId=aircraft,flightInstance=actor,source='stand-planning',eventTime=10,receiptTime=11,
+                message=state,facts=[dict(property='movement_condition',value=state)])
+            new=dict(id=actor+'NEW',episodeId='e',aircraftId=aircraft,flightInstance=actor,source='ground-control',eventTime=20,receiptTime=21,
+                message=actor+' remains held.',facts=[dict(property='movement_condition',value='hold: further update pending',supersedes=[old['id']+':movement_condition'])])
+            reports.extend([old,new])
+        p=fixture();p.update(episodeId='e',cutoff=30,reports=reports)
+        current,_=grounding_context(p);units=raw_sources(current,'A2',reports,30)
+        marker=next(u for u in units if not u['complete'])
+        self.assertEqual(marker['actorIds'],[])
+        self.assertEqual(set(marker['proofDependencies']),{'TRN102OLD','TRN103OLD'})
+        self.assertNotIn('further update pending',marker['text'])
+        scoped,scope=source_scope(units,'Stand B is confirmed available.')
+        self.assertFalse(scope['complete'])
+        self.assertTrue(any(u is marker for u in scoped))
+        self.assertFalse(source_scope(units,'An engine caught fire.')[1]['resourceClockComplete'])
+
 
 if __name__=='__main__':unittest.main()

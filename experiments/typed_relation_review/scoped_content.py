@@ -16,7 +16,7 @@ from .propositions import propositions_for
 from .redesign import (Plan,label,token_length,bounded_spans,exact_sentences,
                        choose_quotes,validate_redesign_review,QUOTE_CONTRACT)
 
-VERSION='typed-scoped-source-content-r11v3.2'
+VERSION='typed-scoped-source-content-r11v3.3'
 THRESHOLD=.8
 DEADLINE_SECONDS=55.
 
@@ -159,6 +159,23 @@ def raw_sources(current,target_aircraft=None,eligible_reports=None,cutoff=None):
             reportIds=[row['reportId']],semanticReportIds=[],proofDependencies=[row['reportId']],sourceFacts=[],
             actorIds=[],properties=['stand.availability_confirmation'],resources=[row['resourceId']],
             canonicalRules=[row],complete=True))
+    # Resource ambiguity survives independently of both actors' current fields.
+    # Its marker never republishes an actor's historical movement as current.
+    ambiguous_keys={(r['episodeId'],r['resourceId'],r['property']) for r in resource_rows
+        if r['resourceStatus']=='ambiguous_resource'}
+    for key in sorted(ambiguous_keys):
+        heads=[r for r in resource_rows if (r['episodeId'],r['resourceId'],r['property'])==key
+            and r['resourceStatus']=='ambiguous_resource']
+        ids=list(dict.fromkeys(r['reportId'] for r in heads));clauses=[]
+        for row in heads:
+            item='['+row['reportId']+'] '+row['exactSpan']['text']
+            if item not in clauses:clauses.append(item)
+        units.append(dict(text='Unresolved current stand '+key[1]+' availability source scope: '+' '.join(clauses),
+            provenance='Unresolved current resource scope, stand '+key[1]+'. ',
+            reportIds=ids,semanticReportIds=[],proofDependencies=ids,sourceFacts=[],actorIds=[],
+            properties=['stand.availability_confirmation'],resources=[key[1]],complete=False,
+            canonicalRules=[dict(rule='independent-resource-ambiguity-marker-v1',resourceKey=key,
+                exactSourceAssertions=heads,scope='prevents certification; no asserted available/unavailable state')]))
     def derived(text,ids,actor,rule,proof,proof_ids=None):
         units.append(dict(text=text,provenance='Derived current source scope for '+str(actor)+'. ',
             reportIds=list(dict.fromkeys(ids)),semanticReportIds=[],

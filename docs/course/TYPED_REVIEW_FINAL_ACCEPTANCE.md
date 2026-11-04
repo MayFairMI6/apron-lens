@@ -1388,3 +1388,67 @@ an earlier sentence names one aircraft. This does not supply a missing/assertion
 grading policy. All fixes require preserved frozen attempts and actual exposed
 verification before reserve qualification. No model call, implementation/gold
 edit, new gate, model change or fresh-v3 read was made by this reviewer.
+
+## Unfrozen 3.3 retrieval proposal B — rejected before inference
+
+The independent reviewer inspected the proposed `learner_retrieval_context`
+working code before any 3.3 freeze/run. It required one literal actor in the
+previous sentence and whole answer, no named actor in the target, plus either a
+leading discourse reference or a word stem derived from the eligible source's
+schema property names. Its ambiguity guards checked the antecedent, not a new
+possessor inside the target. A pure offline call demonstrated the following
+results; no classifier was loaded and these are not model outcomes or review
+gold annotations. Each answer has the exact prefix `TRN102 is held. `.
+
+| Exact target sentence | Proposed B retrieval result | Independent interpretation |
+|---|---|---|
+| Its fuel service is complete. | Seed TRN102 | Plausible explicit anaphora; retrieval alone still does not certify the claim. |
+| Fuel service is complete. | Seed TRN102 | Implicit discourse binding would require a validated structural account. |
+| The other aircraft's fuel service is complete. | Seed TRN102 | Incorrect prior-actor binding: the target explicitly introduces another possessor. |
+| The towing vehicle's fuel is complete. | Seed TRN102 | Incorrect entity binding: the named prior aircraft is not the target's vehicle possessor. |
+| Refuelling has finished. | No seed | A service paraphrase follows a different path solely because it lacks the field-name stem. |
+| An engine caught fire. | No seed | A genuinely unbound extra appropriately remains global. |
+
+The source-schema stem therefore acted as an unvalidated lexical prerequisite for
+entity binding even though it did not directly assign a status. Keeping the raw
+hypothesis unchanged does not make narrowed evidence complete when the seed
+refers to the wrong possessor. An added “other/vehicle” blacklist or replacement
+new-event heuristic would not establish the missing discourse mechanism.
+
+The coordinator explicitly rejected B before inference and instructed the
+implementer to remove it without a blacklist patch. The separately approved
+3.3A resource-ambiguity guard may proceed on its own; it has no result certified
+here. The new claim-frame feasibility document remains a proposal, with no
+working extractor or additional model authorized by this review. No implementation,
+fixture, gold, gate, model setting or fresh-v3 material was changed/read by this
+reviewer.
+
+## R11v3.3A resource-ambiguity guard — bounded mechanical review passed
+
+Frozen `scoped_content.py` SHA-256 is
+`8efa29b36be79c7edbc1aaebddf82c4864f6529e04aea259355712a62d649b66`.
+Independent comparison against frozen 3.2 shows only the version change and the
+independent resource-ambiguity marker. Rejected proposal B is entirely absent:
+no retrieval-context helper, schema-stem prerequisite, blacklist, seed metadata
+or added calls remain. Existing learner, quotation and grading behavior is
+unchanged from 3.2.
+
+This reviewer independently ran all 20 focused offline tests; all pass. The exact
+earlier counterexample was also rerun directly without a model. With both
+equal-time conflicting Stand B reports historical under later actor-field
+updates, all four resource assertions remain ambiguous and a separate resource
+unit retains both original source IDs, exact head clauses and proof dependencies.
+It has no actor-state facts and is `complete=False`. A Stand B availability query
+now returns incomplete scope, and a globally unbound query also reports
+`resourceClockComplete=False`. Historical movement conditions are not republished
+as current actor states. The previously demonstrated eligibility guard defect is
+mechanically remedied.
+
+This is bounded source-guard acceptance only. It does not repair the retained
+semantic errors, establish a new model result, qualify the candidate for fresh-v3
+or complete ML-052. Full tests and the coordinator's actual model run have their
+own receipts. No model call, source/gold edit, new gate or fresh-v3 inspection was
+performed by this reviewer.
+
+
+**4 November 2026 — R11v3.3 ambiguity guard verified, semantic qualification still open.** The A-only implementation (`8efa29b36be79c7edbc1aaebddf82c4864f6529e04aea259355712a62d649b66`) preserves conflicting stand-availability evidence independently of actor-field supersession. Independent review reproduces the original defect and confirms both resource-specific and global completeness are now withheld. Twenty focused tests and the full 535-test suite pass (42.720 seconds). An uncached old-six replay at `outputs/scoped-content-regression-mps-r11v3-3/` has the same model inputs and assessment statuses as v3.2: 3/6 exact, 2/3 valid exact, 6 delivered, zero false-credit criteria. This verifies a bounded mechanical repair, not semantic acceptance. The proposed schema-word learner-context retrieval was rejected before inference and removed after counterexamples assigned another aircraft's or a vehicle's fuel to the preceding aircraft. No blacklist patch was retained. The broader v3.2 failures remain applicable; the third reserve and production/native promotion remain gated. A concrete question about testing the existing local Qwen model for structured interpretation is pending user choice; no model/architecture switch has occurred. Original results and video remain unchanged.
