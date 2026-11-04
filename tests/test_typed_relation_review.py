@@ -4,7 +4,8 @@ import time
 import unittest
 from backend.training_assessment import RUBRICS,TYPED_QUESTIONS
 from experiments.typed_relation_review.candidate import (
-    THRESHOLD, NLIEngine, confident_label,evaluate,grounding_context,learner_sentences,service_relation,learner_clauses,relation_present,relation_units,explicit_identity_mismatch,comparison_context,source_text,canonical_source,unreported_readiness,unsupported_readiness_assertion,hold_reference_binding,explicit_unrepresented_takeoff_scope,unsupported_takeoff_assertion)
+    THRESHOLD, NLIEngine, confident_label,evaluate,grounding_context,learner_sentences,service_relation,learner_clauses,relation_present,relation_units,explicit_identity_mismatch,comparison_context,source_text,canonical_source,unreported_readiness,unsupported_readiness_assertion,hold_reference_binding,explicit_unrepresented_takeoff_scope,unsupported_takeoff_assertion,
+    unsupported_takeoff_clause,anaphoric_opening,anaphoric_antecedents,anaphoric_windows,point_quote_span,_same_flight_context)
 from experiments.typed_relation_review.propositions import PROPOSITIONS,RELEVANCE
 
 
@@ -669,5 +670,126 @@ class WaitingAndExplicitOccupancyTests(unittest.TestCase):
         review=evaluate(self.arrival_payload(text),scorer,time.monotonic()+10)
         self.assertEqual(review['points'][1]['status'],'contradicted')
         self.assertEqual(review['points'][1]['learnerQuote'],text)
+
+
+class V9CoverageAnaphoraAndQuoteTests(unittest.TestCase):
+    """R9 general mechanisms with injected scores; no model or GPU call."""
+    def test_paraphrased_relations_are_compared_not_inferred(self):
+        self.assertTrue(relation_present('Late bags are holding up TRN102.','baggage_delay'))
+        self.assertTrue(relation_present('Refuelling has finished; that does not tell us the baggage has finished loading.','service_relation'))
+        self.assertTrue(relation_present("We have a release of TRN102's ground hold, not evidence of takeoff permission.",'authority_distinction'))
+        self.assertTrue(relation_present('That is an estimate, not a departure clearance.','estimate_authority'))
+        self.assertTrue(relation_present('Those updates do not confirm overall departure readiness.','readiness_status'))
+        # Topic mention alone still does not create a relation unit.
+        self.assertFalse(relation_present('Fuel and baggage are mentioned in the reports.','service_relation'))
+        self.assertFalse(relation_present('The estimate is 10:35 and departure clearance exists.','estimate_authority'))
+        # A demonstrative back-reference is not a new safeguarding status.
+        self.assertFalse(relation_present('I cannot infer a departure clearance from that cancellation.','safeguarding_status'))
+        self.assertTrue(relation_present('The cancellation is confirmed.','safeguarding_status'))
+        self.assertTrue(relation_present('Safeguarding cancellation is confirmed.','safeguarding_status'))
+
+    def test_anaphoric_antecedents_are_exact_assertive_and_bounded(self):
+        text='Stand B still has TRN102 as its occupant. It is TRN103 that is waiting for that stand.'
+        sentences=learner_sentences(text)
+        self.assertTrue(anaphoric_opening(sentences[1]['text']))
+        self.assertFalse(anaphoric_opening(sentences[0]['text']))
+        self.assertEqual([s['text'] for s in anaphoric_antecedents(sentences[1],text)],[sentences[0]['text']])
+        self.assertEqual(anaphoric_antecedents(sentences[0],text),[])
+        text='If the stand were free, TRN103 would move. It is waiting for Stand B.'
+        self.assertEqual(anaphoric_antecedents(learner_sentences(text)[1],text),[])
+        text='A. B is first. Those updates are listed. They establish nothing.'
+        chain=anaphoric_antecedents(learner_sentences(text)[3],text)
+        self.assertEqual([s['text'] for s in chain],['B is first.','Those updates are listed.'])
+        two='TRN101 and TRN102 remain parked. Its departure clearance is unconfirmed.'
+        self.assertEqual(anaphoric_antecedents(learner_sentences(two)[1],two),[])
+        self.assertEqual(anaphoric_windows(learner_sentences(two),two,'permission_status'),[])
+        windows=anaphoric_windows(learner_sentences('The latest target off-block time for TRN102 is 10:35. That is an estimate, not a departure clearance.'),
+            'The latest target off-block time for TRN102 is 10:35. That is an estimate, not a departure clearance.','estimate')
+        self.assertEqual(len(windows),1)
+        self.assertTrue(windows[0]['anaphoricWindow'])
+
+    def test_cross_sentence_antecedent_reaches_premise_but_quote_stays_literal(self):
+        p=service_payload('Fuel service is complete. That fuel result does not tell us baggage loading has finished.')
+        scorer=FakeScorer();review=evaluate(p,scorer,time.monotonic()+10)
+        separation=[x for x in scorer.pairs if x['kind']=='criterion' and x['criterionId']=='separation' and x['facet']==2]
+        self.assertTrue(separation)
+        self.assertTrue(any('Exact learner antecedent context: Fuel service is complete.' in x['premise'] for x in separation))
+        for point in review['points']:self.assertIn(point['learnerQuote'],p['learnerResponse'])
+        resolved=[x for x in scorer.pairs if x['kind']=='grounding' and x['groundingCoverage']=='anaphoric_antecedent_window']
+        self.assertTrue(resolved and all(x['supportOnly'] and x['hypothesis'] in p['learnerResponse'] for x in resolved))
+
+    def test_support_only_window_cannot_veto_or_create_contradiction(self):
+        p=service_payload('Fuel service is complete. It also has a clean cabin.')
+        def choose(pair):
+            if pair.get('supportOnly'):return 'contradiction'
+            return 'uncertain' if pair['kind']=='grounding' and 'cabin' in pair['hypothesis'] else 'entailment'
+        review=evaluate(p,FakeScorer(choose),time.monotonic()+10)
+        self.assertEqual(review['points'][-1]['status'],'uncertain')
+
+    def test_correction_marker_ambiguous_only_with_competing_identity(self):
+        single='Correction: for TRN102, the completed job is refuelling. A late batch is delaying the bags.'
+        p=service_payload('Fuel is complete.');p['learnerResponse']=single
+        scorer=FakeScorer();evaluate(p,scorer,time.monotonic()+10)
+        delay=[x for x in scorer.pairs if x['kind']=='criterion' and x['criterionId']=='delay' and 'bags' in x['exactLearnerSentence']]
+        self.assertTrue(delay and not any(x['ambiguousEntityContext'] for x in delay))
+        p['learnerResponse']='Correction: TRN101, not TRN102, finished refuelling. A late batch is delaying the bags.'
+        scorer=FakeScorer();evaluate(p,scorer,time.monotonic()+10)
+        delay=[x for x in scorer.pairs if x['kind']=='criterion' and x['criterionId']=='delay' and 'bags' in x['exactLearnerSentence']]
+        self.assertTrue(delay and all(x['ambiguousEntityContext'] for x in delay))
+
+    def test_other_flight_typed_report_is_not_same_flight_context(self):
+        other=dict(id='R3',message='No runway or takeoff clearance is represented.',flightInstance='TRN101')
+        own=dict(other,id='R6',flightInstance='TRN102')
+        self.assertFalse(_same_flight_context('TRN102 has takeoff clearance.',other))
+        self.assertTrue(_same_flight_context('TRN102 has takeoff clearance.',own))
+        self.assertTrue(_same_flight_context('Takeoff clearance is unconfirmed.',other))
+
+    def test_per_facet_quote_keeps_every_witness_and_unchanged_limit(self):
+        a=dict(start=0,end=55,text='x'*55);b=dict(start=102,end=181,text='y'*79)
+        span,audit=point_quote_span([[a],[b]])
+        self.assertEqual(span,(0,55))
+        self.assertEqual(audit['facetCount'],2);self.assertEqual(audit['quotedFacetCount'],1)
+        self.assertEqual([w['start'] for w in audit['facetWitnesses']],[0,102])
+        span,audit=point_quote_span([[a],[dict(start=60,end=120,text='z'*60)]])
+        self.assertEqual(span,(0,120));self.assertIsNone(audit)
+        text='Fuel for TRN102 is not still underway: it has finished. A late batch is delaying its baggage loading. Finishing the fuel job provides no confirmation that the bags have been loaded.'
+        p=service_payload('x');p['learnerResponse']=text
+        scorer=FakeScorer();review=evaluate(p,scorer,time.monotonic()+10)
+        separation=next(x for x in review['points'] if x['criterionId']=='separation')
+        self.assertEqual(separation['status'],'met')
+        self.assertIn(separation['learnerQuote'],text);self.assertLessEqual(len(separation['learnerQuote']),160)
+        self.assertTrue(any(r.get('rule')=='per-facet-quote-witness-v1' for r in scorer.semantic_rule_audit))
+
+    def test_clause_level_takeoff_scope_rule_is_bounded(self):
+        p=ExplicitTakeoffScopeTests().scoped_payload();scope=explicit_unrepresented_takeoff_scope(grounding_context(p)[0],'A2')
+        for text in ['Late baggage is delaying TRN102, and the tower has now authorised TRN102 to take off.',
+                     'The hold is released, and TRN102 has been granted runway departure clearance.',
+                     'The released hold confirms that TRN102 is cleared for takeoff.']:
+            rule=unsupported_takeoff_clause(dict(start=0,end=len(text),text=text),scope)
+            self.assertTrue(rule and rule['applied'],text)
+            self.assertEqual(text[rule['offendingSpan']['start']:rule['offendingSpan']['end']],rule['offendingSpan']['text'])
+        for text in ['Nothing shows that TRN102 is cleared for takeoff.',
+                     'The release does not confirm that TRN102 is cleared for takeoff.',
+                     'TRN102 has departure clearance.',
+                     'TRN103 is cleared for takeoff.',
+                     'Only the tower can confirm that TRN102 is cleared for takeoff.',
+                     'TRN102 will be cleared for takeoff soon.',
+                     'If released, TRN102 is cleared for takeoff.',
+                     'There is no evidence that the tower has authorised TRN102 to take off.',
+                     'It is unknown whether TRN102 has takeoff permission.',
+                     'TRN102 is not yet cleared for takeoff.',
+                     'TRN102 had takeoff clearance, but it was cancelled.',
+                     'Someone said the tower authorised TRN102 to take off.']:
+            self.assertIsNone(unsupported_takeoff_clause(dict(start=0,end=len(text),text=text),scope),text)
+        self.assertIsNone(unsupported_takeoff_clause(dict(start=0,end=10,text='TRN102 has takeoff clearance.'[:10]),None))
+
+    def test_anaphoric_clause_grounding_uses_exact_antecedent_window(self):
+        p=service_payload('Refuelling has finished, and baggage is delayed, but that does not tell us loading is done.')
+        scorer=FakeScorer();evaluate(p,scorer,time.monotonic()+10)
+        coverage={x['groundingCoverage'] for x in scorer.pairs if x['kind']=='grounding'}
+        self.assertIn('anaphoric_clause_window',coverage)
+        windows=[x['hypothesis'] for x in scorer.pairs if x.get('groundingCoverage')=='anaphoric_clause_window']
+        self.assertTrue(all(w in p['learnerResponse'] and not w.startswith('but that') for w in windows))
+
 
 if __name__=='__main__':unittest.main()

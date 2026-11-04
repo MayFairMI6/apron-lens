@@ -11,7 +11,7 @@ from backend.evidence import classify, FIELDS
 from backend.training_assessment import validate_review
 from experiments.typed_relation_review.propositions import propositions_for,relevance_for,TOPIC_PATTERNS,occupancy_counter_for,relations_for
 
-VERSION = 'typed-service-relation-review-v8'
+VERSION = 'typed-service-relation-review-v9'
 MODEL_ID = 'cross-encoder/nli-deberta-v3-small'
 MODEL_REVISION = 'fa2804872c3b4bd748f38c0185cc85775361e735'
 THRESHOLD = 0.8
@@ -213,6 +213,47 @@ def unsupported_takeoff_assertion(sentence,scope):
         offendingSpan=dict(start=sentence['start']+start,end=sentence['start']+end,text=text[start:end]))
 
 
+_TAKEOFF=r'take\s*-?\s*off'
+_SCOPED_PERMISSION=(r'(?:(?:runway|takeoff|take-off)\s+(?:[\w-]+\s+)?(?:clearance|permission|authori[sz]ation)'
+    r'|(?:clearance|permission|authori[sz]ation)\s+(?:to|for)\s+(?:'+_TAKEOFF+r'|takeoff|the\s+runway))')
+
+
+def unsupported_takeoff_clause(sentence,scope):
+    """v9 clause-level positive takeoff/runway permission in explicit scope.
+
+    Same source precondition as v1: received target route sources explicitly
+    represent no runway or takeoff clearance. The learner clause must
+    affirmatively assert that permission for the single named target flight.
+    Negation, modality, conditions, attribution, qualifiers or another flight
+    leave the clause to ordinary NLI. Departure clearance alone is outside the
+    source's explicit runway/takeoff wording and is not covered.
+    """
+    if not scope:return None
+    text=sentence['text'];actor=re.escape(scope['flightInstance'])
+    if text.rstrip().endswith('?') or nonassertive_scope(text):return None
+    if re.search(r'["“”]|\b(other|another|else|said|says|claims?|according\s+to|if|unless|whether|assuming|supposing|provided|believe\w*|think\w*|suspect\w*|doubt\w*|false|untrue|inaccurate)\b|\bnot\s+(?:saying|claiming|discussing)\b',text,re.I):return None
+    if re.search(r'\b(cancel\w*|withdraw\w*|revok\w*|expir\w*|laps\w*)\b',text,re.I):return None
+    names={x.upper() for x in re.findall(r'\bTRN\d+\b',text,re.I)}
+    if names!={scope['flightInstance'].upper()}:return None
+    claims=[actor+r'\s+(?:also\s+)?(?:has|holds|now\s+has|has\s+(?:now\s+)?(?:received|obtained|been\s+(?:given|granted|issued))|was\s+(?:given|granted|issued)|received)\s+(?:a\s+|the\s+|its\s+)?'+_SCOPED_PERMISSION,
+            actor+r'\s+(?:is|has\s+been|was)\s+(?:now\s+)?(?:cleared|authori[sz]ed|permitted|allowed|approved)\s+(?:for\s+(?:takeoff|'+_TAKEOFF+r')|to\s+'+_TAKEOFF+r')',
+            r'(?:the\s+)?(?:tower|controller|atc|runway\s+controller)\s+(?:has\s+)?(?:now\s+)?(?:authori[sz]ed|cleared|permitted|allowed|approved)\s+'+actor+r'\s+(?:to\s+'+_TAKEOFF+r'|for\s+(?:takeoff|'+_TAKEOFF+r'))']
+    opening=(r'[\s,;:]*(?:(?:and|but|so|yet|while|then|also|now)\s+)*'
+             r'(?:(?:[\w\x27’-]+\s+){0,6}(?:confirms?|shows?|proves?|means?|establish(?:es)?|demonstrates?|indicates?)\s+that\s+)?')
+    for clause in learner_clauses(sentence):
+        body=clause['text']
+        if re.search(r'\b(not|no|never|neither|nor|without|cannot|can|must|nothing|none|nobody|no-one|lack\w*|absen\w*|unclear|unknown|unverified|unestablished|fail\w*|refus\w*|assum\w*|suppos\w*|imagin\w*|hypothetical\w*|pending|request\w*|unconfirm\w*|await\w*|deny\w*|deni\w*|will|would|could|should|need\w*|requir\w*|once|until|when|before|after|expected|plan\w*|soon|yet)\b|n[’\x27]t\b',body,re.I):continue
+        for claim in claims:
+            match=re.match(opening+r'(?P<claim>'+claim+r')\b',body,re.I)
+            if not match:continue
+            start=clause['start']-sentence['start']+match.start('claim');end=clause['start']-sentence['start']+match.end('claim')
+            return dict(rule='unsupported-positive-takeoff-clause-v2',applied=True,
+                reason='positive runway/takeoff permission asserted outside explicit received representation scope',
+                sourcePreconditions=scope,evidenceIds=scope['evidenceIds'],exactSentence=text,exactClause=body,
+                offendingSpan=dict(start=sentence['start']+start,end=sentence['start']+end,text=text[start:end]))
+    return None
+
+
 def confident_label(row):
     if row.get('error') or row.get('truncationRejected'):
         raise ValueError('NLI pair unavailable: '+str(row.get('error')))
@@ -228,9 +269,13 @@ def _topics(text):
 
 
 def _same_flight_context(sentence, report):
-    learner=set(re.findall(r'\bTRN\d+\b',sentence,re.I))
-    source=set(re.findall(r'\bTRN\d+\b',report['message'],re.I))
-    return not learner or not source or bool({x.upper() for x in learner}&{x.upper() for x in source})
+    learner={x.upper() for x in re.findall(r'\bTRN\d+\b',sentence,re.I)}
+    source={x.upper() for x in re.findall(r'\bTRN\d+\b',report['message'],re.I)}
+    # v9: a message without a flight name still belongs to its typed flight;
+    # another flight's identical scope wording is not same-flight evidence.
+    typed=(report.get('flightInstance') or '').upper()
+    if learner and not source and typed and typed not in learner:return False
+    return not learner or not source or bool(learner&source)
 
 
 def _counter_eligible(sentence, counter):
@@ -263,7 +308,10 @@ def _sentence_context(sentence, text, payload):
     if local:return sentence['text'],None,False
     needs=bool(_topics(sentence['text']) & {'fuel','baggage','movement','permission','stand','time','vehicle'})
     if not needs:return sentence['text'],None,False
-    ambiguous=bool(re.search(r'\b(other|another|instead|correction|actually|said|says|quote)\b|[\"“”]',context_text,re.I))
+    # v9: a self-correction marker cannot switch identity when the learner
+    # names exactly one flight; it stays ambiguous with competing identities.
+    ambiguous=bool(re.search(r'\b(other|another|instead|said|says|quote)\b|[\"“”]',context_text,re.I)
+        or (re.search(r'\b(correction|actually)\b',context_text,re.I) and len(names)!=1))
     scope={r.get('flightInstance').upper() for r in payload['reports'] if r['id'] in {rid for c in payload['criteria'] if c['id']!='grounding' for rid in c['evidenceIds']} and r.get('flightInstance')}
     identity_denial=bool(re.search(r'\bnot\s+(?:(?:discussing|referring\s+to|talking\s+about|about)\s+)?TRN\d+|\bdo\s+not\s+mean\s+TRN\d+|\baccording\s+to\b|\b(claimed|speaker|told)\b',context_text,re.I))
     affirmative_anchor=any(re.search(r'\bTRN\d+\b',s['text'],re.I) and bool(_topics(s['text'])) for s in learner_sentences(context_text))
@@ -318,7 +366,7 @@ def service_relation(sentence, payload, current):
     # Flight identity must originate in this learner response, agree with the
     # cutoff's authored target, and have no competing or attributed identity.
     names={x.upper() for x in re.findall(r'\bTRN\d+\b',payload['learnerResponse'],re.I)}
-    if len(names)!=1 or re.search(r'\b(other|another|instead|actually|correction|said|says|told|according\s+to)\b|[\"“”]|\bnot\s+(?:discussing|referring\s+to|talking\s+about|about)\s+TRN\d+|\bdo\s+not\s+mean\s+TRN\d+',payload['learnerResponse'],re.I):
+    if len(names)!=1 or re.search(r'\b(other|another|instead|said|says|told|according\s+to)\b|[\"“”]|\bnot\s+(?:discussing|referring\s+to|talking\s+about|about)\s+TRN\d+|\bdo\s+not\s+mean\s+TRN\d+',payload['learnerResponse'],re.I):
         audit['reason']='service subject flight is ambiguous';return audit
     if not re.search(r'\bTRN\d+\b',text,re.I):
         _,context,ambiguous=_sentence_context(sentence,payload['learnerResponse'],payload)
@@ -390,18 +438,65 @@ def nonassertive_scope(text):
     return bool(re.search(r'^\s*(?:if|unless|suppose|imagine|perhaps|maybe)\b|\b(?:not\s+(?:true|the\s+case)|(?:deny|denies|denying)\s+that)\b|\b(might|may|would|possibly)\b',text,re.I))
 
 
+# Neutral epistemic/contrastive relation wording. It licenses a comparison;
+# the classifier still decides direction, and nothing here asserts a value.
+_EPISTEMIC_RELATION=(r'\b(?:tell\w*|evidence|indicat\w*|show\w*|guarantee\w*|demonstrat\w*|infer\w*|follow\w*|'
+    r'confirmation|proof|neither|rather\s+than|instead\s+of|merely)\b|\bonly\s+(?:an?\s+)?estimate\b|'
+    r'\b(?:not|no)\s+(?:a\s+|an\s+|the\s+|any\s+)?(?:[\w-]+\s+){0,2}(?:clearance|permission|authori[sz]ation)\b')
+
+# An anaphoric opening (within the first three tokens) depends on an earlier
+# learner statement. Detection never resolves meaning by itself.
+_ANAPHOR_OPENING=(r'^\W*(?:(?:and|but|so|yet|while|whereas|even|together|still|also|then|now|however|thus|hence)\W+){0,3}'
+    r'(?:it|its|they|them|their|that|this|these|those|the\s+former|the\s+latter|which|such)\b')
+
+
+def anaphoric_opening(text):
+    return bool(re.match(_ANAPHOR_OPENING,text,re.I))
+
+
+def anaphoric_antecedents(unit,text):
+    """Exact earlier learner sentences a sentence-initial anaphor can refer to.
+
+    Walks back over at most two assertive sentences, stopping at the first one
+    that is not itself anaphoric. Returns sentence spans; adds no fact.
+    """
+    sentences=learner_sentences(text)
+    own=next((s for s in sentences if s['start']<=unit['start']<s['end']),None)
+    if own is None or not anaphoric_opening(own['text']):return []
+    previous=[s for s in sentences if s['end']<=own['start']];chain=[]
+    while previous and len(chain)<2:
+        candidate=previous.pop()
+        if nonassertive_scope(candidate['text']) or candidate['text'].rstrip().endswith('?'):break
+        chain.insert(0,candidate)
+        if not anaphoric_opening(candidate['text']):break
+    return chain if _antecedent_identity_safe(own['text'],[c['text'] for c in chain]) else []
+
+
+def _antecedent_identity_safe(own,antecedents):
+    """An antecedent may supply a flight only when that flight is unique.
+
+    If the anaphoric sentence names its own flight, the antecedent supplies
+    non-flight referents only (a stand, an update). Otherwise the antecedent
+    text must name at most one flight, with no quotation or identity switch.
+    """
+    joined=' '.join(antecedents)
+    if re.search(r'\b(other|another|instead|said|says|told|according\s+to|quote)\b|["“”]',joined+' '+own,re.I):return False
+    if re.search(r'\bTRN\d+\b',own,re.I):return True
+    return len({x.upper() for x in re.findall(r'\bTRN\d+\b',joined,re.I)})<=1
+
+
 def relation_present(text,mode):
     has=lambda pattern:bool(re.search(pattern,text,re.I))
     topics=_topics(text)
     permission='permission' in topics
-    relation=has(r'\b(mean\w*|impl\w*|prov\w*|establish\w*|grant\w*|giv\w*|give|confer\w*|permit\w*|authori[sz]\w*|confirm\w*|distinct|different|same|equivalent|because|so|following|after|despite)\b')
+    relation=has(r'\b(mean\w*|impl\w*|prov\w*|establish\w*|grant\w*|giv\w*|give|confer\w*|permit\w*|authori[sz]\w*|confirm\w*|distinct|different|same|equivalent|because|so|following|after|despite)\b') or has(_EPISTEMIC_RELATION)
     if mode=='occupancy':
         # Waiting FOR a resource alone is not an occupancy assertion. It must
         # not hide a separate explicit predicate (including a relative clause)
         # that actually says which aircraft occupies that resource.
         return has(r'\boccup\w*\b') or (has(r'\b(?:at|in)\s+(?:stand\s+)?[A-Z]\d*\b') and not has(r'\bwait\w*\s+for\b'))
     if mode=='waiting_position':return has(r'\b(wait\w*|occup\w*|staging|inbound|already\s+at)\b') and ('stand' in topics or has(r'\bfor\s+[A-Z]\d*\b'))
-    if mode=='baggage_delay':return 'baggage' in topics and has(r'\b(delay\w*|late\s+baggage|waiting\s+(?:on|for))\b') and not has(r'\b(proves?|means?|impl\w*)\b')
+    if mode=='baggage_delay':return 'baggage' in topics and has(r'\b(delay\w*|late\s+(?:baggage|bags?|batch)|waiting\s+(?:on|for)|holding\s+up|holds?\s+up|held\s+up|holding\s+(?:\w+\s+)?back)\b') and not has(r'\b(proves?|means?|impl\w*)\b')
     if mode=='vehicle_obstruction':return 'vehicle' in topics and has(r'\b(obstruct\w*|block\w*|cause\w*)\b')
     if mode=='hold_change_link':return 'vehicle' in topics and has(r'\bhold\b') and has(r'\b(releas\w*|lift\w*|cancel\w*)\b') and relation
     if mode=='permission_status':
@@ -412,13 +507,17 @@ def relation_present(text,mode):
     if mode=='stand_hold_link':return has(r'\b(available|availability|free)\b') and has(r'\bhold\b') and has(r'\b(releas\w*|lift\w*)\b')
     if mode=='estimate_authority':return permission and relation
     if mode=='readiness_authority':return (permission or has(r'\bprerequisites?\b')) and relation
-    if mode=='readiness_status':return has(r'\b(readiness|ready)\b') and has(r'\b(is|are|remains?|unconfirmed|confirmed|unknown|leave|leaves)\b')
+    if mode=='readiness_status':return has(r'\b(readiness|ready)\b') and has(r'\b(is|are|remains?|unconfirmed|confirm\w*|unknown|leave|leaves|establish\w*|show\w*|prov\w*)\b')
     if mode=='estimate':return 'time' in topics and has(r'\b\d{1,2}:\d{2}\b')
     if mode=='availability_status':return has(r'\b(available|availability|free)\b') and not has(r'\b(?:not|doesn[’\x27]t)\s+(?:establish|prove|confirm|mean|show)\b')
     if mode=='fuel_state':return 'fuel' in topics and has(r'\b(complete\w*|finished|done|pending|delayed|progress)\b')
     if mode=='service_relation':return {'fuel','baggage'}<=topics and (relation or has(r'\b(pending|delayed|outstanding|incomplete)\b'))
     if mode=='lvp_status':return 'lvp' in topics
-    if mode=='safeguarding_status':return bool(has(r'\bsafeguard\w*\b') or ('safeguarding' in topics and 'lvp' not in topics))
+    if mode=='safeguarding_status':
+        # A demonstrative or source-of-inference mention ("from that
+        # cancellation") refers back to a status; it does not assert a new one.
+        given=re.sub(r'\b(?:that|this|the\s+same|from\s+(?:the|that|this))\s+(?:cancellation|cancelled|canceled)\b',' ',text,flags=re.I)
+        return bool(re.search(r'\bsafeguard\w*\b',given,re.I) or ('safeguarding' in _topics(given) and 'lvp' not in _topics(given)))
     if mode=='hold_status':return has(r'\bhold\b') and has(r'\b(releas\w*|lift\w*|held|remain\w*)\b')
     if mode=='movement_status':return 'movement' in topics and not (permission and not has(r'\b(hold|held|park\w*|mov\w*)\b'))
     raise ValueError('unsupported neutral relation')
@@ -520,12 +619,16 @@ def comparison_context(unit,text,payload,current,evidence_ids=()):
             comparison=re.sub(r'(?<!\w)'+re.escape(value)+r'(?!\w)',replace,comparison)
         if aliases:premise=premise.replace(unit['text'],comparison)
     antecedents=[];original=unit.get('originalSentence',unit['text'])
-    if unit['text']!=original and re.search(r'\bits\s+(?:ground\s+)?(?:route|hold)|\bthat\s+aircraft\b',unit['text'],re.I):
+    if unit['text']!=original and (re.search(r'\bits\s+(?:ground\s+)?(?:route|hold)|\bthat\s+aircraft\b',unit['text'],re.I) or anaphoric_opening(unit['text'])):
         names={x.upper() for x in re.findall(r'\bTRN\d+\b',original,re.I)}
-        if len(names)==1 and not nonassertive_scope(original):antecedents.append(original)
-    if re.match(r'\s*(?:Those|These|That|This)\s+(?:reports?|updates?|services?)\b',unit['text'],re.I):
+        if len(names)<=1 and not nonassertive_scope(original):antecedents.append(original)
+    # v9: a sentence-initial anaphor ("It", "That", "Even together, those
+    # updates") keeps its exact earlier learner antecedent sentence(s).
+    cross=[s['text'] for s in anaphoric_antecedents(unit,text) if s['end']<=unit['start']]
+    if not cross and re.match(r'\s*(?:Those|These|That|This)\s+(?:reports?|updates?|services?)\b',unit['text'],re.I):
         previous=[s for s in learner_sentences(text) if s['end']<=unit['start']]
-        if previous and not nonassertive_scope(previous[-1]['text']):antecedents.append(previous[-1]['text'])
+        if previous and not nonassertive_scope(previous[-1]['text']):cross=[previous[-1]['text']]
+    antecedents=cross+antecedents
     if antecedents:premise='Exact learner antecedent context: '+'\n'.join(antecedents)+'\nCompared exact learner clause (resource aliases disclosed separately): '+premise
     binding=hold_reference_binding(unit,payload,current,evidence_ids)
     if binding:
@@ -535,6 +638,52 @@ def comparison_context(unit,text,payload,current,evidence_ids=()):
         binding['normalizedReference']=bound_reference
         entity=dict(entity or {},learnerExplicitFlight=binding['flightInstance'],holdReferenceBinding=binding)
     return premise,entity,ambiguous,aliases,antecedents
+
+
+def anaphoric_windows(sentences,text,mode):
+    """Exact two-sentence windows joining an anaphoric sentence to its
+    immediately preceding assertive antecedent, when the window as a whole
+    expresses the neutral relation. Literal substrings; nothing is rewritten."""
+    windows=[]
+    for previous,current in zip(sentences,sentences[1:]):
+        if not anaphoric_opening(current['text']):continue
+        if nonassertive_scope(previous['text']) or previous['text'].rstrip().endswith('?'):continue
+        if not _antecedent_identity_safe(current['text'],[previous['text']]):continue
+        window=dict(start=previous['start'],end=current['end'],text=text[previous['start']:current['end']],anaphoricWindow=True)
+        window['originalSentence']=window['text']
+        if relation_present(window['text'],mode):windows.append(window)
+    return windows
+
+
+def point_quote_span(facet_witnesses):
+    """Choose one literal display quote for a point from per-facet witnesses.
+
+    Every facet keeps its own verified witness in the audit. The display quote
+    covers as many facet witnesses as fit the unchanged 160-character field,
+    then prefers the shortest span; it never widens or rewrites a witness.
+    """
+    import itertools
+    best=None
+    for choice in itertools.product(*facet_witnesses):
+        start=min(w['start'] for w in choice);end=max(w['end'] for w in choice)
+        if end-start<=160:
+            key=(-len(choice),end-start,start)
+            if best is None or key<best[0]:best=(key,(start,end),len(choice))
+    if best:return best[1],None
+    # No single span covers every facet: quote the most facets that fit.
+    for size in range(len(facet_witnesses)-1,0,-1):
+        for subset in itertools.combinations(facet_witnesses,size):
+            for choice in itertools.product(*subset):
+                start=min(w['start'] for w in choice);end=max(w['end'] for w in choice)
+                if end-start<=160:
+                    key=(-size,end-start,start)
+                    if best is None or key<best[0]:best=(key,(start,end),size)
+        if best:break
+    if not best:return (facet_witnesses[0][0]['start'],facet_witnesses[0][0]['end']),None
+    return best[1],dict(rule='per-facet-quote-witness-v1',applied=True,
+        reason='combined facet witnesses exceed the display quote field; each facet keeps its own exact witness',
+        facetWitnesses=[dict(start=w[0]['start'],end=w[0]['end'],text=w[0]['text']) for w in facet_witnesses],
+        quotedFacetCount=best[2],facetCount=len(facet_witnesses))
 
 
 def evaluate(payload, scorer, deadline):
@@ -554,6 +703,7 @@ def evaluate(payload, scorer, deadline):
             key=(cid,number);facets[key]=[]
             mode=relations[cid][number]
             units=[unit for original in sentences for unit in relation_units(original,mode)]
+            units.extend(w for w in anaphoric_windows(sentences,text,mode) if not any((u['start'],u['end'])==(w['start'],w['end']) for u in units))
             expected_names={x.upper() for x in re.findall(r'\bTRN\d+\b',hypothesis,re.I)}
             target_present=any(expected_names and expected_names<={x.upper() for x in re.findall(r'\bTRN\d+\b',unit['text'],re.I)} for unit in units)
             for sentence in units:
@@ -568,11 +718,11 @@ def evaluate(payload, scorer, deadline):
                 pairs.append(dict(kind='criterion',criterionId=cid,facet=number+1,premise=premise,hypothesis=hypothesis,
                                   exactLearnerSentence=sentence['text'],entityContext=context,ambiguousEntityContext=ambiguous,
                                   resourceAliases=aliases,exactLearnerAntecedents=antecedents))
-                rule=rules.get(sentence['start'])
+                rule=None if sentence.get('anaphoricWindow') else rules.get(sentence['start'])
                 rule_support=bool(rule and cid+'.'+str(number+1) in rule['supportedFacetIds'])
                 identity_mismatch=explicit_identity_mismatch(sentence,hypothesis,mode)
                 entry=dict(index=index,sentence=sentence,counter=None,ambiguous=ambiguous,ruleSupport=rule_support,identityMismatch=identity_mismatch)
-                pairs[-1].update(neutralRelation=mode,explicitIdentityMismatch=identity_mismatch)
+                pairs[-1].update(neutralRelation=mode,explicitIdentityMismatch=identity_mismatch,anaphoricWindow=bool(sentence.get('anaphoricWindow')))
                 pairs[-1]['semanticRuleSupport']=rule if rule_support else None
                 counter=occupancy_counter_for(payload,cid,number)
                 if _counter_eligible(sentence['text'],counter):
@@ -586,7 +736,7 @@ def evaluate(payload, scorer, deadline):
     takeoff_scope=explicit_unrepresented_takeoff_scope(current,payload.get('aircraftId'))
     readiness_rules={}
     for original in sentences:
-        rule=unsupported_readiness_assertion(original,absence) or unsupported_takeoff_assertion(original,takeoff_scope)
+        rule=unsupported_readiness_assertion(original,absence) or unsupported_takeoff_assertion(original,takeoff_scope) or unsupported_takeoff_clause(original,takeoff_scope)
         if rule:readiness_rules[original['start']]=rule;scorer.semantic_rule_audit.append(rule)
     plans=[]
     for original in sentences:
@@ -595,7 +745,15 @@ def evaluate(payload, scorer, deadline):
         full_decision=True
         plans.append((original,full_decision,full_rule,ready_rule,'full_sentence'))
         if len(clauses)>1:
-            plans.extend((clause,True,full_rule,None,'independent_clause') for clause in clauses)
+            for k,clause in enumerate(clauses):
+                if k and anaphoric_opening(clause['text']):
+                    # v9: an anaphoric clause is checked with its exact
+                    # antecedent clause; the full sentence is always checked.
+                    start=clauses[k-1]['start'];end=clause['end']
+                    if (start,end)==(original['start'],original['end']):continue
+                    clause=dict(start=start,end=end,text=text[start:end],originalSentence=original['text'])
+                    plans.append((clause,True,full_rule,None,'anaphoric_clause_window'))
+                else:plans.append((clause,True,full_rule,None,'independent_clause'))
     for sentence,decision,full_rule,ready_rule,coverage in plans:
         is_history=bool(re.search(r'\b(earlier|previously|previous|prior|formerly|before|used to)\b',sentence['text'],re.I))
         topics=_topics(sentence['text'])
@@ -625,7 +783,7 @@ def evaluate(payload, scorer, deadline):
             if is_history:
                 premise+='\n'+'\n'.join('Non-current historical source (event '+str(r['eventTime'])+'; received '+str(r['receiptTime'])+'): '+source_text(r) for r in historical)
                 used.extend(r['id'] for r in historical)
-            entries.append(dict(index=len(pairs),reportIds=list(dict.fromkeys(used)),
+            entries.append(dict(index=len(pairs),reportIds=list(dict.fromkeys(used)),resolvedSupportOnly=False,
                 conflictVeto=variant=='raw' and bool(relevant) and ids==tuple(r['id'] for r in relevant)))
             pairs.append(dict(kind='grounding',premise=premise,hypothesis=sentence['text'],reportIds=list(dict.fromkeys(used)),
                 sourceVariant=variant,groundingCoverage=coverage,contributesToDecision=decision,
@@ -633,6 +791,26 @@ def evaluate(payload, scorer, deadline):
                 sourceFactIds=[f['fact_id'] for r in reports for f in r.get('_typedFacts',[])] if variant=='normalized' else [],
                 canonicalSources=[canonical_source(f) for r in reports for f in r.get('_typedFacts',[]) if canonical_source(f)] if variant=='normalized' else [],
                 closedReadinessScope=closed_scope))
+        chain=anaphoric_antecedents(sentence,text) if coverage=='full_sentence' else []
+        if chain and active_bundle:
+            # v9: support-only comparison of the exact learner window from the
+            # antecedent through this anaphoric sentence. It cannot veto or
+            # turn a neutral check into a contradiction; ordinary checks stay.
+            window=text[chain[0]['start']:sentence['end']]
+            for variant in ('raw','normalized'):
+                premise='\n'.join(r['message'] for r in active_bundle) if variant=='raw' else (
+                    'Evidence policy: only information established by received reports is confirmed; '
+                    'unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\n'
+                    +'\n'.join(source_text(r) for r in active_bundle))
+                used=[r['id'] for r in active_bundle]
+                if variant=='normalized' and absence:
+                    premise+='\nClosed current typed-field search: '+absence['proposition'];used.extend(absence['reportIds'])
+                entries.append(dict(index=len(pairs),reportIds=list(dict.fromkeys(used)),conflictVeto=False,resolvedSupportOnly=True))
+                pairs.append(dict(kind='grounding',premise=premise,hypothesis=window,reportIds=list(dict.fromkeys(used)),
+                    sourceVariant=variant,groundingCoverage='anaphoric_antecedent_window',contributesToDecision=True,
+                    supportOnly=True,focusSentence=sentence['text'],conservativeHistoricalUncertainty=is_history,
+                    sourceFactIds=[f['fact_id'] for r in active_bundle for f in r.get('_typedFacts',[])] if variant=='normalized' else [],
+                    canonicalSources=[],closedReadinessScope=absence if variant=='normalized' else None))
         grounding.append(dict(sentence=sentence,entries=entries,history=is_history,rule=full_rule,
                               readinessRule=ready_rule,decision=decision))
     if time.monotonic()>=deadline:raise TimeoutError('shared NLI review deadline')
@@ -655,7 +833,7 @@ def evaluate(payload, scorer, deadline):
         elif 'uncertain' in values:label='uncertain'
         else:label='uncertain' if entries else 'neutral'
         witnesses=[entry['sentence'] for value,entry in results if value==label and len(entry['sentence']['text'])<=160]
-        facet_results[key]=(label,min(witnesses,key=lambda s:(len(s['text']),s['start'])) if witnesses else None)
+        facet_results[key]=(label,sorted(witnesses,key=lambda s:(len(s['text']),s['start'])))
     points=[]
     for criterion in payload['criteria']:
         cid=criterion['id']
@@ -666,9 +844,11 @@ def evaluate(payload, scorer, deadline):
         quote=''
         if status in ('met','contradicted'):
             needed=results if status=='met' else [next(r for r in results if r[0]=='contradiction')]
-            if any(w is None for _,w in needed):raise ValueError('no bounded NLI quotation witness')
-            quote=text[min(w['start'] for _,w in needed):max(w['end'] for _,w in needed)]
+            if any(not w for _,w in needed):raise ValueError('no bounded NLI quotation witness')
+            span,audit=point_quote_span([w for _,w in needed])
+            quote=text[span[0]:span[1]]
             if len(quote)>160:raise ValueError('NLI quotation witness span too wide')
+            if audit:audit.update(criterionId=cid,status=status);scorer.semantic_rule_audit.append(audit)
         comment={'met':'Your stated meaning supports this point.','missing':'At least one required point is not expressed.',
                  'contradicted':'Your stated meaning conflicts with this point.','uncertain':'The meaning needs clarification.'}[status]
         points.append(dict(criterionId=cid,status=status,comment=comment,evidenceIds=list(dict.fromkeys(criterion['evidenceIds'])),learnerQuote=quote))
@@ -686,7 +866,7 @@ def evaluate(payload, scorer, deadline):
         elif support and veto:status='uncertain';chosen=veto
         elif support:status='uncertain' if item['history'] else 'met';chosen=min(support,key=lambda e:len(pairs[e['index']]['premise']))
         elif veto:status='contradicted';chosen=veto
-        elif all(labels[e['index']] in ('neutral','contradiction') for e in entries):status='contradicted';chosen=entries[0]
+        elif all(labels[e['index']] in ('neutral','contradiction') for e in entries if not e['resolvedSupportOnly']):status='contradicted';chosen=entries[0]
         else:status='uncertain';chosen=entries[0]
         selected_span=item['readinessRule']['offendingSpan'] if item['readinessRule'] else item['sentence']
         checks.append(dict(status=status,sentence=selected_span,pair=chosen))

@@ -288,3 +288,77 @@ runner hash is
 No model was called by this review. Cached development timing is mixed retrieval
 and inference; cache hits are neither new classifier calls nor fresh empirical
 acceptance evidence. Reserved and final acceptance must remain fully uncached.
+
+## R9 implementation after the failed first reserve — 3 November 2026
+
+Implementer record (Claude implementation/runtime agent). The first reserve
+`fresh-v1.json` is exposed and was used here as development/regression data;
+its results below are development fit, not independent acceptance. The new
+held-out reserve was not opened. No gold label, threshold, model, runner,
+quotation limit or source check changed.
+
+Frozen candidate: `typed-service-relation-review-v9` (MPS module version
+`typed-service-relation-review-v9-anli-large-mps`), `candidate.py` SHA-256
+`547a0f5f7d79093154002497be50ab957925e721c2e1ca04dffa52f6b4811ded`.
+`propositions.py`, `mps_candidate.py`, `strong_candidate.py`, the runner,
+`backend/training_assessment.py` and `modelaccess/nli.py` are unchanged from R8.
+
+General mechanisms changed (no answer whitelist, no gold or metadata input):
+
+- **Relation coverage paraphrases.** Neutral epistemic and contrastive wording
+  ("tell", "evidence", "show", "neither", "not a … clearance", "only an
+  estimate") now licenses a comparison; baggage delay also covers "holding up"
+  and "late bags"; readiness status covers "confirm/establish". Coverage only
+  admits a pair; the classifier still decides direction.
+- **Anaphora.** A sentence-initial anaphor ("It", "That", "Even together, those
+  updates") keeps its exact earlier learner sentence(s) as premise context, and
+  an exact two-sentence window is added as a literal unit when it expresses the
+  relation. Flight identity can come from an antecedent only when it names one
+  flight and has no quotation or identity switch. Within a sentence, an
+  anaphoric clause is grounded together with its preceding clause.
+- **Corrections.** "Correction"/"actually" are identity-ambiguous only when the
+  learner names more than one flight.
+- **Same-flight relevance.** A report message without a flight name still
+  belongs to its typed flight; another flight's identical scope wording is no
+  longer same-flight evidence.
+- **Demonstrative back-references.** "from that cancellation" does not create a
+  new safeguarding-status unit.
+- **Antecedent-resolved grounding.** For an anaphoric sentence, the exact window
+  from its antecedent is compared as support-only evidence. It cannot veto, and
+  cannot turn neutral checks into a contradiction.
+- **Clause-level takeoff scope rule (v2).** With the existing explicit source
+  scope ("No runway or takeoff clearance is represented") for the target flight,
+  an affirmative clause granting runway/takeoff permission to that flight is
+  contradicted, quoting the exact claim. Negation, negative quantifiers, modals,
+  conditions, attribution, qualifiers, plans and other flights are refused.
+  "Departure clearance" alone stays outside this rule and remains NLI-judged.
+- **Per-facet quotation witnesses.** When one span covering every facet witness
+  exceeds the unchanged 160-character field, the display quote covers as many
+  facet witnesses as fit; every facet witness is kept in the semantic audit.
+
+Uncached gate runs (MPS float16, threshold 0.8, no fallback):
+
+| Suite | Output | Exact | Valid exact | Delivered | False credit |
+|---|---|---:|---:|---:|---:|
+| Old regressions | `outputs/relation-regression-mps-r9/` | 6/6 | 3/3 | 6/6 | 0 |
+| Development | `outputs/relation-development-mps-r9/` | 24/24 | 12/12 | 24/24 | 0 |
+| Exposed first reserve | `outputs/relation-firstreserve-mps-r9/` | 24/24 | 12/12 | 24/24 | 0 |
+
+All 13 first-reserve cases that failed in R8 (0, 1, 2, 3, 6, 9, 10, 11, 12, 16,
+17, 18, 22) are now exact, including baseline-exact cases 10, 11 and 17. No
+case in any suite that was exact in R8 changed. Every planned pair has a finite
+row; maximum input is 479 tokens. Direct startup was 2.83–2.88 seconds; direct
+review measurements were 0.134–4.329 seconds. These are not native-owner
+latency results. Flipping every row with top probability 0.75–0.85 across the
+threshold changes only development case 8 (plan, 0.831), an identical R8 row.
+
+Development exploration used a scratch exact-pair replay of earlier MPS rows
+plus new MPS scoring, outside the repository; it is not evidence. The uncached
+runs above are the record. A handful of invented invalid variants (wrong
+flight, wrong estimate, positive implication) produced no false credit in that
+scratch check; this is informal and not a test set.
+
+Limits: fitting the exposed first reserve does not show generalization. The
+lexical anaphora, coverage and permission grammars remain fallible. Acceptance
+still requires the independent held-out reserve under the unchanged gates and
+the separate baseline comparison, then runtime/native review.
