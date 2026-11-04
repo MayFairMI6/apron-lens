@@ -8,7 +8,7 @@ import json
 import re
 import unicodedata
 
-VERSION = 'typed-qwen-frames-extraction-v1'
+VERSION = 'typed-qwen-frames-extraction-v2'
 MAX_OUTPUT_TOKENS = 1000
 MAX_UNIT_CHARS = 160
 MAX_INPUT_CHARS = 1200
@@ -30,11 +30,18 @@ the learner from still active claims. Do not decide that a distinction or a
 negation is automatically a correction. A prior claim may be corrected by a
 later one: link the later claim's correctionTarget to the prior claim id and
 mark the prior claim withdrawn. Preserve both readings as ambiguous if unclear.
-Schema (all keys required, no extra keys):
-{"claims":[{"id":"c1","quoteRefs":["u1"],"actor":null,
-"relation":"exact learner substring","value":null,"polarity":"positive",
-"epistemic":"asserted","time":null,"attribution":null,"scope":null,"status":"active","correctionTarget":null}],
-"unresolved":[{"quoteRefs":["u2"],"reason":"brief interpretation uncertainty"}]}
+The root keys are claims and unresolved, both arrays. Every claim must have all
+these keys, with no extras: id, quoteRefs, actor, relation, value, polarity,
+epistemic, time, attribution, scope, status, correctionTarget. Each unresolved
+entry has quoteRefs and reason (a brief explanation of interpretation uncertainty).
+Populate actor, relation and value from the actual learner wording whenever
+present and unambiguous. Null is for an absent or unresolved field, not a default
+for skipping extraction. Extract separate claims for separate assertions.
+Concrete unrelated example ONLY: if the sole input unit u1 were
+"Mira moved the chair.", the complete output would be:
+{"claims":[{"id":"c1","quoteRefs":["u1"],"actor":"Mira","relation":"moved","value":"chair","polarity":"positive","epistemic":"asserted","time":null,"attribution":null,"scope":null,"status":"active","correctionTarget":null}],"unresolved":[]}
+Do not copy this example's content into the answer. Read the actual LEARNER_UNITS
+and use their words; there are no example or placeholder strings to emit.
 actor/relation/value/time/attribution/scope must be exact substrings of the cited units or null;
 never paraphrase these strings. If repeated within the cited text and ambiguous,
 use null and record the unresolved interpretation. relation may be null for an
