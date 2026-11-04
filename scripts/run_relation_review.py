@@ -8,7 +8,7 @@ raw=a.fixture.read_text();cases=json.loads(raw)['cases'] if a.fixture.suffix=='.
 a.output.mkdir(parents=True,exist_ok=False)
 source=Path(m.__file__).parent;paths=list(source.glob('*.py'))+[Path(__file__),ROOT/'backend/training_assessment.py']
 if a.module.endswith('mps_candidate'):paths.append(ROOT/'modelaccess/nli.py')
-contract_path=ROOT/'docs/course/TYPED_REVIEW_R11_CONTRACT.md' if '.redesign' in a.module else None
+contract_path=ROOT/'docs/course/TYPED_REVIEW_R11_CONTRACT.md' if '.redesign' in a.module or getattr(m,'QUOTE_CONTRACT',None) else None
 if contract_path is not None:paths.extend([contract_path,ROOT/'backend/evidence.py'])
 if a.development_cache:paths.append(ROOT/'scripts/relation_development_cache.py')
 hashes={str(x.relative_to(ROOT)):hashlib.sha256(x.read_bytes()).hexdigest() for x in paths}

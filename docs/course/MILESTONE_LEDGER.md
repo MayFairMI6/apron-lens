@@ -3420,3 +3420,58 @@ changes the frozen R11 contract, apply its explicit amendment/reserve-validity
 rule before further use; a failed fresh-v3 still triggers new placement rather
 than automatic fourth-reserve creation. ML-052 remains unfinished, with production,
 old results, video and prior accepted runtime/history remedies preserved.
+
+**ML-052 R11v2 content-only development baseline placement (3 November 2026).**
+The completed [122-pair diagnostic](../../outputs/redesign-probe-matrix-v2/summary.json)
+and [independent complete audit](TYPED_REVIEW_FINAL_ACCEPTANCE.md) establish no
+validated uniform replacement. Of 48 predefined direct-content controls, 41 pass
+and seven fail; 74 exploratory rows have null expected labels and no accuracy
+denominator. All 122 actual pairs are retained, with 4.799-second diagnostic time.
+This ledger reviewer read the complete-audit interpretation and summary, not new
+inference or reserve answers. Question context reverses a wrong availability
+answer into entailment, category probes misread content presence, and mixed past/
+current premises can support a false current assertion. Raw content also has
+documented false contradictions. None of these results qualifies a reviewer.
+
+Root's proposed uniform R11v2 baseline remains CURRENT as exposed-only mechanism
+development within the authorized redesign: raw whole learner answer to bare
+authored facet, and scoped current-source content to bare learner passages,
+without Q/A wrappers or semantic meta-gates. The diagnostic supplies a reason to
+remove disproven context/category assumptions, not evidence this replacement
+will succeed. Freeze the uniform preprocessing, premise/hypothesis direction,
+aggregation/conflict policy, source scope and exact source/configuration before
+calls. Apply the same declared formats to all exposed cases; no format selection
+or alternate-premise search to obtain favorable outcomes. Keep the pinned model,
+revision, MPS profile, 0.8 threshold, contract, gold and gates unchanged.
+
+Neutral remains uncertain, not met or proof of omission. Removing a faulty
+meta-gate must not implicitly convert absence into credit or change missing versus
+uncertain gold. Preserve full answer content, correction/negation and unrelated
+extra claims; whole-answer NLI can still turn irrelevant content into contradiction
+or credit a withdrawn value. Confident conflicting entailment/contradiction needs
+the frozen conflict policy, not cherry-picked support. Unsupported additions
+remain subject to the same grounding and zero-false-credit gate even when neutral
+cannot resolve them. Do not classify a policy's inability to judge as a changed
+learner meaning or a correct delivered review.
+
+Current-source restriction must be explicit and derived from the existing eligible
+run/cutoff/version rules. It prevents stale facts supporting a present assertion,
+but does not establish that genuinely historical learner content is wrong or
+absent. A baseline unable to ground a required historical/correction answer must
+record that failure honestly; do not omit that case, relabel it, broaden current
+sources with stale passages opportunistically or relax qualification. Quote/source
+mechanical validity and the multi-quote D contract stay mandatory. No threshold,
+status, label convention, quote contract or acceptance denominator change is
+authorized by this baseline decision.
+
+After its complete exposed run, independently review all outputs and actual pair
+premises, including false credit, valid rejection, conflicts and omissions. A
+limited content-only baseline can clarify failure causes even if unqualified.
+It does not authorize fresh-v3, production activation, native testing or automatic
+architecture expansion. The full exposed suites/stress evidence, source/contract
+qualification and all five ordered gates remain prerequisites. A substantive
+contract change or failed fresh-v3 still requires the existing placement/reserve
+review; no automatic fourth reserve. Continuous development remains authorized
+without an artificial revision cap, while ML-052 remains unfinished and earlier
+source/results, production review, narrated video and accepted runtime/history
+remedies remain preserved.
