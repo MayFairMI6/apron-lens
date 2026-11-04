@@ -1,0 +1,14 @@
+W1104 01:36:51.200000 27692 .venv-candidates/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:00<03:04,  4.12it/s]Loading weights:  15%|█▌        | 115/760 [00:00<00:01, 422.41it/s]Loading weights:  24%|██▍       | 182/760 [00:00<00:01, 425.20it/s]Loading weights:  31%|███▏      | 238/760 [00:00<00:01, 331.89it/s]Loading weights:  37%|███▋      | 281/760 [00:00<00:01, 269.90it/s]Loading weights:  42%|████▏     | 316/760 [00:01<00:01, 238.78it/s]Loading weights:  45%|████▌     | 345/760 [00:01<00:02, 181.32it/s]Loading weights:  48%|████▊     | 368/760 [00:01<00:02, 138.05it/s]Loading weights:  51%|█████     | 386/760 [00:01<00:02, 130.30it/s]Loading weights:  53%|█████▎    | 402/760 [00:02<00:02, 126.50it/s]Loading weights:  55%|█████▍    | 417/760 [00:02<00:02, 122.30it/s]Loading weights:  57%|█████▋    | 431/760 [00:02<00:02, 123.59it/s]Loading weights:  76%|███████▌  | 575/760 [00:02<00:00, 399.06it/s]Loading weights:  92%|█████████▏| 699/760 [00:02<00:00, 586.52it/s]Loading weights: 100%|██████████| 760/760 [00:02<00:00, 289.45it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+exposed-v2-12 structurally_valid False FrameError: value: absent or ambiguous repeated substring
+exposed-v2-17 structurally_valid True None
+exposed-v2-19 structurally_valid True None
+exposed-v2-20 structurally_valid True None
+exposed-v2-23 structurally_valid False FrameError: scope: absent or ambiguous repeated substring
+/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+exposed-v2-2 structurally_valid False ValueError: model_worker_TimeoutError
