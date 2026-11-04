@@ -1,0 +1,16 @@
+{
+  "module": "experiments.typed_nli_review.candidate",
+  "version": "discriminative-nli-review-v2",
+  "sourceHashes": {
+    "experiments/typed_nli_review/propositions.py": "3a18d47632a2e29fc48e72b84cf11ff3c5a9720c40e1180f68ead3aa3a5c3b27",
+    "experiments/typed_nli_review/candidate.py": "676983919306563a2fb06d75d538060c049d57fb75b10c9dbef433f81e95801b",
+    "scripts/run_relation_review.py": "1fb090008e70f41716842b8a0dc75874bdbc30e07b875736403e2a9519883e93",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c"
+  },
+  "fixture": "experiments/typed_relation_review/fresh-v2.json",
+  "fixtureSHA256": "cdb4e59bd3fb3f6b75c5f4f4c423296f4ac274d8a8a27e000814ea371cb35d8f",
+  "model": "cross-encoder/nli-deberta-v3-small",
+  "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+  "threshold": 0.8,
+  "createdAt": 1793762557.258525
+}

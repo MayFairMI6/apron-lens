@@ -1,0 +1,17 @@
+{
+  "count": 24,
+  "exact": 3,
+  "delivered": 21,
+  "validCount": 12,
+  "validExact": 0,
+  "falseCredit": [
+    {
+      "index": 12,
+      "criterion": "flight"
+    },
+    {
+      "index": 17,
+      "criterion": "estimate"
+    }
+  ]
+}
