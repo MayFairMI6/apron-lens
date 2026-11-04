@@ -1,5 +1,6 @@
 """Frozen exposed-only extraction diagnostic. No grades or report inputs."""
 import argparse
+import importlib
 from dataclasses import asdict
 import hashlib
 import json
@@ -18,7 +19,6 @@ def sha(path):
 
 
 def main():
-    from experiments.typed_qwen_frames.candidate import VERSION, prompt_for, parse_frames
     from experiments.typed_qwen_frames.runtime import FrameAdapter
     from backend.training_worker import IsolatedTrainingAdapter
     from modelaccess.contract import Settings, Request, FinishReason
@@ -26,7 +26,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('fixture', type=Path)
+    parser.add_argument('--module', default='experiments.typed_qwen_frames.candidate',
+                        choices=['experiments.typed_qwen_frames.candidate',
+                                 'experiments.typed_qwen_frames.claims_candidate'])
     args = parser.parse_args()
+    candidate = importlib.import_module(args.module)
+    VERSION, prompt_for, parse_frames = candidate.VERSION, candidate.prompt_for, candidate.parse_frames
     cases = json.loads(args.fixture.read_text())['cases']
     out = args.output
     out.mkdir(parents=True, exist_ok=False)
@@ -44,7 +49,7 @@ def main():
     factory = FrameAdapter
     identity = factory().served_model
     settings = Settings(identity, 1000, image_max_side=672)
-    lock = dict(version=VERSION, sourceHashes=hashes, fixtureSHA256=sha(args.fixture),
+    lock = dict(version=VERSION, module=args.module, sourceHashes=hashes, fixtureSHA256=sha(args.fixture),
                 fixture=str(args.fixture), model=identity, settings=asdict(settings),
                 createdAt=time.time(), runtimeProfile='apronlens-v2-mps',
                 generationTimeoutSeconds=55, retries=0,

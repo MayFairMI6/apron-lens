@@ -401,3 +401,36 @@ integration. The new representation, source plan, checker role and addendum need
 a separate freeze/placement decision; no new implementation or promotion is
 approved by this opinion. Existing model, no-retry rule and whole-request budgets
 remain in force.
+
+## V4 pre-inference independent source clearance
+
+The separately versioned compact-interpretation diagnostic freezes these hashes:
+
+- New `claims_candidate.py`: `943329a6eb343930f34732a89da12a6bd81ab27c98a7be31d10537dc7e6f597f`.
+- New structural tests: `04414440c001b208a635786c019b310b2231b25633c605650c81d56f7bb56e5f`.
+- V4 addendum: `58d81d8c01c05bf92c7014f071c9ab665677b1922991698dacd36b3f9cada247`.
+
+Independent full-source/addendum readback and 42 offline tests pass (14 new,
+24 preserved v3 and four runtime controls). The v3 candidate remains unchanged at
+`7c6d6e48e2fef7a15bb46b8978be28af7ee7d1cfed589648da0f978ac8aded43`.
+A pre-call coordinator-requested correction permits up to 24 unresolved entries
+independently of sentence count, so multiple legitimate ambiguities can share one
+sentence; the 25th entry rejects. This does not grant semantic validity to an
+ambiguity declaration.
+
+Five-column claim rows preserve exact source references separately from untrusted
+interpreted text, lifecycle and earlier-withdrawn correction links. The parser
+checks types, bounds, IDs, references, link structure and syntactic unit coverage;
+it does not decide whether an interpretation is faithful. Even deliberately
+fabricated interpretations receive `fidelityVerified=False`,
+`reportCheckAllowed=False` and `semanticCompletenessVerified=False`. No report or
+grading API exists in the new module. The runner's explicit module selection is
+recorded in the lock; source snapshots must include the preserved sentence-unit
+helper dependency and the new addendum. Model/runtime, same six input texts,
+23 private obligations, no-retry rule and generation budget remain unchanged.
+
+No concrete blocker was found for that bounded v4 extraction diagnostic. This
+clearance does not implement or qualify an automatic fidelity checker. Full raw
+semantic assessment remains necessary, including clear assertions that the model
+withholds, corrections, unresolved identities and all operator/causal edges.
+No model call, candidate edit or sealed-reserve read was made by this reviewer.
