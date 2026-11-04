@@ -5,7 +5,7 @@ import re
 
 from .candidate import FrameError, source_units, _object, _exact_keys, _refs, _has_content
 
-VERSION = 'typed-qwen-claims-extraction-v4'
+VERSION = 'typed-qwen-claims-extraction-v5'
 MAX_OUTPUT_TOKENS = 1000
 CLAIM_COLUMNS = ('id', 'quoteRefs', 'interpretedClaimText', 'lifecycle', 'correctionTarget')
 LIFECYCLES = {'active', 'withdrawn', 'history', 'ambiguous'}
@@ -27,7 +27,11 @@ attribution, negation, conditional future, comparison, reference and retraction.
 Do not turn unconfirmed permission into denied permission; do not turn a future
 condition into an occurred event. Preserve asserted implications and causal links
 as learner claims, even if they might be wrong. Do not merge independent claims
-or omit an unsupported-sounding extra. Context can clarify references only when
+or omit an unsupported-sounding extra. Split independent conjuncts into separate
+claim rows even within one unit; still retain any explicitly asserted relationship
+between them. Never invent a causal "because" from juxtaposition, a colon, or
+an uncertainty statement. Preserve causation only when the learner asserts it.
+Context can clarify references only when
 the learner text itself resolves them; unresolved identities/roles stay explicit
 in the interpretation and unresolved list, never filled from outside knowledge.
 lifecycle is active|withdrawn|history|ambiguous. Distinguish a claim about history
@@ -36,8 +40,19 @@ is not model confidence or truth. Do not mistake contrast or negation for repair
 For an explicit correction, retain both readings: earlier lifecycle withdrawn,
 later correctionTarget the earlier claim ID. An entity repair may retain an
 earlier noun fragment without inventing a complete earlier predicate.
-Concrete unrelated example ONLY: input u1 "Mira moved only the chair." gives
-{"claims":[["c1",["u1"],"Mira moved only the chair.","active",null]],"unresolved":[]}.
+Unrelated examples ONLY, never answer content:
+Input u1 "Nora, sorry, Leo moved only the chair, and the lamp may light if the switch closes."
+and u2 "The parcel's delivery is unconfirmed." gives:
+{"claims":[["c1",["u1"],"Nora (withdrawn subject fragment).","withdrawn",null],["c2",["u1"],"Leo moved only the chair.","active","c1"],["c3",["u1"],"The lamp may light if the switch closes.","active",null],["c4",["u2"],"The parcel's delivery is unconfirmed.","active",null]],"unresolved":[]}
+The name repair is NOT a denial that Nora moved something. The lamp has not
+already lit; unconfirmed delivery is not nondelivery. Neither implies a cause.
+Input u1 "Delivery is at 14:00, correction, at 15:00." gives:
+{"claims":[["c1",["u1"],"Delivery is at 14:00.","withdrawn",null],["c2",["u1"],"Delivery is at 15:00.","active","c1"]],"unresolved":[]}
+Do not merely mention a correction in one active row: retain the withdrawn
+reading and link its replacement explicitly, as above.
+Input u1 "That one." gives {"claims":[],"unresolved":[[["u1"],"The referent is not identifiable from this fragment."]]}
+An unresolved reason is a STRING, not a token array. An explicit statement that
+something is unconfirmed remains an active claim, not an unresolved interpretation.
 Use actual learner meaning, never copy the example. Every nonpunctuation unit
 must appear in claims or unresolved (including uninterpretable/instruction text).
 Coverage is only syntactic, never proof that interpretation is complete/faithful.

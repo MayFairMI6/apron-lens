@@ -434,3 +434,103 @@ clearance does not implement or qualify an automatic fidelity checker. Full raw
 semantic assessment remains necessary, including clear assertions that the model
 withholds, corrections, unresolved identities and all operator/causal edges.
 No model call, candidate edit or sealed-reserve read was made by this reviewer.
+
+## Actual v4 interpretation — semantic progress, structure and fidelity still fail
+
+The [complete v4 run](../../outputs/qwen-frame-extraction-v4-initial/summary.json)
+attempted all six unchanged controls once: **6/6 observed-EOS completions, 5/6
+structurally valid outputs and no timeouts**. Saved records SHA-256 is
+`3f11b92d79be6cd615991ee515958051b838a7a75dadeb8a6764d694548f3726`.
+Independent checks confirm every snapshot hash, unchanged fixture hash and exact
+prompt reconstruction. Source, question, report and private evaluator facts did
+not enter these learner-only prompts. The result is not an accepted structured
+interpretation pipeline: even faithful compound text can violate atomic/lifecycle
+requirements, while syntactically valid text can introduce unsupported meanings.
+
+| Exposed case | Actual request seconds | Output tokens | Actual delivery |
+|---:|---:|---:|---|
+| 12 | 6.101 | 52 | EOS; structurally valid |
+| 17 | 9.527 | 82 | EOS; structurally valid |
+| 19 | 8.239 | 70 | EOS; structurally valid |
+| 20 | 7.776 | 64 | EOS; structurally valid |
+| 23 | 7.151 | 58 | EOS; structurally valid |
+| 2 | 15.696 | 142 | EOS; malformed unresolved rows rejected |
+
+All six record terminal/EOS token 248044. Startup/warmup took 12.225 seconds.
+These extraction-stage measurements do not pass a future combined report-checking
+or native request budget. No automatic fidelity checker was implemented; parsed
+interpretations remain untrusted with report checking prohibited.
+
+The reviewer inspected every raw output against all 23 unchanged obligations:
+
+| Case / obligation | Independent raw semantic assessment |
+|---|---|
+| 12 `entities` | Faithful raw: both aircraft identifiers and the two-aircraft set are retained. |
+| 12 `occupancy` | Faithful generic role: one unnamed member occupies Stand B; no named assignment is invented. The whole interpretation remains compound and its unresolved identity is not separately audited. |
+| 12 `waiting` | Faithful raw role contrast: the other member waits for the same stand in the complete sentence context. Keeping `it` in a coherent full interpretation is not itself a wrong reference. Explicit unresolved auditing remains absent. |
+| 17 `withdrawn-value` | Partial structured result: the paraphrase says the learner corrects 10:35, so the withdrawal meaning survives in text. It is embedded in an active compound claim rather than a separate withdrawn value. |
+| 17 `correction` | Partial: replacement 10:20 and the same current target are explicit in text, but there is no earlier withdrawn frame or correction link. Null `correctionTarget` fails the required lifecycle representation. |
+| 17 `estimate` | Faithful raw: only-estimate wording and off-block timing survive, merged with the independent non-conferral proposition. |
+| 17 `permission-scope` | Faithful raw: a TOBT grants no permission to depart. No actual denial is added, but independent claim boundaries are not preserved. |
+| 19 `resolved-items` | Faithful raw: all three sorted items are retained as the learner's stated readiness basis. Here `because` expresses the basis already given by `with ... all sorted`; it is not the unsupported causal invention found in case 20. |
+| 19 `readiness` | Faithful raw: the positive readiness assertion and TRN102 remain intact. |
+| 19 `unknown-permission` | Faithful raw: only takeoff clearance for TRN102 remains unconfirmed; the actor, unknown state and exclusivity are retained without a denial. |
+| 20 `not-released` | Partial/distorted: unreleased TRN101 is retained, but the interpretation adds an explicit `because` cause unsupported by the original juxtaposition/explanation structure. |
+| 20 `held` | Incorrect weakening: `remains at its stand` replaces `is still held at its stand`, losing the held/restricted state. Being at a stand is not equivalent to being held there. |
+| 20 `permission` | Incorrect strengthening: `lacks departure clearance` replaces the narrower `nothing gives it departure clearance`. Non-conferral by the stated situation does not establish actual absence of permission. |
+| 20 `lvp` | Faithful raw: the tower activated low-visibility procedures. No safeguarding state is invented. |
+| 23 `cancellation` | Faithful raw: the verbatim compound retains Airside Operations attribution, current `now`, confirmation and cancellation. |
+| 23 `clearance` | Faithful raw: positive clearance for TRN101 and the learner's asserted `with that` link remain intact. |
+| 23 `parked` | Faithful raw: current parked state and `only` qualifier remain. |
+| 23 `condition` | Faithful raw: the `until` condition and pending slot-opening event survive without being asserted as already completed. All four meanings occur in one compound claim, rather than the required separate claims with preserved links. |
+| 2 `actor-repair` | Incorrect: the interpretation invents an active negative claim that TRN103 is not held up. The original repairs a subject fragment before its predicate; it does not assert that negative proposition. No withdrawn fragment or repair link is emitted. |
+| 2 `delay` | Partial: TRN102's late-bag delay is retained, but merged with the invented TRN103 denial rather than represented as the corrected actor's committed assertion. |
+| 2 `fuel` | Partial: completed refuelling remains in text, but its corrected aircraft reference is not made explicit in the standalone interpretation. |
+| 2 `baggage-unknown` | Partial: lack of received loading confirmation survives and is not converted into actual noncompletion. Its corrected actor/baggage references remain implicit across claim context. |
+| 2 `contrast` | Faithful raw contrast: completed refuelling versus absent received baggage-loading confirmation survives in the second compound interpretation. The actual result remains rejected because unresolved entries contain many token columns instead of `[quoteRefs, reason]`. |
+
+Faithful text and valid structure must be assessed separately. Case 23 preserves
+all four original obligation meanings; calling it semantically omitted because
+it is a copied compound would be inaccurate. Conversely, its one-row structure
+does not demonstrate atomic extraction. Case 12 preserves legitimate ambiguity
+without assigning names. Cases 20 and 2 demonstrate real added or changed meanings
+despite exact source references. Case 17 describes its correction in prose but
+still cannot supply the required lifecycle/link structure to a downstream stage.
+These observations do not certify complete structured interpretation or permit
+report checking.
+
+## Contrast references and bounded prompt-only v5 proposal
+
+Before any contrast inference, this reviewer independently inspected all twelve
+texts and 23 obligations in `TYPED_QWEN_CONTRAST_REFERENCES_V1.json`, SHA-256
+`2a29304d224ff074d4a2e16812bcdef3c914af4666a3ed1114a4d7ea715baa70`.
+The separate inputs-only fixture, SHA-256
+`40af8e16dcd443a98451c81abf9fdcddb7390e9545e58136998d74614e1c3d2e`,
+contains identical learner strings and IDs. Every learner hash and exact evidence
+substring independently validates. References and counterfactual misreadings are
+evaluator-only and must remain outside prompts and parsing/inference inputs.
+
+The six pairs appropriately contrast subject repair with negative ellipsis,
+unidentified with explicitly named roles, unknown with refused permission,
+expected with completed vacancy, unknown service completion with unknown overall
+readiness, and conditional with completed attributed events. No substantive
+annotation blocker was found. In contrast 02a, the assigned occupant/waiter roles
+must not be strengthened into an external capacity rule or an assertion that an
+aircraft can never occupy the stand. These are exposed diagnostic controls, not
+an independent reserve, population benchmark or satisfaction of initial qualification.
+
+A controlled prompt-only v5 using a concrete nonaviation multi-claim example is
+a defensible bounded next experiment. It should demonstrate an earlier withdrawn
+actor fragment and explicit replacement link, split independent conjuncts while
+preserving operator arguments, retain knowledge-unknown and conditional future,
+and avoid introducing a causal `because` absent from learner meaning. The five-field
+parser, original inputs/private obligations, model/runtime, budget and no-retry
+rule remain frozen. The idea that the single-sentence example caused merging is
+a hypothesis, not an established causal result. A richer example can also create
+new copying or scope losses, which the same complete raw audit must detect.
+
+This opinion does not approve semantic acceptance, raw-text-only grading, altered
+reference labels or an automatic fidelity checker. The actual new source/prompt
+must be frozen and independently read before calls; initial qualification remains
+unmet. This reviewer made no model call, edited no candidate, repaired no output
+and read no sealed reserve.
