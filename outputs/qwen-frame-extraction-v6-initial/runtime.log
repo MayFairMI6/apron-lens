@@ -1,0 +1,14 @@
+W1104 07:45:59.165000 2184 .venv-candidates/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:00<05:19,  2.37it/s]Loading weights:  12%|█▎        | 95/760 [00:00<00:02, 225.60it/s]Loading weights:  18%|█▊        | 140/760 [00:00<00:03, 188.28it/s]Loading weights:  23%|██▎       | 172/760 [00:01<00:03, 147.65it/s]Loading weights:  26%|██▌       | 195/760 [00:01<00:03, 143.46it/s]Loading weights:  28%|██▊       | 215/760 [00:01<00:04, 118.76it/s]Loading weights:  30%|███       | 231/760 [00:01<00:04, 118.89it/s]Loading weights:  32%|███▏      | 246/760 [00:01<00:04, 116.02it/s]Loading weights:  34%|███▍      | 260/760 [00:02<00:05, 95.41it/s] Loading weights:  37%|███▋      | 278/760 [00:02<00:04, 99.60it/s]Loading weights:  39%|███▊      | 294/760 [00:02<00:04, 108.04it/s]Loading weights:  40%|████      | 306/760 [00:02<00:04, 106.70it/s]Loading weights:  42%|████▏     | 318/760 [00:02<00:04, 108.44it/s]Loading weights:  45%|████▌     | 345/760 [00:03<00:06, 68.22it/s] Loading weights:  48%|████▊     | 364/760 [00:03<00:07, 52.06it/s]Loading weights:  54%|█████▍    | 412/760 [00:03<00:03, 90.32it/s]Loading weights:  56%|█████▌    | 426/760 [00:04<00:05, 65.18it/s]Loading weights: 100%|██████████| 760/760 [00:04<00:00, 170.89it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+exposed-v2-12 structurally_valid True None
+exposed-v2-17 structurally_valid True None
+exposed-v2-19 structurally_valid True None
+exposed-v2-20 structurally_valid True None
+exposed-v2-23 structurally_valid True None
+exposed-v2-2 structurally_valid True None
+/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

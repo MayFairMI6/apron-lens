@@ -1,0 +1,9 @@
+{"event": "worker_started", "recordedAt": 1793796355.847735, "pid": 2184}
+{"event": "worker_ready", "recordedAt": 1793796371.220289, "pid": 2184}
+{"event": "worker_request_complete", "recordedAt": 1793796385.2028701, "requestId": "frames-exposed-v2-12", "elapsedSeconds": 13.981802083000048, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793796398.278024, "requestId": "frames-exposed-v2-17", "elapsedSeconds": 13.073113416999945, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793796409.415317, "requestId": "frames-exposed-v2-19", "elapsedSeconds": 11.13627012500001, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793796421.251568, "requestId": "frames-exposed-v2-20", "elapsedSeconds": 11.835196957999983, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793796432.445028, "requestId": "frames-exposed-v2-23", "elapsedSeconds": 11.192232957999977, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793796447.9815638, "requestId": "frames-exposed-v2-2", "elapsedSeconds": 15.535693208999987, "ok": true}
+{"event": "worker_stopped", "recordedAt": 1793796448.107166, "pid": 2184, "exitcode": -15}
