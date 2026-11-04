@@ -564,3 +564,223 @@ cannot fully separate its knowledge of fresh-v2's contents from which
 weaknesses it noticed. The R9 defects and probes it published are general and
 derived from exposed checkpoints, and the implementer used those published
 probes as tests.
+
+## Second reserve (fresh-v2) paired evaluation — R10 rejected (3 November 2026)
+
+Reviewer: the independent semantic acceptance reviewer, who is also the fresh-v2
+author. fresh-v2 is now exposed, and its contents are discussed below. The
+reviewer made no model or GPU call and edited no gold label, fixture or
+implementation. Numbers were recomputed from the two `records.jsonl` files.
+
+**Provenance.** Both runs are committed at `e47dfbb` and use fixture SHA-256
+`cdb4e59b…5d8f`, the frozen and unchanged fresh-v2.
+[R10](../../outputs/relation-reserve2-mps-r10/summary.json): locked sources,
+model artifact hashes and MPS runtime profile are identical to the qualified
+`relation-firstreserve-mps-r10` lock (`candidate.py` `47da262a…`,
+`propositions.py` `be36fcfc…`).
+[Baseline](../../outputs/relation-reserve2-baseline-v2/summary.json): locked
+sources are identical to both earlier baseline runs (small NLI `fa28048`, CPU,
+threshold 0.8). Saved source snapshots match both locks, neither run used a
+cache, and every saved payload and gold label equals the fixture. The baseline
+has 297/297 planned pairs scored, all finite, maximum 198 tokens. R10 has 517 of
+551 planned pairs. In case 18, 8 rows hit the 512-token bound (largest input 568
+tokens; 2 marked truncation-rejected), and the review stopped with 34 pairs
+unscored. All other R10 rows are finite.
+
+| Arm (fresh-v2) | Exact | Valid exact | Valid accepted | Delivered | Criteria correct | False-credit criteria |
+|---|---:|---:|---:|---:|---:|---:|
+| Frozen small-NLI v2, CPU | 4/24 | 1/12 | 1 | 22/24 | 39/72 | 3 (9 reason, 12 flight, 17 estimate) |
+| R10 large NLI, MPS | 3/24 | 0/12 | 0 | 21/24 | 35/72 | 2 (12 flight, 17 estimate) |
+
+Undelivered: baseline cases 11 (grounding witness too wide) and 23 (no bounded
+NLI witness). R10 cases 11 and 15 (no bounded NLI witness) and 18 (token bound).
+No arm gave a `supported` verdict to a non-valid case.
+
+| Fixed gate for R10 | Result |
+|---|---|
+| At least 10/12 valid exact | **Fail** (0/12) |
+| Zero false-credit criteria | **Fail** (12 flight, 17 estimate) |
+| No newly failing baseline case | **Fail** (8, 10, 19) |
+| Valid acceptance at least baseline | **Fail** (0 versus 1) |
+| Delivered yield at least baseline | **Fail** (21 versus 22) |
+
+Paired table. Status codes as before; order: requested points, then grounding.
+
+| Case | Exercise / checkpoint | Gold class | Gold | Baseline | R10 | Pair |
+|---:|---|---|---|---|---|---|
+| 0 | late_baggage / 1 | valid | M M M | M C U | X X M | both fail |
+| 1 | late_baggage / 1 | valid | M M M | M C C | M U C | both fail |
+| 2 | late_baggage / 1 | valid | M M M | M C C | M U C | both fail |
+| 3 | late_baggage / 1 | valid | M M M | M U C | M M C | both fail |
+| 4 | late_baggage / 1 | invalid | C C C | U C C | X X C | both fail |
+| 5 | late_baggage / 1 | invalid | M M C | M C C | M X C | both fail |
+| 6 | late_baggage / 1 | partial | M X M | M U M | M X M | R10 only |
+| 7 | late_baggage / 1 | invalid | M C C | M C C | M C C | both exact |
+| 8 | surface_conflict / 1 | valid | M M M | M M M | U U M | **baseline only** |
+| 9 | surface_conflict / 1 | invalid | M C C | M M C | M U U | both fail |
+| 10 | surface_conflict / 2 | invalid | C C C | C C C | X X C | **baseline only** |
+| 11 | surface_conflict / 3 | valid | M M M | — | — | both fail |
+| 12 | late_arrival / 1 | uncertain | U U M | M U U | M C M | both fail |
+| 13 | late_arrival / 2 | valid | M M M | M M C | M M C | both fail |
+| 14 | late_arrival / 2 | invalid | C C C | C U C | C C C | R10 only |
+| 15 | late_arrival / 3 | valid | M M M | M U C | — | both fail |
+| 16 | late_baggage / 2 | valid | M M M | M M C | M X U | both fail |
+| 17 | late_baggage / 2 | invalid | C M C | M M U | M M C | both fail |
+| 18 | late_baggage / 3 | valid | M M M | U U C | — | both fail |
+| 19 | late_baggage / 3 | invalid | C C C | C C C | C X U | **baseline only** |
+| 20 | fog_restrictions / 1 | partial | X M M | X M C | X M C | both fail |
+| 21 | fog_restrictions / 2 | valid | M M M | X M M | X M M | both fail |
+| 22 | fog_restrictions / 3 | valid | M M M | M M C | M M C | both fail |
+| 23 | fog_restrictions / 3 | invalid | M C C | — | M X C | both fail |
+
+Summary: 1 both exact, 2 R10 only, 3 baseline only, 18 both fail.
+
+**(a) Shared false credit on cases 12 and 17: genuine failures, not label
+artefacts.**
+
+- *Case 12* (“Two aircraft are involved, TRN102 and TRN103: one of them
+  occupies Stand B and the other is waiting for it.”). The learner never says
+  which aircraft waits, so `flight: met` is wrong under any reading. The
+  baseline small model entailed “TRN103 is waiting for Stand B” from the whole
+  sentence at 0.94, apparently resolving “the other” by word order. In R10, the
+  clause splitter cut the coordinated noun phrase at “and”, producing the unit
+  “and TRN103: one of them occupies Stand B and the other is waiting for it.”
+  The large model then entailed TRN103 waiting (0.98) and marked TRN102's
+  occupancy contradicted (0.90). This is an R10 segmentation defect plus a
+  classifier error. A defensible alternative gold for the two requested points
+  is `missing` rather than `uncertain`, since no identification is made. Even so,
+  `met` would still be false credit, and this note is not a relabel.
+- *Case 17* (“newest off-block target reads 10:35 — wait, let me correct that:
+  it is 10:20.”). The learner's final, committed value is the superseded 10:20.
+  Both models entailed “latest is 10:35” from the sentence (R10 0.94, baseline
+  0.99) because 10:35 appears in it. Neither arm models correction scope within a
+  sentence. R10's retraction list does not include “let me correct that”, and
+  the sentence restates content anyway. A lenient grader might label this
+  self-contradictory answer `uncertain`, but not `met`, so the false credit is
+  genuine. Baseline-only false credit on case 9 is a small-model negation failure
+  (“TRN101's route rather than TRN102's” entailed the TRN102 obstruction at
+  0.82); R10 returns uncertain (0.67).
+
+Any relabel after seeing these outputs could not support an acceptance claim.
+
+**Label-convention sensitivity, disclosed.** Neither arm's premises include a
+report's `source` field (for example `exercise-tower`, `ground-handling`,
+`stand-planning`), although it is part of each received report. Valid case 1
+(“ground handling … reported”), valid case 15 (“Stand planning confirmed”) and
+partial case 20 (“The tower has put low-visibility procedures in force”)
+attribute an update to its reporting source. Gold treats those attributions as
+supported. Under a stricter message-text-only convention they would be
+unsupported, and cases 1 and 15 would leave the valid denominator. That does not
+change any verdict: R10 would still be 0/10 valid.
+
+**R10 failure mechanisms (21 non-exact cases).**
+
+- *Lexical relation gating that does not cover unseen wording* (requested point
+  `missing` where gold is met or contradicted). Cases: 0 (“slowing … down”, “came
+  in late”, “still waiting to be loaded”); 4 (service swap split into clauses,
+  so neither clause triggers a relation); 5 (“hasn't finished”); 10 (“still in
+  place”, “has not been lifted” without “hold” in the same clause); 16
+  (“doesn't amount to permission”, since “n't” is not matched as “not”); 19
+  (readiness claim without clearance wording, so the new `clearance_authority`
+  unit is absent); 21 (“LVPs” abbreviation absent from the topic list); 23
+  (“holds a departure clearance”, where “holds” is not a status verb). In six of
+  these (0, 4, 5, 10, 21, 23), wider coverage alone would likely fix the case.
+- *Scope words that over-trigger.* `nonassertive_scope` treats any “would/may/
+  might” in the sentence as hedging the whole sentence. Case 8 (“the path it
+  would take”) turns two entailments at 1.00 into `uncertain`; this is a newly
+  failing baseline case. Case 1 (“I would not read that as …”) loses its
+  separation point the same way. In case 2, the flight self-correction leaves two
+  flight names in the answer, so “Its refuelling …” gets no flight context. That
+  pair is flagged ambiguous, and the model also scores it neutral.
+- *Grounding is too strict for correct non-factual sentences.* A sentence that
+  no report entails becomes `contradicted`. This hits a history paraphrase
+  (case 1, “first reported … in progress and has since reported it complete”), a
+  telegraphic label line (case 3, “Fuel: complete per ground handling.”),
+  history introduced with “At first” (case 22; the history detector does not
+  match it), a self-correction (case 2) and source attributions (cases 15, 20).
+  Short answers to yes/no or what-questions are judged without the question:
+  “No.” (13), “Takeoff clearance.” (11) and “Short answer: no.” (18) are scored
+  as contradictions.
+- *Delivery limits.* The 160-character witness rejects whole-sentence relational
+  units (case 11) and the new two-sentence windows (case 15). Long answers
+  overflow the token bound once antecedents and report bundles are added to the
+  premise (case 18, 523 characters, 568 tokens).
+- *Correction and segmentation semantics:* case 12 (splitter) and case 17
+  (correction scope) are described in (a).
+- *Classifier limits:* case 9 (0.67 on an explicit other-flight contrast), and
+  case 18's readiness/clearance clauses scored neutral even where they were
+  compared.
+
+**(b) Overfitting versus systematic causes.** Both are present, but systematic
+causes dominate. The R9/R10 coverage additions matched fresh-v1 wording
+(“holding up”, “late bags”, “tell”, “evidence”, “only an estimate”). None
+covered fresh-v2's equally ordinary variants. Exposed fit went from R8's 3/12
+valid on fresh-v1 to 12/12, and then fell to 0/12 on unseen fresh-v2. That is
+direct evidence that the lexical lists are tuned to seen phrasing. Of the 21
+non-exact cases, though, only about six fail on coverage alone. About thirteen
+fail on mechanisms that more vocabulary cannot fix: modal and attribution scope,
+grounding strictness, answers that need the question, quote and token limits,
+segmentation, and correction scope. Two have mixed causes. Among the 12 valid
+answers, only cases 0 and 21 are coverage-only. Ten involve grounding strictness
+or delivery limits, and grounding over every sentence is the largest single
+blocker. The baseline's valid exactness was 1/12 on both reserves. So fresh-v2
+is not unusually hard for that arm, although it is stylistically more varied
+than fresh-v1 (fragments, labels, source attributions, a 523-character answer),
+as the authoring note intended.
+
+**Assessment of the architecture.** The reviewer does **not** expect lexical
+gating plus sentence-local NLI to reach at least 10/12 exact valid answers on
+another unseen reserve through further revisions. Exactness requires every
+requested point *and* every learner sentence's grounding to be right at the same
+time. With about 4–8 independent decisions per answer, reaching 10/12 needs
+roughly 98–99% per-decision reliability on unseen wording. Two unseen reserves
+gave 3/12 and 0/12 after full exposed fit. Each revision so far has closed the
+last exposed failures and opened no general gain, and it raises the overfitting
+risk each time a reserve is spent. This is a judgement from two reserves of 24
+same-domain answers, not a proof.
+
+**Alternatives within ML-052 scope** (no new weights, pinned models, unchanged
+gates). None is validated; each needs its own exposed development and a fresh
+reserve.
+
+1. *Remove the lexical gate for requested points.* Compare every learner
+   sentence, adjacent-sentence windows, and the whole answer with the question
+   prepended (300 tokens or fewer for 1,200 characters) against each facet
+   hypothesis. Aggregate with explicit identity and conflict rules instead of
+   relation word lists. Classifier latency on MPS appears affordable (R10 took
+   up to 7 s per answer), but this must be measured.
+2. *Redesign grounding as claim checking.* Put the question and report `source`
+   fields in the premise. Treat meta-epistemic sentences (“the reports do not
+   establish X”) as checks against the existing closed-scope searches, not as
+   facts to entail. Detect history and correction scope with the classifier
+   (hypotheses such as “the learner states 10:20 is the current value”) rather
+   than word lists. Keep `contradicted` for confident conflicts and explicit
+   invented facts. Use a separately justified status for paraphrases the
+   classifier cannot confirm. This is a policy decision, and the fixed gates
+   still apply.
+3. *Structured claim extraction with the already-pinned local generative model.*
+   The model would extract (flight, property, value, polarity, modality,
+   retracted) tuples with spans. Deterministic comparison against the existing
+   typed current/superseded facts would follow, with pinned NLI confirming each
+   extracted span before credit and withholding on disagreement. This moves
+   paraphrase handling from regex to a model while keeping grading deterministic
+   and auditable. Earlier generative typed-review experiments in this project
+   were rejected, so this needs fresh evidence. It also shares the GPU owner
+   with the ordinary assistant.
+4. *Fix delivery systemically.* Use per-facet witnesses with multiple quotes, or
+   quote the facet's shortest clause rather than a sentence/window. Use a
+   premise budget that drops lower-priority context before exceeding 512 tokens,
+   instead of failing the review.
+
+Changing the answer format (for example structured or choice prompts) or the
+acceptance gates would be a scope decision for the owner and the milestone
+ledger. The reviewer does not recommend either here.
+
+**Decision.** R10 fails every fixed fresh-v2 gate and is rejected for production
+and native promotion. ML-052 remains unfinished. fresh-v2 is now exposed
+regression evidence and can no longer serve as a held-out test. Any further
+acceptance claim needs a newly authored, independently validated reserve,
+withheld from implementation. Given (b), the reviewer recommends taking the
+architecture decision through the milestone ledger before another lexical
+revision cycle spends a third reserve. All R8–R10 runs, both baselines and this
+failed evaluation stay preserved.
