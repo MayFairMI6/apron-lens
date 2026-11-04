@@ -3182,3 +3182,14 @@ Final narrated video and prior accepted runtime/history scope remain unchanged.
 
 
 **ML-052 handoff update — 3 November 2026.** R8 exposed suites pass6/6 and24/24, independently reviewed. Reserved evaluation fails11/24 exact,3/12valid,23/24delivered,0falsecredit. The reserve is now exposed; no deployment or completion claim. Frozen reserve baseline remains pending. User requests Claude takeover with a common local/GitHub record; see [shared takeover](CLAUDE_TAKEOVER.md). All native/runtime/publication acceptance requirements remain in force; old results and video unchanged.
+
+**ML-052 Claude takeover — first reserve baseline arm (3 November 2026).**
+
+- Command: `HF_HUB_OFFLINE=1 .venv-candidates/bin/python scripts/run_relation_review.py outputs/relation-reserved-baseline-v2 experiments/typed_relation_review/fresh-v1.json --module experiments.typed_nli_review.candidate` (log: `work/relation-reserved-baseline-v2.log`, local).
+- Baseline: `discriminative-nli-review-v2`, `cross-encoder/nli-deberta-v3-small` revision `fa2804872c3b4bd748f38c0185cc85775361e735`, CPU, threshold 0.8, startup 2.47 s, torch 2.15.0. Baseline module source hashes are identical to `outputs/relation-development-baseline-v2/lock.json`; the runner script itself changed since then (it gained cache/MPS lock options). Fixture SHA256 `3052119fa3905e862c8ca30c53e99bc6be15684322fe637847dd58c8ec3eeb6b`.
+- Result: 7/24 exact, 1/12 valid exact, 24/24 delivered, zero false credit. Published in commit `617f092`.
+- Paired comparison with R8 (11/24 exact, 3/12 valid exact, 23/24 delivered, 0 false credit): cases 10, 11 and 17 are exact in the baseline but not in R8, so R8 also fails the no-newly-failing-baseline-case gate. R8 delivered yield (23) is below the baseline (24), so it fails the delivered-yield gate. R8 also fails the at-least-10/12 valid-exact gate. Zero false credit holds for both arms.
+- An independent semantic audit of the baseline arm is in progress; the reviewer appends findings to `TYPED_REVIEW_FINAL_ACCEPTANCE.md`.
+- The CPU baseline is a rejected experimental reviewer, not production; no superiority claim is made.
+- First reserve `fresh-v1` is now exposed regression/development evidence only.
+- Next: R9+ implementation on exposed data (6 regressions, 24 development cases and the exposed fresh-v1). An independent reviewer authors a new reserve, `experiments/typed_relation_review/fresh-v2.json`, withheld from implementation. Native verification is in preparation only (no model owners).

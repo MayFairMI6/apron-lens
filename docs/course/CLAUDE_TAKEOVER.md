@@ -21,7 +21,7 @@ Branch: `codex/checkpoint1-controller-training`; PR #22 is the publication desti
 
 ML-052 is UNFINISHED. Latest R8 fixes pass all six old regressions and all 24 exposed development questions, with independent review. The actual uncached reserved test FAILED: 11/24 exact, 3/12 valid answers exact, 23/24 delivered, zero false-credit criteria. Evidence is in `outputs/relation-regression-mps-r8/`, `outputs/relation-development-mps-r8/`, and `outputs/relation-reserved-mps-r8/`. Preserve every prior run.
 
-The reserved file `experiments/typed_relation_review/fresh-v1.json` is now exposed. It must not be reused as a fresh held-out test after tuning. Frozen candidate SHA256: `74f3445cfb89d85548074e250774e2726549040a3126b4036a77462236d83adc`. The CPU baseline comparison for this reserve has NOT run. Candidate failures include paraphrase/coverage failures, a long valid quote-span rejection and uncertain clearance grounding. Consult raw records and independent review before changing code.
+The reserved file `experiments/typed_relation_review/fresh-v1.json` is now exposed. It must not be reused as a fresh held-out test after tuning. Frozen candidate SHA256: `74f3445cfb89d85548074e250774e2726549040a3126b4036a77462236d83adc`. The CPU baseline comparison for this reserve has NOT run. (Superseded 3 November 2026: the baseline arm has now run; see Progress log below.) Candidate failures include paraphrase/coverage failures, a long valid quote-span rejection and uncertain clearance grounding. Consult raw records and independent review before changing code.
 
 New production scaffolding exists in `backend/typed_review_service.py`, `backend/typed_classifier_adapter.py`, `modelaccess/nli.py`, and backend admission/worker changes. Main still uses the old reviewer. `backend/typed_review_policy.py` does not yet exist: the inactive adapter deliberately requires explicit policy promotion. Do not activate this rejected candidate.
 
@@ -52,3 +52,19 @@ Claude may refine prose separately; implementation handoff updates to live write
 Pending final local checks and push at initial creation; coordinator will append actual outcomes before delivery. No acceptance or deployment claim is implied by publishing this development snapshot.
 
 Local handoff checks: 473 unit tests passed in43.933seconds; research integrity passed with160 frozen records; backbone boundary passed; diff whitespace check passed. All411 prior tracked output hashes and final Downloads video hash verified unchanged. These checks do not override failed semantic acceptance.
+
+## Progress log
+
+**3 November 2026 — first reserve baseline arm complete (Claude takeover).** The frozen small-NLI v2 CPU baseline (`discriminative-nli-review-v2`, `cross-encoder/nli-deberta-v3-small` rev `fa2804872c3b4bd748f38c0185cc85775361e735`, threshold 0.8) ran on `fresh-v1` into `outputs/relation-reserved-baseline-v2/`: 7/24 exact, 1/12 valid exact, 24/24 delivered, zero false credit (commit `617f092`; command and hashes in ML-052). Paired with R8 (11/24, 3/12, 23/24, 0 false credit): cases 10, 11, 17 are exact in baseline but not R8, R8 delivered yield is below baseline, and R8 is below 10/12 valid exact, so R8 fails those gates. Independent audit of the baseline arm is in progress. The CPU baseline is a rejected experimental reviewer, not production; no superiority claim. `fresh-v1` is now exposed development evidence only.
+
+### Active ownership (3 November 2026)
+
+| Role | Owner | Files / resources |
+|---|---|---|
+| Coordinator | Claude, main session | Integration; commits/pushes to `codex/checkpoint1-controller-training` |
+| Implementation agent | Claude subagent | `experiments/typed_relation_review/{candidate,propositions,strong_candidate,mps_candidate}.py`, `tests/test_typed_relation_review.py`, implementation section of `docs/course/TYPED_RELATION_REVIEW.md`; the ONLY GPU/MPS model owner; new `outputs/relation-*-mps-r9+` directories |
+| Independent semantic reviewer | Claude subagent | `docs/course/TYPED_REVIEW_FINAL_ACCEPTANCE.md` and the new `experiments/typed_relation_review/fresh-v2.json`; no model calls |
+| Native verification agent | Claude subagent | `docs/course/TYPED_NATIVE_ACCEPTANCE_PLAN.md`; preparation only, no model owners |
+| Documentation agent | Claude subagent | This file and `MILESTONE_LEDGER.md` |
+
+**Next concrete action:** implementation agent develops R9+ on exposed data (6 regressions, 24 development cases, exposed `fresh-v1`) without GPU contention; the independent reviewer authors `fresh-v2.json`, withheld from implementation, for the next uncached reserve run. All gates are unchanged.
