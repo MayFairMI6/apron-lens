@@ -88,3 +88,104 @@ reserve eligibility or promotion is certified here. The independent reviewer
 made no model call, edited no candidate and read no sealed reserve. Actual source,
 prompt/schema and configuration review plus the complete raw outputs remain the
 next evidence, followed by the full exposed/stress and unchanged downstream gates.
+
+## Pre-inference source and contract review
+
+The coordinator's architecture contract SHA-256 is
+`4c74df765df201c2d92b339f5c2ad3f7398957023edca72434d6061b78d21e9c`.
+It pins existing local `Qwen/Qwen3.5-9B` revision
+`c202236235762e1c871ad0ccb60c8ee5ba337b9a` and the MPS float16 greedy profile,
+thinking disabled, 1,000 output tokens and no retry/fallback. Its first phase
+explicitly separates learner interpretation from later report checking and
+whole-request/runtime acceptance. This reviewer read the source and contract,
+not an actual loaded model.
+
+Candidate SHA-256 is
+`efc694253e6bdc64b26a6d3583778de4bb5307b1f7d2d9b52dd74bc2d55632ba`.
+The prompt contains only fixed extraction instructions and mechanically derived
+exact learner units. The schema has no grading criterion, review status, report
+or support fields. It retains atomic claim fields, exact actor/relation/value/
+time/attribution/operator bindings, lifecycle, correction links and unresolved
+text. A subject-repair fragment may have no predicate, avoiding a fabricated prior
+complete assertion. Claimed ambiguity and unit coverage remain semantic audit
+obligations; the parser cannot certify them.
+
+Two concrete pre-call mechanical findings were reported and resolved before
+inference: the initial 5,120-character parser cap conflicted with the unchanged
+1,200-character contract, and nonoverlapping substring search missed overlapping
+repeated occurrences. The revised cap rejects 1,201 and accepts 1,200 characters;
+overlap-aware binding rejects “ana” in “banana” as ambiguous. All 17 structural
+tests independently pass.
+
+The experimental runtime uses the existing isolated owner and records actual
+terminal-token/EOS metadata. This reviewer independently ran four mocked
+termination tests: short non-EOS output is unverified, capacity without EOS is a
+length failure, actual EOS at capacity is verified completion, and empty output
+is unverified. All pass. They establish bookkeeping behavior, not actual startup,
+device ownership, latency or generated interpretation quality.
+
+The inputs-only fixture is preferred to the private annotation fixture. The runner
+must select each top-level `learnerResponse` string and keep IDs/metadata outside
+the prompt; its final source/settings hashes belong in the actual run lock.
+No further blocker was found for this bounded first extraction diagnostic.
+Every raw generation and structural/semantic failure still requires independent
+review against the frozen 23 obligations before any expansion or downstream
+grading claim. No model call, candidate edit or sealed-reserve inspection was
+performed by this reviewer.
+
+## Initial actual v1 extraction — failed, with raw semantic intent reviewed
+
+The complete [initial run](../../outputs/qwen-frame-extraction-v1-initial/summary.json)
+attempted all six frozen inputs once: **6/6 observed-EOS completions, 0/6
+structurally valid extractions and 0/6 complete faithful interpretations**.
+No result was repaired or replaced. Saved record SHA-256 is
+`8462bf5e353900c059bcb6831d5239c1b1d72db42813cf4369bc8395330eb111`.
+Source snapshot hashes and the input-only fixture match the run lock. Independent
+prompt inspection confirms that only frozen instructions and exact learner units
+entered each request; private annotations, reports, questions and grading gold
+were absent.
+
+Actual runtime identity is the pinned Qwen revision and MPS float16/eager profile.
+Every completion records EOS token 248044, no provider error, no timeout and no
+length termination. Output sizes are 236–369 tokens. Isolated startup/warmup took
+26.400 seconds; generation requests took 25.258–38.734 seconds. This demonstrates
+the recorded extraction-stage execution, not a faithful-extraction latency or
+the future combined interpretation/report-checking request budget.
+
+All 15 generated claims copy the literal schema example placeholder
+`"relation": "exact learner substring"`, which never occurs in the answers.
+The strict parser correctly rejects that unbound field in every output. Actor
+and value fields are uniformly null. Cases 17 and 23 additionally leave a second
+transport unit uncovered; those losses are visible in the raw references even
+though the parser stops at the earlier invalid relation. The experiment did not
+silently substitute learner text for the placeholder or repair coverage.
+
+The independent reviewer still inspected every raw generation against all 23
+frozen semantic obligations. The following categories describe raw intent only;
+**none is a usable accepted extraction**. “Partial” means that a scope string or
+lifecycle/link preserves some relevant information while required bindings or
+scope remain missing. It is not faithful-obligation credit.
+
+| Exposed case | Partial raw indications | Unsafe/incorrect raw indications | Omitted semantic obligations |
+|---:|---|---|---|
+| 12 | None | None recoverable beyond the invalid templates | `entities`, `occupancy`, `waiting`: no aircraft set, role alternatives, stand binding or different-actor constraint is represented. |
+| 17 | `withdrawn-value`, `correction`: one withdrawn and one active claim are linked. Neither actual time value nor aircraft/property is bound. | None separately recoverable | `estimate`, `permission-scope`: the entire second unit is unreferenced. |
+| 19 | `resolved-items`, `readiness`, `unknown-permission`: exact scope strings retain the sorted-items basis, affirmative readiness wording and unconfirmed-clearance wording. | Unknown clearance is labeled negative/asserted without a bound relation/value, so its polarity argument is not established. | None wholly absent, but all three obligations remain incomplete. |
+| 20 | `not-released`, `permission`, `lvp`: exact scope fragments retain these phrases. | No fully bound operational interpretation is available. | `held`: the independent held-at-stand meaning is not extracted; citing its transport unit does not recover it. |
+| 23 | None | Three empty active template claims cannot establish what was asserted. | `cancellation`, `clearance`, `parked`, `condition`; the final “opens.” unit is also unreferenced. |
+| 2 | `baggage-unknown`: its exact nonconfirmation phrase appears in scope, without resolved entity or epistemic argument. | `actor-repair`, `delay`: the “no, sorry” repair cue is attached to a negative active frame rather than a withdrawn subject/replacement link. | `fuel`, `contrast`: completed refuelling and its contrast are not extracted. |
+
+The obligation inventory therefore has nine partial raw indications, two unsafe
+repair/delay indications and twelve omitted obligations; all 23 remain unusable
+under the actual v1 result. The extra caution on case 19's epistemic wording does
+not create another counted obligation. No schema-valid or semantically complete
+success can be claimed from this inventory.
+
+The recurring literal placeholder is direct evidence of example copying in this
+prompt, not a parser defect or evidence that structured interpretation generally
+cannot work. The coordinator authorizes a separately frozen **prompt-only v2**
+using a concrete nonaviation example instead of the placeholder. Keep the parser,
+schema, model/runtime, controls, private annotations and no-retry rule unchanged;
+retain v1 as a failed attempt. No grader/report stage, new reserve, promotion or
+acceptance claim follows. This reviewer made no model call, edited no candidate
+and read no sealed reserve.
