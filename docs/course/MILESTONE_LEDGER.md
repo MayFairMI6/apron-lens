@@ -3644,3 +3644,68 @@ claimed. The final narrated video remains unchanged at SHA-256
 
 
 **4 November 2026 — R11v3.3 ambiguity guard verified, semantic qualification still open.** The A-only implementation (`8efa29b36be79c7edbc1aaebddf82c4864f6529e04aea259355712a62d649b66`) preserves conflicting stand-availability evidence independently of actor-field supersession. Independent review reproduces the original defect and confirms both resource-specific and global completeness are now withheld. Twenty focused tests and the full 535-test suite pass (42.720 seconds). An uncached old-six replay at `outputs/scoped-content-regression-mps-r11v3-3/` has the same model inputs and assessment statuses as v3.2: 3/6 exact, 2/3 valid exact, 6 delivered, zero false-credit criteria. This verifies a bounded mechanical repair, not semantic acceptance. The proposed schema-word learner-context retrieval was rejected before inference and removed after counterexamples assigned another aircraft's or a vehicle's fuel to the preceding aircraft. No blacklist patch was retained. The broader v3.2 failures remain applicable; the third reserve and production/native promotion remain gated. A concrete question about testing the existing local Qwen model for structured interpretation is pending user choice; no model/architecture switch has occurred. Original results and video remain unchanged.
+
+**4 November 2026 — Qwen v4 representation placement, exposed trial only.** The
+user's explicit local-Qwen structured-interpretation authorization covers the
+proposed learner-only interpreted-claim representation within CURRENT ML-052;
+it is not a new model/weight choice or a reopening permission request. Preserve
+the original extraction contract and v1–v3 addenda, source freezes and results.
+Root reports three complete six-case runs: v1 yields no valid structure, v2
+three valid structures and one timeout, and v3 two valid structures with all
+requests inside the extraction deadline. The saved v3 summary distinguishes
+structural validity from unassessed semantic acceptance. Twelve lexical fields
+have rejected plausible paraphrases while leaving semantic operators null;
+removing lexical binding alone would not remedy interpretation failures.
+
+Freeze a separate v4 addendum before calls. A claim may contain a standalone
+model-interpreted statement plus exact quoteRefs, lifecycle and correctionTarget,
+but its statement is explicitly UNTRUSTED INTERPRETATION, never learner evidence,
+report fact or a source citation. Exact quoteRefs retain lossless source position
+and original wording; final user-facing quotations still follow the unchanged
+exact-quote contract. Normalized wording may express an interpretation, but cannot
+invent a named actor, infer a missing predicate, resolve competing alternatives
+from name order, convert unconfirmed into denied, drop a quantifier/condition,
+or erase withdrawn content/correction history. Lifecycle/correction links must
+retain valid targets and do not by themselves prove which assertion is active.
+
+**Smallest useful next trial.** Reuse exactly the same six exposed learner texts
+and 23 schema-neutral obligations, with one fixed prompt/representation and the
+same Qwen model/revision, no reports, question, rubric, expected answer or gold in
+runtime input. First verify provenance mechanically: valid IDs, exact ordered
+quote references, lossless original text, required fields, lifecycle links and
+all-input accounting, without treating those checks as semantic coverage. Add
+offline injected-frame controls containing invented identity, a reversed modal,
+dropped conjunction/condition, wrong correction target and a true paraphrase.
+These controls test any claimed fidelity rule and confirm that failed/unresolved
+interpretation cannot invoke the report-grading stage; they do not prove a
+general paraphrase validator. Do not build the validator as a phrase whitelist
+or accept all statements merely because their cited sentence exists.
+
+Run only this six-case interpretation diagnostic before any report grading.
+Independent assessment must read the entire original answer, all raw/model claim
+text and every referenced span against all frozen obligations, allowing genuinely
+equivalent paraphrases while retaining scope, actors, attribution, conditions,
+correction links and unsupported additions. Report structural acceptance,
+faithful complete interpretation, partial/unsupported interpretation and timing
+separately. Referencing every sentence cannot compensate for a dropped clause.
+The trial should establish whether the representation preserves meaning more
+usefully than the exact lexical slots; it cannot qualify an end-to-end reviewer.
+
+Before later runtime report checking, specify and independently review an actual
+fidelity gate, including whether it is a separate model check, a conservative
+deterministic check, or only human diagnostic assessment. Human assessment in this
+trial is not a runtime guarantee. A same-model self-check or bidirectional NLI
+score remains fallible and correlated; neither is independent proof. Preserve
+failed and uncertain fidelity decisions, withhold rather than source-complete
+them, and prohibit grading/credit from normalized paraphrase alone. Report truth
+must not retroactively repair learner interpretation. Both interpretation and
+fidelity stages count toward the same whole-request 55/60/90-second budgets;
+extraction fitting 55 seconds does not establish end-to-end delivery.
+
+All current status/gold/false-credit/quote gates remain unchanged. No report
+support, production activation, native step, reserve access or replacement
+reserve authoring follows from this placement. The old third reserve remains
+sealed/ineligible under the changed architecture as previously decided. Broader
+exposed/stress qualification and a valid independently approved reserve process
+are still required. The final narrated video, previous results and deployed
+typed reviewer remain unchanged; ML-052 is unfinished.
