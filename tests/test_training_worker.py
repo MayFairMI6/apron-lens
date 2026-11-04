@@ -5,6 +5,8 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+from dataclasses import replace
+from unittest.mock import patch
 from modelaccess.contract import Settings, Request, Result, FinishReason, Usage
 from backend.training_worker import IsolatedTrainingAdapter
 
@@ -14,8 +16,15 @@ class FakeModel:
     def generate(self, request):
         if request.request_id=='hang': time.sleep(30)
         if request.request_id=='crash': os._exit(7)
-        return Result(request.request_id,'local-backbone',request.settings.model,request.settings.model,
+        if request.request_id=='runtime-error':
+            return Result(request.request_id,'local-backbone','fake','fake','partial',FinishReason.ERROR,'provider_exception',Usage(),.01,{},(),error='provider_error:RuntimeError')
+        result = Result(request.request_id,'local-backbone',request.settings.model,request.settings.model,
                       'actual worker response',FinishReason.STOP,'stop',Usage(2,3),.01,{},())
+        if request.request_id=='malformed-text': return replace(result,text=None)
+        if request.request_id=='malformed-finish': return replace(result,finish_reason='bogus')
+        if request.request_id=='unserializable': return replace(result,metadata={'bad':{1,2}})
+        if request.request_id=='unpicklable': return replace(result,metadata={'bad':lambda:None})
+        return result
     review=generate
 
 class BrokenStartup(FakeModel):
@@ -50,6 +59,62 @@ class WorkerTests(unittest.TestCase):
                 self.assertFalse(owners);owners.add(event['pid'])
             if event['event']=='worker_stopped':owners.remove(event['pid'])
         self.assertEqual(len(owners),1)
+    def test_reported_runtime_error_restarts_owner_without_replaying_request(self):
+        self.adapter.warmup(self.settings);old=self.adapter._process.pid
+        result=self.adapter.generate(self.request('runtime-error'))
+        self.assertFalse(result.ok);self.ready()
+        self.assertNotEqual(old,self.adapter._process.pid)
+        self.assertTrue(self.adapter.generate(self.request('success')).ok)
+        events=[json.loads(line) for line in self.path.read_text().splitlines()]
+        failed=[e for e in events if e['event']=='worker_runtime_failure']
+        self.assertEqual(len(failed),1)
+        self.assertEqual(failed[0]['modelResult']['text'],'partial')
+        self.assertEqual(failed[0]['modelResult']['error'],'provider_error:RuntimeError')
+
+    def test_malformed_and_unserializable_results_replace_owner(self):
+        self.adapter.warmup(self.settings)
+        for fault in ('malformed-text','malformed-finish','unserializable','unpicklable'):
+            with self.subTest(fault=fault):
+                old=self.adapter._process.pid
+                reply=self.adapter.review(self.request(fault))
+                self.assertFalse(reply.ok);self.assertEqual(reply.text,'')
+                self.ready();self.assertNotEqual(old,self.adapter._process.pid)
+                self.assertTrue(self.adapter.review(self.request('success')).ok)
+
+    def test_failed_process_creation_releases_connections(self):
+        with patch('backend.training_worker.subprocess.Popen',side_effect=OSError('spawn failed')):
+            with self.assertRaisesRegex(OSError,'spawn failed'):
+                self.adapter.warmup(self.settings)
+        self.assertIsNone(self.adapter._process);self.assertIsNone(self.adapter._connection)
+        self.assertEqual(self.adapter.status,'failed')
+        self.adapter.warmup(self.settings)
+        self.assertTrue(self.adapter.review(self.request('success')).ok)
+
+    def test_audit_failure_releases_owner_and_does_not_announce_ready(self):
+        self.adapter.warmup(self.settings);process=self.adapter._process
+        with patch.object(self.adapter,'_record',side_effect=OSError('disk failure')):
+            reply=self.adapter.review(self.request('success'))
+        self.assertFalse(reply.ok);self.assertFalse(process.is_alive())
+        self.assertIsNone(self.adapter._process);self.assertIsNone(self.adapter._connection)
+        self.assertEqual(self.adapter.status,'failed')
+        self.assertFalse(self.adapter._lock.locked())
+
+    def test_recovery_audit_failure_stops_replacement_owner(self):
+        self.adapter.warmup(self.settings)
+        original=self.adapter._record
+        def record(event,**values):
+            if event in ('worker_ready','worker_recovery_failed','worker_stopped'):
+                raise OSError('disk failure during replacement startup')
+            return original(event,**values)
+        with patch.object(self.adapter,'_record',side_effect=record):
+            self.assertFalse(self.adapter.generate(self.request('crash')).ok)
+            # Stop-audit failure prevents automatic recovery; explicitly exercise
+            # a queued recovery against the failed audit destination.
+            self.adapter._recover()
+        self.assertIsNone(self.adapter._process);self.assertIsNone(self.adapter._connection)
+        self.assertEqual(self.adapter.status,'failed')
+        self.assertFalse(self.adapter._lock.locked())
+
     def test_unpicklable_factory_fails_closed_without_masking_start_error(self):
         self.adapter.factory=lambda:FakeModel()
         with self.assertRaises((AttributeError,TypeError)):self.adapter.warmup(self.settings)

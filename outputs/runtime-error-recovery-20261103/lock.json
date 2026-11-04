@@ -1,0 +1,11 @@
+{
+  "sourceSHA256": {
+    "backend/training_worker.py": "6c8209f3b4a2bb64fecfb83200e85670dffaf0998e11924358c97b4ebe2bad54",
+    "backend/training_result.py": "fd5ef35817a76db5b512d528185a65b412d9eb8a26edc872b82b70511baf4242",
+    "backend/training_adapter.py": "acab2bb3f1da8283421e17dcddefc5974510220433f62433e33589e193269f8c",
+    "scripts/probe_runtime_error_recovery.py": "e4739d2a166748590b4351a0d66d855a2d595dea68cbb419c15f35a50754bda9"
+  },
+  "generationTimeoutSeconds": 55,
+  "startupTimeoutSeconds": 300,
+  "scope": "One injected runtime error between real inference calls. Not a naturally occurring model failure or semantic acceptance."
+}

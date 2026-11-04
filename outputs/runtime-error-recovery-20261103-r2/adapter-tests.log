@@ -1,0 +1,15 @@
+test_duplicate_references_remain_rejected (tests.test_training_adapter.TrainingSelectorTests.test_duplicate_references_remain_rejected) ... ok
+test_fences_do_not_accept_prose_extra_documents_or_invalid_json (tests.test_training_adapter.TrainingSelectorTests.test_fences_do_not_accept_prose_extra_documents_or_invalid_json) ... ok
+test_genuinely_missing_service_remains_unknown (tests.test_training_adapter.TrainingSelectorTests.test_genuinely_missing_service_remains_unknown) ... ok
+test_incomplete_json_is_not_fabricated (tests.test_training_adapter.TrainingSelectorTests.test_incomplete_json_is_not_fabricated) ... ok
+test_invented_evidence_is_not_repaired_into_a_valid_answer (tests.test_training_adapter.TrainingSelectorTests.test_invented_evidence_is_not_repaired_into_a_valid_answer) ... ok
+test_known_property_cannot_be_presented_as_unknown (tests.test_training_adapter.TrainingSelectorTests.test_known_property_cannot_be_presented_as_unknown) ... ok
+test_one_json_fence_changes_format_only (tests.test_training_adapter.TrainingSelectorTests.test_one_json_fence_changes_format_only) ... ok
+test_reference_expansion_passes_unchanged_validation (tests.test_training_adapter.TrainingSelectorTests.test_reference_expansion_passes_unchanged_validation) ... ok
+test_role_context_is_explicit_and_frozen_evidence_stays_the_same (tests.test_training_adapter.TrainingSelectorTests.test_role_context_is_explicit_and_frozen_evidence_stays_the_same) ... ok
+test_stand_answer_uses_only_reports_received_at_cutoff (tests.test_training_adapter.TrainingSelectorTests.test_stand_answer_uses_only_reports_received_at_cutoff) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.019s
+
+OK

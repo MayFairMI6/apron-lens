@@ -1,0 +1,22 @@
+test_complete_result_passes_but_empty_and_wrong_identity_do_not (tests.test_training_completion.CompletionTests.test_complete_result_passes_but_empty_and_wrong_identity_do_not) ... ok
+test_every_non_stop_reason_fails_even_with_valid_json (tests.test_training_completion.CompletionTests.test_every_non_stop_reason_fails_even_with_valid_json) ... ok
+test_existing_runtime_error_and_unknown_usage_are_preserved (tests.test_training_completion.CompletionTests.test_existing_runtime_error_and_unknown_usage_are_preserved) ... ok
+test_malformed_result_is_rejected_before_delivery (tests.test_training_completion.CompletionTests.test_malformed_result_is_rejected_before_delivery) ... ok
+test_audit_failure_releases_owner_and_does_not_announce_ready (tests.test_training_worker.WorkerTests.test_audit_failure_releases_owner_and_does_not_announce_ready) ... ok
+test_close_cannot_restart_or_serve (tests.test_training_worker.WorkerTests.test_close_cannot_restart_or_serve) ... ok
+test_close_during_generation_and_queued_recovery_stays_closed (tests.test_training_worker.WorkerTests.test_close_during_generation_and_queued_recovery_stays_closed) ... ok
+test_failed_process_creation_releases_connections (tests.test_training_worker.WorkerTests.test_failed_process_creation_releases_connections) ... ok
+test_failed_startup_does_not_announce_ready (tests.test_training_worker.WorkerTests.test_failed_startup_does_not_announce_ready) ... ok
+test_hang_and_crash_stop_old_owner_then_warm_replacement (tests.test_training_worker.WorkerTests.test_hang_and_crash_stop_old_owner_then_warm_replacement) ... ok
+test_malformed_and_unserializable_results_replace_owner (tests.test_training_worker.WorkerTests.test_malformed_and_unserializable_results_replace_owner) ... ok
+test_parallel_request_is_rejected_without_second_owner (tests.test_training_worker.WorkerTests.test_parallel_request_is_rejected_without_second_owner) ... ok
+test_recovery_audit_failure_stops_replacement_owner (tests.test_training_worker.WorkerTests.test_recovery_audit_failure_stops_replacement_owner) ... ok
+test_replacement_startup_failure_remains_unavailable (tests.test_training_worker.WorkerTests.test_replacement_startup_failure_remains_unavailable) ... ok
+test_reported_runtime_error_restarts_owner_without_replaying_request (tests.test_training_worker.WorkerTests.test_reported_runtime_error_restarts_owner_without_replaying_request) ... ok
+test_stopped_worker_large_send_is_bounded_and_recoverable (tests.test_training_worker.WorkerTests.test_stopped_worker_large_send_is_bounded_and_recoverable) ... ok
+test_unpicklable_factory_fails_closed_without_masking_start_error (tests.test_training_worker.WorkerTests.test_unpicklable_factory_fails_closed_without_masking_start_error) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 2.538s
+
+OK

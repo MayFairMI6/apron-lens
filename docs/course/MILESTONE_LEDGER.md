@@ -1,5 +1,12 @@
 # AirfieldLens milestone ledger
 
+**ML-050 reaches a mixed CURRENT acceptance decision.** Runtime completion/error
+hardening and the narrow ordinary-history guard/retry pass bounded acceptance.
+The compact typed-review revision fails development and is rejected; production
+typed review stays unchanged and its fresh pilot remains unused. Prior rejected
+candidates remain rejected. #59–62 retain their residual open scopes. The final
+narrated video and all earlier results remain fixed; publication is separate.
+
 **ML-049 closes the bounded remaining-fixes iteration with a mixed outcome.**
 Worker lifecycle hardening passes bounded acceptance; the second unit-support
 reviewer candidate fails development and is rejected without consuming the fresh
@@ -2683,7 +2690,6 @@ Coordinator publication readback is recorded below. Gates
 #30/#31/#32 retain their own final-artifact, reflection and smartphone/course
 acceptance requirements; narration publication alone does not complete them.
 
-
 **Coordinator publication receipt, 3 November 2026.** Implementation, diagnostics,
 source snapshots and this ledger decision were published in commit
 `028fba8199b342490d9875c345e43db8a1be81a2`. PR #22 head was remotely read back
@@ -2695,3 +2701,158 @@ The PR description now reflects the final implementation and rejected candidates
 Drive metadata confirms the final narrated presentation at the same file ID, and
 the local video's SHA-256 remains unchanged. This publication receipt is a
 documentation-only follow-up; it does not reopen tests, tuning or the media edit.
+
+## ML-050 — Newly authorized typed-review and model-error repair plan
+
+3 November 2026. The user explicitly reopens remaining typed/citation/model
+failures while preserving the final narrated video and previous results. This
+authorizes a distinct bounded CURRENT repair pass after ML-049; the prior
+two-revision stop applied to that rejected experiment and is not silently undone.
+The independent reviewer read production `backend/training_assessment.py` and the
+[six-case rejection review](../../outputs/remaining-fixes-review.md). This entry
+is planning/placement only: no new candidate is accepted or promoted, no fresh
+evaluation result is claimed, and #59–62 are not closed.
+
+**Proposed change and its boundary.** Keep the new candidate isolated. Let the
+model judge learner coverage/support using exact references to supplied learner
+units, with distinct missing, contradicted and uncertain states. Derive literal
+quotations and the overall verdict in code. Derive citations only from declared
+authored criterion evidence bundles, intersected with received, same-run,
+cutoff-eligible reports; do not ask the model to invent report IDs. An empty
+eligible bundle must cause honest withholding, not a substitute citation. Preserve
+supersession, aircraft identity and report-time semantics in the payload.
+
+This can remove malformed IDs and fabricated quotations mechanically. It does
+not prove that the cited bundle supports the judgment, that every bundled report
+is necessary/relevant, or that the learner stated the required answer. In
+particular, record 2's false hold credit arose despite exact text and a valid
+report. Treat authored bundles as evidence context, not a semantic certificate;
+review their relevance independently. Unsupported extra clauses require coverage
+even when no report directly supports them: they must not disappear merely
+because a model cannot cite them. Keep input-unit accounting separate from
+criterion credit, reject met/support inconsistencies, and inspect multiple claims
+inside broad units. Do not force an unsupported claim to acquire a misleading
+positive citation or mark unknown authority as denied authority. Any deterministic
+comments must faithfully describe the actual status rather than supply successful
+learner content. Full atomic entailment checking is not claimed or added here.
+
+**Modest execution/acceptance gates.** Before model calls, save candidate source,
+prompt/schema versions, fixture hashes, runtime, budgets and a fixed development
+stopping rule: one initial development version and at most one documented revision
+in this new pass, unless the user explicitly reprioritizes again. Finish and
+retain every case of a fixed run before revising. Reuse exposed failures as
+development only, covering complete and omitted answers, wrong aircraft/occupant,
+waiting-for versus occupying, explicit unknown, contradiction, and correct core
+plus unsupported addition. Independently review all actual judgments, including
+withheld cases and comments. Failure after the allowed development versions stops
+this pass before fresh evaluation; production and previous research stay unchanged.
+
+Only a development-passing version proceeds to a source-frozen paired pilot of at
+least 24 new independently labelled cases: 12 fully valid and 12 unsafe, partial,
+contradictory or uncertain responses, with case families separated from exposed
+development. Fix labels and criterion-level scoring before calls. Require no
+new accepted false credit on any matched case/criterion and no higher total false
+credit than production; valid-answer acceptance must be at least 10/12 and no
+lower than production, with no lower overall review yield. Separately report
+exact status matches, omitted coverage, unsafe credit, valid answers withheld,
+citation eligibility/relevance, raw formatting/model failures, costs and latency.
+Withholding is not successful delivered feedback. All paired outputs need bounded
+independent semantic review. Do not revise against the fresh outcomes or rerun
+until favorable; failure leaves the candidate rejected and cases exposed.
+
+Adoption additionally requires source/contract checks and a native typed-flow
+compatibility check for actual feedback, saved input/retry and stale-checkpoint
+rejection. Actual model requests must fit the unchanged 55-second worker and
+60-second server budgets without expanding them to rescue the candidate; the
+native 90-second budget stays unchanged. Measure wall time and failures rather
+than infer latency from shorter JSON. Do not present the pilot as general grading
+validity or eliminate every #60/#61 scope from a bounded result.
+
+**Independently deliverable model-error hardening.** Reproduce a concrete stopping,
+model-error or cleanup failure before choosing its correction. Retain underlying
+error/finish reason and unknown usage honestly; never retry implicitly, install
+fallback success or apply a late result to a new checkpoint. Test only changed
+boundaries and obtain actual-runtime evidence when model stopping/cleanup behavior
+changes. A supported lifecycle/error remedy may be accepted separately if the
+semantic candidate fails; it must not inherit semantic effectiveness claims.
+Keep existing worker ownership/readiness protections and retained warning limits.
+
+No renderer, new training programme, graph database, full M2 visual/checker study
+or formal-model work is introduced. Preserve the final video SHA-256
+`5d7a20600a32c9211ef16ab9fcb5dd891366b4badb4c7f0888af728f62af3af1`,
+the production reviewer until adoption, and prior results/rejected outputs.
+Publish implementation, failures, exact versions and independent acceptance
+before changing completion claims; reuse existing GitHub failure records without
+duplicate milestone counts. Course submission gates remain separate.
+
+**ML-050 execution and independent acceptance, 3 November 2026.** The original
+planning text above records the pre-run gates; this addendum supplies the actual
+mixed outcome. The [pass report](../../outputs/assistant-repair-pass-v2/RESULTS.md)
+and [395-test log](../../outputs/assistant-repair-pass-v2/tests.log) are saved.
+Tests passed in 77.860 seconds, [research integrity](../../outputs/assistant-repair-pass-v2/integrity.log)
+passes with 160 preserved records, and [backbone boundaries](../../outputs/assistant-repair-pass-v2/backbone.log)
+pass. The [preservation receipt](../../outputs/assistant-repair-pass-v2/preservation.json)
+records 309 historical output files unchanged, unchanged production typed review
+and the fixed final-video hash. This reviewer read receipts, not new inference
+calls or images. No duplicate milestone unit or whole-assignment completion is
+added.
+
+Accept **runtime completion/error hardening** within the [independent runtime
+review](RUNTIME_FAILURE_REPAIR.md). Selected result fields and finite JSON are
+checked; non-STOP, empty and mismatched results are withheld while well-formed raw
+text, usage and reported finish reason remain available for audit. Runtime ERROR
+retires the failed owner, with protected cleanup on audit failure and no implicit
+replay. Seventeen targeted controls passed in both runtimes. The [actual probe](../../outputs/runtime-error-recovery-20261103-r2/summary.json)
+shows real pre/post replies around an injected ERROR, old owner 7256 stopped
+before replacement 7291 starts, and final closed status. Preserve the failed first
+harness attempt. The image warmup's `B.` response demonstrates kernel execution,
+not instruction accuracy. STOP remains an engine-reported/length-inferred reason,
+not independent EOS proof. A semaphore warning and general device/latency limits
+remain. The exact pre-history adapter is preserved in
+`outputs/assistant-repair-pass-v2/source/runtime-probe-adapter.py`; final worker
+and result-check sources match the probe, while the later history adapter has its
+own evidence. This is a bounded #62 remedy, not full issue closure.
+
+Accept **the narrow ordinary-history guard/retry** on its separate predeclared
+gate and [independent semantic review](ORDINARY_HISTORY_REPAIR_REVIEW.md). The
+exposed diagnostic moves from 11/12 to 12/12; its saved 13 attempts include an
+actual wrong E4 current-stand selection rejected as `historical_fact_missing`,
+followed by a genuine model retry selecting prior D12. The guard inserts no fact
+or answer. It recognizes a limited literal stand/TOBT history relation and can
+withhold an inadequate retry. The [frozen fresh comparison](../../outputs/ordinary-history-comparison-v1/summary.json)
+contains 12 pairs: baseline 12/12 and repair 12/12, no newly failing case or
+delivered identity/support violation. Independent review read all 24 raw and
+expanded fresh answers and replayed scores. All fresh answers succeed first try
+with identical paired prompts/raw strings; there is no fresh guard rescue or
+superiority result. This is distinct from the unrun 24-case typed gate.
+
+History limits remain explicit: the guard checks some prior superseded fact,
+not necessarily the nearest predecessor in a longer chain. Each fresh history
+case has only one earlier eligible same-property fact; some wording succeeds
+through the model outside the guard regex. The pilot is same-family and now
+exposed. The outer lock omitted runner/scorer hashes; per-arm scorer locks and
+preserved runner provenance must not be relabelled as an original complete lock.
+The CPU full suite overlapped the latter repair arm, so timing differences are
+descriptive, not a controlled latency comparison. No fresh native-flow acceptance
+or general history/semantic correctness is claimed. Preserve startup/shutdown
+warnings. This remedy does not close the broader #60 semantic issue.
+
+Reject **the compact typed-review candidate** under the allowed initial version
+plus one revision. The [meaning review](TYPED_MEANING_REPAIR_REVIEW.md) and
+[citation review](CITATION_REPAIR_REVIEW.md) preserve the actual findings. Initial
+version: six structurally delivered reviews, four exact, including false credit
+for an omission and false occupant. Revised two-stage version: three exact
+delivered reviews and three withheld, only one of three fully valid responses
+accepted. No accepted false credit in that revised six does not overcome failed
+coverage/yield. Mechanical learner-span/bundle guards and 18 contract tests are
+candidate-only evidence, not a deployed citation remedy or semantic proof.
+Stop this experiment; no fresh typed inference or native adoption is performed,
+and the authored 24-case draft remains unused and not independently label-validated.
+Production `training_assessment.py` stays unchanged; #60/#61 remain open. Do not
+revise or rerun exposed outcomes into an unreported favorable result.
+
+The final narrated video, scenery and historical scores remain unchanged.
+The existing #59 evidence still lacks the original reported viewpoint; this pass
+does not close it. Publish source, reports and existing-issue updates/readback as
+root's next steps. Acceptance here is local and bounded, not a claim that GitHub
+publication, all reported defects or submission gates #30/#31/#32 are complete.

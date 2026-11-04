@@ -11,11 +11,13 @@ import re
 from dataclasses import replace
 from pathlib import Path
 from backend.evidence import FIELDS
+from backend.training_result import checked_training_result
+from backend.training_history_guard import history_error,HISTORY_ERROR
 from modelaccess.local_backbone import LocalBackboneAdapter
 from modelaccess.contract import Adapter, ProviderReply, FinishReason, Usage
 
 TRAINING_PROMPT_VERSION='training-evidence-selector-v8'
-COMPLETENESS_POLICY_VERSION='reference-coverage-one-retry-v3'
+COMPLETENESS_POLICY_VERSION='reference-history-coverage-one-retry-v4'
 
 class EmptySelectionError(ValueError):
     pass
@@ -123,8 +125,10 @@ class TrainingAdapter(LocalBackboneAdapter):
         self.prompt_audit_path=Path(prompt_audit_path)
         if training_role not in ROLES:raise ValueError('Unknown training role')
         self.training_role=training_role
+    def generate(self,request):
+        return checked_training_result(super().generate(request),request)
     def review(self,request):
-        return _PracticeReviewAdapter(self).generate(request)
+        return checked_training_result(_PracticeReviewAdapter(self).generate(request),request)
     def warmup(self, settings):
         """Exercise text and image kernels before the HTTP service becomes ready."""
         import io
@@ -160,6 +164,7 @@ class TrainingAdapter(LocalBackboneAdapter):
         for attempt in range(2):
             current_prompt=prompt if attempt==0 else prompt+(
                 '\nThe previous response failed the '+str(error)+' check. '
+                'For an explicit history question asking before or preceding a named value, selecting that named value itself does not answer the question. Use the received earlier historical fact when available. '
                 'For an unqualified pronoun, keep Memory.currentReferent; do not switch flights based on a stand value. '
                 'If the previous selection was empty, include relevant facts or requested unknowns. '
                 'Answer the same question using ONLY the same flights and reports above. '
@@ -175,7 +180,7 @@ class TrainingAdapter(LocalBackboneAdapter):
             error=None
             try:
                 reply.text=expand_selection(original,candidates)
-                error=reference_error(json.loads(reply.text),prompt,candidates)
+                error=reference_error(json.loads(reply.text),prompt,candidates) or history_error(json.loads(reply.text),prompt,candidates)
             except EmptySelectionError: error='empty_answer'
             except (ValueError,TypeError,KeyError): error='invalid_selection'
             usage.append(reply.usage)
@@ -190,7 +195,7 @@ class TrainingAdapter(LocalBackboneAdapter):
                     trainingRole=self.training_role,selectorFormatVersion=SELECTOR_FORMAT_VERSION,
                     completenessPolicy=COMPLETENESS_POLICY_VERSION,prompt=current_prompt,**attempts[-1]))+'\n')
             allowed={request.settings.model,*request.settings.accepted_returned_models}
-            if error not in ('empty_answer','followup_reference_mismatch') or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
+            if error not in ('empty_answer','followup_reference_mismatch',HISTORY_ERROR) or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
         # Aggregate usage over actual calls, preserving unknown usage as unknown.
         for field in ('input_tokens','output_tokens','reasoning_tokens','image_tokens','cached_input_tokens'):
             values=[getattr(u,field) for u in usage]

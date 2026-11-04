@@ -1,0 +1,662 @@
+{
+  "episodes": [
+    {
+      "name": "weather_route",
+      "world": {
+        "scenarioId": "REPAIR-HISTORY-V2-weather-route",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "RP800"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "RP801"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "RP802"
+          }
+        ],
+        "events": [
+          {
+            "id": "W1",
+            "aircraftId": "K1",
+            "flightInstance": "RP800",
+            "eventTime": 5,
+            "receiptTime": 12,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: reduced visibility"
+              }
+            ],
+            "message": "hold: reduced visibility"
+          },
+          {
+            "id": "W2",
+            "aircraftId": "K1",
+            "flightInstance": "RP800",
+            "eventTime": 30,
+            "receiptTime": 45,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "ground route open under escort",
+                "supersedes": [
+                  "W1:movement_condition"
+                ]
+              }
+            ],
+            "message": "ground route open under escort"
+          },
+          {
+            "id": "W3",
+            "aircraftId": "K1",
+            "flightInstance": "RP800",
+            "eventTime": 65,
+            "receiptTime": 80,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: route inspection",
+                "supersedes": [
+                  "W2:movement_condition"
+                ]
+              }
+            ],
+            "message": "hold: route inspection"
+          },
+          {
+            "id": "W4",
+            "aircraftId": "K2",
+            "flightInstance": "RP801",
+            "eventTime": 8,
+            "receiptTime": 10,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: service vehicle crossing"
+              }
+            ],
+            "message": "hold: service vehicle crossing"
+          },
+          {
+            "id": "W5",
+            "aircraftId": "K3",
+            "flightInstance": "RP802",
+            "eventTime": 6,
+            "receiptTime": 9,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "route",
+                "value": "east service route"
+              }
+            ],
+            "message": "east service route"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 20,
+          "question": "Identify the restriction currently reported for RP800.",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "RP800",
+          "required": [
+            "W1:movement_condition"
+          ],
+          "allowed": [
+            "W1:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 45,
+          "question": "For the same aircraft, explain the transition from the earlier restriction to the new escort condition, citing both reports.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "RP800",
+          "required": [
+            "W1:movement_condition",
+            "W2:movement_condition"
+          ],
+          "allowed": [
+            "W1:movement_condition",
+            "W2:movement_condition"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 81,
+          "question": "Do these ground restrictions tell us that this aircraft is ready to depart overall?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "RP800",
+          "required": [],
+          "allowed": [
+            "W3:movement_condition"
+          ],
+          "unknowns": [
+            "overall_readiness"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stand_reassignment",
+      "world": {
+        "scenarioId": "REPAIR-HISTORY-V2-stand-reassignment",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "RP810"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "RP811"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "RP812"
+          }
+        ],
+        "events": [
+          {
+            "id": "S1",
+            "aircraftId": "K1",
+            "flightInstance": "RP810",
+            "eventTime": 2,
+            "receiptTime": 4,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "D12"
+              }
+            ],
+            "message": "D12"
+          },
+          {
+            "id": "S2",
+            "aircraftId": "K1",
+            "flightInstance": "RP810",
+            "eventTime": 21,
+            "receiptTime": 38,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "E4",
+                "supersedes": [
+                  "S1:stand"
+                ]
+              }
+            ],
+            "message": "E4"
+          },
+          {
+            "id": "S3",
+            "aircraftId": "K1",
+            "flightInstance": "RP810",
+            "eventTime": 60,
+            "receiptTime": 75,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "D18",
+                "supersedes": [
+                  "S2:stand"
+                ]
+              }
+            ],
+            "message": "D18"
+          },
+          {
+            "id": "S4",
+            "aircraftId": "K2",
+            "flightInstance": "RP811",
+            "eventTime": 3,
+            "receiptTime": 5,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "F7"
+              }
+            ],
+            "message": "F7"
+          },
+          {
+            "id": "S5",
+            "aircraftId": "K3",
+            "flightInstance": "RP812",
+            "eventTime": 4,
+            "receiptTime": 6,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "E4"
+              }
+            ],
+            "message": "E4"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 15,
+          "question": "Find the assigned stand for RP810.",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "RP810",
+          "required": [
+            "S1:stand"
+          ],
+          "allowed": [
+            "S1:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 39,
+          "question": "For that same aircraft, name the stand immediately preceding E4. Do not switch to an aircraft currently at E4.",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "RP810",
+          "required": [
+            "S1:stand"
+          ],
+          "allowed": [
+            "S1:stand",
+            "S2:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 77,
+          "question": "Change my selection to RP811 and state its assigned stand.",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "RP811",
+          "required": [
+            "S4:stand"
+          ],
+          "allowed": [
+            "S4:stand"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "service_withdrawal",
+      "world": {
+        "scenarioId": "REPAIR-HISTORY-V2-service-withdrawal",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "RP820"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "RP821"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "RP822"
+          }
+        ],
+        "events": [
+          {
+            "id": "B1",
+            "aircraftId": "K1",
+            "flightInstance": "RP820",
+            "eventTime": 4,
+            "receiptTime": 7,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "complete"
+              }
+            ],
+            "message": "complete"
+          },
+          {
+            "id": "B2",
+            "aircraftId": "K1",
+            "flightInstance": "RP820",
+            "eventTime": 22,
+            "receiptTime": 35,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "reopened: additional bags to load",
+                "supersedes": [
+                  "B1:baggage_status"
+                ]
+              }
+            ],
+            "message": "reopened: additional bags to load"
+          },
+          {
+            "id": "B3",
+            "aircraftId": "K1",
+            "flightInstance": "RP820",
+            "eventTime": 52,
+            "receiptTime": 64,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "complete after additional loading",
+                "supersedes": [
+                  "B2:baggage_status"
+                ]
+              }
+            ],
+            "message": "complete after additional loading"
+          },
+          {
+            "id": "B4",
+            "aircraftId": "K1",
+            "flightInstance": "RP820",
+            "eventTime": 65,
+            "receiptTime": 70,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "overall_readiness",
+                "value": "ready"
+              }
+            ],
+            "message": "ready"
+          },
+          {
+            "id": "B5",
+            "aircraftId": "K1",
+            "flightInstance": "RP820",
+            "eventTime": 83,
+            "receiptTime": 95,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "overall_readiness",
+                "value": "not ready: additional check required",
+                "supersedes": [
+                  "B4:overall_readiness"
+                ]
+              }
+            ],
+            "message": "not ready: additional check required"
+          },
+          {
+            "id": "B6",
+            "aircraftId": "K2",
+            "flightInstance": "RP821",
+            "eventTime": 2,
+            "receiptTime": 5,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "baggage_status",
+                "value": "loading"
+              }
+            ],
+            "message": "loading"
+          },
+          {
+            "id": "B7",
+            "aircraftId": "K3",
+            "flightInstance": "RP822",
+            "eventTime": 3,
+            "receiptTime": 6,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "fuel_status",
+                "value": "complete"
+              }
+            ],
+            "message": "complete"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 15,
+          "question": "What does the baggage report establish for RP820?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "RP820",
+          "required": [
+            "B1:baggage_status"
+          ],
+          "allowed": [
+            "B1:baggage_status"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 69.999,
+          "question": "For that aircraft, is there an overall readiness confirmation in the reports we have received?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "RP820",
+          "required": [],
+          "allowed": [
+            "B3:baggage_status"
+          ],
+          "unknowns": [
+            "overall_readiness"
+          ]
+        },
+        {
+          "cutoff": 95,
+          "question": "For that aircraft, contrast the earlier ready state with the most recent readiness report.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "RP820",
+          "required": [
+            "B4:overall_readiness",
+            "B5:overall_readiness"
+          ],
+          "allowed": [
+            "B4:overall_readiness",
+            "B5:overall_readiness"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "estimate_correction",
+      "world": {
+        "scenarioId": "REPAIR-HISTORY-V2-estimate-correction",
+        "duration": 400,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "RP830"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "RP831"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "RP832"
+          }
+        ],
+        "events": [
+          {
+            "id": "T1",
+            "aircraftId": "K1",
+            "flightInstance": "RP830",
+            "eventTime": 2,
+            "receiptTime": 5,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "14:10"
+              }
+            ],
+            "message": "14:10"
+          },
+          {
+            "id": "T2",
+            "aircraftId": "K1",
+            "flightInstance": "RP830",
+            "eventTime": 20,
+            "receiptTime": 32,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "14:40",
+                "supersedes": [
+                  "T1:tobt"
+                ]
+              }
+            ],
+            "message": "14:40"
+          },
+          {
+            "id": "T3",
+            "aircraftId": "K1",
+            "flightInstance": "RP830",
+            "eventTime": 42,
+            "receiptTime": 55,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "14:25",
+                "supersedes": [
+                  "T2:tobt"
+                ]
+              }
+            ],
+            "message": "14:25"
+          },
+          {
+            "id": "T4",
+            "aircraftId": "K2",
+            "flightInstance": "RP831",
+            "eventTime": 3,
+            "receiptTime": 6,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "15:05"
+              }
+            ],
+            "message": "15:05"
+          },
+          {
+            "id": "T5",
+            "aircraftId": "K2",
+            "flightInstance": "RP831",
+            "eventTime": 58,
+            "receiptTime": 72,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "15:20",
+                "supersedes": [
+                  "T4:tobt"
+                ]
+              }
+            ],
+            "message": "15:20"
+          },
+          {
+            "id": "T6",
+            "aircraftId": "K3",
+            "flightInstance": "RP832",
+            "eventTime": 4,
+            "receiptTime": 7,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "16:00"
+              }
+            ],
+            "message": "16:00"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 15,
+          "question": "Read out the target off-block estimate for RP830.",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "RP830",
+          "required": [
+            "T1:tobt"
+          ],
+          "allowed": [
+            "T1:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 57,
+          "question": "Actually use RP831: which off-block estimate is available?",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "RP831",
+          "required": [
+            "T4:tobt"
+          ],
+          "allowed": [
+            "T4:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 72,
+          "question": "Keep that aircraft selected and compare its previous and updated off-block estimates.",
+          "mode": "change",
+          "aircraftId": "K2",
+          "flight": "RP831",
+          "required": [
+            "T4:tobt",
+            "T5:tobt"
+          ],
+          "allowed": [
+            "T4:tobt",
+            "T5:tobt"
+          ],
+          "unknowns": []
+        }
+      ]
+    }
+  ],
+  "scope": "12 diagnostic paraphrases/renamed identities in known families; not independent scenario generalization",
+  "sourceHashes": {
+    "backend/training_adapter.py": "acab2bb3f1da8283421e17dcddefc5974510220433f62433e33589e193269f8c",
+    "backend/training_result.py": "fd5ef35817a76db5b512d528185a65b412d9eb8a26edc872b82b70511baf4242",
+    "backend/training_worker.py": "6c8209f3b4a2bb64fecfb83200e85670dffaf0998e11924358c97b4ebe2bad54",
+    "scripts/check_ordinary_repair.py": "bd38d555be3bff7895a1c3056231d6db009e004648d491fad5a87510bbd5c71a",
+    "scripts/history_evaluation.py": "f4afaabf2fbe5ad27e4839ffcafd74b438641d8fac782a07913b5715bb6e22a2"
+  }
+}

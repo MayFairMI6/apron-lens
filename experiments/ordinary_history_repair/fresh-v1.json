@@ -1,0 +1,626 @@
+{
+  "episodes": [
+    {
+      "name": "stand_before",
+      "world": {
+        "scenarioId": "ORDINARY-HISTORY-FRESH-V1-stand_before",
+        "duration": 150,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "NQ641"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "NQ752"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "NQ863"
+          }
+        ],
+        "events": [
+          {
+            "id": "F1A",
+            "aircraftId": "K1",
+            "flightInstance": "NQ641",
+            "eventTime": 3,
+            "receiptTime": 8,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "C21"
+              }
+            ],
+            "message": "C21"
+          },
+          {
+            "id": "F1B",
+            "aircraftId": "K1",
+            "flightInstance": "NQ641",
+            "eventTime": 27,
+            "receiptTime": 40,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "H6",
+                "supersedes": [
+                  "F1A:stand"
+                ]
+              }
+            ],
+            "message": "H6"
+          },
+          {
+            "id": "F1C",
+            "aircraftId": "K1",
+            "flightInstance": "NQ641",
+            "eventTime": 48,
+            "receiptTime": 80,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "J14",
+                "supersedes": [
+                  "F1B:stand"
+                ]
+              }
+            ],
+            "message": "J14"
+          },
+          {
+            "id": "F1D",
+            "aircraftId": "K2",
+            "flightInstance": "NQ752",
+            "eventTime": 4,
+            "receiptTime": 9,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "B9"
+              }
+            ],
+            "message": "B9"
+          },
+          {
+            "id": "F1E",
+            "aircraftId": "K3",
+            "flightInstance": "NQ863",
+            "eventTime": 5,
+            "receiptTime": 10,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "H6"
+              }
+            ],
+            "message": "H6"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 50,
+          "question": "Before departure, which stand is currently assigned to NQ641?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "NQ641",
+          "required": [
+            "F1B:stand"
+          ],
+          "allowed": [
+            "F1B:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 51,
+          "question": "For this flight, which stand was assigned immediately before H6?",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "NQ641",
+          "required": [
+            "F1A:stand"
+          ],
+          "allowed": [
+            "F1A:stand",
+            "F1B:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 52,
+          "question": "Correction to the flight: use NQ752 instead. Which stand is assigned to it now?",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "NQ752",
+          "required": [
+            "F1D:stand"
+          ],
+          "allowed": [
+            "F1D:stand"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "stand_preceding",
+      "world": {
+        "scenarioId": "ORDINARY-HISTORY-FRESH-V1-stand_preceding",
+        "duration": 150,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "AZ471"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "AZ582"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "AZ693"
+          }
+        ],
+        "events": [
+          {
+            "id": "F2A",
+            "aircraftId": "K1",
+            "flightInstance": "AZ471",
+            "eventTime": 3,
+            "receiptTime": 8,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "L3"
+              }
+            ],
+            "message": "L3"
+          },
+          {
+            "id": "F2B",
+            "aircraftId": "K1",
+            "flightInstance": "AZ471",
+            "eventTime": 27,
+            "receiptTime": 40,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "M17",
+                "supersedes": [
+                  "F2A:stand"
+                ]
+              }
+            ],
+            "message": "M17"
+          },
+          {
+            "id": "F2C",
+            "aircraftId": "K1",
+            "flightInstance": "AZ471",
+            "eventTime": 48,
+            "receiptTime": 80,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "P8",
+                "supersedes": [
+                  "F2B:stand"
+                ]
+              }
+            ],
+            "message": "P8"
+          },
+          {
+            "id": "F2D",
+            "aircraftId": "K2",
+            "flightInstance": "AZ582",
+            "eventTime": 4,
+            "receiptTime": 9,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "Q12"
+              }
+            ],
+            "message": "Q12"
+          },
+          {
+            "id": "F2E",
+            "aircraftId": "K3",
+            "flightInstance": "AZ693",
+            "eventTime": 5,
+            "receiptTime": 10,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "stand",
+                "value": "M17"
+              }
+            ],
+            "message": "M17"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 50,
+          "question": "For AZ471, give the earlier stand and its received replacement, citing both.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "AZ471",
+          "required": [
+            "F2A:stand",
+            "F2B:stand"
+          ],
+          "allowed": [
+            "F2A:stand",
+            "F2B:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 51,
+          "question": "Keeping that flight selected, identify the stand immediately preceding M17.",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "AZ471",
+          "required": [
+            "F2A:stand"
+          ],
+          "allowed": [
+            "F2A:stand",
+            "F2B:stand"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 52,
+          "question": "I meant AZ582. Please give the current stand for that flight.",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "AZ582",
+          "required": [
+            "F2D:stand"
+          ],
+          "allowed": [
+            "F2D:stand"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "estimate_prior",
+      "world": {
+        "scenarioId": "ORDINARY-HISTORY-FRESH-V1-estimate_prior",
+        "duration": 150,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "KD314"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "KD425"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "KD536"
+          }
+        ],
+        "events": [
+          {
+            "id": "F3A",
+            "aircraftId": "K1",
+            "flightInstance": "KD314",
+            "eventTime": 3,
+            "receiptTime": 8,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "09:15"
+              }
+            ],
+            "message": "09:15"
+          },
+          {
+            "id": "F3B",
+            "aircraftId": "K1",
+            "flightInstance": "KD314",
+            "eventTime": 27,
+            "receiptTime": 40,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "09:50",
+                "supersedes": [
+                  "F3A:tobt"
+                ]
+              }
+            ],
+            "message": "09:50"
+          },
+          {
+            "id": "F3C",
+            "aircraftId": "K1",
+            "flightInstance": "KD314",
+            "eventTime": 48,
+            "receiptTime": 80,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "10:05",
+                "supersedes": [
+                  "F3B:tobt"
+                ]
+              }
+            ],
+            "message": "10:05"
+          },
+          {
+            "id": "F3D",
+            "aircraftId": "K2",
+            "flightInstance": "KD425",
+            "eventTime": 4,
+            "receiptTime": 9,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "11:20"
+              }
+            ],
+            "message": "11:20"
+          },
+          {
+            "id": "F3E",
+            "aircraftId": "K3",
+            "flightInstance": "KD536",
+            "eventTime": 5,
+            "receiptTime": 10,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "09:50"
+              }
+            ],
+            "message": "09:50"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 50,
+          "question": "What target off-block time is currently estimated for KD314?",
+          "mode": "current",
+          "aircraftId": "K1",
+          "flight": "KD314",
+          "required": [
+            "F3B:tobt"
+          ],
+          "allowed": [
+            "F3B:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 51,
+          "question": "For the same flight, what target off-block estimate was reported immediately prior to 09:50?",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "KD314",
+          "required": [
+            "F3A:tobt"
+          ],
+          "allowed": [
+            "F3A:tobt",
+            "F3B:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 52,
+          "question": "Switch to KD425; I was asking about that flight. What is its target off-block estimate?",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "KD425",
+          "required": [
+            "F3D:tobt"
+          ],
+          "allowed": [
+            "F3D:tobt"
+          ],
+          "unknowns": []
+        }
+      ]
+    },
+    {
+      "name": "estimate_before",
+      "world": {
+        "scenarioId": "ORDINARY-HISTORY-FRESH-V1-estimate_before",
+        "duration": 150,
+        "aircraft": [
+          {
+            "id": "K1",
+            "flightInstance": "LM207"
+          },
+          {
+            "id": "K2",
+            "flightInstance": "LM318"
+          },
+          {
+            "id": "K3",
+            "flightInstance": "LM429"
+          }
+        ],
+        "events": [
+          {
+            "id": "F4A",
+            "aircraftId": "K1",
+            "flightInstance": "LM207",
+            "eventTime": 3,
+            "receiptTime": 8,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "18:05"
+              }
+            ],
+            "message": "18:05"
+          },
+          {
+            "id": "F4B",
+            "aircraftId": "K1",
+            "flightInstance": "LM207",
+            "eventTime": 27,
+            "receiptTime": 40,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "18:35",
+                "supersedes": [
+                  "F4A:tobt"
+                ]
+              }
+            ],
+            "message": "18:35"
+          },
+          {
+            "id": "F4C",
+            "aircraftId": "K1",
+            "flightInstance": "LM207",
+            "eventTime": 48,
+            "receiptTime": 80,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "18:20",
+                "supersedes": [
+                  "F4B:tobt"
+                ]
+              }
+            ],
+            "message": "18:20"
+          },
+          {
+            "id": "F4D",
+            "aircraftId": "K2",
+            "flightInstance": "LM318",
+            "eventTime": 4,
+            "receiptTime": 9,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "19:10"
+              }
+            ],
+            "message": "19:10"
+          },
+          {
+            "id": "F4E",
+            "aircraftId": "K3",
+            "flightInstance": "LM429",
+            "eventTime": 5,
+            "receiptTime": 10,
+            "source": "authored-exercise-reports",
+            "facts": [
+              {
+                "property": "tobt",
+                "value": "18:35"
+              }
+            ],
+            "message": "18:35"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "cutoff": 50,
+          "question": "Compare the earlier and revised target off-block estimates received for LM207.",
+          "mode": "change",
+          "aircraftId": "K1",
+          "flight": "LM207",
+          "required": [
+            "F4A:tobt",
+            "F4B:tobt"
+          ],
+          "allowed": [
+            "F4A:tobt",
+            "F4B:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 51,
+          "question": "What target off-block estimate did that aircraft have immediately before 18:35?",
+          "mode": "history",
+          "aircraftId": "K1",
+          "flight": "LM207",
+          "required": [
+            "F4A:tobt"
+          ],
+          "allowed": [
+            "F4A:tobt",
+            "F4B:tobt"
+          ],
+          "unknowns": []
+        },
+        {
+          "cutoff": 52,
+          "question": "Actually, select LM318 rather than LM207. State its latest off-block estimate.",
+          "mode": "current",
+          "aircraftId": "K2",
+          "flight": "LM318",
+          "required": [
+            "F4D:tobt"
+          ],
+          "allowed": [
+            "F4D:tobt"
+          ],
+          "unknowns": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "ordinary-history-fresh-v1",
+    "authorship": "Independent reviewer, pre-model-call authored and frozen",
+    "scope": "12 same-family fresh questions in four new stand/TOBT worlds; no independent-domain generalization claim",
+    "labelsNeverModelInput": [
+      "mode",
+      "required",
+      "allowed",
+      "unknowns",
+      "metadata"
+    ],
+    "composition": {
+      "episodes": 4,
+      "questions": 12,
+      "history": 4,
+      "current": 6,
+      "change": 2,
+      "flightCorrections": 4
+    },
+    "gate": "Old 12 diagnostic questions all pass; fresh paired repair exact passes >= baseline with no newly failing case and no wrong-flight or future citations; audit every raw response.",
+    "noTuning": "Do not revise inputs/gold after model exposure. A failed gate is recorded rather than tuned against this fresh set."
+  }
+}

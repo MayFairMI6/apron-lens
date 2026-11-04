@@ -1,0 +1,3 @@
+baseline complete
+repair complete
+{"completedPairs": 12, "passed": {"baseline": 12, "repair": 12}, "newlyFailingCases": [], "deliveredIdentityOrSupportFailures": [], "gate": true, "scope": "frozen same-domain pilot, no tuning or broad superiority claim"}

@@ -66,6 +66,10 @@ def run_turn(session, data, turn, adapter, settings):
         checked = validate_proposal(None, data, cutoff)
         checked['errors'] = ['followup_reference_mismatch_after_retry' if reply.metadata.get('trainingAttemptCount') == 2 else 'followup_reference_mismatch']
         checked['display']['answer'] = 'I could not reliably identify the flight in your question. Please name the flight and try again.'
+    elif reply.ok and reply.metadata.get('trainingSelectionError')=='historical_fact_missing':
+        checked = validate_proposal(None, data, cutoff)
+        checked['errors'] = ['historical_fact_missing_after_retry' if reply.metadata.get('trainingAttemptCount') == 2 else 'historical_fact_missing']
+        checked['display']['answer'] = 'I could not reliably identify the earlier report you asked for. Please rephrase or open Sources.'
     elif reply.ok and reply.metadata.get('trainingEmptyAnswer'):
         checked = validate_proposal(None, data, cutoff)
         checked['errors'] = ['empty_answer_after_retry' if reply.metadata.get('trainingAttemptCount') == 2 else 'empty_answer']

@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "scope": "bounded runtime ownership probe",
+  "errorType": "EOFError",
+  "error": "",
+  "status": "failed",
+  "closedStatus": "closed",
+  "requestsRecorded": 0
+}

@@ -12,6 +12,8 @@ import os
 import time
 from pathlib import Path
 from modelaccess.contract import Result, FinishReason, Usage
+from dataclasses import asdict
+from backend.training_result import checked_training_result
 
 
 def _serve(connection, factory, settings):
@@ -82,6 +84,7 @@ class IsolatedTrainingAdapter:
 
     def _stop(self):
         process = self._process
+        stopped = None
         if process is not None:
             pid = process.pid
             if process.is_alive():
@@ -92,16 +95,19 @@ class IsolatedTrainingAdapter:
                 self.status = 'failed'
                 raise RuntimeError('Previous model worker has not stopped')
             if process.pid is not None: process.join()
-            self._record('worker_stopped', pid=pid, exitcode=process.exitcode)
+            stopped = dict(pid=pid, exitcode=process.exitcode)
             process.close(); self._process = None
+        if self._connection is not None:
+            self._connection.close(); self._connection = None
         if self._startup_transport is not None:
             self._startup_transport.join(min(.25, self.cleanup_timeout))
             if self._startup_transport.is_alive():
                 self.status = 'failed'
                 raise RuntimeError('Startup transport has not stopped')
             self._startup_transport = None
-        if self._connection is not None:
-            self._connection.close(); self._connection = None
+        # Audit failure must never prevent releasing a stopped owner's resources.
+        if stopped is not None:
+            self._record('worker_stopped', **stopped)
 
     def _start(self):
         self._stop()  # A second owner is forbidden until the old process is gone.
@@ -151,8 +157,15 @@ class IsolatedTrainingAdapter:
             try: self._start()
             except Exception as exc:
                 self.status = 'closed' if self._closed.is_set() else 'failed'
-                self._record('worker_recovery_failed', error=type(exc).__name__)
-                self._stop()
+                try:
+                    self._record('worker_recovery_failed', error=type(exc).__name__)
+                except Exception:
+                    pass  # The failed audit destination cannot report its own failure.
+                try:
+                    # Logging failure must not strand a replacement model owner.
+                    self._stop()
+                except Exception:
+                    self.status = 'closed' if self._closed.is_set() else 'failed'
 
     def _failure(self, request, error, started):
         return Result(request.request_id, self.provider, request.settings.model, None, '',
@@ -180,28 +193,44 @@ class IsolatedTrainingAdapter:
                 finally:
                     finished.set()
             transport = threading.Thread(target=communicate, daemon=True)
-            transport.start()
             try:
+                transport.start()
                 if not finished.wait(self.generation_timeout):
                     raise TimeoutError('Model request deadline exceeded')
                 if 'error' in exchange: raise exchange['error']
                 kind, value = exchange['reply']
                 if kind != 'result': raise RuntimeError('Model worker failed: '+str(value))
+                value = checked_training_result(value, request)
+                if value.finish_reason == FinishReason.ERROR:
+                    self._record('worker_runtime_failure', requestId=request.request_id,
+                                 modelResult=asdict(value))
+                    raise RuntimeError('Model runtime reported failure')
                 self._record('worker_request_complete', requestId=request.request_id,
                              elapsedSeconds=time.monotonic()-started, ok=value.ok)
                 return value
-            except (TimeoutError, EOFError, BrokenPipeError, OSError, RuntimeError) as exc:
+            except Exception as exc:
                 self.status = 'recovering'
-                self._record('worker_request_failed', requestId=request.request_id,
-                             error=type(exc).__name__, elapsedSeconds=time.monotonic()-started,
-                             usageUnknown=True)
+                audit_failed = False
+                try:
+                    self._record('worker_request_failed', requestId=request.request_id,
+                                 error=type(exc).__name__, elapsedSeconds=time.monotonic()-started,
+                                 usageUnknown=True)
+                except Exception:
+                    audit_failed = True
                 try: self._stop()
-                except RuntimeError:
+                except Exception:
+                    self.status = 'failed'
+                    if transport.ident is not None:
+                        transport.join(min(.25, self.cleanup_timeout))
                     return self._failure(request, 'model_worker_cleanup_failed', started)
-                transport.join(min(.25, self.cleanup_timeout))
+                if transport.ident is not None:
+                    transport.join(min(.25, self.cleanup_timeout))
                 if transport.is_alive():
                     self.status = 'failed'
                     return self._failure(request, 'model_transport_cleanup_failed', started)
+                if audit_failed:
+                    self.status = 'failed'
+                    return self._failure(request, 'model_worker_audit_failed', started)
                 if not self._closed.is_set():
                     self._recovery = threading.Thread(target=self._recover, daemon=True)
                     self._recovery.start()

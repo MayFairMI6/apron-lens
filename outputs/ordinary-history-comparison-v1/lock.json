@@ -1,0 +1,22 @@
+{
+  "sourceHashes": {
+    "backend/training_adapter.py": "b57e732baa993fb6fe6e373866fc8c2b967817f926ddf24023e002e77c709a0f",
+    "backend/training_history_guard.py": "7c045ca7c94a8bb21d6adc934c6b20f8ce8aefa666cec3a28fdb2573c7630cfd",
+    "backend/training_turn.py": "3253697cfa857c21aea9d7976a1eb4e62c03b0d1ad4b518183cefc4d049cda91",
+    "backend/training_result.py": "fd5ef35817a76db5b512d528185a65b412d9eb8a26edc872b82b70511baf4242",
+    "backend/training_worker.py": "6c8209f3b4a2bb64fecfb83200e85670dffaf0998e11924358c97b4ebe2bad54",
+    "experiments/ordinary_history_repair/baseline.py": "70e519a6a5037173b4b80000813b1c29c93b34ead9247d9b17d7268ead269b83",
+    "experiments/ordinary_history_repair/fresh-v1.json": "e9dabbe824032f06893e3db0f5522a81cc8fde01848733a94fb412ae4eb1915a",
+    "scripts/check_ordinary_repair.py": "b9471d2db5999697b81fce1939f17424e0f84300a2ea47d791df62863bba6f65"
+  },
+  "regression": {
+    "completed": 12,
+    "passed": 12,
+    "scope": "diagnostic only; no prompt revision"
+  },
+  "armOrder": [
+    "baseline",
+    "repair"
+  ],
+  "gate": "All12 regressions pass; repair at least baseline exact, no newly failing case; no delivered wrong flight or unavailable evidence. Descriptive same-domain pilot; no tuning after evaluation."
+}

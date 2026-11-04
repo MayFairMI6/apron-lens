@@ -1,0 +1,6 @@
+{
+  "version": "ordinary-v8-completion-guard-before-history-retry",
+  "sha256": "70e519a6a5037173b4b80000813b1c29c93b34ead9247d9b17d7268ead269b83",
+  "scope": "Same new completion guard as repair; history selection policy remains prior v3. Isolated paired comparator, not deployment.",
+  "relocationOnlyChange": "role_profiles path uses parents[2] from experiments subdirectory"
+}
