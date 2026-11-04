@@ -1,6 +1,6 @@
 # AirfieldLens shared takeover and resume record
 
-**Current owner: Codex, resumed by the user on 3 November 2026 after Claude exhausted usage.** The R11 redesign is approved in CURRENT at commit7cd7671 under `TYPED_REVIEW_R11_CONTRACT.md`. R10 failed the second reserve; all earlier progress below is retained as history. Codex is implementing the redesign in new modules and independently authoring/blind-labeling a third reserve. No R11 model result or production adoption yet. See the final progress entry for ownership; older Claude-active tables are superseded.
+**Current owner: Codex, resumed by the user on 3 November 2026 after Claude exhausted usage.** The R11 redesign is approved in CURRENT at commit7cd7671 under `TYPED_REVIEW_R11_CONTRACT.md`. R10 failed the second reserve; all earlier progress below is retained as history. Codex is implementing the redesign in new modules and independently authoring/blind-labeling a third reserve. Latest actual R11v3.1: old6 3/6 exact (2/3 valid, 5 delivered); DEV24 13/24 exact (8/12 valid, 22 delivered), zero false-credit criteria. Still unqualified: implicit-argument quotation and shared-resource timing repairs are next. No production adoption; fresh-v3 remains withheld. See the final progress entry for ownership; older Claude-active tables are superseded.
 
 ## Shared working location
 
@@ -19,7 +19,7 @@ Branch: `codex/checkpoint1-controller-training`; PR #22 is the publication desti
 4. [Agent policy](../AGENT_EXECUTION_POLICY.md).
 5. Current git status/diff and only the relevant code/tests.
 
-## Verified current position — 3 November 2026
+## Historical takeover position — 3 November 2026 (superseded by progress log)
 
 ML-052 is UNFINISHED. Latest R8 fixes pass all six old regressions and all 24 exposed development questions, with independent review. The actual uncached reserved test FAILED: 11/24 exact, 3/12 valid answers exact, 23/24 delivered, zero false-credit criteria. Evidence is in `outputs/relation-regression-mps-r8/`, `outputs/relation-development-mps-r8/`, and `outputs/relation-reserved-mps-r8/`. Preserve every prior run.
 
@@ -99,3 +99,6 @@ Local handoff checks: 473 unit tests passed in43.933seconds; research integrity 
 
 
 **4 November 2026 — scoped-source diagnostic and narrow defect repair.** R11v3 old6=2/6exact,1/3valid,6delivered,0falsecredit; DEV24=8/24exact,5/12valid,24delivered,onefalsecredit(case1grounding). Evidence `outputs/scoped-content-regression-mps-r11v3/` and `outputs/scoped-content-development-mps-r11v3/`. Independent review found source-search proof dependencies incorrectly reused as semantic retrieval links, expanding scoped text to unrelated actors; metadata/provenance eligibility did not prevent wrong-flight entailment. Confidence-ranked quotes also produced an irrelevant parked-tail quote for a cancellation criterion. Eight focused offline tests passed but these actual semantic findings reject v3. Narrow3.1 fixes separate audit dependencies from source retrieval and preserve original-sentence/antecedent quote boundaries; no new grading rule, acceptance relaxation, reserve3 usage or production/native step. Root waits explicit3.1sourcefreeze before actual tests; alloldoutputs/video preserved.
+
+
+**4 November 2026 — R11v3.1 actual result and next bounded repair.** Old6=3/6exact,2/3valid,5delivered; DEV24=13/24exact,8/12valid,22delivered; bothzero falsecredit. Sourceproof retrieval leak repaired; oldconfirmation quote no longer includes unrelated parked fragment; DEV16scope quote retains neededcontext. Remainingvaliddelivery failures old1/DEV4/DEV12 need earlier explicit learneraircraft context despite later sentence not beginning with a pronoun. DEV10 mixes an older cross-aircraft StandB availability assertion with later confirmation because whole-message currentness was incorrectly inferred from peractor/property factcurrentness. Next3.2 addresses those2bounded issues with explicitsource/quoteaudit, preservingactor-specificolderfacts and originalreports. No newstatus/model/gates, noreserve use, noacceptedproduction/nativeclaim. Rawruns at `outputs/scoped-content-regression-mps-r11v3-1/` and `outputs/scoped-content-development-mps-r11v3-1/`.

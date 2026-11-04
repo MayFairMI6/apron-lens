@@ -1208,3 +1208,64 @@ versus semantic-closure repair is still within the authorized source redesign,
 but does not remedy all observed classification/coverage/quotation gaps or
 justify reserve use. No new missing/assertion policy, threshold, gold, gate,
 production change or fresh-v3 inspection is claimed by this review.
+
+## R11v3.1 bounded closure/quotation repair — not qualified
+
+Frozen source SHA-256 is
+`fe0bd3bdd8f6f4b90c0541799e967d3e1043392f2963223c175d0895369af753`.
+Independent source readback and all 12 offline tests pass. Proof search
+dependencies remain audited separately from semantic report/entity retrieval;
+they no longer pull unrelated actors into a scope. Quotation candidates preserve
+original sentences and allow preceding exact context for generic leading
+anaphora/deixis. The coordinator retained the existing uniform confidence ranking
+only among those structurally allowed bundles, with no epsilon, new weights,
+threshold change or primary-judgment change. Confidence is still not relevance
+proof.
+
+| Actual uncached suite | Exact | Valid exact | Delivered | Correct statuses | False credit |
+|---|---:|---:|---:|---:|---:|
+| [Old six](../../outputs/scoped-content-regression-mps-r11v3-1/summary.json) | 3/6 | 2/3 | 5/6 | 13/18 | 0 |
+| [Development 24](../../outputs/scoped-content-development-mps-r11v3-1/summary.json) | 13/24 | 8/12 | 22/24 | 53/72 | 0 |
+
+Frozen snapshots match their locks. All 59/220 planned comparisons have finite
+matching actual rows without truncation or pair error; maximum inputs are
+498/511 tokens. Direct startup is 2.755/2.797 seconds; reviews take
+0.578–6.935/0.133–5.323 seconds. Undelivered quote-cover errors occur after scoring,
+not because of inference/token failure. The full suites still fail the mandatory
+exposed gate.
+
+Actual targeted checks confirm two repairs: DEV1 now compares the incorrectly
+attributed TRN103 obstruction only with TRN103's actual records, returning neutral
+1.0 rather than borrowing TRN102's vehicle fact for false credit. Its expected
+contradicted reason/grounding still remain uncertain, so this is partial remedy.
+Old case 5's confirmation quote is now its confirmation sentence, with no
+unrelated “parked.” tail. DEV16's scope retains two exact original sentences,
+including the explicit authority/prerequisite distinction and its antecedent.
+
+The narrowed context policy introduces three valid-answer delivery failures:
+old case 1 and DEV4/12 have no qualifying quotation cover. Their later sentences
+do not start with pronouns but still depend on the aircraft introduced by the
+earlier learner sentence. For example, “Fuel is complete…” has neutral 0.9985
+against the named TRN102 fuel facet alone, although the full answer entails it at
+0.9951. This is implicit argument/discourse context, not an excessive input or
+160-character problem. A phrase-specific fuel exception or confidence-only
+context expansion would not be a general repair.
+
+DEV10 exposes a distinct source-time problem. The normalized bundle labels the
+entire earlier L011/TRN102 report current, including its sentence “Stand B is not
+yet confirmed available,” alongside later L016/TRN103 confirmation that Stand B
+is available and the hold released. It then contradicts the valid answer at
+0.8999. Typed-fact currentness is scoped per aircraft/property; it does not make
+every older message assertion current for a shared resource. Preserve the source
+and its still-eligible movement-condition fact while representing each resource
+assertion's source clock and later update honestly. No gold change or wholesale
+source deletion is justified.
+
+Omission, unsupported factual additions, wrong-flight relation interpretation and
+anaphoric grounding still need a uniform policy. DEV16's separate unbound “Those
+reports…” grounding comparison includes every aircraft and splits into two
+contexts; both entail the statement, but the complete-one-context requirement
+withholds it. This limitation must not be bypassed by silently claiming complete
+coverage. The observed gains support continued bounded repair, not reserve or
+production qualification. No model, gold, gate or contract change, model call,
+implementation edit or fresh-v3 read was made by this reviewer.
