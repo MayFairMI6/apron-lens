@@ -1,0 +1,58 @@
+{
+  "candidate": {
+    "count": 24,
+    "exact": 3,
+    "validCount": 12,
+    "validExact": 0,
+    "delivered": 21,
+    "falseCredit": [
+      {
+        "index": 12,
+        "criterion": "flight"
+      },
+      {
+        "index": 17,
+        "criterion": "estimate"
+      }
+    ]
+  },
+  "baseline": {
+    "count": 24,
+    "exact": 4,
+    "validCount": 12,
+    "validExact": 1,
+    "delivered": 22,
+    "falseCredit": [
+      {
+        "index": 9,
+        "criterion": "reason"
+      },
+      {
+        "index": 12,
+        "criterion": "flight"
+      },
+      {
+        "index": 17,
+        "criterion": "estimate"
+      }
+    ]
+  },
+  "newlyFailing": [
+    8,
+    10,
+    19
+  ],
+  "gates": {
+    "validAtLeastTen": false,
+    "zeroFalseCredit": false,
+    "noNewBaselineFailure": false,
+    "validAcceptanceAtLeastBaseline": false,
+    "deliveredAtLeastBaseline": false
+  },
+  "semanticGatePassed": false,
+  "note": "Independent semantic/provenance review and production/native/runtime/publication gates remain separate. Quote contracts may differ; delivery is not a policy-only comparison.",
+  "recordSHA256": {
+    "outputs/relation-reserve2-mps-r10/records.jsonl": "c25c073f56974c5b6e990b2b1edb40f01333304f8e5019a4e5c0d9edb477ffe0",
+    "outputs/relation-reserve2-baseline-v2/records.jsonl": "262c888882a2bc758c12defebd0ea34e633e53f8b4fcab13f3fe12fba63809aa"
+  }
+}

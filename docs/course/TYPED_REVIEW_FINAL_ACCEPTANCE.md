@@ -784,3 +784,112 @@ withheld from implementation. Given (b), the reviewer recommends taking the
 architecture decision through the milestone ledger before another lexical
 revision cycle spends a third reserve. All R8–R10 runs, both baselines and this
 failed evaluation stay preserved.
+
+## R11 preimplementation independent risk review
+
+At HEAD `7cd7671`, this qualification reviewer read the approved CURRENT redesign
+placement and frozen [R11 contract](TYPED_REVIEW_R11_CONTRACT.md), SHA-256
+`20f58ff7de68fed251b0a6bc13bbcecb436e75837c5e47e9a3acc905266e6c5c`.
+No fresh-v3 content, model output or implementation source was read for this
+preimplementation review. No model calls, gold/contract edits or implementation
+edits were made. These are prospective acceptance invariants, not qualification
+or evidence the redesign works.
+
+Whole-answer, question-aware NLI can legitimately interpret a short answer in its
+actual question context. Its premise must remain the exact question and learner
+answer, separately identified; source facts, criterion propositions and expected
+answers cannot become asserted learner content. Exposed omission, unrelated-answer
+and ambiguity controls must demonstrate that the question's presuppositions alone
+do not earn credit. A locally entailed snippet cannot override whole-answer
+retraction, correction, attribution, modality or competing identity.
+
+Grounding must distinguish an unsupported affirmative extra from a valid
+nonconfirmation or other non-factual passage. A neutral NLI score alone establishes
+neither contradiction nor support. Replacing every unsupported-extra contradiction
+with uncertainty would still fail the unchanged exactness labels. Source-scope
+rules require current same-episode/cutoff provenance; an absent nonexistent
+clearance field establishes nothing. Include each report's actual `source` for
+attribution checks and retain current-versus-historical distinctions.
+
+Each quote must be an exact bounded witness relevant to its own point/facet.
+Selecting a short substring cannot discard a negation, retraction or other scope
+qualifier that changes its meaning. Multiple quotes must not manufacture support
+by joining unrelated aircraft or times. The legacy validator rejects extra point
+keys, so the experiment must validate a legacy projection plus the independently
+enforced frozen list contract; production remains unchanged until promotion.
+
+Token budgeting must expose all comparison chunks and retained/dropped context,
+preserve identity/time/polarity/attribution/retraction, reject truncation and avoid
+combining unrelated source fragments into a supported assertion. Omitting a source
+to fit a token budget cannot prove absence. Unavailable coverage must be reflected
+honestly rather than treated as successful evidence checking.
+
+One freeze ambiguity was reported to the coordinator before implementation calls:
+the ledger asks for quote ordering and de-duplication to be pinned. The contract
+specifies at most three nonoverlapping quotes of 160 characters each (an implied
+480-character total), but not quote order or how repeated identical substring
+occurrences bind to nonoverlapping spans. Record the intended convention before
+the first R11 run and before reserve labeling. This reviewer has not changed the
+contract. Actual frozen source, exposed inference, every quotation/source
+association and the new reserve remain later independent gates.
+
+**Pre-inference clarification resolved.** The coordinator subsequently pinned
+ascending source-position order, earliest available nonoverlapping occurrence
+binding, no duplicate quote strings per point and the explicit 480-character
+total. The updated contract SHA-256 is
+`f49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996`.
+The ledger records that this clarification precedes any R11 inference and fresh-v3
+blind labeling. This resolves the freeze ambiguity above; no status, gold, model,
+threshold or gate changed. Prior review history remains preserved.
+
+**Paired comparison utility review.** This reviewer read
+`scripts/compare_typed_runs.py` and independently ran its four offline tests; all
+passed. The new `outputs/relation-reserve2-paired-recheck.json` agrees with the
+previous independent R10 audit: candidate 3/24 exact, 0/12 valid, 21 delivered,
+two false-credit criteria; baseline 4/24, 1/12, 22 delivered, three false-credit
+criteria; newly failing cases 8, 10, 19; all five gates fail. The utility correctly
+recomputes status equality rather than trusting saved `exact` flags and rejects
+duplicate indices or different paired payloads/gold. Existing evidence was not
+rewritten.
+
+A concrete robustness gap was reported: any non-null review counts as delivered,
+and repeated criterion IDs are collapsed into a dictionary without schema,
+verdict or quote-contract validation. An offline synthetic duplicate
+`contradicted`/`met` point with an inconsistent `needs_review` verdict still
+produced 24/24 exact and all gates true. Therefore its delivery and acceptance
+metrics currently require separately verified prevalidated records; this utility
+alone does not establish contract delivery. The historical R10 rejection is not
+affected because those actual records already received independent contract and
+semantic inspection. Reject malformed reviews under the arm's correct legacy or
+multi-quote contract before using the utility to certify future delivered-yield
+or valid-acceptance gates. No model or reserve-three data was used in this check.
+
+**Utility validation follow-up.** The coordinator added `checked_review`, which
+validates a strict legacy projection and checks supplied multi-quote lists. This
+reviewer independently ran the updated six tests: all pass. The previous duplicate
+point/inconsistent-verdict counterexample is now rejected; additional offline
+duplicate, reversed-order and overlapping-quote probes are also rejected.
+`outputs/relation-reserve2-paired-validated-recheck.json` retains the same raw record
+hashes, metrics and all-five-failed decision as the independently inspected R10
+comparison. The earlier missing-validation finding is remedied for supplied
+legacy/list fields.
+
+One narrower R11 contract-presence check remains: `learnerQuotes` is optional in
+the utility, and its CLI does not bind each arm to the lock's declared quote
+contract. Thus a redesigned candidate point lacking the required list is accepted
+under legacy rules. Preserve legacy baseline compatibility while requiring lists
+on every point of an arm declared to use the frozen multi-quote contract. This
+was reported before any R11 acceptance comparison; it changes no model, gold,
+threshold or semantic gate. Independent per-quote relevance/provenance review is
+still required after mechanical validation.
+
+**Final utility resolution.** The coordinator added explicit per-arm multi-quote
+flags and CLI binding to each frozen lock's `quoteContract`; missing historical
+metadata defaults to the legacy contract, and unknown contracts are rejected.
+Every point of a declared multi-quote arm must now carry `learnerQuotes`. This
+reviewer read the final change and independently ran all seven offline tests:
+all pass, including missing-list rejection for R11 and successful mixed
+multi-quote-candidate/legacy-baseline validation. Both concrete utility findings
+above are resolved. No further blocker was found in this bounded utility review;
+the separate semantic/provenance, inference, native and publication gates remain.
+No reserve-three data or model call was used.

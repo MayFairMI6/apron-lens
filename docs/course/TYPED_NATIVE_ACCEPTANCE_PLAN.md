@@ -187,3 +187,8 @@ Native acceptance passes only if cases 1 to 10 are exercised in the real simulat
 ## 9. Not claimed
 
 This document does not claim that any step was executed other than the read-only checks in Section 2, that the app builds, that the Unity editor in `work/unity-editor` is licensed, that the typed reviewer is accepted, or that physical-device behavior is validated.
+
+
+## Codex environment reconciliation — 3 November 2026
+
+The earlier “no app build exists” finding was limited to the repository work directory. An existing build is present at `/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/work/ios-derived/Build/Products/Debug-iphonesimulator/ApronLensPreview.app`, with adjacent `ios-project` and `ios-xcode` directories. `xcrun simctl list devices available -j` confirms the prior iPhone18Pro/iOS27 device `15E94EB0-7558-4181-91B0-6716D718F19B` is available and shutdown. This verifies file/device availability only, not current source equivalence, installation, launch, or R11 multi-quote acceptance. Inspect source/build identity before reuse and rebuild if required by promoted UI changes. No model or simulator was started for this reconciliation.

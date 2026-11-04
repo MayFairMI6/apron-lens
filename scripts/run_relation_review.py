@@ -8,11 +8,15 @@ raw=a.fixture.read_text();cases=json.loads(raw)['cases'] if a.fixture.suffix=='.
 a.output.mkdir(parents=True,exist_ok=False)
 source=Path(m.__file__).parent;paths=list(source.glob('*.py'))+[Path(__file__),ROOT/'backend/training_assessment.py']
 if a.module.endswith('mps_candidate'):paths.append(ROOT/'modelaccess/nli.py')
+contract_path=ROOT/'docs/course/TYPED_REVIEW_R11_CONTRACT.md' if '.redesign' in a.module else None
+if contract_path is not None:paths.append(contract_path)
 if a.development_cache:paths.append(ROOT/'scripts/relation_development_cache.py')
 hashes={str(x.relative_to(ROOT)):hashlib.sha256(x.read_bytes()).hexdigest() for x in paths}
 for x in paths:
  dest=a.output/'source'/x.relative_to(ROOT);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(x,dest)
 lock=dict(module=a.module,version=m.VERSION,sourceHashes=hashes,fixture=str(a.fixture),fixtureSHA256=hashlib.sha256(raw.encode()).hexdigest(),model=m.MODEL_ID,revision=m.MODEL_REVISION,threshold=m.THRESHOLD,createdAt=time.time())
+lock['quoteContract']='up-to-three-exact-160-character-quotes' if contract_path is not None else 'single-exact-160-character-quote'
+if contract_path is not None:lock['contractSHA256']=hashlib.sha256(contract_path.read_bytes()).hexdigest()
 if a.module.endswith('mps_candidate'):
  import importlib.metadata
  snapshot=Path.home()/'.cache/huggingface/hub'/('models--'+m.MODEL_ID.replace('/','--'))/'snapshots'/m.MODEL_REVISION
