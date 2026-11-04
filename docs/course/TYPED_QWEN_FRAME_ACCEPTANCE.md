@@ -787,3 +787,105 @@ links and preserves strict unresolved syntax. It does not grant fidelity from
 copying or unit coverage. No concrete blocker was found for the unchanged six-case
 no-retry run. Semantic gates, parser/runtime and untrusted/report flags remain
 unchanged. No model call, candidate edit or additional contrast/reserve read occurred.
+
+## Actual v8 — wording fidelity improves, structure trades off
+
+The [complete v8 run](../../outputs/qwen-frame-extraction-v8-initial/summary.json)
+records **6/6 observed-EOS completions and 6/6 structurally valid outputs**, without
+timeout or retry. Records SHA-256 is
+`fc96fccf65afc2ef62c0def6dd7ae4d9584699c05d48e34da5242b24ab7c1f17`.
+Snapshot/fixture hashes and exact prompt reconstruction independently match.
+Startup took 9.764 seconds; requests took 6.586–12.080 seconds and 54–105 tokens.
+All six record EOS token 248044; these are extraction-stage measurements only.
+
+| Case | All 23 frozen semantic obligations and structure assessment |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful ambiguity and resource/different-role meaning survive in a copied whole sentence. The independent-claim output requirement remains unmet; preserved text is not atomic extraction. |
+| 17 | `withdrawn-value`, `correction`, `estimate`, `permission-scope`: faithful, with withdrawn value, explicit linked replacement and separate estimate/non-conferral claims. Context supplies the literal replacement pronoun. |
+| 19 | `resolved-items`, `readiness`, `unknown-permission`: faithful original stated basis/readiness and `Only` unknown-clearance meaning; the invented confirmation is gone. No named actor must be repeated beyond what connected context resolves. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: faithful meanings, including non-conferral rather than denial. Unreleased/held/non-conferral remain a copied compound rather than separate independent claims. |
+| 23 | `cancellation`: faithful current attributed confirmation. `clearance`: the positive assertion survives but its `with that` basis/link is dropped. `parked`, `condition`: faithful connected parked/only/pending-until meaning. |
+| 2 | `actor-repair`: the original literal repair survives, but the whole correction is marked active without a withdrawn fragment or replacement link. `delay`, `fuel`, `baggage-unknown`, `contrast`: faithful in connected original wording. Copied correction and service sentences do not establish their required semantic decomposition. |
+
+Initial qualification still fails. V8 fixes the invented confirmation but does not
+solve the correction metadata and atomicity requirements, and introduces a lost
+cancellation/clearance relationship. This pattern across exposed prompt revisions
+supports a task-burden hypothesis: preserving all wording and constructing the
+needed discourse structure compete in the current single generation. It does not
+prove that the pinned model is incapable of either task or of generalization.
+
+The next defensible bounded route is a separately versioned, predeclared
+decomposition diagnostic rather than another accumulating warning prompt. One
+planned interpretation pass would select source-preserving atomic clauses and
+repair fragments; a second planned pass would receive the original full learner
+utterance plus that **untrusted** selection to annotate discourse/lifecycle/links.
+Each stage's exact task, outputs and failure handling must be frozen in advance.
+The second annotator is not a fidelity certificate, retry or opportunity to hide
+and replace a failed first stage. Preserve both raw outputs and count first-stage
+omissions/compounds and second-stage additions/link errors separately against all
+23 unchanged obligations. Do not add reports, questions, rubric or private labels.
+
+Such a route requires its own source plan/addendum and placement approval before
+implementation. Both planned passes must share the unchanged whole-request budget;
+55 seconds cannot become 55 per pass. No parsing repair, automatic adoption or
+self-verified fidelity is allowed. Independent semantic assessment and later
+contrasting controls remain required before grading integration. No new architecture
+is accepted by this recommendation. The reviewer made no model call, candidate
+edit, raw repair, new contrast inspection or sealed-reserve read.
+
+## Two-pass pre-implementation plan review
+
+The reviewer read `TYPED_QWEN_TWO_PASS_CONTRACT.md` end-to-end. Fixed Stage A
+clause IDs retained exactly once in B deliberately prevent silent repair of
+selection omissions/compounds. That is a defensible diagnostic tradeoff, provided
+selection and annotation errors remain separate and both stages face the unchanged
+23 obligations. Exact spans and retained IDs do not establish semantic fidelity.
+One aggregate 55-second deadline, fixed 500+500 output caps, observed EOS for each,
+durable A evidence before B, and abort/no-fallback behavior match the agreed scope.
+
+Two narrow clarifications were sent before implementation: correction ordering
+must consult retained selected-span offsets, not just sentence-reference starts
+when both claims share a unit; and A unresolved notes must concern genuine
+selection limitations rather than pronoun/lifecycle work deliberately delegated
+to B. Original A notes/raw output remain preserved, never silently removed to
+claim improvement. No architectural blocker was found; these meanings should be
+explicit in the frozen plan/source. No code, inference, new contrast or reserve
+material was created/read by the reviewer.
+
+## Two-pass v1 frozen-source clearance
+
+Independent full readback matches candidate `2766a80b1ef39016615893480152962a239767beba165082d8469601dfdcd667`,
+runtime `55edf6d1894a107c0b147633cd68e0303bf93a68b5a43049aef3425ac38fd8a6`,
+runner `3b8765c591043515f3b45b958338921c59092c2bca3eca25a73351e285715863`,
+and contract `f36e439c928616e6cc2bf5eeb0ce14f9b1d07948cf5afdb9da719e936e1ccd56`.
+Runtime-test SHA-256 is
+`0ffeed54867418dd66e605dbcefd6c09e126cd85e5ca4ad083874176a36db24a`.
+All 67 focused offline controls independently pass in 0.586 seconds.
+
+Both pre-code clarifications are implemented: correction ordering uses selected
+span offsets, and A uncertainty is limited to selection work. B retains every
+selection ID exactly once, contains its original span and preserves unresolved
+rows with multiplicity. Wrong meanings may still parse but always remain untrusted
+with all fidelity/report/completeness flags false.
+
+The runtime runs both planned calls inside one owner review request, under the
+outer 55-second killable deadline, with fixed 500+500 caps and per-stage observed
+EOS/usage checks. Raw A output is flushed and fsynced before parsing or B; invalid
+A aborts B, and invalid B never falls back to A. Warmup directly generates its
+readiness probe rather than recursively running the two-pass pipeline. A real
+isolated-process timeout test with fake inference verifies that completed A raw
+evidence survives termination during B. These are mechanical/runtime controls,
+not model-quality or actual pipeline-latency evidence.
+
+The coordinator reported an earlier test-harness mistake: its fake lacked a
+`load` override, causing actual weights to load before the ten-second test startup
+failed. The fake now explicitly returns from `load` without weights; the corrected
+67-test run passes, and the coordinator reports no remaining model owner. That
+attempt was not the six-case diagnostic and supplies no semantic evidence. This
+reviewer's test invocation used the corrected fake and made no model call.
+
+No concrete source blocker was found for the unchanged initial six-case diagnostic.
+All raw selections, annotations, aborted attempts and 23 stage-specific semantic
+obligations still require independent review. No report checker, semantic
+acceptance or reserve eligibility follows. The reviewer edited no candidate and
+read no additional contrast/reserve material.

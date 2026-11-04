@@ -3709,3 +3709,67 @@ sealed/ineligible under the changed architecture as previously decided. Broader
 exposed/stress qualification and a valid independently approved reserve process
 are still required. The final narrated video, previous results and deployed
 typed reviewer remain unchanged; ML-052 is unfinished.
+
+**4 November 2026 — Qwen planned two-pass interpretation placement.** Root and
+the independent frame reviewer report that v8 returns six terminal, parseable
+outputs but remains semantically unqualified: controls 12/20 retain compound
+claims, control 23 drops the "with that" relation, and control 2 copies a subject
+repair without the required withdrawal/link. Those failures do not qualify a
+report stage. Preserve all v8 and earlier source/raw outputs. The proposed two
+planned passes remain within the user's approved CURRENT local-Qwen structured-
+interpretation route, provided a new versioned addendum is frozen before calls.
+They are a different experimental decomposition, not an implicit retry, fallback
+or deployment. No additional user reopening permission is needed.
+
+One experimental `TwoPassFrameAdapter.review` may perform source-preserving
+atomic selection followed by discourse/lifecycle/relation annotation using the
+same loaded Qwen owner. Both passes receive original learner text; pass two may
+also receive the explicitly untrusted first-pass selection. Neither receives
+reports, questions, rubric/gold or prior expected interpretation. Stage-two
+annotations must bind to original source spans, not treat generated selection
+text as learner evidence. Preserve full conjunction, quantifier, conditional,
+attribution and correction relationships across any atomic split. More rows or
+shorter quotations alone do not establish atomicity or semantic completeness.
+
+Freeze both prompts/schemas, stage boundaries, selection/annotation disagreement
+rules, exact quote binding, source/configuration identity and stage token limits.
+The proposed maximum is 500 output tokens per planned stage, at most 1,000 total;
+record actual totals and never extend a stage budget to rescue a difficult case.
+Observed terminal/EOS evidence is required for each; malformed, failed, incomplete
+or nonterminal stage one aborts stage two with its raw record preserved. Stage-two
+failure invalidates the combined interpretation; do not deliver a first-pass-only
+fallback. A terminal finish does not itself establish complete interpretation.
+Always use the same frozen two-stage policy, not a per-answer choice of the more
+favorable stage or format. No silent repair/retry, cached prior output or alternate
+prompt after failure.
+
+The existing isolated worker's single 55-second deadline must cover BOTH calls,
+parsing, annotation assembly and returned transport; server/native limits remain
+60/90 seconds. No nested owner or second model load is introduced. Preserve
+per-stage raw output, prompts, token usage including unknown usage, actual terminal
+reason/token, parse errors and elapsed times, plus combined request time. Verify
+stage-one early failure suppresses the second model call and that timeout/worker
+replacement never replays either stage or applies a late result. Token splitting
+and apparent speed are hypotheses for actual testing, not acceptance evidence.
+
+Stage two is a discourse annotation task, NOT independent fidelity verification
+of stage one or the combined result. Both can share a model error. Keep automatic
+fidelity/report-check flags false: no report grading follows merely because the
+two stages agree or references bind. Before any report prototype, the separately
+specified runtime fidelity gate must still address added meaning, omitted claims
+and relation/scope errors against the complete original answer. Do not source-
+complete an omitted first-pass assertion. Missing/unclear material must remain
+explicit and block a claim of faithful complete interpretation; any allowed
+stage-two detection of omissions must be auditable against original text, not
+silently erase the first-stage error.
+
+The smallest next diagnostic is the same frozen six learner texts and unchanged
+semantic obligations, followed only on success by the independently frozen 12
+contrasts. Independently inspect both stages, final claims, every source span,
+atomicity/relations, lifecycle and unresolved material. Inject stage failures and
+syntactically valid invented/omitted/reversed annotations offline; mechanical
+success is distinct from actual semantic fidelity. All exposed/stress, runtime,
+reserve eligibility, native and publication gates remain intact. No reserve
+authoring/use, production activation, new weights or media changes are authorized
+by this placement. ML-052 remains unfinished; prior results, deployed review and
+the final narrated video remain unchanged.
