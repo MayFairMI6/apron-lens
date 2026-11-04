@@ -950,3 +950,44 @@ unchanged six-case no-retry diagnostic; code/runtime, budgets, semantic gates an
 failure denominators remain fixed. Formatting improvements cannot erase A's
 selection failures or certify B's meaning. No model call, candidate edit, raw
 repair, additional contrast or reserve read was performed by the reviewer.
+
+## Actual two-pass v2 — valid wire, remaining repair failures
+
+The [complete v2 run](../../outputs/qwen-two-pass-v2-initial/summary.json) records
+**6/6 valid selections and annotations, twelve observed-EOS calls, no timeout or
+retry**. Records SHA-256 is
+`fc72b70a8315d235e190de4e233d3c68fcf3d3245fee5eba28c7fd5951974877`;
+stage-audit SHA-256 is
+`c4f44a12a74a72f968b4ce505077c016c0fd03ea9b38655ea4d979acd8d7e156`.
+Independent snapshot/fixture/audit-lock hashes and exact reconstruction of both
+prompts pass. Startup took 9.595 seconds; aggregate requests took 16.682–25.177
+seconds with 143–220 output tokens. Both calls in every case record observed EOS.
+No external evaluator information or repaired output entered either stage.
+
+| Case | All 23 obligations, selection A and annotation B |
+|---:|---|
+| 12 | `entities`, `occupancy`, `waiting`: faithful separate A clauses and B meanings, preserving unnamed distinct roles and same stand; no unsupported named assignment. |
+| 17 | `withdrawn-value`: A retains the original value and B correctly withdraws it. `correction`: A separates the repair announcement from replacement 10:20; B leaves the replacement unlinked, so the required value-repair relationship fails. `estimate`, `permission-scope`: now separate and faithful in both stages. |
+| 19 | `resolved-items`, `readiness`, `unknown-permission`: faithful in both stages, including sorted basis, original readiness assertion, `Only`, actor context and unconfirmed rather than denied permission; no invented confirmation. |
+| 20 | `not-released`, `held`, `permission`, `lvp`: separate faithful A clauses and B meanings, with preserved restriction, non-conferral and attribution. |
+| 23 | `cancellation`, `clearance`, `parked`, `condition`: faithful in both stages; A now retains `with that` and B preserves it, plus current attribution, `only` and pending condition. |
+| 2 | `actor-repair`: A wrongly groups both names into one item and isolates its predicate; B withdraws that whole two-name fragment and leaves the active predicate without corrected actor/link. `delay`: its predicate and late-bag cause survive but the required corrected-actor binding fails. `fuel`, `baggage-unknown`, `contrast`: surface meanings remain in context, but A/B's invalid withdrawal of both actor names makes the corrected-actor chain unreliable. No actual loading noncompletion or permission is invented. |
+
+The concrete wire example resolves the previous systematic format failure in
+this exposed run, and selection improves on the TOBT compound and missing causal
+edge. This is a narrower empirical result than architectural or generalization
+acceptance. The initial diagnostic still fails the two self-repair cases despite
+all twelve valid EOS completions.
+
+A bounded prompt-only v3 is supported by these remaining errors: A must select
+the actual prior fragment/value separately from the corrected actor-plus-predicate
+or value, rather than grouping both actors into the withdrawn item. Repair cues
+should remain attached/contextual to the replacement when needed, not substitute
+for its relationship. B needs a matched unrelated numeric correction example
+with the earlier value withdrawn and the actual replacement explicitly linked.
+Keep the complete-negative contrast to avoid treating every negation as a repair.
+V2 already demonstrates one actor-repair example, so another warning alone is not
+evidence the problem will be solved; the revised general selection rule is a
+testable hypothesis. Parser/runtime, caps, denominator, original labels and all
+23 obligations stay unchanged. No inference, candidate edit, new contrast/reserve
+inspection or raw repair was performed by the reviewer.

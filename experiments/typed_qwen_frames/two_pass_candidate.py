@@ -6,7 +6,7 @@ import re
 
 from .candidate import FrameError, source_units, _object, _exact_keys, _refs, _bind, _has_content
 
-VERSION = 'typed-qwen-two-pass-v2'
+VERSION = 'typed-qwen-two-pass-v3'
 MAX_STAGE_OUTPUT_TOKENS = 500
 MAX_OUTPUT_TOKENS = 1000
 LIFECYCLES = {'active', 'withdrawn', 'history', 'ambiguous'}
@@ -22,6 +22,12 @@ one unit, and necessary contextual spans can overlap. Select separate independen
 assertions, including extra claims that seem wrong; do not just copy a compound
 answer as one item. Keep operators and their arguments, attribution, restrictions,
 causal/implication relationships, conditional futures and correction fragments.
+For an actual correction, select the withdrawn fragment/value separately from
+the corrected actor plus predicate or replacement value. Do not join old AND new
+names in one selected fragment and leave a detached predicate as another item.
+Keep a correction cue attached to its replacement/context, not as a standalone
+factual clause. A complete negative assertion is not automatically a correction;
+do not apply this split merely because the words "no" or "sorry" occur.
 If an edge cannot be separated without loss, retain its exact connected text.
 Do not resolve pronouns, annotate lifecycle, complete noun fragments or invent
 missing predicates. These are selections for a second planned task, NOT verified
@@ -34,6 +40,9 @@ gives exactly ONE JSON object:
 {"clauses":[["c1",["u1"],"Mira"],["c2",["u1"],"Leo — moved the chair"],["c3",["u1"],"with that the doorway is clear"]],"unresolved":[]}
 The interrupted noun is a fragment; the replacement is separate. The conjunct
 retains "with that" and its argument, not merely "the doorway is clear".
+Numeric example u1 "The delivery is at 14:00 — correction, it is at 15:00." gives
+{"clauses":[["c1",["u1"],"The delivery is at 14:00"],["c2",["u1"],"correction, it is at 15:00"]],"unresolved":[]}
+The cue accompanies its replacement; it is not an extra assertion by itself.
 Use actual learner text, never example content. No repairs or retries follow.
 '''
 
@@ -59,6 +68,9 @@ outside facts. Literal pronouns with context are okay; preserve genuinely unreso
 roles/alternatives in text and unresolved. Unknown truth is not ambiguous meaning.
 lifecycle active|withdrawn|history|ambiguous is not truth or confidence. Retain a
 repair fragment as withdrawn and MUST link the corrected replacement to that ID;
+If an old value is withdrawn and a new value is its explicit correction, the new
+value's correctionTarget MUST point to that old-value ID, not null. Do not attach
+the link merely to a cue or withdraw the corrected actor along with the old one.
 do not invent a denied predicate for an interrupted noun. A complete negative
 assertion remains active unless actually retracted. Examples: "Nora, no, Leo moved"
 can select Nora as a withdrawn fragment and Leo moved as its linked replacement;
@@ -73,6 +85,11 @@ Output exactly
 This does not deny Mira moved something or independently confirm the doorway's
 state. It preserves the learner's asserted connection. Use actual learner text
 and supplied IDs, never copy example content into another answer.
+Numeric matched example: original u1 "The delivery is at 14:00 — correction, it is at 15:00."
+UNTRUSTED_SELECTION is
+{"clauses":[["c1",["u1"],"The delivery is at 14:00"],["c2",["u1"],"correction, it is at 15:00"]],"unresolved":[]}
+Output exactly
+{"claims":[["c1",["u1"],"The delivery is at 14:00.","withdrawn",null],["c2",["u1"],"The delivery is at 15:00.","active","c1"]],"unresolved":[]}
 '''
 
 
