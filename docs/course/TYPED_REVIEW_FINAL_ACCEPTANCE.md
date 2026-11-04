@@ -1007,3 +1007,72 @@ acceptance or reserve evaluation. Source-time contrast controls should accompany
 that probe check. Preserve R11v1 and keep model/revision, threshold, contract,
 gold and gates unchanged. This reviewer made no model call or implementation
 change and has not read fresh-v3.
+
+## Complete exposed probe matrix review — no validated uniform replacement yet
+
+This reviewer read the complete frozen matrix builder, all 122 actual raw
+comparisons and probabilities, and the saved summary at
+[redesign-probe-matrix-v2](../../outputs/redesign-probe-matrix-v2/summary.json).
+Builder SHA-256 is
+`3853752bb66aa710b8f5cbc5da04c6c8d365891fd585fa3e90cb99fc80dfaeeb`.
+Saved source snapshots and the two exposed fixture hashes match their lock; all
+122 planned pairs were scored with finite probabilities and no error/truncation.
+The pinned MPS float16 model/revision and threshold 0.8 remain unchanged. Maximum
+input is 128 tokens. Measured startup is 2.924 seconds and complete diagnostic
+time is 4.799 seconds, not an isolated-owner/native latency measurement.
+
+Only 48 comparisons have frozen direct-content entailment/contradiction/neutral
+labels; 41 agree and seven fail. The 74 exploratory topic/meta/category rows
+have null expected labels and no accuracy denominator. These repeated authored
+development controls are diagnostic evidence, not a population benchmark or
+review-level acceptance score.
+
+| Defined direct-control family | Correct / total | Observed limitation |
+|---|---:|---|
+| Omission versus opposite | 5/8 | An unrelated baggage assertion is falsely contradictory to held-aircraft content; question context adds ambiguity. |
+| Identity presupposition | 6/6 | These direct identity controls distinguish missing and supplied identity, but do not validate the separate coverage probe. |
+| Correction content contrast | 21/24 | A corrected-to-current answer still entails the withdrawn prior value in one format. |
+| Current/history source clock | 7/8 | Appending a past pending report can make stale-current pending content appear supported. |
+| Explicit short-dialogue content | 2/2 | This defined subset tests explicit unconfirmed wording, not ambiguous “No” or “unsure” fragments. |
+
+The question effect is directly demonstrated on exposed DEV9: answer-only input
+contradicts “not yet confirmed available” at 0.9990, while lean Q/A entails it at
+0.9673. That same Q/A also entails the opposite available-now statement at 0.9873.
+Question context is therefore not a uniform safe replacement for the verbose R11
+wrapper. It helps interpret the bare “No” example, but also turns “I am not sure”
+into entailment of source nonconfirmation at 0.9683; the latter need not mean the
+learner asserts that source status. Selecting question inclusion separately to
+obtain the desired result on each exposed answer would be case-format tuning.
+
+Answer-only operational content avoids the demonstrated question reversal, but
+is not sufficient by itself: unrelated completed baggage is classified as a
+contradiction to TRN101 being held at 0.9629. Lean coverage probes also fail
+basic distinctions. “An aircraft is identified” is contradicted at 0.9941 by an
+explicitly identified TRN102 answer. Unrelated baggage entails “an aircraft hold
+status is mentioned” at 0.9170, while an explicit aircraft release contradicts it
+at 0.9204. These category probes cannot safely certify presence/absence on this
+evidence.
+
+Ordinary numeric content contrasts work better than the earlier “ultimately
+asserts” instructions, but do not solve correction scope generally: a
+corrected-to-current answer still entails its withdrawn 10:20 value at 0.8076 in
+answer-only form. The past-then-current source clock also entails a deliberately
+stale-current pending assertion at 0.8682. The answer-only temporal category
+probe entails an earlier-state description even for plain current confirmation
+(0.9214), so it cannot justify enabling historical evidence.
+
+Direct current report comparisons yield the expected qualitative distinction in
+the few grounding examples: known cancellation and explicit unknown clearance
+are entailed; an invented engine fire is neutral. But no tested universal rule
+maps that neutral score to contradicted unsupported facts versus uncertain valid
+paraphrases. Exploratory event/state categories are inconsistent and provide no
+validated replacement for that decision.
+
+**Independent interpretation:** no tested uniform end-to-end mechanism is
+established by this matrix. A uniformly specified content-only redesign can be
+developed and tested as a new exposed candidate within the authorized scope;
+the matrix does not qualify it or justify selecting a favorable format per case.
+Remove the disproven meta-probe assumptions, preserve all comparisons/failures,
+and require complete exposed review/gates for any revised candidate before
+fresh-v3. No threshold, gold, contract or acceptance gate was changed. This
+reviewer made no model calls or implementation edits and has not read fresh-v3.
