@@ -3210,3 +3210,156 @@ Final narrated video and prior accepted runtime/history scope remain unchanged.
 - Status: ML-052 UNFINISHED. No production promotion and no native acceptance. The native acceptance plan exists (`docs/course/TYPED_NATIVE_ACCEPTANCE_PLAN.md`, commit `0858bc9`); nothing has been executed. No process is running and the GPU is idle.
 - Decision point (user): implementation is paused pending an architecture decision. Options: (1) continue revising the current design; (2) redesign within scope, e.g. remove word-list gating and whole-answer plus question-context comparisons, claim-checking grounding, multi-quote delivery; (3) use the pinned local generative model for structured claim extraction verified by NLI; (4) defer or reject ML-052 production adoption and keep the current reviewer.
 - Next: user architecture decision, then a milestone-ledger placement review before any new revision consumes a third reserve.
+
+## ML-052 redesign placement — 3 November 2026
+
+**Reviewer role and evidence.** Ledger reviewer; read-only except this append. Read
+the latest user steering ("Redesign within scope", after R10 failed all five
+fresh-v2 gates), `MILESTONE_LEDGER_AGENT.md`, this ledger through the R9/R10
+entry, and the fresh-v2 audit and alternatives in `TYPED_REVIEW_FINAL_ACCEPTANCE.md`
+(commit `16dbaf7`), and grepped where `learnerQuote` is used. No model, GPU or
+native run; I did not open any reserve file (`fresh-v3.json` does not exist in the
+tree at this check). Numbers above are the audit's, not recomputed here.
+
+**Placement: CURRENT, as the user's settled assignment (firm scope), one unit
+within ML-052.** Not M2/M3, deferred or rejected. All five destinations were
+compared. M2/M3 would not help: the unit is a repair of the existing typed
+reviewer, and its dependency (the pinned MPS model and fixed reserve gates) is
+already in CURRENT. Defer/reject (option 4) is a legitimate alternative that the
+user declined; it stays available (see "What would change this"). Settled
+assignment is recorded as settled. The acceptance gates are real and unchanged.
+
+**Unit D and unit R recorded separately for traceability, with no extra
+milestone count.** R = reviewer redesign (no word-list gating; claim-checking
+grounding; classifier-led history/correction scope). D = delivery (multiple
+literal quotes per point; premise budgeting under 512 tokens without truncation).
+Both are inside ML-052, but D has its own sub-gates below.
+
+**Is the multi-quote change inside ML-052?** Yes as scope, but it is not a
+free internal detail. `learnerQuote` (single, at most 160 characters, exact
+substring) is validated in `backend/training_assessment.py` and displayed by
+`unity/.../TrainingView.cs`, and it is used by the other candidates and many
+tests. Changing it alters a user-facing and persisted contract. Conditions:
+
+1. Freeze the new quote contract (maximum number of quotes, per-quote and total
+   length, exact-substring rule, empty for omitted points, order, de-duplication)
+   in writing before fresh-v3 is authored. It must be the contract that would ship.
+   Otherwise "delivered" and "exactly reviewed" are measured under a contract that
+   does not exist in production.
+2. Run the redesigned candidate in the experiment layer under that frozen contract.
+   Change production `training_assessment.py`, `TrainingView.cs` and their tests
+   only at promotion, after the fresh-v3 gates pass. Keep old single-quote
+   responses and saved history readable.
+3. The baseline stays the frozen small-NLI v2 under its single 160-character
+   contract. Report the contract difference with every comparison. Delivered yield
+   is then not strictly like-for-like, and a delivered-yield tie or win must not be
+   described as only a reviewer improvement.
+4. Guard against laxity. Per-quote relevance is inspected for every output, as the
+   adoption gates already require. More quotes must not turn a point "met" without
+   each quote supporting it. Keep learner-facing text simple (no wall of quotes).
+5. Native acceptance must include multi-quote rendering (portrait and landscape,
+   longest allowed case, selection/retry/stale-checkpoint unchanged). A passing
+   backend result does not cover display.
+
+**Other dependencies and constraints.**
+- Same pinned DeBERTa-v3-large model and revision, MPS, threshold 0.8; no new
+  weights or paid APIs. Comparing every sentence, window and the whole answer
+  against each point multiplies pair count; R10's "up to 7 s per answer" does not
+  establish this. Measure scoring time and whole-request time under the actual
+  isolated owner before native acceptance. The 55/60/90-second budgets and the
+  no-concurrent-MPS-with-Qwen rule are unchanged.
+- The "separately justified status for paraphrases the classifier cannot confirm"
+  (audit alternative 2) is a gate-definition decision. Fix its mapping to gold
+  statuses and to the exactness definition in writing before fresh-v3 is
+  authored, and state that it can never yield credit. Introducing it afterwards,
+  or changing what counts as exact, would be quiet relaxation.
+- Pin the label convention the audit disclosed as ambiguous (whether
+  attributions to a report's `source` field count as supported) before authoring
+  fresh-v3, and give it to author and labeler alike.
+- Overlap with C02: claim-checking grounding resembles M2's planned typed-claim/
+  evidence checker. Record this redesign as ML-052 work only. It does not complete
+  or double-count C02, and it makes no formal-checker claim.
+- Option 3 (Qwen claim extraction) is not part of this unit. Earlier generative
+  reviewers were rejected; a later proposal needs its own placement.
+
+**fresh-v3 independence.** The plan is accepted with these additions. The audit
+itself notes the fresh-v2 author was also the R9/R10 reviewer and the acceptance
+auditor, so the third reserve must not repeat that.
+- Author: a fresh agent that has not read implementation sources, outputs,
+  reviews, the fresh-v1/v2 failure analysis or other reserve answers. It may be
+  given the schema, the public reports/checkpoints, the pinned label convention and
+  a style-coverage list (fragments, label lines, source attributions, long answers,
+  modals, in-sentence correction, service/flight swaps, negation). Record that
+  this list was derived from exposed failures; it is coverage guidance, not a
+  population sample.
+- Labeler: a different agent, blind to the author's gold and to all model output.
+  Record disagreements and adjudicate before inference (third reader or
+  recorded rule), and keep agreement rates. Labels are not changed after any
+  run. Neither author nor labeler may be the implementer or the qualification
+  reviewer.
+- Root and implementers do not open `fresh-v3.json` until the single frozen paired
+  run. Freeze by SHA-256 before the candidate's final lock. The other reserve
+  gates (12 valid, 12 non-valid, four exercises, at least eight fuel/baggage,
+  model inputs without gold) carry over unchanged. Say plainly that agents of the
+  same model family are not shown to be unbiased.
+
+**Gates, unchanged and in order.** (1) Exposed: six regressions, 24 development
+cases, and the exposed fresh-v1 and fresh-v2 as development evidence; (2)
+independent qualification review of the frozen source/lock and the D contract; (3)
+one uncached paired run on fresh-v3 against the frozen small-NLI v2 baseline:
+at least 10/12 valid exact, zero false-credit criteria, no newly failing baseline
+case, valid acceptance and delivered yield at least baseline, with an independent
+semantic audit of every output; (4) production source/contract checks, native iOS
+typed-flow acceptance (feedback, saved input/retry, stale-checkpoint, display,
+latency under 55/60/90 s); (5) publication and passing remote CI/readback. Passing
+(1) or (3) alone is not completion. The final narrated video (SHA-256
+`5d7a2060…af3af1`), old results and #60/#61 limits are unchanged. Native and
+publication steps stay unexecuted until reached.
+
+**Recommended addition (not a new gate).** The last two reserves went 3/12 then
+0/12 valid after full exposed fit, so exposed-pass is weak evidence of
+generalization. Before spending fresh-v3, have a separate agent author a
+development-only paraphrase/perturbation stress set around the exposed cases (this
+may be tuned on openly) and report its results next to the exposed suites. This
+costs only an authoring pass and may avoid burning a reserve. Reviewer judgement
+only, not evidence it works.
+
+**Strongest reason for CURRENT/earlier.** The user chose it, the unit is a
+bounded repair of the one failing feature, the failure analysis names mostly
+structural (about 13 of 21) rather than vocabulary causes, and a redesign now
+avoids spending a third reserve on the same lexical architecture. The pinned model,
+tooling, native plan and the fixed gates exist.
+
+**Strongest reason for later/defer.** Prior revisions closed exposed failures
+without generalizing (3/12, then 0/12 unseen), and the independent auditor judged
+10/12 on unseen data unlikely even for further lexical revision. The redesign is
+a new architecture, so its unseen performance is unmeasured. It adds a user-facing
+contract change, a latency risk and an unfinished downstream chain (native,
+publication), while submission gates #30/#31/#32 and the M2/M3 research remain
+open. The audit says 98-99% per-decision reliability is needed. This is an
+estimate from two 24-case reserves, not proof. Time and effort are unknown; no
+estimate is given and none is invented. The user has removed the per-revision
+cap, so this is a risk to disclose, not a reason to override the assignment.
+
+**What would change this decision.** (a) Exposed-development or stress-set
+results showing the redesign still fails for the structural reasons the audit
+named; (b) pair counts or measured MPS latency that cannot meet the 55/60/90-second
+budgets; (c) fresh-v3 failing any gate: that is a review trigger, and a fourth
+reserve or further redesign needs a new placement review rather than automatic
+continuation, with option 4 (keep the current reviewer, record a negative result)
+then the default comparison; (d) the user's new priority, a stated deadline, or
+submission work displacing it; (e) discovery that the D contract cannot be
+displayed or persisted safely.
+
+**Status after this entry.** Placement recorded; nothing built, qualified,
+run or published for the redesign. ML-052 remains UNFINISHED. Active table:
+ML-052 = CURRENT (user-assigned), sub-units R and D, next gate: written D
+contract and status-mapping freeze, then exposed implementation.
+
+**Exact next action (root).** (1) Write and freeze the quote contract, the
+unconfirmed-status mapping and the label convention; (2) commission the fresh-v3
+author and a distinct blind labeler now, in parallel with implementation, with
+the stated access limits; (3) have a separate agent author the optional stress set;
+(4) implement R/D with a different agent from the qualification reviewer; (5)
+record latency and pair counts; (6) next ledger review when the candidate is
+exposed-qualified or any gate fails, not before.
