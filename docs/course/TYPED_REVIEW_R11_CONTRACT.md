@@ -26,6 +26,12 @@ under this version.
   `uncertain` may have 0–3.
 - Each quote must be relevant to that point, meaning it states content the
   point's status relies on. Extra quotes must not widen what is credited.
+- Quote order follows ascending source position in the learner response. Resolve
+  repeated strings by the earliest available nonoverlapping occurrence after the
+  preceding quote; reject a list that cannot be bound this way. Do not repeat an
+  identical quote string in one point. The total quoted text per point is at most
+  480 characters (the existing three-by-160 bound). This span-binding clarification
+  is recorded before the first R11 inference and third-reserve labeling.
 - The legacy `learnerQuote` field equals the first quote (or `""`), so the
   existing validator, and the frozen baseline, keep working unchanged.
 - Delivered means a review that passes this contract plus the existing checks

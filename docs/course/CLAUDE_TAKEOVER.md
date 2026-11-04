@@ -1,5 +1,7 @@
 # AirfieldLens shared takeover and resume record
 
+**Current owner: Codex, resumed by the user on 3 November 2026 after Claude exhausted usage.** The R11 redesign is approved in CURRENT at commit7cd7671 under `TYPED_REVIEW_R11_CONTRACT.md`. R10 failed the second reserve; all earlier progress below is retained as history. Codex is implementing the redesign in new modules and independently authoring/blind-labeling a third reserve. No R11 model result or production adoption yet. See the final progress entry for ownership; older Claude-active tables are superseded.
+
 ## Shared working location
 
 Use the SAME existing checkout for Claude and Codex:
@@ -82,3 +84,6 @@ Local handoff checks: 473 unit tests passed in43.933seconds; research integrity 
 | Documentation agent | Claude subagent | `CLAUDE_TAKEOVER.md` and `MILESTONE_LEDGER.md` |
 
 **Next concrete action:** user architecture decision (continue current design; redesign within scope; generative claim extraction verified by NLI; or defer/reject production adoption), then a milestone-ledger placement review before any new revision consumes a third reserve.
+
+
+**3 November 2026 — Codex resumes approved redesign.** User confirms Claude is paused because usage is exhausted. Codex owns coordination again at base7cd7671; R11 contract and CURRENT milestone placement adopted unchanged. Implementation works in new redesign modules, preserving R10. Root owns model runs; third reserve remains withheld from implementation. First reconcile whether Claude saved a third-reserve draft, then independently complete authoring/blind labeling before freezing. No production adoption, native acceptance or new model result claimed. Shared local folder remains canonical.

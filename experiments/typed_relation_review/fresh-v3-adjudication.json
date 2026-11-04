@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "reserve": "fresh-v3",
+  "stage": "independently-adjudicated-before-inference",
+  "provenance": {
+    "contract": "docs/course/TYPED_REVIEW_R11_CONTRACT.md",
+    "contractSHA256": "f49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996",
+    "inputSHA256": {
+      "docs/course/TYPED_REVIEW_R11_CONTRACT.md": "f49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996",
+      "experiments/typed_relation_review/fresh-v3-author.json": "6c49eb1a4b4ccfa7a32c0a3f2b065cafe997dca81e473e04116671a2742c6ace",
+      "experiments/typed_relation_review/fresh-v3-blind.json": "4bd28653800ad331c3616729e0445e92a87642eea6314b6f142c62ab7c6d2ed0",
+      "experiments/typed_relation_review/fresh-v3-blind-labels.json": "afecea5ed912abccb049a5c1ad4dc585c33f32cd66d5b5a2e4516077632cf4d7",
+      "experiments/typed_relation_review/fresh-v3-provenance.md": "d937c54ce4efebde1ea57c02f229dae66b5bf4631d7bff8957f1cae73280fdce"
+    },
+    "noModelCalls": true,
+    "labelingSequence": "Independent author and blind-label artifacts existed before adjudication. Adjudicator reviewed only frozen contract, those supplied artifacts and provenance; no implementation, other fixtures, candidate outputs or acceptance failures.",
+    "sourceArtifactsPreserved": true,
+    "publicPayloadsUnchanged": true,
+    "blindRubricRenameOnly": "criteria[].expected -> criteria[].meaning; exact reverse structural equality for all 24 payloads",
+    "caseContentChanged": false,
+    "labelCounts": {
+      "author": {
+        "cases": 24,
+        "valid": 12,
+        "criterionStatuses": {
+          "contradicted": 20,
+          "met": 51,
+          "missing": 1
+        }
+      },
+      "blind": {
+        "cases": 24,
+        "valid": 12,
+        "criterionStatuses": {
+          "contradicted": 21,
+          "met": 50,
+          "missing": 1
+        }
+      }
+    },
+    "agreementBeforeAdjudication": {
+      "caseExact": {
+        "agreed": 23,
+        "total": 24,
+        "ratio": 0.9583333333333334
+      },
+      "criterionStatus": {
+        "agreed": 71,
+        "total": 72,
+        "ratio": 0.9861111111111112
+      },
+      "disagreements": 1,
+      "unresolved": 0
+    },
+    "sampling": "Style coverage supplied from exposed failures; not a population sample."
+  },
+  "coverage": {
+    "total": 24,
+    "valid": 12,
+    "nonvalid": 12,
+    "exercises": {
+      "late_baggage": 8,
+      "surface_conflict": 5,
+      "late_arrival": 5,
+      "fog_restrictions": 6
+    },
+    "checkpoints": 12,
+    "fuelBaggageCases": 8
+  },
+  "resolutions": [
+    {
+      "index": 3,
+      "criterionId": "reason",
+      "authorStatus": "met",
+      "blindStatus": "contradicted",
+      "adjudicatedStatus": "contradicted",
+      "resolution": "blind label retained",
+      "reason": "The criterion asks for the reported service vehicle obstructing its ground route, with its referring to the held flight asked about. Eligible L010 reports that relationship for TRN102. The response explicitly assigns the obstruction and its causal hold relationship to TRN103. Mentioning a service vehicle alone does not identify the reported obstruction relationship. This is a contradicted relational account, rather than absent content; the correct-core convention cannot preserve credit because the obstruction clause itself has the wrong-flight referent.",
+      "evidenceIds": [
+        "L010"
+      ],
+      "contractBasis": "Frozen R11 section 1 criterion exactness and section 3 eligible same-episode reports; supplied public reason rubric."
+    }
+  ],
+  "ambiguities": [],
+  "eligibility": {
+    "eligibleForFirstInference": true,
+    "balancePassed": true,
+    "payloadPreservationPassed": true,
+    "unresolvedLabels": 0
+  },
+  "canonicalPayloadSHA256": [
+    {
+      "index": 1,
+      "canonicalPayloadSHA256": "d38ac7773b504add44066576c1bfd33005e2d0d0440d46fac3c4de79db0097f8"
+    },
+    {
+      "index": 2,
+      "canonicalPayloadSHA256": "0dd1808b296eccbfd4561536e4983b01620f1dfd16a3672b01f32c60e10fb3ce"
+    },
+    {
+      "index": 3,
+      "canonicalPayloadSHA256": "271b913742d701c575458ebbb443e4c8e6adc5bb4637315f63a4946cd6274b83"
+    },
+    {
+      "index": 4,
+      "canonicalPayloadSHA256": "a38ea21b566e70203569aa6aea269bf29138e0850f16ab41bf9591701eb3a2f2"
+    },
+    {
+      "index": 5,
+      "canonicalPayloadSHA256": "43e8413a72875cd3c2d67cca1eef1611fce3355f139cbfc044b8820d1c97333a"
+    },
+    {
+      "index": 6,
+      "canonicalPayloadSHA256": "305604067ff8f4a1642d35021eab851177779ac503cfc86d08f1f30d035e07e9"
+    },
+    {
+      "index": 7,
+      "canonicalPayloadSHA256": "4625b9d4c88680f267a371839761ae2708eef06c890281d8234bc74ab508fdc4"
+    },
+    {
+      "index": 8,
+      "canonicalPayloadSHA256": "92fcac83987e76d0370962aa26f18bfad83996692b73a2c1612dfba40ec4f8a0"
+    },
+    {
+      "index": 9,
+      "canonicalPayloadSHA256": "7ae4ec05c4d6713da79312067273831b87558e7a7badc485bec6cd6392fb46e0"
+    },
+    {
+      "index": 10,
+      "canonicalPayloadSHA256": "3f42a4cc71a25aafd1a90975c43b5204beab3e239cb6b4411960f70819f3d5be"
+    },
+    {
+      "index": 11,
+      "canonicalPayloadSHA256": "4b5fa5289b9ac0f8f65961289dc1aff01883a3775f84830b8db0abd2a03edc40"
+    },
+    {
+      "index": 12,
+      "canonicalPayloadSHA256": "9aad3fe96e878ec5ca7285429efa0344dabc007fc39452823441ae991187e00c"
+    },
+    {
+      "index": 13,
+      "canonicalPayloadSHA256": "a82c2cb75d64807eda2539602e958a63bd641b90e09e5fc820920611da8516b6"
+    },
+    {
+      "index": 14,
+      "canonicalPayloadSHA256": "092663d2fd06f62132152caf19019100081f4d84f7ab5941b7a742cb4a10ce7f"
+    },
+    {
+      "index": 15,
+      "canonicalPayloadSHA256": "a49c005dea16fef3a772ccf89ef6013a4a4e70f22e90e6298d03ffbaa28db85e"
+    },
+    {
+      "index": 16,
+      "canonicalPayloadSHA256": "320e2f425dd74382ce0b21b4c705d29cdfedce24577f2641880639a6b27635a9"
+    },
+    {
+      "index": 17,
+      "canonicalPayloadSHA256": "1bfd5c28fc3886b751e699ec8d2334f6052521bd5737b3006e2939e2151fc737"
+    },
+    {
+      "index": 18,
+      "canonicalPayloadSHA256": "1f3db38194568f49b4f6f49190adae5e3c9ae90495a77c1682ac77faac7627e7"
+    },
+    {
+      "index": 19,
+      "canonicalPayloadSHA256": "968f472f65f11c697c9c21e002eb9b6bc05108eec40003470d2a2ac38203066b"
+    },
+    {
+      "index": 20,
+      "canonicalPayloadSHA256": "3caf241495dd95da3722e3a1ddcfe5e4eed1909ad9f1a268cc7bf264a36a1f2f"
+    },
+    {
+      "index": 21,
+      "canonicalPayloadSHA256": "4eb76123299f83434253dc0ff6831a2a243a6c1123e026d1fd8d4eba3477eef9"
+    },
+    {
+      "index": 22,
+      "canonicalPayloadSHA256": "01fc5837f6df52f70c6e8d3c3cc1fb142ae5b278a10b59df35d0a95a3f82fcfc"
+    },
+    {
+      "index": 23,
+      "canonicalPayloadSHA256": "21979bf1bcbabddfce32e42eb7958707832320d99d0fbfd0533c2c810e24c09c"
+    },
+    {
+      "index": 24,
+      "canonicalPayloadSHA256": "c0a97d6bc64c2df8939490415bad96b3445c9df542be60e68c01eb3f477eedd3"
+    }
+  ]
+}

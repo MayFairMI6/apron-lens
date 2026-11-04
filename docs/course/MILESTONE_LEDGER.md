@@ -3363,3 +3363,9 @@ the stated access limits; (3) have a separate agent author the optional stress s
 (4) implement R/D with a different agent from the qualification reviewer; (5)
 record latency and pair counts; (6) next ledger review when the candidate is
 exposed-qualified or any gate fails, not before.
+
+
+**ML-052 R11 pre-inference quote clarification (3 November 2026).** Independent reviewer identified unspecified list ordering/repeated-string binding. Before any R11 model call and fresh-v3 blind labeling, pin ascending learner-source order, earliest available nonoverlapping occurrence, no duplicate quote strings per point, and explicit total480-character bound implied by3x160. Status meanings, gold, thresholds, evidence and all gates unchanged. Experimental validator projects legacy fields for existing validation and separately validates the list; production unchanged. Codex resumes coordination after user confirms Claude paused/out of usage.
+
+
+**ML-052 third-reserve freeze (3 November 2026).** Independent author, blind labeler and separate adjudicator completed24cases across12checkpoints/4exercises,12valid/12nonvalid,8fuel-baggage. Pre-adjudication agreement23/24cases and71/72statuses; one disagreement resolved before inference, no case content changed. Final fresh-v3 SHA25694f637d91845f1413a5d003faa400c2f8ab6b724f4a757b4693eaa893b2e472c; contractf49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996. Author/labeler/adjudicator were separate from implementation and qualification reviewer; root/implementer have not read answers/gold. Metadata/provenance/manifests retained. This freeze does not authorize inference before exposed qualification; no R11 model call yet.

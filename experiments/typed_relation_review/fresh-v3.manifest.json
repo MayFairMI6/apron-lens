@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "SHA-256",
+  "reserve": "fresh-v3",
+  "eligibleForFirstInference": true,
+  "contractSHA256": "f49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996",
+  "files": {
+    "docs/course/TYPED_REVIEW_R11_CONTRACT.md": "f49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996",
+    "experiments/typed_relation_review/fresh-v3-author.json": "6c49eb1a4b4ccfa7a32c0a3f2b065cafe997dca81e473e04116671a2742c6ace",
+    "experiments/typed_relation_review/fresh-v3-blind.json": "4bd28653800ad331c3616729e0445e92a87642eea6314b6f142c62ab7c6d2ed0",
+    "experiments/typed_relation_review/fresh-v3-blind-labels.json": "afecea5ed912abccb049a5c1ad4dc585c33f32cd66d5b5a2e4516077632cf4d7",
+    "experiments/typed_relation_review/fresh-v3-provenance.md": "d937c54ce4efebde1ea57c02f229dae66b5bf4631d7bff8957f1cae73280fdce",
+    "experiments/typed_relation_review/fresh-v3-adjudication.json": "aef22cf9429d990bcab832b397dfc67db705dab6ccb82e94c839f8d1a4e1951f",
+    "experiments/typed_relation_review/fresh-v3.json": "94f637d91845f1413a5d003faa400c2f8ab6b724f4a757b4693eaa893b2e472c"
+  },
+  "coverage": {
+    "total": 24,
+    "valid": 12,
+    "nonvalid": 12,
+    "exercises": {
+      "late_baggage": 8,
+      "surface_conflict": 5,
+      "late_arrival": 5,
+      "fog_restrictions": 6
+    },
+    "checkpoints": 12,
+    "fuelBaggageCases": 8
+  },
+  "agreementBeforeAdjudication": {
+    "caseExact": {
+      "agreed": 23,
+      "total": 24,
+      "ratio": 0.9583333333333334
+    },
+    "criterionStatus": {
+      "agreed": 71,
+      "total": 72,
+      "ratio": 0.9861111111111112
+    },
+    "disagreements": 1,
+    "unresolved": 0
+  },
+  "labelCounts": {
+    "author": {
+      "cases": 24,
+      "valid": 12,
+      "criterionStatuses": {
+        "contradicted": 20,
+        "met": 51,
+        "missing": 1
+      }
+    },
+    "blind": {
+      "cases": 24,
+      "valid": 12,
+      "criterionStatuses": {
+        "contradicted": 21,
+        "met": 50,
+        "missing": 1
+      }
+    }
+  },
+  "sourceArtifactsPreserved": true,
+  "publicPayloadsUnchanged": true
+}
