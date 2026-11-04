@@ -1,0 +1,33 @@
+{
+  "count": 24,
+  "exact": 9,
+  "delivered": 21,
+  "validCount": 12,
+  "validExact": 5,
+  "falseCredit": [
+    {
+      "index": 12,
+      "criterion": "flight"
+    },
+    {
+      "index": 12,
+      "criterion": "occupant"
+    },
+    {
+      "index": 17,
+      "criterion": "estimate"
+    },
+    {
+      "index": 19,
+      "criterion": "scope"
+    },
+    {
+      "index": 20,
+      "criterion": "procedures"
+    },
+    {
+      "index": 23,
+      "criterion": "grounding"
+    }
+  ]
+}

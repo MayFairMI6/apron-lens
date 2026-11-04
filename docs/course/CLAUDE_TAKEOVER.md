@@ -1,6 +1,6 @@
 # AirfieldLens shared takeover and resume record
 
-**Current owner: Codex, resumed by the user on 3 November 2026 after Claude exhausted usage.** The R11 redesign is approved in CURRENT at commit7cd7671 under `TYPED_REVIEW_R11_CONTRACT.md`. R10 failed the second reserve; all earlier progress below is retained as history. Codex is implementing the redesign in new modules and independently authoring/blind-labeling a third reserve. Latest actual R11v3.1: old6 3/6 exact (2/3 valid, 5 delivered); DEV24 13/24 exact (8/12 valid, 22 delivered), zero false-credit criteria. Still unqualified: implicit-argument quotation and shared-resource timing repairs are next. No production adoption; fresh-v3 remains withheld. See the final progress entry for ownership; older Claude-active tables are superseded.
+**Current owner: Codex; Claude is paused after exhausting usage.** R11 redesign remains approved in CURRENT under `TYPED_REVIEW_R11_CONTRACT.md`. Latest frozen R11v3.2 completed all 78 exposed cases: 38 exact, 22/39 valid exact, 74 delivered, six false-credit criteria. The separate 16-case stress diagnostic has eight exact and one false-credit criterion. This version is unqualified. Two bounded source-context/ambiguity repairs are in progress as v3.3; core ambiguity, correction and conjunction failures remain under independent review. The third reserve is already frozen and remains withheld. No production adoption or native acceptance is claimed. Read the latest progress entries; historical tables below are retained.
 
 ## Shared working location
 
@@ -102,3 +102,18 @@ Local handoff checks: 473 unit tests passed in43.933seconds; research integrity 
 
 
 **4 November 2026 — R11v3.1 actual result and next bounded repair.** Old6=3/6exact,2/3valid,5delivered; DEV24=13/24exact,8/12valid,22delivered; bothzero falsecredit. Sourceproof retrieval leak repaired; oldconfirmation quote no longer includes unrelated parked fragment; DEV16scope quote retains neededcontext. Remainingvaliddelivery failures old1/DEV4/DEV12 need earlier explicit learneraircraft context despite later sentence not beginning with a pronoun. DEV10 mixes an older cross-aircraft StandB availability assertion with later confirmation because whole-message currentness was incorrectly inferred from peractor/property factcurrentness. Next3.2 addresses those2bounded issues with explicitsource/quoteaudit, preservingactor-specificolderfacts and originalreports. No newstatus/model/gates, noreserve use, noacceptedproduction/nativeclaim. Rawruns at `outputs/scoped-content-regression-mps-r11v3-1/` and `outputs/scoped-content-development-mps-r11v3-1/`.
+
+
+**4 November 2026 — R11v3.2 complete exposed diagnostic, not accepted.**
+
+outputs/scoped-content-regression-mps-r11v3-2: 3/6 exact; 2/3 valid exact; 6 delivered; 0 false-credit criteria.
+
+outputs/scoped-content-development-mps-r11v3-2: 14/24 exact; 9/12 valid exact; 24 delivered; 0 false-credit criteria.
+
+outputs/scoped-content-exposed-reserve1-mps-r11v3-2: 12/24 exact; 6/12 valid exact; 23 delivered; 0 false-credit criteria.
+
+outputs/scoped-content-exposed-reserve2-mps-r11v3-2: 9/24 exact; 5/12 valid exact; 21 delivered; 6 false-credit criteria.
+
+outputs/scoped-content-stress-mps-r11v3-2: 8/16 exact; 8/12 valid exact; 16 delivered; 1 false-credit criteria.
+
+The same frozen source was evaluated uncached on all 78 exposed cases and the separately authored 16-case development stress set. The first 30 cases no longer have delivery failures, but broader corrections, unspecified aircraft assignments, authority distinctions and unsupported claims expose false credit. The candidate remains unqualified; fresh-v3 remains withheld and production/native promotion has not occurred. Independent review also found that resource ambiguity could disappear from the completeness guard after unrelated actor-field supersession. The next bounded v3.3 repairs that guard and uses exact learner antecedent context for source retrieval without changing the original claim. Neither repair is presumed to solve the remaining semantic failures. The separately frozen 70-pair cover diagnostic completed; it is exploratory evidence, not adopted grading policy. All previous results and the video remain unchanged.

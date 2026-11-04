@@ -1269,3 +1269,122 @@ withholds it. This limitation must not be bypassed by silently claiming complete
 coverage. The observed gains support continued bounded repair, not reserve or
 production qualification. No model, gold, gate or contract change, model call,
 implementation edit or fresh-v3 read was made by this reviewer.
+
+## R11v3.2 resource clock/context review — not qualified
+
+Frozen source SHA-256 is
+`be25e3a75d6d5426e14f514e9fce9a126b36cd856865350c2859e70093a204e8`.
+This reviewer inspected the actor-independent stand-availability view over all
+receipt-eligible reports, exact message/typed-literal spans, event/valid-from
+ordering, tie/expiry handling and clause-only current projection. All 19 offline
+tests independently pass. Recognized unconfirmed availability remains distinct
+from factual unavailability; assignment/plan statements do not manufacture
+availability. Original messages and typed values remain immutable, and L011's
+nonresource plan/current fact survives projection. Matching explicit resource
+assertions can survive unrelated actor-field supersession.
+
+The quotation change uses a unique literal actor in the preceding learner
+sentence as exact context when the target names none, withholding that context
+for competing named actors. It adds no aircraft assertion or expected/source fact
+to learner text. Primary bare whole-answer judgments, threshold and contract
+remain unchanged.
+
+| Completed uncached exposed suite | Exact | Valid exact | Delivered | Correct statuses | False credit |
+|---|---:|---:|---:|---:|---:|
+| [Old six](../../outputs/scoped-content-regression-mps-r11v3-2/summary.json) | 3/6 | 2/3 | 6/6 | 15/18 | 0 |
+| [Development 24](../../outputs/scoped-content-development-mps-r11v3-2/summary.json) | 14/24 | 9/12 | 24/24 | 58/72 | 0 |
+
+Frozen snapshots match their locks. All 59/219 planned comparisons have finite
+matching actual rows without truncation or pair error; maximum inputs are
+498/511 tokens. Direct startup is 2.795/2.791 seconds and reviews take
+0.316–1.946/0.130–2.108 seconds. These are not native-owner latency measurements.
+The actual implicit-context quote failures from 3.1 are remedied mechanically;
+old case 5 remains free of the unrelated parked tail. DEV10's obsolete resource
+clause is no longer current input, and its grounding correctly becomes met at
+0.9971; its primary release facet still remains uncertain. DEV16 remains uncertain
+grounding because its separate unbound anaphoric sentence splits the complete
+source set. The source/quote repairs do not resolve omission, unsupported factual
+extras or wrong-flight relationship interpretation. Both exposed gates still fail.
+
+**New pure-offline source-eligibility finding.** A minimal source-clock probe
+reveals that equal-time resource ambiguity is not propagated when both resource
+head reports later become historical under unrelated actor-field supersession.
+Two eligible reports at event 10 concern the same episode/Stand B: one confirms
+availability and the other says it is not yet confirmed. Each actor gets a later
+event-20 movement-condition update that supersedes its actor field but says
+nothing about stand availability. `resource_availability_view` correctly marks
+all four message/typed assertion rows `ambiguous_resource`. `raw_sources` then
+creates only the newer actor units and readiness unit, all complete: its
+historical-actor republication loop admits only `current_resource` rows. The
+ambiguous resource heads survive inside audit metadata but do not block
+`source_scope('Stand B is confirmed available.')`, which incorrectly returns
+`complete=True` and `resourceClockComplete=True`.
+
+This is a demonstrated mechanical eligibility defect, not an observed model false
+credit on the 30 cases above. Resource ambiguity must block a current certificate
+independently of the associated actor field's lifetime. The exact pure-offline
+reproduction was sent to the coordinator and implementer; no model was called
+and no implementation/fixture was edited. Preserve this frozen run before a
+bounded guard repair. Broader exposed suites remain separate pending evidence;
+no fresh-v3 inspection or qualification is claimed.
+
+## R11v3.2 second exposed reserve replay — six false-credit criteria
+
+The now-exposed fresh-v2 replay at
+[scoped-content-exposed-reserve2-mps-r11v3-2](../../outputs/scoped-content-exposed-reserve2-mps-r11v3-2/summary.json)
+is development evidence, not a new independent reserve. This reviewer read all
+case outcomes and independently examined every false-credit comparison and its
+actual original answer/source association. Results recompute to **9/24 exact,
+5/12 valid exact, 21/24 delivered, 48/72 criterion statuses correct, six
+false-credit criteria**. Cases 2, 9 and 18 fail quotation delivery. All 303 planned
+pairs have matching finite actual rows with no truncation/pair error, maximum
+512 tokens. Frozen source snapshots match the lock; direct startup is 2.802
+seconds and reviews take 0.353–3.583 seconds. No native/runtime acceptance follows.
+
+| Case / false-credit point | Actual semantic failure | Relevant actual entailment |
+|---|---|---:|
+| 12 / flight and occupant | “One of” TRN102/TRN103 occupies the stand and “the other” waits, without identifying either role; the model invents the specific assignment. | 0.9961 / 0.9976 |
+| 17 / estimate | The learner explicitly retracts 10:35 and commits to 10:20; the raw whole answer still earns credit for current 10:35. | 0.9961 |
+| 19 / scope | The learner claims full readiness from completed services/hold while only clearance is unknown; the model credits the required prerequisite non-implication despite that incompatible readiness claim. | 0.9878 for prerequisite facet |
+| 20 / procedures | Only low-visibility procedures are stated; the model supplies omitted safeguarding, apparently associating the correlated procedure states. | 0.9824 for safeguarding |
+| 23 / grounding | A compound answer adds departure clearance and an unreported pushback-slot explanation; the model credits the full compound against a source that explicitly leaves clearance unconfirmed. | 0.8643 |
+
+These are genuine failures against unchanged legitimate gold. Case 12 receives
+all three points met and an incorrect **supported** verdict. Other incorrect
+point credits are not excused by partial or unsafe overall verdicts. Case 23's
+separate authority comparison correctly contradicts clearance at 0.9995 while
+source-to-full-answer grounding overlooks it; checking every full sentence does
+not ensure that every clause is checked correctly.
+
+History also has an evidence-association limit even in status-exact outcomes.
+Case 22 correctly describes a previous pending cancellation request and current
+confirmation, but its historical sentence is entailed at 0.8823 from only current
+R001/R002/R008; the actual earlier R007 is absent from the comparison and grounding
+citations. Case 1's fuel-history comparison similarly entails at 0.8389 without
+earlier L010. The full eligible source history supports those answers, so gold
+does not change; these current-only scores do not independently verify the
+historical assertions. Do not claim validated history handling from status counts.
+
+**Mechanism assessment:** the unchanged raw whole-answer-to-facet path now has
+direct, repeated false credit for unresolved identity, retraction, related-facet
+omission and incompatible coexisting claims; the full-answer grounding path can
+overlook an unsupported clause. Source-clock normalization or quote selection
+alone cannot repair those primary judgments. This establishes failure of the
+current scoring policy on exposed cases, not an inherent impossibility for the
+pinned classifier under every policy and not permission to introduce Qwen.
+A next same-classifier policy needs an explicitly uniform, empirically checked
+claim/ambiguity/correction/conjunction mechanism. In particular, a semantic cover
+constructed from all entailed facets would include case 20's hallucinated
+safeguarding; reciprocal entailment must not be assumed to fix it. Diagnostic
+controls need positive false entailments, not only neutral omission examples.
+
+The bounded proposed source follow-up remains appropriate: persist resource
+ambiguity independently of actor-field lifetime, and allow exact prior learner
+actor context as a retrieval seed only for a genuinely contextual/anaphoric
+passage. Keep the raw hypothesis unchanged, retain all scoped fields and actual
+source-clock guards, and audit the exact antecedent. A genuinely unbound extra
+assertion must retain global evidence rather than being narrowed merely because
+an earlier sentence names one aircraft. This does not supply a missing/assertion
+grading policy. All fixes require preserved frozen attempts and actual exposed
+verification before reserve qualification. No model call, implementation/gold
+edit, new gate, model change or fresh-v3 read was made by this reviewer.

@@ -16,28 +16,149 @@ from .propositions import propositions_for
 from .redesign import (Plan,label,token_length,bounded_spans,exact_sentences,
                        choose_quotes,validate_redesign_review,QUOTE_CONTRACT)
 
-VERSION='typed-scoped-source-content-r11v3.1'
+VERSION='typed-scoped-source-content-r11v3.2'
 THRESHOLD=.8
 DEADLINE_SECONDS=55.
 
 
-def raw_sources(current,target_aircraft=None):
+def availability_clause(text,typed=False):
+    """Recognize explicit source resource knowledge, never learner wording."""
+    reference=re.search(r'\bStand\s+([A-Z]\d*)\b',text,re.I)
+    if not reference or not re.search(r'\b(?:un)?availab\w*\b',text,re.I):return None
+    resource=reference.group(1).upper()
+    pattern=(r'Stand\s+([A-Z]\d*)\s+'+(r'(?:(?:is|remains)\s+)?' if typed else r'(?:is|remains)\s+')+
+        r'(?P<state>not\s+(?:yet\s+)?confirmed\s+available|(?:now\s+)?confirmed\s+available|available)'
+        r'(?:\s+for\s+[A-Z]+\d+)?[.]?')
+    match=re.fullmatch(pattern,text.strip(),re.I)
+    if not match and (re.match(r'\s*(?:If|Unless)\b',text,re.I) or
+            re.match(r'\s*Stand\s+[A-Z]\d*\s+(?:will|is\s+(?:planned|scheduled))\b',text,re.I)):
+        return dict(resourceId=resource,value=None,nonoperative=True)
+    value=None
+    if match:value='unconfirmed' if match['state'].lower().startswith('not') else 'confirmed_available'
+    return dict(resourceId=resource,value=value,nonoperative=False)
+
+
+def typed_parts(value):
+    result=[]
+    for match in re.finditer(r'[^;]+',value):
+        start,end=match.span()
+        while start<end and value[start].isspace():start+=1
+        while end>start and value[end-1].isspace():end-=1
+        if start<end:result.append(dict(start=start,end=end,text=value[start:end]))
+    return result
+
+
+def resource_availability_view(reports,cutoff):
+    """Actor-independent current resource knowledge over ALL eligible reports.
+
+    Exact source assertions are retained. A later actor-field replacement does
+    not retract a resource assertion; only this resource's operative clock does.
+    Unknown availability is never converted to factual unavailability.
+    """
+    rows=[]
+    for report in reports:
+        if report['receiptTime']>cutoff:continue
+        for origin,parts,property_name,fact in [('message',exact_sentences(report['message']),None,None)]+[
+            ('typed_fact',typed_parts(f['value']),f['property'],f) for f in report.get('facts',[])]:
+            for part in parts:
+                parsed=availability_clause(part['text'],typed=origin=='typed_fact')
+                if parsed is None:continue
+                row=dict(ruleVersion='stand-resource-availability-clock-v1',reportId=report['id'],
+                    episodeId=report.get('episodeId'),source=report.get('source'),actorProvenance=report.get('flightInstance'),
+                    resourceType='stand',resourceId=parsed['resourceId'],property='availability_confirmation',
+                    value=parsed['value'],nonoperative=parsed['nonoperative'],origin=origin,fieldProperty=property_name,
+                    exactSpan=part,eventTime=report['eventTime'],receiptTime=report['receiptTime'],
+                    operativeFrom=fact.get('validFrom',report['eventTime']) if fact else report['eventTime'],
+                    validUntil=fact.get('validUntil') if fact else None)
+                row['assertionId']=report['id']+':'+origin+':'+str(property_name)+':'+str(part['start'])
+                rows.append(row)
+    # Matching typed availability explicitly supplies its validity interval to
+    # the same report's message statement; unrelated movement validity does not.
+    for row in rows:
+        if row['origin']!='message' or row['nonoperative'] or row['value'] is None:continue
+        intervals={(f['operativeFrom'],f['validUntil']) for f in rows if f['origin']=='typed_fact' and
+            f['reportId']==row['reportId'] and f['resourceId']==row['resourceId'] and f['value']==row['value']}
+        if len(intervals)==1:row['operativeFrom'],row['validUntil']=next(iter(intervals))
+        elif len(intervals)>1:row['value']=None;row['unresolvedValidity']=True
+    keys={(r['episodeId'],r['resourceType'],r['resourceId'],r['property']) for r in rows}
+    for key in keys:
+        group=[r for r in rows if (r['episodeId'],r['resourceType'],r['resourceId'],r['property'])==key]
+        operative=[r for r in group if not r['nonoperative'] and r['operativeFrom']<=cutoff]
+        latest=max((r['operativeFrom'] for r in operative),default=None)
+        heads=[r for r in operative if r['operativeFrom']==latest]
+        conflict=bool(heads) and (any(r['value'] is None for r in heads) or len({r['value'] for r in heads})>1)
+        for row in group:
+            if row['nonoperative']:status='nonoperative_plan_or_condition'
+            elif row['operativeFrom']>cutoff:status='scheduled'
+            elif row['operativeFrom']!=latest:status='historical_resource'
+            elif conflict:status='ambiguous_resource'
+            elif row['validUntil'] is not None and cutoff>=row['validUntil']:status='expired_resource'
+            else:status='current_resource'
+            row['resourceStatus']=status
+            row['newerResourceAssertionIds']=[r['assertionId'] for r in heads] if status=='historical_resource' else []
+    return rows
+
+
+def current_report_projection(report,resource_rows):
+    """A derived current input view; never alters the original message/facts."""
+    related=[r for r in resource_rows if r['reportId']==report['id']]
+    complete=not any(r['resourceStatus']=='ambiguous_resource' or
+        (r['value'] is None and not r['nonoperative']) for r in related)
+    messages=[];message_audit=[]
+    for part in exact_sentences(report['message']):
+        row=next((r for r in related if r['origin']=='message' and r['exactSpan']['start']==part['start']),None)
+        keep=row is None or row['value'] is None or row['resourceStatus'] in ('current_resource','nonoperative_plan_or_condition','ambiguous_resource')
+        if keep:messages.append(part['text'])
+        message_audit.append(dict(exactSpan=part,inCurrentInput=keep,
+            resourceStatus=row['resourceStatus'] if row else 'actor_message_component'))
+    fields=[];field_audit=[]
+    for fact in report.get('_typedFacts',[]):
+        retained=[];parts_audit=[]
+        for part in typed_parts(fact['value']):
+            row=next((r for r in related if r['origin']=='typed_fact' and r['fieldProperty']==fact['property'] and r['exactSpan']['start']==part['start']),None)
+            keep=row is None or row['value'] is None or row['resourceStatus'] in ('current_resource','nonoperative_plan_or_condition','ambiguous_resource')
+            if keep:retained.append(part['text'])
+            parts_audit.append(dict(exactSpan=part,inCurrentInput=keep,resourceStatus=row['resourceStatus'] if row else 'actor_field_component'))
+        if retained:fields.append(fact['property']+'='+repr('; '.join(retained)))
+        field_audit.append(dict(factId=fact['fact_id'],originalValue=fact['value'],parts=parts_audit))
+    return ' '.join(messages),fields,dict(rule='actor-message-resource-clock-projection-v1',
+        originalMessage=report['message'],messageParts=message_audit,fieldParts=field_audit,
+        resourceAssertions=related,complete=complete)
+
+
+def raw_sources(current,target_aircraft=None,eligible_reports=None,cutoff=None):
     """Compact source-only normalization. No learner, question or rubric input."""
     units=[]
+    reports=eligible_reports if eligible_reports is not None else current
+    cutoff=cutoff if cutoff is not None else max((r['receiptTime'] for r in reports),default=0)
+    resource_rows=resource_availability_view(reports,cutoff)
     for report in current:
         facts=report.get('_typedFacts',[])
         actor=report.get('flightInstance')
         header='['+report['id']+'] '+str(actor)+'; source='+str(report.get('source','unknown'))+'; CURRENT. '
-        text=header+report['message']
-        if facts:text+=' Fields: '+'; '.join(f['property']+'='+repr(f['value']) for f in facts)+'.'
+        message,fields,projection=current_report_projection(report,resource_rows)
+        text=header+message
+        if fields:text+=' Fields: '+'; '.join(fields)+'.'
         interpretations=[canonical_source(f) for f in facts if canonical_source(f)]
         if interpretations:text+=' '+' '.join(p for c in interpretations for p in c['propositions'])
         units.append(dict(text=text,provenance=header,reportIds=[report['id']],semanticReportIds=[report['id']],
             proofDependencies=[report['id']],sourceFacts=facts,
             actorIds=[actor] if actor else [],properties=sorted({f['property'] for f in facts}),
             resources=sorted({f['value'] for f in facts if f['property']=='stand'}|set(re.findall(r'\bStand\s+([A-Z]\d*)\b',text))),
-            canonicalRules=interpretations,complete=True,
+            canonicalRules=interpretations+[projection],complete=projection['complete'],
             clock=dict(eventTime=report['eventTime'],receiptTime=report['receiptTime'])))
+    current_ids={r['id'] for r in current}
+    for row in resource_rows:
+        if row['resourceStatus']!='current_resource' or row['reportId'] in current_ids:continue
+        # Prefer message provenance when the same operative assertion is also
+        # present as a typed literal; keep every original row in the audit.
+        if row['origin']=='typed_fact' and any(r['reportId']==row['reportId'] and r['origin']=='message' and
+                r['resourceStatus']=='current_resource' and r['resourceId']==row['resourceId'] and r['value']==row['value'] for r in resource_rows):continue
+        units.append(dict(text='['+row['reportId']+'] source='+str(row['source'])+'; CURRENT resource assertion: '+row['exactSpan']['text'],
+            provenance='Current stand resource '+row['resourceId']+'; source '+row['reportId']+'. ',
+            reportIds=[row['reportId']],semanticReportIds=[],proofDependencies=[row['reportId']],sourceFacts=[],
+            actorIds=[],properties=['stand.availability_confirmation'],resources=[row['resourceId']],
+            canonicalRules=[row],complete=True))
     def derived(text,ids,actor,rule,proof,proof_ids=None):
         units.append(dict(text=text,provenance='Derived current source scope for '+str(actor)+'. ',
             reportIds=list(dict.fromkeys(ids)),semanticReportIds=[],
@@ -62,6 +183,9 @@ def raw_sources(current,target_aircraft=None):
                 text=(str(actor[1])+': '+names[first]+' is complete, while '+names[second]+' is '+b[0]['value']+'. '
                     'Completion of '+names[first]+' does not establish completion of '+names[second]+'.')
                 derived(text,[f['event_id'] for f in a+b],actor[1],'current-separate-service-counterexample-v1',a+b)
+    if units:
+        units[0]['canonicalRules'].append(dict(rule='complete-resource-availability-source-audit-v1',
+            cutoff=cutoff,assertions=resource_rows,sourceReportIds=[r['id'] for r in reports]))
     return units
 
 
@@ -77,8 +201,8 @@ def source_scope(units,passage):
     all_ids={rid for u in units for rid in u['reportIds']}
     if not named and not resources:
         return units,dict(entityScope='global_unbound',actorIds=sorted(actors),resourceIds=[],
-            includedReportIds=sorted(all_ids),allCurrentReportIds=sorted(all_ids),complete=True,
-            propertyScope=sorted({p for u in units for p in u['properties']}))
+            includedReportIds=sorted(all_ids),allCurrentReportIds=sorted(all_ids),complete=all(u['complete'] for u in units),
+            propertyScope=sorted({p for u in units for p in u['properties']}),resourceClockComplete=all(u['complete'] for u in units))
     selected=[];ids=set();changed=True
     while changed:
         changed=False
@@ -94,7 +218,7 @@ def source_scope(units,passage):
     return selected,dict(entityScope='literal_reference_closure',actorIds=sorted(named),resourceIds=sorted(resources),
         includedReportIds=sorted({rid for u in selected for rid in u['reportIds']}),
         semanticRawReportIds=sorted(ids),proofDependencyReportIds=sorted({rid for u in selected for rid in u.get('proofDependencies',u['reportIds'])}),
-        allCurrentReportIds=sorted(all_ids),complete=True,
+        allCurrentReportIds=sorted(all_ids),complete=all(u['complete'] for u in selected),
         propertyScope=sorted({p for u in selected for p in u['properties']}),
         rule='all current properties and source-reference closure; no categorical claim about learner wording')
 
@@ -150,6 +274,15 @@ def leading_context_reference(text):
     return bool(re.match(r'\s*(?:(?:And|But|So|Yet|However)[,]?\s+)?(?:It|Its|They|Them|Their|This|That|These|Those|Such|The\s+former|The\s+latter)\b',text,re.I))
 
 
+def explicit_learner_actors(text):
+    """Recognize literal flight-like identifiers; never invent an antecedent."""
+    return {m.group().upper() for m in re.finditer(r'(?<!\w)[A-Z]{2,}\d+[A-Z]?(?!\w)',text,re.I)}
+
+
+def implicit_actor_context(previous,target):
+    return len(explicit_learner_actors(previous))==1 and not explicit_learner_actors(target)
+
+
 def quote_candidates(text):
     """Scored original targets plus only necessary adjacent discourse context.
 
@@ -160,7 +293,11 @@ def quote_candidates(text):
     sentences=exact_sentences(text);result=[]
     for target_index,target in enumerate(sentences):
         first=target_index
-        if target_index and leading_context_reference(target['text']):
+        context_kind=None
+        ambiguous_previous=target_index and len(explicit_learner_actors(sentences[target_index-1]['text']))>1 and not explicit_learner_actors(target['text'])
+        if target_index and not ambiguous_previous and (leading_context_reference(target['text']) or
+                implicit_actor_context(sentences[target_index-1]['text'],target['text'])):
+            context_kind='leading_reference' if leading_context_reference(target['text']) else 'implicit_actor_argument'
             first=target_index-1
             while first and leading_context_reference(sentences[first]['text']):first-=1
         selected=sentences[first:target_index+1]
@@ -179,7 +316,8 @@ def quote_candidates(text):
         start=selected[0]['start'];end=target['end']
         result.append(dict(start=start,end=end,text=text[start:end],quoteSpans=quote_spans,
             targetSentence=target,antecedentSentences=selected[:-1],
-            contextRule='generic leading anaphora/deixis; exact preceding learner context only'))
+            contextKind=context_kind,
+            contextRule='generic discourse reference or unique literal learner actor; exact preceding learner context only'))
     return result
 
 
@@ -208,7 +346,7 @@ def evaluate(payload,scorer,deadline):
         for number,hypothesis in enumerate(hypotheses):
             indices,complete=add_raw_answer(plan,'bare_criterion',text,hypothesis,criterionId=cid,facet=number+1)
             facets[(cid,number)]=dict(indices=indices,complete=complete,hypothesis=hypothesis)
-    sources=raw_sources(current,payload.get('aircraftId'));ground=[]
+    sources=raw_sources(current,payload.get('aircraftId'),payload['reports'],payload['cutoff']);ground=[]
     passages=exact_sentences(text)
     if not any(s['text']==text for s in passages):passages.append(dict(start=0,end=len(text),text=text))
     # Whole answer and every original sentence are mandatory, including scope,

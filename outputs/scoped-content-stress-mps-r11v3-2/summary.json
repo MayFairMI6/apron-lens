@@ -1,0 +1,13 @@
+{
+  "count": 16,
+  "exact": 8,
+  "delivered": 16,
+  "validCount": 12,
+  "validExact": 8,
+  "falseCredit": [
+    {
+      "index": 15,
+      "criterion": "grounding"
+    }
+  ]
+}
