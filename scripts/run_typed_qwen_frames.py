@@ -35,6 +35,7 @@ def main():
                [ROOT/'backbone/models.json', ROOT/'backbone/VERSION', Path(__file__),
                 ROOT/'backend/training_worker.py', ROOT/'backend/training_result.py',
                 ROOT/'docs/course/TYPED_QWEN_FRAME_CONTRACT.md'])
+    sources += sorted((ROOT/'docs/course').glob('TYPED_QWEN_FRAME_*_ADDENDUM.md'))
     hashes = {str(p.relative_to(ROOT)): sha(p) for p in sources}
     for path in sources:
         target = out/'source'/path.relative_to(ROOT)
