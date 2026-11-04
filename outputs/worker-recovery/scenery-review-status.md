@@ -23,3 +23,15 @@ Frame-time manifest: workspace work/presentation-review-frames.json.
 References: workspace work/connected-airport-reference and
 work/terminal3-reference; accepted connected-setting evidence under
 outputs/checkpoint1. No full-video visual acceptance is claimed.
+
+## Follow-up completed
+
+A subsequent bounded Astra-low review successfully extracted and inspected the
+four missing requested samples. See scenery-remaining-frames-review.md and
+scenery-remaining-frames/. The 04:49, 04:59 and 05:09 inserts show close apron
+weather views with no visible water outline. At 05:19, continuous ground and
+pavement are visible, without enclosing water. The reviewer found no reason in
+these samples to edit the eight-minute video. The original user-reported camera
+is still unidentified, so #59 remains open; this is not continuous whole-video
+or every-view geometry validation. The earlier quota failure is retained above
+as history, not a currently blocked review of those four samples.

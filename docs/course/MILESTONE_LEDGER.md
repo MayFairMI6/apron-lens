@@ -4,7 +4,8 @@
 new reliability authorization.** One actual local-model recovery cycle and
 post-recovery typed/ordinary compatibility checks support process isolation and
 replacement readiness, not semantic improvement or universal recovery. #62 is
-only partially remedied; #60/#61 and the incomplete #59 visual review remain open.
+only partially remedied; #60/#61 and #59 remain open. A later bounded visual
+addendum completes the four missing samples without requiring a video change.
 Existing demo footage and the separate submission gates remain unchanged.
 
 **Checkpoint 1 feature/research scope is frozen at the accepted application and
@@ -2580,3 +2581,19 @@ Coordinator publication receipt: implementation and evidence pushed as `629fa92`
 PR #22 remote head verified. Issue #62 comment 6618647701 records the partial
 remedy; issue #59 comment 6618619638 records the incomplete visual review. Both
 issues remain open. No video edits or semantic-error closure were performed.
+
+**3 November 2026 visual addendum — missing samples reviewed.** A subsequent
+bounded Astra review completed the four previously blocked samples; see the
+[remaining-frame review](../../outputs/worker-recovery/scenery-remaining-frames-review.md)
+and its preserved PNGs. At 04:49, 04:59 and 05:09, the close apron rain, snow and
+dusk views show no visible water or island outline. At 05:19, the birds scene
+shows continuous green foreground and pavement without enclosing water. The
+reviewer also inspected the historical aerial reference and read the existing
+mapped-water audit; it did not rerun that geometry audit. Combined with the
+earlier 15-frame review, these four samples provide no visual reason to change
+or rerecord the current presentation for the reported scenery concern. Keep the
+existing video on this bounded 19-sample evidence. This supersedes the sampling
+block above, not the original issue: the user's reported camera/viewpoint remains
+unidentified, #59 stays open, and no scenery fix or continuous full-video/camera
+clearance is claimed. This ledger reviewer read the Astra receipt rather than
+performing independent visual interpretation.
