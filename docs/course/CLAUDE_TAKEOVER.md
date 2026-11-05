@@ -1,6 +1,42 @@
 # AirfieldLens shared takeover and resume record
 
-**Current owner: Codex; Claude is paused after exhausting usage.** R11 redesign remains approved in CURRENT under `TYPED_REVIEW_R11_CONTRACT.md`. Latest frozen R11v3.2 completed all 78 exposed cases: 38 exact, 22/39 valid exact, 74 delivered, six false-credit criteria. The separate 16-case stress diagnostic has eight exact and one false-credit criterion. This version is unqualified. The v3.3 source-ambiguity guard is implemented; its proposed learner-context heuristic was rejected before inference and removed. Core ambiguity, correction and conjunction failures remain unresolved. The user approved testing the existing local Qwen model for structured interpretation on 4 November. A separate learner-only extraction experiment is now running under TYPED_QWEN_FRAME_CONTRACT.md; no production adoption is authorized by this experiment. The old third reserve remains sealed and is ineligible for the changed Qwen architecture under its original contract; no replacement is authorized automatically. No production adoption or native acceptance is claimed. Read the latest progress entries; historical tables below are retained.
+## Current resume state — 4 November 2026
+
+**Planning discussion closed; stronger-model execution is deferred to Checkpoint 2.**
+The user's final decision is B06 / ML-053: compare a quantized free local
+Qwen3.5-27B configuration with the frozen Qwen3.5-9B baseline; retain gpt-oss-20B
+as a different-family alternative and Qwen3.5-35B-A3B as a latency/capacity
+alternative. Ollama/MLX are runtime options to investigate, not implemented changes.
+No downloads, new inference, paid API calls or implementation should start until
+the user explicitly resumes Checkpoint 2. Do not reopen the settled model discussion.
+
+The typed-answer repair remains unqualified. Latest matched local Qwen experiment:
+OFF delivered six valid structured outputs, four independently faithful; unsupported
+confirmation and corrected-aircraft/reference errors remain. ON timed out on its
+first assessment at 55.095 seconds, with no final output available; five questions
+were unattempted. These failures are preserved. Moving future work to Checkpoint 2
+does not mark the defect fixed or approve the experimental reviewer for production.
+
+Latest implementation verification: 644 tests passed, backbone boundary passed,
+and both GitHub Checks passed for source f12c541. Later e6cb718, 874b124 and f13390d
+published results and planning documents. This is engineering/documentation evidence,
+not semantic or native acceptance. See source receipts for exact scope.
+
+Repository changes are published on `codex/checkpoint1-controller-training` through
+PR #22; the PR was verified OPEN and unmerged on 4 November. Do not assume `main`
+contains the current demo or research. The previous published head f13390d was
+verified against the remote before this handoff refresh. Verify current HEAD and
+remote when resuming; this file is maintained with meaningful work, not by an
+independent background watcher. Downloads copies are snapshots; this tracked file
+and the milestone ledger are the authoritative shared record.
+
+No experiment is active in this handoff. Check live processes and edit ownership
+before future execution; historical process IDs and owner tables below are stale.
+All historical results, the sealed third reserve, deployed reviewer and final video
+are preserved. The third reserve remains ineligible for the changed architecture;
+do not read it or silently replace it. Local-pilot budget includes unsuccessful
+attempts (33 planned slots/configuration), with $0 provider-token fees but real
+compute/time costs. Hosted costs are contingent background, not spending approval.
 
 ## Shared working location
 
@@ -13,11 +49,16 @@ Branch: `codex/checkpoint1-controller-training`; PR #22 is the publication desti
 
 ## Read in order
 
-1. [Milestone ledger](MILESTONE_LEDGER.md), especially ML-052.
-2. [Independent acceptance review](TYPED_REVIEW_FINAL_ACCEPTANCE.md).
-3. [Implementation and experiment report](TYPED_RELATION_REVIEW.md).
-4. [Agent policy](../AGENT_EXECUTION_POLICY.md).
-5. Current git status/diff and only the relevant code/tests.
+1. [Milestone ledger](MILESTONE_LEDGER.md): current summary, B06 and ML-053; ML-052 for retained failure history.
+2. [Stronger-model research and failure-inclusive budget](STRONGER_MODEL_RESEARCH.md).
+3. [Latest Qwen result](../../outputs/qwen-reasoning-ablation-v2/RESULTS.md).
+4. [Independent Qwen acceptance record](TYPED_QWEN_FRAME_ACCEPTANCE.md): latest matched v2 review.
+5. [Agent policy](../AGENT_EXECUTION_POLICY.md), repository AGENTS.md, current git status, and only relevant source files.
+
+Older R11 instructions below are historical context, not authorization to resume
+implementation now. Do not load the full repository, old raw runs or sealed data
+merely to acknowledge the handoff. When future work is authorized, use its versioned
+contract and independent acceptance requirements before making model calls.
 
 ## Historical takeover position — 3 November 2026 (superseded by progress log)
 
@@ -29,7 +70,7 @@ New production scaffolding exists in `backend/typed_review_service.py`, `backend
 
 The strong candidate uses pinned DeBERTa-v3-large revision `b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7`, MPS, threshold 0.8 and 55-second policy deadline. Run locks preserve actual hashes/settings. CPU baseline is a rejected experimental small NLI model, not deployed production; model/runtime differ, so no policy-only superiority claim.
 
-## Next work and fixed acceptance
+## Historical R11 next work and fixed acceptance — superseded by current resume state
 
 First finish the frozen reserve baseline comparison and independent failure analysis without tuning during evaluation. Then develop fixes using exposed cases, preserve failures, and independently author a NEW reserve. All six old regressions and 24 development questions must pass; the fresh reserve requires at least 10/12 valid answers exact, zero false-credit criteria, no newly failing baseline case, and delivery/valid acceptance at least baseline. Do not weaken these gates.
 
@@ -39,7 +80,7 @@ Run evaluations from the shared checkout with `.venv-candidates/bin/python scrip
 
 ## Subagent division and return handoff
 
-Coordinator: continue until all acceptance gates pass or a genuine external blocker requires user action. Use bounded subagents with separate files: (1) implementation/runtime, (2) independent semantic acceptance, (3) native end-to-end verification, (4) factual ledger/publication documentation. Sonnet is suitable for routine work; use Opus for difficult independent semantic review if available. Follow available repository visual-review requirements and accurately identify actual reviewers. Reviewers must not silently change gold labels or implementation to improve results.
+For later authorized execution, the coordinator follows the current milestone and frozen acceptance contract; the historical continuation instruction does not override the present deferral. Use bounded subagents with separate files: (1) implementation/runtime, (2) independent semantic acceptance, (3) native end-to-end verification, (4) factual ledger/publication documentation. Sonnet is suitable for routine work; use Opus for difficult independent semantic review if available. Follow available repository visual-review requirements and accurately identify actual reviewers. Reviewers must not silently change gold labels or implementation to improve results.
 
 After every meaningful step, save progress IN THIS SAME FOLDER: append decisions and evidence to the milestone ledger; append acceptance findings to the acceptance report; keep this handoff current. Record changed files, exact commands and output paths, versions/hashes, observed pass/fail counts, publication commit/PR, active ownership/processes if any, and the next concrete action. Commit/push verified relevant artifacts to the existing branch, preserving history. This lets Codex jump back in later without reading the entire conversation. Do not save the only progress record in Claude's private memory or another checkout.
 
