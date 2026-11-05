@@ -22,13 +22,16 @@ and both GitHub Checks passed for source f12c541. Later e6cb718, 874b124 and f13
 published results and planning documents. This is engineering/documentation evidence,
 not semantic or native acceptance. See source receipts for exact scope.
 
-Repository changes are published on `codex/checkpoint1-controller-training` through
-PR #22; the PR was verified OPEN and unmerged on 4 November. Do not assume `main`
-contains the current demo or research. The previous published head f13390d was
-verified against the remote before this handoff refresh. Verify current HEAD and
-remote when resuming; this file is maintained with meaningful work, not by an
-independent background watcher. Downloads copies are snapshots; this tracked file
-and the milestone ledger are the authoritative shared record.
+**Publication: PR #22 is MERGED into main.** Verified merge commit
+`32173d023168b0c16d3dd29d4efcf129e736385b` on 4 November 2026 (America/New_York).
+Use `main` for the current project and handoff. All backend and backbone checks
+passed on the resolved PR head e51c999. The seven conflicts with the older PR #21
+were resolved by preserving the newer AirfieldLens files; the resolved tree matched
+4d29d8d exactly. This merge includes the deferred Checkpoint 2 plans and experimental
+results, without activating unqualified reviewers or implementing deferred work.
+The shared local checkout is now on main. Verify git status and remote before future
+work. This file is maintained with meaningful work, not by a background watcher;
+Downloads copies are snapshots of this authoritative tracked record.
 
 No experiment is active in this handoff. Check live processes and edit ownership
 before future execution; historical process IDs and owner tables below are stale.
@@ -45,7 +48,7 @@ Use the SAME existing checkout for Claude and Codex:
 Do not move the project into the currently selected Smarter Skies workspace or create an untracked parallel copy. Save code, tests, new immutable results and documentation here so either agent can resume. Use `docs/course/CLAUDE_TAKEOVER.md` as the common handoff entry point and append dated progress below; record who owns active edits to avoid simultaneous writers. Never save secrets, credentials, downloaded model weights or private audio in tracked files.
 
 Repository: https://github.com/MayFairMI6/apron-lens
-Branch: `codex/checkpoint1-controller-training`; PR #22 is the publication destination, not a claim of merge into main. Base before this handoff: `9ef14e718b057b128e52812857755b62be9741df`.
+Branch: `main`; PR #22 was merged. The former working branch is retained for history. Base before this handoff: `9ef14e718b057b128e52812857755b62be9741df`.
 
 ## Read in order
 
@@ -248,3 +251,5 @@ compute/time allowance; hosted costs are conditional background only. No downloa
 implementation or model call occurred. Do not reopen this matter or resume work
 until requested for Checkpoint 2. Moving it does not convert ML-052's failures
 into accepted fixes. App, video and all historical results remain unchanged.
+
+**4 November 2026 — publication completed.** User authorized merging everything, including deferred plans. PR #22 merged as 32173d0 after both backend and both backbone checks passed. Shared checkout and handoff now use main. Deferred B06 stays planned for Checkpoint 2; failed experimental candidates remain unqualified. Video and historical outputs unchanged.

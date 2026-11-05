@@ -9,10 +9,10 @@ Read AGENTS.md and docs/AGENT_EXECUTION_POLICY.md, then the current handoff's sh
 read-in-order list. Check git status before edits and avoid concurrent writers.
 
 GitHub: https://github.com/MayFairMI6/apron-lens
-Working branch: codex/checkpoint1-controller-training
-Open PR: https://github.com/MayFairMI6/apron-lens/pull/22
-Direct handoff: https://github.com/MayFairMI6/apron-lens/blob/codex/checkpoint1-controller-training/docs/course/CLAUDE_TAKEOVER.md
-The PR is not merged into main. Do not mistake main for the current working version.
+Current branch: main
+Merged PR: https://github.com/MayFairMI6/apron-lens/pull/22
+Direct handoff: https://github.com/MayFairMI6/apron-lens/blob/main/docs/course/CLAUDE_TAKEOVER.md
+PR #22 is merged into main as 32173d023168b0c16d3dd29d4efcf129e736385b. Use main as the current published version.
 
 Current decision: stronger FREE LOCAL model comparison is Checkpoint 2 task B06 /
 ML-053. Planning is closed. No implementation, downloads, model calls or paid

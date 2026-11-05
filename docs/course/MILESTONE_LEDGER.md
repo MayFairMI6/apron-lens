@@ -4133,3 +4133,5 @@ contingent-fallback planning, not the primary authorized plan or spending approv
 No provider account, credential or paid call is requested. B06 is PLANNED for
 Checkpoint 2; its planning discussion is CLOSED. No feature completion, defect
 closure, duplicate milestone count or whole-course completion follows.
+
+**4 November 2026 — main publication (user-authorized merge).** PR #22 merged as 32173d023168b0c16d3dd29d4efcf129e736385b, including implementation, preserved experiments, handoffs and deferred plans. PR head e51c999 passed both backend and both backbone checks; conflict resolution preserved the exact previously published 4d29d8d tree. Publication does not convert ML-052 failures into acceptance or B06 planned work into implementation. Current shared branch is main; video and old results unchanged.
