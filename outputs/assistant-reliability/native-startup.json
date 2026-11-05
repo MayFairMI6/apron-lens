@@ -1,0 +1,40 @@
+{
+  "entryPoint": "work/run_reliability_service.py using production training_app lifespan",
+  "calls": [
+    {
+      "path": "text",
+      "elapsedSeconds": 1.2754282919995603,
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "usage": {
+        "input_tokens": 18,
+        "output_tokens": 4,
+        "reasoning_tokens": 0,
+        "image_tokens": null,
+        "cached_input_tokens": 0
+      },
+      "rawOutput": "ready\n",
+      "error": null,
+      "ok": true
+    },
+    {
+      "path": "image",
+      "elapsedSeconds": 2.645850333999988,
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "usage": {
+        "input_tokens": 461,
+        "output_tokens": 5,
+        "reasoning_tokens": 0,
+        "image_tokens": null,
+        "cached_input_tokens": 0
+      },
+      "rawOutput": "B.\n",
+      "error": null,
+      "ok": true
+    }
+  ],
+  "readyAfterWarmup": true,
+  "servicePort": 8767,
+  "verification": "Startup log orders TRAINING_READY after synthetic text/image inference, before Application startup complete; authenticated health ready and native readiness question succeeded."
+}

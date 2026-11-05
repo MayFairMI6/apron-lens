@@ -1,0 +1,408 @@
+{
+  "version": "readiness-prompt-revision-v1",
+  "regression": {
+    "surface_conflict": [
+      {
+        "cutoff": 40,
+        "question": "Why is TRN102 holding?",
+        "flight": "TRN102",
+        "required": {
+          "movement_condition": "hold: vehicle obstructing ground route"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 80,
+        "question": "Is its ground route still reported obstructed?",
+        "flight": "TRN102",
+        "required": {
+          "movement_condition": "hold: vehicle obstructing ground route"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 103.999,
+        "question": "Has its ground hold been released?",
+        "flight": "TRN102",
+        "required": {
+          "movement_condition": "hold: vehicle obstructing ground route"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 104,
+        "question": "Has its ground hold been released now?",
+        "flight": "TRN102",
+        "required": {
+          "movement_condition": "exercise ground hold released"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 105,
+        "question": "Does that establish its overall departure readiness?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 106,
+        "question": "I mean TRN101 instead. Is its fuel service complete?",
+        "flight": "TRN101",
+        "required": {},
+        "unknowns": [
+          "fuel_status"
+        ]
+      }
+    ],
+    "late_arrival": [
+      {
+        "cutoff": 40,
+        "question": "Why is TRN103 waiting for Stand B?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "hold: Stand B occupied by TRN102"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 120,
+        "question": "Is that stand confirmed available for it yet?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "hold: Stand B occupied by TRN102"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 133.999,
+        "question": "Has its stand been confirmed available now?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "hold: Stand B occupied by TRN102"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 134,
+        "question": "Has its stand been confirmed available now?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "Stand B available; exercise ground hold released"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 136,
+        "question": "Does that establish its overall departure readiness?",
+        "flight": "TRN103",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 137,
+        "question": "I mean TRN101 instead. Is its fuel service complete?",
+        "flight": "TRN101",
+        "required": {},
+        "unknowns": [
+          "fuel_status"
+        ]
+      }
+    ],
+    "late_baggage": [
+      {
+        "cutoff": 60,
+        "question": "What is the reported baggage status for TRN102?",
+        "flight": "TRN102",
+        "required": {
+          "baggage_status": "delayed"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 81.999,
+        "question": "What is its latest target off-block estimate?",
+        "flight": "TRN102",
+        "required": {
+          "tobt": "10:20"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 82,
+        "question": "What is its latest target off-block estimate now?",
+        "flight": "TRN102",
+        "required": {
+          "tobt": "10:35"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 134,
+        "question": "Has its baggage loading finished now?",
+        "flight": "TRN102",
+        "required": {
+          "baggage_status": "complete"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 159,
+        "question": "Do these updates establish its overall departure readiness?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 160,
+        "question": "I mean TRN101 instead. Is its fuel service complete?",
+        "flight": "TRN101",
+        "required": {},
+        "unknowns": [
+          "fuel_status"
+        ]
+      }
+    ]
+  },
+  "fresh": {
+    "surface_conflict": [
+      {
+        "cutoff": 50,
+        "question": "What restriction currently applies to TRN102?",
+        "flight": "TRN102",
+        "required": {
+          "movement_condition": "hold: vehicle obstructing ground route"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 104,
+        "question": "Has its reported ground restriction ended?",
+        "flight": "TRN102",
+        "required": {
+          "movement_condition": "exercise ground hold released"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 105,
+        "question": "With that restriction lifted, is its overall readiness now confirmed?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 106,
+        "question": "For this same flight, do we have a fuel-completion report?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "fuel_status"
+        ]
+      },
+      {
+        "cutoff": 107,
+        "question": "Switch to TRN103. Is overall readiness reported for that flight?",
+        "flight": "TRN103",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 108,
+        "question": "What ground route is reported for it?",
+        "flight": "TRN103",
+        "required": {
+          "route": "apron ground circuit"
+        },
+        "unknowns": []
+      }
+    ],
+    "late_arrival": [
+      {
+        "cutoff": 90,
+        "question": "Can TRN103 use its intended stand according to the latest received condition?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "hold: Stand B occupied by TRN102"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 133.5,
+        "question": "Is the availability of its intended stand confirmed at this point?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "hold: Stand B occupied by TRN102"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 134.5,
+        "question": "What does the received update say about availability for that inbound?",
+        "flight": "TRN103",
+        "required": {
+          "movement_condition": "Stand B available; exercise ground hold released"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 136,
+        "question": "Which stand has it now been assigned?",
+        "flight": "TRN103",
+        "required": {
+          "stand": "B"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 137,
+        "question": "Does having that stand establish that it is ready for departure?",
+        "flight": "TRN103",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 138,
+        "question": "Correction: TRN101. Is its baggage loading reported complete?",
+        "flight": "TRN101",
+        "required": {},
+        "unknowns": [
+          "baggage_status"
+        ]
+      }
+    ],
+    "late_baggage": [
+      {
+        "cutoff": 60,
+        "question": "For TRN102, has refuelling finished?",
+        "flight": "TRN102",
+        "required": {
+          "fuel_status": "complete"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 70,
+        "question": "Does that completion establish that the flight is ready to depart?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 83,
+        "question": "What off-block time is now estimated for the same flight?",
+        "flight": "TRN102",
+        "required": {
+          "tobt": "10:35"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 133.5,
+        "question": "Has its baggage loading been reported finished yet?",
+        "flight": "TRN102",
+        "required": {
+          "baggage_status": "delayed"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 134.5,
+        "question": "What is its reported loading status now?",
+        "flight": "TRN102",
+        "required": {
+          "baggage_status": "complete"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 159,
+        "question": "After loading and the hold release, what is still unconfirmed about its overall readiness?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      }
+    ],
+    "explicit_readiness": [
+      {
+        "cutoff": 199.999,
+        "question": "Is there a current report establishing overall readiness for TRN102?",
+        "flight": "TRN102",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      {
+        "cutoff": 200,
+        "question": "What does the latest received report say about its overall readiness?",
+        "flight": "TRN102",
+        "required": {
+          "overall_readiness": "ready"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 219.999,
+        "question": "Is overall readiness still reported for that flight?",
+        "flight": "TRN102",
+        "required": {
+          "overall_readiness": "ready"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 220,
+        "question": "Has the latest update changed its reported readiness?",
+        "flight": "TRN102",
+        "required": {
+          "overall_readiness": "not ready: additional inspection required"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 221,
+        "question": "Is its fuel service complete, regardless of the readiness restriction?",
+        "flight": "TRN102",
+        "required": {
+          "fuel_status": "complete"
+        },
+        "unknowns": []
+      },
+      {
+        "cutoff": 222,
+        "question": "Now TRN101: is overall readiness established for it?",
+        "flight": "TRN101",
+        "required": {},
+        "unknowns": [
+          "overall_readiness"
+        ]
+      }
+    ]
+  },
+  "sourceHashes": {
+    "backend/training_adapter.py": "238107a29f3bcd2c250fd86b45ffcf0662774bcfffb8befd279a02b5bd8f4ea8",
+    "backend/training_adapter_v5.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "scripts/evaluate_prompt_revision.py": "2a3f3aaf7bb3638f3dab8184b6431b80532a1d7d75a6e102d8df3f3d3e9d705e",
+    "scripts/evaluate_training_assistant.py": "48d3080beb174c6f6701d40f5d6a10f2a4bce2919ba5dac4f8c3cc43bad9d3c6"
+  },
+  "sourceCommit": "cb2e0626c74905214faff76fc8772a27ac273260",
+  "adoptionGate": "v6 passes all18 observed regression cases; on24 fresh questions improves total over v5, with no v5-pass/v6-fail pair; all explicit ready/not-ready cases pass. No prompt revision after opening fresh results.",
+  "limits": "Authored same-scenario fresh questions, not independent unseen-airport generalization. Offline, text-only; actual engine stop reason unavailable."
+}

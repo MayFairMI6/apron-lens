@@ -1,0 +1,8 @@
+{
+  "accepted": true,
+  "scope": "bounded runtime ownership probe",
+  "oldPID": 7256,
+  "newPID": 7291,
+  "closedStatus": "closed",
+  "requestsRecorded": 3
+}

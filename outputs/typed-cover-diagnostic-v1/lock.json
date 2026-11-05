@@ -1,0 +1,30 @@
+{
+  "version": "typed-cover-diagnostic-v1",
+  "createdAtUTC": "2026-11-04T05:27:10.001621+00:00",
+  "createdAtUnix": 1793770030.0018282,
+  "sourceHashes": {
+    "scripts/probe_typed_cover.py": "d6d062e68d3cc5717a8c2bed3e8e29810ed96954794150a91c19dd0a0d27a6dc",
+    "docs/course/TYPED_COVER_DIAGNOSTIC_PLAN.md": "54227f1734edb1cab2777315b0a390521b93e371fb1573205e3ded748074ee52",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "experiments/typed_relation_review/propositions.py": "be36fcfcdec80b34834caae404483ea11a47ef2c48991527f657aa407cfc80cf",
+    "docs/course/TYPED_REVIEW_R11_CONTRACT.md": "f49aa8414041449e924b3c7832b61810bab74358799fd89f52f6add7910c9996",
+    "modelaccess/nli.py": "c77bebc2fc66967e036747cbdaa6f416c69ceb7b297f13bea3b986a924c102ca",
+    "scripts/probe_redesign_semantics.py": "3853752bb66aa710b8f5cbc5da04c6c8d365891fd585fa3e90cb99fc80dfaeeb"
+  },
+  "fixtureHashes": {
+    "experiments/typed_relation_review/development-v1.json": "e6ee0e234919c56276e199419f35627aedd6528702f3003c386d57b25654f397"
+  },
+  "matrixSHA256": "ecb81702ced695d09b8666a26dd7d0eb4c6c64c7617177649aff5c0c8d957342",
+  "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+  "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+  "device": "mps",
+  "threshold": 0.8,
+  "deadlineSeconds": 55.0,
+  "pairCount": 70,
+  "caseCount": 12,
+  "role": "rubricCoverDiagnostic",
+  "learnerEvidence": false,
+  "scoringRule": "Canonical argmax >= .8, otherwise uncertain; unavailable scores are not neutral. Reverse expected labels and ambiguous comparison labels are null.",
+  "dtypePolicy": "Use pinned PairClassifier implementation; require actual runtime torch.float16 before scoring; no dtype mutation or conversion.",
+  "scope": "EXPOSED only; no reserve, credit, grounding, adoption or grading-policy claims."
+}

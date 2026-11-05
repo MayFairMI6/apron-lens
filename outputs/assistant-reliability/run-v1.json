@@ -1,0 +1,1693 @@
+{
+  "loadSeconds": 19.92541295800038,
+  "warmup": [
+    {
+      "path": "text",
+      "elapsedSeconds": 2.714338415999009,
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+    },
+    {
+      "path": "image",
+      "elapsedSeconds": 1.7331523749999178,
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+    }
+  ],
+  "records": [
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "weather_route",
+      "turn": 0,
+      "case": {
+        "cutoff": 20,
+        "question": "What is the reported restriction for WX410?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "WX410",
+        "required": [
+          "W1:movement_condition"
+        ],
+        "allowed": [
+          "W1:movement_condition"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "74102c4f87624b62a352997f871042df",
+        "turnId": "0",
+        "sessionId": "29df0c92b29c460597190912ea493d0e",
+        "cutoff": 20,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: reduced visibility \u2014 current. Event 5 s; received 12 s. [W1]",
+          "claims": [
+            {
+              "fact_id": "W1:movement_condition",
+              "value": "hold: reduced visibility",
+              "status": "current",
+              "evidence_ids": [
+                "W1"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 800,
+        "outputTokens": 32,
+        "latencySeconds": 5.751,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 800,
+        "trainingKnownOutputTokens": 32,
+        "revision": 1,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 20 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": null, \"userIntents\": []}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 5, \"event_id\": \"W1\", \"fact_id\": \"W1:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 12, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: reduced visibility\"}], \"flightInstance\": \"WX410\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 8, \"event_id\": \"W4\", \"fact_id\": \"W4:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 10, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: service vehicle crossing\"}], \"flightInstance\": \"WX522\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 6, \"event_id\": \"W5\", \"fact_id\": \"W5:route\", \"property\": \"route\", \"receiptTime\": 9, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"east service route\"}], \"flightInstance\": \"WX633\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What is the reported restriction for WX410?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"claims\": [{\"fact_id\": \"W1:movement_condition\", \"value\": \"hold: reduced visibility\", \"status\": \"current\", \"evidence_ids\": [\"W1\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "weather_route",
+      "turn": 1,
+      "case": {
+        "cutoff": 44.999,
+        "question": "What restriction is still in effect for it in received reports?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "WX410",
+        "required": [
+          "W1:movement_condition"
+        ],
+        "allowed": [
+          "W1:movement_condition"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "fd7ac145fbb941a3a84cb4ce17894cf4",
+        "turnId": "1",
+        "sessionId": "29df0c92b29c460597190912ea493d0e",
+        "cutoff": 44.999,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: reduced visibility \u2014 current. Event 5 s; received 12 s. [W1]",
+          "claims": [
+            {
+              "fact_id": "W1:movement_condition",
+              "value": "hold: reduced visibility",
+              "status": "current",
+              "evidence_ids": [
+                "W1"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 868,
+        "outputTokens": 32,
+        "latencySeconds": 5.513,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 868,
+        "trainingKnownOutputTokens": 32,
+        "revision": 2,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 44.999 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 20, \"flightInstance\": \"WX410\", \"kind\": \"reference\", \"text\": \"What is the reported restriction for WX410?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 5, \"event_id\": \"W1\", \"fact_id\": \"W1:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 12, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: reduced visibility\"}], \"flightInstance\": \"WX410\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 20, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"W1:movement_condition\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 8, \"event_id\": \"W4\", \"fact_id\": \"W4:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 10, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: service vehicle crossing\"}], \"flightInstance\": \"WX522\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 6, \"event_id\": \"W5\", \"fact_id\": \"W5:route\", \"property\": \"route\", \"receiptTime\": 9, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"east service route\"}], \"flightInstance\": \"WX633\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What restriction is still in effect for it in received reports?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"claims\": [{\"fact_id\": \"W1:movement_condition\", \"value\": \"hold: reduced visibility\", \"status\": \"current\", \"evidence_ids\": [\"W1\"]}], \"unknowns\": [], \"explanationChanged\": false, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "weather_route",
+      "turn": 2,
+      "case": {
+        "cutoff": 45,
+        "question": "Compare its earlier restriction with the new route condition. Cite both.",
+        "mode": "change",
+        "aircraftId": "K1",
+        "flight": "WX410",
+        "required": [
+          "W1:movement_condition",
+          "W2:movement_condition"
+        ],
+        "allowed": [
+          "W1:movement_condition",
+          "W2:movement_condition"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "33324d364e2d4880964222a81636a612",
+        "turnId": "2",
+        "sessionId": "29df0c92b29c460597190912ea493d0e",
+        "cutoff": 45,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: reduced visibility \u2014 superseded. Event 5 s; received 12 s. [W1]\n\nAuthored movement condition: ground route open under escort \u2014 current. Event 30 s; received 45 s. [W2]\n\nChanged since the previous answer: W1:movement_condition, W2:movement_condition",
+          "claims": [
+            {
+              "fact_id": "W1:movement_condition",
+              "value": "hold: reduced visibility",
+              "status": "superseded",
+              "evidence_ids": [
+                "W1"
+              ]
+            },
+            {
+              "fact_id": "W2:movement_condition",
+              "value": "ground route open under escort",
+              "status": "current",
+              "evidence_ids": [
+                "W2"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "changes": [
+          "W1:movement_condition",
+          "W2:movement_condition"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 914,
+        "outputTokens": 38,
+        "latencySeconds": 7.702,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 914,
+        "trainingKnownOutputTokens": 38,
+        "revision": 3,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 45 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 20, \"flightInstance\": \"WX410\", \"kind\": \"reference\", \"text\": \"What is the reported restriction for WX410?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 5, \"event_id\": \"W1\", \"fact_id\": \"W1:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 12, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"hold: reduced visibility\"}, {\"eventTime\": 30, \"event_id\": \"W2\", \"fact_id\": \"W2:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 45, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"ground route open under escort\"}], \"flightInstance\": \"WX410\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 44.999, \"changedSincePreviousAnswer\": [\"W1:movement_condition\", \"W2:movement_condition\"], \"citedFacts\": [\"W1:movement_condition\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 8, \"event_id\": \"W4\", \"fact_id\": \"W4:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 10, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: service vehicle crossing\"}], \"flightInstance\": \"WX522\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 6, \"event_id\": \"W5\", \"fact_id\": \"W5:route\", \"property\": \"route\", \"receiptTime\": 9, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"east service route\"}], \"flightInstance\": \"WX633\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Compare its earlier restriction with the new route condition. Cite both.",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"claims\": [{\"fact_id\": \"W1:movement_condition\", \"value\": \"hold: reduced visibility\", \"status\": \"superseded\", \"evidence_ids\": [\"W1\"]}, {\"fact_id\": \"W2:movement_condition\", \"value\": \"ground route open under escort\", \"status\": \"current\", \"evidence_ids\": [\"W2\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "weather_route",
+      "turn": 3,
+      "case": {
+        "cutoff": 46,
+        "question": "What was its restriction before the escort update?",
+        "mode": "history",
+        "aircraftId": "K1",
+        "flight": "WX410",
+        "required": [
+          "W1:movement_condition"
+        ],
+        "allowed": [
+          "W1:movement_condition",
+          "W2:movement_condition"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "4af4ba3a26ab4366b7ff2d3b4f188a7a",
+        "turnId": "3",
+        "sessionId": "29df0c92b29c460597190912ea493d0e",
+        "cutoff": 46,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: reduced visibility \u2014 superseded. Event 5 s; received 12 s. [W1]",
+          "claims": [
+            {
+              "fact_id": "W1:movement_condition",
+              "value": "hold: reduced visibility",
+              "status": "superseded",
+              "evidence_ids": [
+                "W1"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 909,
+        "outputTokens": 32,
+        "latencySeconds": 5.795,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 909,
+        "trainingKnownOutputTokens": 32,
+        "revision": 4,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 46 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 20, \"flightInstance\": \"WX410\", \"kind\": \"reference\", \"text\": \"What is the reported restriction for WX410?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 5, \"event_id\": \"W1\", \"fact_id\": \"W1:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 12, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"hold: reduced visibility\"}, {\"eventTime\": 30, \"event_id\": \"W2\", \"fact_id\": \"W2:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 45, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"ground route open under escort\"}], \"flightInstance\": \"WX410\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 45, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"W1:movement_condition\", \"W2:movement_condition\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 8, \"event_id\": \"W4\", \"fact_id\": \"W4:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 10, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: service vehicle crossing\"}], \"flightInstance\": \"WX522\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 6, \"event_id\": \"W5\", \"fact_id\": \"W5:route\", \"property\": \"route\", \"receiptTime\": 9, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"east service route\"}], \"flightInstance\": \"WX633\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What was its restriction before the escort update?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"claims\": [{\"fact_id\": \"W1:movement_condition\", \"value\": \"hold: reduced visibility\", \"status\": \"superseded\", \"evidence_ids\": [\"W1\"]}], \"unknowns\": [], \"explanationChanged\": false, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "history",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "weather_route",
+      "turn": 4,
+      "case": {
+        "cutoff": 80,
+        "question": "What replaced the escort condition? Give the previous and current conditions.",
+        "mode": "change",
+        "aircraftId": "K1",
+        "flight": "WX410",
+        "required": [
+          "W2:movement_condition",
+          "W3:movement_condition"
+        ],
+        "allowed": [
+          "W2:movement_condition",
+          "W3:movement_condition"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "2e1106d0517449dc81ab695d5e75d636",
+        "turnId": "4",
+        "sessionId": "29df0c92b29c460597190912ea493d0e",
+        "cutoff": 80,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: ground route open under escort \u2014 superseded. Event 30 s; received 45 s. [W2]\n\nAuthored movement condition: hold: route inspection \u2014 current. Event 65 s; received 80 s. [W3]\n\nChanged since the previous answer: W2:movement_condition, W3:movement_condition",
+          "claims": [
+            {
+              "fact_id": "W2:movement_condition",
+              "value": "ground route open under escort",
+              "status": "superseded",
+              "evidence_ids": [
+                "W2"
+              ]
+            },
+            {
+              "fact_id": "W3:movement_condition",
+              "value": "hold: route inspection",
+              "status": "current",
+              "evidence_ids": [
+                "W3"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "changes": [
+          "W2:movement_condition",
+          "W3:movement_condition"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 956,
+        "outputTokens": 38,
+        "latencySeconds": 6.633,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 956,
+        "trainingKnownOutputTokens": 38,
+        "revision": 5,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 80 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 20, \"flightInstance\": \"WX410\", \"kind\": \"reference\", \"text\": \"What is the reported restriction for WX410?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 5, \"event_id\": \"W1\", \"fact_id\": \"W1:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 12, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"hold: reduced visibility\"}, {\"eventTime\": 30, \"event_id\": \"W2\", \"fact_id\": \"W2:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 45, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"ground route open under escort\"}, {\"eventTime\": 65, \"event_id\": \"W3\", \"fact_id\": \"W3:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 80, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: route inspection\"}], \"flightInstance\": \"WX410\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 46, \"changedSincePreviousAnswer\": [\"W2:movement_condition\", \"W3:movement_condition\"], \"citedFacts\": [\"W1:movement_condition\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 8, \"event_id\": \"W4\", \"fact_id\": \"W4:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 10, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: service vehicle crossing\"}], \"flightInstance\": \"WX522\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 6, \"event_id\": \"W5\", \"fact_id\": \"W5:route\", \"property\": \"route\", \"receiptTime\": 9, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"east service route\"}], \"flightInstance\": \"WX633\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What replaced the escort condition? Give the previous and current conditions.",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"claims\": [{\"fact_id\": \"W2:movement_condition\", \"value\": \"ground route open under escort\", \"status\": \"superseded\", \"evidence_ids\": [\"W2\"]}, {\"fact_id\": \"W3:movement_condition\", \"value\": \"hold: route inspection\", \"status\": \"current\", \"evidence_ids\": [\"W3\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "weather_route",
+      "turn": 5,
+      "case": {
+        "cutoff": 81,
+        "question": "Does its current ground restriction establish overall departure readiness?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "WX410",
+        "required": [],
+        "allowed": [
+          "W3:movement_condition"
+        ],
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      "result": {
+        "requestId": "e84a4530b9814d3a979f23daa6f64e03",
+        "turnId": "5",
+        "sessionId": "29df0c92b29c460597190912ea493d0e",
+        "cutoff": 81,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: route inspection \u2014 current. Event 65 s; received 80 s. [W3]\n\nOverall departure readiness: no unambiguous current value in received reports.",
+          "claims": [
+            {
+              "fact_id": "W3:movement_condition",
+              "value": "hold: route inspection",
+              "status": "current",
+              "evidence_ids": [
+                "W3"
+              ]
+            }
+          ],
+          "unknowns": [
+            "overall_readiness"
+          ],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "WX410"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 953,
+        "outputTokens": 35,
+        "latencySeconds": 6.301,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 953,
+        "trainingKnownOutputTokens": 35,
+        "revision": 6,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 81 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 20, \"flightInstance\": \"WX410\", \"kind\": \"reference\", \"text\": \"What is the reported restriction for WX410?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 5, \"event_id\": \"W1\", \"fact_id\": \"W1:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 12, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"hold: reduced visibility\"}, {\"eventTime\": 30, \"event_id\": \"W2\", \"fact_id\": \"W2:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 45, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"ground route open under escort\"}, {\"eventTime\": 65, \"event_id\": \"W3\", \"fact_id\": \"W3:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 80, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: route inspection\"}], \"flightInstance\": \"WX410\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 80, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"W2:movement_condition\", \"W3:movement_condition\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 8, \"event_id\": \"W4\", \"fact_id\": \"W4:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 10, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"hold: service vehicle crossing\"}], \"flightInstance\": \"WX522\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 6, \"event_id\": \"W5\", \"fact_id\": \"W5:route\", \"property\": \"route\", \"receiptTime\": 9, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"east service route\"}], \"flightInstance\": \"WX633\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Does its current ground restriction establish overall departure readiness?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"WX410\"}, \"claims\": [{\"fact_id\": \"W3:movement_condition\", \"value\": \"hold: route inspection\", \"status\": \"current\", \"evidence_ids\": [\"W3\"]}], \"unknowns\": [\"overall_readiness\"], \"explanationChanged\": false, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "stand_reassignment",
+      "turn": 0,
+      "case": {
+        "cutoff": 15,
+        "question": "Which stand is assigned to ST204?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "ST204",
+        "required": [
+          "S1:stand"
+        ],
+        "allowed": [
+          "S1:stand"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "3b0e6680422240e19a49dd17754cbf79",
+        "turnId": "0",
+        "sessionId": "9a72e07dd57a408f9de0be390eea8896",
+        "cutoff": 15,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Assigned stand: D12 \u2014 current. Event 2 s; received 4 s. [S1]",
+          "claims": [
+            {
+              "fact_id": "S1:stand",
+              "value": "D12",
+              "status": "current",
+              "evidence_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 790,
+        "outputTokens": 31,
+        "latencySeconds": 5.317,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 790,
+        "trainingKnownOutputTokens": 31,
+        "revision": 1,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 15 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": null, \"userIntents\": []}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"S1\", \"fact_id\": \"S1:stand\", \"property\": \"stand\", \"receiptTime\": 4, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"D12\"}], \"flightInstance\": \"ST204\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"S4\", \"fact_id\": \"S4:stand\", \"property\": \"stand\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"F7\"}], \"flightInstance\": \"ST305\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"S5\", \"fact_id\": \"S5:stand\", \"property\": \"stand\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST406\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Which stand is assigned to ST204?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"claims\": [{\"fact_id\": \"S1:stand\", \"value\": \"D12\", \"status\": \"current\", \"evidence_ids\": [\"S1\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "stand_reassignment",
+      "turn": 1,
+      "case": {
+        "cutoff": 38,
+        "question": "Show its stand reassignment: the earlier stand and the replacement.",
+        "mode": "change",
+        "aircraftId": "K1",
+        "flight": "ST204",
+        "required": [
+          "S1:stand",
+          "S2:stand"
+        ],
+        "allowed": [
+          "S1:stand",
+          "S2:stand"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "f0f9827d826a4b31873ce3d5ce437f28",
+        "turnId": "1",
+        "sessionId": "9a72e07dd57a408f9de0be390eea8896",
+        "cutoff": 38,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Assigned stand: D12 \u2014 superseded. Event 2 s; received 4 s. [S1]\n\nAssigned stand: E4 \u2014 current. Event 21 s; received 38 s. [S2]\n\nChanged since the previous answer: S1:stand, S2:stand",
+          "claims": [
+            {
+              "fact_id": "S1:stand",
+              "value": "D12",
+              "status": "superseded",
+              "evidence_ids": [
+                "S1"
+              ]
+            },
+            {
+              "fact_id": "S2:stand",
+              "value": "E4",
+              "status": "current",
+              "evidence_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "changes": [
+          "S1:stand",
+          "S2:stand"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 898,
+        "outputTokens": 36,
+        "latencySeconds": 6.289,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 898,
+        "trainingKnownOutputTokens": 36,
+        "revision": 2,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 38 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"ST204\", \"kind\": \"reference\", \"text\": \"Which stand is assigned to ST204?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"S1\", \"fact_id\": \"S1:stand\", \"property\": \"stand\", \"receiptTime\": 4, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"D12\"}, {\"eventTime\": 21, \"event_id\": \"S2\", \"fact_id\": \"S2:stand\", \"property\": \"stand\", \"receiptTime\": 38, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST204\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 15, \"changedSincePreviousAnswer\": [\"S1:stand\", \"S2:stand\"], \"citedFacts\": [\"S1:stand\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"S4\", \"fact_id\": \"S4:stand\", \"property\": \"stand\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"F7\"}], \"flightInstance\": \"ST305\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"S5\", \"fact_id\": \"S5:stand\", \"property\": \"stand\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST406\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Show its stand reassignment: the earlier stand and the replacement.",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"claims\": [{\"fact_id\": \"S1:stand\", \"value\": \"D12\", \"status\": \"superseded\", \"evidence_ids\": [\"S1\"]}, {\"fact_id\": \"S2:stand\", \"value\": \"E4\", \"status\": \"current\", \"evidence_ids\": [\"S2\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "stand_reassignment",
+      "turn": 2,
+      "case": {
+        "cutoff": 39,
+        "question": "Which stand did it have before E4?",
+        "mode": "history",
+        "aircraftId": "K1",
+        "flight": "ST204",
+        "required": [
+          "S1:stand"
+        ],
+        "allowed": [
+          "S1:stand",
+          "S2:stand"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "9a8ec2a33db8491883ca00fe29749bb8",
+        "turnId": "2",
+        "sessionId": "9a72e07dd57a408f9de0be390eea8896",
+        "cutoff": 39,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Assigned stand: D12 \u2014 superseded. Event 2 s; received 4 s. [S1]",
+          "claims": [
+            {
+              "fact_id": "S1:stand",
+              "value": "D12",
+              "status": "superseded",
+              "evidence_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 894,
+        "outputTokens": 31,
+        "latencySeconds": 5.493,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 894,
+        "trainingKnownOutputTokens": 31,
+        "revision": 3,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 39 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"ST204\", \"kind\": \"reference\", \"text\": \"Which stand is assigned to ST204?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"S1\", \"fact_id\": \"S1:stand\", \"property\": \"stand\", \"receiptTime\": 4, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"D12\"}, {\"eventTime\": 21, \"event_id\": \"S2\", \"fact_id\": \"S2:stand\", \"property\": \"stand\", \"receiptTime\": 38, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST204\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 38, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"S1:stand\", \"S2:stand\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"S4\", \"fact_id\": \"S4:stand\", \"property\": \"stand\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"F7\"}], \"flightInstance\": \"ST305\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"S5\", \"fact_id\": \"S5:stand\", \"property\": \"stand\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST406\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Which stand did it have before E4?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"claims\": [{\"fact_id\": \"S1:stand\", \"value\": \"D12\", \"status\": \"superseded\", \"evidence_ids\": [\"S1\"]}], \"unknowns\": [], \"explanationChanged\": false, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "history",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "stand_reassignment",
+      "turn": 3,
+      "case": {
+        "cutoff": 75,
+        "question": "Which stand is assigned to it now? Give only the current assignment.",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "ST204",
+        "required": [
+          "S3:stand"
+        ],
+        "allowed": [
+          "S3:stand"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "3618e0f2c5e5484fa30e9b8439f8ba88",
+        "turnId": "3",
+        "sessionId": "9a72e07dd57a408f9de0be390eea8896",
+        "cutoff": 75,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Assigned stand: D18 \u2014 current. Event 60 s; received 75 s. [S3]\n\nChanged since the previous answer: S2:stand, S3:stand",
+          "claims": [
+            {
+              "fact_id": "S3:stand",
+              "value": "D18",
+              "status": "current",
+              "evidence_ids": [
+                "S3"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "ST204"
+        },
+        "changes": [
+          "S2:stand",
+          "S3:stand"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 939,
+        "outputTokens": 31,
+        "latencySeconds": 5.69,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 939,
+        "trainingKnownOutputTokens": 31,
+        "revision": 4,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 75 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"ST204\", \"kind\": \"reference\", \"text\": \"Which stand is assigned to ST204?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"S1\", \"fact_id\": \"S1:stand\", \"property\": \"stand\", \"receiptTime\": 4, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"D12\"}, {\"eventTime\": 21, \"event_id\": \"S2\", \"fact_id\": \"S2:stand\", \"property\": \"stand\", \"receiptTime\": 38, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"E4\"}, {\"eventTime\": 60, \"event_id\": \"S3\", \"fact_id\": \"S3:stand\", \"property\": \"stand\", \"receiptTime\": 75, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"D18\"}], \"flightInstance\": \"ST204\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 39, \"changedSincePreviousAnswer\": [\"S2:stand\", \"S3:stand\"], \"citedFacts\": [\"S1:stand\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"S4\", \"fact_id\": \"S4:stand\", \"property\": \"stand\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"F7\"}], \"flightInstance\": \"ST305\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"S5\", \"fact_id\": \"S5:stand\", \"property\": \"stand\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST406\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Which stand is assigned to it now? Give only the current assignment.",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"claims\": [{\"fact_id\": \"S3:stand\", \"value\": \"D18\", \"status\": \"current\", \"evidence_ids\": [\"S3\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [\"S2:stand\"], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "stand_reassignment",
+      "turn": 4,
+      "case": {
+        "cutoff": 76,
+        "question": "Compare its E4 assignment with the latest replacement.",
+        "mode": "change",
+        "aircraftId": "K1",
+        "flight": "ST204",
+        "required": [
+          "S2:stand",
+          "S3:stand"
+        ],
+        "allowed": [
+          "S2:stand",
+          "S3:stand"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "7e69c6db8f2e49d0a3b12f993fa4661e",
+        "turnId": "4",
+        "sessionId": "9a72e07dd57a408f9de0be390eea8896",
+        "cutoff": 76,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Assigned stand: E4 \u2014 current. Event 4 s; received 6 s. [S5]",
+          "claims": [
+            {
+              "fact_id": "S5:stand",
+              "value": "E4",
+              "status": "current",
+              "evidence_ids": [
+                "S5"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K3",
+          "flightInstance": "ST406"
+        },
+        "currentReferent": {
+          "aircraftId": "K3",
+          "flightInstance": "ST406"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 935,
+        "outputTokens": 31,
+        "latencySeconds": 5.718,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 935,
+        "trainingKnownOutputTokens": 31,
+        "revision": 5,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 76 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"ST204\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"ST204\", \"kind\": \"reference\", \"text\": \"Which stand is assigned to ST204?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"S1\", \"fact_id\": \"S1:stand\", \"property\": \"stand\", \"receiptTime\": 4, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"D12\"}, {\"eventTime\": 21, \"event_id\": \"S2\", \"fact_id\": \"S2:stand\", \"property\": \"stand\", \"receiptTime\": 38, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"E4\"}, {\"eventTime\": 60, \"event_id\": \"S3\", \"fact_id\": \"S3:stand\", \"property\": \"stand\", \"receiptTime\": 75, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"D18\"}], \"flightInstance\": \"ST204\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 75, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"S3:stand\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"S4\", \"fact_id\": \"S4:stand\", \"property\": \"stand\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"F7\"}], \"flightInstance\": \"ST305\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"S5\", \"fact_id\": \"S5:stand\", \"property\": \"stand\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST406\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Compare its E4 assignment with the latest replacement.",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K3\", \"flightInstance\": \"ST406\"}, \"claims\": [{\"fact_id\": \"S5:stand\", \"value\": \"E4\", \"status\": \"current\", \"evidence_ids\": [\"S5\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": false,
+        "accepted": true,
+        "identityCorrect": false,
+        "claimsSupported": false,
+        "citationValid": false,
+        "relevantScope": false,
+        "requiredCoverage": false,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "stand_reassignment",
+      "turn": 5,
+      "case": {
+        "cutoff": 77,
+        "question": "Correction: I mean ST305. What is its assigned stand?",
+        "mode": "current",
+        "aircraftId": "K2",
+        "flight": "ST305",
+        "required": [
+          "S4:stand"
+        ],
+        "allowed": [
+          "S4:stand"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "bbd99a9559c04d839dca40599d68e818",
+        "turnId": "5",
+        "sessionId": "9a72e07dd57a408f9de0be390eea8896",
+        "cutoff": 77,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Assigned stand: F7 \u2014 current. Event 3 s; received 5 s. [S4]",
+          "claims": [
+            {
+              "fact_id": "S4:stand",
+              "value": "F7",
+              "status": "current",
+              "evidence_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K2",
+          "flightInstance": "ST305"
+        },
+        "currentReferent": {
+          "aircraftId": "K2",
+          "flightInstance": "ST305"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 990,
+        "outputTokens": 31,
+        "latencySeconds": 5.827,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 990,
+        "trainingKnownOutputTokens": 31,
+        "revision": 6,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 77 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K3\", \"flightInstance\": \"ST406\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"ST204\", \"kind\": \"reference\", \"text\": \"Which stand is assigned to ST204?\"}, {\"aircraftId\": \"K3\", \"atReplayTime\": 76, \"flightInstance\": \"ST406\", \"kind\": \"reference\", \"text\": \"Compare its E4 assignment with the latest replacement.\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"S1\", \"fact_id\": \"S1:stand\", \"property\": \"stand\", \"receiptTime\": 4, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"D12\"}, {\"eventTime\": 21, \"event_id\": \"S2\", \"fact_id\": \"S2:stand\", \"property\": \"stand\", \"receiptTime\": 38, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"E4\"}, {\"eventTime\": 60, \"event_id\": \"S3\", \"fact_id\": \"S3:stand\", \"property\": \"stand\", \"receiptTime\": 75, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"D18\"}], \"flightInstance\": \"ST204\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 75, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"S3:stand\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"S4\", \"fact_id\": \"S4:stand\", \"property\": \"stand\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"F7\"}], \"flightInstance\": \"ST305\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"S5\", \"fact_id\": \"S5:stand\", \"property\": \"stand\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"E4\"}], \"flightInstance\": \"ST406\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 76, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"S5:stand\"], \"status\": \"answer\"}}]\nUser: Correction: I mean ST305. What is its assigned stand?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K2\", \"flightInstance\": \"ST305\"}, \"claims\": [{\"fact_id\": \"S4:stand\", \"value\": \"F7\", \"status\": \"current\", \"evidence_ids\": [\"S4\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "service_withdrawal",
+      "turn": 0,
+      "case": {
+        "cutoff": 15,
+        "question": "Is baggage loading reported complete for SV708?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "SV708",
+        "required": [
+          "B1:baggage_status"
+        ],
+        "allowed": [
+          "B1:baggage_status"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "2d794f20941949c0afe6e63e9a91055d",
+        "turnId": "0",
+        "sessionId": "207342bc46514de39829d7a7fd3c0ef2",
+        "cutoff": 15,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Baggage service: complete \u2014 current. Event 4 s; received 7 s. [B1]",
+          "claims": [
+            {
+              "fact_id": "B1:baggage_status",
+              "value": "complete",
+              "status": "current",
+              "evidence_ids": [
+                "B1"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 792,
+        "outputTokens": 33,
+        "latencySeconds": 5.567,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 792,
+        "trainingKnownOutputTokens": 33,
+        "revision": 1,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 15 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": null, \"userIntents\": []}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"B1\", \"fact_id\": \"B1:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 7, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete\"}], \"flightInstance\": \"SV708\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"B6\", \"fact_id\": \"B6:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"loading\"}], \"flightInstance\": \"SV819\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"B7\", \"fact_id\": \"B7:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete\"}], \"flightInstance\": \"SV920\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Is baggage loading reported complete for SV708?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"claims\": [{\"fact_id\": \"B1:baggage_status\", \"value\": \"complete\", \"status\": \"current\", \"evidence_ids\": [\"B1\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "service_withdrawal",
+      "turn": 1,
+      "case": {
+        "cutoff": 35,
+        "question": "How did its baggage status change? Include the earlier completion and the new status.",
+        "mode": "change",
+        "aircraftId": "K1",
+        "flight": "SV708",
+        "required": [
+          "B1:baggage_status",
+          "B2:baggage_status"
+        ],
+        "allowed": [
+          "B1:baggage_status",
+          "B2:baggage_status"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "6510e51ca9cd47c2a6c45500acf516e0",
+        "turnId": "1",
+        "sessionId": "207342bc46514de39829d7a7fd3c0ef2",
+        "cutoff": 35,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Baggage service: complete \u2014 superseded. Event 4 s; received 7 s. [B1]\n\nBaggage service: reopened: additional bags to load \u2014 current. Event 22 s; received 35 s. [B2]\n\nChanged since the previous answer: B1:baggage_status, B2:baggage_status",
+          "claims": [
+            {
+              "fact_id": "B1:baggage_status",
+              "value": "complete",
+              "status": "superseded",
+              "evidence_ids": [
+                "B1"
+              ]
+            },
+            {
+              "fact_id": "B2:baggage_status",
+              "value": "reopened: additional bags to load",
+              "status": "current",
+              "evidence_ids": [
+                "B2"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "changes": [
+          "B1:baggage_status",
+          "B2:baggage_status"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 912,
+        "outputTokens": 40,
+        "latencySeconds": 6.69,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 912,
+        "trainingKnownOutputTokens": 40,
+        "revision": 2,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 35 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"SV708\", \"kind\": \"reference\", \"text\": \"Is baggage loading reported complete for SV708?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"B1\", \"fact_id\": \"B1:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 7, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"complete\"}, {\"eventTime\": 22, \"event_id\": \"B2\", \"fact_id\": \"B2:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 35, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"reopened: additional bags to load\"}], \"flightInstance\": \"SV708\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 15, \"changedSincePreviousAnswer\": [\"B1:baggage_status\", \"B2:baggage_status\"], \"citedFacts\": [\"B1:baggage_status\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"B6\", \"fact_id\": \"B6:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"loading\"}], \"flightInstance\": \"SV819\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"B7\", \"fact_id\": \"B7:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete\"}], \"flightInstance\": \"SV920\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: How did its baggage status change? Include the earlier completion and the new status.",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"claims\": [{\"fact_id\": \"B1:baggage_status\", \"value\": \"complete\", \"status\": \"superseded\", \"evidence_ids\": [\"B1\"]}, {\"fact_id\": \"B2:baggage_status\", \"value\": \"reopened: additional bags to load\", \"status\": \"current\", \"evidence_ids\": [\"B2\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "change",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "service_withdrawal",
+      "turn": 2,
+      "case": {
+        "cutoff": 64,
+        "question": "What is its baggage status now?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "SV708",
+        "required": [
+          "B3:baggage_status"
+        ],
+        "allowed": [
+          "B3:baggage_status"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "ee169da65b024d019e12d13f76c4bd07",
+        "turnId": "2",
+        "sessionId": "207342bc46514de39829d7a7fd3c0ef2",
+        "cutoff": 64,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Baggage service: complete after additional loading \u2014 current. Event 52 s; received 64 s. [B3]\n\nChanged since the previous answer: B2:baggage_status, B3:baggage_status",
+          "claims": [
+            {
+              "fact_id": "B3:baggage_status",
+              "value": "complete after additional loading",
+              "status": "current",
+              "evidence_ids": [
+                "B3"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "changes": [
+          "B2:baggage_status",
+          "B3:baggage_status"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 948,
+        "outputTokens": 33,
+        "latencySeconds": 6.114,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 948,
+        "trainingKnownOutputTokens": 33,
+        "revision": 3,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 64 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"SV708\", \"kind\": \"reference\", \"text\": \"Is baggage loading reported complete for SV708?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"B1\", \"fact_id\": \"B1:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 7, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"complete\"}, {\"eventTime\": 22, \"event_id\": \"B2\", \"fact_id\": \"B2:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 35, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"reopened: additional bags to load\"}, {\"eventTime\": 52, \"event_id\": \"B3\", \"fact_id\": \"B3:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 64, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete after additional loading\"}], \"flightInstance\": \"SV708\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 35, \"changedSincePreviousAnswer\": [\"B2:baggage_status\", \"B3:baggage_status\"], \"citedFacts\": [\"B1:baggage_status\", \"B2:baggage_status\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"B6\", \"fact_id\": \"B6:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"loading\"}], \"flightInstance\": \"SV819\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"B7\", \"fact_id\": \"B7:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete\"}], \"flightInstance\": \"SV920\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What is its baggage status now?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"claims\": [{\"fact_id\": \"B3:baggage_status\", \"value\": \"complete after additional loading\", \"status\": \"current\", \"evidence_ids\": [\"B3\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [\"B2:baggage_status\"], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "service_withdrawal",
+      "turn": 3,
+      "case": {
+        "cutoff": 69.999,
+        "question": "Is overall departure readiness established for it by the received reports?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "SV708",
+        "required": [],
+        "allowed": [
+          "B3:baggage_status"
+        ],
+        "unknowns": [
+          "overall_readiness"
+        ]
+      },
+      "result": {
+        "requestId": "864b9f2558964e9d91f38a02c3ca10c1",
+        "turnId": "3",
+        "sessionId": "207342bc46514de39829d7a7fd3c0ef2",
+        "cutoff": 69.999,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Overall departure readiness: no unambiguous current value in received reports.",
+          "claims": [],
+          "unknowns": [
+            "overall_readiness"
+          ],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "changes": [],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 953,
+        "outputTokens": 30,
+        "latencySeconds": 5.686,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 953,
+        "trainingKnownOutputTokens": 30,
+        "revision": 4,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 69.999 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"SV708\", \"kind\": \"reference\", \"text\": \"Is baggage loading reported complete for SV708?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"B1\", \"fact_id\": \"B1:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 7, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"complete\"}, {\"eventTime\": 22, \"event_id\": \"B2\", \"fact_id\": \"B2:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 35, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"reopened: additional bags to load\"}, {\"eventTime\": 52, \"event_id\": \"B3\", \"fact_id\": \"B3:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 64, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete after additional loading\"}], \"flightInstance\": \"SV708\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 64, \"changedSincePreviousAnswer\": [], \"citedFacts\": [\"B3:baggage_status\"], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"B6\", \"fact_id\": \"B6:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"loading\"}], \"flightInstance\": \"SV819\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"B7\", \"fact_id\": \"B7:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete\"}], \"flightInstance\": \"SV920\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Is overall departure readiness established for it by the received reports?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"claims\": [], \"unknowns\": [\"overall_readiness\"], \"explanationChanged\": false, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": null,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    },
+    {
+      "phase": "regression",
+      "version": "v7",
+      "episode": "service_withdrawal",
+      "turn": 4,
+      "case": {
+        "cutoff": 70,
+        "question": "What is its reported overall readiness now?",
+        "mode": "current",
+        "aircraftId": "K1",
+        "flight": "SV708",
+        "required": [
+          "B4:overall_readiness"
+        ],
+        "allowed": [
+          "B4:overall_readiness"
+        ],
+        "unknowns": []
+      },
+      "result": {
+        "requestId": "282c925176cc41bdb1228083fdd81d33",
+        "turnId": "4",
+        "sessionId": "207342bc46514de39829d7a7fd3c0ef2",
+        "cutoff": 70,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Overall departure readiness: ready \u2014 current. Event 65 s; received 70 s. [B4]\n\nChanged since the previous answer: B4:overall_readiness",
+          "claims": [
+            {
+              "fact_id": "B4:overall_readiness",
+              "value": "ready",
+              "status": "current",
+              "evidence_ids": [
+                "B4"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "referent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "currentReferent": {
+          "aircraftId": "K1",
+          "flightInstance": "SV708"
+        },
+        "changes": [
+          "B4:overall_readiness"
+        ],
+        "imageUsedForInference": false,
+        "provider": "local-backbone",
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "finishReason": "stop",
+        "inputTokens": 984,
+        "outputTokens": 33,
+        "latencySeconds": 6.248,
+        "ignoredSettings": [],
+        "rawJsonValid": true,
+        "repairs": [],
+        "selectionSent": false,
+        "awayIntervals": [],
+        "referentSource": "model",
+        "promptVersion": "conversation-prompt-v6",
+        "referentRule": "referent-rule-v3",
+        "validatorVersion": "conversation-validator-v2",
+        "repairPolicy": "json-repair-v1",
+        "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1",
+        "trainingAttemptCount": 1,
+        "trainingEmptyAnswer": false,
+        "trainingKnownInputTokens": 984,
+        "trainingKnownOutputTokens": 33,
+        "revision": 5,
+        "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 70 s. Nothing is selected in the app: identify the flight from the user's words and the memory, and use \"clarify\" when they could mean more than one candidate flight. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"userIntents\": [{\"aircraftId\": \"K1\", \"atReplayTime\": 15, \"flightInstance\": \"SV708\", \"kind\": \"reference\", \"text\": \"Is baggage loading reported complete for SV708?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"K1\", \"facts\": [{\"eventTime\": 4, \"event_id\": \"B1\", \"fact_id\": \"B1:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 7, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"complete\"}, {\"eventTime\": 22, \"event_id\": \"B2\", \"fact_id\": \"B2:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 35, \"source\": \"authored-exercise-reports\", \"status\": \"superseded\", \"value\": \"reopened: additional bags to load\"}, {\"eventTime\": 52, \"event_id\": \"B3\", \"fact_id\": \"B3:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 64, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete after additional loading\"}, {\"eventTime\": 65, \"event_id\": \"B4\", \"fact_id\": \"B4:overall_readiness\", \"property\": \"overall_readiness\", \"receiptTime\": 70, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"ready\"}], \"flightInstance\": \"SV708\", \"nextRotation\": null, \"previousAnswer\": {\"atReplayTime\": 69.999, \"changedSincePreviousAnswer\": [\"B4:overall_readiness\"], \"citedFacts\": [], \"status\": \"answer\"}}, {\"aircraftId\": \"K2\", \"facts\": [{\"eventTime\": 2, \"event_id\": \"B6\", \"fact_id\": \"B6:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 5, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"loading\"}], \"flightInstance\": \"SV819\", \"nextRotation\": null, \"previousAnswer\": null}, {\"aircraftId\": \"K3\", \"facts\": [{\"eventTime\": 3, \"event_id\": \"B7\", \"fact_id\": \"B7:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 6, \"source\": \"authored-exercise-reports\", \"status\": \"current\", \"value\": \"complete\"}], \"flightInstance\": \"SV920\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What is its reported overall readiness now?",
+        "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"K1\", \"flightInstance\": \"SV708\"}, \"claims\": [{\"fact_id\": \"B4:overall_readiness\", \"value\": \"ready\", \"status\": \"current\", \"evidence_ids\": [\"B4\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+      },
+      "score": {
+        "passed": true,
+        "accepted": true,
+        "identityCorrect": true,
+        "claimsSupported": true,
+        "citationValid": true,
+        "relevantScope": true,
+        "requiredCoverage": true,
+        "statusAllowed": true,
+        "unknownsCorrect": true,
+        "mode": "current",
+        "errors": []
+      }
+    }
+  ],
+  "typed": [],
+  "completed": false
+}

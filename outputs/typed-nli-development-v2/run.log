@@ -1,0 +1,10 @@
+W1103 20:20:16.253000 10757 .venv-candidates/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-candidates/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+Loading weights:   0%|          | 0/106 [00:00<?, ?it/s]Loading weights: 100%|██████████| 106/106 [00:00<00:00, 18480.18it/s]
+0 exact True error None seconds 0.141
+1 exact False error None seconds 0.088
+2 exact True error None seconds 0.029
+3 exact True error None seconds 0.076
+4 exact True error None seconds 0.086
+5 exact True error None seconds 0.092

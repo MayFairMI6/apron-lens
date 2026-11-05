@@ -1,0 +1,167 @@
+{
+  "reviewDate": "2026-11-03",
+  "reviewer": "milestone_ledger; independent of prompt, runner and fixture implementation",
+  "status": "Bounded candidate development, measurement, preservation and report accepted; v6 is not promoted; publication remains a root action",
+  "scope": "One instruction-only candidate revision; 18 observed regression turns plus 24 paired new questions in familiar authored scenario families. No held-out benchmark, professional safety or general semantic-reliability claim.",
+  "artifactHashes": {
+    "outputs/prompt-revision/v6-run.json": "f78e9a72a8e35c695785c8e8ff58479badff2afb2449e40331cd89856d1c6ce4",
+    "outputs/prompt-revision/v6-run.lock.json": "d7d40d65ab422328d34ad4fcf5de55e795a6b665bceb312ec5ddbb119803ea72",
+    "outputs/prompt-revision/v6-run.v5.prompts.jsonl": "a9ef7b0b44222f86284bff3d44618c573515b3e37f6209e31735c8f2f50d5327",
+    "outputs/prompt-revision/v6-run.v6.prompts.jsonl": "7d6cf149c2a95e49d77ae9466c3fb155bf31ca208929240f21c6ab11122f5483",
+    "outputs/prompt-revision/v6-run-summary.json": "53997b2e368836dfe39803180c5906a56163c8fc1076e938b8292ef9a5c5a9dc",
+    "outputs/prompt-revision/runner-at-run.py": "2a3f3aaf7bb3638f3dab8184b6431b80532a1d7d75a6e102d8df3f3d3e9d705e",
+    "outputs/prompt-revision/preservation.json": "2f4561bf13ea6a3fe53b912c3c0768528b0da607b4b905c850e8d1314ca5f250",
+    "outputs/prompt-revision/original-results-hashes.json": "6f62389dfa1899ebe6ec98b7ee73247b993328e57f83754137bbea97461f4b5d",
+    "outputs/prompt-revision/RESULTS.md": "678d8aa537ba539cdf35fa49b896caa2cce35ffa07d276450e20ffaa40acabdb",
+    "outputs/prompt-revision/service-restoration.json": "4262f20c73f8f410d37c2b82188ae99a9f5c224102ddcb3e3be04c21b6ff439e",
+    "backend/training_adapter.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_adapter_v5.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_adapter_v6.py": "238107a29f3bcd2c250fd86b45ffcf0662774bcfffb8befd279a02b5bd8f4ea8",
+    "scripts/evaluate_prompt_revision.py": "11471ac690e34c203029ffa45481cce47cd04b5efd57d3bd6ba9147932329077",
+    "scripts/report_prompt_revision.py": "810a8c0892557694f3b52e628651b772dda1b5884b80b7491fd6295c3663fff3",
+    "tests/test_prompt_revision.py": "8e5d7a11efbb3d8f19e918e9b7cef4df6412f2341019b88b5c914528a773c3df",
+    "docs/course/PROMPT_REVISION.md": "8ba020a4f38a525462381fe5d9d09fc5e8acaf1ae8e696955b37ff49f4437280"
+  },
+  "reviewMethod": {
+    "newModelCalls": 0,
+    "nativeAppOperation": false,
+    "savedReplyReplay": "Replayed all 66 recorded expanded proposals through the normal training turn and session/validator code using a saved-response adapter only. All result fields and regenerated base prompts matched. This is deterministic audit replay, not model inference or native testing.",
+    "programmatic": "Verified every locked case, score, actual selector prompt, eligible fact pool, raw-selection expansion, pinned model, token accounting and sidecar request identity. Recomputed paired summary and promotion decision.",
+    "semanticReading": "Read all 66 displayed answers, including both strict failures and the repaired observed omission; inspected both raw selectors for the history failures and the locked fixture/scorer."
+  },
+  "verified": {
+    "records": 66,
+    "distinctRequests": 66,
+    "actualAttemptRecords": 66,
+    "attemptsPerTurn": 1,
+    "caseKeysMatch": 66,
+    "scoresRecomputedMatch": 66,
+    "actualPromptsReconstructedMatch": 66,
+    "factPoolsReceiptEligibleAndMatchWorld": 66,
+    "expandedProposalsMatchAudit": 66,
+    "fullSavedReplyReplayResultsMatch": 66,
+    "pinnedModelAndUsageMatch": 66,
+    "separateHistorySessions": 11,
+    "historyIsolation": "Three observed regression episodes and four episodes per fresh version, with separate session identities and no state sharing between versions.",
+    "allValidatorAccepted": true,
+    "summaryMatches": true,
+    "lockedSourceHashMappingsMatch": 4,
+    "finalSourceHashesMatch": 3,
+    "originalComparisonArtifactsByteIdentical": 6,
+    "defaultV5ByteIdenticalToPublishedCb2e062": true,
+    "candidateV6ByteIdenticalToExecutedLockedAdapter": true,
+    "executedRunnerArchivedByteIdentical": true,
+    "targetedTests": "6 prompt-revision tests and 9 comparison/scoring/reporting tests passed independently.",
+    "maximumSavedLatencySeconds": 9.674,
+    "over35Seconds": 0,
+    "over40Seconds": 0
+  },
+  "sourcePreservation": {
+    "backend/training_adapter.py": {
+      "retainedAt": "backend/training_adapter_v6.py",
+      "sha256": "238107a29f3bcd2c250fd86b45ffcf0662774bcfffb8befd279a02b5bd8f4ea8"
+    },
+    "backend/training_adapter_v5.py": {
+      "retainedAt": "backend/training_adapter_v5.py",
+      "sha256": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695"
+    },
+    "scripts/evaluate_prompt_revision.py": {
+      "retainedAt": "outputs/prompt-revision/runner-at-run.py",
+      "sha256": "2a3f3aaf7bb3638f3dab8184b6431b80532a1d7d75a6e102d8df3f3d3e9d705e"
+    },
+    "scripts/evaluate_training_assistant.py": {
+      "retainedAt": "scripts/evaluate_training_assistant.py",
+      "sha256": "48d3080beb174c6f6701d40f5d6a10f2a4bce2919ba5dac4f8c3cc43bad9d3c6"
+    }
+  },
+  "results": {
+    "observedRegressionV6": {
+      "passed": 18,
+      "total": 18
+    },
+    "fresh": {
+      "v5": {
+        "turns": 24,
+        "completeSupported": 23,
+        "accepted": 24,
+        "identityNotMatched": 0,
+        "incomplete": 0,
+        "wrongUnknowns": 0,
+        "noncurrentClaims": 1,
+        "noClaimsOrUnknowns": 0,
+        "clarifications": 0,
+        "calls": 24,
+        "retriedTurns": 0,
+        "inputTokens": 30364,
+        "knownInputTokens": 30364,
+        "outputTokens": 871,
+        "knownOutputTokens": 871,
+        "usageComplete": true,
+        "medianSeconds": 7.273,
+        "over35Seconds": 0,
+        "over40Seconds": 0
+      },
+      "v6": {
+        "turns": 24,
+        "completeSupported": 23,
+        "accepted": 24,
+        "identityNotMatched": 0,
+        "incomplete": 0,
+        "wrongUnknowns": 0,
+        "noncurrentClaims": 1,
+        "noClaimsOrUnknowns": 0,
+        "clarifications": 0,
+        "calls": 24,
+        "retriedTurns": 0,
+        "inputTokens": 33772,
+        "knownInputTokens": 33772,
+        "outputTokens": 847,
+        "knownOutputTokens": 847,
+        "usageComplete": true,
+        "medianSeconds": 7.385,
+        "over35Seconds": 0,
+        "over40Seconds": 0
+      }
+    },
+    "pairedImprovements": [],
+    "pairedRegressions": [],
+    "lockedAdoptionGatePassed": false
+  },
+  "strictFailureInterpretation": {
+    "versions": [
+      "v5",
+      "v6"
+    ],
+    "exercise": "explicit_readiness",
+    "turnOneBased": 4,
+    "cutoff": 220,
+    "question": "Has the latest update changed its reported readiness?",
+    "finding": "Both versions give the identical sound change account: EVAL_READY is explicitly superseded and EVAL_NOT_READY is explicitly current, with correct values and sources. Identity, support, required current value, uncertainty and citations pass.",
+    "scoringLimitation": "The inherited staleClaims field rejects every non-current claim, including accurately labelled history invited by this wording. Preserve 23/24 for both under the locked rule; do not describe these as factual errors or stale-as-current assertions.",
+    "comparisonConsequence": "A post-hoc semantic reading accepts both history answers, so it does not establish a v6 advantage or rescue the locked promotion gate."
+  },
+  "decision": {
+    "milestone": "CURRENT / Checkpoint 1, B02",
+    "candidateDeliverable": "Complete within bounded development/measurement/report scope; publish versioned candidate and unsuccessful promotion result.",
+    "appDefault": "v5 retained/restored byte-for-byte; v6 archived as an explicit selectable candidate, not the app default.",
+    "nativeV6Accepted": false,
+    "promptRevisionsUsed": 1,
+    "furtherTuning": "No prompt or key changes after the new outputs were exposed. This review does not start another run or redefine the gate.",
+    "remainingActions": "Root publication/CI/tracker readback. Existing semantic issue #60 and course gates #30/#31/#32 remain separate and open.",
+    "serviceRestoration": "Root reports ready with the pinned model and default v5; reviewer read service-restoration.json but did not query the live service."
+  },
+  "limits": [
+    "The eighteen observed cases were used to develop v6; 18/18 shows regression repair, not an unseen gain.",
+    "Four dependent new-question episodes and one new scenario seed are development probes, not independent unseen-airport generalization. Questions are now exposed development material.",
+    "Both versions share fact expansion and validation. Support checks do not establish unrestricted prose correctness; irrelevant extras and clarity are not fully scored.",
+    "Fixed version order makes latency descriptive. Offline execution did not enforce native deadlines, and engine stop reasons remain inferred by the adapter.",
+    "No image reasoning, graph database, model-weight training, learner grading or outcome evaluation was added.",
+    "No semantic-failure repair is deployed because v5 remains the default. Broader ordinary-assistant and separate typed-review limitations are not closed by this study.",
+    "Publication and native adoption are separate. No native v6 run, whole-assignment completion or physical-phone claim is made."
+  ],
+  "rootReportedValidation": {
+    "fullSuite": "311 tests passed in 39.424 seconds; reported by root after independent audit",
+    "frozenResearchIntegrity": "160 records passed, reported by root; no frozen research was changed by this review",
+    "independentReviewerReranFullSuite": false
+  }
+}

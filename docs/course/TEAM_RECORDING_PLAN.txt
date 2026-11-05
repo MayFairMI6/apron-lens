@@ -1,0 +1,198 @@
+AirfieldLens - two-person video plan and narration
+
+Published 30:33.5 edit — Person 2 narration pending
+
+The published video is airfieldlens-typed-share-person1-audio.mp4, 1,833.5 seconds (30:33.5), at the existing Drive link. Its cut plan is 1,833.4667 seconds and preserves the prefix through 27:42.4667, then appends excerpts from one completed native typed fog lesson. The run reached a three-response debrief after a genuine withheld review and successful native edit/retry. This is limited qualitative-prototype evidence, not a validated grade or general feedback-accuracy result. Selected upright portrait/landscape, failure, feedback and future-card frames were reviewed. Person 1’s compressed AAC is verified identical, and the uploaded 92,255,039-byte file was confirmed by Drive metadata readback. Person 1’s approved text stays unchanged. Person 2 narration remains to be recorded.
+
+The video is divided into two parts: Person 1 and Person 2.
+
+Make one narrated video
+
+Use selected excerpts from the recorded native iOS Simulator run and record each person's voice over their assigned part. Introduce the footage as a recorded run. Use natural present-tense explanation such as “Here the aircraft is waiting,” rather than implying that a recorded click is happening live.
+
+Person 1’s 2:18 narration retains its original timing. With the owner’s approval, only the opening sentence is voice-matched to say AirfieldLens; speech after 7.9 seconds is preserved. Person 2 narrates the remaining scenarios, external driver and evaluation; allow pauses to read genuine answers. The supplied assignment has no stated duration limit. The currently published typed-fog edit is 30:33.5, with the supplement beginning at 27:42.4667; the share copy passed selected-frame and AAC checks and its uploaded size was verified. Person 2’s narration remains to be recorded.
+
+The guided demonstration supplies footage; it does not need its own extra presentation section. Show the learner flow briefly, then selected assistant and movement clips. The guided run is unscored. The original multiple-choice checkpoints belong to the historical learner-mode baseline. Use verified typed-learner footage for the new normal-flow supplement. Do not present a guided run or multiple-choice capture as acceptance of typed practice.
+
+The historical 27:48 baseline is airfieldlens-fog-checkpoint1-person1-audio.mp4. The published 30:33.5 airfieldlens-typed-share-person1-audio.mp4 preserves the prefix through 1662.4667 seconds, including Person 1’s approved narration and the separate one-hour fog demonstration. It appends selected typed-fog excerpts and a Checkpoint 2/3 card. The early overlay marks the multiple-choice footage as the recorded baseline; it does not shift or replace Person 1’s speech. The completed typed fog run supports limited functional-prototype acceptance. The share copy passed selected-frame and AAC checks and is published. Current published video: https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view
+
+Person 1
+
+Person 1’s audio is already aligned in the new edit: opening and three exercises, learner-flow explanation with a labelled saved debrief, the occupied-stand answer and later availability update, then Sources using an excerpt from the stand-fire recording. The opening sentence uses the approved AirfieldLens voice edit. The rest of the supplied narration is preserved. The video updates the header branding in earlier footage; scenario clocks, reports and assistant answers are not rewritten.
+
+Suggested narration:
+
+“AirfieldLens helps a learner follow a changing airport situation and work out what the available reports actually establish. We are showing selected excerpts from a recorded native iOS Simulator run. The exercises focus on an obstructed ground route, an arriving aircraft waiting for an occupied stand, and delayed baggage affecting a departure estimate.
+
+The learner starts with a short briefing. During practice, they watch the aircraft, select a flight, read incoming reports and ask the assistant questions. There are three checkpoint moments in each lesson. At each checkpoint, the scene, assistant and history are hidden, and the learner answers a four-choice question. Feedback explains the answer using the reports available at that moment. The lesson ends with a debrief. The scored learner flow is separate from the guided recording used for these movement clips.
+
+Here, TRN103 is waiting for Stand B. The important question is whether the stand is confirmed available. A plan for the occupying aircraft to move is not enough. At this answer's cutoff, the report still says the stand is occupied.
+
+Now a later report confirms availability and releases the exercise hold. The answer changes because the evidence has changed. Selecting the flight gives the question its context, and the cutoff tells us which reports were available to answer it.
+
+Sources opens the reports supporting that particular answer. Recent reports can include updates received afterward. That difference helps the learner check both the evidence and its timing.
+
+The local Qwen model selects relevant report facts. A separate checker checks the claims against eligible facts, and the app displays the accepted summary. The responses in this recording came from actual requests; they were not replaced with rehearsed answers.
+
+Next, we will look at how the moving scenario is driven and what we have evaluated.”
+
+Person 2
+
+Use the new scenario edit. Person 1’s narration, with the approved opening-name edit, is included from 00:02 to approximately 02:20; begin Person 2 after that handoff. This section is silent until Person 2 records narration. Use only “Person 1” and “Person 2” as presenter labels.
+
+Approximate player cues: 02:23 external driver; 02:41 wildlife; 03:18 takeoff; 04:35 return/landing; 05:40 dropped baggage; 07:00 aircraft–vehicle contact; 08:34 stand fire; 09:51 damaging landing; 12:05 Heathrow and Terminal 3; 12:29 rejected takeoff; 14:13 occupied-runway go-around; 15:40 vehicle runway incursion; 17:30 fictional water landing; 19:30 rain; 19:55 snowfall; 20:20 daylight → dusk → night; 22:22 earlier evaluation; 22:54 Heathrow AI / next checkpoints. Each case has a title card. These are player times, not the source clock. Leave short pauses for the visible answers and movement. The connected-airport update starts at 23:42; the unscored fog case starts at 24:12. The typed-fog supplement starts at 27:42.4667, replaces the previous final card and ends at 30:33.4667. Exact cut-plan cues appear below; the encoded movie ends at 30:33.5. The published share copy passed selected-frame and AAC identity checks.
+
+Suggested narration:
+
+“The external scenario service owns the clock, aircraft paths, incidents and report arrivals. The language model answers questions about those reports; it does not control the aircraft. The same scenario can be replayed for practice.
+
+We present these as distinct training scenarios, with time scaling within each case. Quiet periods can run at thirty times normal speed. Teaching moments and pending answers run at normal speed, with time afterward to read the response. The scene clock and each answer’s cutoff remain visible. These selected recordings are examples, not a claim that all these incidents are likely in one hour.
+
+In the wildlife scenario, birds cross the runway area while the aircraft holds short. The answer comes from the wildlife report and the pending inspection. Seeing the birds leave does not establish a movement release. The separate update does. The flight movement footage then shows line-up, takeoff, climb, return approach, touchdown and a curved runway exit. We can use the apron, runway or follow-flight view.
+
+The dropped-baggage scenario shows bags falling from a cart beside a parked aircraft. The first reports establish the obstruction and hold. Later the bags have been collected, but inspection and movement release are still pending at the answer’s cutoff. Those arrive separately. Visible cleanup, service completion and permission to move are different facts.
+
+The aircraft–vehicle contact scenario asks a different question: what restriction remains after an incident? TRN102 and the service vehicle stop at the contact point. The assistant identifies the reported contact and hold. A later report says the vehicle is secured, but the aircraft still requires inspection and a movement release. We have not established the cause, damage extent or injury status.
+
+The stand-fire scenario is another emergency example. It is separate from the earlier wildlife sighting; that sighting is not established as its cause. Even after the fire is contained, the stand remains closed pending inspection. The disappearance of flames is not a reopening instruction.
+
+The damaging-landing scenario shows an emergency approach, touchdown, a gear-collapse illustration and a stopped aircraft on the runway. The reports establish the runway closure and response. When the fire is reported contained, recovery and inspection are still pending, so the runway remains closed. This is an exceptional training case, not a typical arrival or a reconstruction of a particular Heathrow accident.
+
+The regional view places Terminal 3, the runways and Wraysbury Reservoir together. We can move from the wider airport to the terminal and read its sign on the building. The scenery combines mapped geography with illustrative building detail.
+
+Four more cases show how a situation can change on or near the runway. These are fictional training examples informed by published incident reports.
+
+First, a rejected takeoff. The aircraft starts its takeoff roll, then brakes to a stop. The crew has reported unreliable airspeed, but the cause is not yet known. The learner checks what has been reported about the aircraft and whether the runway is available. Stopping safely does not mean the runway has reopened.
+
+Next, TRN101 goes around because TRN102 is still on the runway. Watch the approaching aircraft climb away while the other aircraft remains below. The learner identifies the two aircraft and checks the latest runway report. A go-around does not, by itself, mean there has been an accident.
+
+In the vehicle-incursion case, a maintenance vehicle enters the runway. The aircraft stays stationary because its takeoff clearance is cancelled before the roll begins. Watch the vehicle turn and leave. The next question is whether the aircraft has been authorised to depart again; the vehicle leaving is only part of the answer.
+
+Finally, an aircraft makes an emergency water landing at Wraysbury Reservoir. The reservoir is real, but this emergency is fictional. We use it to practise following the reported location and response. The learner can ask what has happened and what is still unknown. A stopped aircraft and a request for help do not tell us that everyone has been evacuated.
+
+The realistic part we are practising is how the learner follows evidence and restrictions. The geometry, response timing and animations are authored. Heathrow’s own publications describe occupied stands, dropped loads, wildlife and aircraft–vehicle hazards. The following environment previews add rain, snowfall, and daylight changing through dusk into night. The external driver supplies these timelines, and the viewer renders them against the same source clock as the aircraft and reports. They accelerate and pause with that clock. These captures run at thirty times normal speed to make the changes visible. Rain and snow are separate settings; the dusk preview spans one source hour, not a full twenty-four-hour day. These are visual conditions: they do not yet alter braking, taxi speed, de-icing or reported visibility.
+
+Checkpoint 2 will develop and evaluate questions that require visual evidence, comparing answers with and without images. It will also add one weather-driven arrival and departure queue task and a turnaround handover task. The queue task will distinguish a growing backlog, a reported restriction and a revised estimate. Current visual weather does not control runway capacity. Checkpoint 3 will compare a shared task across selected airport sizes and traffic-demand levels, varying layout and demand separately while preserving aircraft scale. It will also evaluate the integrated experience, including learner flow, response times and failures. These milestone assignments are firm; the Checkpoint 2 and 3 work is not yet implemented.
+
+Guided demonstration runs the scene and assistant questions without asking the viewer to choose answers or awarding points. The practice content now covers four lesson topics, each with three checkpoints. The three original lessons reached debrief in earlier native iOS Simulator acceptance using the multiple-choice interface. The fourth covers fog restrictions. The prepared supplement shows the updated normal flow in one completed native fog lesson: the learner types an answer and receives qualitative model feedback against the checkpoint reports. A genuine withheld review and the edited retry remain visible. The earlier multiple-choice scoring remains historical evidence; it does not validate the new feedback as a score. The four new collision and landing answers came from real local-model requests and passed the evidence checks. That verifies these examples, not general model accuracy. The earlier collision and landing clips are targeted captures. The four additional runway/emergency cases each completed a separate source-hour run with three real accepted answers; the video uses selected excerpts from those runs.
+
+Our earlier frozen Milestone 1 study used forty distinct question-and-answer turns. Under its full-context condition, Qwen3.5-9B scored twenty-four out of forty; Qwen3-VL-4B and the deterministic baseline each scored sixteen. Images were off, and tracking context did not improve scores in that setup. These results describe the earlier evaluation configuration.
+
+There is a relevant real-world direction: NATS and Searidge describe AI-assisted digital-tower trials at Heathrow, using camera evidence to help monitor aircraft and runway exits. That supports the motivation for our next checkpoint. AirfieldLens currently answers from reports; we have not yet demonstrated reliable AI interpretation of the camera view.
+
+Checkpoint 2 is assigned the visual-evidence study, one weather-driven queue task and a turnaround handover exercise. Checkpoint 3 is assigned the controlled airport-size and demand comparison and integrated evaluation. Physical-phone verification remains outstanding.”
+
+Driver access for Person 2 — preparation notes, not a passage to read aloud
+
+The video shows the driver's effects: the clock, 30×/normal-speed changes, aircraft paths, incident animation and arriving reports. It does not show a separate driver console. The driver runs on the Mac, independently of the Unity viewer and the language model, and is included in the published repository.
+
+After the repository and local model are set up, run this from the repository folder:
+.venv-candidates/bin/python -m backend.training --exercise late_arrival --mode demo --seed 17
+
+For the original three exercises, --mode lesson selects the short learner profile and --mode continuous runs the hour at normal speed. The full native typed fog flow is complete as limited prototype evidence; additional original-lesson typed checks are positioned diagnostics. The existing fourth-lesson backend launches with --exercise fog_restrictions --mode lesson and has checkpoints at source seconds 60, 120 and 180, then ends at 210. The recorded typed-flow acceptance is limited to the native simulator and the documented full fog and positioned checks. Omit --environment or use fog. The separate fog_visibility case remains an unscored source-hour demonstration in demo or continuous mode. Run one service at a time on port 8767. Open the configured iOS Simulator app after the model finishes loading. The model and driver stay on the Mac; the simulator is the viewer. A clone alone does not install the model, Unity or Xcode.
+
+Access and setup: https://github.com/MayFairMI6/apron-lens/blob/codex/checkpoint1-controller-training/docs/TRAINING_DRIVER.md
+Add --environment rain, --environment snow, or --environment dusk to the launch command for visual conditions. The default remains clear daytime for ordinary cases; fog cases select their own fog timeline. The driver publishes versioned time-stamped intensity/light frames; TrainingWeather.cs renders them using the shared source clock. The weather preview clips disable question/teaching pauses in a private recording harness; they add no assistant answers or scoring.
+
+Implementation: backend/training_environment.py defines the visual timeline; backend/lessons.py creates the seeded world and reports; backend/training_session.py owns time and lesson state; backend/training.py exposes the service; ExternalTrafficDriver.cs receives it in Unity.
+
+Recording checklist
+
+1. Keep the embedded Person 1 audio. Record Person 2 while watching the section after the Person 2 title card, then combine the tracks.
+2. Download the video before editing. Use the source-player times above. Keep the assistant answer large enough to read and leave short pauses for movement.
+3. Record voice in short paragraphs while watching the selected clips. Explain what is happening, what the learner should notice, and what the evidence supports. Do not read every report aloud.
+4. Use a brief labelled learner-flow capture/debrief image, then the guided excerpts. One combined video is enough. A freeze-frame for explanation is fine if its use is clear.
+5. Review both sections together for repeated explanations, readable sources and accurate claims. The saved footage has genuine answers; do not replace a failed answer with scripted output.
+6. Submit the final narrated edit separately from the reflection. Preserve the user’s additions to Coordination and Meetings in the editable reflection and review the final one-page version together.
+
+Running or sharing the app
+
+The native iOS Simulator app has been built and tested. Running it again requires both the installed app and the local scenario/model service. The repository's TEAMMATE_SETUP.md and CHECKPOINT1_CURRENT.md explain the Apple Silicon Mac, Unity, Xcode and model setup. Both people can prepare narration from the recording without installing that environment.
+
+AirfieldLens is positioned as portable scenario practice and review for learners, not an operational control workstation. The phone suits a focused flight/report/checkpoint task; a tablet or larger display is the recommended format for a broader traffic overview. This is a design recommendation, not a completed controller-usability finding. Checkpoint 3 should compare phone and larger-screen use with representative learners. ENAC’s ELSA is a relevant computer/tablet training precedent: https://www.enac.fr/en/elsa-training-differently-training-anywhere
+
+No TestFlight build has been published. The current service listens only on the original Mac's loopback address. A phone-distributable build would need device signing and an accessible authenticated service, followed by App Store Connect/TestFlight setup. For this video, the shared recording is the immediately usable route. Simulator verification does not establish the assignment's physical-smartphone requirement.
+
+Evidence for preparation
+
+Use CHECKPOINT1_CURRENT.md, CHECKPOINT1_PRESENTER_GUIDE.txt, CHECKPOINT1_ASSIGNMENT_STATUS.md, outputs/m1_ar_context/REPORT.md, outputs/checkpoint1/heathrow-acceptance.json, outputs/checkpoint1/native-ios-rerun.json, outputs/checkpoint1/combined-demo-edit.json, outputs/checkpoint1/accident-acceptance.json, outputs/checkpoint1/scenario-demo-edit.json, outputs/checkpoint1/weather-acceptance.json, outputs/checkpoint1/weather-demo-edit.json, outputs/checkpoint1/fog-acceptance.json, outputs/checkpoint1/fog-lesson-independent-review.json, MILESTONE_LEDGER.md, IMPLEMENTATION_DOCKET.md and docs/TRAINING_DRIVER.md on the published Checkpoint 1 branch. The original run had six accepted responses; the bird/baggage landscape captures added three, and the collision/landing captures added four. The new edit selects excerpts from these records. Do not add their counts together and call them one run or a benchmark. An initial cold-model stand request took 50.556 seconds and timed out in the app; that failure is retained in the accident acceptance record. The earlier four-presenter allocation is superseded by this two-person plan.
+
+Realism and Heathrow AI — preparation notes
+
+Present distinct time-scaled cases. The three original scored lessons cover an obstructed route, stand occupancy and a changing departure estimate. The fourth lesson covers fog restrictions. Each has three checkpoints. Typed answers are now implemented as the normal flow. One full native fog run is complete as limited qualitative-prototype evidence; other positioned typed checks remain separate from full runs. The incident demonstrations remain separate and unscored. Ground contact and fire are abnormal events; a damaging landing is an exceptional emergency example. These labels describe teaching scope, not measured Heathrow occurrence rates. The driver still authors a shared source timeline; the edited chapters do not reset report timestamps or fabricate independent runs.
+
+Heathrow’s safety alerts document aircraft–vehicle contact, failure to give way, baggage-related hazards and vehicle fire. Its winter-operations page includes a snow plan. The AAIB G-YMMM report establishes a real landing accident at Heathrow, but our animation does not reconstruct its cause, trajectory or outcome.
+https://www.heathrow.com/company/team-heathrow/airside/useful-publications/safety-alerts
+https://www.heathrow.com/company/team-heathrow/airside/useful-publications/winter-operations
+https://www.gov.uk/aaib-reports/1-2010-boeing-777-236er-g-ymmm-17-january-2008
+
+NATS describes Heathrow digital-tower AI testing; Searidge describes AIMEE’s camera-based aircraft/threshold monitoring in the Heathrow trial. This is useful motivation for Checkpoint 2 visual-evidence evaluation. It does not establish autonomous Heathrow ATC or a proven visual-recognition capability in AirfieldLens.
+https://www.nats.aero/our-solutions/digital-towers/
+https://www.searidgetech.com/aimee
+
+
+Person 2 — connected-airport update, from 23:42
+
+The connected view now includes the Queen’s Terminal, Terminal 3, surrounding roads and buildings. Terminal 2B remains separate above ground; the former Terminal 1 is an outline. Passing cars use the same scenario clock, and the water outlines preserve their islands. This is a simplified teaching environment.
+
+The next case shows fog developing and clearing. Its reports change separately, so a clearer view does not establish permission to move.
+
+Training scenario register: https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk
+
+
+Person 2 — fog and changing restrictions, from 24:12
+
+This is a separate one-hour scenario condensed by the external driver. TRN101 stays parked at Terminal 3 while fog develops and clears. The scene makes the changing visibility noticeable, but the reports establish which restrictions apply.
+
+At the first question, the latest report says low-visibility procedures are in force, safeguarding remains active, and the flight is held. Sources opens that tower report with its received time. The answer is based on the reports available at its displayed cutoff.
+
+Watch the buildings become clearer. That visual improvement does not change the earlier report. In this scenario, visibility improves before the cancellation updates arrive. We must check the new information rather than infer permission from the view.
+
+The second answer identifies a partial change: low-visibility procedures have been cancelled, but safeguarding and the departure hold remain. Those are separate states.
+
+The final update confirms safeguarding has ended. The answer still says departure clearance is unconfirmed, and the aircraft remains parked. Completing one precaution does not establish every requirement for movement.
+
+These were three actual model requests in an unscored demonstration. The visual effect and report timings are illustrative; we are not teaching measured visibility limits. The next chapter covers the fourth lesson in Checkpoint 1 and the typed-answer learner flow. It uses its own short teaching timeline and report-grounded qualitative feedback. Checkpoint 2 will add the weather-queue task, visual-evidence study and turnaround task; Checkpoint 3 will cover airport-size and demand comparisons and integrated evaluation.
+
+Reading cues: about 24:52 first answer; 25:00 supporting report; 26:24 partial cancellation; 27:16 clearance still unconfirmed; 27:42.4667 transition to the typed-fog supplement. Pause while each answer and its source are readable. These are video-player times; the one-hour scenario clock remains visible.
+
+Person 2 — typed fog practice supplement, from 27:42.4667
+
+Preparation status: the full native typed fog run is complete and its model outputs have been independently reviewed. The 30:33.5 share copy is verified and published; Person 2 narration remains pending. The original three full-native lesson records used choice mode; supplemental positioned typed checks are separate. This note is not narration.
+
+Supplement cut-plan cues
+
+27:42.4667–27:46.4667: typed-practice introduction.
+27:46.4667–27:56.4667: paused checkpoint question.
+27:56.4667–28:08.4667: portrait answer entry and pending review.
+28:08.4667–28:34.4667: actual model feedback and supporting reports.
+28:34.4667–28:46.4667: genuine withheld review; original answer retained.
+28:46.4667–28:58.4667: edited answer and fresh model retry.
+28:58.4667–29:23.4667: accepted retry feedback and report sources.
+29:23.4667–30:11.4667: complete typed assistant question, actual answer and sources.
+30:11.4667–30:25.4667: completed lesson, three-response debrief.
+30:25.4667–30:33.4667: assigned Checkpoint 2/3 work.
+
+These are cut-plan player times from airfieldlens-typed.plan.json, not source-clock times or measured model response durations. The encoded movie duration is 1,833.5 seconds. Selected excerpts preserve the genuine source cutoffs and outputs. The full native lesson took 765.218 wall seconds for 210 source seconds. Upright portrait/landscape, failure, feedback and future-card frames were reviewed; Person 1’s AAC identity passed. The verified share copy is published at the existing Drive link.
+
+Supplementary narration
+
+“This supplement shows the current typed learner flow. Person 1’s earlier narration describes the recorded multiple-choice baseline. Fog restrictions are the fourth lesson topic, and each topic has three checkpoints.
+
+At a paused checkpoint, the learner writes an answer. The model reviews it against the reports available at that cutoff. The draft survives the change from portrait to landscape, and the scene clock stays paused while the answer is reviewed.
+
+Here are the actual feedback and supporting reports. This is qualitative prototype feedback, not a validated grade. The model can misinterpret an answer, so its explanation needs to be checked against the evidence.
+
+The next review is withheld because the model quotes words the learner did not submit. The original answer stays editable. After an edit, a fresh model request returns usable feedback. The recording keeps both the failure and the retry.
+
+The lesson’s distinction is unchanged: cancelled low-visibility procedures can leave safeguarding active, and even confirmed safeguarding cancellation does not establish departure clearance. A clearer view cannot supply that missing authority.
+
+The full run ends with three responses in the debrief. Our current checks document the evidence, timing and aircraft identity safeguards, with their observed failures and limits. They do not prove the model’s interpretation. These are selected excerpts from that completed fog lesson.
+
+At Checkpoint 2, we will test visual evidence and whether feedback is supported by reports, then add weather queues and turnaround handover. The Heathrow queue task will include a reported runway-use change. At Checkpoint 3, we will compare airport size and demand, test state consistency, and compare checking methods and learner outcomes. These are future tasks; the current prototype does not model real airport capacity or prove whole-app correctness.”
+
+Pause while the input, returned feedback, withheld-review notice and reports are readable. The eighteen v2 development cases produced fourteen usable reviews and four withheld failures; this is not an accuracy benchmark. Two underlying attribution/omission errors remain documented, and the later v3 diagnostic was rejected. The native fog run made four review requests: three accepted, one withheld and then successfully retried after an edit. Do not describe the run as a first-pass success or turn the qualitative debrief into a numerical grade.
+
+Preserve the prefix through 1662.4667 seconds and Person 1’s approved AAC. The overlay from 00:02 to 02:20 labels that earlier footage “Recorded baseline · typed-answer update follows” without shifting the narration. Recent accident-related recommendations in ML-016–ML-018 remain unbuilt future variants; this footage does not implement or reconstruct those events. The share copy passed selected-frame and AAC checks and is published at the existing Drive link.
+
+Preparation reference only, not narration: C01 records the current evidence, time and identity safeguards. C02 is the Checkpoint 2 claim-and-evidence checker; C03 specifies allowed driver states and transitions at Checkpoint 2. C04 covers bounded state checks, implementation-trace correspondence and comparison of checking methods at Checkpoint 3. These future units remain unbuilt.

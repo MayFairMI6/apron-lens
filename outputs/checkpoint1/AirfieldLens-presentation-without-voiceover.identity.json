@@ -1,0 +1,11 @@
+{
+  "audioTracks" : 0,
+  "bytes" : 45929898,
+  "compressedVideoSHA256" : "7f1b2897ee638c2c8197b87eb4aefbabcb6f252949d13849afede8061bcbd7f1",
+  "durationSeconds" : 486.39999999999998,
+  "output" : "AirfieldLens-presentation-without-voiceover.mp4",
+  "scope" : "Silent copy of the continuous demo; identical video, no voiceover.",
+  "source" : "AirfieldLens-presentation.mp4",
+  "videoSampleCount" : 14539,
+  "videoUnchanged" : true
+}

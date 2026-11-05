@@ -1,0 +1,7 @@
+{"event": "worker_started", "recordedAt": 1793801956.3417778, "pid": 5805}
+{"event": "worker_ready", "recordedAt": 1793801984.966771, "pid": 5805}
+{"event": "worker_request_failed", "recordedAt": 1793802039.973689, "requestId": "on-exposed-v2-12", "error": "TimeoutError", "elapsedSeconds": 55.005524250000235, "usageUnknown": true}
+{"event": "worker_stopped", "recordedAt": 1793802040.0626729, "pid": 5805, "exitcode": -15}
+{"event": "worker_started", "recordedAt": 1793802040.0693061, "pid": 5832}
+{"event": "worker_recovery_failed", "recordedAt": 1793802040.129867, "error": "RuntimeError"}
+{"event": "worker_stopped", "recordedAt": 1793802040.131737, "pid": 5832, "exitcode": -15}

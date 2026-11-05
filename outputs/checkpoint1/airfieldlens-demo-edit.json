@@ -1,0 +1,557 @@
+{
+  "audioTracks": 0,
+  "bytes": 85009078,
+  "durationSeconds": 1422.4666666666667,
+  "frames": 42344,
+  "height": 590,
+  "segments": [
+    {
+      "brandingOverlay": false,
+      "file": "person1.mp4",
+      "outputEnd": 2,
+      "outputStart": 0,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Person 1"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 15.92,
+      "outputStart": 2,
+      "sourceEnd": 13.92,
+      "sourceStart": 0,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "lessons.mp4",
+      "outputEnd": 28.42,
+      "outputStart": 15.92,
+      "sourceEnd": 12.5,
+      "sourceStart": 0,
+      "title": "Three practice lessons"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 39.38,
+      "outputStart": 28.42,
+      "sourceEnd": 16.96,
+      "sourceStart": 6,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "learning-flow.mp4",
+      "outputEnd": 54.913333333333334,
+      "outputStart": 39.38,
+      "sourceEnd": 15.533333333333333,
+      "sourceStart": 0,
+      "title": "Briefing \u2192 Practice \u2192 Checkpoints \u2192 Debrief"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "saved-debrief.mp4",
+      "outputEnd": 62.31333333333333,
+      "outputStart": 54.913333333333334,
+      "sourceEnd": 7.4,
+      "sourceStart": 0,
+      "title": "Saved learner-mode debrief \u00b7 Earlier build"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "stand.mp4",
+      "outputEnd": 64.91333333333333,
+      "outputStart": 62.31333333333333,
+      "sourceEnd": 2.6,
+      "sourceStart": 0,
+      "title": "Scenario 1 \u00b7 Occupied arrival stand"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 81.49333333333334,
+      "outputStart": 64.91333333333333,
+      "sourceEnd": 68.08,
+      "sourceStart": 51.5,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 97.31333333333333,
+      "outputStart": 81.49333333333334,
+      "sourceEnd": 99.82,
+      "sourceStart": 84,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "sources.mp4",
+      "outputEnd": 99.31333333333333,
+      "outputStart": 97.31333333333333,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Sources"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 110.47333333333333,
+      "outputStart": 99.31333333333333,
+      "sourceEnd": 392.16,
+      "sourceStart": 381,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 132.89333333333335,
+      "outputStart": 110.47333333333333,
+      "sourceEnd": 106.42,
+      "sourceStart": 84,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 139.95465,
+      "outputStart": 132.89333333333335,
+      "sourceEnd": 22.061333333333,
+      "sourceStart": 15,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "person2.mp4",
+      "outputEnd": 142.95465,
+      "outputStart": 139.95465,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Person 2"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "driver.mp4",
+      "outputEnd": 160.95465,
+      "outputStart": 142.95465,
+      "sourceEnd": 18,
+      "sourceStart": 0,
+      "title": "An external service drives the scene"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "birds.mp4",
+      "outputEnd": 163.95465,
+      "outputStart": 160.95465,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 2 \u00b7 Runway wildlife"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-landscape-birds.mp4",
+      "outputEnd": 198.00796666666668,
+      "outputStart": 163.95465,
+      "sourceEnd": 36.053333333333,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "flight.mp4",
+      "outputEnd": 201.00796666666668,
+      "outputStart": 198.00796666666668,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Flight movement"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 275.0079666666667,
+      "outputStart": 201.00796666666668,
+      "sourceEnd": 220,
+      "sourceStart": 146,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "approach.mp4",
+      "outputEnd": 277.0079666666667,
+      "outputStart": 275.0079666666667,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Return approach"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 340.0079666666667,
+      "outputStart": 277.0079666666667,
+      "sourceEnd": 323,
+      "sourceStart": 260,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "bags.mp4",
+      "outputEnd": 343.0079666666667,
+      "outputStart": 340.0079666666667,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 3 \u00b7 Dropped baggage"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-landscape-baggage.mp4",
+      "outputEnd": 419.7296333333333,
+      "outputStart": 343.0079666666667,
+      "sourceEnd": 78.72166666666666,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "vehicle.mp4",
+      "outputEnd": 422.7296333333333,
+      "outputStart": 419.7296333333333,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 4 \u00b7 Aircraft\u2013vehicle contact"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-vehicle-collision.mp4",
+      "outputEnd": 514.42295,
+      "outputStart": 422.7296333333333,
+      "sourceEnd": 92.693333333333,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "fire.mp4",
+      "outputEnd": 517.42295,
+      "outputStart": 514.42295,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 5 \u00b7 Fire at the stand"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 556.42295,
+      "outputStart": 517.42295,
+      "sourceEnd": 365,
+      "sourceStart": 326,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "contained.mp4",
+      "outputEnd": 558.42295,
+      "outputStart": 556.42295,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later update"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 591.42295,
+      "outputStart": 558.42295,
+      "sourceEnd": 423,
+      "sourceStart": 390,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "landing.mp4",
+      "outputEnd": 594.42295,
+      "outputStart": 591.42295,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 6 \u00b7 Damaging emergency landing"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-crash-landing.mp4",
+      "outputEnd": 724.5812666666667,
+      "outputStart": 594.42295,
+      "sourceEnd": 131.158333333333,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "terminal3.mp4",
+      "outputEnd": 728.5812666666667,
+      "outputStart": 724.5812666666667,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Heathrow and Terminal 3"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-terminal3-native.mp4",
+      "outputEnd": 748.5812666666667,
+      "outputStart": 728.5812666666667,
+      "sourceEnd": 82,
+      "sourceStart": 62,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "rejected_takeoff.mp4",
+      "outputEnd": 752.5812666666667,
+      "outputStart": 748.5812666666667,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Rejected takeoff"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-rejected_takeoff-native.mp4",
+      "outputEnd": 832.5812666666667,
+      "outputStart": 752.5812666666667,
+      "sourceEnd": 82,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "rejected_takeoff-later.mp4",
+      "outputEnd": 834.5812666666667,
+      "outputStart": 832.5812666666667,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later report"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-rejected_takeoff-native.mp4",
+      "outputEnd": 852.5812666666667,
+      "outputStart": 834.5812666666667,
+      "sourceEnd": 132,
+      "sourceStart": 114,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "occupied_runway_go_around.mp4",
+      "outputEnd": 856.5812666666667,
+      "outputStart": 852.5812666666667,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Occupied runway \u00b7 Go-around"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-occupied_runway_go_around-native.mp4",
+      "outputEnd": 919.5812666666667,
+      "outputStart": 856.5812666666667,
+      "sourceEnd": 65,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "occupied_runway_go_around-later.mp4",
+      "outputEnd": 921.5812666666667,
+      "outputStart": 919.5812666666667,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later report"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-occupied_runway_go_around-native.mp4",
+      "outputEnd": 939.5812666666667,
+      "outputStart": 921.5812666666667,
+      "sourceEnd": 103,
+      "sourceStart": 85,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "runway_incursion.mp4",
+      "outputEnd": 943.5812666666667,
+      "outputStart": 939.5812666666667,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Vehicle runway incursion"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-runway_incursion-native.mp4",
+      "outputEnd": 1029.5812666666666,
+      "outputStart": 943.5812666666667,
+      "sourceEnd": 88,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "runway_incursion-later.mp4",
+      "outputEnd": 1031.5812666666666,
+      "outputStart": 1029.5812666666666,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later report"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-runway_incursion-native.mp4",
+      "outputEnd": 1049.5812666666666,
+      "outputStart": 1031.5812666666666,
+      "sourceEnd": 127,
+      "sourceStart": 109,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "water_landing.mp4",
+      "outputEnd": 1053.5812666666666,
+      "outputStart": 1049.5812666666666,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Emergency water landing"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "airfieldlens-water_landing-native.mp4",
+      "outputEnd": 1149.5812666666666,
+      "outputStart": 1053.5812666666666,
+      "sourceEnd": 98,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "water_landing-later.mp4",
+      "outputEnd": 1151.5812666666666,
+      "outputStart": 1149.5812666666666,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later report"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "airfieldlens-water_landing-native.mp4",
+      "outputEnd": 1169.5812666666666,
+      "outputStart": 1151.5812666666666,
+      "sourceEnd": 144,
+      "sourceStart": 126,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "weather-rain.mp4",
+      "outputEnd": 1172.5812666666666,
+      "outputStart": 1169.5812666666666,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Rain \u00b7 Environment preview"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-environment-rain.mp4",
+      "outputEnd": 1194.7029333333332,
+      "outputStart": 1172.5812666666666,
+      "sourceEnd": 23.121666666666666,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "weather-snow.mp4",
+      "outputEnd": 1197.7029333333332,
+      "outputStart": 1194.7029333333332,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Snowfall \u00b7 Environment preview"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-environment-snow.mp4",
+      "outputEnd": 1219.6279333333334,
+      "outputStart": 1197.7029333333332,
+      "sourceEnd": 22.925,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "weather-dusk.mp4",
+      "outputEnd": 1222.6279333333334,
+      "outputStart": 1219.6279333333334,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Daylight \u2192 dusk \u2192 night \u00b7 Environment preview"
+    },
+    {
+      "brandingOverlay": true,
+      "file": "apronlens-environment-dusk.mp4",
+      "outputEnd": 1342.4446,
+      "outputStart": 1222.6279333333334,
+      "sourceEnd": 120.81666666666666,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "evaluation.mp4",
+      "outputEnd": 1374.4446,
+      "outputStart": 1342.4446,
+      "sourceEnd": 32,
+      "sourceStart": 0,
+      "title": "Earlier frozen Milestone 1 evaluation"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "heathrow-ai.mp4",
+      "outputEnd": 1404.4446,
+      "outputStart": 1374.4446,
+      "sourceEnd": 30,
+      "sourceStart": 0,
+      "title": "Why visual evidence comes next"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "next.mp4",
+      "outputEnd": 1422.4446,
+      "outputStart": 1404.4446,
+      "sourceEnd": 18,
+      "sourceStart": 0,
+      "title": "Next checkpoints"
+    }
+  ],
+  "width": 1280,
+  "title": "AirfieldLens Checkpoint 1 edit",
+  "videoSha256": "dd32ee387f4ee96eb1472e56f5c61c55ec6865b556179941b403e8d2fb0cd725",
+  "narration": {
+    "audioDurationSeconds": 139.892,
+    "audioPacketsUnchanged": true,
+    "bytes": 85666192,
+    "durationSeconds": 1422.4666666666667,
+    "originalAudioDurationSeconds": 137.98133333333334,
+    "originalCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "originalSamples": 71,
+    "outputCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "outputSamples": 275,
+    "person2Narration": "pending",
+    "video": "airfieldlens-checkpoint1-person1-audio.mp4",
+    "rawAudioTrackStartSeconds": 0,
+    "speechStartSeconds": 2,
+    "decodedCorrelation": 0.9999999999999933,
+    "decodedRmsDifference": 9.707226090663695e-09,
+    "sourceAudioIsApprovedEditedNarration": true
+  },
+  "branding": "Name-only overlays on older app footage and saved debrief; original scenario clocks, answers and movement preserved.",
+  "approvedOpeningEdit": "Only first 7.9 seconds replaced with owner-approved local voice match; remaining source PCM preserved before AAC encoding.",
+  "originalArchivesPreserved": true,
+  "person2Narration": "pending",
+  "limitation": "This edit precedes the newly requested connected-ground/road/terminal scenery extension."
+}

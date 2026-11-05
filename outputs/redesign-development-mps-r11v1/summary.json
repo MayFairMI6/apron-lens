@@ -1,0 +1,17 @@
+{
+  "count": 24,
+  "exact": 5,
+  "delivered": 24,
+  "validCount": 12,
+  "validExact": 5,
+  "falseCredit": [
+    {
+      "index": 9,
+      "criterion": "availability"
+    },
+    {
+      "index": 23,
+      "criterion": "grounding"
+    }
+  ]
+}

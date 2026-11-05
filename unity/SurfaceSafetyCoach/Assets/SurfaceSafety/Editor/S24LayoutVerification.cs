@@ -104,9 +104,10 @@ public static class S24LayoutVerification {
         var request=new ReasoningRequest{requestId=response.requestId,scenarioId=response.scenarioId,aircraftId=response.aircraftId,checkpoint=response.checkpoint};
         CheckThat(client.ApplyResponse(request,response),"Saved genuine response passes current local evidence check");
         capture("s24-qwen","Saved production response · 13 s · see source response JSON/audit");
-        Click("Recorded facts");CheckThat(replay.CurrentReasoning.Contains("Overall readiness remains unknown"),"Deterministic baseline remains separately available");capture("s24-baseline",preview);
-        Click("More");Click("Model connection");CheckThat(UnityEngine.Object.FindObjectsByType<InputField>(FindObjectsSortMode.None).Length==2,"Connection panel opens address and token fields");capture("s24-connection",preview);
-        Click("Cancel");CheckThat(UnityEngine.Object.FindObjectsByType<InputField>(FindObjectsSortMode.None).Length==0,"Connection cancellation closes panel without saving");
+        CheckThat(!UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(b=>b.name=="Qwen"||b.name=="Recorded facts"),"User interface has one assistant and no model/baseline selector");
+        Click("Sources");CheckThat(replay.SelectedTab=="history","Assistant sources open report history");capture("s24-sources",preview);
+        Click("More");CheckThat(!UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(b=>b.name=="Model connection"),"Session options hide technical connection settings");capture("s24-options",preview);
+        Click("Done");
         replay.Seek(30);replay.SelectTab("now");capture("s24-moving",preview);
         replay.previewMode=false;replay.Tracking(false);replay.Play();CheckThat(!replay.Clock.Playing&&!replay.Content.gameObject.activeSelf,"Tracking loss hides scene and blocks replay");
         capture("s24-tracking-lost",preview);

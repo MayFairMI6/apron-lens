@@ -1,0 +1,17 @@
+{
+  "module": "experiments.typed_relation_review.strong_candidate",
+  "version": "typed-service-relation-review-v1-anli-large-verifier",
+  "sourceHashes": {
+    "experiments/typed_relation_review/propositions.py": "8181d79c85600acf31a902e652db12bae3e744760fca39b46d3bed4b184cde8e",
+    "experiments/typed_relation_review/strong_candidate.py": "ab0ab3d9bb937b3fcae1d91daa0545a3473bb881f94fdec0963a641e2eea0d58",
+    "experiments/typed_relation_review/candidate.py": "8030be97c5be1a21d166b9505e5e13eab6365346e51b1fb0dc84d6920e988d0e",
+    "scripts/run_relation_review.py": "fac053d40dc89983256616cdf346c0254152f746240cceeec0c0c003c8810598",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c"
+  },
+  "fixture": "experiments/typed_relation_review/development-v1.json",
+  "fixtureSHA256": "e6ee0e234919c56276e199419f35627aedd6528702f3003c386d57b25654f397",
+  "model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+  "revision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+  "threshold": 0.8,
+  "createdAt": 1793756122.188462
+}

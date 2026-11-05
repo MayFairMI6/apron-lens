@@ -1,0 +1,20 @@
+W1103 19:46:48.078000 7518 .venv-candidates/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<18:05,  1.43s/it]Loading weights:  27%|██▋       | 205/760 [00:01<00:03, 184.75it/s]Loading weights:  42%|████▏     | 318/760 [00:01<00:01, 244.77it/s]Loading weights:  52%|█████▎    | 399/760 [00:02<00:01, 278.28it/s]Loading weights:  61%|██████    | 464/760 [00:02<00:00, 321.42it/s]Loading weights:  80%|████████  | 611/760 [00:02<00:00, 501.12it/s]Loading weights:  99%|█████████▉| 753/760 [00:02<00:00, 661.81it/s]Loading weights: 100%|██████████| 760/760 [00:02<00:00, 325.57it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+weather_route 0 True
+weather_route 1 True
+weather_route 2 True
+stand_reassignment 0 True
+stand_reassignment 1 False
+stand_reassignment 2 True
+service_withdrawal 0 True
+service_withdrawal 1 True
+service_withdrawal 2 True
+estimate_correction 0 True
+estimate_correction 1 True
+estimate_correction 2 True
+/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

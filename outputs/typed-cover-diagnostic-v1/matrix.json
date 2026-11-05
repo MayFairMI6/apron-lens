@@ -1,0 +1,1227 @@
+{
+  "version": "typed-cover-diagnostic-v1",
+  "cases": [
+    {
+      "id": "procedures-only",
+      "comparisonGroup": "hold-omission",
+      "answer": "Low-visibility procedures are active. Safeguarding is active.",
+      "facets": [
+        {
+          "id": "lvp",
+          "text": "Low-visibility procedures are active.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "safeguarding",
+          "text": "Safeguarding is active.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "hold",
+          "text": "TRN101 remains held.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 18,
+      "fixtureQuestion": "What low-visibility procedures and safeguarding are reported, and is TRN101 released to depart?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Hold content is genuinely absent by construction. If the selected reverse cover entails the exact answer, that is a cover-compatible omission control only.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "unclear-hold",
+      "comparisonGroup": "hold-omission",
+      "answer": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "facets": [
+        {
+          "id": "lvp",
+          "text": "Low-visibility procedures are active.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "safeguarding",
+          "text": "Safeguarding is active.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "hold",
+          "text": "TRN101 remains held.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 18,
+      "fixtureQuestion": "What low-visibility procedures and safeguarding are reported, and is TRN101 released to depart?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Hold is addressed but unresolved. The uncertainty clause must survive in the reverse hypothesis; a neutral reverse label alone cannot identify which facet was addressed.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "estimate-only",
+      "comparisonGroup": "authority-omission",
+      "answer": "The latest target off-block estimate for TRN102 is 10:35.",
+      "facets": [
+        {
+          "id": "estimate",
+          "text": "The latest target off-block estimate for TRN102 is 10:35.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "authority",
+          "text": "The target off-block estimate does not establish departure clearance.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 15,
+      "fixtureQuestion": "What is the latest target off-block estimate, and does that estimate establish departure clearance?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "The estimate is stated; authority distinction is absent by construction. Reverse cover may explain the whole answer without supplying that distinction.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "unclear-authority",
+      "comparisonGroup": "authority-omission",
+      "answer": "The latest target off-block estimate for TRN102 is 10:35. I cannot tell whether that estimate establishes departure clearance.",
+      "facets": [
+        {
+          "id": "estimate",
+          "text": "The latest target off-block estimate for TRN102 is 10:35.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "authority",
+          "text": "The target off-block estimate does not establish departure clearance.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 15,
+      "fixtureQuestion": "What is the latest target off-block estimate, and does that estimate establish departure clearance?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "The authority relation is explicitly unresolved. Reverse must preserve this qualifier; separation from omission is exploratory, with no fabricated expected comparison label.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "causal-release",
+      "comparisonGroup": "causal-dependency",
+      "answer": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "facets": [
+        {
+          "id": "release",
+          "text": "TRN102's ground hold has been released.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "cause",
+          "text": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+          "expectedForwardLabel": "entailment"
+        }
+      ],
+      "exposedFixtureIndex": 2,
+      "fixtureQuestion": "What happened to TRN102's ground hold, and which reported change explains it?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "The cause facet already asserts release. The only selected cover is the conjunction of all forward-entailed facets, even if redundant.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "vehicle-only",
+      "comparisonGroup": "causal-dependency",
+      "answer": "The obstructing vehicle is now clear.",
+      "facets": [
+        {
+          "id": "release",
+          "text": "TRN102's ground hold has been released.",
+          "expectedForwardLabel": "neutral"
+        },
+        {
+          "id": "cause",
+          "text": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 3,
+      "fixtureQuestion": "What happened to TRN102's ground hold, and which reported change explains it?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Vehicle clearance alone does not assert hold release or its causal link. Empty forward-E selection has no reverse query or omission verdict.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "unsupported-extra",
+      "comparisonGroup": "extra-retention",
+      "answer": "The latest target off-block estimate for TRN102 is 10:35. TRN102 has takeoff clearance.",
+      "facets": [
+        {
+          "id": "estimate",
+          "text": "The latest target off-block estimate for TRN102 is 10:35.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "authority",
+          "text": "The target off-block estimate does not establish departure clearance.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 15,
+      "fixtureQuestion": "What is the latest target off-block estimate, and does that estimate establish departure clearance?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "The full extra claim stays in the reverse hypothesis. Non-entailment can reflect an unsupported extra rather than unclear rubric content; this does not test source grounding.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "correct-to-current",
+      "comparisonGroup": "correction",
+      "answer": "The latest target off-block estimate for TRN102 is 10:20; correction: it is 10:35.",
+      "facets": [
+        {
+          "id": "estimate",
+          "text": "The latest target off-block estimate for TRN102 is 10:35.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "authority",
+          "text": "The target off-block estimate does not establish departure clearance.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 14,
+      "fixtureQuestion": "What is the latest target off-block estimate, and does that estimate establish departure clearance?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Correction resolves to 10:35; reverse retains both values and the correction. Expected reverse comparison is null because recovery of correction history is not guaranteed.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "correct-to-prior",
+      "comparisonGroup": "correction",
+      "answer": "The latest target off-block estimate for TRN102 is 10:35; correction: it is 10:20.",
+      "facets": [
+        {
+          "id": "estimate",
+          "text": "The latest target off-block estimate for TRN102 is 10:35.",
+          "expectedForwardLabel": "contradiction"
+        },
+        {
+          "id": "authority",
+          "text": "The target off-block estimate does not establish departure clearance.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 14,
+      "fixtureQuestion": "What is the latest target off-block estimate, and does that estimate establish departure clearance?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Correction resolves to 10:20. No reverse cover is selected if there are no forward entailments; no favorable historical clause is extracted.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "wrong-entity",
+      "comparisonGroup": "entity",
+      "answer": "The latest target off-block estimate for TRN103 is 10:35.",
+      "facets": [
+        {
+          "id": "estimate",
+          "text": "The latest target off-block estimate for TRN102 is 10:35.",
+          "expectedForwardLabel": "neutral"
+        },
+        {
+          "id": "authority",
+          "text": "The target off-block estimate does not establish departure clearance.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 15,
+      "fixtureQuestion": "What is the latest target off-block estimate, and does that estimate establish departure clearance?",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "TRN103 is not TRN102. The answer gives no value for TRN102; different entities do not imply contradictory estimates. Reverse never repairs the entity.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "broad-unknown",
+      "comparisonGroup": "unknown-specificity",
+      "answer": "Overall departure readiness remains unconfirmed.",
+      "facets": [
+        {
+          "id": "broad-readiness-unknown",
+          "text": "Overall departure readiness remains unconfirmed.",
+          "expectedForwardLabel": "entailment"
+        },
+        {
+          "id": "specific-clearance-unknown",
+          "text": "Takeoff clearance remains unconfirmed.",
+          "expectedForwardLabel": "neutral"
+        }
+      ],
+      "exposedFixtureIndex": 16,
+      "fixtureQuestion": "Do the service completions and ground release confirm overall readiness or takeoff clearance? Explain the distinction.",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Broad readiness unknown cannot supply a specific clearance unknown. No implication edge is added for the unconfirmed specific permission.",
+      "expectedComparisonLabel": null
+    },
+    {
+      "id": "specific-unknown",
+      "comparisonGroup": "unknown-specificity",
+      "answer": "Takeoff clearance remains unconfirmed.",
+      "facets": [
+        {
+          "id": "broad-readiness-unknown",
+          "text": "Overall departure readiness remains unconfirmed.",
+          "expectedForwardLabel": "neutral"
+        },
+        {
+          "id": "specific-clearance-unknown",
+          "text": "Takeoff clearance remains unconfirmed.",
+          "expectedForwardLabel": "entailment"
+        }
+      ],
+      "exposedFixtureIndex": 16,
+      "fixtureQuestion": "Do the service completions and ground release confirm overall readiness or takeoff clearance? Explain the distinction.",
+      "sourceKind": "authored exposed diagnostic control",
+      "expectedComparisonInterpretation": "Specific clearance unknown alone is not an assertion about overall readiness; no reverse-derived credit or blanket neutral-to-missing rule.",
+      "expectedComparisonLabel": null
+    }
+  ],
+  "pairs": [
+    {
+      "index": 0,
+      "caseId": "procedures-only",
+      "direction": "forward",
+      "premise": "Low-visibility procedures are active. Safeguarding is active.",
+      "hypothesis": "Low-visibility procedures are active.",
+      "memberFacetIds": [
+        "lvp"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 1,
+      "caseId": "procedures-only",
+      "direction": "forward",
+      "premise": "Low-visibility procedures are active. Safeguarding is active.",
+      "hypothesis": "Safeguarding is active.",
+      "memberFacetIds": [
+        "safeguarding"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 2,
+      "caseId": "procedures-only",
+      "direction": "forward",
+      "premise": "Low-visibility procedures are active. Safeguarding is active.",
+      "hypothesis": "TRN101 remains held.",
+      "memberFacetIds": [
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 3,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "lvp"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 4,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "Safeguarding is active.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "safeguarding"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 5,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "TRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 6,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.\nSafeguarding is active.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "lvp",
+        "safeguarding"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 7,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.\nTRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "lvp",
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 8,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "Safeguarding is active.\nTRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "safeguarding",
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 9,
+      "caseId": "procedures-only",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.\nSafeguarding is active.\nTRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active.",
+      "memberFacetIds": [
+        "lvp",
+        "safeguarding",
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 10,
+      "caseId": "unclear-hold",
+      "direction": "forward",
+      "premise": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "hypothesis": "Low-visibility procedures are active.",
+      "memberFacetIds": [
+        "lvp"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 11,
+      "caseId": "unclear-hold",
+      "direction": "forward",
+      "premise": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "hypothesis": "Safeguarding is active.",
+      "memberFacetIds": [
+        "safeguarding"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 12,
+      "caseId": "unclear-hold",
+      "direction": "forward",
+      "premise": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "hypothesis": "TRN101 remains held.",
+      "memberFacetIds": [
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 13,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "lvp"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 14,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "Safeguarding is active.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "safeguarding"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 15,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "TRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 16,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.\nSafeguarding is active.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "lvp",
+        "safeguarding"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 17,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.\nTRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "lvp",
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 18,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "Safeguarding is active.\nTRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "safeguarding",
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 19,
+      "caseId": "unclear-hold",
+      "direction": "reverse",
+      "premise": "Low-visibility procedures are active.\nSafeguarding is active.\nTRN101 remains held.",
+      "hypothesis": "Low-visibility procedures are active. Safeguarding is active. I cannot tell whether TRN101 is held.",
+      "memberFacetIds": [
+        "lvp",
+        "safeguarding",
+        "hold"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 20,
+      "caseId": "estimate-only",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 21,
+      "caseId": "estimate-only",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The target off-block estimate does not establish departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 22,
+      "caseId": "estimate-only",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 23,
+      "caseId": "estimate-only",
+      "direction": "reverse",
+      "premise": "The target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 24,
+      "caseId": "estimate-only",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.\nThe target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate",
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 25,
+      "caseId": "unclear-authority",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35. I cannot tell whether that estimate establishes departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 26,
+      "caseId": "unclear-authority",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35. I cannot tell whether that estimate establishes departure clearance.",
+      "hypothesis": "The target off-block estimate does not establish departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 27,
+      "caseId": "unclear-authority",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35. I cannot tell whether that estimate establishes departure clearance.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 28,
+      "caseId": "unclear-authority",
+      "direction": "reverse",
+      "premise": "The target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35. I cannot tell whether that estimate establishes departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 29,
+      "caseId": "unclear-authority",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.\nThe target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35. I cannot tell whether that estimate establishes departure clearance.",
+      "memberFacetIds": [
+        "estimate",
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 30,
+      "caseId": "causal-release",
+      "direction": "forward",
+      "premise": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "hypothesis": "TRN102's ground hold has been released.",
+      "memberFacetIds": [
+        "release"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 31,
+      "caseId": "causal-release",
+      "direction": "forward",
+      "premise": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "hypothesis": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "cause"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 32,
+      "caseId": "causal-release",
+      "direction": "reverse",
+      "premise": "TRN102's ground hold has been released.",
+      "hypothesis": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "release"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 33,
+      "caseId": "causal-release",
+      "direction": "reverse",
+      "premise": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "hypothesis": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "cause"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 34,
+      "caseId": "causal-release",
+      "direction": "reverse",
+      "premise": "TRN102's ground hold has been released.\nTRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "hypothesis": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "release",
+        "cause"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 35,
+      "caseId": "vehicle-only",
+      "direction": "forward",
+      "premise": "The obstructing vehicle is now clear.",
+      "hypothesis": "TRN102's ground hold has been released.",
+      "memberFacetIds": [
+        "release"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 36,
+      "caseId": "vehicle-only",
+      "direction": "forward",
+      "premise": "The obstructing vehicle is now clear.",
+      "hypothesis": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "cause"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 37,
+      "caseId": "vehicle-only",
+      "direction": "reverse",
+      "premise": "TRN102's ground hold has been released.",
+      "hypothesis": "The obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "release"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 38,
+      "caseId": "vehicle-only",
+      "direction": "reverse",
+      "premise": "TRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "hypothesis": "The obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "cause"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 39,
+      "caseId": "vehicle-only",
+      "direction": "reverse",
+      "premise": "TRN102's ground hold has been released.\nTRN102's ground hold was released because the obstructing vehicle is now clear.",
+      "hypothesis": "The obstructing vehicle is now clear.",
+      "memberFacetIds": [
+        "release",
+        "cause"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 40,
+      "caseId": "unsupported-extra",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35. TRN102 has takeoff clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 41,
+      "caseId": "unsupported-extra",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35. TRN102 has takeoff clearance.",
+      "hypothesis": "The target off-block estimate does not establish departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 42,
+      "caseId": "unsupported-extra",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35. TRN102 has takeoff clearance.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 43,
+      "caseId": "unsupported-extra",
+      "direction": "reverse",
+      "premise": "The target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35. TRN102 has takeoff clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 44,
+      "caseId": "unsupported-extra",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.\nThe target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35. TRN102 has takeoff clearance.",
+      "memberFacetIds": [
+        "estimate",
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 45,
+      "caseId": "correct-to-current",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:20; correction: it is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 46,
+      "caseId": "correct-to-current",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:20; correction: it is 10:35.",
+      "hypothesis": "The target off-block estimate does not establish departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 47,
+      "caseId": "correct-to-current",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:20; correction: it is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 48,
+      "caseId": "correct-to-current",
+      "direction": "reverse",
+      "premise": "The target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:20; correction: it is 10:35.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 49,
+      "caseId": "correct-to-current",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.\nThe target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:20; correction: it is 10:35.",
+      "memberFacetIds": [
+        "estimate",
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 50,
+      "caseId": "correct-to-prior",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35; correction: it is 10:20.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 51,
+      "caseId": "correct-to-prior",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35; correction: it is 10:20.",
+      "hypothesis": "The target off-block estimate does not establish departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 52,
+      "caseId": "correct-to-prior",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35; correction: it is 10:20.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 53,
+      "caseId": "correct-to-prior",
+      "direction": "reverse",
+      "premise": "The target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35; correction: it is 10:20.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 54,
+      "caseId": "correct-to-prior",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.\nThe target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35; correction: it is 10:20.",
+      "memberFacetIds": [
+        "estimate",
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 55,
+      "caseId": "wrong-entity",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN103 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 56,
+      "caseId": "wrong-entity",
+      "direction": "forward",
+      "premise": "The latest target off-block estimate for TRN103 is 10:35.",
+      "hypothesis": "The target off-block estimate does not establish departure clearance.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 57,
+      "caseId": "wrong-entity",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.",
+      "hypothesis": "The latest target off-block estimate for TRN103 is 10:35.",
+      "memberFacetIds": [
+        "estimate"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 58,
+      "caseId": "wrong-entity",
+      "direction": "reverse",
+      "premise": "The target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN103 is 10:35.",
+      "memberFacetIds": [
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 59,
+      "caseId": "wrong-entity",
+      "direction": "reverse",
+      "premise": "The latest target off-block estimate for TRN102 is 10:35.\nThe target off-block estimate does not establish departure clearance.",
+      "hypothesis": "The latest target off-block estimate for TRN103 is 10:35.",
+      "memberFacetIds": [
+        "estimate",
+        "authority"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 60,
+      "caseId": "broad-unknown",
+      "direction": "forward",
+      "premise": "Overall departure readiness remains unconfirmed.",
+      "hypothesis": "Overall departure readiness remains unconfirmed.",
+      "memberFacetIds": [
+        "broad-readiness-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 61,
+      "caseId": "broad-unknown",
+      "direction": "forward",
+      "premise": "Overall departure readiness remains unconfirmed.",
+      "hypothesis": "Takeoff clearance remains unconfirmed.",
+      "memberFacetIds": [
+        "specific-clearance-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 62,
+      "caseId": "broad-unknown",
+      "direction": "reverse",
+      "premise": "Overall departure readiness remains unconfirmed.",
+      "hypothesis": "Overall departure readiness remains unconfirmed.",
+      "memberFacetIds": [
+        "broad-readiness-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 63,
+      "caseId": "broad-unknown",
+      "direction": "reverse",
+      "premise": "Takeoff clearance remains unconfirmed.",
+      "hypothesis": "Overall departure readiness remains unconfirmed.",
+      "memberFacetIds": [
+        "specific-clearance-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 64,
+      "caseId": "broad-unknown",
+      "direction": "reverse",
+      "premise": "Overall departure readiness remains unconfirmed.\nTakeoff clearance remains unconfirmed.",
+      "hypothesis": "Overall departure readiness remains unconfirmed.",
+      "memberFacetIds": [
+        "broad-readiness-unknown",
+        "specific-clearance-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 65,
+      "caseId": "specific-unknown",
+      "direction": "forward",
+      "premise": "Takeoff clearance remains unconfirmed.",
+      "hypothesis": "Overall departure readiness remains unconfirmed.",
+      "memberFacetIds": [
+        "broad-readiness-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 66,
+      "caseId": "specific-unknown",
+      "direction": "forward",
+      "premise": "Takeoff clearance remains unconfirmed.",
+      "hypothesis": "Takeoff clearance remains unconfirmed.",
+      "memberFacetIds": [
+        "specific-clearance-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 67,
+      "caseId": "specific-unknown",
+      "direction": "reverse",
+      "premise": "Overall departure readiness remains unconfirmed.",
+      "hypothesis": "Takeoff clearance remains unconfirmed.",
+      "memberFacetIds": [
+        "broad-readiness-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 68,
+      "caseId": "specific-unknown",
+      "direction": "reverse",
+      "premise": "Takeoff clearance remains unconfirmed.",
+      "hypothesis": "Takeoff clearance remains unconfirmed.",
+      "memberFacetIds": [
+        "specific-clearance-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    },
+    {
+      "index": 69,
+      "caseId": "specific-unknown",
+      "direction": "reverse",
+      "premise": "Overall departure readiness remains unconfirmed.\nTakeoff clearance remains unconfirmed.",
+      "hypothesis": "Takeoff clearance remains unconfirmed.",
+      "memberFacetIds": [
+        "broad-readiness-unknown",
+        "specific-clearance-unknown"
+      ],
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false,
+      "expectedLabel": null
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "cause-implies-release",
+      "antecedent": "cause",
+      "consequent": "release",
+      "scope": "surface-causal only",
+      "meaning": "The authored causal change facet explicitly asserts ground-hold release. No requirement to repeat release separately; no synthetic learner evidence is created."
+    },
+    {
+      "id": "broad-unknown-not-specific",
+      "antecedent": "broad-readiness-unknown",
+      "consequent": null,
+      "scope": "unknown-specific controls only",
+      "meaning": "Unconfirmed overall readiness does not entail the specific takeoff-clearance unknown. The converse is not asserted either; no unknown is a denial."
+    }
+  ]
+}

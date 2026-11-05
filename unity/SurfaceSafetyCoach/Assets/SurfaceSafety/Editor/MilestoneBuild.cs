@@ -18,7 +18,7 @@ public static class MilestoneBuild {
         importer.isReadable=true;importer.textureCompression=TextureImporterCompression.Uncompressed;
         importer.maxTextureSize=2048;importer.npotScale=TextureImporterNPOTScale.None;
         importer.mipmapEnabled=false;importer.SaveAndReimport();
-        PlayerSettings.companyName="Airfield Research";PlayerSettings.productName="ApronLens";
+        PlayerSettings.companyName="Airfield Research";PlayerSettings.productName="AirfieldLens";
         PlayerSettings.bundleVersion="1.5";PlayerSettings.Android.bundleVersionCode=6;
         PlayerSettings.insecureHttpOption=InsecureHttpOption.DevelopmentOnly;
         PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android,"edu.airfieldresearch.standreplay");

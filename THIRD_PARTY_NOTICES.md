@@ -25,3 +25,10 @@
 
 No open-source license has yet been selected for the original project code.
 Third-party terms are not replaced by this notice.
+
+The current environment also includes FlightGear TerraSync Heathrow Terminal 5
+scenery. Its AC3D source, textures, converted OBJ, conversion script, attribution
+and GPL text are retained. See
+`unity/SurfaceSafetyCoach/Assets/SurfaceSafety/WorldAR/Heathrow/ATTRIBUTION.txt`
+and `COPYING.txt` for the asset's provenance and terms. Those terms apply to
+the third-party scenery independently of the original application code.

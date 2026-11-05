@@ -1,0 +1,75 @@
+{
+  "version": "blind-coverage-review-v2",
+  "sourceSHA256": "111d63ef1ffa01cf0531138ce2b730595311472ea1f82e9150e093aadbec7230",
+  "cases": [
+    {
+      "exercise": "late_arrival",
+      "checkpointId": "check-1",
+      "responseText": "The inbound TRN103 is waiting for Stand B, which is occupied by TRN102."
+    },
+    {
+      "exercise": "late_baggage",
+      "checkpointId": "check-1",
+      "responseText": "The late baggage batch is delaying TRN102. Fuel is complete, but that does not mean baggage loading is complete."
+    },
+    {
+      "id": "partial",
+      "exercise": "fog_restrictions",
+      "checkpointId": "check-1",
+      "responseText": "Low-visibility procedures and safeguarding are active.",
+      "expectedStatuses": {
+        "procedures": "met",
+        "hold": "missing",
+        "grounding": "met"
+      },
+      "expectedVerdict": "partly_supported"
+    },
+    {
+      "id": "false_occupancy",
+      "exercise": "late_arrival",
+      "checkpointId": "check-1",
+      "responseText": "TRN103 is already occupying Stand B instead of TRN102.",
+      "expectedStatuses": {
+        "flight": "contradicted",
+        "occupant": "contradicted",
+        "grounding": "contradicted"
+      },
+      "expectedVerdict": "needs_review"
+    },
+    {
+      "id": "correct_core_with_unsupported_extra",
+      "exercise": "fog_restrictions",
+      "checkpointId": "check-3",
+      "responseText": "Safeguarding cancellation is confirmed, but departure clearance is still unconfirmed and TRN101 remains parked. The engine has caught fire.",
+      "expectedStatuses": {
+        "confirmation": "met",
+        "authority": "met",
+        "grounding": "contradicted"
+      },
+      "expectedVerdict": "needs_review"
+    },
+    {
+      "id": "explicit_unknown",
+      "exercise": "fog_restrictions",
+      "checkpointId": "check-3",
+      "responseText": "The cancellation of safeguarding has been confirmed. I do not know that TRN101 has departure clearance because no such confirmation was received; it remains parked.",
+      "expectedStatuses": {
+        "confirmation": "met",
+        "authority": "met",
+        "grounding": "met"
+      },
+      "expectedVerdict": "supported"
+    }
+  ],
+  "totalTokenBudget": 600,
+  "deadlineSeconds": 55,
+  "sourceHashes": {
+    "experiments/typed_review_repair/candidate.py": "111d63ef1ffa01cf0531138ce2b730595311472ea1f82e9150e093aadbec7230",
+    "experiments/typed_review_repair/coverage.py": "afba85d86d8962e0b39f0a4329727df9a3ee13445cc50a3a18e412e28cc20f08",
+    "experiments/typed_claim_review/candidate.py": "6f4c039703c13725205fd79ae12cc8971457a3b1bf0fc6afc7c04a02a39eac1c",
+    "backend/training_worker.py": "6c8209f3b4a2bb64fecfb83200e85670dffaf0998e11924358c97b4ebe2bad54",
+    "backend/training_adapter.py": "acab2bb3f1da8283421e17dcddefc5974510220433f62433e33589e193269f8c",
+    "backend/training_result.py": "fd5ef35817a76db5b512d528185a65b412d9eb8a26edc872b82b70511baf4242"
+  },
+  "policy": "Exposed development only. No tuning against fresh evaluation. Stop and review any failure before proceeding."
+}

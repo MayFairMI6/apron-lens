@@ -1,0 +1,530 @@
+{
+  "scope": "Four independent functional demonstrations, not an accuracy or learning benchmark",
+  "sourceRevision": "706e6a10b4ab7df8d7ff21ebb8da61c1d1e317b6",
+  "simulator": "iPhone 18 Pro / iOS 27.0 / Apple Silicon",
+  "bundle": "edu.airfieldresearch.apronlens.simulator",
+  "modelLocation": "Host Mac service; not on phone",
+  "backendTests": 289,
+  "ciRuns": [
+    41639870978,
+    41639861809
+  ],
+  "nativeEditorChecks": "AIRCRAFT_TYPE_CHECKS_PASS",
+  "sourceHashes": {
+    "backend/fleet_scenarios.py": "62ba64b0d1dd784f660e427151c4809d9ad320a16a66cc8f7d740c87daa34048",
+    "backend/training_session.py": "0b74b1c6ffbb88ab393b7bca0d09d758e84f73deaa2ae9b842416238b279bc92",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/AircraftTypeVisual.cs": "7dabbe704603cb6982437eece758f5775f3ef38b8c969c09d0b71c90409f3f48",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "91b2e02993fd4a45612cc13a6c32b7e440621486ba2d38d357e3d9d924959322",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/StandReplay.cs": "89fe570c5a0e97114180774aa7651ad59a2abac0067c3180c208f829d489e7a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "6c71de549442bb9ef9378ef74e1e852e600407eef2c6a19246ec07bb69288e6d"
+  },
+  "runs": [
+    {
+      "exercise": "fleet_a320_birds",
+      "seed": 17,
+      "runId": "f0b1d7d4ea9fbb0edd94",
+      "sourceDuration": 3600,
+      "wallDuration": 263.92609033300005,
+      "snapshots": 505,
+      "cues": {
+        "bird-hold": "answered",
+        "inspection": "answered",
+        "departure": "answered"
+      },
+      "answers": [
+        {
+          "question": "Why is TRN101 held?",
+          "cutoff": 45.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: hold: birds reported near departure path \u2014 current. Event 0 s; received 0 s. [F001]",
+            "claims": [
+              {
+                "fact_id": "F001:movement_condition",
+                "value": "hold: birds reported near departure path",
+                "status": "current",
+                "evidence_ids": [
+                  "F001"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 1,
+          "inputTokens": 855,
+          "outputTokens": 58,
+          "latencySeconds": 9.681
+        },
+        {
+          "question": "Does inspection completion release TRN101?",
+          "cutoff": 90.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: hold: inspection complete; separate departure release awaited \u2014 current. Event 85 s; received 86 s. [F003]\n\nChanged since the previous answer: F001:movement_condition, F002:movement_condition, F003:movement_condition",
+            "claims": [
+              {
+                "fact_id": "F003:movement_condition",
+                "value": "hold: inspection complete; separate departure release awaited",
+                "status": "current",
+                "evidence_ids": [
+                  "F003"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 2,
+          "inputTokens": 958,
+          "outputTokens": 58,
+          "latencySeconds": 11.406
+        },
+        {
+          "question": "What is the latest reported movement for TRN101?",
+          "cutoff": 166.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: exercise departure release received \u2014 current. Event 100 s; received 101 s. [F004]\n\nScripted movement: airborne and climbing \u2014 current. Event 154 s; received 155 s. [F006]\n\nChanged since the previous answer: F003:movement_condition, F004:movement_condition, F005:movement_status, F006:movement_status",
+            "claims": [
+              {
+                "fact_id": "F004:movement_condition",
+                "value": "exercise departure release received",
+                "status": "current",
+                "evidence_ids": [
+                  "F004"
+                ]
+              },
+              {
+                "fact_id": "F006:movement_status",
+                "value": "airborne and climbing",
+                "status": "current",
+                "evidence_ids": [
+                  "F006"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 3,
+          "inputTokens": 1099,
+          "outputTokens": 74,
+          "latencySeconds": 13.669
+        }
+      ],
+      "video": "airfieldlens-fleet_a320_birds-native.mp4",
+      "videoSHA256": "b535cb43ebd60cc032819950a22fc13584ab908b0a2d95b0aedb8563a67de0c0",
+      "backendSourceRevision": "a9eaa3c81f48bb21e830fc699b316f229ea2e9ef"
+    },
+    {
+      "exercise": "fleet_b737_rejected_takeoff",
+      "seed": 17,
+      "runId": "e243e449791642b52069",
+      "sourceDuration": 3600,
+      "wallDuration": 240.93495991700001,
+      "snapshots": 461,
+      "cues": {
+        "rejection": "answered",
+        "stopped": "answered",
+        "release": "answered"
+      },
+      "answers": [
+        {
+          "question": "Why did TRN101 reject takeoff?",
+          "cutoff": 104.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: takeoff rejected: unreliable airspeed reported; cause unconfirmed \u2014 current. Event 99 s; received 100 s. [F003]",
+            "claims": [
+              {
+                "fact_id": "F003:movement_condition",
+                "value": "takeoff rejected: unreliable airspeed reported; cause unconfirmed",
+                "status": "current",
+                "evidence_ids": [
+                  "F003"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 1,
+          "inputTokens": 949,
+          "outputTokens": 35,
+          "latencySeconds": 6.241
+        },
+        {
+          "question": "What is the latest reported movement for TRN101?",
+          "cutoff": 129.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Scripted movement: stopped on Runway 09R \u2014 current. Event 121 s; received 122 s. [F004]\n\nAuthored movement condition: hold: runway occupied; aircraft assessment pending \u2014 current. Event 123 s; received 124 s. [F005]\n\nChanged since the previous answer: F002:movement_status, F003:movement_condition, F004:movement_status, F005:movement_condition",
+            "claims": [
+              {
+                "fact_id": "F004:movement_status",
+                "value": "stopped on Runway 09R",
+                "status": "current",
+                "evidence_ids": [
+                  "F004"
+                ]
+              },
+              {
+                "fact_id": "F005:movement_condition",
+                "value": "hold: runway occupied; aircraft assessment pending",
+                "status": "current",
+                "evidence_ids": [
+                  "F005"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 2,
+          "inputTokens": 1055,
+          "outputTokens": 74,
+          "latencySeconds": 13.061
+        },
+        {
+          "question": "Is the runway released for TRN101?",
+          "cutoff": 310.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: hold: assessment continues; recovery and release unconfirmed \u2014 current. Event 300 s; received 301 s. [F006]\n\nChanged since the previous answer: F005:movement_condition, F006:movement_condition",
+            "claims": [
+              {
+                "fact_id": "F006:movement_condition",
+                "value": "hold: assessment continues; recovery and release unconfirmed",
+                "status": "current",
+                "evidence_ids": [
+                  "F006"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 3,
+          "inputTokens": 1107,
+          "outputTokens": 35,
+          "latencySeconds": 9.447
+        }
+      ],
+      "video": "airfieldlens-fleet_b737_rejected_takeoff-native.mp4",
+      "videoSHA256": "4420cf70f2fe8272167a1fd931adbfe6c7bf17f9fda5d83a0f19c13282499948",
+      "backendSourceRevision": "a9eaa3c81f48bb21e830fc699b316f229ea2e9ef"
+    },
+    {
+      "exercise": "fleet_b787_priority_landing",
+      "seed": 17,
+      "runId": "e7e7dc3c1ec314ddc64a",
+      "sourceDuration": 3600,
+      "wallDuration": 278.711344125,
+      "snapshots": 532,
+      "cues": {
+        "priority": "answered",
+        "arrival-stop": "answered",
+        "recovery": "answered"
+      },
+      "answers": [
+        {
+          "question": "Why is TRN101 receiving priority?",
+          "cutoff": 70.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: exercise priority landing authorised; hydraulic concern reported \u2014 current. Event 50 s; received 51 s. [F002]",
+            "claims": [
+              {
+                "fact_id": "F002:movement_condition",
+                "value": "exercise priority landing authorised; hydraulic concern reported",
+                "status": "current",
+                "evidence_ids": [
+                  "F002"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 1,
+          "inputTokens": 912,
+          "outputTokens": 58,
+          "latencySeconds": 10.801
+        },
+        {
+          "question": "What is the latest reported movement for TRN101?",
+          "cutoff": 241.99505615234375,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Scripted movement: stopped on Runway 09R \u2014 current. Event 232 s; received 233 s. [F004]\n\nAuthored movement condition: hold: inspection pending; runway occupied \u2014 current. Event 234 s; received 235 s. [F005]\n\nChanged since the previous answer: F002:movement_condition, F003:movement_status, F004:movement_status, F005:movement_condition",
+            "claims": [
+              {
+                "fact_id": "F004:movement_status",
+                "value": "stopped on Runway 09R",
+                "status": "current",
+                "evidence_ids": [
+                  "F004"
+                ]
+              },
+              {
+                "fact_id": "F005:movement_condition",
+                "value": "hold: inspection pending; runway occupied",
+                "status": "current",
+                "evidence_ids": [
+                  "F005"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 2,
+          "inputTokens": 1073,
+          "outputTokens": 43,
+          "latencySeconds": 9.429
+        },
+        {
+          "question": "Is recovery complete and the runway released for TRN101?",
+          "cutoff": 312.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: hold: inspection underway; recovery requested; runway release unconfirmed \u2014 current. Event 302 s; received 303 s. [F006]\n\nChanged since the previous answer: F005:movement_condition, F006:movement_condition",
+            "claims": [
+              {
+                "fact_id": "F006:movement_condition",
+                "value": "hold: inspection underway; recovery requested; runway release unconfirmed",
+                "status": "current",
+                "evidence_ids": [
+                  "F006"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 3,
+          "inputTokens": 1126,
+          "outputTokens": 58,
+          "latencySeconds": 14.493
+        }
+      ],
+      "video": "airfieldlens-fleet_b787_priority_landing-native.mp4",
+      "videoSHA256": "0e1fd094509594159bdabb3e285461e4f16a69ec3961934c973f95e037c9bf75",
+      "backendSourceRevision": "a9eaa3c81f48bb21e830fc699b316f229ea2e9ef"
+    },
+    {
+      "exercise": "fleet_a380_go_around",
+      "seed": 17,
+      "runId": "3124203f0c40496b4fe7",
+      "sourceDuration": 3600,
+      "wallDuration": 226.826713917,
+      "snapshots": 434,
+      "cues": {
+        "go-around": "answered",
+        "climb": "answered",
+        "next": "answered"
+      },
+      "answers": [
+        {
+          "question": "Why is TRN101 going around?",
+          "cutoff": 108.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: go-around: Runway 09R occupied by TRN102 \u2014 current. Event 104 s; received 105 s. [F003]",
+            "claims": [
+              {
+                "fact_id": "F003:movement_condition",
+                "value": "go-around: Runway 09R occupied by TRN102",
+                "status": "current",
+                "evidence_ids": [
+                  "F003"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 1,
+          "inputTokens": 914,
+          "outputTokens": 58,
+          "latencySeconds": 9.469
+        },
+        {
+          "question": "What is the latest reported movement for TRN101?",
+          "cutoff": 169.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Scripted movement: climbing away after go-around \u2014 current. Event 112 s; received 113 s. [F004]\n\nChanged since the previous answer: F004:movement_status",
+            "claims": [
+              {
+                "fact_id": "F004:movement_status",
+                "value": "climbing away after go-around",
+                "status": "current",
+                "evidence_ids": [
+                  "F004"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 2,
+          "inputTokens": 961,
+          "outputTokens": 63,
+          "latencySeconds": 10.104
+        },
+        {
+          "question": "Is another approach confirmed for TRN101?",
+          "cutoff": 310.0,
+          "accepted": true,
+          "errors": [],
+          "display": {
+            "resultStatus": "answer",
+            "validatorVersion": "conversation-validator-v2",
+            "answer": "Authored movement condition: runway still occupied; another approach unconfirmed \u2014 current. Event 300 s; received 301 s. [F005]\n\nChanged since the previous answer: F003:movement_condition, F005:movement_condition",
+            "claims": [
+              {
+                "fact_id": "F005:movement_condition",
+                "value": "runway still occupied; another approach unconfirmed",
+                "status": "current",
+                "evidence_ids": [
+                  "F005"
+                ]
+              }
+            ],
+            "unknowns": [],
+            "observations": [],
+            "interpretation": null,
+            "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+          },
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "revision": 3,
+          "inputTokens": 1012,
+          "outputTokens": 63,
+          "latencySeconds": 10.418
+        }
+      ],
+      "video": "airfieldlens-fleet_a380_go_around-native-rerun.mp4",
+      "videoSHA256": "c4a2676d0e2812650f1482252866972cb4c49c4ac88a8dff9a682131f165167c",
+      "backendSourceRevision": "706e6a10b4ab7df8d7ff21ebb8da61c1d1e317b6"
+    }
+  ],
+  "failedRuns": [
+    {
+      "exercise": "fleet_a380_go_around",
+      "runId": "d63e908cbf6a8937b7c6",
+      "video": "airfieldlens-fleet_a380_go_around-native.mp4"
+    }
+  ],
+  "knownLimitations": [
+    "Family models normalized to nominal dimensions; no exact CAD or aircraft performance",
+    "Selected published09R reference facts only; authored flare/speeds/incident timing, no full SID",
+    "Warm-up empty-claim response remains a known assistant completeness limitation (#67)",
+    "First A380 cue-overlap failure retained (#68); fixed run replaces it only for accepted examples",
+    "No physical smartphone/TestFlight or evaluated visual-reasoning claim",
+    "Regional overview aircraft labels can overlap at distant zoom (#69); selected-flight answer remains readable"
+  ],
+  "review": "fleet-independent-review.json; root native checks and final video verification recorded separately",
+  "supplementalNativeChecks": {
+    "typeRebind": "Actual app switched four\u2192three late_arrival\u2192four B787 without restart; three/four flight chips verified in portrait",
+    "orientation": "Landscape full runs; portrait three/four aircraft layout inspected separately",
+    "screenshots": [
+      "fleet-rebind-three-portrait.png",
+      "fleet-rebind-four-portrait.png",
+      "fleet-a380-occupancy-overview-positioned.png"
+    ],
+    "positionedInspection": "Separate continuous A380 run ba3c8446ce4ee9e59438 positioned at source100 using audited preview endpoint; runway view showed stoppedTRN102 and climbingTRN101. Not counted as full run."
+  },
+  "unityBuildSourceRevision": "a9eaa3c81f48bb21e830fc699b316f229ea2e9ef"
+}

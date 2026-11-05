@@ -1,0 +1,1142 @@
+{
+  "device": "mps",
+  "seconds": 6.640233707999869,
+  "count": 29,
+  "rows": [
+    {
+      "kind": "criterion",
+      "criterionId": "estimate",
+      "facet": 1,
+      "premise": "TRN102's received target off-block estimate is now 10:35;",
+      "hypothesis": "The latest target off-block estimate for TRN102 is 10:35.",
+      "exactLearnerSentence": "TRN102's received target off-block estimate is now 10:35;",
+      "entityContext": null,
+      "ambiguousEntityContext": false,
+      "resourceAliases": [],
+      "exactLearnerAntecedents": [],
+      "neutralRelation": "estimate",
+      "explicitIdentityMismatch": false,
+      "semanticRuleSupport": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 36,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0003521442413330078,
+        0.99169921875,
+        0.0079193115234375
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "criterion",
+      "criterionId": "scope",
+      "facet": 1,
+      "premise": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "hypothesis": "The target off-block time is an estimate and does not establish departure clearance.",
+      "exactLearnerSentence": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "entityContext": null,
+      "ambiguousEntityContext": false,
+      "resourceAliases": [],
+      "exactLearnerAntecedents": [],
+      "neutralRelation": "estimate_authority",
+      "explicitIdentityMismatch": false,
+      "semanticRuleSupport": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 44,
+      "truncationRejected": false,
+      "probabilities": [
+        0.00010395050048828125,
+        0.99609375,
+        0.0037517547607421875
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "The target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L015"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 48,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0005788803100585938,
+        0.0029582977294921875,
+        0.99658203125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN102 is holding.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTRN102 remains held while ground handling is incomplete.\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L005",
+        "L003",
+        "L006",
+        "L009",
+        "L013",
+        "L015"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 113,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0004706382751464844,
+        0.9130859375,
+        0.08642578125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN102 is holding.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L005"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 34,
+      "truncationRejected": false,
+      "probabilities": [
+        0.002044677734375,
+        0.0014524459838867188,
+        0.99658203125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L003"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 44,
+      "truncationRejected": false,
+      "probabilities": [
+        0.00264739990234375,
+        0.34716796875,
+        0.650390625
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L006"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 44,
+      "truncationRejected": false,
+      "probabilities": [
+        0.00264739990234375,
+        0.34716796875,
+        0.650390625
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L009"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 44,
+      "truncationRejected": false,
+      "probabilities": [
+        0.00264739990234375,
+        0.34716796875,
+        0.650390625
+      ],
+      "error": null,
+      "elapsedSeconds": 1.222479416999704
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN102 remains held while ground handling is incomplete.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L013"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 39,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0029354095458984375,
+        0.0015897750854492188,
+        0.99560546875
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "Evidence policy: only information established by received reports is confirmed; unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.\nTyped source L015:tobt; aircraft A2 / TRN102; current Target off-block time (estimate) = \"10:35\"; event 75.0; received 82.0.\nClosed current typed-field search: Overall departure readiness for TRN102 is not confirmed by the received reports.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L015",
+        "L004",
+        "L005",
+        "L006",
+        "L011",
+        "L013",
+        "L014"
+      ],
+      "sourceVariant": "normalized",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [
+        "L015:tobt"
+      ],
+      "canonicalSources": [],
+      "closedReadinessScope": {
+        "ruleVersion": "unreported-current-readiness-field-v1",
+        "flightInstance": "TRN102",
+        "aircraftId": "A2",
+        "property": "overall_readiness",
+        "searchedFactIds": [
+          "L004:stand",
+          "L005:movement_status",
+          "L006:route",
+          "L011:baggage_status",
+          "L013:movement_condition",
+          "L014:fuel_status",
+          "L015:tobt"
+        ],
+        "reportIds": [
+          "L004",
+          "L005",
+          "L006",
+          "L011",
+          "L013",
+          "L014",
+          "L015"
+        ],
+        "proposition": "Overall departure readiness for TRN102 is not confirmed by the received reports.",
+        "scope": "complete eligible current target typed-fact set; not a denial of actual readiness"
+      },
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 139,
+      "truncationRejected": false,
+      "probabilities": [
+        0.006809234619140625,
+        0.57861328125,
+        0.41455078125
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "Evidence policy: only information established by received reports is confirmed; unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\nTRN102 is holding.\nTyped source L005:movement_status; aircraft A2 / TRN102; current Scripted movement = \"holding at stand\"; event 1.0; received 1.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L003:route; aircraft A1 / TRN101; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L006:route; aircraft A2 / TRN102; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L009:route; aircraft A3 / TRN103; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nTRN102 remains held while ground handling is incomplete.\nTyped source L013:movement_condition; aircraft A2 / TRN102; current Authored movement condition = \"hold: ground handling incomplete\"; event 15.0; received 16.0.\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.\nTyped source L015:tobt; aircraft A2 / TRN102; current Target off-block time (estimate) = \"10:35\"; event 75.0; received 82.0.\nClosed current typed-field search: Overall departure readiness for TRN102 is not confirmed by the received reports.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35; an estimate does not give departure clearance.",
+      "reportIds": [
+        "L005",
+        "L003",
+        "L006",
+        "L009",
+        "L013",
+        "L015",
+        "L004",
+        "L011",
+        "L014"
+      ],
+      "sourceVariant": "normalized",
+      "groundingCoverage": "full_sentence",
+      "contributesToDecision": false,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [
+        "L005:movement_status",
+        "L003:route",
+        "L006:route",
+        "L009:route",
+        "L013:movement_condition",
+        "L015:tobt"
+      ],
+      "canonicalSources": [],
+      "closedReadinessScope": {
+        "ruleVersion": "unreported-current-readiness-field-v1",
+        "flightInstance": "TRN102",
+        "aircraftId": "A2",
+        "property": "overall_readiness",
+        "searchedFactIds": [
+          "L004:stand",
+          "L005:movement_status",
+          "L006:route",
+          "L011:baggage_status",
+          "L013:movement_condition",
+          "L014:fuel_status",
+          "L015:tobt"
+        ],
+        "reportIds": [
+          "L004",
+          "L005",
+          "L006",
+          "L011",
+          "L013",
+          "L014",
+          "L015"
+        ],
+        "proposition": "Overall departure readiness for TRN102 is not confirmed by the received reports.",
+        "scope": "complete eligible current target typed-fact set; not a denial of actual readiness"
+      },
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 402,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0016717910766601562,
+        0.9794921875,
+        0.0187835693359375
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "The target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L015"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 40,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0006003379821777344,
+        0.99169921875,
+        0.00749969482421875
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L003",
+        "L006",
+        "L009",
+        "L015"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 88,
+      "truncationRejected": false,
+      "probabilities": [
+        0.00055694580078125,
+        0.99169921875,
+        0.00788116455078125
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L003"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 36,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0687255859375,
+        0.003925323486328125,
+        0.92724609375
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L006"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 36,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0687255859375,
+        0.003925323486328125,
+        0.92724609375
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L009"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 36,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0687255859375,
+        0.003925323486328125,
+        0.92724609375
+      ],
+      "error": null,
+      "elapsedSeconds": 2.125941125001191
+    },
+    {
+      "kind": "grounding",
+      "premise": "Evidence policy: only information established by received reports is confirmed; unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.\nTyped source L015:tobt; aircraft A2 / TRN102; current Target off-block time (estimate) = \"10:35\"; event 75.0; received 82.0.\nClosed current typed-field search: Overall departure readiness for TRN102 is not confirmed by the received reports.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L015",
+        "L004",
+        "L005",
+        "L006",
+        "L011",
+        "L013",
+        "L014"
+      ],
+      "sourceVariant": "normalized",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [
+        "L015:tobt"
+      ],
+      "canonicalSources": [],
+      "closedReadinessScope": {
+        "ruleVersion": "unreported-current-readiness-field-v1",
+        "flightInstance": "TRN102",
+        "aircraftId": "A2",
+        "property": "overall_readiness",
+        "searchedFactIds": [
+          "L004:stand",
+          "L005:movement_status",
+          "L006:route",
+          "L011:baggage_status",
+          "L013:movement_condition",
+          "L014:fuel_status",
+          "L015:tobt"
+        ],
+        "reportIds": [
+          "L004",
+          "L005",
+          "L006",
+          "L011",
+          "L013",
+          "L014",
+          "L015"
+        ],
+        "proposition": "Overall departure readiness for TRN102 is not confirmed by the received reports.",
+        "scope": "complete eligible current target typed-fact set; not a denial of actual readiness"
+      },
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 131,
+      "truncationRejected": false,
+      "probabilities": [
+        0.005153656005859375,
+        0.99072265625,
+        0.00397491455078125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "Evidence policy: only information established by received reports is confirmed; unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L003:route; aircraft A1 / TRN101; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L006:route; aircraft A2 / TRN102; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L009:route; aircraft A3 / TRN103; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.\nTyped source L015:tobt; aircraft A2 / TRN102; current Target off-block time (estimate) = \"10:35\"; event 75.0; received 82.0.\nClosed current typed-field search: Overall departure readiness for TRN102 is not confirmed by the received reports.",
+      "hypothesis": "TRN102's received target off-block estimate is now 10:35;",
+      "reportIds": [
+        "L003",
+        "L006",
+        "L009",
+        "L015",
+        "L004",
+        "L005",
+        "L011",
+        "L013",
+        "L014"
+      ],
+      "sourceVariant": "normalized",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [
+        "L003:route",
+        "L006:route",
+        "L009:route",
+        "L015:tobt"
+      ],
+      "canonicalSources": [],
+      "closedReadinessScope": {
+        "ruleVersion": "unreported-current-readiness-field-v1",
+        "flightInstance": "TRN102",
+        "aircraftId": "A2",
+        "property": "overall_readiness",
+        "searchedFactIds": [
+          "L004:stand",
+          "L005:movement_status",
+          "L006:route",
+          "L011:baggage_status",
+          "L013:movement_condition",
+          "L014:fuel_status",
+          "L015:tobt"
+        ],
+        "reportIds": [
+          "L004",
+          "L005",
+          "L006",
+          "L011",
+          "L013",
+          "L014",
+          "L015"
+        ],
+        "proposition": "Overall departure readiness for TRN102 is not confirmed by the received reports.",
+        "scope": "complete eligible current target typed-fact set; not a denial of actual readiness"
+      },
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 296,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0033130645751953125,
+        0.9931640625,
+        0.0035152435302734375
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "The target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L015"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 31,
+      "truncationRejected": false,
+      "probabilities": [
+        0.007320404052734375,
+        0.00524139404296875,
+        0.9873046875
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN101 is holding.\nTRN102 is holding.\nTRN103 is holding.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTRN102 remains held while ground handling is incomplete.\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L002",
+        "L005",
+        "L008",
+        "L003",
+        "L006",
+        "L009",
+        "L013",
+        "L015"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 108,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0008187294006347656,
+        0.95751953125,
+        0.041534423828125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN101 is holding.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L002"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 17,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0008640289306640625,
+        0.01971435546875,
+        0.9794921875
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN102 is holding.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L005"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 17,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0008263587951660156,
+        0.0174407958984375,
+        0.98193359375
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN103 is holding.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L008"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 17,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0008525848388671875,
+        0.0173492431640625,
+        0.98193359375
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L003"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 27,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0023479461669921875,
+        0.28076171875,
+        0.716796875
+      ],
+      "error": null,
+      "elapsedSeconds": 1.3509990839993407
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L006"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 27,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0023479461669921875,
+        0.28076171875,
+        0.716796875
+      ],
+      "error": null,
+      "elapsedSeconds": 1.9405788329986535
+    },
+    {
+      "kind": "grounding",
+      "premise": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L009"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 27,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0023479461669921875,
+        0.28076171875,
+        0.716796875
+      ],
+      "error": null,
+      "elapsedSeconds": 1.9405788329986535
+    },
+    {
+      "kind": "grounding",
+      "premise": "TRN102 remains held while ground handling is incomplete.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L013"
+      ],
+      "sourceVariant": "raw",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [],
+      "canonicalSources": [],
+      "closedReadinessScope": null,
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 22,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0017375946044921875,
+        0.08770751953125,
+        0.91064453125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.9405788329986535
+    },
+    {
+      "kind": "grounding",
+      "premise": "Evidence policy: only information established by received reports is confirmed; unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.\nTyped source L015:tobt; aircraft A2 / TRN102; current Target off-block time (estimate) = \"10:35\"; event 75.0; received 82.0.\nClosed current typed-field search: Overall departure readiness for TRN102 is not confirmed by the received reports.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L015",
+        "L004",
+        "L005",
+        "L006",
+        "L011",
+        "L013",
+        "L014"
+      ],
+      "sourceVariant": "normalized",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [
+        "L015:tobt"
+      ],
+      "canonicalSources": [],
+      "closedReadinessScope": {
+        "ruleVersion": "unreported-current-readiness-field-v1",
+        "flightInstance": "TRN102",
+        "aircraftId": "A2",
+        "property": "overall_readiness",
+        "searchedFactIds": [
+          "L004:stand",
+          "L005:movement_status",
+          "L006:route",
+          "L011:baggage_status",
+          "L013:movement_condition",
+          "L014:fuel_status",
+          "L015:tobt"
+        ],
+        "reportIds": [
+          "L004",
+          "L005",
+          "L006",
+          "L011",
+          "L013",
+          "L014",
+          "L015"
+        ],
+        "proposition": "Overall departure readiness for TRN102 is not confirmed by the received reports.",
+        "scope": "complete eligible current target typed-fact set; not a denial of actual readiness"
+      },
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 122,
+      "truncationRejected": false,
+      "probabilities": [
+        0.00870513916015625,
+        0.8203125,
+        0.171142578125
+      ],
+      "error": null,
+      "elapsedSeconds": 1.9405788329986535
+    },
+    {
+      "kind": "grounding",
+      "premise": "Evidence policy: only information established by received reports is confirmed; unreported information remains unconfirmed, not denied. Source excerpts for this comparison:\nTRN101 is holding.\nTyped source L002:movement_status; aircraft A1 / TRN101; current Scripted movement = \"holding at stand\"; event 1.0; received 1.0.\nTRN102 is holding.\nTyped source L005:movement_status; aircraft A2 / TRN102; current Scripted movement = \"holding at stand\"; event 1.0; received 1.0.\nTRN103 is holding.\nTyped source L008:movement_status; aircraft A3 / TRN103; current Scripted movement = \"holding at stand\"; event 1.0; received 1.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L003:route; aircraft A1 / TRN101; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L006:route; aircraft A2 / TRN102; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nThe reported route is within the apron. No runway or takeoff clearance is represented.\nTyped source L009:route; aircraft A3 / TRN103; current Authored movement plan = \"apron ground circuit\"; event 2.0; received 2.0.\nTRN102 remains held while ground handling is incomplete.\nTyped source L013:movement_condition; aircraft A2 / TRN102; current Authored movement condition = \"hold: ground handling incomplete\"; event 15.0; received 16.0.\nThe target off-block estimate for TRN102 changes from 10:20 to 10:35.\nTyped source L015:tobt; aircraft A2 / TRN102; current Target off-block time (estimate) = \"10:35\"; event 75.0; received 82.0.\nClosed current typed-field search: Overall departure readiness for TRN102 is not confirmed by the received reports.",
+      "hypothesis": "an estimate does not give departure clearance.",
+      "reportIds": [
+        "L002",
+        "L005",
+        "L008",
+        "L003",
+        "L006",
+        "L009",
+        "L013",
+        "L015",
+        "L004",
+        "L011",
+        "L014"
+      ],
+      "sourceVariant": "normalized",
+      "groundingCoverage": "independent_clause",
+      "contributesToDecision": true,
+      "conservativeHistoricalUncertainty": false,
+      "sourceFactIds": [
+        "L002:movement_status",
+        "L005:movement_status",
+        "L008:movement_status",
+        "L003:route",
+        "L006:route",
+        "L009:route",
+        "L013:movement_condition",
+        "L015:tobt"
+      ],
+      "canonicalSources": [],
+      "closedReadinessScope": {
+        "ruleVersion": "unreported-current-readiness-field-v1",
+        "flightInstance": "TRN102",
+        "aircraftId": "A2",
+        "property": "overall_readiness",
+        "searchedFactIds": [
+          "L004:stand",
+          "L005:movement_status",
+          "L006:route",
+          "L011:baggage_status",
+          "L013:movement_condition",
+          "L014:fuel_status",
+          "L015:tobt"
+        ],
+        "reportIds": [
+          "L004",
+          "L005",
+          "L006",
+          "L011",
+          "L013",
+          "L014",
+          "L015"
+        ],
+        "proposition": "Overall departure readiness for TRN102 is not confirmed by the received reports.",
+        "scope": "complete eligible current target typed-fact set; not a denial of actual readiness"
+      },
+      "modelId": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+      "modelRevision": "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "labelOrder": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ],
+      "inputTokens": 475,
+      "truncationRejected": false,
+      "probabilities": [
+        0.0017795562744140625,
+        0.9794921875,
+        0.0186614990234375
+      ],
+      "error": null,
+      "elapsedSeconds": 1.9405788329986535
+    }
+  ]
+}

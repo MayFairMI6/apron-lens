@@ -116,7 +116,7 @@ class ConversationRequest(BaseModel):
         return None if info.data.get('imageBase64') is None else value
 
 
-def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_PATH):
+def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_PATH, turn_handler=run_turn):
     @asynccontextmanager
     async def lifespan(app):
         app.state.token = token or local_token()
@@ -145,9 +145,13 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
 
     @app.get('/health', dependencies=[Depends(authenticate)])
     def health():
-        return {'status': 'ready', 'provider': adapter.provider, 'model': settings.model,
+        result = {'status': app.state.inference_status() if hasattr(app.state,'inference_status') else 'ready', 'provider': adapter.provider, 'model': settings.model,
                 'promptVersion': PROMPT_VERSION, 'validatorVersion': VALIDATOR_VERSION,
                 'scenarios': sorted(app.state.scenarios)}
+        if hasattr(app.state,'typed_review_status'):
+            result['typedReviewStatus'] = app.state.typed_review_status()
+            result['ordinaryStatus'] = app.state.ordinary_inference_status()
+        return result
 
     @app.post('/conversation', dependencies=[Depends(authenticate)])
     async def conversation(body: ConversationRequest):
@@ -176,8 +180,10 @@ def create_app(adapter, settings, token=None, scenarios=None, audit_path=AUDIT_P
         if app.state.busy.locked():
             raise HTTPException(429, 'Model is answering another request; retry shortly')
         async with app.state.busy:
+            if hasattr(app.state,'inference_admission_ready') and not app.state.inference_admission_ready():
+                raise HTTPException(429,'The assistant is getting ready. Please try again shortly.')
             try:
-                served = await run_in_threadpool(run_turn, session, data, turn, adapter, settings)
+                served = await run_in_threadpool(turn_handler, session, data, turn, adapter, settings)
             except (StaleRevision, SeekBackwardInFormalRun, DuplicateRequestConflict) as exc:
                 raise HTTPException(409, str(exc)) from exc
             except ValueError as exc:

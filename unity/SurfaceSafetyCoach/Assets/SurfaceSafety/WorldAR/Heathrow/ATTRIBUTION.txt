@@ -1,0 +1,17 @@
+Heathrow Terminal 5 scenery
+
+Source: FlightGear TerraSync scenery contributors. Original AC3D model and textures retained alongside the converted OBJ.
+https://flightgear.sourceforge.net/scenery/Objects/w010n50/w001n51/
+https://wiki.flightgear.org/Howto%3AMake_an_airport
+https://scenery.flightgear.org/
+
+Official scenery is released under GNU GPL v2; repository data is marked GPL-2.0+. See COPYING.txt. Converted mesh modifications are provided under the same license.
+
+Verified against the official TerraSync directory index on 2026-11-01:
+EGLL-T5.ac SHA1 6fddd64c5c4f15023ea412fe45b51256f7ea9642
+EGLL-T5.png SHA1 d1740c77cc6074d026b9eceb661384a2d40c26fa
+EGLL-T5-1.png SHA1 abef64359954d33374655acab0f1c0a4b85e9726
+
+ApronLens conversion: selected 5A and interiour meshes, triangulated faces, preserved UVs, centred and rotated the model toward a custom apron. Converter: scripts/convert_heathrow_ac.py.
+
+The surrounding apron, stand markings, service equipment and placement are custom simulated training scenery. They do not reproduce current Heathrow operations or surveyed stand geometry.

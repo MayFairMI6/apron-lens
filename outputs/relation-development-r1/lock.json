@@ -1,0 +1,16 @@
+{
+  "module": "experiments.typed_relation_review.candidate",
+  "version": "typed-service-relation-review-v1",
+  "sourceHashes": {
+    "experiments/typed_relation_review/propositions.py": "8181d79c85600acf31a902e652db12bae3e744760fca39b46d3bed4b184cde8e",
+    "experiments/typed_relation_review/candidate.py": "8030be97c5be1a21d166b9505e5e13eab6365346e51b1fb0dc84d6920e988d0e",
+    "scripts/run_relation_review.py": "fac053d40dc89983256616cdf346c0254152f746240cceeec0c0c003c8810598",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c"
+  },
+  "fixture": "experiments/typed_relation_review/development-v1.json",
+  "fixtureSHA256": "e6ee0e234919c56276e199419f35627aedd6528702f3003c386d57b25654f397",
+  "model": "cross-encoder/nli-deberta-v3-small",
+  "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+  "threshold": 0.8,
+  "createdAt": 1793755921.089642
+}

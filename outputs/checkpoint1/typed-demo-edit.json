@@ -1,0 +1,230 @@
+{
+  "recordVersion": 1,
+  "status": "published to existing Drive video; implementation and shared documents published",
+  "video": "airfieldlens-typed-share-person1-audio.mp4",
+  "sha256": "48327c8695239218f9d6338386b15f8cbfe62fcdbf9e7ae607d065825370369b",
+  "durationSeconds": 1833.5,
+  "bytes": 92255039,
+  "segments": [
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-fog-silent.mp4",
+      "note": "",
+      "outputEnd": 2,
+      "outputStart": 0,
+      "rotationDegrees": 0,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-fog-silent.mp4",
+      "note": "Recorded baseline \u00b7 typed-answer update follows",
+      "outputEnd": 140,
+      "outputStart": 2,
+      "rotationDegrees": 0,
+      "sourceEnd": 140,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-fog-silent.mp4",
+      "note": "",
+      "outputEnd": 1662.4667,
+      "outputStart": 140,
+      "rotationDegrees": 0,
+      "sourceEnd": 1662.4667,
+      "sourceStart": 140,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "typed-intro-card.mp4",
+      "note": "",
+      "outputEnd": 1666.4667,
+      "outputStart": 1662.4667,
+      "rotationDegrees": 0,
+      "sourceEnd": 4,
+      "sourceStart": 0,
+      "title": "Write your answer. Review the reports."
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Current typed practice \u00b7 selected excerpts",
+      "outputEnd": 1676.4667,
+      "outputStart": 1666.4667,
+      "rotationDegrees": 0,
+      "sourceEnd": 88,
+      "sourceStart": 78,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Portrait entry \u00b7 same paused checkpoint",
+      "outputEnd": 1688.4667,
+      "outputStart": 1676.4667,
+      "rotationDegrees": -90,
+      "sourceEnd": 128,
+      "sourceStart": 116,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Actual model feedback \u00b7 report cutoff 01:00",
+      "outputEnd": 1714.4667,
+      "outputStart": 1688.4667,
+      "rotationDegrees": 180,
+      "sourceEnd": 201,
+      "sourceStart": 175,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Review withheld \u00b7 original answer kept for retry",
+      "outputEnd": 1726.4667,
+      "outputStart": 1714.4667,
+      "rotationDegrees": 180,
+      "sourceEnd": 360,
+      "sourceStart": 348,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Edited answer \u00b7 retry with the actual model",
+      "outputEnd": 1738.4667,
+      "outputStart": 1726.4667,
+      "rotationDegrees": 180,
+      "sourceEnd": 520,
+      "sourceStart": 508,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Retry feedback \u00b7 supporting reports",
+      "outputEnd": 1763.4667,
+      "outputStart": 1738.4667,
+      "rotationDegrees": 180,
+      "sourceEnd": 575,
+      "sourceStart": 550,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Type a question \u00b7 inspect its report sources",
+      "outputEnd": 1811.4667,
+      "outputStart": 1763.4667,
+      "rotationDegrees": 180,
+      "sourceEnd": 634,
+      "sourceStart": 586,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "airfieldlens-typed-fog-native.mp4",
+      "note": "Completed practice \u00b7 three responses",
+      "outputEnd": 1825.4667,
+      "outputStart": 1811.4667,
+      "rotationDegrees": 180,
+      "sourceEnd": 764,
+      "sourceStart": 750,
+      "title": "recorded app"
+    },
+    {
+      "brandingOverlay": false,
+      "file": "typed-future-card.mp4",
+      "note": "",
+      "outputEnd": 1833.4667,
+      "outputStart": 1825.4667,
+      "rotationDegrees": 0,
+      "sourceEnd": 8,
+      "sourceStart": 0,
+      "title": "Next checkpoints"
+    }
+  ],
+  "audioVerification": {
+    "audioDurationSeconds": 139.892,
+    "audioPacketsUnchanged": true,
+    "audioStartSeconds": 0,
+    "bytes": 92255039,
+    "durationSeconds": 1833.5,
+    "originalAudioDurationSeconds": 137.98133333333334,
+    "originalCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "originalSamples": 71,
+    "outputCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "outputSamples": 275,
+    "person2Narration": "pending",
+    "video": "airfieldlens-typed-share-person1-audio.mp4"
+  },
+  "sourceCapture": "airfieldlens-typed-fog-native.mp4",
+  "sourceCaptureSha256": "a02982e1ad476de7e359356fd88aaae6f759ef63ec3176a311f8554a1b4f4c39",
+  "sourceRun": "8bcf9253d6cda521c198",
+  "inspection": {
+    "frameSeconds": [
+      10,
+      1680,
+      1720,
+      1750,
+      1829
+    ],
+    "observations": [
+      "Earlier footage labelled Recorded baseline; typed-answer update follows.",
+      "Portrait entry upright; landscape feedback and failure readable.",
+      "Real failed review and edited retry retained; waits condensed by selecting excerpts.",
+      "Final card identifies M2/M3 future work.",
+      "Independent reviewer inspected frame 1750 and confirmed full Retry feedback label readable."
+    ],
+    "frameHashes": {
+      "typed-final-frame-10.png": "68ae5f9eee1539065e76c1bd1711e6de8c0ed74a410d24ea7485388fc7565293",
+      "typed-final-frame-1680.png": "e52bd16ecdecbd60e5108109dfb52a3f6c8d8601c4211082a7831e8910384de1",
+      "typed-final-frame-1720.png": "e614ec917c0a35f08d05220c304f3b4384c8fabaa3ece5fd4ccb23e9fd90e608",
+      "typed-final-frame-1750.png": "fbd2e4edb32c8f106ea4c2e98506e16e3c63210d8e049363b2f4cb4e6fc290af",
+      "typed-final-frame-1829.png": "268684dc29e497a560b625376ea4e52747d011d07e8013c2d3141aaba66c58af"
+    }
+  },
+  "limits": [
+    "Person 2 narration remains pending.",
+    "The new chapter excerpts one complete 210-source-second practice run; it is not a one-hour scenario.",
+    "Raw capture and original recordings are preserved. Rotation and editorial labels do not replace clock, reports or responses.",
+    "Selected-frame review and exact compressed audio verification; not a full manual watch/listen of the entire combined recording."
+  ],
+  "masterVideo": {
+    "file": "airfieldlens-typed-checkpoint1-person1-audio.mp4",
+    "bytes": 113362347,
+    "sha256": "43a1a7fecbf11e2526393a022cdc3dfbc37a213656dea948e9294830c182d66b"
+  },
+  "uploadFailure": {
+    "attemptFile": "airfieldlens-typed-checkpoint1-person1-audio.mp4",
+    "bytes": 113362347,
+    "limitBytes": 104857600,
+    "result": "HTTP413 before invocation; existing Drive file unchanged by failed attempt"
+  },
+  "shareCopy": {
+    "resolution": [
+      1280,
+      590
+    ],
+    "targetVideoBitrate": 400000,
+    "durationSeconds": 1833.5,
+    "inspectedFrames": [
+      1680,
+      1750,
+      1829
+    ],
+    "result": "upright portrait, readable landscape feedback and complete future card; same cut plan and identical compressed Person1 audio"
+  },
+  "drive": {
+    "id": "1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ",
+    "bytes": 92255039,
+    "url": "https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view"
+  },
+  "sourceCommit": "af2137b0584e84baa99969f2376992efd216e91a"
+}

@@ -1,0 +1,38 @@
+{
+  "protocol_sha256": "bace60f76626b6bf36754e1a60cbe939f5dca6bddf9e2b6274ecfa45aef57a2c",
+  "splits": {
+    "train": {
+      "file": "train.jsonl",
+      "sha256": "588107cdeced4346beceb313a65003138f302b6f07cfc0b0d5460b56906dc55a",
+      "count": 144,
+      "families": [
+        "stand_occupancy",
+        "service_dependency",
+        "ground_hold",
+        "departure_estimate",
+        "position_destination",
+        "visibility_safeguarding"
+      ]
+    },
+    "validation": {
+      "file": "validation.jsonl",
+      "sha256": "c38cb765b66e2f0b27ebb493c2ff226b0af6ecb5ff5c4a31f0d2893c6e7181dd",
+      "count": 48,
+      "families": [
+        "inspection_release",
+        "service_withdrawal"
+      ]
+    },
+    "test": {
+      "file": "test.jsonl",
+      "sha256": "4d108c7917ccf053b0484136d77a51984bd5e52251c232e4521137a57863c144",
+      "count": 48,
+      "families": [
+        "route_authority",
+        "dispatch_conflict"
+      ]
+    }
+  },
+  "generation": "authored templates; no model-generated labels",
+  "source_sha256": "15fcbe3fd53baa333fa7ad3ccd095623552320648d347becab08c0c53cd369ab"
+}

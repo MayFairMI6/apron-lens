@@ -1,0 +1,29 @@
+{
+  "requestId": "fac155f65ed4497ab83d9f924c87279a",
+  "question": "What is the latest update for this aircraft?",
+  "cutoff": 5.290611267089844,
+  "accepted": true,
+  "errors": [],
+  "display": {
+    "resultStatus": "answer",
+    "validatorVersion": "conversation-validator-v2",
+    "answer": "Authored movement condition: hold: birds reported near departure path \u2014 current. Event 0 s; received 0 s. [F001]",
+    "claims": [
+      {
+        "fact_id": "F001:movement_condition",
+        "value": "hold: birds reported near departure path",
+        "status": "current",
+        "evidence_ids": [
+          "F001"
+        ]
+      }
+    ],
+    "unknowns": [],
+    "observations": [],
+    "interpretation": null,
+    "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+  },
+  "trainingAttemptCount": 1,
+  "latencySeconds": 11.403,
+  "trainingCompletenessPolicy": "nonempty-selection-one-retry-v1"
+}

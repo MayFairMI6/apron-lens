@@ -1,0 +1,14 @@
+{"event": "worker_started", "recordedAt": 1793753069.002367, "pid": 7403}
+{"event": "worker_ready", "recordedAt": 1793753086.624806, "pid": 7403}
+{"event": "worker_request_complete", "recordedAt": 1793753090.455648, "requestId": "coverage-dev-0", "elapsedSeconds": 3.823525542000425, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753106.2465532, "requestId": "judgment-dev-0", "elapsedSeconds": 15.790279583000483, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753110.102728, "requestId": "coverage-dev-1", "elapsedSeconds": 3.8476367500006745, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753127.736009, "requestId": "judgment-dev-1", "elapsedSeconds": 17.63276691700048, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753131.2153358, "requestId": "coverage-dev-2", "elapsedSeconds": 3.4127895840001656, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753133.92259, "requestId": "coverage-dev-3", "elapsedSeconds": 2.6965532499998517, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753151.735649, "requestId": "judgment-dev-3", "elapsedSeconds": 17.812234707999778, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753155.403336, "requestId": "coverage-dev-4", "elapsedSeconds": 3.5882754589993056, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753174.3861, "requestId": "judgment-dev-4", "elapsedSeconds": 18.9819379999999, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753178.399023, "requestId": "coverage-dev-5", "elapsedSeconds": 3.9453055000003587, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753195.0977678, "requestId": "judgment-dev-5", "elapsedSeconds": 16.698024708000048, "ok": true}
+{"event": "worker_stopped", "recordedAt": 1793753195.22083, "pid": 7403, "exitcode": -15}

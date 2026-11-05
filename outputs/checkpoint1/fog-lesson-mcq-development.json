@@ -1,0 +1,60 @@
+{
+  "status": "pre-typed development evidence; superseded learner interaction",
+  "runId": "3ad2e46df179e7da5f26",
+  "exercise": "fog_restrictions",
+  "sourceDurationSeconds": 210,
+  "wallDurationSeconds": 438.29199441599997,
+  "completed": true,
+  "score": 2,
+  "intentionalWrongAnswer": "check-1 choice C",
+  "nativeChecks": [
+    "briefing",
+    "all three checkpoints",
+    "scene/assistant/history hidden during question",
+    "incorrect feedback and received reports",
+    "portrait question and feedback",
+    "landscape feedback",
+    "Sources expansion and scrolling",
+    "debrief2/3",
+    "native retry to fresh briefing"
+  ],
+  "modelRequests": [
+    {
+      "requestId": "0a0184223e1b4603b2e7152feba95185",
+      "cutoff": 20.095611572265625,
+      "accepted": true,
+      "claims": [
+        {
+          "fact_id": "R003:movement_condition",
+          "value": "hold: safeguarding requested; confirmation pending; departure held",
+          "status": "current",
+          "evidence_ids": [
+            "R003"
+          ]
+        }
+      ]
+    },
+    {
+      "requestId": "21c9e58e29c14e18909546be588d0357",
+      "cutoff": 66.54043579101562,
+      "accepted": true,
+      "claims": [
+        {
+          "fact_id": "R005:movement_condition",
+          "value": "hold: low-visibility procedures in force; safeguarding remains; departure held",
+          "status": "current",
+          "evidence_ids": [
+            "R005"
+          ]
+        }
+      ]
+    }
+  ],
+  "recording": "/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/outputs/airfieldlens-fog-lesson-native.mp4",
+  "limitations": [
+    "Not acceptance of the subsequently requested typed-response flow",
+    "No new native build required for backend-only lesson",
+    "No physical smartphone test",
+    "No new vision or learning outcome result"
+  ]
+}

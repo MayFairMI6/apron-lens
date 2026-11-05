@@ -1,0 +1,76 @@
+Person 1 has already recorded. Preserve the approved AirfieldLens opening-sentence edit and the rest of that narration. Prepare the new material for Person 2 only. Use only Person 1 and Person 2 as presenter labels; do not assign names or development credit.
+
+Published 30:33.5 edit — Person 2 narration pending
+
+The published video is airfieldlens-typed-share-person1-audio.mp4, 1,833.5 seconds (30:33.5), at the existing Drive link. Its cut plan is 1,833.4667 seconds and preserves the prefix through 27:42.4667, then appends excerpts from one completed native typed fog lesson. The run reached a three-response debrief after a genuine withheld review and successful native edit/retry. This is limited qualitative-prototype evidence, not a validated grade or general feedback-accuracy result. Selected upright portrait/landscape, failure, feedback and future-card frames were reviewed. Person 1’s compressed AAC is verified identical, and the uploaded 92,255,039-byte file was confirmed by Drive metadata readback. Person 1’s approved text stays unchanged. Person 2 narration remains to be recorded.
+
+Help me prepare my part of the AirfieldLens Checkpoint 1 video. Use TEAM_RECORDING_PLAN.txt, PERSON2_SCRIPT.txt and CHECKPOINT1_PRESENTER_GUIDE.txt. Introduce the footage as selected recordings from the native iOS Simulator. Explain the visible learner task, allow time to read answers and reports, and distinguish player time from the scenario clock.
+
+Repository: https://github.com/MayFairMI6/apron-lens
+Checkpoint 1 branch: codex/checkpoint1-controller-training
+Pull request: https://github.com/MayFairMI6/apron-lens/pull/22
+The default main branch may be older. Read the named branch or the attached handoff bundle and record the commit inspected. Local preparations can be newer than publication; check the current-status document before calling them published. Do not assume the model, Unity, Xcode or authenticated service is installed on my computer.
+
+Read these sources first:
+1. docs/course/CHECKPOINT1_CURRENT.md and CHECKPOINT1_ASSIGNMENT_STATUS.md
+2. docs/course/TEAM_RECORDING_PLAN.txt, PERSON2_SCRIPT.txt and CHECKPOINT1_PRESENTER_GUIDE.txt
+3. docs/course/MILESTONE_LEDGER.md and IMPLEMENTATION_DOCKET.md
+4. docs/TRAINING_DRIVER.md and docs/course/TEAMMATE_SETUP.md
+5. outputs/checkpoint1/fog-acceptance.json and fog-demo-edit.json for the completed unscored fog run
+6. outputs/checkpoint1/typed-native-acceptance.json, typed-review-independent.json and correctness-acceptance.json, plus docs/CORRECTNESS_CONTRACT.md; fog-lesson-independent-review.json is the older multiple-choice baseline. Use the final typed edit record for verified file, audio and publication details
+7. outputs/checkpoint1/connected-setting-acceptance.json, runway-acceptance.json and accident-acceptance.json for the earlier chapters
+8. outputs/m1_ar_context/REPORT.md for the frozen research results
+
+Current preparation status
+
+The published video is airfieldlens-typed-share-person1-audio.mp4 at 30:33.5 (1833.5 seconds), preserving the prefix through 27:42.4667 and appending typed fog practice plus a new future-work card. Selected frames and AAC identity passed, and the 92,255,039-byte Drive upload was verified. The 27:48 fog-only edit is historical. Person 1 audio stays at 00:02 to about 02:20; an overlay labels that recorded multiple-choice baseline without changing the AAC. Person 2 narrates the new supplement.
+
+Four lesson topics each have three checkpoints, and typed answers are implemented as the normal learner flow. One full native typed fog run reached the 210-second debrief with three responses from four actual reviews: one genuine quotation failure was withheld, the learner text stayed editable and the fresh edited retry succeeded. Native inspection covered rotation, pending-state persistence, sources and Try again; the independent record checks model meanings, cutoff eligibility, transitions and hashes. The original three full-native records used choice mode; additional positioned typed checks are separate. The v2 development suite produced fourteen usable reviews and four withheld failures; semantic reliability and grading validity remain unvalidated. The rejected v3 diagnostic and initial native input-focus failure are retained. The separate one-hour fog_visibility demonstration remains unscored.
+
+Supplement cut-plan cues
+
+27:42.4667–27:46.4667: typed-practice introduction.
+27:46.4667–27:56.4667: paused checkpoint question.
+27:56.4667–28:08.4667: portrait answer entry and pending review.
+28:08.4667–28:34.4667: actual model feedback and supporting reports.
+28:34.4667–28:46.4667: genuine withheld review; original answer retained.
+28:46.4667–28:58.4667: edited answer and fresh model retry.
+28:58.4667–29:23.4667: accepted retry feedback and report sources.
+29:23.4667–30:11.4667: complete typed assistant question, actual answer and sources.
+30:11.4667–30:25.4667: completed lesson, three-response debrief.
+30:25.4667–30:33.4667: assigned Checkpoint 2/3 work.
+
+These are cut-plan player times from airfieldlens-typed.plan.json, not source-clock times or measured model response durations. The encoded movie duration is 1,833.5 seconds. Selected excerpts preserve the genuine source cutoffs and outputs. The full native lesson took 765.218 wall seconds for 210 source seconds. Upright portrait/landscape, failure, feedback and future-card frames were reviewed; Person 1’s AAC identity passed. The verified share copy is published at the existing Drive link.
+
+Produce only preparation material for my section:
+- Natural Person 2 narration adapted from the supplied script, including the fourth-lesson supplement. Preserve the approved embedded Person 1 narration. There is no supplied video-duration limit.
+- Clip cues using verified player times. Keep earlier cues unchanged through 27:42.4667. Use the final edit record for later cues; do not invent timings. If the video cannot be inspected, identify cues as taken from the guide and state that visual verification remains outstanding.
+- A concise claim-to-source checklist and three likely questions with short answers.
+- Any missing evidence, setup obstacle or inaccurate claim that must be corrected before recording.
+
+Firm milestone assignments
+
+Checkpoint 1 includes the fourth fog lesson and typed responses as the normal learner flow. The full native fog flow, separately positioned target/Next checks and C01 contract/evidence are complete within their recorded limits; the verified video is published, while source/document publication is being finalized. Checkpoint 2 includes the original visual-evidence study comparing with/without images, one bounded weather-driven arrival/departure queue task, and a turnaround handover task. Checkpoint 3 includes controlled airport-size and traffic-demand comparisons plus integrated evaluation of learner flow, latency and failures. These are assigned units, not optional suggestions. The Checkpoint 2 and 3 work is not yet delivered; do not turn an assignment into a completion claim. Preserve the original visual-evidence research rather than counting report-led fog as its result.
+
+Checkpoint 2 will evaluate visual evidence, add one weather-driven queue task and turnaround handover, build a small claim-and-evidence checker (C02), and specify the driver’s allowed states and transitions (C03). The Heathrow task will connect small queues, weather and a reported runway-use change, with no claim to model real capacity. Checkpoint 3 will compare airport size and demand, check bounded state configurations and implementation traces, compare checking methods (C04), and evaluate the integrated experience. These are assigned future tasks. The new checker, specification and formal checks remain unbuilt; the current prototype is not a proof of whole-app correctness.
+
+Recent accident-related recommendations in ML-016–ML-018 remain unbuilt future variants; do not describe them as current scenarios or exact accident reconstructions.
+
+Keep these distinctions accurate:
+- Each of the four lesson topics has three checkpoints. Four lessons does not mean four questions per lesson. The existing multiple-choice baseline freezes the clock and hides the scene, assistant and history. The implemented normal flow uses typed answers and qualitative model feedback against reports received by the checkpoint. Follow the final typed contract and its evidence; do not present that feedback as a validated numerical score.
+- The guided demonstrations do not award points or collect learner answers. Typed practice and the hour-long fog demonstration are separate. Preserve their distinct authored timelines; neither is an operational response-time claim.
+- Fog may visibly clear before restrictions change. Cancelling low-visibility procedures can leave safeguarding active. Confirmed safeguarding cancellation still does not establish departure clearance in this exercise.
+- The external service owns time, movement, incidents and report arrivals. The model does not control aircraft or issue clearances.
+- For ordinary assistant questions, Qwen3.5-9B selects report facts and a deterministic validator checks claims, identity and receipt eligibility. Typed learner responses use qualitative model review; its structural, citation and quotation checks do not prove the interpretation is correct. Do not replace failures with rehearsed answers.
+- Sources shows reports supporting an answer at its cutoff. Recent reports may contain later arrivals. A report estimate, visible cleanup or completed precaution does not by itself grant authority.
+- Camera images can accompany requests, but accepted report-based answers do not establish evaluated visual recognition. That study is assigned to Checkpoint 2.
+- Frozen M1 results use an earlier configuration with images off: 40 distinct turns, full-context scores of 24/40 for Qwen3.5-9B and 16/40 each for Qwen3-VL-4B and the deterministic baseline. They are not new accuracy results for this interface. Forty turns reused across conditions are not 360 independent examples.
+- Heathrow publications inform the fictional teaching cases and sourced scenery. There is no live Heathrow feed, professional ATC certification or reconstructed accident trajectory. Terminal 1 is a former-site outline. Passing landside cars and rendered weather create no report evidence.
+- Current training is controller-first. Pilot and turnaround perspectives in debrief do not establish dedicated interactive roles; turnaround handover is assigned to Checkpoint 2.
+- The Mac runs the model and driver; the simulator is the viewer. A repository clone alone does not install model weights or Apple/Unity tools. A physical-phone run and TestFlight remain unverified/unpublished.
+
+The assignment calls for a smartphone app, a video identifying each member before their contribution, and a separate achievement/reflection of at most one page covering functionality, teamwork, future checkpoints, coordination, meetings and decision-making. Preserve the user's additions to Coordination and Meetings in the current editable reflection; older blank local templates are historical. Simulator evidence does not certify a physical-phone run. Final Person 2 narration and reflection review remain submission tasks.
+
+Use supplied sources and relevant code. Do not change app scope, modify frozen research, invent personal contributions/meetings, or publish anything during this preparation. If asked to experiment, use my own branch as described in TEAMMATE_SETUP.md and report what ran. Never request another teammate's model-service token or credentials. Return the script, cues and supporting checklist for review before recording.
+
+Training scenario register: https://docs.google.com/document/d/1IxdtKDWxUWhK9r1QpWOi_MGtqnmmWsMd0sd-nme8ulk

@@ -1,0 +1,20 @@
+/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/.venv-qwen/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+anthropic claude-sonnet-5-5: 1 requests, maximum reservation $0.04 (all input at the uncached rate, full output cap; actual cost is lower).
+anthropic claude-sonnet-5-5: 1 requests, maximum reservation $0.04 (all input at the uncached rate, full output cap; actual cost is lower).
+anthropic claude-sonnet-5-5: 1 requests, maximum reservation $0.04 (all input at the uncached rate, full output cap; actual cost is lower).
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+TRAINING_READY inference warmup complete
+----------------------------------------------------------------------
+Ran 411 tests in 42.391s
+
+OK

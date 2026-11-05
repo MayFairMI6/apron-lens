@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "version": "learner-only-initial-inputs-v1",
+    "purpose": "Only exact exposed learner text for the six frozen interpretation controls.",
+    "annotationFile": "docs/course/TYPED_QWEN_INITIAL_CONTROLS.json",
+    "annotationSHA256": "57d70f9022b9498c8ff6d4f0953b464793a397b10c19c2661459d66d9e2ddfd0",
+    "runtimeInputBoundary": "Only each case.learnerResponse enters the extractor; ids and metadata are bookkeeping."
+  },
+  "cases": [
+    {
+      "id": "exposed-v2-12",
+      "learnerResponse": "Two aircraft are involved, TRN102 and TRN103: one of them occupies Stand B and the other is waiting for it."
+    },
+    {
+      "id": "exposed-v2-17",
+      "learnerResponse": "TRN102's newest off-block target reads 10:35 — wait, let me correct that: it is 10:20. A TOBT only estimates off-block timing and grants no permission to depart."
+    },
+    {
+      "id": "exposed-v2-19",
+      "learnerResponse": "Readiness, yes: with fuel, bags and the hold all sorted, TRN102 is ready to depart. Only its takeoff clearance remains unconfirmed."
+    },
+    {
+      "id": "exposed-v2-20",
+      "learnerResponse": "TRN101 has not been released: it is still held at its stand, and nothing gives it departure clearance. The tower has put low-visibility procedures in force."
+    },
+    {
+      "id": "exposed-v2-23",
+      "learnerResponse": "Airside Operations now confirms safeguarding is cancelled, and with that TRN101 holds a departure clearance; it is only staying parked until a pushback slot opens."
+    },
+    {
+      "id": "exposed-v2-2",
+      "learnerResponse": "TRN103 — no, sorry, TRN102 — is the one being held up by the late bags. Its refuelling has been completed, but nothing received yet says those bags have been loaded."
+    }
+  ]
+}

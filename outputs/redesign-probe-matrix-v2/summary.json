@@ -1,0 +1,631 @@
+{
+  "planned": 122,
+  "scored": 122,
+  "error": null,
+  "elapsedSeconds": 4.799152083000081,
+  "familyCounts": {
+    "answer-only-coverage": 18,
+    "answer-only-factuality": 6,
+    "availability-question-effect": 4,
+    "correction-content-contrast": 24,
+    "grounding-content": 6,
+    "identity-presupposition": 9,
+    "omission-versus-opposite": 12,
+    "primary-context": 18,
+    "short-dialogue-context": 9,
+    "source-clock": 8,
+    "source-clock-temporal-coverage": 8
+  },
+  "labelObservations": [
+    {
+      "index": 0,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 1,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 2,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 3,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 4,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 5,
+      "observedLabel": "uncertain",
+      "expectedLabel": null
+    },
+    {
+      "index": 6,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 7,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 8,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 9,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 10,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 11,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 12,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 13,
+      "observedLabel": "uncertain",
+      "expectedLabel": null
+    },
+    {
+      "index": 14,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 15,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 16,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 17,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 18,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 19,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 20,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 21,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 22,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 23,
+      "observedLabel": "uncertain",
+      "expectedLabel": null
+    },
+    {
+      "index": 24,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 25,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 26,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 27,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 28,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 29,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 30,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 31,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 32,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 33,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 34,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 35,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 36,
+      "observedLabel": "neutral",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 37,
+      "observedLabel": "uncertain",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 38,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 39,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 40,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 41,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 42,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 43,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 44,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 45,
+      "observedLabel": "contradiction",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 46,
+      "observedLabel": "uncertain",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 47,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 48,
+      "observedLabel": "neutral",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 49,
+      "observedLabel": "neutral",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 50,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 51,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 52,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 53,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 54,
+      "observedLabel": "neutral",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 55,
+      "observedLabel": "neutral",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 56,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 57,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 58,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 59,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 60,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 61,
+      "observedLabel": "uncertain",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 62,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 63,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 64,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 65,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 66,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 67,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 68,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 69,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 70,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 71,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 72,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 73,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 74,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 75,
+      "observedLabel": "entailment",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 76,
+      "observedLabel": "uncertain",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 77,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 78,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 79,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 80,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 81,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 82,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 83,
+      "observedLabel": "uncertain",
+      "expectedLabel": null
+    },
+    {
+      "index": 84,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 85,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 86,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 87,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 88,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 89,
+      "observedLabel": "neutral",
+      "expectedLabel": "neutral"
+    },
+    {
+      "index": 90,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 91,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 92,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 93,
+      "observedLabel": "contradiction",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 94,
+      "observedLabel": "entailment",
+      "expectedLabel": "contradiction"
+    },
+    {
+      "index": 95,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 96,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 97,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 98,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 99,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 100,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 101,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 102,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 103,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 104,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 105,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 106,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 107,
+      "observedLabel": "uncertain",
+      "expectedLabel": null
+    },
+    {
+      "index": 108,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 109,
+      "observedLabel": "contradiction",
+      "expectedLabel": null
+    },
+    {
+      "index": 110,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 111,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 112,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 113,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 114,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 115,
+      "observedLabel": "uncertain",
+      "expectedLabel": null
+    },
+    {
+      "index": 116,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 117,
+      "observedLabel": "entailment",
+      "expectedLabel": "entailment"
+    },
+    {
+      "index": 118,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 119,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    },
+    {
+      "index": 120,
+      "observedLabel": "entailment",
+      "expectedLabel": null
+    },
+    {
+      "index": 121,
+      "observedLabel": "neutral",
+      "expectedLabel": null
+    }
+  ]
+}

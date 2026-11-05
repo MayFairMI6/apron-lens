@@ -1,0 +1,9 @@
+{
+  "initialResources": {
+    "parentRSSKiB": 13360,
+    "workerRSSKiB": 447008
+  },
+  "cyclesCompleted": 3,
+  "parentRSSDeltaKiB": 5200,
+  "scope": "three forced cycles, not indefinite stability"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "AirfieldLens voice-matched opening preview",
+  "syntheticReplacement": true,
+  "model": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-8bit",
+  "seed": 17,
+  "referenceLocalOnly": true,
+  "originalName": "ApronLens",
+  "replacementName": "AirfieldLens",
+  "replacedSeconds": [
+    0,
+    7.9
+  ],
+  "replacementSpeechSeconds": 7.58,
+  "sampleRate": 24000,
+  "totalSeconds": 137.98133333333334,
+  "gain": 1.195390063509884,
+  "unchangedAfter7p9Seconds": true,
+  "originalSha256": "757c12235038967ce6990377b73c2236e9d763c42c5c4df45fc9f7961b6db312",
+  "generatedSha256": "49f1e6b0363268dd600e204b15b20dcf96453064a85061b5821a2c4b8293dcdc",
+  "transcriptVerified": "Airfield lens helps a learner follow a changing airport situation and work out what the available reports actually establish.",
+  "status": "Owner approved edited opening and AirfieldLens video branding after listening to preview"
+}

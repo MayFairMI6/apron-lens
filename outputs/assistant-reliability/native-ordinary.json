@@ -1,0 +1,77 @@
+{
+  "requestId": "20b959dedce84af985c4ab6f4fdc9825",
+  "turnId": "20b959dedce84af985c4ab6f4fdc9825",
+  "sessionId": "337c17c8becb43ddbaaaab87e1e27ee3",
+  "cutoff": 173.10183715820312,
+  "accepted": true,
+  "errors": [],
+  "display": {
+    "resultStatus": "answer",
+    "validatorVersion": "conversation-validator-v2",
+    "answer": "Authored movement condition: exercise ground hold released \u2014 current. Event 155 s; received 158 s. [L017]\n\nScripted movement: pushback \u2014 current. Event 166 s; received 167 s. [L018]\n\nOverall departure readiness: no unambiguous current value in received reports.",
+    "claims": [
+      {
+        "fact_id": "L017:movement_condition",
+        "value": "exercise ground hold released",
+        "status": "current",
+        "evidence_ids": [
+          "L017"
+        ]
+      },
+      {
+        "fact_id": "L018:movement_status",
+        "value": "pushback",
+        "status": "current",
+        "evidence_ids": [
+          "L018"
+        ]
+      }
+    ],
+    "unknowns": [
+      "overall_readiness"
+    ],
+    "observations": [],
+    "interpretation": null,
+    "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+  },
+  "referent": {
+    "aircraftId": "A2",
+    "flightInstance": "TRN102"
+  },
+  "currentReferent": {
+    "aircraftId": "A2",
+    "flightInstance": "TRN102"
+  },
+  "changes": [],
+  "imageUsedForInference": true,
+  "provider": "local-backbone",
+  "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "finishReason": "stop",
+  "inputTokens": 1438,
+  "outputTokens": 46,
+  "latencySeconds": 9.263,
+  "ignoredSettings": [],
+  "rawJsonValid": true,
+  "repairs": [],
+  "selectionSent": true,
+  "awayIntervals": [],
+  "referentSource": "model",
+  "promptVersion": "conversation-prompt-v6",
+  "referentRule": "referent-rule-v3",
+  "validatorVersion": "conversation-validator-v2",
+  "repairPolicy": "json-repair-v1",
+  "trainingCompletenessPolicy": "reference-coverage-one-retry-v3",
+  "trainingAttemptCount": 1,
+  "trainingEmptyAnswer": false,
+  "trainingSelectionError": null,
+  "trainingKnownInputTokens": 1438,
+  "trainingKnownOutputTokens": 46,
+  "revision": 1,
+  "scenarioId": "LESSON-02b1727f52ec65065877",
+  "question": "Is this aircraft ready to depart?",
+  "imageSha256": "28dda8038d91b830f9c7d7cc40160066041058b2b1955a14660ea9ee1ebef36c",
+  "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[{\"kind\":\"fuel_vehicle|cargo_door\",\"aircraftId\":\"...\",\"value\":\"...\",\"captureTime\":173.102}]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 173.102 s. Selected in the app: aircraft A2, flight TRN102. \nAn image of the current view is attached, captured at 173.102 s. You may report what is visible for the referent aircraft only, as observations with captureTime 173.102: fuel_vehicle in ['connected', 'departed']; cargo_door in ['open', 'closed']. How they look in this rendering: fuel_vehicle (connected: a near-black tanker (a long rounded tank with a separate cab) beside the forward fuselage, joined to it by a thin hose; departed: no tanker there); cargo_door (open: a flat near-black flap standing out from the side of the forward fuselage; closed: no flap). Report a kind only if you can see that part of the referent aircraft; otherwise leave it out. Observations describe the image only: report what you see even if it disagrees with a report.\nMemory: {\"currentReferent\": {\"aircraftId\": \"A2\", \"flightInstance\": \"TRN102\"}, \"userIntents\": [{\"aircraftId\": \"A2\", \"atReplayTime\": 173.10183715820312, \"flightInstance\": \"TRN102\", \"kind\": \"reference\", \"text\": \"Is this aircraft ready to depart?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"A2\", \"facts\": [{\"eventTime\": 0.0, \"event_id\": \"L004\", \"fact_id\": \"L004:stand\", \"property\": \"stand\", \"receiptTime\": 0.0, \"source\": \"stand-planning\", \"status\": \"current\", \"value\": \"B\"}, {\"eventTime\": 1.0, \"event_id\": \"L005\", \"fact_id\": \"L005:movement_status\", \"property\": \"movement_status\", \"receiptTime\": 1.0, \"source\": \"ground-control\", \"status\": \"superseded\", \"value\": \"holding at stand\"}, {\"eventTime\": 2.0, \"event_id\": \"L006\", \"fact_id\": \"L006:route\", \"property\": \"route\", \"receiptTime\": 2.0, \"source\": \"ground-control\", \"status\": \"current\", \"value\": \"apron ground circuit\"}, {\"eventTime\": 5.0, \"event_id\": \"L010\", \"fact_id\": \"L010:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 6.0, \"source\": \"ground-handling\", \"status\": \"superseded\", \"value\": \"in progress\"}, {\"eventTime\": 10.0, \"event_id\": \"L011\", \"fact_id\": \"L011:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 13.0, \"source\": \"ground-handling\", \"status\": \"superseded\", \"value\": \"delayed\"}, {\"eventTime\": 12.0, \"event_id\": \"L012\", \"fact_id\": \"L012:tobt\", \"property\": \"tobt\", \"receiptTime\": 14.0, \"source\": \"operations\", \"status\": \"superseded\", \"value\": \"10:20\"}, {\"eventTime\": 15.0, \"event_id\": \"L013\", \"fact_id\": \"L013:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 16.0, \"source\": \"ground-control\", \"status\": \"superseded\", \"value\": \"hold: ground handling incomplete\"}, {\"eventTime\": 45.0, \"event_id\": \"L014\", \"fact_id\": \"L014:fuel_status\", \"property\": \"fuel_status\", \"receiptTime\": 47.0, \"source\": \"ground-handling\", \"status\": \"current\", \"value\": \"complete\"}, {\"eventTime\": 75.0, \"event_id\": \"L015\", \"fact_id\": \"L015:tobt\", \"property\": \"tobt\", \"receiptTime\": 82.0, \"source\": \"operations\", \"status\": \"current\", \"value\": \"10:35\"}, {\"eventTime\": 130.0, \"event_id\": \"L016\", \"fact_id\": \"L016:baggage_status\", \"property\": \"baggage_status\", \"receiptTime\": 134.0, \"source\": \"ground-handling\", \"status\": \"current\", \"value\": \"complete\"}, {\"eventTime\": 155.0, \"event_id\": \"L017\", \"fact_id\": \"L017:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 158.0, \"source\": \"ground-control\", \"status\": \"current\", \"value\": \"exercise ground hold released\"}, {\"eventTime\": 166.0, \"event_id\": \"L018\", \"fact_id\": \"L018:movement_status\", \"property\": \"movement_status\", \"receiptTime\": 167.0, \"source\": \"ground-control\", \"status\": \"current\", \"value\": \"pushback\"}], \"flightInstance\": \"TRN102\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: Is this aircraft ready to depart?",
+  "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A2\", \"flightInstance\": \"TRN102\"}, \"claims\": [{\"fact_id\": \"L017:movement_condition\", \"value\": \"exercise ground hold released\", \"status\": \"current\", \"evidence_ids\": [\"L017\"]}, {\"fact_id\": \"L018:movement_status\", \"value\": \"pushback\", \"status\": \"current\", \"evidence_ids\": [\"L018\"]}], \"unknowns\": [\"overall_readiness\"], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+  "recordedAt": 1793724139.597596
+}

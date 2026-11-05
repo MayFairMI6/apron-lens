@@ -1,0 +1,302 @@
+{
+  "planned": 70,
+  "scored": 70,
+  "error": null,
+  "startUTC": "2026-11-04T05:27:10.490493+00:00",
+  "endUTC": "2026-11-04T05:27:13.879538+00:00",
+  "elapsedSeconds": 3.3890744999989693,
+  "cases": [
+    {
+      "caseId": "procedures-only",
+      "comparisonGroup": "hold-omission",
+      "forwardLabels": {
+        "lvp": "entailment",
+        "safeguarding": "entailment",
+        "hold": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "lvp",
+        "safeguarding"
+      ],
+      "selectedReverseIndex": 6,
+      "selectedReverseLabel": "entailment",
+      "observation": "Cover-compatible exact full answer; does not prove omission or grant credit.",
+      "expectedComparisonInterpretation": "Hold content is genuinely absent by construction. If the selected reverse cover entails the exact answer, that is a cover-compatible omission control only.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "unclear-hold",
+      "comparisonGroup": "hold-omission",
+      "forwardLabels": {
+        "lvp": "entailment",
+        "safeguarding": "entailment",
+        "hold": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "lvp",
+        "safeguarding"
+      ],
+      "selectedReverseIndex": 16,
+      "selectedReverseLabel": "neutral",
+      "observation": "Selected cover does not confidently entail the whole answer; unclear content, extras, corrections, entities and model error remain competing explanations.",
+      "expectedComparisonInterpretation": "Hold is addressed but unresolved. The uncertainty clause must survive in the reverse hypothesis; a neutral reverse label alone cannot identify which facet was addressed.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "estimate-only",
+      "comparisonGroup": "authority-omission",
+      "forwardLabels": {
+        "estimate": "entailment",
+        "authority": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "estimate"
+      ],
+      "selectedReverseIndex": 22,
+      "selectedReverseLabel": "entailment",
+      "observation": "Cover-compatible exact full answer; does not prove omission or grant credit.",
+      "expectedComparisonInterpretation": "The estimate is stated; authority distinction is absent by construction. Reverse cover may explain the whole answer without supplying that distinction.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "unclear-authority",
+      "comparisonGroup": "authority-omission",
+      "forwardLabels": {
+        "estimate": "entailment",
+        "authority": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "estimate"
+      ],
+      "selectedReverseIndex": 27,
+      "selectedReverseLabel": "neutral",
+      "observation": "Selected cover does not confidently entail the whole answer; unclear content, extras, corrections, entities and model error remain competing explanations.",
+      "expectedComparisonInterpretation": "The authority relation is explicitly unresolved. Reverse must preserve this qualifier; separation from omission is exploratory, with no fabricated expected comparison label.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "causal-release",
+      "comparisonGroup": "causal-dependency",
+      "forwardLabels": {
+        "release": "entailment",
+        "cause": "entailment"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "release",
+        "cause"
+      ],
+      "selectedReverseIndex": 34,
+      "selectedReverseLabel": "entailment",
+      "observation": "Cover-compatible exact full answer; does not prove omission or grant credit.",
+      "expectedComparisonInterpretation": "The cause facet already asserts release. The only selected cover is the conjunction of all forward-entailed facets, even if redundant.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "vehicle-only",
+      "comparisonGroup": "causal-dependency",
+      "forwardLabels": {
+        "release": "neutral",
+        "cause": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [],
+      "selectedReverseIndex": null,
+      "selectedReverseLabel": "not_selected",
+      "observation": "No forward entailment: no reverse cover selected.",
+      "expectedComparisonInterpretation": "Vehicle clearance alone does not assert hold release or its causal link. Empty forward-E selection has no reverse query or omission verdict.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "unsupported-extra",
+      "comparisonGroup": "extra-retention",
+      "forwardLabels": {
+        "estimate": "entailment",
+        "authority": "contradiction"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "estimate"
+      ],
+      "selectedReverseIndex": 42,
+      "selectedReverseLabel": "neutral",
+      "observation": "Selected cover does not confidently entail the whole answer; unclear content, extras, corrections, entities and model error remain competing explanations.",
+      "expectedComparisonInterpretation": "The full extra claim stays in the reverse hypothesis. Non-entailment can reflect an unsupported extra rather than unclear rubric content; this does not test source grounding.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "correct-to-current",
+      "comparisonGroup": "correction",
+      "forwardLabels": {
+        "estimate": "entailment",
+        "authority": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "estimate"
+      ],
+      "selectedReverseIndex": 47,
+      "selectedReverseLabel": "neutral",
+      "observation": "Selected cover does not confidently entail the whole answer; unclear content, extras, corrections, entities and model error remain competing explanations.",
+      "expectedComparisonInterpretation": "Correction resolves to 10:35; reverse retains both values and the correction. Expected reverse comparison is null because recovery of correction history is not guaranteed.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "correct-to-prior",
+      "comparisonGroup": "correction",
+      "forwardLabels": {
+        "estimate": "contradiction",
+        "authority": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [],
+      "selectedReverseIndex": null,
+      "selectedReverseLabel": "not_selected",
+      "observation": "No forward entailment: no reverse cover selected.",
+      "expectedComparisonInterpretation": "Correction resolves to 10:20. No reverse cover is selected if there are no forward entailments; no favorable historical clause is extracted.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "wrong-entity",
+      "comparisonGroup": "entity",
+      "forwardLabels": {
+        "estimate": "neutral",
+        "authority": "neutral"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [],
+      "selectedReverseIndex": null,
+      "selectedReverseLabel": "not_selected",
+      "observation": "No forward entailment: no reverse cover selected.",
+      "expectedComparisonInterpretation": "TRN103 is not TRN102. The answer gives no value for TRN102; different entities do not imply contradictory estimates. Reverse never repairs the entity.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "broad-unknown",
+      "comparisonGroup": "unknown-specificity",
+      "forwardLabels": {
+        "broad-readiness-unknown": "entailment",
+        "specific-clearance-unknown": "entailment"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "broad-readiness-unknown",
+        "specific-clearance-unknown"
+      ],
+      "selectedReverseIndex": 64,
+      "selectedReverseLabel": "entailment",
+      "observation": "Cover-compatible exact full answer; does not prove omission or grant credit.",
+      "expectedComparisonInterpretation": "Broad readiness unknown cannot supply a specific clearance unknown. No implication edge is added for the unconfirmed specific permission.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    },
+    {
+      "caseId": "specific-unknown",
+      "comparisonGroup": "unknown-specificity",
+      "forwardLabels": {
+        "broad-readiness-unknown": "entailment",
+        "specific-clearance-unknown": "entailment"
+      },
+      "forwardComplete": true,
+      "selectedFacetIds": [
+        "broad-readiness-unknown",
+        "specific-clearance-unknown"
+      ],
+      "selectedReverseIndex": 69,
+      "selectedReverseLabel": "entailment",
+      "observation": "Cover-compatible exact full answer; does not prove omission or grant credit.",
+      "expectedComparisonInterpretation": "Specific clearance unknown alone is not an assertion about overall readiness; no reverse-derived credit or blanket neutral-to-missing rule.",
+      "expectedComparisonLabel": null,
+      "role": "rubricCoverDiagnostic",
+      "learnerEvidence": false
+    }
+  ],
+  "comparisons": [
+    {
+      "group": "authority-omission",
+      "caseIds": [
+        "estimate-only",
+        "unclear-authority"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    },
+    {
+      "group": "causal-dependency",
+      "caseIds": [
+        "causal-release",
+        "vehicle-only"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    },
+    {
+      "group": "correction",
+      "caseIds": [
+        "correct-to-current",
+        "correct-to-prior"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    },
+    {
+      "group": "entity",
+      "caseIds": [
+        "wrong-entity"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    },
+    {
+      "group": "extra-retention",
+      "caseIds": [
+        "unsupported-extra"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    },
+    {
+      "group": "hold-omission",
+      "caseIds": [
+        "procedures-only",
+        "unclear-hold"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    },
+    {
+      "group": "unknown-specificity",
+      "caseIds": [
+        "broad-unknown",
+        "specific-unknown"
+      ],
+      "expectedComparisonLabel": null,
+      "interpretation": "Compare selected reverse labels jointly with full forward vectors; exploratory, no accuracy or grading-policy claim."
+    }
+  ]
+}

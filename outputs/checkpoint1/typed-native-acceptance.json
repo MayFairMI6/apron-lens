@@ -1,0 +1,2175 @@
+{
+  "recordVersion": 1,
+  "status": "limited qualitative prototype: full native fog flow and positioned original-lesson checks completed; known semantic limitations",
+  "runId": "8bcf9253d6cda521c198",
+  "exercise": "fog_restrictions",
+  "seed": 17,
+  "sourceDuration": 210,
+  "wallDuration": 765.217701541,
+  "startedAtUtc": "2026-11-03T04:34:47.350693+00:00",
+  "device": "iPhone 18 Pro, iOS 27.0 Simulator, Apple Silicon",
+  "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "runtimeProfile": "apronlens-v2-mps",
+  "modelLocation": "Mac local service, not on phone",
+  "capture": "airfieldlens-typed-fog-native.mp4",
+  "captureSha256": "a02982e1ad476de7e359356fd88aaae6f759ef63ec3176a311f8554a1b4f4c39",
+  "sourceHashes": {
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+    "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+    "backend/fog_lesson.py": "c0020d877ebd814c414d041a1aa2efbfb0011e07d8ea2101a4f984f1151f6764",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+  },
+  "transitions": [
+    {
+      "wallElapsed": 0.050480250000000004,
+      "sourceTime": 0.0,
+      "phase": "briefing",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 8.725980625,
+      "sourceTime": 0.4473155410014442,
+      "phase": "practice",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 68.730234833,
+      "sourceTime": 60.0,
+      "phase": "checkpoint",
+      "reviewStatus": "idle",
+      "checkpointId": "check-1"
+    },
+    {
+      "wallElapsed": 124.094783541,
+      "sourceTime": 60.0,
+      "phase": "checkpoint",
+      "reviewStatus": "pending",
+      "checkpointId": "check-1"
+    },
+    {
+      "wallElapsed": 166.75229441599998,
+      "sourceTime": 60.0,
+      "phase": "feedback",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 204.389894041,
+      "sourceTime": 60.314340958000685,
+      "phase": "practice",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 264.565413708,
+      "sourceTime": 120.0,
+      "phase": "checkpoint",
+      "reviewStatus": "idle",
+      "checkpointId": "check-2"
+    },
+    {
+      "wallElapsed": 312.456336708,
+      "sourceTime": 120.0,
+      "phase": "checkpoint",
+      "reviewStatus": "pending",
+      "checkpointId": "check-2"
+    },
+    {
+      "wallElapsed": 346.647140333,
+      "sourceTime": 120.0,
+      "phase": "checkpoint",
+      "reviewStatus": "failed",
+      "checkpointId": "check-2"
+    },
+    {
+      "wallElapsed": 515.0229622080001,
+      "sourceTime": 120.0,
+      "phase": "checkpoint",
+      "reviewStatus": "pending",
+      "checkpointId": "check-2"
+    },
+    {
+      "wallElapsed": 552.45757125,
+      "sourceTime": 120.0,
+      "phase": "feedback",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 575.9552123330001,
+      "sourceTime": 120.21040358299797,
+      "phase": "practice",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 635.961912875,
+      "sourceTime": 180.0,
+      "phase": "checkpoint",
+      "reviewStatus": "idle",
+      "checkpointId": "check-3"
+    },
+    {
+      "wallElapsed": 661.4677605830001,
+      "sourceTime": 180.0,
+      "phase": "checkpoint",
+      "reviewStatus": "pending",
+      "checkpointId": "check-3"
+    },
+    {
+      "wallElapsed": 704.802354708,
+      "sourceTime": 180.0,
+      "phase": "feedback",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 722.6663721660001,
+      "sourceTime": 180.45639991700227,
+      "phase": "practice",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    },
+    {
+      "wallElapsed": 752.654518291,
+      "sourceTime": 210.0,
+      "phase": "debrief",
+      "reviewStatus": "idle",
+      "checkpointId": null
+    }
+  ],
+  "typedReviews": [
+    {
+      "actionId": "c78816a3da4941f0b97bccf05eafcea0",
+      "checkpointId": "check-1",
+      "cutoff": 60.0,
+      "elapsedSeconds": 42.28032275000078,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-8bcf9253d6cda521c198\",\n\"checkpointId\":\"check-1\",\n\"verdict\":\"supported\",\n\"explanation\":\"Response correctly identifies active procedures and held status without inventing clearance.\",\n\"points\":[\n{\"criterionId\":\"procedures\",\"status\":\"met\",\"comment\":\"Learner correctly states procedures are active.\",\"evidenceIds\":[\"R005\"],\n\"learnerQuote\":\"Low-visibility procedures and safeguarding are in force.\"\n},\n{\"criterionId\":\"hold\",\"status\":\"met\",\"comment\":\"Learner correctly states TRN101 remains held.\",\"evidenceIds\":[\"R005\"],\n\"learnerQuote\":\"TRN101 remains held; the reports do not clear it to depart.\"\n},\n{\"criterionId\":\"grounding\",\"status\":\"met\",\"comment\":\"No unsupported facts or invented clearance found.\",\"evidenceIds\":[\"R001\",\"R002\",\"R003\",\"R004\",\"R005\"],\n\"learnerQuote\":\"TRN101 remains held; the reports do not clear it to depart.\"\n}\n]\n}\n",
+      "learnerResponse": "Low-visibility procedures and safeguarding are in force. TRN101 remains held; the reports do not clear it to depart.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "Terminal 3 apron"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R001",
+          "message": "TRN101 is parked on the Terminal 3 apron.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "parked; departure movement not started"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R002",
+          "message": "TRN101 remains parked. No departure movement has started.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: safeguarding requested; confirmation pending; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R003",
+          "message": "The exercise tower has requested low-visibility safeguarding. Confirmation is pending. TRN101 is held at its stand.",
+          "receiptTime": 11.82833596775965,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 20.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R003:movement_condition"
+              ],
+              "value": "hold: low-visibility safeguarding confirmed; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R004",
+          "message": "Airside Operations confirms safeguarding in place. TRN101 is held pending a further movement update.",
+          "receiptTime": 21.606847002513632,
+          "source": "exercise-airside-operations"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 35.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R004:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R005",
+          "message": "Low-visibility procedures are now in force. Safeguarding remains active and TRN101 is still held.",
+          "receiptTime": 36.73124695255797,
+          "source": "exercise-tower"
+        }
+      ],
+      "completion": {
+        "recordVersion": 1,
+        "event": "typed_review_completion",
+        "runId": "8bcf9253d6cda521c198",
+        "revision": 3,
+        "checkpointId": "check-1",
+        "actionId": "c78816a3da4941f0b97bccf05eafcea0",
+        "stateApplied": true,
+        "modelError": null
+      }
+    },
+    {
+      "actionId": "e19bd5c6606d48f48b6c609a86b85f35",
+      "checkpointId": "check-2",
+      "cutoff": 120.0,
+      "elapsedSeconds": 34.556217541998194,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": false,
+      "error": "ValueError: review learner quote",
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-8bcf9253d6cda521c198\",\n\"checkpointId\":\"check-2\",\n\"verdict\":\"supported\",\n\"explanation\":\"Learner correctly distinguished cancelled procedures from remaining safeguarding and correctly retained hold status.\",\n\"points\":[\n{\"criterionId\":\"partial_cancellation\",\"status\":\"met\",\"comment\":\"Correctly distinguished cancelled procedures from remaining safeguarding.\",\"evidenceIds\":[\"R006\"],\n\"learnerQuote\":\"Low-visibility procedures were cancelled, but safeguarding remains in place\"},\n{\"criterionId\":\"hold\",\"status\":\"met\",\"comment\":\"Correctly retained hold status despite clearer view.\",\"evidenceIds\":[\"R006\"],\n\"learnerQuote\":\"TRN101 is still held\"},\n{\"criterionId\":\"grounding\",\"status\":\"met\",\"comment\":\"No unsupported facts or invented clearances found.\",\"evidenceIds\":[\"R006\"],\n\"learnerQuote\":\"this update is not a departure clearance\"}\n]\n}\n",
+      "learnerResponse": "Low-visibility procedures were cancelled, but safeguarding remains in place and TRN101 is still held. The clearer view does not provide departure clearance.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "Terminal 3 apron"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R001",
+          "message": "TRN101 is parked on the Terminal 3 apron.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "parked; departure movement not started"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R002",
+          "message": "TRN101 remains parked. No departure movement has started.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: safeguarding requested; confirmation pending; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R003",
+          "message": "The exercise tower has requested low-visibility safeguarding. Confirmation is pending. TRN101 is held at its stand.",
+          "receiptTime": 11.82833596775965,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 20.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R003:movement_condition"
+              ],
+              "value": "hold: low-visibility safeguarding confirmed; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R004",
+          "message": "Airside Operations confirms safeguarding in place. TRN101 is held pending a further movement update.",
+          "receiptTime": 21.606847002513632,
+          "source": "exercise-airside-operations"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 35.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R004:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R005",
+          "message": "Low-visibility procedures are now in force. Safeguarding remains active and TRN101 is still held.",
+          "receiptTime": 36.73124695255797,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 105.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R005:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures cancelled; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R006",
+          "message": "The exercise tower has cancelled low-visibility procedures, but safeguarding remains in place. TRN101 is still held; this update is not a departure clearance.",
+          "receiptTime": 106.34937658557465,
+          "source": "exercise-tower"
+        }
+      ],
+      "completion": {
+        "recordVersion": 1,
+        "event": "typed_review_completion",
+        "runId": "8bcf9253d6cda521c198",
+        "revision": 7,
+        "checkpointId": "check-2",
+        "actionId": "e19bd5c6606d48f48b6c609a86b85f35",
+        "stateApplied": true,
+        "modelError": "ValueError: review learner quote"
+      }
+    },
+    {
+      "actionId": "91642cc6aaab46ad9d0379d8f21d0e4e",
+      "checkpointId": "check-2",
+      "cutoff": 120.0,
+      "elapsedSeconds": 37.51115933300025,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-8bcf9253d6cda521c198\",\n\"checkpointId\":\"check-2\",\n\"verdict\":\"supported\",\n\"explanation\":\"Response correctly distinguishes cancelled procedures from active safeguarding and retains hold status.\",\n\"points\":[\n{\"criterionId\":\"partial_cancellation\",\"status\":\"met\",\"comment\":\"Correctly distinguishes cancelled procedures from active safeguarding.\",\"evidenceIds\":[\"R006\"],\n\"learnerQuote\":\"Low-visibility procedures ended. Safeguarding remains active.\"\n},\n{\"criterionId\":\"hold\",\"status\":\"met\",\"comment\":\"Correctly retains hold status and unconfirmed departure clearance.\",\"evidenceIds\":[\"R006\"],\n\"learnerQuote\":\"TRN101 is held and departure clearance is unconfirmed.\"\n},\n{\"criterionId\":\"grounding\",\"status\":\"met\",\"comment\":\"No unsupported extra facts or invented clearances found.\",\"evidenceIds\":[\"R006\"],\n\"learnerQuote\":\"TRN101 is held and departure clearance is unconfirmed.\"\n}\n]\n}\n",
+      "learnerResponse": "Low-visibility procedures ended. Safeguarding remains active. TRN101 is held and departure clearance is unconfirmed.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "Terminal 3 apron"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R001",
+          "message": "TRN101 is parked on the Terminal 3 apron.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "parked; departure movement not started"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R002",
+          "message": "TRN101 remains parked. No departure movement has started.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: safeguarding requested; confirmation pending; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R003",
+          "message": "The exercise tower has requested low-visibility safeguarding. Confirmation is pending. TRN101 is held at its stand.",
+          "receiptTime": 11.82833596775965,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 20.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R003:movement_condition"
+              ],
+              "value": "hold: low-visibility safeguarding confirmed; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R004",
+          "message": "Airside Operations confirms safeguarding in place. TRN101 is held pending a further movement update.",
+          "receiptTime": 21.606847002513632,
+          "source": "exercise-airside-operations"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 35.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R004:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R005",
+          "message": "Low-visibility procedures are now in force. Safeguarding remains active and TRN101 is still held.",
+          "receiptTime": 36.73124695255797,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 105.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R005:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures cancelled; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R006",
+          "message": "The exercise tower has cancelled low-visibility procedures, but safeguarding remains in place. TRN101 is still held; this update is not a departure clearance.",
+          "receiptTime": 106.34937658557465,
+          "source": "exercise-tower"
+        }
+      ],
+      "completion": {
+        "recordVersion": 1,
+        "event": "typed_review_completion",
+        "runId": "8bcf9253d6cda521c198",
+        "revision": 9,
+        "checkpointId": "check-2",
+        "actionId": "91642cc6aaab46ad9d0379d8f21d0e4e",
+        "stateApplied": true,
+        "modelError": null
+      }
+    },
+    {
+      "actionId": "95f0e329b8154ee68f77f642f54e5c0a",
+      "checkpointId": "check-3",
+      "cutoff": 180.0,
+      "elapsedSeconds": 43.408267833001446,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-8bcf9253d6cda521c198\",\n\"checkpointId\":\"check-3\",\n\"verdict\":\"supported\",\n\"explanation\":\"Learner correctly identifies safeguarding cancellation and confirms departure clearance remains unconfirmed.\",\n\"points\":[\n{\"criterionId\":\"confirmation\",\n\"status\":\"met\",\n\"comment\":\"Learner correctly states safeguarding cancellation is confirmed.\",\n\"evidenceIds\":[\"R008\"],\n\"learnerQuote\":\"Safeguarding cancellation has now been confirmed.\"\n},\n{\"criterionId\":\"authority\",\n\"status\":\"met\",\n\"comment\":\"Learner correctly states departure clearance remains unconfirmed.\",\n\"evidenceIds\":[\"R008\"],\n\"learnerQuote\":\"departure clearance remains unconfirmed\"\n},\n{\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"No unsupported facts or invented clearances found.\",\n\"evidenceIds\":[\"R001\",\"R002\",\"R003\",\"R004\",\"R005\",\"R006\",\"R007\",\"R008\"],\n\"learnerQuote\":\"departure clearance remains unconfirmed and the flight is still parked.\"\n}\n]\n}\n",
+      "learnerResponse": "Safeguarding cancellation has now been confirmed. That does not clear TRN101 to depart: departure clearance remains unconfirmed and the flight is still parked.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "Terminal 3 apron"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R001",
+          "message": "TRN101 is parked on the Terminal 3 apron.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "parked; departure movement not started"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R002",
+          "message": "TRN101 remains parked. No departure movement has started.",
+          "receiptTime": 0.0,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: safeguarding requested; confirmation pending; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R003",
+          "message": "The exercise tower has requested low-visibility safeguarding. Confirmation is pending. TRN101 is held at its stand.",
+          "receiptTime": 11.82833596775965,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 20.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R003:movement_condition"
+              ],
+              "value": "hold: low-visibility safeguarding confirmed; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R004",
+          "message": "Airside Operations confirms safeguarding in place. TRN101 is held pending a further movement update.",
+          "receiptTime": 21.606847002513632,
+          "source": "exercise-airside-operations"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 35.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R004:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R005",
+          "message": "Low-visibility procedures are now in force. Safeguarding remains active and TRN101 is still held.",
+          "receiptTime": 36.73124695255797,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 105.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R005:movement_condition"
+              ],
+              "value": "hold: low-visibility procedures cancelled; safeguarding remains; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R006",
+          "message": "The exercise tower has cancelled low-visibility procedures, but safeguarding remains in place. TRN101 is still held; this update is not a departure clearance.",
+          "receiptTime": 106.34937658557465,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 145.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R006:movement_condition"
+              ],
+              "value": "hold: safeguarding cancellation requested; confirmation pending; departure held"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R007",
+          "message": "The exercise tower has requested safeguarding cancellation. Confirmation is pending and TRN101 remains held.",
+          "receiptTime": 147.41028508103227,
+          "source": "exercise-tower"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-8bcf9253d6cda521c198",
+          "eventTime": 160.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "R007:movement_condition"
+              ],
+              "value": "hold: safeguarding cancelled; departure clearance still unconfirmed"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "R008",
+          "message": "Airside Operations confirms safeguarding cancellation. The reports still do not confirm a departure clearance for TRN101, which remains parked.",
+          "receiptTime": 162.08037077875997,
+          "source": "exercise-airside-operations"
+        }
+      ],
+      "completion": {
+        "recordVersion": 1,
+        "event": "typed_review_completion",
+        "runId": "8bcf9253d6cda521c198",
+        "revision": 13,
+        "checkpointId": "check-3",
+        "actionId": "95f0e329b8154ee68f77f642f54e5c0a",
+        "stateApplied": true,
+        "modelError": null
+      }
+    }
+  ],
+  "ordinaryQuestions": [
+    {
+      "requestId": "49b748a529aa47f796e650ad1ca1e61b",
+      "question": "ed for TRN101?",
+      "cutoff": 16.864402770996094,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: safeguarding requested; confirmation pending; departure held \u2014 current. Event 10 s; received 11.8283 s. [R003]",
+        "claims": [
+          {
+            "fact_id": "R003:movement_condition",
+            "value": "hold: safeguarding requested; confirmation pending; departure held",
+            "status": "current",
+            "evidence_ids": [
+              "R003"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "latencySeconds": 15.187,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "imageUsedForInference": true
+    },
+    {
+      "requestId": "fb59de2b96034127968b1052847eb5e2",
+      "question": "What restrictions still apply to TRN101?",
+      "cutoff": 141.314453125,
+      "accepted": true,
+      "errors": [],
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: low-visibility procedures cancelled; safeguarding remains; departure held \u2014 current. Event 105 s; received 106.349 s. [R006]",
+        "claims": [
+          {
+            "fact_id": "R006:movement_condition",
+            "value": "hold: low-visibility procedures cancelled; safeguarding remains; departure held",
+            "status": "current",
+            "evidence_ids": [
+              "R006"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      },
+      "latencySeconds": 10.798,
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "imageUsedForInference": true
+    }
+  ],
+  "screenshots": [
+    "typed-fog-portrait-pending.png",
+    "typed-fog-feedback-sources.png",
+    "typed-fog-review-withheld.png",
+    "typed-fog-retry-feedback.png",
+    "typed-fog-complete-question-sources.png",
+    "typed-fog-debrief.png",
+    "typed-surface-feedback.png",
+    "typed-arrival-feedback.png",
+    "typed-baggage-withheld.png",
+    "typed-baggage-feedback.png",
+    "typed-baggage-readiness-feedback.png",
+    "typed-next-exercise.png"
+  ],
+  "nativeObservations": [
+    "Briefing to Ready, practice, all three checkpoints and debrief at 210 source seconds without source-time jumps.",
+    "Scene, assistant and history hidden during questions.",
+    "First response edited and submitted in upright portrait; draft and pending request survived rotation to landscape.",
+    "Scenario clock stayed at 60/120/180 through question, pending, failure and feedback; Continue resumed time.",
+    "Checkpoint 2 genuine quote-contract failure was shown, input retained, edited response retried and accepted.",
+    "Feedback and supporting-report scrolling inspected in native UI.",
+    "Complete ordinary question was typed and submitted; actual answer and expanded source R006 inspected.",
+    "Debrief displayed 3 responses with no numerical score.",
+    "Try again started run 1d70bffb2bdef1cab3a4 at briefing/source 0 with empty responseText."
+  ],
+  "failures": [
+    "Initial ordinary-question automation typed before focus settled; actual question was only ed for TRN101?. Preserved as submitted; not claimed as successful full-question typing. Later full-question check passed.",
+    "Checkpoint 2 first response was semantically understood but the model quoted a report phrase absent from learner input; response withheld. No scripted success or quote repair.",
+    "Simulator window positioning caused clipped computer-use observations; native window centered. Device capture remained separate."
+  ],
+  "limits": [
+    "This is one full native typed fog run. Earlier original three lesson full-native records used choice mode; 18-case v2 semantic development checks used explicitly positioned API checkpoints.",
+    "Development v2 had 14 usable reviews and 4 withheld failures. General semantic reliability, grading validity and learner benefit remain unvalidated.",
+    "No physical phone, phone-hosted model, software keyboard, TestFlight or professional competence claim.",
+    "No formal proof. Stale/duplicate/concurrency properties use separate code/tests; native observations do not exercise every race."
+  ],
+  "supplementalChecks": [
+    {
+      "runId": "80253cdba29bf7c8af7e",
+      "checkpointId": "check-1",
+      "actionId": "f30b07d379d948c288e55419417fc10f",
+      "cutoff": 60.0,
+      "aircraftId": "A2",
+      "elapsedSeconds": 34.5581545419991,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-80253cdba29bf7c8af7e\",\n\"checkpointId\":\"check-1\",\n\"verdict\":\"supported\",\n\"explanation\":\"Response correctly identifies the held flight and the specific obstruction reported in the scenario.\",\n\"points\":[\n{\"criterionId\":\"flight\",\"status\":\"met\",\"comment\":\"Correctly identifies TRN102 as the held aircraft.\",\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"TRN102 is being held\"},\n{\"criterionId\":\"reason\",\"status\":\"met\",\"comment\":\"Correctly identifies the service vehicle obstruction.\",\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"because a service vehicle is blocking\"},\n{\"criterionId\":\"grounding\",\"status\":\"met\",\"comment\":\"No unsupported facts or invented clearances found.\",\"evidenceIds\":[\"L010\"],\n\"learnerQuote\":\"TRN102 is being held because a service vehicle is blocking its ground route.\"}\n]\n}\n",
+      "exercise": "surface_conflict",
+      "learnerResponse": "TRN102 is being held because a service vehicle is blocking its ground route.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "A"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L001",
+          "message": "TRN101 is at Stand A.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "B"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L004",
+          "message": "TRN102 is at Stand B.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "C"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L007",
+          "message": "TRN103 is at Stand C.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L002",
+          "message": "TRN101 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L005",
+          "message": "TRN102 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L008",
+          "message": "TRN103 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L003",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L006",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L009",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-80253cdba29bf7c8af7e",
+          "eventTime": 25.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: vehicle obstructing ground route"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L010",
+          "message": "TRN102 is held because a service vehicle is obstructing its ground route.",
+          "receiptTime": 27.56595172913748,
+          "source": "ground-control"
+        }
+      ],
+      "criteria": [
+        {
+          "evidenceIds": [
+            "L010"
+          ],
+          "expected": "Identify TRN102 as the held aircraft.",
+          "id": "flight"
+        },
+        {
+          "evidenceIds": [
+            "L010"
+          ],
+          "expected": "Identify the reported service vehicle obstructing its ground route.",
+          "id": "reason"
+        },
+        {
+          "evidenceIds": [
+            "L001",
+            "L004",
+            "L007",
+            "L002",
+            "L005",
+            "L008",
+            "L003",
+            "L006",
+            "L009",
+            "L010"
+          ],
+          "expected": "Review EVERY clause in the response. Do not accept unsupported extra facts, other-flight attribution, causes, overall readiness or departure clearance. A correct core answer plus an invented clearance is contradicted, not met. Explicit uncertainty is acceptable. Quote the offending clause when contradicted.",
+          "id": "grounding"
+        }
+      ],
+      "positionedInspection": true
+    },
+    {
+      "runId": "08852b5075650422d83e",
+      "checkpointId": "check-1",
+      "actionId": "8f33ee93c47b45b1800b3c8b6faad74c",
+      "cutoff": 60.0,
+      "aircraftId": "A3",
+      "elapsedSeconds": 41.28599045900046,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-08852b5075650422d83e\",\"checkpointId\":\"check-1\",\"verdict\":\"supported\",\"explanation\":\"Response correctly identifies TRN103 waiting for Stand B and TRN102 as occupant.\",\"points\":[{\"criterionId\":\"flight\",\"status\":\"met\",\"comment\":\"Correctly identifies TRN103 waiting for Stand B.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"The inbound TRN103 is waiting for Stand B\"},{\"criterionId\":\"occupant\",\"status\":\"met\",\"comment\":\"Correctly identifies TRN102 occupying Stand B.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"which is occupied by TRN102\"},{\"criterionId\":\"grounding\",\"status\":\"met\",\"comment\":\"No unsupported facts or extra claims found.\",\"evidenceIds\":[\"L010\"],\"learnerQuote\":\"The inbound TRN103 is waiting for Stand B, which is occupied by TRN102.\"}]}\n",
+      "exercise": "late_arrival",
+      "learnerResponse": "The inbound TRN103 is waiting for Stand B, which is occupied by TRN102.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "A"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L001",
+          "message": "TRN101 is at Stand A.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "B"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L004",
+          "message": "TRN102 is at Stand B.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "ground staging area"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L007",
+          "message": "TRN103 is at the ground staging area.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L002",
+          "message": "TRN101 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L005",
+          "message": "TRN102 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at ground staging area"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L008",
+          "message": "TRN103 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L003",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L006",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L009",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 20.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: Stand B occupied by TRN102"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L010",
+          "message": "The late inbound TRN103 is waiting in the ground staging area. Stand B is occupied by TRN102.",
+          "receiptTime": 23.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-08852b5075650422d83e",
+          "eventTime": 50.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "reposition to Stand C"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L011",
+          "message": "TRN102 will reposition from B to C. Stand B is not yet confirmed available.",
+          "receiptTime": 52.0,
+          "source": "stand-planning"
+        }
+      ],
+      "criteria": [
+        {
+          "evidenceIds": [
+            "L010"
+          ],
+          "expected": "Identify inbound TRN103 as waiting for Stand B. Waiting FOR a stand identifies the resource awaited, not a claim that the flight is already AT or occupying it.",
+          "id": "flight"
+        },
+        {
+          "evidenceIds": [
+            "L010"
+          ],
+          "expected": "Identify Stand B as occupied by TRN102 in the received report.",
+          "id": "occupant"
+        },
+        {
+          "evidenceIds": [
+            "L001",
+            "L004",
+            "L007",
+            "L002",
+            "L005",
+            "L008",
+            "L003",
+            "L006",
+            "L009",
+            "L010",
+            "L011"
+          ],
+          "expected": "Review EVERY clause in the response. Do not accept unsupported extra facts, other-flight attribution, causes, overall readiness or departure clearance. A correct core answer plus an invented clearance is contradicted, not met. Explicit uncertainty is acceptable. Quote the offending clause when contradicted.",
+          "id": "grounding"
+        }
+      ],
+      "positionedInspection": true
+    },
+    {
+      "runId": "7b560638c0b3e48befd3",
+      "checkpointId": "check-1",
+      "actionId": "4865aba1664742998fd330d588449c03",
+      "cutoff": 60.0,
+      "aircraftId": "A2",
+      "elapsedSeconds": 51.616117166999175,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": false,
+      "error": "ValueError: review evidence outside criterion cutoff",
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-7b560638c0b3e48befd3\",\n\"checkpointId\":\"check-1\",\n\"verdict\":\"supported\",\n\"explanation\":\"Response correctly identifies baggage delay and separates fuel completion from loading status.\",\n\"points\":[\n{\"criterionId\":\"delay\",\n\"status\":\"met\",\n\"comment\":\"Correctly identifies late baggage batch as the delay cause.\",\n\"evidenceIds\":[\"L011\"],\n\"learnerQuote\":\"The late baggage batch is delaying TRN102.\"\n},\n{\"criterionId\":\"separation\",\n\"status\":\"met\",\n\"comment\":\"Correctly separates fuel completion from baggage loading status.\",\n\"evidenceIds\":[\"L010\",\"L011\",\"L014\"],\n\"learnerQuote\":\"Fuel is complete, but that does not mean baggage loading is complete.\"\n},\n{\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"No unsupported facts or invented clearances found in response.\",\n\"evidenceIds\":[\"L001\",\"L004\",\"L007\",\"L002\",\"L005\",\"L008\",\"L003\",\"L006\",\"L009\",\"L010\",\"L011\",\"L012\",\"L013\",\"L014\"],\n\"learnerQuote\":\"The late baggage batch is delaying TRN102. Fuel is complete, but that does not mean baggage loading is complete.\"\n}\n]\n}\n",
+      "exercise": "late_baggage",
+      "learnerResponse": "The late baggage batch is delaying TRN102. Fuel is complete, but that does not mean baggage loading is complete.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "A"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L001",
+          "message": "TRN101 is at Stand A.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "B"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L004",
+          "message": "TRN102 is at Stand B.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "C"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L007",
+          "message": "TRN103 is at Stand C.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L002",
+          "message": "TRN101 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L005",
+          "message": "TRN102 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L008",
+          "message": "TRN103 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L003",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L006",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L009",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 5.0,
+          "facts": [
+            {
+              "property": "fuel_status",
+              "value": "in progress"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L010",
+          "message": "Fuel service for TRN102 is in progress.",
+          "receiptTime": 6.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "baggage_status",
+              "value": "delayed"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L011",
+          "message": "A late baggage batch is delaying TRN102 loading.",
+          "receiptTime": 13.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 12.0,
+          "facts": [
+            {
+              "property": "tobt",
+              "value": "10:20"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L012",
+          "message": "The target off-block estimate for TRN102 is 10:20.",
+          "receiptTime": 14.0,
+          "source": "operations"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 15.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: ground handling incomplete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L013",
+          "message": "TRN102 remains held while ground handling is incomplete.",
+          "receiptTime": 16.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 45.0,
+          "facts": [
+            {
+              "property": "fuel_status",
+              "supersedes": [
+                "L010:fuel_status"
+              ],
+              "value": "complete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L014",
+          "message": "Fuel service is complete for TRN102.",
+          "receiptTime": 47.0,
+          "source": "ground-handling"
+        }
+      ],
+      "criteria": [
+        {
+          "evidenceIds": [
+            "L011"
+          ],
+          "expected": "Identify the late baggage batch/loading delay for TRN102.",
+          "id": "delay"
+        },
+        {
+          "evidenceIds": [
+            "L011",
+            "L014"
+          ],
+          "expected": "Keep fuel completion separate from unresolved baggage loading.",
+          "id": "separation"
+        },
+        {
+          "evidenceIds": [
+            "L001",
+            "L004",
+            "L007",
+            "L002",
+            "L005",
+            "L008",
+            "L003",
+            "L006",
+            "L009",
+            "L010",
+            "L011",
+            "L012",
+            "L013",
+            "L014"
+          ],
+          "expected": "Review EVERY clause in the response. Do not accept unsupported extra facts, other-flight attribution, causes, overall readiness or departure clearance. A correct core answer plus an invented clearance is contradicted, not met. Explicit uncertainty is acceptable. Quote the offending clause when contradicted.",
+          "id": "grounding"
+        }
+      ],
+      "positionedInspection": true
+    },
+    {
+      "runId": "7b560638c0b3e48befd3",
+      "checkpointId": "check-1",
+      "actionId": "7f4dfd7444ee43298c04ec9a31592e8a",
+      "cutoff": 60.0,
+      "aircraftId": "A2",
+      "elapsedSeconds": 47.648074832999555,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-7b560638c0b3e48befd3\",\n\"checkpointId\":\"check-1\",\n\"verdict\":\"supported\",\n\"explanation\":\"Response correctly identifies baggage delay and separates fuel completion status.\",\n\"points\":[\n{\"criterionId\":\"delay\",\n\"status\":\"met\",\n\"comment\":\"Baggage delay correctly identified for TRN102.\",\n\"evidenceIds\":[\"L011\"],\n\"learnerQuote\":\"A late baggage batch is holding up loading for TRN102.\"\n},\n{\"criterionId\":\"separation\",\n\"status\":\"met\",\n\"comment\":\"Fuel completion separated from unresolved baggage loading.\",\n\"evidenceIds\":[\"L011\",\"L014\"],\n\"learnerQuote\":\"Fuel service is confirmed complete; loading is still delayed.\"\n},\n{\"criterionId\":\"grounding\",\n\"status\":\"met\",\n\"comment\":\"No unsupported facts or invented clearances found.\",\n\"evidenceIds\":[\"L001\",\"L004\",\"L007\",\"L002\",\"L005\",\"L008\",\"L003\",\"L006\",\"L009\",\"L010\",\"L011\",\"L012\",\"L013\",\"L014\"],\n\"learnerQuote\":\"Fuel service is confirmed complete; loading is still delayed.\"\n}\n]\n}\n",
+      "exercise": "late_baggage",
+      "learnerResponse": "A late baggage batch is holding up loading for TRN102. Fuel service is confirmed complete; loading is still delayed.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "A"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L001",
+          "message": "TRN101 is at Stand A.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "B"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L004",
+          "message": "TRN102 is at Stand B.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "C"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L007",
+          "message": "TRN103 is at Stand C.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L002",
+          "message": "TRN101 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L005",
+          "message": "TRN102 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L008",
+          "message": "TRN103 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L003",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L006",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L009",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 5.0,
+          "facts": [
+            {
+              "property": "fuel_status",
+              "value": "in progress"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L010",
+          "message": "Fuel service for TRN102 is in progress.",
+          "receiptTime": 6.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "baggage_status",
+              "value": "delayed"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L011",
+          "message": "A late baggage batch is delaying TRN102 loading.",
+          "receiptTime": 13.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 12.0,
+          "facts": [
+            {
+              "property": "tobt",
+              "value": "10:20"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L012",
+          "message": "The target off-block estimate for TRN102 is 10:20.",
+          "receiptTime": 14.0,
+          "source": "operations"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 15.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: ground handling incomplete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L013",
+          "message": "TRN102 remains held while ground handling is incomplete.",
+          "receiptTime": 16.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 45.0,
+          "facts": [
+            {
+              "property": "fuel_status",
+              "supersedes": [
+                "L010:fuel_status"
+              ],
+              "value": "complete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L014",
+          "message": "Fuel service is complete for TRN102.",
+          "receiptTime": 47.0,
+          "source": "ground-handling"
+        }
+      ],
+      "criteria": [
+        {
+          "evidenceIds": [
+            "L011"
+          ],
+          "expected": "Identify the late baggage batch/loading delay for TRN102.",
+          "id": "delay"
+        },
+        {
+          "evidenceIds": [
+            "L011",
+            "L014"
+          ],
+          "expected": "Keep fuel completion separate from unresolved baggage loading.",
+          "id": "separation"
+        },
+        {
+          "evidenceIds": [
+            "L001",
+            "L004",
+            "L007",
+            "L002",
+            "L005",
+            "L008",
+            "L003",
+            "L006",
+            "L009",
+            "L010",
+            "L011",
+            "L012",
+            "L013",
+            "L014"
+          ],
+          "expected": "Review EVERY clause in the response. Do not accept unsupported extra facts, other-flight attribution, causes, overall readiness or departure clearance. A correct core answer plus an invented clearance is contradicted, not met. Explicit uncertainty is acceptable. Quote the offending clause when contradicted.",
+          "id": "grounding"
+        }
+      ],
+      "positionedInspection": true
+    },
+    {
+      "runId": "7b560638c0b3e48befd3",
+      "checkpointId": "check-3",
+      "actionId": "6c141c99f23846d0b0679dda0ea379e3",
+      "cutoff": 180.0,
+      "aircraftId": "A2",
+      "elapsedSeconds": 45.58050629200079,
+      "promptVersion": "typed-practice-review-v2",
+      "validatorVersion": "typed-review-contract-v2",
+      "contractAccepted": true,
+      "error": null,
+      "rawModelOutput": "{\n\"episodeId\":\"LESSON-7b560638c0b3e48befd3\",\n\"checkpointId\":\"check-3\",\n\"verdict\":\"supported\",\n\"explanation\":\"Response correctly distinguishes service completion from overall readiness and takeoff clearance.\",\n\"points\":[\n{\"criterionId\":\"unknown\",\"status\":\"met\",\"comment\":\"Readiness remains unconfirmed despite completions.\",\"evidenceIds\":[\"L014\",\"L016\",\"L017\"],\n\"learnerQuote\":\"Overall departure readiness and takeoff clearance remain unconfirmed.\"\n},\n{\"criterionId\":\"scope\",\"status\":\"met\",\"comment\":\"Does not infer clearance from service completion.\",\"evidenceIds\":[\"L014\",\"L016\",\"L017\"],\n\"learnerQuote\":\"Those service and ground updates do not confirm every departure requirement.\"\n},\n{\"criterionId\":\"grounding\",\"status\":\"met\",\"comment\":\"No unsupported facts or invented clearances found.\",\"evidenceIds\":[\"L014\",\"L016\",\"L017\"],\n\"learnerQuote\":\"Overall departure readiness and takeoff clearance remain unconfirmed.\"\n}\n]\n}\n",
+      "exercise": "late_baggage",
+      "learnerResponse": "Fuel and baggage are complete and the ground hold is released. Overall departure readiness and takeoff clearance remain unconfirmed. Those service and ground updates do not confirm every departure requirement.",
+      "eligibleReports": [
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "A"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L001",
+          "message": "TRN101 is at Stand A.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "B"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L004",
+          "message": "TRN102 is at Stand B.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 0.0,
+          "facts": [
+            {
+              "property": "stand",
+              "value": "C"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L007",
+          "message": "TRN103 is at Stand C.",
+          "receiptTime": 0.0,
+          "source": "stand-planning"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L002",
+          "message": "TRN101 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L005",
+          "message": "TRN102 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 1.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "value": "holding at stand"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L008",
+          "message": "TRN103 is holding.",
+          "receiptTime": 1.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A1",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN101",
+          "id": "L003",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L006",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A3",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 2.0,
+          "facts": [
+            {
+              "property": "route",
+              "value": "apron ground circuit"
+            }
+          ],
+          "flightInstance": "TRN103",
+          "id": "L009",
+          "message": "The reported route is within the apron. No runway or takeoff clearance is represented.",
+          "receiptTime": 2.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 5.0,
+          "facts": [
+            {
+              "property": "fuel_status",
+              "value": "in progress"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L010",
+          "message": "Fuel service for TRN102 is in progress.",
+          "receiptTime": 6.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 10.0,
+          "facts": [
+            {
+              "property": "baggage_status",
+              "value": "delayed"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L011",
+          "message": "A late baggage batch is delaying TRN102 loading.",
+          "receiptTime": 13.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 12.0,
+          "facts": [
+            {
+              "property": "tobt",
+              "value": "10:20"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L012",
+          "message": "The target off-block estimate for TRN102 is 10:20.",
+          "receiptTime": 14.0,
+          "source": "operations"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 15.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "value": "hold: ground handling incomplete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L013",
+          "message": "TRN102 remains held while ground handling is incomplete.",
+          "receiptTime": 16.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 45.0,
+          "facts": [
+            {
+              "property": "fuel_status",
+              "supersedes": [
+                "L010:fuel_status"
+              ],
+              "value": "complete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L014",
+          "message": "Fuel service is complete for TRN102.",
+          "receiptTime": 47.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 75.0,
+          "facts": [
+            {
+              "property": "tobt",
+              "supersedes": [
+                "L012:tobt"
+              ],
+              "value": "10:35"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L015",
+          "message": "The target off-block estimate for TRN102 changes from 10:20 to 10:35.",
+          "receiptTime": 82.0,
+          "source": "operations"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 130.0,
+          "facts": [
+            {
+              "property": "baggage_status",
+              "supersedes": [
+                "L011:baggage_status"
+              ],
+              "value": "complete"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L016",
+          "message": "Baggage loading is complete for TRN102.",
+          "receiptTime": 134.0,
+          "source": "ground-handling"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 155.0,
+          "facts": [
+            {
+              "property": "movement_condition",
+              "supersedes": [
+                "L013:movement_condition"
+              ],
+              "value": "exercise ground hold released"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L017",
+          "message": "The exercise ground hold for TRN102 is released.",
+          "receiptTime": 158.0,
+          "source": "ground-control"
+        },
+        {
+          "aircraftId": "A2",
+          "episodeId": "LESSON-7b560638c0b3e48befd3",
+          "eventTime": 166.0,
+          "facts": [
+            {
+              "property": "movement_status",
+              "supersedes": [
+                "L005:movement_status"
+              ],
+              "value": "pushback"
+            }
+          ],
+          "flightInstance": "TRN102",
+          "id": "L018",
+          "message": "TRN102 has started pushback.",
+          "receiptTime": 167.0,
+          "source": "ground-control"
+        }
+      ],
+      "criteria": [
+        {
+          "evidenceIds": [
+            "L014",
+            "L016",
+            "L017"
+          ],
+          "expected": "State that overall departure readiness remains unconfirmed despite the received service completions and ground release.",
+          "id": "unknown"
+        },
+        {
+          "evidenceIds": [
+            "L014",
+            "L016",
+            "L017"
+          ],
+          "expected": "Do not infer takeoff clearance or every departure prerequisite from fuel/baggage completion and ground release.",
+          "id": "scope"
+        },
+        {
+          "evidenceIds": [
+            "L001",
+            "L004",
+            "L007",
+            "L002",
+            "L005",
+            "L008",
+            "L003",
+            "L006",
+            "L009",
+            "L010",
+            "L011",
+            "L012",
+            "L013",
+            "L014",
+            "L015",
+            "L016",
+            "L017",
+            "L018"
+          ],
+          "expected": "Review EVERY clause in the response. Do not accept unsupported extra facts, other-flight attribution, causes, overall readiness or departure clearance. A correct core answer plus an invented clearance is contradicted, not met. Explicit uncertainty is acceptable. Quote the offending clause when contradicted.",
+          "id": "grounding"
+        }
+      ],
+      "positionedInspection": true
+    }
+  ],
+  "supplementalNavigation": {
+    "fromRun": "7b560638c0b3e48befd3",
+    "fromExercise": "late_baggage",
+    "method": "Native Continue after positioned checkpoint 3, normal remaining 30 source seconds, then native Next exercise button. This was not a full baggage lesson.",
+    "resultRun": "8a7d3a0b50973e73995d",
+    "resultExercise": "fog_restrictions",
+    "phase": "briefing",
+    "sourceTime": 0,
+    "responseText": "",
+    "reviews": []
+  },
+  "supplementalFailures": [
+    "Baggage checkpoint 1 first review withheld because a criterion cited an ineligible-for-that-criterion superseded fuel report L010. This was a received report, not future-source leakage. Revised learner text produced accepted feedback without code or prompt changes.",
+    "Private inspection jump preserved old server responseText; normal Continue clears it. Automation initially appended text before Select All registered; corrected and verified before submission. No model request used the accidental combined text."
+  ],
+  "screenshotHashes": {
+    "typed-fog-portrait-pending.png": "44e2ce90018b3eed01952d295ce321086b330a4abdd6783892cdc1bc6ecebe0d",
+    "typed-fog-feedback-sources.png": "788abe4821351a73f82c2408668282729336d6038f02f05a0b8de1934875fb10",
+    "typed-fog-review-withheld.png": "36ae0efdf3b1604762bde8be3bdfaad27215c254b57584954fe1d543937a159a",
+    "typed-fog-retry-feedback.png": "959de13a9a79c4be43a0dd953e7fd7f5cc9130a3ddb63541e90c685ddf7a9faa",
+    "typed-fog-complete-question-sources.png": "c6426595739db8513b4fcb198b623ab8fed848ef6e446bfc16b6beba77fbb366",
+    "typed-fog-debrief.png": "e2ea78475ed646dafb21e8358f991826585900a418bc99e47856563a6659c766",
+    "typed-surface-feedback.png": "4f55b2705704f72638bdb2ee69b54e754610c9ac3686244e6ba9d95b7ae8bd92",
+    "typed-arrival-feedback.png": "f165fc78cf108b521689976afab074e6f0a623f223bc37d222ec53abd2deacfe",
+    "typed-baggage-withheld.png": "a125a9045f440b2cc04f655f5d42afb228af778f6201b7562cb4d24122ed8524",
+    "typed-baggage-feedback.png": "9ccb4ff154aab8b9a9f137a36c3bfa24d0d10f999942e447cb94c3d917b0f469",
+    "typed-baggage-readiness-feedback.png": "444acde0bbbcb8be2e35c182ae7617fb3a7fc76e14eb3f5da450372116f22f63",
+    "typed-next-exercise.png": "0432994298d497a8f15f5a58de0a55697bf211371a370a15be9ac1f5ea095863"
+  }
+}

@@ -1,0 +1,6 @@
+# Install into an isolated environment inheriting the verified GAIVI runtime.
+# Do not upgrade the shared environment or its CUDA build.
+peft==0.21.2
+bitsandbytes==0.50.2
+# Paired runtime also pins torch==2.7.1+cu118, transformers==5.22.1,
+# accelerate==1.15.0; validate against receipts before interpreting results.

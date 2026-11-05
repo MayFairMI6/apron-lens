@@ -1,0 +1,430 @@
+{
+  "reviewDate": "2026-11-03",
+  "reviewer": "procedure_reference independent of implementation",
+  "status": "Four fleet cases passed bounded sampled native review; twelve actual model answers verified. Initial A380 failure retained and rerun independently checked.",
+  "sourceHashes": {
+    "scripts/bake_aircraft.py": "294ef665806723171313a70b2d9192217a72cf1a046a7bbe7bc3e8a2dac6e4ea",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/AircraftTypeVisual.cs": "7dabbe704603cb6982437eece758f5775f3ef38b8c969c09d0b71c90409f3f48",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/StandReplay.cs": "89fe570c5a0e97114180774aa7651ad59a2abac0067c3180c208f829d489e7a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "91b2e02993fd4a45612cc13a6c32b7e440621486ba2d38d357e3d9d924959322",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/AircraftTypeVerification.cs": "edf07780beb7757a56605c104abe10fa7b02d293e9245d364d71f8ef5d710321",
+    "backend/fleet_scenarios.py": "62ba64b0d1dd784f660e427151c4809d9ad320a16a66cc8f7d740c87daa34048",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "6c71de549442bb9ef9378ef74e1e852e600407eef2c6a19246ec07bb69288e6d"
+  },
+  "checks": [
+    "Four reference exteriors visually inspected as Unity verification renders; recognizable family differences, textures and correct exterior facing visible.",
+    "Converter regenerated all eight runtime outputs byte-identically in a new temporary directory.",
+    "AIRCRAFT_TYPE_CHECKS_PASS observed in fleet-export.log: dimensions, wheel arrangement, pitch contact, retraction and3-4-3 lifecycle.",
+    "Backend pinned09R isolated factual values and AMSL-to-local conversion match inspected current-cycle official reference.",
+    "No exactCAD, certifiedperformance or completeSID claim; asset attribution and transformation records present.",
+    "Reviewed later framing changes: editor orthographic size0.60xspan and fleet-only follow distance3.5xlength; incident/overview overrides remain afterward. All four refreshed renders inspected with complete silhouettes. No geometry change or new blocking finding."
+  ],
+  "renders": {
+    "b787_8.png": "c5f49379fed78fe9c77d37977be21cf0250073fcd1259c70a0a19952a5cff8c0",
+    "a380_800.png": "b20113b50a66bc8ca2ce69bae0a56db81111d25e8ecdabc5b6b422934c8391a0",
+    "b737_800.png": "270766349c9a08ff09e866efe8efd18254c5041eea615a8cd7303ea7adec43db",
+    "a320_200.png": "1b71e552a80ea75cf1630b103452dcba70006ce15d51eac4d93cf077eace11a7"
+  },
+  "limitations": [
+    "Standalone verification renders have no pavement; visual ground contact must be checked in native scene separately.",
+    "Single oblique render does not expose every gear wheel or nacelle surface; numerical checks cover defined bounded poses.",
+    "A38010degree pitch occurs airborne; ground clearance verification uses0,5,8degrees.",
+    "Native movement, reports, assistant answers and final video remain root acceptance work."
+  ],
+  "findings": [],
+  "previousSourceHashes": {
+    "scripts/bake_aircraft.py": "294ef665806723171313a70b2d9192217a72cf1a046a7bbe7bc3e8a2dac6e4ea",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/AircraftTypeVisual.cs": "7dabbe704603cb6982437eece758f5775f3ef38b8c969c09d0b71c90409f3f48",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/StandReplay.cs": "89fe570c5a0e97114180774aa7651ad59a2abac0067c3180c208f829d489e7a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "91b2e02993fd4a45612cc13a6c32b7e440621486ba2d38d357e3d9d924959322",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/AircraftTypeVerification.cs": "23a120a97894624077b711784c884a4673d9c9d7938a4a4c5bca0aeba0bbb2b6",
+    "backend/fleet_scenarios.py": "cfbeab3a5baa40ccbb51023f1ccbf3192bed362f7fb2c122e5a6d06ab3546194"
+  },
+  "nativeReviews": [
+    {
+      "exercise": "fleet_a320_birds",
+      "runId": "f0b1d7d4ea9fbb0edd94",
+      "fullWatch": false,
+      "reviewScope": "Four supplied screenshots plus two extracted video frames at109.75s(rotation) and130.39s(climb); sanitized model audit and full state trace inspected.",
+      "stateTrace": {
+        "snapshots": 505,
+        "sourceTimeMonotonic": true,
+        "finalPhase": "debrief",
+        "finalSourceTime": 3600.0
+      },
+      "answers": [
+        {
+          "cutoff": 45.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Why is TRN101 held?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 9.681,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 90.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Does inspection completion release TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 11.406,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 166.0,
+          "accepted": true,
+          "errors": [],
+          "question": "What is the latest reported movement for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 13.669,
+          "imageUsedForInference": true
+        }
+      ],
+      "observations": [
+        "Birds visible during hold; held aircraft is visibly on runway, and subsequent frames show rotation then airborne climb.",
+        "Inspection answer retains separate release requirement at its90s cutoff, even though live scenario clock has advanced.",
+        "Third answer includes actual airborne/climbing movement report; all three model audits accepted with matching pinnedQwen3.5-9B and stop finish reason.",
+        "Images used for inference does not establish evaluated visual reasoning: answers are report-grounded."
+      ],
+      "blockingFindings": [],
+      "limits": [
+        "Not a full video watch or per-frame clearance audit.",
+        "Otherthree native cases remain pending independent review."
+      ]
+    },
+    {
+      "exercise": "fleet_b737_rejected_takeoff",
+      "runId": "e243e449791642b52069",
+      "fullWatch": false,
+      "reviewScope": "Three answer screenshots and extracted roll/stop frames at37.124s and63.172s; sanitized actual model audit and state trace.",
+      "stateTrace": {
+        "snapshots": 461,
+        "sourceTimeMonotonic": true,
+        "finalPhase": "debrief",
+        "finalSourceTime": 3600.0
+      },
+      "answers": [
+        {
+          "cutoff": 104.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Why did TRN101 reject takeoff?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 6.241,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 129.0,
+          "accepted": true,
+          "errors": [],
+          "question": "What is the latest reported movement for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 13.061,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 310.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Is the runway released for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 9.447,
+          "imageUsedForInference": true
+        }
+      ],
+      "observations": [
+        "Distinct737 exterior stays on runway in sampled roll/rejection/stopped views.",
+        "Rejection answer preserves unreliable airspeed as reported concern and leaves cause unconfirmed.",
+        "Stopped answer includes occupied runway and pending assessment.",
+        "Release answer leaves recovery/release unconfirmed; three accepted real model calls, no errors."
+      ],
+      "blockingFindings": [],
+      "limits": [
+        "Sampled frames do not establish full-watch or per-frame contact audit."
+      ]
+    },
+    {
+      "exercise": "fleet_b787_priority_landing",
+      "runId": "e7e7dc3c1ec314ddc64a",
+      "fullWatch": false,
+      "reviewScope": "Three answer screenshots plus four extracted frames at47.161,50.266,53.308,98.573wallseconds: nearthreshold,flare,justaftertouchdown,late rollout. Sanitizedmodelaudit andstate trace.",
+      "stateTrace": {
+        "snapshots": 532,
+        "sourceTimeMonotonic": true,
+        "finalPhase": "debrief",
+        "finalSourceTime": 3600.0
+      },
+      "answers": [
+        {
+          "cutoff": 70.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Why is TRN101 receiving priority?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 10.801,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 241.99505615234375,
+          "accepted": true,
+          "errors": [],
+          "question": "What is the latest reported movement for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 9.429,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 312.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Is recovery complete and the runway released for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 14.493,
+          "imageUsedForInference": true
+        }
+      ],
+      "observations": [
+        "Distinct787 exterior descends fromnear16mthreshold view to4mflare then0mrollout, remaining aligned withrunway in sampledframes.",
+        "Priorityanswerreports hydraulicconcern withoutinventingcomponentdiagnosis.",
+        "Stoppedand recoveryanswerspreserveinspectionandunconfirmedrelease.",
+        "Allthreeacceptedactualmodelcalls withstopfinish andnoerrors."
+      ],
+      "blockingFindings": [],
+      "limits": [
+        "Earlyapproach view outside mappedgeometryshowsuniformground; airportmapisbounded.",
+        "Sampledframesnotfullwatch orcertifiedlandingperformanceverification."
+      ]
+    },
+    {
+      "exercise": "fleet_a380_go_around",
+      "runId": "3124203f0c40496b4fe7",
+      "fullWatch": false,
+      "reviewScope": "Three rerun answer screenshots and two extracted frames at wall 14.317 and 48.886 seconds (source 104.162 and 138.730): go-around transition and climb. Sanitized model audit and complete state trace.",
+      "stateTrace": {
+        "snapshots": 434,
+        "sourceTimeMonotonic": true,
+        "finalPhase": "debrief",
+        "finalSourceTime": 3600.0,
+        "cueStatuses": {
+          "go-around": [
+            "answered",
+            "pending"
+          ],
+          "climb": [
+            "answered",
+            "pending"
+          ],
+          "next": [
+            "answered",
+            "pending"
+          ]
+        }
+      },
+      "answers": [
+        {
+          "cutoff": 108.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Why is TRN101 going around?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 9.469,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 169.0,
+          "accepted": true,
+          "errors": [],
+          "question": "What is the latest reported movement for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 10.104,
+          "imageUsedForInference": true
+        },
+        {
+          "cutoff": 310.0,
+          "accepted": true,
+          "errors": [],
+          "question": "Is another approach confirmed for TRN101?",
+          "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+          "finishReason": "stop",
+          "latencySeconds": 10.418,
+          "imageUsedForInference": true
+        }
+      ],
+      "observations": [
+        "Distinct A380 exterior remains visible during go-around and climb; sampled height increases from 54 m to 255 m, then 541 m in the second answer screenshot.",
+        "Visible answers identify runway occupancy by TRN102, climbing away, and another approach unconfirmed, matching available report claims.",
+        "All three actual model calls are accepted with stop finish and no errors; all three cues reached answered in the client trace.",
+        "Acceptance receipt contains these four successful run identities, twelve answers, and retains the failed initial A380 run."
+      ],
+      "blockingFindings": [],
+      "limits": [
+        "Sampled frames only, not a full watch or certified missed-approach performance verification.",
+        "At regional zoom after the aircraft leaves the exercise area, nearby aircraft labels overlap. This does not obstruct the sampled assistant answers but remains a presentation limitation.",
+        "No physical-device verification in this review."
+      ]
+    }
+  ],
+  "failurePreservation": {
+    "runId": "d63e908cbf6a8937b7c6",
+    "exercise": "fleet_a380_go_around",
+    "issue": "https://github.com/MayFairMI6/apron-lens/issues/68",
+    "observed": "State trace replaces pendinggo-around atsource108 withclimb at124; climb fails withoutmodelaudit. Nextcue310 alsofailsclientstate despiteacceptedmodelaudit. Twoacceptedbackendanswers arenotthreevisible successfulanswers.",
+    "fixCommit": "706e6a10b4ab7df8d7ff21ebb8da61c1d1e317b6",
+    "fixReviewed": "Secondcue moved fromtransition+20 to+65; first/thirdunchanged. Existing40secondtimeout and10secondreadingwindow preserved.",
+    "independentTest": "work/ci-portability-venv/bin/python -m unittest tests.test_fleet_scenarios.FleetCases.test_a380_cues_allow_pending_response_timeout_and_reading_without_overlap passed:20seeds x15.074/39/41secondlatencies.",
+    "verificationLimit": "Scenario-specific spacing regression passed; fresh native rerun 3124203f0c40496b4fe7 independently checked through samples, all three visible answers and state trace. Original failure remains preserved. No whole-milestone completion claim."
+  },
+  "mediaReview": {
+    "scope": "Bounded frame sampling and edit-plan/verification-sidecar review; not a full video watch or new audio audition.",
+    "files": {
+      "AirfieldLens-presentation.mp4": {
+        "sha256": "9ffcb5ea4493ed17af60f3ce735a16183bfe5206ba991552729063fb495996b9",
+        "verification": {
+          "audioDurationSeconds": 137.892,
+          "audioPacketsUnchanged": true,
+          "audioStartSeconds": 0,
+          "bytes": 46586932,
+          "durationSeconds": 486.4,
+          "narrationScope": "Approved opening only; remaining footage has no new narration",
+          "originalAudioDurationSeconds": 137.98133333333334,
+          "originalCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+          "originalSamples": 71,
+          "outputCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+          "outputSamples": 275,
+          "video": "AirfieldLens-presentation.mp4"
+        }
+      },
+      "AirfieldLens-presentation-without-voiceover.mp4": {
+        "sha256": "ccbc4442db1e1ec01246861b2379a8fb68e40b4ac4e1c53166a1c0c3bda15d77",
+        "verification": {
+          "durationSeconds": 486.4,
+          "output": "AirfieldLens-presentation-without-voiceover.mp4",
+          "segments": [
+            {
+              "end": 137.9666667,
+              "file": "AirfieldLens-demo-without-voiceover.mp4",
+              "outputStart": 0,
+              "start": 0
+            },
+            {
+              "end": 348.43333333333334,
+              "file": "airfieldlens-presentation-fleet-supplement.mp4",
+              "outputStart": 137.96666666666667,
+              "start": 0
+            }
+          ],
+          "silent": true,
+          "videoPassthrough": true
+        }
+      },
+      "AirfieldLens-walkthrough.mp4": {
+        "sha256": "410c78f37516049e1db0e423c4d6733a77d5b81959f506eaf9ff1c5c7ff3b44f",
+        "verification": {
+          "audioDurationSeconds": 137.892,
+          "audioPacketsUnchanged": true,
+          "audioStartSeconds": 0,
+          "bytes": 171250300,
+          "durationSeconds": 2402.0666666666666,
+          "narrationScope": "Approved opening only; remaining footage has no new narration",
+          "originalAudioDurationSeconds": 137.98133333333334,
+          "originalCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+          "originalSamples": 71,
+          "outputCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+          "outputSamples": 275,
+          "video": "AirfieldLens-walkthrough.mp4"
+        }
+      },
+      "AirfieldLens-walkthrough-without-voiceover.mp4": {
+        "sha256": "a59ce6373b79bffcaa0968097e75f6ec4c36fa3ebf534369b24657a8abe1745b",
+        "verification": {
+          "durationSeconds": 2402.0666666666666,
+          "output": "AirfieldLens-walkthrough-without-voiceover.mp4",
+          "segments": [
+            {
+              "end": 1820.5,
+              "file": "AirfieldLens-demo-without-voiceover.mp4",
+              "outputStart": 0,
+              "start": 0
+            },
+            {
+              "end": 581.5666666666667,
+              "file": "airfieldlens-walkthrough-fleet-supplement.mp4",
+              "outputStart": 1820.5,
+              "start": 0
+            }
+          ],
+          "silent": true,
+          "videoPassthrough": true
+        }
+      }
+    },
+    "sampledFrames": [
+      "credits.png",
+      "driver.png",
+      "fleet-cut-12.png",
+      "fleet-cut-13.png",
+      "fleet-cut-14.png",
+      "fleet-cut-16.png",
+      "fleet-cut-17.png",
+      "fleet-cut-19.png",
+      "fleet-cut-20.png",
+      "fleet-cut-22.png",
+      "fleet-cut-23.png",
+      "opening.png",
+      "typed.png",
+      "walkthrough-end.png",
+      "walkthrough-join.png"
+    ],
+    "observations": [
+      "All nine fleet-cut samples are upright, with readable questions, report summaries and movement labels.",
+      "Sampled answers agree with the actual native audit reviewed above; plans use native recordings, not replacement scripted answers.",
+      "No Person 1/Person 2 names or presenter labels appear in sampled frames or segment titles. This is not exhaustive OCR of every video frame.",
+      "Walkthrough join at 1821 seconds shows A320 title card; frame at 2401 seconds shows final attribution card.",
+      "Sidecars report 486.4-second presentation and 2402.0667-second walkthrough; silent counterparts match duration. Approved opening compressed audio SHA256 matches, starts at zero, and remaining footage has no new narration.",
+      "Typed feedback, external driver card, opening and credits are upright/readable in sampled frames."
+    ],
+    "blockingFindings": []
+  },
+  "supplementalNativeReview": {
+    "scope": "Independent still-image inspection only; root performed app interactions.",
+    "screenshots": [
+      "fleet-rebind-three-portrait.png",
+      "fleet-rebind-four-portrait.png",
+      "fleet-a380-occupancy-overview-positioned.png"
+    ],
+    "observations": [
+      "Portrait layout shows readable three-flight then four-flight chips with assistant controls fitting the view.",
+      "Four-flight regional view retains overlapping map labels, already documented.",
+      "Positioned A380 overview shows TRN101 climbing and TRN102 on the runway; this is separate inspection, not an additional completed run."
+    ],
+    "limits": [
+      "Screenshots alone do not establish every orientation interaction or uninterrupted runtime rebind.",
+      "Physical phone remains unverified by this reviewer."
+    ],
+    "blockingFindings": []
+  }
+}

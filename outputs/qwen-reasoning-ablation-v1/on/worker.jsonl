@@ -1,0 +1,2 @@
+{"event": "worker_started", "recordedAt": 1793801643.424347, "pid": 5495}
+{"event": "worker_stopped", "recordedAt": 1793801672.9106371, "pid": 5495, "exitcode": -15}

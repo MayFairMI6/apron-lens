@@ -1,0 +1,77 @@
+{
+  "video": {
+    "audioDurationSeconds": 139.892,
+    "audioPacketsUnchanged": true,
+    "audioStartSeconds": 0,
+    "bytes": 88711069,
+    "durationSeconds": 1458.4666666666667,
+    "originalAudioDurationSeconds": 137.98133333333334,
+    "originalCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "originalSamples": 71,
+    "outputCompressedAudioSHA256": "e7de3c293981e1c1190eb687ae2ef5f104cfc5ef26cc221c83704acaaa1efb98",
+    "outputSamples": 275,
+    "person2Narration": "pending",
+    "video": "airfieldlens-connected-checkpoint1-person1-audio.mp4"
+  },
+  "segments": {
+    "audioTracks": 0,
+    "bytes": 88053971,
+    "durationSeconds": 1458.4666666666667,
+    "frames": 43422,
+    "height": 590,
+    "segments": [
+      {
+        "brandingOverlay": false,
+        "file": "airfieldlens-final-silent.mp4",
+        "outputEnd": 1422.4666666666667,
+        "outputStart": 0,
+        "sourceEnd": 1422.4666666666667,
+        "sourceStart": 0,
+        "title": "recorded app"
+      },
+      {
+        "brandingOverlay": false,
+        "file": "connected-airport.mp4",
+        "outputEnd": 1426.4666666666667,
+        "outputStart": 1422.4666666666667,
+        "sourceEnd": 4,
+        "sourceStart": 0,
+        "title": "Connected airport setting"
+      },
+      {
+        "brandingOverlay": false,
+        "file": "airfieldlens-connected-rejected-takeoff-native.mp4",
+        "outputEnd": 1452.4666666666667,
+        "outputStart": 1426.4666666666667,
+        "sourceEnd": 178,
+        "sourceStart": 152,
+        "title": "recorded app"
+      },
+      {
+        "brandingOverlay": false,
+        "file": "next-tasks.mp4",
+        "outputEnd": 1458.4666666666667,
+        "outputStart": 1452.4666666666667,
+        "sourceEnd": 6,
+        "sourceStart": 0,
+        "title": "Next learning tasks"
+      }
+    ],
+    "width": 1280
+  },
+  "approvedNarrationInsertionSeconds": 2,
+  "baselineArchive": "airfieldlens-checkpoint1-person1-audio.mp4",
+  "unchangedEarlierCues": true,
+  "newChapterStartSeconds": 1422.4666666666667,
+  "newNativeExcerpt": {
+    "start": 152,
+    "end": 178,
+    "runId": "ec8f4f4dfe661a93a0be"
+  },
+  "finalFramesInspectedSeconds": [
+    1438,
+    1455
+  ],
+  "person2Narration": "pending",
+  "driveFileId": "1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ"
+}

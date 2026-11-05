@@ -1,0 +1,24 @@
+{
+  "version": "discriminative-nli-review-v1",
+  "modelId": "cross-encoder/nli-deberta-v3-small",
+  "modelRevision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+  "device": "cpu",
+  "sourceHashes": {
+    "experiments/typed_nli_review/candidate.py": "f4f86c6958672cd80202d121d96fc31d85466baee6d5b8acbbf8a5f40d332715",
+    "experiments/typed_nli_review/propositions.py": "ae3d3e6756bdb7052689e763da14eb71d08cbe213ca54e159f1ef033bb0e4d78",
+    "scripts/develop_nli_review.py": "a4036135e39e6ceeaa66447d9586f9445cacfa010d2a28cd293f942ebf2ae9f5",
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c"
+  },
+  "caseSource": "outputs/compact-review-development-v2/records.jsonl",
+  "caseSourceSHA256": "b385079d10a6b8ea4bcf1d20e417c3b915184ef87e8ce263a268323ef7d00195",
+  "threshold": 0.8,
+  "labels": [
+    "contradiction",
+    "entailment",
+    "neutral"
+  ],
+  "batchSize": 8,
+  "deadlineSeconds": 55.0,
+  "policy": "Exposed development only. Initial version and at most one documented revision. Six exact delivered matches and zero false credit required before fresh pilot; no retries, no weight training. Threshold is uncalibrated.",
+  "createdAt": 1793754831.322026
+}

@@ -1,0 +1,188 @@
+{
+  "kind": "edited-presentation-video",
+  "applicationCommit": "a9798fc9d607dacc4528be98dd87516cda9d9414",
+  "exercise": "late_arrival",
+  "seed": 17,
+  "driveUrl": "https://drive.google.com/file/d/1LQA8na9VdeyPOaI17TRSGRaEKvPoTakl/view",
+  "video": {
+    "file": "apronlens-combined-demo.mp4",
+    "sha256": "2844b000c92d9521cd5c1e9889edce1826cf668f43297c3d59bf642f9a299287",
+    "audioTracks": 0,
+    "bytes": 87201345,
+    "durationSeconds": 582,
+    "frames": 17399,
+    "height": 1206,
+    "segments": [
+      {
+        "file": "apronlens-heathrow-informed-demo.mp4",
+        "outputEnd": 107,
+        "outputStart": 0,
+        "sourceEnd": 107,
+        "sourceStart": 0,
+        "title": "recorded app"
+      },
+      {
+        "file": "card-birds.mp4",
+        "outputEnd": 110,
+        "outputStart": 107,
+        "sourceEnd": 3,
+        "sourceStart": 0,
+        "title": "Runway wildlife"
+      },
+      {
+        "file": "apronlens-landscape-birds.mp4",
+        "outputEnd": 144.05333333333334,
+        "outputStart": 110,
+        "sourceEnd": 36.053333333333335,
+        "sourceStart": 2,
+        "title": "recorded app"
+      },
+      {
+        "file": "card-flight.mp4",
+        "outputEnd": 146.05333333333334,
+        "outputStart": 144.05333333333334,
+        "sourceEnd": 2,
+        "sourceStart": 0,
+        "title": "Flight circuit"
+      },
+      {
+        "file": "apronlens-heathrow-informed-demo.mp4",
+        "outputEnd": 423.05333333333334,
+        "outputStart": 146.05333333333334,
+        "sourceEnd": 423,
+        "sourceStart": 146,
+        "title": "recorded app"
+      },
+      {
+        "file": "card-baggage.mp4",
+        "outputEnd": 426.05333333333334,
+        "outputStart": 423.05333333333334,
+        "sourceEnd": 3,
+        "sourceStart": 0,
+        "title": "Baggage incident"
+      },
+      {
+        "file": "apronlens-landscape-baggage.mp4",
+        "outputEnd": 502.775,
+        "outputStart": 426.05333333333334,
+        "sourceEnd": 78.72166666666666,
+        "sourceStart": 2,
+        "title": "recorded app"
+      },
+      {
+        "file": "card-debrief.mp4",
+        "outputEnd": 504.775,
+        "outputStart": 502.775,
+        "sourceEnd": 2,
+        "sourceStart": 0,
+        "title": "Toward the debrief"
+      },
+      {
+        "file": "apronlens-heathrow-informed-demo.mp4",
+        "outputEnd": 581.9916666666667,
+        "outputStart": 504.775,
+        "sourceEnd": 507.21666666666664,
+        "sourceStart": 430,
+        "title": "recorded app"
+      }
+    ],
+    "width": 2622
+  },
+  "sources": [
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "sha256": "b2a2442dd4bae076d50b1279467c4e324fdcb5807daffba9bf34f60b047f063c"
+    },
+    {
+      "file": "apronlens-landscape-birds.mp4",
+      "sha256": "e5baa8235d17db2aacd8eb52bac30d029348bed5a5dcafbf604d2327527833cf"
+    },
+    {
+      "file": "apronlens-landscape-baggage.mp4",
+      "sha256": "2d9fb2f3ed5b931e11c0afa59900830c562f854ad43ae29b80cc2dacd86ad399"
+    }
+  ],
+  "newLandscapeResponses": [
+    {
+      "requestId": "c8f4a759321f41ac960d4528d7f08803",
+      "question": "Why is TRN101 holding short of the runway?",
+      "cutoff": 451.0,
+      "accepted": true,
+      "errors": [],
+      "referent": {
+        "aircraftId": "A1",
+        "flightInstance": "TRN101"
+      },
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "latencySeconds": 17.974,
+      "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A1\", \"flightInstance\": \"TRN101\"}, \"claims\": [{\"fact_id\": \"L028:movement_status\", \"value\": \"holding short\", \"status\": \"current\", \"evidence_ids\": [\"L028\"]}, {\"fact_id\": \"L021:movement_condition\", \"value\": \"hold: birds reported on Runway 09; inspection pending\", \"status\": \"current\", \"evidence_ids\": [\"L021\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+      "imageSha256": "4094f32f72f43b92bf3aebd2caaee1d09388dcbebf1ede0ba11369253698cb4d"
+    },
+    {
+      "requestId": "249d955b918d4cb999cfb1b6859cbd56",
+      "question": "Why is TRN102 held near its stand?",
+      "cutoff": 1261.0,
+      "accepted": true,
+      "errors": [],
+      "referent": {
+        "aircraftId": "A2",
+        "flightInstance": "TRN102"
+      },
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "latencySeconds": 13.034,
+      "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A2\", \"flightInstance\": \"TRN102\"}, \"claims\": [{\"fact_id\": \"L048:movement_condition\", \"value\": \"hold: dropped baggage obstructing Stand C service area\", \"status\": \"current\", \"evidence_ids\": [\"L048\"]}, {\"fact_id\": \"L047:baggage_status\", \"value\": \"paused: bags spilled from cart\", \"status\": \"current\", \"evidence_ids\": [\"L047\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+      "imageSha256": "e355595342d8fbd04cdbc9011c5eaf9b8312ca7b43f119927bf4351983ef544c"
+    },
+    {
+      "requestId": "5b4f9cee06fb42fcb4405c2fb7413ac6",
+      "question": "Has TRN102 been released after the baggage was collected?",
+      "cutoff": 1294.0,
+      "accepted": true,
+      "errors": [],
+      "referent": {
+        "aircraftId": "A2",
+        "flightInstance": "TRN102"
+      },
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "latencySeconds": 15.899,
+      "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A2\", \"flightInstance\": \"TRN102\"}, \"claims\": [{\"fact_id\": \"L047:baggage_status\", \"value\": \"paused: bags spilled from cart\", \"status\": \"current\", \"evidence_ids\": [\"L047\"]}, {\"fact_id\": \"L049:movement_condition\", \"value\": \"hold: bags collected; inspection and movement release pending\", \"status\": \"current\", \"evidence_ids\": [\"L049\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [\"L048:movement_condition\"], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+      "imageSha256": "bcb6f9fa40d4540b164a02eb1abb5313502ac6c255d5264e07c6e99ce484f35f"
+    }
+  ],
+  "responseCounts": {
+    "originalRecording": 6,
+    "retainedFromOriginal": 5,
+    "newLandscapeCaptures": 3,
+    "shownAcrossCaptures": 8
+  },
+  "captureMethod": "Native iOS Simulator landscape recordings with explicit authenticated source-time jumps to 442 and 1246 seconds. Each incident window then advances with real requests. Title cards distinguish new captures from original footage.",
+  "claims": {
+    "uninterruptedNewRun": false,
+    "narrationIncluded": false,
+    "person1SpokenScriptChanged": false,
+    "scriptedAnswerSubstitution": false,
+    "newModelBenchmark": false
+  },
+  "person1SpokenScriptSha256": "9e35ddb2aa0ce2df52eee323fdb5134ade95bbdef752257084d77326ddd9643d",
+  "verification": {
+    "containerDurationSeconds": 582,
+    "audioTracks": 0,
+    "resolution": [
+      2622,
+      1206
+    ],
+    "reviewedOutputSeconds": [
+      108,
+      139,
+      349,
+      452,
+      490,
+      581.7
+    ],
+    "visualReview": "Title card, real wildlife/fire/baggage answers, cleanup cutoff and final debrief inspected. Landscape orientation and text readability checked.",
+    "originalStandAndSourcesCueShiftSeconds": 0.05333333333334
+  }
+}

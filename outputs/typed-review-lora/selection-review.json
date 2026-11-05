@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "reviewer": "milestone_ledger_medium",
+  "review_date": "2026-11-03",
+  "accepted": true,
+  "scope": "Completed fixed B05 training and validation-only checkpoint selection; permits frozen paired evaluation, not result acceptance or deployment.",
+  "job": 571259,
+  "job_exit_status": "Root reports COMPLETED exit 0; reviewer inspected downloaded receipts/log, not live scheduler.",
+  "training": {
+    "consecutive_steps": 72,
+    "finite_recorded_losses": true,
+    "finite_gradient_evidence": "Unchanged approved train.py rejects non-finite losses/gradients before each logged optimizer step; reviewer did not execute training.",
+    "trainable_parameters": 1966080,
+    "validation": [
+      {
+        "step": 24,
+        "completion_token_loss": 0.08236424685087018
+      },
+      {
+        "step": 48,
+        "completion_token_loss": 0.005455288917700371
+      },
+      {
+        "step": 72,
+        "completion_token_loss": 0.008497968811224211
+      }
+    ],
+    "selection_rule": "minimum validation completion-token loss; earliest step on ties",
+    "selected": "checkpoint-48",
+    "selected_step": 48
+  },
+  "hash_checks": {
+    "all_eight_current_source_hashes_match_approval_smoke_receipt_and_selection": true,
+    "protocol_and_data_manifest_match": true,
+    "all_three_split_file_hashes_match_without_reading_rows": true,
+    "downloaded_and_publication_receipts_identical": true,
+    "selected_directory_exactly_matches_locked_file_set": true,
+    "selected_files": {
+      "README.md": "7b4006fc734deb18b0419702f7e2883d8197eebda2f149220e5856ddbd1819a3",
+      "adapter_model.safetensors": "8f15eacbffb180af0ff6fd9036adcedb6ae95cac46b86d3b0ccff1727c3063a1",
+      "adapter_config.json": "ba642583332b7ba9bd8429656950fbd1daf24ec9104795d2fca459e4efaeff8d"
+    },
+    "all_checkpoint_files": {
+      "24": {
+        "README.md": "7b4006fc734deb18b0419702f7e2883d8197eebda2f149220e5856ddbd1819a3",
+        "adapter_config.json": "ba642583332b7ba9bd8429656950fbd1daf24ec9104795d2fca459e4efaeff8d",
+        "adapter_model.safetensors": "fab21f4cc005397db49e321e9520ef7cd72fb701d0bbf9cf54ea0cc11ae1d236"
+      },
+      "48": {
+        "README.md": "7b4006fc734deb18b0419702f7e2883d8197eebda2f149220e5856ddbd1819a3",
+        "adapter_config.json": "ba642583332b7ba9bd8429656950fbd1daf24ec9104795d2fca459e4efaeff8d",
+        "adapter_model.safetensors": "8f15eacbffb180af0ff6fd9036adcedb6ae95cac46b86d3b0ccff1727c3063a1"
+      },
+      "72": {
+        "README.md": "7b4006fc734deb18b0419702f7e2883d8197eebda2f149220e5856ddbd1819a3",
+        "adapter_config.json": "ba642583332b7ba9bd8429656950fbd1daf24ec9104795d2fca459e4efaeff8d",
+        "adapter_model.safetensors": "9f9c8164abc0c80b70de38c9e7fc80951ebf9b0b1f8c7c5c665253a3851d6f94"
+      }
+    },
+    "artifacts": {
+      "experiments/typed_review_lora/approval.json": "4f4dc3ff4c039c65f824896bb7843a4a8f95136e7a0597f400ab3ee4b87be175",
+      "outputs/typed-review-lora/full-smoke.json": "d665660c7f6d466f4fcf5a91b7d500d5082d0772694944295633ea742c43aa42",
+      "outputs/typed-review-lora/training-receipt.json": "1b2f4b5d23784e10d60926460912a43216df63240ae52e053c5a3e39db328942",
+      "outputs/typed-review-lora/training-steps.jsonl": "494bb81f6b44f67e7c59b8173c4abf0661fa1749a3e0dd3c42ecab5aa045c2f1",
+      "outputs/typed-review-lora/selection-lock.json": "48285289c976d4469872f6136b4990d74a2bce757ea8f830c1f07df31a3e37fa",
+      "work/typed-review-lora/remote/run-571259.log": "a7baff0bf87f42a01698868abe0e4e513b2c32fadc202465ba51dfaaeac4fd5b"
+    }
+  },
+  "runtime": {
+    "packages": {
+      "torch": "2.7.1+cu118",
+      "transformers": "5.22.1",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0"
+    },
+    "gpu": "NVIDIA TITAN RTX",
+    "cuda": "11.8",
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "quantization": "nf4-double-float16",
+    "attention": "eager",
+    "seed": 17
+  },
+  "runtime_matches_full_smoke": true,
+  "frozen_runner_sha256": "1d09df965fedf0262b861f5b075a2ff8cc7ff48c8ddf63cc2767afc9da3e5dd0",
+  "evaluation_conditions": [
+    "Use the unchanged locked runner/source map, data manifest and checkpoint-48 file hashes.",
+    "Keep the recorded pinned NF4-double/float16, eager, CUDA runtime/package versions; compare evaluation runtime.json with this receipt. Runner records metadata but does not enforce package equality itself.",
+    "Paired original production prompt/strict validator, identical loaded base with adapter disabled/enabled, greedy 900-token budget and alternating arm order; no retries or tuning.",
+    "Root may now run the sealed paired evaluation. Independent semantic explanation/comment review remains required after outputs exist."
+  ],
+  "limits": [
+    "No model calls, remote actions, sealed test-row content or model outputs inspected by reviewer.",
+    "Local approval hash is preserved here; training receipt records approved source/protocol/data values, not the approval-file hash itself.",
+    "Validation loss selection is not proof of semantic benefit, temporal retrieval quality, native compatibility or deployment readiness.",
+    "Production app, prior results and videos remain unchanged."
+  ]
+}

@@ -1,5 +1,9 @@
 # Unity and Android setup
 
+This page covers the historical Android/printed-board application. For the
+current controller-training preview on an Apple Silicon Mac, use the
+[Checkpoint 1 iOS Simulator setup](course/CHECKPOINT1_CURRENT.md).
+
 The application is in `unity/SurfaceSafetyCoach`. GitHub stores the complete
 editable Unity source. Android execution and AR tracking take place on a phone.
 
@@ -28,7 +32,7 @@ Unity, create local settings as needed, and enter your own application license.
    Profile, ARM64/IL2CPP, portrait orientation and OpenGL ES 3.
 5. Build and install, grant camera permission, and scan the measured print.
 
-The [board](../outputs/milestone1/Print-AirportBoard-24x16cm.png) must be printed
+The [board](../media/airport-board.png) must be printed
 at 24 × 16 cm with scaling disabled. Its image target width is 0.24 m. The scene
 contains fictional paths and generic airliners, not type-accurate aircraft or
 validated airport geometry.
@@ -39,7 +43,7 @@ On macOS, specify an editor with Android modules installed:
 
 ```sh
 export UNITY_EDITOR="/path/to/Unity.app/Contents/MacOS/Unity"
-bash scripts/build_milestone1.sh
+bash scripts/build_android.sh
 ```
 
 The original machine's private editor path is used only as a fallback. A teammate
@@ -47,7 +51,7 @@ must set `UNITY_EDITOR`. The editor build helper configures SDK/NDK/JDK paths
 relative to the editor; adapt those paths if your installation layout differs.
 You can also build through Unity's Android Build Profile normally.
 
-Output: `outputs/milestone1/ApronLens-M1.apk` (ignored by Git).
+Output: `ApronLens-M1.apk` in the app output directory (ignored by Git).
 The checked release is version 1.4 / build 5, a development build with local
 HTTP enabled. Use it only with the fictional test data on trusted connections.
 
@@ -69,7 +73,7 @@ Never commit the service token or a Vuforia application license.
 
 Editor entry points:
 
-- `MilestoneBuild.Verify`: deterministic motion, replay, receipt-time and tracking gates.
+- The [replay verifier](../unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/MilestoneBuild.cs): deterministic motion, replay, receipt-time and tracking gates.
 - `CoordinatorUiVerification.Run`: flight scope, source inspection and navigation.
 - `ClaimClientVerification.Run`: value/source support and stale response rejection.
 - `QwenIntegrationVerification.Run`: real service at checkpoints 13 and 14; omit
@@ -100,3 +104,53 @@ Set `AIRFIELD_CHROMIUM` to an existing Chromium/Chrome executable if preferred.
 This renderer opens only the generated local artifact with an isolated headless
 browser. It does not inspect a user's browser tabs. Actual UI pixels come from
 `S24LayoutVerification.Run`; the wrapper does not invent or redraw app content.
+
+
+## iOS Simulator preview
+
+The simulator uses a regular Unity camera and a simulated environment. It can
+exercise replay, selection, details and assistant UI; it does not validate ARKit,
+Vuforia, camera tracking, microphone conversations or physical-device performance.
+The source project's platform settings are preserved by building a disposable copy.
+
+With Unity 6000.2.2f1 plus its matching iOS Support module and Xcode installed:
+
+```sh
+python3 scripts/prepare_ios_simulator.py /absolute/path/to/fresh-ios-project
+APRONLENS_IOS_OUTPUT=/absolute/path/to/ios-export "$UNITY_EDITOR" \
+  -batchmode -quit -projectPath /absolute/path/to/fresh-ios-project \
+  -buildTarget iOS -executeMethod IosSimulatorBuild.Run \
+  -logFile /absolute/path/to/ios-export.log
+python3 scripts/patch_ios_simulator_lifecycle.py /absolute/path/to/ios-export
+xcodebuild -project /absolute/path/to/ios-export/Unity-iPhone.xcodeproj \
+  -scheme Unity-iPhone -configuration Debug -sdk iphonesimulator \
+  -destination 'platform=iOS Simulator,id=YOUR_SIMULATOR_UUID' \
+  -derivedDataPath /absolute/path/to/ios-derived CODE_SIGNING_ALLOWED=NO \
+  OTHER_LDFLAGS='$(inherited) -framework UIKit'
+xcrun simctl install YOUR_SIMULATOR_UUID \
+  /absolute/path/to/ios-derived/Build/Products/Debug-iphonesimulator/ApronLensPreview.app
+xcrun simctl launch YOUR_SIMULATOR_UUID edu.airfieldresearch.apronlens.simulator
+```
+
+The export helper retains dynamically referenced replay shaders. The native
+post-export patch adapts this Unity version to the iOS 27 scene lifecycle and
+lazy keyboard initialization; it is scoped to simulator preview exports. Reapply
+it after each Unity export. This is not a production iOS release configuration.
+Model responses still require configuring the existing service in More → Model
+connection. A successful simulator launch alone does not verify model networking.
+
+
+## Custom Heathrow training scenery
+
+`ApronLens > Rebuild world AR` now assembles a custom Terminal 5-based apron.
+The Terminal 5A model uses FlightGear's official free scenery, with original
+source, license and attribution retained in `Assets/SurfaceSafety/WorldAR/Heathrow`.
+`scripts/convert_heathrow_ac.py` reproduces the OBJ conversion. The apron paving,
+markings, boarding bridges, light masts, tugs and baggage dollies are generated by
+`CustomHeathrowEnvironment.cs`. They are training scenery, not a surveyed replica
+of current Heathrow stands. The existing replay and report data remain simulated.
+
+`WorldArSetup.Check` renders both the phone UI and a landscape overview under
+`work/world-ar`. The scene runs offline and requires no map-provider account.
+The downloaded Sketchfab Heathrow asset was evaluated but is not used: its
+buildings have no material/UV coordinates and it does not meet the close-up goal.

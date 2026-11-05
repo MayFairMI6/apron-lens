@@ -1,0 +1,15 @@
+{"event": "worker_started", "recordedAt": 1793753456.501431, "pid": 7709}
+{"event": "worker_ready", "recordedAt": 1793753475.0113332, "pid": 7709}
+{"event": "worker_request_complete", "recordedAt": 1793753480.3567019, "requestId": "bab33fdb77264de3a984cab41a2a8552", "elapsedSeconds": 5.343826084000284, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753485.541091, "requestId": "feffb6570f7f4735be014ed39c636b8d", "elapsedSeconds": 5.183672832999946, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753490.831143, "requestId": "291245df083345cfb46db6a37e483296", "elapsedSeconds": 5.289144416999989, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753495.426759, "requestId": "48f22ba30fe74dc2aaf15cde30e58ed2", "elapsedSeconds": 4.59318916599932, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753504.960692, "requestId": "d3c97c222e1f4c669b6ed9e5d0eda61a", "elapsedSeconds": 9.532892082999751, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753509.654096, "requestId": "a9ef80c59c414a85afe88a3531e7d68d", "elapsedSeconds": 4.692330709000089, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753514.156917, "requestId": "14686fe9417f4f9f9ea73a49e5a887b6", "elapsedSeconds": 4.500158375000865, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753518.8670468, "requestId": "49e9c345c08840c59fd08b00f47e3c14", "elapsedSeconds": 4.708228333000079, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753524.8743591, "requestId": "de031b02d8454298824595f4f4821a17", "elapsedSeconds": 6.005885707999369, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753529.3770182, "requestId": "72d4453026264b94bdbb2134daf76aa6", "elapsedSeconds": 4.501265957999749, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753534.123289, "requestId": "84171292595043518bc3293988c31365", "elapsedSeconds": 4.745102124999903, "ok": true}
+{"event": "worker_request_complete", "recordedAt": 1793753539.6825302, "requestId": "5336b03f542a439aa3265dff6e2f329f", "elapsedSeconds": 5.557974708000074, "ok": true}
+{"event": "worker_stopped", "recordedAt": 1793753539.9289138, "pid": 7709, "exitcode": -15}

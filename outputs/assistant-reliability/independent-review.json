@@ -1,0 +1,198 @@
+{
+  "recordVersion": 1,
+  "reviewer": "milestone_ledger",
+  "reviewDate": "2026-11-03",
+  "scope": "B04 bounded CURRENT reliability remedies; independent review without new inference or native actions",
+  "disposition": {
+    "B04a": {
+      "accepted": true,
+      "scope": "Ordinary selector v8 and reference-coverage-one-retry-v3; known development failures repaired within inspected evidence",
+      "publication": "pending root commit, CI and GitHub readback"
+    },
+    "B04b": {
+      "accepted": false,
+      "candidatePromoted": false,
+      "status": "Both typed candidates rejected; original published typed reviewer and60-second server wait restored",
+      "originalPathCompatibilityAccepted": true
+    },
+    "B04c": {
+      "startupWarmupAccepted": true,
+      "allTimeoutsResolved": false,
+      "scope": "Synthetic text/image inference gates readiness; arbitrary slow/stuck workers remain unresolved",
+      "publication": "pending root commit, CI and GitHub readback"
+    }
+  },
+  "ordinary": {
+    "results": 72,
+    "actualCalls": 73,
+    "sessions": 12,
+    "knownRegressionV8": {
+      "passed": 24,
+      "total": 24,
+      "calls": 25
+    },
+    "newSameFamilyV5": {
+      "passed": 24,
+      "total": 24,
+      "calls": 24
+    },
+    "newSameFamilyV8": {
+      "passed": 24,
+      "total": 24,
+      "calls": 24
+    },
+    "genuineWrongReferenceRetrySeconds": 14.016,
+    "recordSectionSha256": "d34d41489f5864d5e034eb0be81a080a2eb8c270694ac2773811383445790e58",
+    "reusedPriorIndependentAudit": "ML-039: all72 first/retry prompts, eligible facts, scores, outputs, model and usage checked; full saved runtime replay matched except recomputed latency and declared guard version; all48 v8 displayed answers read",
+    "finalReadback": "Stable72-record hash matches; final48-guard replay retained. No new inference performed.",
+    "newProbeSuperioritySupported": false,
+    "heldOutEvaluation": false
+  },
+  "typedCandidates": {
+    "retryOnly": {
+      "completedCases": 6,
+      "passed": 4,
+      "attempts": 9,
+      "invalidAttempts": 5,
+      "status": "stopped, preserved; two final quotation failures withheld"
+    },
+    "indexed": {
+      "completed": true,
+      "cases": 18,
+      "passedSemanticReview": 15,
+      "actualAttempts": 20,
+      "invalidFirstAttempts": 2,
+      "contractAcceptedFinalReviews": 18,
+      "displayedSemanticFailures": [
+        "false_occupancy: occupant falsely marked met despite explicit opposite occupant assertion",
+        "partial: missing hold statement treated as contradictory implied readiness",
+        "correct_core_with_unsupported_extra: unsupported engine-fire assertion overlooked and supported verdict returned"
+      ],
+      "maxElapsedSeconds": 79.4910155409998,
+      "all20AttemptExpansionAndValidationReplaysMatched": true,
+      "passageIdSelections": 0,
+      "literalQuoteSelections": 59,
+      "emptyQuoteSelections": 1,
+      "causalBenefitFromIdExpansionEstablished": false
+    },
+    "strictValidatorPreserved": true,
+    "originalProductionRestoredByteIdentical": true,
+    "restorationCommit": "a510d7297b664a5c36db1b990034752b1ef71692",
+    "productionReviewTimeoutSeconds": 60,
+    "temporary80SecondBudgetDeployed": false
+  },
+  "native": {
+    "actionsPerformedBy": "root",
+    "reviewerActions": "Read actual audits, validated claims/review, and visually inspected both supplied screenshots; no UI actions or new inference",
+    "startup": {
+      "entryPoint": "production training_app lifespan",
+      "textSeconds": 1.2754282919995603,
+      "imageSeconds": 2.645850333999988,
+      "bothProviderRepliesOk": true,
+      "readyAfterWarmup": "root startup/health receipt; subsequently native answer succeeded",
+      "imageOutput": "B.",
+      "interpretation": "Inference preparation only; image reply is not semantic or perception accuracy evidence",
+      "earlierStartupAudit": "startup-inference.jsonl is a separate earlier measured pair, not asserted to match native-startup timings"
+    },
+    "ordinary": {
+      "accepted": true,
+      "cutoffSeconds": 173.10183715820312,
+      "latencySeconds": 9.263,
+      "attempts": 1,
+      "guardVersion": "reference-coverage-one-retry-v3",
+      "selectedFlight": "TRN102",
+      "imageUsedForInference": true,
+      "claimsChecked": [
+        "L017:movement_condition",
+        "L018:movement_status"
+      ],
+      "unknownChecked": "overall_readiness",
+      "sourceCutoffsValuesStatusesAndEvidenceIdsMatched": true,
+      "screenshot": "native-readiness.png"
+    },
+    "restoredTyped": {
+      "accepted": true,
+      "exercise": "late_arrival",
+      "checkpoint": "check-1",
+      "latencySeconds": 37.49877191700034,
+      "allCriteriaMet": true,
+      "payloadAndExactQuotesRevalidated": true,
+      "stateApplied": true,
+      "screenshot": "native-original-typed.png",
+      "coverage": "One positioned native checkpoint, not a full lesson run"
+    }
+  },
+  "preservation": {
+    "finalSourceHashesMatched": 5,
+    "olderArtifactsMatched": 27,
+    "frozenV5V6MatchPublishedA510": true,
+    "finalSourceHashes": {
+      "backend/training.py": "8883746995a670730d122e86bb5b01f502de1164ce95709209804d808d88a5b9",
+      "backend/training_adapter.py": "edc97663cad9657193f51e51fb99a56ad303a0b051079975f653fb69a5f702c7",
+      "backend/training_turn.py": "a2406c832c3bb3d90ab23f25e88e8d31a80396d140f0012d307099da014c051b",
+      "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+      "backend/training_assessment_candidate.py": "b43b231522e8d8f4d213ca1466db86237454fe8cb32297ffa0140700e98ab9cc"
+    },
+    "sourceArchiveMatchesIndexedLock": true,
+    "postLockChanges": "Final reference-guard narrowing, startup auditing/clock handling and handler error wording are disclosed; candidate ID-over-literal collision priority replays identically on all20 actual attempts. Original executed versions retained."
+  },
+  "validationAttribution": {
+    "independentlyPerformedEarlier": "ML-039 audit, saved runtime replay and seven deterministic reliability checks; earlier bounded concurrency/completeness checks retained",
+    "independentlyPerformedFinal": "All5 source hashes; all27 preserved artifacts; frozen v5/v6 and production typed byte identity; all20 candidate expansions/validations; all18 typed semantics; native ordinary source/value/status/cutoff/unknown checks; restored typed strict validation; two screenshots",
+    "rootReportedFinal": "334 tests passed; frozen research integrity160 records; backbone boundary passed",
+    "fullSuiteRerunByThisReviewer": false
+  },
+  "remainingOpen": [
+    "#60 model semantic errors can survive structural validation",
+    "#61 typed quotation/citation failures",
+    "#62 slow or stuck workers; startup mitigation does not resolve all timeouts",
+    "#59 outside current reliability increment",
+    "#30 member participation and final video submission",
+    "#31 final one-page reflection",
+    "#32 physical smartphone/course acceptance"
+  ],
+  "limits": [
+    "Authored development cases and same-family paraphrases; fixed version order; no independent generalization or learning benchmark",
+    "Native readiness query used selection and image; offline ordinary study used neither; no visual contribution claim",
+    "Final guard is a narrow continuity check with exemptions, not a complete reference resolver",
+    "Candidate semantic failures are displayed errors, not safe withholding or scoring artifacts",
+    "Original typed path remains qualitative and fallible; one compatibility check does not establish grading accuracy",
+    "Not all requested errors resolved; no issue closure is authorized by this acceptance receipt alone",
+    "Publication and new CI are pending; no whole-assignment completion claim"
+  ],
+  "videoChanged": false,
+  "nextAction": "Root publishes the bounded ordinary/startup changes and preserved rejected experiment, retains #60/#61/#62 open, and records final publication/CI readback.",
+  "evidenceSha256": {
+    "outputs/assistant-reliability/RESULTS.md": "3e7ab23b882e33a7af130eb8e0eaea7017bca0c21f9c5950ad9010e763f87d88",
+    "outputs/assistant-reliability/adapter-v7.py.txt": "9fa306a3cc50396650f7a37051f25fb484fee341bbbfcce6db3b3bde1a3b5f31",
+    "outputs/assistant-reliability/adapter-v8.py.txt": "b09077e872d063edb602e49352776bb54e8a16ed4c68cb8ee88b4a7aff7d027f",
+    "outputs/assistant-reliability/final-guard-replay.json": "f545667964b7b4298227e6621d23b55680a837e26395044f96904d08c05e7936",
+    "outputs/assistant-reliability/final-manifest.json": "541b058cd91eb6d06932341514124c1e32bf23f5f4059a422df8d8c42af52582",
+    "outputs/assistant-reliability/indexed-runner-v1.py.txt": "05d03f06b03a81b2245efd48ba15244ebfa683d57655e36932c1636fef62d608",
+    "outputs/assistant-reliability/lock-v1.json": "12e9bb09d16fa126d83059892bfc8c6c0918dc6763b550f1e0e2870472d9a7c1",
+    "outputs/assistant-reliability/lock-v2.json": "183428ce037d95d1898c745d80a42584d579d0f999f8fb7e5014cfde919bd3ff",
+    "outputs/assistant-reliability/native-ordinary.json": "0113ecc3d7d0ee2b98f9e8cdc3699d8efeac97a09e61a800f906c26028b98564",
+    "outputs/assistant-reliability/native-original-typed.json": "cef9b7950e93c9eb9c677e769b27eb6bf249b823d46cac5f9e0f9237f008b3db",
+    "outputs/assistant-reliability/native-original-typed.png": "9203f888dd88a70b31f464be5fc008413a9a174c919b0edd3783d08ae2d91c39",
+    "outputs/assistant-reliability/native-readiness.png": "d4b8bf708db11f5f55a64249161cfe4ab8c240bb2aafd51680ee9a7d0e5f5a13",
+    "outputs/assistant-reliability/native-startup.json": "953c3250930c1e678c99ac929b644f8a7fd65d4045ec5f528c67b790a998c440",
+    "outputs/assistant-reliability/run-v1.json": "282a727237cf04d938065f4a7796aa9621c3bca72408c3e2e5ef4da06dca5ee7",
+    "outputs/assistant-reliability/run-v2.json": "da902d8deab844989f722a06bce678a354f1f9c4e9a64e49ce63c03401c994f3",
+    "outputs/assistant-reliability/runner-v1.py.txt": "ded280811d86e895878b5a6a0795bfc596418e121cbbeec203080a9479e0aa5c",
+    "outputs/assistant-reliability/runner-v2.py.txt": "c75e7d0e4d0729a2c06b7d267a1b1ebaf3feb91c300d9d014a5648a3455ae553",
+    "outputs/assistant-reliability/startup-inference.jsonl": "67ea0fffff9b9bf06eeaca63748cac1df27feb02ec08871c6d9c77e7852ca58b",
+    "outputs/assistant-reliability/summary-v2.json": "2585619f1b108934efa64fcf5e544d0022b0ef0e8f62d5b79d6bf4a9b41c513e",
+    "outputs/assistant-reliability/supplemental-provenance.json": "372da018e203d7040c497deec385cdb7b9567871096800cbb9ac9d8b783ab049",
+    "outputs/assistant-reliability/typed-audit-v2.jsonl": "bee3d1f2beea033b77a681f0a3227077d291f95b2d81127b4859a98f02861df3",
+    "outputs/assistant-reliability/typed-expansion-replay.json": "e9a3422c9b2ddedd211f36620fb07ac3459c70c55793fd533b5034136660b15f",
+    "outputs/assistant-reliability/typed-indexed-audit.jsonl": "f91db5f683a4e40649f884bfef6648faf6546576535a38a73696407a44a0928a",
+    "outputs/assistant-reliability/typed-indexed-v1-source.py.txt": "a8f47e85c82e39c80b6df48757f8faf8a83469fd471fcf36aa5337190c95e843",
+    "outputs/assistant-reliability/typed-indexed-v1.json": "4a2e449750b40c1b6a6e3c33069a26969ec2286e4fb3e075fdb9eba4e24af642",
+    "outputs/assistant-reliability/typed-indexed-v1.lock.json": "a4e7d53de01a6a4d1a733af6124a274aa588e2e903cccef0a1019a2a471f289a",
+    "outputs/assistant-reliability/typed-restoration.json": "14ad3549720916e7925198a4d769f61874a9bf31e233ab00a789e02d2ab727ac",
+    "outputs/assistant-reliability/typed-retry-v1.py.txt": "805c1b80874a23630b1a463c7a3265d3d9055d6087ab806cd7bf6e86bca3ee90",
+    "outputs/assistant-reliability/v5-prompts.jsonl": "7d7b13d4fe06608c535d780b0ef61325aa11cfbef6329aba96baa48fa172ba3c",
+    "outputs/assistant-reliability/v7-prompts.jsonl": "0df04645233767c1c4c6bc35f5dcc55bb987ecf248fcbcd6c9ffa077422a8c87",
+    "outputs/assistant-reliability/v8-prompts.jsonl": "91b114f01691c1e540dd47551fc5916e7caea0686884b966d308a70ad4db2532"
+  }
+}

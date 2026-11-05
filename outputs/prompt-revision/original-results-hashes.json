@@ -1,0 +1,8 @@
+{
+  "outputs/assistant-comparison/RESULTS.md": "a16667e382b41e52ac5468a79e7f13eb3caf623cc8399fcb338722cccd2d56a0",
+  "outputs/assistant-comparison/independent-review.json": "685b6dd8a07cd84e5a9d03143b4082fa464fe7618164ee0fac445c7d8bf9908b",
+  "outputs/assistant-comparison/run-v1-summary.json": "3b963825984847daec4c21aee25487d7e2d9c3b2733074a0bf88dcbcacc05bf2",
+  "outputs/assistant-comparison/run-v1.json": "8356aa83482e7ee13914f4b1f5471cec2d40c6ba4c0d24f8388d6822b9bbea29",
+  "outputs/assistant-comparison/run-v1.prompts.jsonl": "11aa31f9452369aeea00497552139b0e969e86d3ab3be1dfa9d79106667da8ad",
+  "outputs/assistant-comparison/source-manifest.json": "149b7189d46fae4b70e94b7a8410deb39742d7359b06a4a895799b5f431e9a33"
+}

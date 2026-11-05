@@ -1,0 +1,222 @@
+{
+  "change": "Articulated bird flock and dropped-baggage incident in the extended guided story",
+  "baseCommit": "6aad534ee3448ff836e613bdb6f34362172f10ed",
+  "sourceSha256": {
+    "backend/baggage_incident.py": "9b5686d1c33a3224675d1ac003ecfad4e3beb32deccee775c12715f4402fa645",
+    "backend/flight_cycle.py": "7a4551b3419af72cfd549204148a5cd3629818d7f530ae7030f0eca1e9c7fe25",
+    "backend/lessons.py": "7ab43850fae5ee976179e449251dd610432c6edd93f9b2af1b900f32137ef4c4",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/IncidentModels.cs": "9db6c5c359687c666122f13e890184a07ad75505e4c77300f9e701d6c0ed1b13",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingIncidentEffects.cs": "425c6f24b9b82125304158258e88828c1f66c4d886287ed732bad5cb8b93a778",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "e18b221d83bb0e5675b517c32fa1a78f9fe9e75f745c2d8c6e01c19ceb0b40c5",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingRunway.cs": "b99acf42799a398145bc51f16056eb2f04f0c17ac174a02302a970f50c73099e",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "afdb7d9490c1df6c9ee72622df1c686e89e813ae68ff665207a3938ffebe40a7"
+  },
+  "checks": {
+    "backendFullSuite": 226,
+    "backendFinalTargetedSubset": 12,
+    "unity": {
+      "conversation": 12,
+      "incidentVisual": 9,
+      "flight": 17,
+      "traffic": 14
+    },
+    "seededWorlds": 60,
+    "researchIntegrity": "passed: 160 frozen result records",
+    "backboneBoundary": "passed",
+    "nativeSimulatorBuild": "passed",
+    "nativeInstallAndLaunch": "passed"
+  },
+  "runtime": {
+    "platform": "native iOS Simulator",
+    "device": "iPhone 18 Pro",
+    "ios": "27.0",
+    "architecture": "Apple Silicon",
+    "seed": 17,
+    "exercise": "late_arrival",
+    "profile": "demo",
+    "modelRuntime": "apronlens-v2-mps"
+  },
+  "inspection": {
+    "method": "Authenticated local inspection harness selected the wildlife and baggage source-time windows; actual training app/model and ordinary report eligibility were used.",
+    "publishedSeekEndpoint": false,
+    "newUninterruptedHourRun": false,
+    "orientation": "portrait",
+    "sourceWindows": [
+      {
+        "kind": "wildlife",
+        "sourceStart": 442.0,
+        "sourceEnd": 477.1556929579965,
+        "complete": true
+      },
+      {
+        "kind": "baggage_spill",
+        "sourceStart": 1246.0,
+        "sourceEnd": 1325.1626360836672,
+        "complete": true
+      }
+    ],
+    "visualChecks": [
+      "Bird bodies and articulated wings visible; flock travels and disperses",
+      "Tug/cart and spilled bags are on paved service area beside actual Stand C",
+      "Collected bags disappear while movement hold remains",
+      "Area-inspected label arrives before separate ground-release label"
+    ],
+    "developmentRerun": "First baggage clip exposed a stale inspection-pending scene label after the inspection report. Added the missing phase and rerecorded baggage; initial clips/audits retained locally.",
+    "allDevelopmentModelCalls": 5,
+    "allDevelopmentAccepted": 5
+  },
+  "selectedClipModelAnswers": [
+    {
+      "requestId": "cc29f04c5dbf486099bd3089d4e70379",
+      "question": "Why is TRN101 holding short of the runway?",
+      "cutoff": 451.0,
+      "accepted": true,
+      "errors": [],
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "inputTokens": 1248,
+      "outputTokens": 74,
+      "latencySeconds": 14.372,
+      "imageUsedForInference": true,
+      "imageSha256": "623a9c4483ee66f36b4ac1743ca1e479d42f075b325132b01097bfd2ed3cb313",
+      "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A1\", \"flightInstance\": \"TRN101\"}, \"claims\": [{\"fact_id\": \"L028:movement_status\", \"value\": \"holding short\", \"status\": \"current\", \"evidence_ids\": [\"L028\"]}, {\"fact_id\": \"L021:movement_condition\", \"value\": \"hold: birds reported on Runway 09; inspection pending\", \"status\": \"current\", \"evidence_ids\": [\"L021\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Scripted movement: holding short \u2014 current. Event 445 s; received 445.5 s. [L028]\n\nAuthored movement condition: hold: birds reported on Runway 09; inspection pending \u2014 current. Event 445 s; received 446 s. [L021]",
+        "claims": [
+          {
+            "fact_id": "L028:movement_status",
+            "value": "holding short",
+            "status": "current",
+            "evidence_ids": [
+              "L028"
+            ]
+          },
+          {
+            "fact_id": "L021:movement_condition",
+            "value": "hold: birds reported on Runway 09; inspection pending",
+            "status": "current",
+            "evidence_ids": [
+              "L021"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    },
+    {
+      "requestId": "57204424d51f4ee498aa922e54c56c75",
+      "question": "Why is TRN102 held near its stand?",
+      "cutoff": 1261.0,
+      "accepted": true,
+      "errors": [],
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "inputTokens": 1435,
+      "outputTokens": 49,
+      "latencySeconds": 10.191,
+      "imageUsedForInference": true,
+      "imageSha256": "812af153561b69253050430f36774fb048ea6f1e5485ffe9ac324785992a38c5",
+      "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A2\", \"flightInstance\": \"TRN102\"}, \"claims\": [{\"fact_id\": \"L048:movement_condition\", \"value\": \"hold: dropped baggage obstructing Stand C service area\", \"status\": \"current\", \"evidence_ids\": [\"L048\"]}, {\"fact_id\": \"L047:baggage_status\", \"value\": \"paused: bags spilled from cart\", \"status\": \"current\", \"evidence_ids\": [\"L047\"]}], \"unknowns\": [], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Authored movement condition: hold: dropped baggage obstructing Stand C service area \u2014 current. Event 1253 s; received 1254 s. [L048]\n\nBaggage service: paused: bags spilled from cart \u2014 current. Event 1253 s; received 1255 s. [L047]",
+        "claims": [
+          {
+            "fact_id": "L048:movement_condition",
+            "value": "hold: dropped baggage obstructing Stand C service area",
+            "status": "current",
+            "evidence_ids": [
+              "L048"
+            ]
+          },
+          {
+            "fact_id": "L047:baggage_status",
+            "value": "paused: bags spilled from cart",
+            "status": "current",
+            "evidence_ids": [
+              "L047"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    },
+    {
+      "requestId": "e2db95ae1a394f4d9fab12ff9debde68",
+      "question": "Has TRN102 been released after the baggage was collected?",
+      "cutoff": 1294.0,
+      "accepted": true,
+      "errors": [],
+      "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "finishReason": "stop",
+      "inputTokens": 1492,
+      "outputTokens": 61,
+      "latencySeconds": 11.246,
+      "imageUsedForInference": true,
+      "imageSha256": "8427325fad3fdad5f322d76a19b5101f41f7b2ea2bae2430c5d07c0216155155",
+      "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A2\", \"flightInstance\": \"TRN102\"}, \"claims\": [{\"fact_id\": \"L047:baggage_status\", \"value\": \"paused: bags spilled from cart\", \"status\": \"current\", \"evidence_ids\": [\"L047\"]}, {\"fact_id\": \"L049:movement_condition\", \"value\": \"hold: bags collected; inspection and movement release pending\", \"status\": \"current\", \"evidence_ids\": [\"L049\"]}], \"unknowns\": [], \"explanationChanged\": true, \"changesNotDiscussed\": [\"L048:movement_condition\"], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}",
+      "display": {
+        "resultStatus": "answer",
+        "validatorVersion": "conversation-validator-v2",
+        "answer": "Baggage service: paused: bags spilled from cart \u2014 current. Event 1253 s; received 1255 s. [L047]\n\nAuthored movement condition: hold: bags collected; inspection and movement release pending \u2014 current. Event 1289 s; received 1291 s. [L049]\n\nChanged since the previous answer: L048:movement_condition, L049:movement_condition",
+        "claims": [
+          {
+            "fact_id": "L047:baggage_status",
+            "value": "paused: bags spilled from cart",
+            "status": "current",
+            "evidence_ids": [
+              "L047"
+            ]
+          },
+          {
+            "fact_id": "L049:movement_condition",
+            "value": "hold: bags collected; inspection and movement release pending",
+            "status": "current",
+            "evidence_ids": [
+              "L049"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "observations": [],
+        "interpretation": null,
+        "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+      }
+    }
+  ],
+  "clips": [
+    {
+      "file": "apronlens-native-birds.mp4",
+      "seconds": 35.78333333333333,
+      "url": "https://drive.google.com/file/d/1SYnbSSATk0seQag3RE_BlOhaBs5l2hPI/view?usp=drivesdk",
+      "sha256": "9693927f1b42404220fd2d8da37a43b028deed7caef3b421ab7956cbdfc443eb",
+      "bytes": 21010804
+    },
+    {
+      "file": "apronlens-native-baggage.mp4",
+      "seconds": 78.93666666666667,
+      "url": "https://drive.google.com/file/d/1RUNywySOr4fAlU5sD_HKVChr_Jc65-T8/view?usp=drivesdk",
+      "sha256": "ae68f88df9a1204cbd6b72d754444232ca7e6fcccd035887c19ef5163bf5bb18",
+      "bytes": 57241508
+    }
+  ],
+  "limitations": [
+    "This is a targeted native regression, not a new uninterrupted source-hour completion.",
+    "The three scored lesson definitions and frozen M1 results are unchanged.",
+    "Report-supported answers do not establish visual-perception accuracy.",
+    "These original procedural models are illustrative, not photorealistic scanned assets or validated incident physics.",
+    "A physical smartphone and TestFlight have not been verified."
+  ]
+}

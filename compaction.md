@@ -118,3 +118,17 @@ are in `docs/REVIEW_DISPOSITIONS.md`.
 - Review and rewrite the related-work draft (`docs/RELATED_WORK_DRAFT.md`, D-073); run a systematic search before claiming the gap.
 - Adopt backbone 1.1.0 in the compaction repository with the `compaction-gaivi-cuda` profile, as an explicit change there.
 - The user decides whether to commit their own uncommitted work, including the plan PDF and its generator.
+
+
+## Current Checkpoint 1 presentation (2 November)
+
+| ID | Decision | Reason | Where | Status |
+|---|---|---|---|---|
+| D-091 | Native iOS Simulator preview is implemented and verified; physical phone, TestFlight and physical AR remain unverified. Supersedes D-014 and the editor-only portion of D-010/D-090. | User requested native simulator validation for the earlier-due ApronLens checkpoint. | docs/course/CHECKPOINT1_CURRENT.md | active |
+| D-092 | Keep three scored controller lessons. Pilot/turnaround remain debrief perspectives; distinct turnaround handover and visual-evidence evaluation belong to Checkpoint 2, integrated evaluation to Checkpoint 3. Defer separate video-memory work. | User froze the core checkpoint and prioritised ApronLens. | docs/course/CHECKPOINT1_CURRENT.md | active |
+| D-093 | Present requested wildlife, baggage, contact, stand-fire and damaging-landing examples as distinct scenarios with time scaling within each. Preserve source clocks and actual model answers; do not imply a probable chain of events or independent acceptance runs from edited chapters. | User's latest realism/presentation direction. | docs/course/TEAM_RECORDING_PLAN.txt; docs/HEATHROW_SCENARIO_BASIS.txt | active |
+| D-094 | Exactly Person 1 and Person 2, no names. Embed supplied Person 1 audio unchanged; new incident and Heathrow AI narration belongs to Person 2. No assignment duration limit. | User's recording instructions. | docs/course/PERSON2_SCRIPT.txt | active |
+| D-095 | Use a chat-specific compaction.md and local AGENTS.md to preserve scope, evidence, failures and the next action; this does not change automatic platform compaction. | User requested strategic guided compaction for this chat. | Chat workspace compaction.md; current milestone head | active |
+
+| D-096 | Add immediate source-clock rain, snow and late-afternoon → dusk → night visuals, controlled by the external driver. Keep weather-dependent operational tasks in M2 and integrated condition testing in M3. | User explicitly requested immediate environment work and inclusion in the demo. | docs/course/IMPLEMENTATION_DOCKET.md; backend/training_environment.py | active |
+| D-097 | Remove the learner's 3–5-minute estimate and label scenario elapsed time. Guided/continuous remain 3,600 source seconds; short scored practice remains 210 source seconds. Preserve Person 1 speech and add weather footage/cues to Person 2. | Distinguish source time from recording length without claiming a full 24-hour cycle. | TrainingView.cs; docs/course/TEAM_RECORDING_PLAN.txt | active |

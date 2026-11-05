@@ -1,0 +1,55 @@
+"""Append-only B04 development regressions and locked paraphrase generalization checks."""
+import copy,hashlib,json,time,uuid
+from pathlib import Path
+from backend.training_adapter import TrainingAdapter
+from backend.training_adapter_v5 import TrainingAdapter as V5
+from backend.training_turn import run_turn
+from backend.conversation.state import SessionState
+from backend.training_assessment import generate_review
+from backend.training_session import TrainingSession
+from modelaccess.contract import Settings
+from scripts.history_evaluation import new_cases,score_answer
+
+OUT=Path('outputs/assistant-reliability');OUT.mkdir(exist_ok=True)
+PARAPHRASES=[
+ ['For WX410, which movement restriction is reported?','For that same flight, what restriction has arrived so far?', 'Give both the prior restriction and its replacement for that flight.', 'Before the escort report, what restriction applied to it?', 'Contrast the escort condition with the later inspection restriction for it.', 'For that aircraft, is departure readiness confirmed, given the latest restriction?'],
+ ['What stand does ST204 have?','For that flight, list the old stand and its new assignment.', 'Before it received E4, which stand was assigned?', 'For the same flight, report just its current stand.', 'For that same flight, what superseded E4? Cite E4 and its replacement.', 'Switch to ST305: which stand does that flight have?'],
+ ['What do the reports say about completed baggage loading for SV708?', 'For it, compare the initial completion with the reopened loading report.', 'For that flight, give the latest baggage status.', 'For that flight, do we have a report establishing overall readiness yet?', 'What overall readiness is reported for it now?', 'Show its earlier and latest readiness states together.'],
+ ['Give the target off-block estimate for ET111.', 'For it, state the original estimate and the revised one.', 'For that flight, give only the newest estimate.', 'What was its estimate just before 14:25?', 'Change the flight to ET222 and give its estimate.', 'For this flight, list the old estimate and its replacement.']]
+
+def main():
+ path=OUT/'run-v2.json'
+ if path.exists() or (OUT/'lock-v2.json').exists():raise SystemExit('Refusing overwrite')
+ original=new_cases();fresh=copy.deepcopy(original)
+ # New wording and flight identities; deliberately same task families, not an independent scenario benchmark.
+ for ep,questions in zip(fresh,PARAPHRASES):
+  for case,q in zip(ep['cases'],questions):case['question']=q
+  raw=json.dumps(ep)
+  for i,a in enumerate(ep['world']['aircraft']):raw=raw.replace(a['flightInstance'],'NX'+str(510+i+fresh.index(ep)*10))
+  fresh[fresh.index(ep)]=json.loads(raw)
+ files=['backend/training_adapter.py','backend/training_assessment.py','backend/training.py',__file__]
+ preserved={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for folder in ['assistant-comparison','prompt-revision','history-evaluation'] for p in (Path('outputs')/folder).rglob('*') if p.is_file()}
+ (OUT/'lock-v2.json').write_text(json.dumps(dict(regressions=original,fresh=fresh,sourceHashes={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files},preserved=preserved),indent=2)+'\n')
+ adapter=TrainingAdapter('qwen3.5-9b',profile='apronlens-v2-mps',prompt_audit_path=OUT/'v8-prompts.jsonl')
+ start=time.monotonic();adapter.load();settings=Settings(adapter.served_model,768,image_max_side=672)
+ report=dict(loadSeconds=time.monotonic()-start,warmup=adapter.warmup(settings),records=[],typed=[],completed=False)
+ baseline=V5('qwen3.5-9b',profile='apronlens-v2-mps',prompt_audit_path=OUT/'v5-prompts.jsonl');baseline._engine=adapter._engine
+ def save():path.write_text(json.dumps(report,indent=2)+'\n')
+ save()
+ for phase,version,engine,episodes in [('regression','v8',adapter,original),('fresh','v5',baseline,fresh),('fresh','v8',adapter,fresh)]:
+  for ep in episodes:
+   session=SessionState(uuid.uuid4().hex)
+   for i,c in enumerate(ep['cases']):
+    result=run_turn(session,ep['world'],dict(requestId=uuid.uuid4().hex,turnId=str(i),expectedRevision=session.revision,aircraftId=None,flightInstance=None,cutoff=c['cutoff'],question=c['question']),engine,settings)
+    row=dict(phase=phase,version=version,episode=ep['name'],turn=i,case=c,result=result,score=score_answer(result,ep['world'],c));report['records'].append(row);save()
+    print(phase,version,ep['name'],i,row['score']['passed'],flush=True)
+ fixtures=json.loads(Path('tests/fixtures/typed_practice_cases.json').read_text())
+ for c in fixtures['complete']+fixtures['arrival_variations']+fixtures['fog_variations']:
+  session=TrainingSession(17,c['exercise']);session.phase='checkpoint';session.active_probe=int(c['checkpointId'][-1])-1;session.source_time=session.probes[session.active_probe]['at']
+  context,_=session.prepare_response(dict(actionId=uuid.uuid4().hex,runId=session.run_id,revision=session.revision,checkpointId=c['checkpointId'],responseText=c['responseText']))
+  start=time.monotonic();review,error=generate_review(adapter,settings,context,OUT/'typed-audit-v2.jsonl')
+  statuses={p['criterionId']:p['status'] for p in review['points']} if review else {}
+  passed=bool(review) and review['verdict']==c.get('expectedVerdict','supported') and (statuses==c['expectedStatuses'] if 'expectedStatuses' in c else len(statuses)==3 and all(v=='met' for v in statuses.values()))
+  report['typed'].append(dict(case=c,review=review,error=error,elapsedSeconds=time.monotonic()-start,passed=passed));save();print('typed',c['exercise'],c['checkpointId'],passed,flush=True)
+ report['preserved']=all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==h for p,h in preserved.items());report['completed']=True;save()
+if __name__=='__main__':main()

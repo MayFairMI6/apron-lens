@@ -1,0 +1,21 @@
+Current presentation: use TEAM_RECORDING_PLAN.txt and PERSON2_SCRIPT.txt for the approximately 13:25 scenario edit with Person 1 audio. It adds distinct collision/landing cases and uses landscape captures. The portrait supplement and 9:42 combined edit below remain historical source material.
+
+AirfieldLens: birds and baggage recording supplement
+
+These two short clips were recorded from the updated native iOS Simulator app. They supplement the original 8:27 guided video; its timings and two-person narration plan remain usable. The new clips are portrait recordings. Keep the whole phone view visible when editing so the selected flight, report cutoff and answer remain readable.
+
+Birds — 36 seconds
+The flock now has shaped bodies, feathered wings, staggered flapping and gliding, and a dispersal path. At about 00:28 the genuine assistant response is visible: TRN101 is holding short because birds were reported on the runway and inspection is pending. A bird leaving the view does not itself release the runway. The models are illustrative and do not confirm the bird species.
+https://drive.google.com/file/d/1SYnbSSATk0seQag3RE_BlOhaBs5l2hPI/view?usp=drivesdk
+
+Baggage incident — 1 minute 19 seconds
+Show the cart approach and spill near 00:07–00:10, the obstruction answer around 00:28, and the cleanup answer around 01:05. At the end, the scene label changes to Ground hold released after the separate release update. The assistant answer remains labelled with its earlier report cutoff; it does not automatically claim a later fact. The learner can ask again or check Recent reports for newer information.
+https://drive.google.com/file/d/1RUNywySOr4fAlU5sD_HKVChr_Jc65-T8/view?usp=drivesdk
+
+For the two-person edit, place these excerpts in Person 2's incident section. Person 1's workflow and Sources explanation remains unchanged. This short passage can replace part of the existing incident narration:
+
+“The environment changes while the assistant follows the incoming reports. Here, bags fall from a cart beside a parked aircraft, and the movement is held. Later, the bags have been collected, but that alone does not establish permission to move. The assistant still reports the hold because inspection and release were pending at the question's cutoff. Recovery, inspection and movement release arrive as separate updates. This demonstrates why the learner must check what the latest available report actually confirms.”
+
+The footage contains three actual local-model requests: one wildlife question and two baggage questions. All three passed the evidence checks. The questions are triggered automatically by the external driver; their answers were selected by the model from available reports. No scripted answer replaced a failed request. This is functional verification of these requests, not a general model-accuracy result.
+
+The clips were captured using explicit source-time jumps to the two incident windows in a private local inspection harness. Show them as separate recorded excerpts; do not imply that they are a new uninterrupted full-hour acceptance run. That inspection endpoint is not included in the published scenario service. The complete guided profile in the app includes both incidents and now triggers seven automatic questions. The three scored short lessons remain unchanged. Physical-phone AR, evaluated visual reasoning and separate role workflows are not demonstrated by these clips.

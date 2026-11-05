@@ -1,0 +1,224 @@
+{
+  "reviewDate": "2026-11-03",
+  "reviewer": "milestone_ledger; independent of scorer, fixture, runner and reporting implementation",
+  "status": "B03 bounded scorer correction, varied-scenario measurement and report accepted; publication/CI/tracker readback pending root",
+  "scope": "Four authored report-world families, 24 dependent questions per frozen version, current/history/change scoring. Development evaluation, not an independent operational benchmark.",
+  "artifactHashes": {
+    "outputs/history-evaluation/run-v1.json": "39722093becd02dca7a3755ce8a6c3e8dc4d1955558f1815fad03e16b10038e6",
+    "outputs/history-evaluation/run-v1.lock.json": "6269b9c2b67147906da7dbfb815a31984eb78cfabb32370025f403929cc47c08",
+    "outputs/history-evaluation/run-v1.v5.prompts.jsonl": "6f4f425c8dd324e5f84fb731dc2b5e174cd9934d09d71d2d9fb65060c105e05f",
+    "outputs/history-evaluation/run-v1.v6.prompts.jsonl": "9914e924513c57f8783625e87876d772d8bc0ad4e845bd954c1500d9989cb136",
+    "outputs/history-evaluation/run-v1-summary.json": "eeb4aca827d7cc3928e51c6dae7500cb2afe006199fc84d6e2e83ac999af28a5",
+    "outputs/history-evaluation/old-answer-diagnostic.json": "9ee3a8fc0d25c150d96954942e55dc6d87ad28f829295ad3d0a60fe9b639dc70",
+    "outputs/history-evaluation/preservation.json": "7443248a54a1efa34023c1fc45a72aad26da886db6f8e5e1b58b1e9c201726fb",
+    "outputs/history-evaluation/service-restoration.json": "b833f67da703f9626192338a3d9775bbaef8907469f54ef7e56f1ba948e3326f",
+    "outputs/history-evaluation/RESULTS.md": "904b9b74b9a4257abaed0efbc8912b4a8633d2f39b12200cf26df6d636c81b9b",
+    "scripts/history_evaluation.py": "f4afaabf2fbe5ad27e4839ffcafd74b438641d8fac782a07913b5715bb6e22a2",
+    "scripts/evaluate_history_questions.py": "d933363be84199174908338ce99156d2ccf4078d53638ea736a847305e5fd213",
+    "scripts/report_history_questions.py": "242ec8950699ea84750204fc9603c880b4d7f1a11457b77aa993d0a23a3ddfca",
+    "tests/test_history_evaluation.py": "8235366a81ed1310f876672ac81ba99c41488bbe526d1008cabf8862e7e7e904",
+    "docs/course/HISTORY_EVALUATION.md": "b29f310bd3f9486d9707034ab4fa6738aaa2f6b3a7f0a0bc4d40bc036dfc0342",
+    "backend/training_adapter.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_adapter_v5.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_adapter_v6.py": "238107a29f3bcd2c250fd86b45ffcf0662774bcfffb8befd279a02b5bd8f4ea8"
+  },
+  "reviewMethod": {
+    "newModelCalls": 0,
+    "nativeAppOperation": false,
+    "preRun": "Reviewed all worlds/question keys, scorer, tests and runner before inference; twelve tests and additional incorrect-answer probes passed. Pre-run source/world hashes are preserved in ML-036.",
+    "postRun": "Audited every saved result and actual-selector attempt, recomputed scores/summary, checked exact prompts, eligible source pools, expansion, identities, usage and provenance; replayed saved expanded replies through the normal training handler/session/validator without model inference.",
+    "semanticReading": "Read all 48 displayed answers, all four failed raw selector outputs, and the source/cutoff interpretation of the two repeated failure types."
+  },
+  "verified": {
+    "records": 48,
+    "distinctRequests": 48,
+    "actualAttemptRecords": 48,
+    "attemptsPerTurn": 1,
+    "separateHistorySessions": 8,
+    "caseKeysMatch": 48,
+    "scoresRecomputedMatch": 48,
+    "actualPromptsReconstructedMatch": 48,
+    "factPoolsMatchCutoffSnapshots": 48,
+    "expandedProposalsMatchAudit": 48,
+    "fullSavedReplyReplayResultsMatch": 48,
+    "pinnedModelAndUsageMatch": 48,
+    "allValidatorAccepted": true,
+    "summaryRecomputedMatch": true,
+    "preRunWorldAndCaseHashMatches": true,
+    "lockedSourceHashesMatch": 5,
+    "additionalReportingSourceHashesMatch": 2,
+    "originalArtifactsByteIdenticalTo70948a7": 17,
+    "defaultV5AndFrozenV5V6ByteIdenticalTo70948a7": 3,
+    "postHocDiagnosticRowsRecomputedMatch": 2,
+    "targetedTests": "All fourteen history/scoring/diagnostic/reporting tests passed independently.",
+    "maximumSavedLatencySeconds": 6.864,
+    "over35Seconds": 0,
+    "over40Seconds": 0,
+    "usageComplete": true
+  },
+  "results": {
+    "v5": {
+      "passed": 22,
+      "total": 24,
+      "accepted": 24,
+      "byMode": {
+        "current": {
+          "passed": 12,
+          "total": 13
+        },
+        "history": {
+          "passed": 3,
+          "total": 3
+        },
+        "change": {
+          "passed": 7,
+          "total": 8
+        }
+      },
+      "byEpisode": {
+        "weather_route": {
+          "passed": 5,
+          "total": 6
+        },
+        "stand_reassignment": {
+          "passed": 5,
+          "total": 6
+        },
+        "service_withdrawal": {
+          "passed": 6,
+          "total": 6
+        },
+        "estimate_correction": {
+          "passed": 6,
+          "total": 6
+        }
+      },
+      "calls": 24,
+      "retriedTurns": 0,
+      "usage": {
+        "input_tokens": 19594,
+        "known_input_tokens": 19594,
+        "output_tokens": 800,
+        "known_output_tokens": 800
+      },
+      "medianSeconds": 5.53,
+      "over35Seconds": 0,
+      "over40Seconds": 0
+    },
+    "v6": {
+      "passed": 22,
+      "total": 24,
+      "accepted": 24,
+      "byMode": {
+        "current": {
+          "passed": 12,
+          "total": 13
+        },
+        "history": {
+          "passed": 3,
+          "total": 3
+        },
+        "change": {
+          "passed": 7,
+          "total": 8
+        }
+      },
+      "byEpisode": {
+        "weather_route": {
+          "passed": 5,
+          "total": 6
+        },
+        "stand_reassignment": {
+          "passed": 5,
+          "total": 6
+        },
+        "service_withdrawal": {
+          "passed": 6,
+          "total": 6
+        },
+        "estimate_correction": {
+          "passed": 6,
+          "total": 6
+        }
+      },
+      "calls": 24,
+      "retriedTurns": 0,
+      "usage": {
+        "input_tokens": 23002,
+        "known_input_tokens": 23002,
+        "output_tokens": 800,
+        "known_output_tokens": 800
+      },
+      "medianSeconds": 5.532,
+      "over35Seconds": 0,
+      "over40Seconds": 0
+    }
+  },
+  "pairedComparison": {
+    "improvedTurns": 0,
+    "regressedTurns": 0,
+    "finding": "Both versions pass and fail the same question pairs. No superiority is demonstrated."
+  },
+  "failureInterpretation": [
+    {
+      "versions": [
+        "v5",
+        "v6"
+      ],
+      "episode": "weather_route",
+      "turnOneBased": 6,
+      "cutoff": 81,
+      "expected": "WX410 overall_readiness unknown; its current restriction may be included as supporting context.",
+      "observed": "Correct WX410 W3 current route-inspection hold, but unknowns is empty.",
+      "classification": "Omitted requested uncertainty/incomplete semantic answer. The cited restriction is true; this is not a fabricated readiness or departure-clearance assertion.",
+      "implication": "The readiness-focused v6 instruction does not generalize to this new wording/context. Keep the ordinary-assistant semantic limitation open."
+    },
+    {
+      "versions": [
+        "v5",
+        "v6"
+      ],
+      "episode": "stand_reassignment",
+      "turnOneBased": 5,
+      "cutoff": 76,
+      "expected": "History referent K1/ST204: S2 E4 superseded and S3 D18 current.",
+      "observed": "Selector switches to K3/ST406 and returns its real S5 current E4 assignment.",
+      "classification": "Wrong conversational flight and missing required change comparison. Source/citation checks fail relative to expected ST204; the returned S5 citation and value are genuine for ST406, not fabricated.",
+      "followingTurn": "Both versions handle the explicit correction to ST305 on the next question."
+    }
+  ],
+  "scorerCorrection": {
+    "version": "report-question-scorer-v2",
+    "finding": "Declared history/change scope permits correctly labelled relevant superseded evidence while current questions remain strict. Before/after coverage, source values/statuses, identity, scope, uncertainty and receipt eligibility remain required.",
+    "oldDiagnostic": "Only the two known readiness-change answers are rescored post-hoc in a new artifact. Both pass; their original 23/24 primary scores and failed v6 adoption gate remain unchanged.",
+    "limits": "Only current and superseded statuses are covered. This does not verify scheduled, expired, conflicting or unrestricted semantic reasoning."
+  },
+  "decision": {
+    "milestone": "CURRENT / Checkpoint 1, B03",
+    "accepted": "Evaluation-only scoring remedy and the completed new measurement/report, including known failures.",
+    "appDefault": "v5 unchanged; v6 remains unpromoted. No native v6 run or new app scenarios were part of this task.",
+    "nextAction": "Root publication and CI/tracker readback. Scorer issue #71 can close on the bounded remedy after publication checks; semantic issue #60 remains open.",
+    "remainingCourseGates": [
+      "#30 member/video participation and final submission",
+      "#31 factual one-page reflection",
+      "#32 physical smartphone evidence or explicit course acceptance"
+    ]
+  },
+  "serviceRestoration": {
+    "evidence": "outputs/history-evaluation/service-restoration.json",
+    "status": "Root reports health ready with the pinned model and default v5; reviewer read the receipt without querying/restarting the service."
+  },
+  "rootReportedValidation": {
+    "fullSuite": "325 tests passed in 39.221 seconds",
+    "integrity": "160-record research integrity and backbone checks passed",
+    "reviewerReranFullSuite": false
+  },
+  "limits": [
+    "Four dependent authored families and one question set do not establish broad accuracy, SOTA, professional safety or learner benefit.",
+    "Report values are expanded from selected evidence. The experiment measures identity, evidence selection, temporal scope, coverage and uncertainty, not unconstrained prose quality.",
+    "All 48 structural acceptances coexist with four semantic failures; structural validation does not prove that the intended question or flight was answered.",
+    "The versions run in fixed order, so timings are descriptive. Offline execution did not enforce client/driver deadlines, and engine stop reasons remain inferred.",
+    "The new worlds are evaluation fixtures, not Heathrow operational data or implemented application lessons. No images, selected-aircraft cue, graph, training or prompt promotion was added.",
+    "Original result files, frozen research, approved videos and the separate typed-review limitations remain unchanged. No whole-course or physical-phone completion claim is made."
+  ]
+}

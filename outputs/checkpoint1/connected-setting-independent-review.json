@@ -1,0 +1,135 @@
+{
+  "counts": {
+    "road": 264,
+    "pavement": 51,
+    "building": 41,
+    "water": 23,
+    "jet_bridge": 15
+  },
+  "polygonMaximumDifferenceM2": 0,
+  "nonPositiveTriangleCount": 0,
+  "waterSourceChecks": [
+    {
+      "id": "osm-relation-1995967",
+      "holes": 3,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-relation-1996199",
+      "holes": 12,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-relation-1996200",
+      "holes": 1,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959692",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959717",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959819",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959841",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959884",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959890",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147959893",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147980769",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-147981319",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-148093800",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-148093826",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-148093844",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-157319477",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-243046003",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-934484121",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-934484122",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-934486144",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-45061178",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-765645946",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    },
+    {
+      "id": "osm-way-1232756845",
+      "holes": 0,
+      "sourceAreaDifference": 0.0
+    }
+  ],
+  "pavementOutsideOfficialSourceM2": 6.41351272141868e-09,
+  "pavementExclusionOverlapM2": 1.7185905941954702e-07,
+  "pavementOutside85mCropM2": 6.303277522669456e-08,
+  "pavementAreaM2": 278232.5908714845,
+  "routeNewBuildingIntersectionM": 0.0,
+  "routeWaterIntersectionM": 0.0,
+  "errors": []
+}

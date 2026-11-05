@@ -1,0 +1,358 @@
+{
+  "audioTracks": 0,
+  "bytes": 176452048,
+  "durationSeconds": 977.4666666666667,
+  "frames": 29237,
+  "height": 884,
+  "segments": [
+    {
+      "file": "person1.mp4",
+      "outputEnd": 2,
+      "outputStart": 0,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Person 1"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 15.92,
+      "outputStart": 2,
+      "sourceEnd": 13.92,
+      "sourceStart": 0,
+      "title": "recorded app"
+    },
+    {
+      "file": "lessons.mp4",
+      "outputEnd": 28.42,
+      "outputStart": 15.92,
+      "sourceEnd": 12.5,
+      "sourceStart": 0,
+      "title": "Three practice lessons"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 39.38,
+      "outputStart": 28.42,
+      "sourceEnd": 16.96,
+      "sourceStart": 6,
+      "title": "recorded app"
+    },
+    {
+      "file": "learning-flow.mp4",
+      "outputEnd": 54.913333333333334,
+      "outputStart": 39.38,
+      "sourceEnd": 15.533333333333333,
+      "sourceStart": 0,
+      "title": "Briefing \u2192 Practice \u2192 Checkpoints \u2192 Debrief"
+    },
+    {
+      "file": "saved-debrief.mp4",
+      "outputEnd": 62.31333333333333,
+      "outputStart": 54.913333333333334,
+      "sourceEnd": 7.4,
+      "sourceStart": 0,
+      "title": "Saved learner-mode debrief \u00b7 Earlier build"
+    },
+    {
+      "file": "stand.mp4",
+      "outputEnd": 64.91333333333333,
+      "outputStart": 62.31333333333333,
+      "sourceEnd": 2.6,
+      "sourceStart": 0,
+      "title": "Scenario 1 \u00b7 Occupied arrival stand"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 81.49333333333334,
+      "outputStart": 64.91333333333333,
+      "sourceEnd": 68.08,
+      "sourceStart": 51.5,
+      "title": "recorded app"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 97.31333333333333,
+      "outputStart": 81.49333333333334,
+      "sourceEnd": 99.82,
+      "sourceStart": 84,
+      "title": "recorded app"
+    },
+    {
+      "file": "sources.mp4",
+      "outputEnd": 99.31333333333333,
+      "outputStart": 97.31333333333333,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Sources"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 110.47333333333333,
+      "outputStart": 99.31333333333333,
+      "sourceEnd": 392.16,
+      "sourceStart": 381,
+      "title": "recorded app"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 132.89333333333335,
+      "outputStart": 110.47333333333333,
+      "sourceEnd": 106.42,
+      "sourceStart": 84,
+      "title": "recorded app"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 139.95465,
+      "outputStart": 132.89333333333335,
+      "sourceEnd": 22.061333333333,
+      "sourceStart": 15,
+      "title": "recorded app"
+    },
+    {
+      "file": "person2.mp4",
+      "outputEnd": 142.95465,
+      "outputStart": 139.95465,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Person 2"
+    },
+    {
+      "file": "driver.mp4",
+      "outputEnd": 160.95465,
+      "outputStart": 142.95465,
+      "sourceEnd": 18,
+      "sourceStart": 0,
+      "title": "An external service drives the scene"
+    },
+    {
+      "file": "birds.mp4",
+      "outputEnd": 163.95465,
+      "outputStart": 160.95465,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 2 \u00b7 Runway wildlife"
+    },
+    {
+      "file": "apronlens-landscape-birds.mp4",
+      "outputEnd": 198.00796666666668,
+      "outputStart": 163.95465,
+      "sourceEnd": 36.053333333333,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "file": "flight.mp4",
+      "outputEnd": 201.00796666666668,
+      "outputStart": 198.00796666666668,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Flight movement"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 275.0079666666667,
+      "outputStart": 201.00796666666668,
+      "sourceEnd": 220,
+      "sourceStart": 146,
+      "title": "recorded app"
+    },
+    {
+      "file": "approach.mp4",
+      "outputEnd": 277.0079666666667,
+      "outputStart": 275.0079666666667,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Return approach"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 340.0079666666667,
+      "outputStart": 277.0079666666667,
+      "sourceEnd": 323,
+      "sourceStart": 260,
+      "title": "recorded app"
+    },
+    {
+      "file": "bags.mp4",
+      "outputEnd": 343.0079666666667,
+      "outputStart": 340.0079666666667,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 3 \u00b7 Dropped baggage"
+    },
+    {
+      "file": "apronlens-landscape-baggage.mp4",
+      "outputEnd": 419.7296333333333,
+      "outputStart": 343.0079666666667,
+      "sourceEnd": 78.72166666666666,
+      "sourceStart": 2,
+      "title": "recorded app"
+    },
+    {
+      "file": "vehicle.mp4",
+      "outputEnd": 422.7296333333333,
+      "outputStart": 419.7296333333333,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 4 \u00b7 Aircraft\u2013vehicle contact"
+    },
+    {
+      "file": "apronlens-vehicle-collision.mp4",
+      "outputEnd": 514.42295,
+      "outputStart": 422.7296333333333,
+      "sourceEnd": 92.693333333333,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "fire.mp4",
+      "outputEnd": 517.42295,
+      "outputStart": 514.42295,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 5 \u00b7 Fire at the stand"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 556.42295,
+      "outputStart": 517.42295,
+      "sourceEnd": 365,
+      "sourceStart": 326,
+      "title": "recorded app"
+    },
+    {
+      "file": "contained.mp4",
+      "outputEnd": 558.42295,
+      "outputStart": 556.42295,
+      "sourceEnd": 2,
+      "sourceStart": 0,
+      "title": "Later update"
+    },
+    {
+      "file": "apronlens-heathrow-informed-demo.mp4",
+      "outputEnd": 591.42295,
+      "outputStart": 558.42295,
+      "sourceEnd": 423,
+      "sourceStart": 390,
+      "title": "recorded app"
+    },
+    {
+      "file": "landing.mp4",
+      "outputEnd": 594.42295,
+      "outputStart": 591.42295,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Scenario 6 \u00b7 Damaging emergency landing"
+    },
+    {
+      "file": "apronlens-crash-landing.mp4",
+      "outputEnd": 724.5812666666667,
+      "outputStart": 594.42295,
+      "sourceEnd": 131.158333333333,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "weather-rain.mp4",
+      "outputEnd": 727.5812666666667,
+      "outputStart": 724.5812666666667,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Rain \u00b7 Environment preview"
+    },
+    {
+      "file": "apronlens-environment-rain.mp4",
+      "outputEnd": 749.7029333333334,
+      "outputStart": 727.5812666666667,
+      "sourceEnd": 23.121666666666666,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "weather-snow.mp4",
+      "outputEnd": 752.7029333333334,
+      "outputStart": 749.7029333333334,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Snowfall \u00b7 Environment preview"
+    },
+    {
+      "file": "apronlens-environment-snow.mp4",
+      "outputEnd": 774.6279333333333,
+      "outputStart": 752.7029333333334,
+      "sourceEnd": 22.925,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "weather-dusk.mp4",
+      "outputEnd": 777.6279333333333,
+      "outputStart": 774.6279333333333,
+      "sourceEnd": 3,
+      "sourceStart": 0,
+      "title": "Daylight \u2192 dusk \u2192 night \u00b7 Environment preview"
+    },
+    {
+      "file": "apronlens-environment-dusk.mp4",
+      "outputEnd": 897.4446,
+      "outputStart": 777.6279333333333,
+      "sourceEnd": 120.81666666666666,
+      "sourceStart": 1,
+      "title": "recorded app"
+    },
+    {
+      "file": "evaluation.mp4",
+      "outputEnd": 929.4446,
+      "outputStart": 897.4446,
+      "sourceEnd": 32,
+      "sourceStart": 0,
+      "title": "Earlier frozen Milestone 1 evaluation"
+    },
+    {
+      "file": "heathrow-ai.mp4",
+      "outputEnd": 959.4446,
+      "outputStart": 929.4446,
+      "sourceEnd": 30,
+      "sourceStart": 0,
+      "title": "Why visual evidence comes next"
+    },
+    {
+      "file": "next.mp4",
+      "outputEnd": 977.4446,
+      "outputStart": 959.4446,
+      "sourceEnd": 18,
+      "sourceStart": 0,
+      "title": "Next checkpoints"
+    }
+  ],
+  "width": 1920,
+  "person1Audio": {
+    "file": "Audio Message 4.m4a",
+    "sourceSHA256": "757c12235038967ce6990377b73c2236e9d763c42c5c4df45fc9f7961b6db312",
+    "speechStartSeconds": 2,
+    "sourceDurationSeconds": 137.98133333333334,
+    "decodedCorrelation": 0.9999999999999737,
+    "decodedRmsDifference": 1.1091989549072423e-08
+  },
+  "person2Narration": "pending",
+  "finalVideo": {
+    "filename": "apronlens-weather-share-person1-audio.mp4",
+    "sha256": "4ee3a55a10b2521f20d842c34b61cf5147a8cda2b615765f496fc92b0e006339",
+    "bytes": 94224695,
+    "width": 1280,
+    "height": 590,
+    "durationSeconds": 977.4666666666667
+  },
+  "weatherAcceptance": "weather-acceptance.json",
+  "scope": "Selected distinct scenario and visual-condition chapters; not a new uninterrupted acceptance run. Weather clips use private 30x capture profile with question/teaching pauses disabled. Person 1 speech preserved; no new model answers in weather clips.",
+  "historicalVideo": "apronlens-scenarios-person1-audio.mp4 retained unchanged",
+  "exportRevision": "Clearer 1920x884 export after 2622x1206 low-bitrate export softened text; first export preserved locally.",
+  "localHigherQualityVideo": {
+    "filename": "apronlens-weather-hd-person1-audio.mp4",
+    "sha256": "5f7b6c9f0b9ea2c38a0d3e419c9c0aa134dd56fe7c3e0100707eb152691a3755",
+    "bytes": 177107157
+  },
+  "sharingExport": "Re-encoded unchanged 1920x884 picture master at 1280x590, then original speech muxed at 2 seconds. Drive connector rejected 177107157-byte master before invocation because its limit is 104857600 bytes. Higher-quality master preserved locally.",
+  "sharedVideoUrl": "https://drive.google.com/file/d/1uHIweEFSlO4CRb8-VyNM7aZUd4mhsMhQ/view?usp=drivesdk"
+}

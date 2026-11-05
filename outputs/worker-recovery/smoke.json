@@ -1,0 +1,280 @@
+{
+  "initialHealth": {
+    "status": "ready",
+    "provider": "local-backbone",
+    "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "promptVersion": "conversation-prompt-v6",
+    "validatorVersion": "conversation-validator-v2",
+    "scenarios": [
+      "LESSON-4a98e8bf094be3edabb8"
+    ]
+  },
+  "forcedFailure": {
+    "ok": false,
+    "error": "model_worker_TimeoutError",
+    "text": ""
+  },
+  "recoveringHealth": {
+    "status": "starting",
+    "provider": "local-backbone",
+    "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "promptVersion": "conversation-prompt-v6",
+    "validatorVersion": "conversation-validator-v2",
+    "scenarios": [
+      "LESSON-4a98e8bf094be3edabb8"
+    ]
+  },
+  "replacementHealth": {
+    "status": "ready",
+    "provider": "local-backbone",
+    "model": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "promptVersion": "conversation-prompt-v6",
+    "validatorVersion": "conversation-validator-v2",
+    "scenarios": [
+      "LESSON-4a98e8bf094be3edabb8"
+    ]
+  },
+  "typed": {
+    "httpStatus": 200,
+    "elapsed": 34.895124500000065,
+    "state": {
+      "runId": "4a98e8bf094be3edabb8",
+      "revision": 4,
+      "mode": "lesson",
+      "phase": "feedback",
+      "title": "Fog and reported restrictions",
+      "objective": "In this condensed practice exercise, use the reports to distinguish low-visibility procedures, safeguarding and departure clearance.",
+      "exercise": "fog_restrictions",
+      "sourceTime": 60,
+      "rate": 0.0,
+      "nextBoundary": 60,
+      "checkpointNumber": 1,
+      "checkpointCount": 3,
+      "answered": 1,
+      "assessmentMode": "typed",
+      "reviewStatus": "idle",
+      "reviewError": "",
+      "responseText": "Low-visibility procedures and safeguarding are in force. TRN101 remains held; the reports do not clear it to depart.",
+      "targetAircraft": "A1",
+      "checkpoint": null,
+      "feedback": {
+        "kind": "typed",
+        "checkpointId": "check-1",
+        "question": "What low-visibility procedures and safeguarding are reported, and is TRN101 released to depart?",
+        "chosen": "Low-visibility procedures and safeguarding are in force. TRN101 remains held; the reports do not clear it to depart.",
+        "cutoff": 60.0,
+        "reports": [
+          {
+            "aircraftId": "A1",
+            "episodeId": "LESSON-4a98e8bf094be3edabb8",
+            "eventTime": 0.0,
+            "facts": [
+              {
+                "property": "route",
+                "value": "Terminal 3 apron"
+              }
+            ],
+            "flightInstance": "TRN101",
+            "id": "R001",
+            "message": "TRN101 is parked on the Terminal 3 apron.",
+            "receiptTime": 0.0,
+            "source": "exercise-tower"
+          },
+          {
+            "aircraftId": "A1",
+            "episodeId": "LESSON-4a98e8bf094be3edabb8",
+            "eventTime": 0.0,
+            "facts": [
+              {
+                "property": "movement_status",
+                "value": "parked; departure movement not started"
+              }
+            ],
+            "flightInstance": "TRN101",
+            "id": "R002",
+            "message": "TRN101 remains parked. No departure movement has started.",
+            "receiptTime": 0.0,
+            "source": "exercise-tower"
+          },
+          {
+            "aircraftId": "A1",
+            "episodeId": "LESSON-4a98e8bf094be3edabb8",
+            "eventTime": 10.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "value": "hold: safeguarding requested; confirmation pending; departure held"
+              }
+            ],
+            "flightInstance": "TRN101",
+            "id": "R003",
+            "message": "The exercise tower has requested low-visibility safeguarding. Confirmation is pending. TRN101 is held at its stand.",
+            "receiptTime": 11.82833596775965,
+            "source": "exercise-tower"
+          },
+          {
+            "aircraftId": "A1",
+            "episodeId": "LESSON-4a98e8bf094be3edabb8",
+            "eventTime": 20.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "supersedes": [
+                  "R003:movement_condition"
+                ],
+                "value": "hold: low-visibility safeguarding confirmed; departure held"
+              }
+            ],
+            "flightInstance": "TRN101",
+            "id": "R004",
+            "message": "Airside Operations confirms safeguarding in place. TRN101 is held pending a further movement update.",
+            "receiptTime": 21.606847002513632,
+            "source": "exercise-airside-operations"
+          },
+          {
+            "aircraftId": "A1",
+            "episodeId": "LESSON-4a98e8bf094be3edabb8",
+            "eventTime": 35.0,
+            "facts": [
+              {
+                "property": "movement_condition",
+                "supersedes": [
+                  "R004:movement_condition"
+                ],
+                "value": "hold: low-visibility procedures in force; safeguarding remains; departure held"
+              }
+            ],
+            "flightInstance": "TRN101",
+            "id": "R005",
+            "message": "Low-visibility procedures are now in force. Safeguarding remains active and TRN101 is still held.",
+            "receiptTime": 36.73124695255797,
+            "source": "exercise-tower"
+          }
+        ],
+        "verdict": "supported",
+        "explanation": "Response correctly states low-visibility procedures are active and TRN101 remains held without claiming departure clearance.",
+        "points": [
+          {
+            "criterionId": "procedures",
+            "status": "met",
+            "comment": "Learner correctly reports low-visibility procedures are active.",
+            "evidenceIds": [
+              "R005"
+            ],
+            "learnerQuote": "Low-visibility procedures and safeguarding are in force."
+          },
+          {
+            "criterionId": "hold",
+            "status": "met",
+            "comment": "Learner correctly states TRN101 remains held with no clearance.",
+            "evidenceIds": [
+              "R005"
+            ],
+            "learnerQuote": "TRN101 remains held; the reports do not clear it to depart."
+          },
+          {
+            "criterionId": "grounding",
+            "status": "met",
+            "comment": "No unsupported facts or invented clearances found in response.",
+            "evidenceIds": [
+              "R001",
+              "R002",
+              "R003",
+              "R004",
+              "R005"
+            ],
+            "learnerQuote": "TRN101 remains held; the reports do not clear it to depart."
+          }
+        ]
+      },
+      "reviews": [],
+      "demoCue": null,
+      "perspectives": [
+        {
+          "role": "Controller",
+          "text": "In this condensed practice exercise, use the reports to distinguish low-visibility procedures, safeguarding and departure clearance."
+        },
+        {
+          "role": "Pilot",
+          "text": "Review the latest report for your flight and identify what still needs confirmation."
+        },
+        {
+          "role": "Turnaround",
+          "text": "Include active restrictions and outstanding confirmations in the handover."
+        },
+        {
+          "role": "Scenario basis",
+          "text": "Generic aircraft; authored flight paths, elapsed times and report delays. No recovered flight-data trajectory, operational clearance or performance validation. Fog attenuation, event timings and the flight-specific hold are authored. No measured visibility, RVR, operational minima, capacity forecast or current Heathrow procedure compliance is asserted. This short scored practice is separate from the full-hour demonstration. Its timing is fictional."
+        }
+      ],
+      "spotlightId": "",
+      "spotlightAircraft": "",
+      "flightPhase": "parked"
+    }
+  },
+  "ordinary": {
+    "requestId": "ordinary",
+    "turnId": "ordinary",
+    "sessionId": "recovery-ordinary",
+    "cutoff": 60,
+    "accepted": true,
+    "errors": [],
+    "display": {
+      "resultStatus": "answer",
+      "validatorVersion": "conversation-validator-v2",
+      "answer": "Authored movement condition: hold: low-visibility procedures in force; safeguarding remains; departure held \u2014 current. Event 35 s; received 36.7312 s. [R005]\n\nOverall departure readiness: no unambiguous current value in received reports.",
+      "claims": [
+        {
+          "fact_id": "R005:movement_condition",
+          "value": "hold: low-visibility procedures in force; safeguarding remains; departure held",
+          "status": "current",
+          "evidence_ids": [
+            "R005"
+          ]
+        }
+      ],
+      "unknowns": [
+        "overall_readiness"
+      ],
+      "observations": [],
+      "interpretation": null,
+      "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+    },
+    "referent": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+    },
+    "currentReferent": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+    },
+    "changes": [],
+    "imageUsedForInference": false,
+    "provider": "local-backbone",
+    "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "returnedModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "finishReason": "stop",
+    "inputTokens": 945,
+    "outputTokens": 38,
+    "latencySeconds": 5.904,
+    "ignoredSettings": [],
+    "rawJsonValid": true,
+    "repairs": [],
+    "selectionSent": true,
+    "awayIntervals": [],
+    "referentSource": "model",
+    "promptVersion": "conversation-prompt-v6",
+    "referentRule": "referent-rule-v3",
+    "validatorVersion": "conversation-validator-v2",
+    "repairPolicy": "json-repair-v1",
+    "trainingCompletenessPolicy": "reference-coverage-one-retry-v3",
+    "trainingAttemptCount": 1,
+    "trainingEmptyAnswer": false,
+    "trainingSelectionError": null,
+    "trainingKnownInputTokens": 945,
+    "trainingKnownOutputTokens": 38,
+    "revision": 1,
+    "prompt": "You are the conversational assistant of a FICTIONAL airfield replay. Answer the user about one aircraft flight, using only the facts listed below. Return JSON only, no prose or markdown.\nSchema: {\"status\":\"answer|clarify|unknown\",\"referent\":{\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"claims\":[{\"fact_id\":\"ID:property\",\"value\":\"...\",\"status\":\"current|superseded|scheduled|expired|conflicting\",\"evidence_ids\":[\"event ID\"]}],\"unknowns\":[\"property\"],\"explanationChanged\":true|false|null,\"changesNotDiscussed\":[\"fact_id\"],\"memoryUpdate\":{\"kind\":\"reference|correction|scope\",\"aircraftId\":\"...\",\"flightInstance\":\"...\"} or null,\"rationale\":\"one or two sentences\",\"observations\":[]}\nEvery reply has all ten keys. Every claim has all four keys and copies fact_id, value, status and event_id (as the only evidence_ids entry) from one listed fact.\nRules: the referent must be one of the candidate flights, and claims cite only facts listed under the referent flight. A user correction changes the referent and is recorded as a memoryUpdate of kind \"correction\" with the same aircraft and flight as the new referent; it never changes a fact. \"Its next rotation\" means the flight named in nextRotation of the current referent. If the referent flight has a previousAnswer, set explanationChanged to true exactly when its changedSincePreviousAnswer is non-empty, and cite or list in changesNotDiscussed every fact ID in changedSincePreviousAnswer; if it has no previousAnswer, explanationChanged is null and changesNotDiscussed is []. Status: \"answer\" whenever you name one referent flight and reply about it, also when some facts are missing (list their properties in unknowns) or conflicting (cite each conflicting fact with its status). \"clarify\" only when the user's words could mean more than one candidate flight and neither the selection nor the memory decides it; then referent is null and claims is []. \"unknown\" when the referent is clear but no listed fact bears on the question; list the missing properties in unknowns. Unknowns use these properties: stand, baggage_status, fuel_status, tobt, route, movement_status, movement_condition, trajectory_checkpoint, overall_readiness.\nReplay time (receipt cutoff): 60 s. Selected in the app: aircraft A1, flight TRN101. \nNo image is attached; \"observations\" must be [].\nMemory: {\"currentReferent\": {\"aircraftId\": \"A1\", \"flightInstance\": \"TRN101\"}, \"userIntents\": [{\"aircraftId\": \"A1\", \"atReplayTime\": 60, \"flightInstance\": \"TRN101\", \"kind\": \"reference\", \"text\": \"What restrictions apply to TRN101?\"}]}\nCandidate flights and received facts: [{\"aircraftId\": \"A1\", \"facts\": [{\"eventTime\": 0.0, \"event_id\": \"R001\", \"fact_id\": \"R001:route\", \"property\": \"route\", \"receiptTime\": 0.0, \"source\": \"exercise-tower\", \"status\": \"current\", \"value\": \"Terminal 3 apron\"}, {\"eventTime\": 0.0, \"event_id\": \"R002\", \"fact_id\": \"R002:movement_status\", \"property\": \"movement_status\", \"receiptTime\": 0.0, \"source\": \"exercise-tower\", \"status\": \"current\", \"value\": \"parked; departure movement not started\"}, {\"eventTime\": 10.0, \"event_id\": \"R003\", \"fact_id\": \"R003:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 11.82833596775965, \"source\": \"exercise-tower\", \"status\": \"superseded\", \"value\": \"hold: safeguarding requested; confirmation pending; departure held\"}, {\"eventTime\": 20.0, \"event_id\": \"R004\", \"fact_id\": \"R004:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 21.606847002513632, \"source\": \"exercise-airside-operations\", \"status\": \"superseded\", \"value\": \"hold: low-visibility safeguarding confirmed; departure held\"}, {\"eventTime\": 35.0, \"event_id\": \"R005\", \"fact_id\": \"R005:movement_condition\", \"property\": \"movement_condition\", \"receiptTime\": 36.73124695255797, \"source\": \"exercise-tower\", \"status\": \"current\", \"value\": \"hold: low-visibility procedures in force; safeguarding remains; departure held\"}], \"flightInstance\": \"TRN101\", \"nextRotation\": null, \"previousAnswer\": null}]\nUser: What restrictions apply to TRN101?",
+    "rawModelOutput": "{\"status\": \"answer\", \"referent\": {\"aircraftId\": \"A1\", \"flightInstance\": \"TRN101\"}, \"claims\": [{\"fact_id\": \"R005:movement_condition\", \"value\": \"hold: low-visibility procedures in force; safeguarding remains; departure held\", \"status\": \"current\", \"evidence_ids\": [\"R005\"]}], \"unknowns\": [\"overall_readiness\"], \"explanationChanged\": null, \"changesNotDiscussed\": [], \"memoryUpdate\": null, \"rationale\": \"\", \"observations\": []}"
+  }
+}

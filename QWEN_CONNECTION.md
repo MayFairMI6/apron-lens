@@ -26,7 +26,7 @@ The server stays loaded between requests. Stop its process when finished.
 
 ## Android connection when ready
 
-Install `outputs/milestone1/ApronLens-M1.apk` (version 1.4, build 5).
+Install [ApronLens-M1.apk](https://github.com/MayFairMI6/apron-lens/releases/tag/v0.1.1) (version 1.4, build 5).
 Phone tracking and networking still need the deferred physical-device check.
 
 **USB option:** with USB debugging approved, forward the phone's port using
@@ -43,6 +43,13 @@ The bundled adb executable is:
 must permit the connection. This development build uses HTTP, not encrypted
 transport; use only this fictional scenario. The token is stored locally in
 app preferences and is not included in the APK or request logs.
+
+## Scope boundary
+
+This connection implements fixed report queries for an explicitly selected flight
+and checkpoint. The proposed conversational scope adds shared references, user
+corrections and external updates across turns. Hosted APIs and adaptive routing
+remain proposed; see [the research plan](RESEARCH_PLAN.md).
 
 ## What the model receives
 
@@ -145,7 +152,7 @@ its response hash identifies the old answer rather than the new typed output.
 - Real model + Unity HTTP test: run the Unity editor in batch mode with
   `-executeMethod QwenIntegrationVerification.Run` **without `-quit`**, with the
   server already running. The method exits when its asynchronous checks finish.
-- Build Android: `bash scripts/build_milestone1.sh`
+- Build Android: `bash scripts/build_android.sh`
 - Verify package: `.venv-qwen/bin/python scripts/verify_android_build.py`
 
 Results are saved in `outputs/milestone1`: `ui-verification.json`,

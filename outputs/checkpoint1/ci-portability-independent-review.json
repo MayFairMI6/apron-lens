@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "review": "CI portability independent review",
+  "reviewedAtUtc": "2026-11-03T05:14:41.151426+00:00",
+  "conclusion": "No changes recommended for the bounded test/dependency patch. Independent Mac baseline regeneration and focused checks pass; the actual Linux CI rerun is still required.",
+  "scope": "Test fingerprint serialization and CI-only dependency. No app, model prompt, validator, scenario generation, native UI or service changes. No model/native reruns.",
+  "ciFailuresReportedByRoot": {
+    "commit": "af2137b",
+    "runIds": [
+      41582039869,
+      41582034774
+    ],
+    "failures": [
+      "CLI argument-validation test imports uvicorn, absent from requirements-ci.txt.",
+      "Raw rejected_takeoff world digest differs on Linux from the Mac-captured fixture."
+    ],
+    "reviewerDownloadedOriginalCiLogs": false
+  },
+  "normalization": {
+    "function": "tests.test_fog_lesson.fingerprint_bytes",
+    "finiteFloatDecimalPlaces": 9,
+    "gridInStoredUnits": 1e-09,
+    "kilometreCoordinateGridMicrometres": 1,
+    "nominalMaximumCoordinateRoundingMicrometres": 0.5,
+    "signedZeroNormalized": true,
+    "nonFiniteFloatsRejected": true,
+    "allFieldsRetained": true,
+    "listOrderRetained": true,
+    "integerBooleanStringDistinctionsRetained": true,
+    "worldReservationsAndProbesIncluded": true,
+    "limits": "Decimal quantization is not a pairwise absolute-tolerance assertion. Values near a rounding boundary can still produce different hashes; actual Linux CI must confirm the recorded cases. This normalization affects only test serialization, not production geometry, reports or operational accuracy."
+  },
+  "baselineRegeneration": {
+    "baselineCommit": "92fd08bbb1db3f9c89af09a97b711846317ae8db",
+    "currentCommit": "75f025513b021fd8c47bc866bd8dcff12583739c",
+    "source": "Independent isolated archive and subprocess; separately authored recursive normalization; compared complete builder tuples",
+    "worldCases": 8,
+    "seedsPerCase": 20,
+    "rawMatches": true,
+    "normalizedMatches": true,
+    "matchesEverySavedFixture": true,
+    "cases": {
+      "fog_visibility": {
+        "normalized9": "a5aa420ef418fcd7c885ebd6433c0831a800e279c37df0c4d2e120a56f9650df",
+        "raw": "be184b56b1546aa2fdc149a907754db464d9288446d6e44a0ba20f7911a15f38"
+      },
+      "late_arrival": {
+        "normalized9": "38e9b1d4cd683a4159ae4859c7ae60884515a39d13a8b7334a13c567dedd644a",
+        "raw": "3ac63da04cd3873605873440716f995af74604a8f4e145909f7edcf3fcfb045a"
+      },
+      "late_baggage": {
+        "normalized9": "dde2b374fb25d8f87e0b7b1690069a62bf4650ce20e09fefd65a398b590bc429",
+        "raw": "e5a32b37a3955bfebe241a66b4101423b913a11935556d324a355b9852a2120a"
+      },
+      "occupied_runway_go_around": {
+        "normalized9": "e64898e171e1c38e0f478acf0da3d298d7475345b46d3ff83a91b43e4f8bc1d1",
+        "raw": "7a81a73000f9146d25cfd92fd38d3778dbbb3b9ea0a54a9c0761f3aa63d18ab2"
+      },
+      "rejected_takeoff": {
+        "normalized9": "ea8474fa0cb80d015a9d70182cc80a4f6d37362421f8c31704aab87a5b67d9c6",
+        "raw": "b8be159d50f33006f0cbb929c136dba65be4eade7272b6630be0ee81263b4c02"
+      },
+      "runway_incursion": {
+        "normalized9": "1146e65fb998af68e17c7a4f0e5f85d11ec82ae17e168c024015bbfd0cee911c",
+        "raw": "f694f71f3c22a1bae161c3b9dd1d3d096c1c080d6614c61672f7d2766010e269"
+      },
+      "surface_conflict": {
+        "normalized9": "a8daf596c22d37f9706ed8663a93d417a83d3fd1798e1bebec6f9ef013bee3a6",
+        "raw": "065cc6060b3b40590dc6e2a6c63ad032f91c9d8f0e7490090de7b66e59dba57b"
+      },
+      "water_landing": {
+        "normalized9": "71c6c2ac7ba4279073c113919f9c66d7f0561dd8c95f5d82185e9038ad4630ab",
+        "raw": "a345f4c7598d1ac55806881ca41b70f5a7d8802319a69f881fc6a00b03ec36de"
+      }
+    }
+  },
+  "ciDependency": {
+    "added": "uvicorn==0.54.0",
+    "matchesExistingLock": "requirements-qwen.lock.txt:45",
+    "runtimeRequirementChanged": false
+  },
+  "independentTests": {
+    "command": ".venv-candidates/bin/python -m unittest tests.test_fog_lesson.FogLessonTests.test_existing_worlds_match_twenty_seed_prechange_fingerprints tests.test_fog_lesson.FogLessonTests.test_portable_fingerprints_keep_meaningful_world_reservation_and_probe_changes tests.test_fog_lesson.FogLessonTests.test_cli_rejects_conflicting_lesson_options_before_model_load -v",
+    "count": 3,
+    "reportedSeconds": 7.092,
+    "result": "passed",
+    "meaningfulMutationsDetected": [
+      "10-micrometre coordinate displacement",
+      "One-microsecond receipt-time change",
+      "Report message change",
+      "Report fact change",
+      "One-millisecond reservation-end change",
+      "Probe correct-answer change",
+      "Probe evidence-ID change",
+      "Aircraft list order change"
+    ],
+    "toleratedOnlyInTest": "Single-nextafter waypoint perturbation and signed-zero equivalence; finite floats otherwise rounded to the documented grid.",
+    "otherGuards": [
+      "True remains distinct from integer 1",
+      "NaN and positive/negative infinity rejected"
+    ]
+  },
+  "productionSourceHashesUnchangedFromNativeAcceptance": {
+    "backend/training_assessment.py": "5b9d1225af5b8da7a53134d5cf2f1422080909fff592b72039a6b83e7a9dac6c",
+    "backend/training_session.py": "9e995faee5365c7ba0eeb0f562967973b673c3de2b2419c142ca9adde4b9c70f",
+    "backend/training.py": "ce936c656c937e00f5fd645a79c79b4fa192dd263d5e4fc3a7871900a8c31ca8",
+    "backend/fog_lesson.py": "c0020d877ebd814c414d041a1aa2efbfb0011e07d8ea2101a4f984f1151f6764",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "a700c2f245e6cd4c7f4a916fec3d9acf350242e913582d064f8ba62e718731a8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ConversationClient.cs": "471f998d98955fb23d577f6bd992aac2cf07ae10defdf53b4a76741acf2e4203"
+  },
+  "changedFilesSha256": {
+    "requirements-ci.txt": "a590d031ddfbba21c39948ed6cf34d119b015f61820ffff6413ad4025c4477c7",
+    "tests/test_fog_lesson.py": "2aeed28add7e61158bc3b3887a2cfa55ea5574ba24e853dc76d4738ea5a3da74"
+  },
+  "c01TestHashTransition": {
+    "file": "tests/test_fog_lesson.py",
+    "before": "5f448b9a5e7664863b4926da110b5062a4dfcfd36e6a63bcb0d66276c1d7c64a",
+    "after": "2aeed28add7e61158bc3b3887a2cfa55ea5574ba24e853dc76d4738ea5a3da74",
+    "historicalTestRunSnapshotsRewritten": false
+  },
+  "limitations": [
+    "The independent focused run uses the existing local Python 3.12 environment; a clean minimal CI environment run is owned by the implementer.",
+    "No new model semantics, native behavior, performance or geometry acceptance is claimed.",
+    "GitHub Linux rerun remains pending and is not inferred from local success."
+  ],
+  "linuxCiRerunStatus": "pending_root_push_and_github_result",
+  "localPlatform": {
+    "python": "3.12.13",
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "reviewerHarnessCorrections": [
+    "Initial use of system Python lacked tarfile filter support; reran with repository Python 3.12.",
+    "Minimal isolated archive initially omitted modelaccess/evidencekit and training catalog dependencies; added the required tracked files before baseline execution. No scenario-generator changes were made."
+  ],
+  "implementerVerification": {
+    "artifact": "outputs/checkpoint1/ci-portability-repair.json",
+    "sha256": "6f4206948f86b42600dfc94fd30b170cc333c42751da6803ef6bc31de86c7f2f",
+    "cleanCiDependencyEnvironment": "implementer-reported passed",
+    "fullSuite": {
+      "count": 277,
+      "seconds": 29.007
+    },
+    "focusedSuite": {
+      "count": 9,
+      "seconds": 9.269
+    },
+    "researchIntegrityRecords": 160,
+    "backboneBoundary": "passed",
+    "pipCheck": "passed",
+    "independentReviewerReranFullSuite": false,
+    "linuxVerification": "still pending GitHub runner"
+  }
+}

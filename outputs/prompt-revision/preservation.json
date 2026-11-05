@@ -1,0 +1,32 @@
+{
+  "originalResultsByteIdentical": true,
+  "defaultV5ByteIdentical": true,
+  "lockedSources": {
+    "backend/training_adapter.py": {
+      "retainedAt": "backend/training_adapter_v6.py",
+      "sha256": "238107a29f3bcd2c250fd86b45ffcf0662774bcfffb8befd279a02b5bd8f4ea8"
+    },
+    "backend/training_adapter_v5.py": {
+      "retainedAt": "backend/training_adapter_v5.py",
+      "sha256": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695"
+    },
+    "scripts/evaluate_prompt_revision.py": {
+      "retainedAt": "outputs/prompt-revision/runner-at-run.py",
+      "sha256": "2a3f3aaf7bb3638f3dab8184b6431b80532a1d7d75a6e102d8df3f3d3e9d705e"
+    },
+    "scripts/evaluate_training_assistant.py": {
+      "retainedAt": "scripts/evaluate_training_assistant.py",
+      "sha256": "48d3080beb174c6f6701d40f5d6a10f2a4bce2919ba5dac4f8c3cc43bad9d3c6"
+    }
+  },
+  "records": 66,
+  "actualAttempts": 66,
+  "promptRevisions": 1,
+  "promoted": false,
+  "routingChange": "After evaluation, candidate moved byte-for-byte to explicit _v6 module and runner import updated; evaluated runner preserved at runner-at-run.py.",
+  "finalSources": {
+    "scripts/evaluate_prompt_revision.py": "11471ac690e34c203029ffa45481cce47cd04b5efd57d3bd6ba9147932329077",
+    "scripts/report_prompt_revision.py": "810a8c0892557694f3b52e628651b772dda1b5884b80b7491fd6295c3663fff3",
+    "tests/test_prompt_revision.py": "8e5d7a11efbb3d8f19e918e9b7cef4df6412f2341019b88b5c914528a773c3df"
+  }
+}

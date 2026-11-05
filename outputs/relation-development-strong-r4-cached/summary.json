@@ -1,0 +1,18 @@
+{
+  "count": 24,
+  "exact": 19,
+  "delivered": 22,
+  "validCount": 12,
+  "validExact": 11,
+  "falseCredit": [
+    {
+      "index": 1,
+      "criterion": "grounding"
+    }
+  ],
+  "developmentCache": {
+    "hits": 201,
+    "actualPairs": 282,
+    "latencyMeaning": "mixed reuse/inference; not acceptance timing"
+  }
+}

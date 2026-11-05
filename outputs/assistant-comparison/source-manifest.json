@@ -1,0 +1,24 @@
+{
+  "files": {
+    "scripts/evaluate_training_assistant.py": "43f12415307826e135a9b488f2d15992692cd719e0f12dff79ae642155be4959",
+    "backend/training_adapter.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_turn.py": "d155aa0e78c236c61df58eebe88b4a2ab288446c059c847a870d0130ac6061c2",
+    "backend/lessons.py": "cfd467efc9febf2f71ca8e19480aa8e1f7a79d9a2868257423cc03a3776642a2",
+    "backend/conversation/context.py": "21c2425f26ee6caece549fcefc4ce98c9342fbbdd4c4f88b7d604259d6f767c6",
+    "backend/conversation/validate.py": "4b40a8ae6e0c6880e930f9f9af74627cc3ef3888f7763ce8f11443cbae0bbc89",
+    "modelaccess/local_backbone.py": "48a0183f6c9f1bf238a4f725d62a9e8294f16f14ff3120d689059e33727f5e65",
+    "backbone/engine.py": "58e5084578406d925c1215d05ce74e3372d5daac0ab708473aa6eeeac2f5f00c",
+    "tests/test_training_comparison.py": "133ad5462d78ab3a8fd1e9f5c16c8ea23bd7303229b6616fdaefbe1dd360b34d"
+  },
+  "initialStartupFailure": {
+    "environment": ".venv-qwen",
+    "error": "qwen3.5-9b needs transformers 5.2 or later; installed 4.57.6",
+    "inferenceRequests": 0,
+    "remedy": "Used existing .venv-candidates; no dependency or model change"
+  },
+  "runtimeService": "Restored on port8767; authenticated /health returned ready after comparison.",
+  "reportingFiles": {
+    "scripts/report_training_comparison.py": "55a9fa06e8ea48735d2362d2093a50240298cec59bdccb7e132344d5ae59b7ea",
+    "tests/test_training_comparison.py": "c5b2ec362e7c669b08da59cfbe9a480d2ee8876204c9b9d53b894ce6301b4239"
+  }
+}

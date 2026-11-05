@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "labelingBasis": "Independent blind semantic review of the supplied public rubric, receipt-eligible same-episode reports, question and learner response under the frozen R11 contract. No author labels, target balance, candidate output or model inference used.",
+  "sourceSha256": "4bd28653800ad331c3616729e0445e92a87642eea6314b6f142c62ab7c6d2ed0",
+  "ambiguities": [],
+  "cases": [
+    {
+      "index": 1,
+      "expected": {
+        "unknown": "contradicted",
+        "scope": "met",
+        "grounding": "contradicted"
+      },
+      "explanation": "The categorical claim \"definitely not ready\" replaces report-scope unconfirmed readiness with a negative readiness conclusion. The separate statement that service completion and hold release do not establish takeoff clearance is correct."
+    },
+    {
+      "index": 2,
+      "expected": {
+        "delay": "contradicted",
+        "separation": "contradicted",
+        "grounding": "contradicted"
+      },
+      "explanation": "The response substitutes fuel for the reported late baggage batch and reverses the received service states: L014 confirms fuel complete, while L011 baggage delay remains unresolved."
+    },
+    {
+      "index": 3,
+      "expected": {
+        "flight": "contradicted",
+        "reason": "contradicted",
+        "grounding": "contradicted"
+      },
+      "explanation": "L010 identifies TRN102 as held because a service vehicle obstructs its ground route. The response assigns both the specific hold and its obstruction relationship to TRN103; the stated vehicle type alone does not repair the wrong-flight relation."
+    },
+    {
+      "index": 4,
+      "expected": {
+        "unknown": "met",
+        "scope": "met",
+        "grounding": "met"
+      },
+      "explanation": "The response accurately retains the reported service completions and released exercise hold, explicitly leaves overall readiness unconfirmed, and rejects takeoff permission or all departure prerequisites as implications."
+    },
+    {
+      "index": 5,
+      "expected": {
+        "estimate": "met",
+        "scope": "met",
+        "grounding": "met"
+      },
+      "explanation": "10:35 is the latest received estimate in L015. Its source is operations, and the response correctly preserves its estimate status without inferring departure clearance. Reciting the superseded estimate is unnecessary."
+    },
+    {
+      "index": 6,
+      "expected": {
+        "availability": "met",
+        "release": "met",
+        "grounding": "contradicted"
+      },
+      "explanation": "L016 supports Stand B availability for TRN103 and its exercise ground-hold release. The added claim \"Fuel and baggage service are also complete for TRN103\" has no eligible supporting report."
+    },
+    {
+      "index": 7,
+      "expected": {
+        "procedures": "met",
+        "hold": "contradicted",
+        "grounding": "contradicted"
+      },
+      "explanation": "R005 supports active low-visibility procedures and safeguarding. The held aircraft in these reports is TRN101; assigning the held state and clearance account to TRN102 is an unsupported wrong-flight attribution."
+    },
+    {
+      "index": 8,
+      "expected": {
+        "confirmation": "met",
+        "authority": "contradicted",
+        "grounding": "contradicted"
+      },
+      "explanation": "R008 confirms safeguarding cancellation by Airside Operations and that TRN101 remains parked. It leaves clearance unconfirmed; \"departure clearance has been denied\" asserts an unsupported denial."
+    },
+    {
+      "index": 9,
+      "expected": {
+        "estimate": "contradicted",
+        "scope": "met",
+        "grounding": "contradicted"
+      },
+      "explanation": "L015 supersedes 10:20 with 10:35, contradicting the claimed latest value. The response separately and correctly treats the target off-block estimate as an estimate that does not establish clearance."
+    },
+    {
+      "index": 10,
+      "expected": {
+        "flight": "met",
+        "reason": "met",
+        "grounding": "met"
+      },
+      "explanation": "L010 supports the identified held flight TRN102 and the service vehicle obstructing its ground route. The terse answer preserves the relevant flight-obstruction relationship."
+    },
+    {
+      "index": 11,
+      "expected": {
+        "delay": "met",
+        "separation": "met",
+        "grounding": "met"
+      },
+      "explanation": "The answer identifies the late baggage batch for TRN102 and correctly separates the L014 fuel completion from the unresolved baggage-loading delay."
+    },
+    {
+      "index": 12,
+      "expected": {
+        "release": "met",
+        "change": "met",
+        "grounding": "met"
+      },
+      "explanation": "L011 is a ground-control report stating the vehicle is clear and TRN102 exercise ground hold is released. The answer correctly connects the change to the release and attributes the report to its source."
+    },
+    {
+      "index": 13,
+      "expected": {
+        "delay": "met",
+        "separation": "met",
+        "grounding": "contradicted"
+      },
+      "explanation": "The core late-baggage delay and separation of completed fuel from unresolved baggage for TRN102 are supported. \"The same fuel completion also applies to TRN101\" adds an unsupported other-flight service claim."
+    },
+    {
+      "index": 14,
+      "expected": {
+        "availability": "met",
+        "release": "met",
+        "grounding": "met"
+      },
+      "explanation": "L016 from stand-planning confirms B available to TRN103 and releases its exercise ground hold. The answer accurately connects these facts and rejects takeoff authority as an implication."
+    },
+    {
+      "index": 15,
+      "expected": {
+        "partial_cancellation": "met",
+        "hold": "met",
+        "grounding": "contradicted"
+      },
+      "explanation": "R006 supports cancelled low-visibility procedures, continuing safeguarding and TRN101 hold, with no clearance established. The added assertion that TRN101 must have completed fuel and baggage service is unsupported."
+    },
+    {
+      "index": 16,
+      "expected": {
+        "partial_cancellation": "met",
+        "hold": "met",
+        "grounding": "met"
+      },
+      "explanation": "The answer accurately distinguishes cancelled low-visibility procedures from continuing safeguarding and retains TRN101 hold without inferring departure clearance from cancellation."
+    },
+    {
+      "index": 17,
+      "expected": {
+        "delay": "met",
+        "separation": "met",
+        "grounding": "met"
+      },
+      "explanation": "Ground-handling reports L011 and L014 support the late baggage delay and fuel completion. The explicit self-correction replaces the initial fuel-in-progress phrase with the supported completed state; the final account separates it from unresolved baggage."
+    },
+    {
+      "index": 18,
+      "expected": {
+        "flight": "met",
+        "occupant": "met",
+        "grounding": "met"
+      },
+      "explanation": "L010 from stand-planning supports TRN103 waiting for Stand B and TRN102 occupying B. Waiting for the resource does not assert TRN103 is already there; the source attribution is also supported."
+    },
+    {
+      "index": 19,
+      "expected": {
+        "confirmation": "met",
+        "authority": "met",
+        "grounding": "met"
+      },
+      "explanation": "R008 confirms safeguarding cancellation after the earlier pending request. TRN101 remains parked and clearance remains unconfirmed; the answer correctly limits the cancellation significance."
+    },
+    {
+      "index": 20,
+      "expected": {
+        "release": "met",
+        "change": "met",
+        "grounding": "contradicted"
+      },
+      "explanation": "L011 supports the released TRN102 exercise hold and its connection to the cleared vehicle. \"Ground handling issued this release\" incorrectly attributes a ground-control report to ground handling."
+    },
+    {
+      "index": 21,
+      "expected": {
+        "procedures": "met",
+        "hold": "met",
+        "grounding": "met"
+      },
+      "explanation": "R005 supports low-visibility procedures in force, active safeguarding, and TRN101 still held. The answer correctly states that no departure clearance is established by the received reports."
+    },
+    {
+      "index": 22,
+      "expected": {
+        "unknown": "met",
+        "scope": "met",
+        "grounding": "met"
+      },
+      "explanation": "The answer explicitly leaves takeoff permission unconfirmed and distinguishes that permission from the supported exercise ground-hold release. It adds no unsupported authority."
+    },
+    {
+      "index": 23,
+      "expected": {
+        "availability": "contradicted",
+        "plan": "contradicted",
+        "grounding": "contradicted"
+      },
+      "explanation": "L011 explicitly says Stand B is not yet confirmed available. The response asserts it is definitely free and treats a planned reposition as confirmation; subsequent pushback and apron taxi reports do not establish stand availability."
+    },
+    {
+      "index": 24,
+      "expected": {
+        "flight": "met",
+        "occupant": "missing",
+        "grounding": "met"
+      },
+      "explanation": "L010 supports TRN103 waiting for Stand B. The response omits the requested occupying aircraft TRN102, but its sole stated claim is grounded and waiting for B does not assert present occupancy."
+    }
+  ]
+}

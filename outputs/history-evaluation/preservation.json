@@ -1,0 +1,12 @@
+{
+  "lockedSourcesUnchanged": true,
+  "originalArtifactsUnchanged": 17,
+  "records": 48,
+  "actualAttempts": 48,
+  "defaultPrompt": "training-evidence-selector-v5",
+  "promoted": false,
+  "additionalSources": {
+    "scripts/report_history_questions.py": "242ec8950699ea84750204fc9603c880b4d7f1a11457b77aa993d0a23a3ddfca",
+    "tests/test_history_evaluation.py": "8235366a81ed1310f876672ac81ba99c41488bbe526d1008cabf8862e7e7e904"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "version": "learner-only-contrast-inputs-v1",
+    "purpose": "Twelve authored exposed-development learner texts in six paired contrasts, not a held-out reserve.",
+    "annotationFile": "docs/course/TYPED_QWEN_CONTRAST_REFERENCES_V1.json",
+    "runtimeInputBoundary": "Only each case.learnerResponse enters the extractor; ids and metadata are bookkeeping.",
+    "executionBoundary": "Preparation only; no contrast inference until initial qualification and independent review.",
+    "annotationSHA256": "2a29304d224ff074d4a2e16812bcdef3c914af4666a3ed1114a4d7ea715baa70"
+  },
+  "cases": [
+    {
+      "id": "contrast-01a",
+      "learnerResponse": "TRN417—sorry, TRN628—is waiting for Stand D."
+    },
+    {
+      "id": "contrast-01b",
+      "learnerResponse": "TRN417 is not waiting for Stand D; TRN628 is."
+    },
+    {
+      "id": "contrast-02a",
+      "learnerResponse": "Of TRN417 and TRN628, one occupies Stand D; the other waits for that stand."
+    },
+    {
+      "id": "contrast-02b",
+      "learnerResponse": "TRN628 occupies Stand D; TRN417 waits for that stand."
+    },
+    {
+      "id": "contrast-03a",
+      "learnerResponse": "Takeoff permission for TRN417? Still unconfirmed."
+    },
+    {
+      "id": "contrast-03b",
+      "learnerResponse": "Takeoff permission for TRN417 has been refused."
+    },
+    {
+      "id": "contrast-04a",
+      "learnerResponse": "Stand planning expects Stand D to be vacated after TRN417 moves."
+    },
+    {
+      "id": "contrast-04b",
+      "learnerResponse": "Stand planning confirms Stand D has been vacated by TRN417."
+    },
+    {
+      "id": "contrast-05a",
+      "learnerResponse": "TRN417: fuel finished; no confirmation yet that its bags are loaded."
+    },
+    {
+      "id": "contrast-05b",
+      "learnerResponse": "TRN417: bags loaded; no confirmation yet of overall departure readiness."
+    },
+    {
+      "id": "contrast-06a",
+      "learnerResponse": "Ramp Control says that if TRN628 is repositioned, Stand E will become vacant."
+    },
+    {
+      "id": "contrast-06b",
+      "learnerResponse": "Ramp Control says TRN628 has been repositioned and Stand E is now vacant."
+    }
+  ]
+}

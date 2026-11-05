@@ -1,0 +1,13 @@
+# Third reserve provenance and blind labeling handoff
+
+This reserve was independently authored from the public R11 contract, criterion rubric, lesson builders and received report payloads. It remains provisional until independent blind labeling and adjudication. No model inference was run. Existing files were preserved.
+
+The author artifact contains executable review payloads, proposed criterion labels and author notes. It must remain withheld from the independent labeler. Give the labeler only `fresh-v3-blind.json` and the frozen R11 contract. The blind artifact contains only schema version, shuffled neutral numeric indexes and public payloads. It carries no proposed labels, author notes, coverage tags or suggestive case identifiers.
+
+For strict label-key removal, the public rubric key `payload.criteria[].expected` is reversibly renamed to `payload.criteria[].meaning` in the blind artifact. Its text is unchanged. All other payload content is identical between corresponding indexes. The independent labeler should derive `expectedStatuses` by criterion ID from these meanings and eligible reports, without opening the author artifact. Renaming `meaning` back to `expected` restores the executable public payload schema.
+
+The contract was reread after its pre-labeling span-binding clarification: quotes follow ascending learner-source position, repeated occurrences bind at the earliest available nonoverlapping position, identical strings cannot repeat per point, and the existing three-by-160 bound limits total text to 480 characters. This clarification changes no proposed semantic labels. Its exact SHA-256 is recorded in the author artifact.
+
+Author source reads were restricted to docs/course/TYPED_REVIEW_R11_CONTRACT.md, backend/training_assessment.py, the public payload construction lines of backend/training_session.py, backend/traffic.py (report/builder references), backend/lessons.py, backend/fog_lesson.py, backend/runway_scenarios.py (fog report references only), and scripts/run_relation_review.py (input schema only). Public lesson generation used backend.lessons.build_lesson with seed 731 and the rubric/question functions, without model calls. No prior fixture, implementation experiment, output, acceptance report, failure analysis or agent note was read.
+
+Coverage was authored to exercise supplied failure-style categories and is not a population sample. Count and balance checks, public criterion reference eligibility, same-episode receipt cutoffs, the 1200-character learner bound, blind key absence and exact reversible payload equality were checked locally. This author does not implement or qualify candidates.

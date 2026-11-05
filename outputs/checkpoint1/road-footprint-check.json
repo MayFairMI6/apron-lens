@@ -1,0 +1,14 @@
+{
+  "mapVersion": 2,
+  "features": 850,
+  "routePoints": 329,
+  "footprintSamples": 4000,
+  "envelopeMetres": [
+    5.26,
+    2.16
+  ],
+  "offPavementSamples": 0,
+  "maxOffPavementAreaM2": 0.0,
+  "periodSeconds": 348.82125152545865,
+  "minimumSegmentMetres": 0.001960867155133883
+}

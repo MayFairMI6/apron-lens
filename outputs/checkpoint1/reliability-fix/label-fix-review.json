@@ -1,0 +1,54 @@
+{
+  "issue": "https://github.com/MayFairMI6/apron-lens/issues/69",
+  "reviewer": "procedure_reference independent reference/review agent",
+  "status": "Independent static, Editor-log and sampled native landscape/portrait review passed.",
+  "sourceHashes": {
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "fbd6b8b0827d4d1369def62aeb23d8266af2f13a4bc047b568302cdeeabc0184",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingLabelLayout.cs": "c95d5309592be89fc096c2a8db818ccb152abafa873ca7694e46bdc25ca5fb43",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/TrainingLabelVerification.cs": "b969fda8fd0a33b3db56d1a99ed39dd57a49649b0597144588ab938fc4816fb5"
+  },
+  "reviewed": [
+    "Canvas-local full-rectangle placement is bounded to scene space excluding controls, attribution, phase bar and assistant panel.",
+    "Selected aircraft is placed first, then spotlight, exercise target and stable aircraft index.",
+    "Seven bounded candidate offsets, shared aircraft/vehicle collision rectangles, and previous-slot retention avoid unbounded search and ordinary overlap.",
+    "Connectors do not intercept taps; labels retain selection callbacks.",
+    "Layout slot lists reset on rebuild; hidden/missing aircraft and behind-camera projections disable labels/connectors.",
+    "Test code covers clustered four-aircraft layouts in landscape/portrait safe bounds, small-pan slot stability, vehicle collision checks, edge clamps, packed-view hiding and separated positions. Execution is not claimed yet."
+  ],
+  "findings": [
+    {
+      "severity": "blocking before correction",
+      "symptom": "Hidden tag child Text lookup could return null after PlaceTag disabled the tag.",
+      "remedy": "Use GetComponentInChildren<Text>(true) for label text update.",
+      "verification": "Corrected includeInactive lookup independently re-read; Editor verification passed and native screenshots render labels in both orientations.",
+      "status": "static correction verified"
+    }
+  ],
+  "limitations": [
+    "Previously displaced labels intentionally retain a valid slot while zooming; they do not automatically return to anchor slot.",
+    "Finite seven-slot search can hide lower-priority labels even if distant space is free; selected flight is prioritized.",
+    "Screenshots do not establish every intermediate pan/zoom frame; root reports selection, zoom and orientation interactions. No physical-device or whole-milestone claim."
+  ],
+  "nativeReview": {
+    "scope": "Two native simulator screenshots independently inspected; interaction sequence performed by root, not repeated by reviewer.",
+    "screenshots": {
+      "label-fix-landscape-region.png": "f229d01b74567fe936b878adc3ff84071d1ccd0c777ce2d55ecbd0f5c177e62b",
+      "label-fix-portrait-region.png": "d8b36d06f54336b0b6649e6f49869522bff64fea2bb29b9ba1009209058d42c1"
+    },
+    "observations": [
+      "All four aircraft labels are separated and readable in both landscape and portrait regional views.",
+      "Selected TRN101 in landscape and TRN104 in portrait are highlighted; connector lines associate displaced labels with positions.",
+      "Labels remain within scene bounds and clear of camera controls, phase strip and assistant controls.",
+      "Portrait assistant selected-flight heading and prompt show TRN104, consistent with the selected tag."
+    ],
+    "blockingFindings": []
+  },
+  "executionEvidence": {
+    "log": "work/label-fix-export.log",
+    "independentlyReadMarkers": [
+      "line 385 TRAINING_LABEL_CHECKS_PASS",
+      "line 6910 IOS_SIMULATOR_EXPORT_PASS"
+    ],
+    "xcodeBuild": "BUILD SUCCEEDED reported by root; not independently re-read in this review"
+  }
+}

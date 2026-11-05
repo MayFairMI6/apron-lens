@@ -1,0 +1,14 @@
+W1103 19:15:35.091000 5244 .venv-candidates/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<13:41,  1.08s/it]Loading weights:  27%|██▋       | 205/760 [00:01<00:02, 232.15it/s]Loading weights:  40%|███▉      | 302/760 [00:01<00:01, 252.20it/s]Loading weights:  48%|████▊     | 368/760 [00:04<00:06, 64.06it/s] Loading weights:  54%|█████▍    | 409/760 [00:05<00:05, 61.78it/s]Loading weights:  57%|█████▊    | 437/760 [00:05<00:05, 60.03it/s]Loading weights: 100%|██████████| 760/760 [00:05<00:00, 128.52it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+0 exact True error None
+1 exact True error None
+2 exact False error None
+3 exact False error unit review schema
+4 exact False error ineligible evidence
+5 exact False error ineligible evidence
+/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

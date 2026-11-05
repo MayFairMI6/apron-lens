@@ -1,5 +1,10 @@
 # Course checkpoint 1: simulated AR demo and video plan
 
+Historical Unity-editor walkthrough. The current controller-focused iOS Simulator
+demo supersedes this recording plan. Use [current setup](CHECKPOINT1_CURRENT.md)
+and the [current presenter guide](CHECKPOINT1_PRESENTER_GUIDE.txt). The old
+controls and recording timings below do not describe the current guided run.
+
 Everything runs on the Mac, in Unity, with no printed board and no physical
 device (ledger D-090). The app runs as an AR app in AR Foundation's XR
 Simulation:

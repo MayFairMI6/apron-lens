@@ -1,0 +1,364 @@
+{
+  "scope": "Saved source and current geography verification; not a live renderer check",
+  "checkedUTC": "2026-11-04T00:12:53.032994+00:00",
+  "geographyPath": "/Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/data/geography/heathrow-west.json",
+  "geographySHA256": "5081a359bfcb2b09c189e5714be160c3e8ccaab513b41800a416acb7369c689d",
+  "sources": [
+    {
+      "path": "/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/work/runway-extension/wraysbury-osm.xml",
+      "sha256": "d7d2b838866b0b689422c77bc67e1e2f21b96404c3245bcd5a33bd04e3406102",
+      "matchesDeclaration": true
+    },
+    {
+      "path": "/Users/mayfairmi6/Documents/Codex/2026-11-01/is-there-a-voice-api-model/work/runway-extension/runways-osm.xml",
+      "sha256": "5d80b65227180f4301c35bcdbacedc429521426fc52d04dd6d5e59cad7211c74",
+      "matchesDeclaration": true
+    }
+  ],
+  "waterFeatureCount": 24,
+  "waterChecks": [
+    {
+      "id": "osm-way-147855503",
+      "name": "Wraysbury Reservoir",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5308.555450748479,
+        -2097.4394399210255,
+        -3889.819070732682,
+        109.29364436197257
+      ]
+    },
+    {
+      "id": "osm-relation-1995967",
+      "name": "Mapped waterbody",
+      "holes": 3,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6492.438123675188,
+        -598.029380511493,
+        -5553.334992859649,
+        214.88449255156203
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-relation-1996199",
+      "name": "Mapped waterbody",
+      "holes": 12,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6561.302500360136,
+        -2067.33893170164,
+        -5602.105268079794,
+        -1339.7450437017408
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-relation-1996200",
+      "name": "Mapped waterbody",
+      "holes": 1,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6538.022157366961,
+        -2500.2880960986827,
+        -5946.330178936261,
+        -1992.5380012282494
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959692",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6744.788452722247,
+        -164.17953596430428,
+        -6597.694919903752,
+        -15.1558894359639
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959717",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6666.351498228156,
+        -321.6428890830261,
+        -6356.066986260866,
+        -23.973659298026774
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959819",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6372.566176088216,
+        -683.4494411472382,
+        -6138.121139108199,
+        -468.4203949912635
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959841",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5985.3270045987265,
+        -569.2298547310315,
+        -5680.01580006051,
+        -188.17543427942775
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959884",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5645.708290734367,
+        -209.4025750959838,
+        -5444.871175266654,
+        -0.3780632724715648
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959890",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5784.136631918094,
+        -32.680234080136856,
+        -5403.096778184892,
+        203.03109699841298
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147959893",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6078.683881380027,
+        73.83353327511502,
+        -5898.141739125647,
+        243.80633292012948
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147980769",
+      "name": "Wraysbury",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6223.159154855644,
+        -1232.5085083244255,
+        -5902.907248194168,
+        -828.5812598677497
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-147981319",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5655.2808685435175,
+        -1773.4725736608234,
+        -5387.442635023756,
+        -1530.1332600776018
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-148093800",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5325.435604236831,
+        -2539.940261710348,
+        -5014.977926969093,
+        -1808.465665409983
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-148093826",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5451.195172039272,
+        -2842.7355846939704,
+        -5017.111323470698,
+        -1840.3008168807405
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-148093844",
+      "name": "Heron Lake",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5076.486241690709,
+        -2765.566199012371,
+        -4778.060089498581,
+        -2070.096569691264
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-157319477",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5690.190993115242,
+        -1083.3291886827292,
+        -5309.317378070481,
+        -222.6459091517031
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-243046003",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5619.768128726204,
+        -1459.3575915090894,
+        -5459.444766952951,
+        -1156.4621929528773
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-934484121",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5202.1211304768185,
+        -196.259316612064,
+        -5097.522362389983,
+        -14.377523873924087
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-934484122",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -5275.875695246611,
+        -99.27496763199504,
+        -5169.98165071237,
+        14.055058141428919
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-934486144",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -6012.81180108695,
+        -981.5078537128624,
+        -5643.131591063591,
+        -462.3491436106713
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-45061178",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -2357.6524923068437,
+        660.7545252718289,
+        -2170.973371804335,
+        733.1202834880906
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-765645946",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -2462.7014901748635,
+        -514.3439631279098,
+        -2306.644921404817,
+        -388.74912000440526
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    },
+    {
+      "id": "osm-way-1232756845",
+      "name": "Mapped waterbody",
+      "holes": 0,
+      "sourceSymmetricDifferenceM2": 0.0,
+      "boundsMetres": [
+        -2387.817887646103,
+        923.7976070719868,
+        -2297.43945403263,
+        988.7688924524258
+      ],
+      "triangulationSymmetricDifferenceM2": 0.0
+    }
+  ],
+  "runwayChecks": [
+    {
+      "id": "osm-way-2798800",
+      "name": "09R/27L",
+      "centrelineNearestWaterM": 778.3285923332646,
+      "centrelineWaterIntersectionM": 0.0
+    },
+    {
+      "id": "osm-way-2798802",
+      "name": "09L/27R",
+      "centrelineNearestWaterM": 459.20498628078394,
+      "centrelineWaterIntersectionM": 0.0
+    },
+    {
+      "id": "osm-way-510279283",
+      "name": "Displaced runway threshold",
+      "centrelineNearestWaterM": 186.55978485968356,
+      "centrelineWaterIntersectionM": 0.0
+    },
+    {
+      "id": "osm-way-1252338026",
+      "name": "Displaced runway threshold",
+      "centrelineNearestWaterM": 478.4496076008668,
+      "centrelineWaterIntersectionM": 0.0
+    }
+  ],
+  "currentNativeCheck": {
+    "command": "xcrun simctl list devices booted",
+    "result": "No booted devices under iOS 27.0 or iOS 27.1",
+    "action": "Did not boot Simulator, launch app, rebuild, or start service",
+    "freshCapture": false
+  }
+}

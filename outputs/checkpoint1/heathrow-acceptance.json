@@ -1,0 +1,399 @@
+{
+  "version": 1,
+  "scope": "ApronLens only: Heathrow-informed wildlife/stand awareness, paved ground turns, flight cycle and stand fire",
+  "passed": true,
+  "simulator": {
+    "device": "iPhone 18 Pro",
+    "ios": "27.0",
+    "unity": "6000.2.2f1",
+    "runId": "32b9748c5bcbb5139a50",
+    "seed": 17,
+    "exercise": "late_arrival",
+    "mode": "demo",
+    "sourceTimeEnd": 3600.0,
+    "recordingWallSeconds": 504.443,
+    "videoDurationSeconds": 507.2166666667,
+    "finalBuildPortraitDebriefVerified": true,
+    "finalBuildLandscapeDebriefVerified": true,
+    "sourceExpansionAndScrollVerified": true,
+    "handover": "Landscape completion screen; local service running; Try again restarts the guided demo."
+  },
+  "tests": {
+    "python": 121,
+    "unity": 43,
+    "seededWorlds": 60,
+    "scoredLessonFlows": 60,
+    "priorRealModelStandBoundaryCases": 6
+  },
+  "flightPhases": {
+    "hold_short": {
+      "firstWallSeconds": 106.606,
+      "lastWallSeconds": 145.875,
+      "firstSourceTime": 445.07986864551276
+    },
+    "line_up": {
+      "firstWallSeconds": 146.882,
+      "lastWallSeconds": 157.955,
+      "firstSourceTime": 485.35558918751485
+    },
+    "takeoff_roll": {
+      "firstWallSeconds": 158.964,
+      "lastWallSeconds": 194.192,
+      "firstSourceTime": 507.1033618121801
+    },
+    "rotation": {
+      "firstWallSeconds": 195.2,
+      "lastWallSeconds": 200.239,
+      "firstSourceTime": 543.3398761041826
+    },
+    "climb": {
+      "firstWallSeconds": 201.248,
+      "lastWallSeconds": 219.371,
+      "firstSourceTime": 549.3884019791803
+    },
+    "approach": {
+      "firstWallSeconds": 228.428,
+      "lastWallSeconds": 259.639,
+      "firstSourceTime": 854.0685968754042
+    },
+    "flare": {
+      "firstWallSeconds": 260.644,
+      "lastWallSeconds": 262.66,
+      "firstSourceTime": 889.1177870205138
+    },
+    "landing_roll": {
+      "firstWallSeconds": 263.666,
+      "lastWallSeconds": 302.966,
+      "firstSourceTime": 892.1397091875151
+    },
+    "runway_exit": {
+      "firstWallSeconds": 303.97,
+      "lastWallSeconds": 315.049,
+      "firstSourceTime": 932.443473645514
+    },
+    "taxi_in": {
+      "firstWallSeconds": 316.056,
+      "lastWallSeconds": 319.077,
+      "firstSourceTime": 969.2829981054025
+    },
+    "engine_fire": {
+      "firstWallSeconds": 326.12,
+      "lastWallSeconds": 393.667,
+      "firstSourceTime": 1122.1402175618496
+    },
+    "stand_closed": {
+      "firstWallSeconds": 394.675,
+      "lastWallSeconds": 504.443,
+      "firstSourceTime": 1190.694155228848
+    }
+  },
+  "assistant": {
+    "total": 6,
+    "automaticQuestions": 5,
+    "additionalManualQuestions": 1,
+    "accepted": 6,
+    "validatorChanged": false,
+    "noScriptedAnswers": true,
+    "noContradictionRemoval": true,
+    "calls": [
+      {
+        "requestId": "ccdfd469cf3a4efa945ed541aa1d9d7a",
+        "question": "Why is TRN103 waiting?",
+        "cutoff": 60.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Scripted movement: holding at ground staging area \u2014 current. Event 1 s; received 1 s. [L008]\n\nAuthored movement condition: hold: Stand B occupied by TRN102 \u2014 current. Event 20 s; received 23 s. [L010]",
+          "claims": [
+            {
+              "fact_id": "L008:movement_status",
+              "value": "holding at ground staging area",
+              "status": "current",
+              "evidence_ids": [
+                "L008"
+              ]
+            },
+            {
+              "fact_id": "L010:movement_condition",
+              "value": "hold: Stand B occupied by TRN102",
+              "status": "current",
+              "evidence_ids": [
+                "L010"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "latencySeconds": 9.279,
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "imageUsedForInference": true,
+        "promptVersion": "training-evidence-selector-v4",
+        "selectorFormatVersion": "single-json-or-fence-v1",
+        "rawModelSelection": "{\"aircraftId\":\"A3\",\"flightInstance\":\"TRN103\",\"fact_ids\":[\"L008:movement_status\",\"L010:movement_condition\"],\"unknowns\":[]}\n"
+      },
+      {
+        "requestId": "0406c518fb134e6194cb9b3689ee0ef5",
+        "question": "Is Stand B confirmed available for TRN103?",
+        "cutoff": 120.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: Stand B occupied by TRN102 \u2014 current. Event 20 s; received 23 s. [L010]",
+          "claims": [
+            {
+              "fact_id": "L010:movement_condition",
+              "value": "hold: Stand B occupied by TRN102",
+              "status": "current",
+              "evidence_ids": [
+                "L010"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "latencySeconds": 6.362,
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "imageUsedForInference": true,
+        "promptVersion": "training-evidence-selector-v4",
+        "selectorFormatVersion": "single-json-or-fence-v1",
+        "rawModelSelection": "{\"aircraftId\":\"A3\",\"flightInstance\":\"TRN103\",\"fact_ids\":[\"L010:movement_condition\"],\"unknowns\":[]}\n"
+      },
+      {
+        "requestId": "8ea5f8d3bf694ac293107ac6315bba04",
+        "question": "What changed for TRN103?",
+        "cutoff": 180.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: Stand B available; exercise ground hold released \u2014 current. Event 132 s; received 134 s. [L016]\n\nAssigned stand: B \u2014 current. Event 133 s; received 135 s. [L017]\n\nScripted movement: taxiing \u2014 current. Event 140 s; received 141 s. [L018]\n\nChanged since the previous answer: L007:stand, L008:movement_status, L010:movement_condition, L016:movement_condition, L017:stand, L018:movement_status",
+          "claims": [
+            {
+              "fact_id": "L016:movement_condition",
+              "value": "Stand B available; exercise ground hold released",
+              "status": "current",
+              "evidence_ids": [
+                "L016"
+              ]
+            },
+            {
+              "fact_id": "L017:stand",
+              "value": "B",
+              "status": "current",
+              "evidence_ids": [
+                "L017"
+              ]
+            },
+            {
+              "fact_id": "L018:movement_status",
+              "value": "taxiing",
+              "status": "current",
+              "evidence_ids": [
+                "L018"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "latencySeconds": 9.86,
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "imageUsedForInference": true,
+        "promptVersion": "training-evidence-selector-v4",
+        "selectorFormatVersion": "single-json-or-fence-v1",
+        "rawModelSelection": "{\"aircraftId\":\"A3\",\"flightInstance\":\"TRN103\",\"fact_ids\":[\"L016:movement_condition\",\"L017:stand\",\"L018:movement_status\"],\"unknowns\":[]}\n"
+      },
+      {
+        "requestId": "8d82401c12814efaa3402dcfe865a04f",
+        "question": "Why is TRN101 holding short of the runway?",
+        "cutoff": 451.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Scripted movement: holding short \u2014 current. Event 445 s; received 445.5 s. [L028]\n\nAuthored movement condition: hold: birds reported on Runway 09; inspection pending \u2014 current. Event 445 s; received 446 s. [L021]\n\nAuthored movement plan: Stand A to Runway 09; local circuit; return to Stand A \u2014 current. Event 299 s; received 299 s. [L020]",
+          "claims": [
+            {
+              "fact_id": "L028:movement_status",
+              "value": "holding short",
+              "status": "current",
+              "evidence_ids": [
+                "L028"
+              ]
+            },
+            {
+              "fact_id": "L021:movement_condition",
+              "value": "hold: birds reported on Runway 09; inspection pending",
+              "status": "current",
+              "evidence_ids": [
+                "L021"
+              ]
+            },
+            {
+              "fact_id": "L020:route",
+              "value": "Stand A to Runway 09; local circuit; return to Stand A",
+              "status": "current",
+              "evidence_ids": [
+                "L020"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "latencySeconds": 8.513,
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "imageUsedForInference": true,
+        "promptVersion": "training-evidence-selector-v4",
+        "selectorFormatVersion": "single-json-or-fence-v1",
+        "rawModelSelection": "{\"aircraftId\":\"A1\",\"flightInstance\":\"TRN101\",\"fact_ids\":[\"L028:movement_status\",\"L021:movement_condition\",\"L020:route\"],\"unknowns\":[]}\n"
+      },
+      {
+        "requestId": "dcfe11be367449b1b977ba4d9f4120ff",
+        "question": "Why is TRN101 held at Stand A?",
+        "cutoff": 1131.0,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Authored movement condition: hold: engine fire reported at Stand A \u2014 current. Event 1122 s; received 1124 s. [L040]\n\nScripted movement: stopped at Stand A \u2014 current. Event 1122 s; received 1124 s. [L041]",
+          "claims": [
+            {
+              "fact_id": "L040:movement_condition",
+              "value": "hold: engine fire reported at Stand A",
+              "status": "current",
+              "evidence_ids": [
+                "L040"
+              ]
+            },
+            {
+              "fact_id": "L041:movement_status",
+              "value": "stopped at Stand A",
+              "status": "current",
+              "evidence_ids": [
+                "L041"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "latencySeconds": 11.433,
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "imageUsedForInference": true,
+        "promptVersion": "training-evidence-selector-v4",
+        "selectorFormatVersion": "single-json-or-fence-v1",
+        "rawModelSelection": "{\"aircraftId\":\"A1\",\"flightInstance\":\"TRN101\",\"fact_ids\":[\"L040:movement_condition\",\"L041:movement_status\"],\"unknowns\":[]}\n"
+      },
+      {
+        "requestId": "5132af58783045d492171427a96a1115",
+        "question": "What is the latest update for this aircraft?",
+        "cutoff": 1199.14453125,
+        "accepted": true,
+        "errors": [],
+        "display": {
+          "resultStatus": "answer",
+          "validatorVersion": "conversation-validator-v2",
+          "answer": "Scripted movement: stopped at Stand A \u2014 current. Event 1122 s; received 1124 s. [L041]\n\nAuthored movement condition: hold: fire contained; Stand A closed pending inspection \u2014 current. Event 1187 s; received 1190 s. [L042]\n\nChanged since the previous answer: L040:movement_condition, L042:movement_condition",
+          "claims": [
+            {
+              "fact_id": "L041:movement_status",
+              "value": "stopped at Stand A",
+              "status": "current",
+              "evidence_ids": [
+                "L041"
+              ]
+            },
+            {
+              "fact_id": "L042:movement_condition",
+              "value": "hold: fire contained; Stand A closed pending inspection",
+              "status": "current",
+              "evidence_ids": [
+                "L042"
+              ]
+            }
+          ],
+          "unknowns": [],
+          "observations": [],
+          "interpretation": null,
+          "validation": "Claims match receipt-eligible typed facts and their sources; changed facts are covered. The referent choice and the interpretation are not verified."
+        },
+        "latencySeconds": 11.415,
+        "configuredModel": "Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "imageUsedForInference": true,
+        "promptVersion": "training-evidence-selector-v4",
+        "selectorFormatVersion": "single-json-or-fence-v1",
+        "rawModelSelection": "{\"aircraftId\":\"A1\",\"flightInstance\":\"TRN101\",\"fact_ids\":[\"L041:movement_status\",\"L042:movement_condition\"],\"unknowns\":[]}\n"
+      }
+    ]
+  },
+  "initialVerification": {
+    "runId": "e8dfe105ae3070cead2c",
+    "total": 5,
+    "accepted": 4,
+    "failure": "Wildlife selection used a JSON-only Markdown fence; strict JSON parser initially withheld it.",
+    "preservedRecording": "work/incident-first-pass.mp4",
+    "formatRegression": "apronlens-wildlife-format-regression.json"
+  },
+  "runtimeProfile": "apronlens-v2-mps",
+  "sourceSha256": {
+    "backend/training_adapter.py": "0154d16345168d5f4b40981c24bf30571a1a9ed8d20ce314a601f150da33a43c",
+    "backend/ground_routes.py": "5dd081fa95ff99029d0df3df885246edf992152a90d02c8de1fa2a230ec0b242",
+    "backend/flight_cycle.py": "1b584ee506a8efe72db2729ed595063e4bd08a29b1af38a9a1889e6868285cdf",
+    "backend/lessons.py": "35856f4bcf5d2618b257bee7057e7067b81c68fabde45f7c8208dcb36d56c8c5",
+    "backend/training_session.py": "90574fac054e7b7cb9fbbb9abac64e8e5fdfc01d7a7f2759387c98d792b865fc",
+    "tests/test_ground_incidents.py": "9d487cf82ad7e41fa0773f0f4d42447833263d9175fad61b4d4cee0556ae8aa4",
+    "tests/test_training_adapter.py": "9c9357e3bd8c804a58b3a6fcf9f8aadc5811d931e7d243eb52472b45bd07a99b",
+    "docs/HEATHROW_SCENARIO_BASIS.txt": "5e13947019bbb05f0d661e156958f908404b76b31e19d367898e07fe8fb3ef37",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/Scenario.cs": "cf77b9c33512b646ef9c3f20f95f94b9b08fc202025b089d31bf960f0aad9bb7",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/StandReplay.cs": "7e91b5b135cb40890146bad1ed41124b786db0def40dbf0057c99bedb4080eda",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "5b86e002b28086e91290a65dc523f3eb8fda5e20940ef87577630db49f2617e8",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingRunway.cs": "f8508abbbf9d203f8045c6e361d481b1fb172a1ab8eb3bf0619a76a07cd006c1",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingIncidentEffects.cs": "e23d7d54cd47366ba0e4ce3a479894d1b8c852000ee7e28e0e7a754596ecd940",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/ExternalTrafficDriver.cs": "bb476f1be45add974b139359853e2ab0f14e783af2d44321cc48408ac335cca7",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Editor/TrafficVerification.cs": "1753c3836993f50e6bac3cd5315ee48b477ae3fe0b48fff7c931c7b2251c45e0"
+  },
+  "build": {
+    "unityExport": "passed",
+    "xcodeBuild": "BUILD SUCCEEDED"
+  },
+  "notes": [
+    "Three scored checkpoint cutoffs remain 60/120/180, ending at 210 seconds.",
+    "Five automatic questions and one manual post-containment update are genuine local-model requests.",
+    "One JSON-only fence is normalized; selected identities, facts and unknowns are unchanged.",
+    "Taxi pavement and trajectories share sampled circular-arc geometry and explicit local headings.",
+    "Fire is separate from the wildlife encounter; causation is unconfirmed.",
+    "Fire containment does not reopen Stand A or move the affected aircraft.",
+    "These are fictional exercises informed by Heathrow/CAA publications, not Heathrow operational procedures or surveyed geometry.",
+    "Backbone extension and video reasoning are deferred.",
+    "Changes are local, not committed or pushed."
+  ],
+  "mediaInspection": {
+    "wildlifeVisible": true,
+    "fireAndSmokeVisible": true,
+    "containmentAnswerRetainsClosure": true,
+    "videoFrameSize": [
+      2622,
+      1206
+    ]
+  }
+}

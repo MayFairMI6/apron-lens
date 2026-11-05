@@ -1,0 +1,45 @@
+{
+  "scope": "Current reliability/readability corrections #67/#69; no new course or monitoring deployment",
+  "tests": 296,
+  "researchIntegrity": "160 frozen records and source hashes passed",
+  "sourceHashes": {
+    "backend/training_adapter.py": "061d724ee2bac06a6545b6376f5cdebfffed3bcd9393b6e307abff4dd29d7695",
+    "backend/training_turn.py": "d155aa0e78c236c61df58eebe88b4a2ab288446c059c847a870d0130ac6061c2",
+    "backend/training.py": "1700152e643452d2fb61eff4958795d44ba0d1dc7b5056b2c2daadf5638cc167",
+    "backend/conversation/server.py": "5d1d34466446d9435a49819793fa6177869f97390f7ab75d2c0b57ead28ed13c",
+    "tests/test_training_completeness.py": "83046fad8b24b9dc4b6511480b540471933ce8c9e71d7d7c78197d9728d461fd",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingView.cs": "fbd6b8b0827d4d1369def62aeb23d8266af2f13a4bc047b568302cdeeabc0184",
+    "unity/SurfaceSafetyCoach/Assets/SurfaceSafety/Scripts/TrainingLabelLayout.cs": "c95d5309592be89fc096c2a8db818ccb152abafa873ca7694e46bdc25ca5fb43"
+  },
+  "native": {
+    "device": "iPhone 18 Pro iOS 27.0 Simulator",
+    "editor": "TRAINING_LABEL_CHECKS_PASS",
+    "export": "IOS_SIMULATOR_EXPORT_PASS",
+    "build": "BUILD SUCCEEDED",
+    "checks": [
+      "landscape clustered labels",
+      "selected TRN101 to TRN104",
+      "zoom and orientation change",
+      "portrait clustered labels",
+      "fresh-run actual assistant answer shown"
+    ]
+  },
+  "assistant": {
+    "policy": "One retry for an empty known-flight selector; same evidence and cutoff; no canned answer",
+    "tests": "7 deterministic fault-injection checks; successful retry, exhausted retry, unknown, clarify, future evidence, false unknown, second-call exception",
+    "live": "Two HTTP questions and one native question succeeded on first attempt; no claim of observed spontaneous retry recovery",
+    "deadlines": "Unchanged 35-second client / 40-second driver; retry can time out honestly"
+  },
+  "failuresRetained": [
+    "Initial wrong local model environment failed startup; corrected to existing candidates environment",
+    "Initial full test exposed frozen turns hash; restored frozen file and isolated live handler",
+    "Static review caught inactive label text lookup; corrected before native build",
+    "A source-time rewind within same inspection run caused stale client cutoff; reset fresh run before native check"
+  ],
+  "videos": "Existing four delivered video files unchanged",
+  "limits": [
+    "No general semantic correctness guarantee",
+    "No physical phone validation",
+    "Labels may hide low-priority text if seven nearby slots cannot fit; aircraft remain selectable"
+  ]
+}
