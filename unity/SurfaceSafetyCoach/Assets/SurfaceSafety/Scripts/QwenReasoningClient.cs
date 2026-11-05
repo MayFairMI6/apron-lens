@@ -50,7 +50,8 @@ namespace SurfaceSafety {
         bool SameContext(string flight,float time) => replay.Data.aircraft[replay.SelectedAircraftIndex].flightInstance==flight && Mathf.Abs(replay.Clock.Time-time)<.001f;
         void Update() {
             if(replay==null)return;
-            if(pending!=null && !SameContext(replay.Data.aircraft.First(a=>a.id==pending.aircraftId).flightInstance,pending.checkpoint)) {
+            var pendingAircraft=pending==null?null:replay.Data.aircraft.FirstOrDefault(a=>a.id==pending.aircraftId);  // gone if the scenario changed
+            if(pending!=null && (pendingAircraft==null||!SameContext(pendingAircraft.flightInstance,pending.checkpoint))) {
                 Cancel(); replay.SetAiResult("CONTEXT CHANGED","Generate again for the selected aircraft and time.");
             }
             if(hasResult && !SameContext(resultFlight,resultTime)) {

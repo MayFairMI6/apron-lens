@@ -27,6 +27,7 @@ public static class WorldArSetup {
     static readonly Vector3 StartPosition = new Vector3(-5f, 1.7f, -105f);
     static readonly Quaternion StartRotation = Quaternion.Euler(12f, 0f, 0f);
 
+    [MenuItem("ApronLens/Rebuild world AR (apron, XR settings, scene)")]
     public static void Run() {
         Directory.CreateDirectory(Folder + "/Materials");
         UseBothInputHandlers();
@@ -110,6 +111,13 @@ public static class WorldArSetup {
         Block(root.transform, "Terminal glazing", new Vector3(0, 10, 86.9f), new Vector3(236, 6, .4f), glass);
         foreach (var x in new[] { -120f, -60f, 0f, 60f, 120f })
             Block(root.transform, "Floodlight mast", new Vector3(x, 12, 80), new Vector3(.6f, 24, .6f), building);
+        // The sky: XR Simulation's camera draws no skybox, so the environment carries an inward-facing gradient dome.
+        var skyPath = $"{Folder}/Materials/SkyDome.mat";
+        var sky = AssetDatabase.LoadAssetAtPath<Material>(skyPath);
+        if (sky == null) { sky = new Material(Shader.Find("SurfaceSafety/SkyDome")); AssetDatabase.CreateAsset(sky, skyPath); }
+        var dome = GameObject.CreatePrimitive(PrimitiveType.Sphere); dome.name = "Sky dome"; dome.transform.SetParent(root.transform, false);
+        dome.transform.localScale = Vector3.one * 1800f; dome.GetComponent<Renderer>().sharedMaterial = sky;
+        UnityEngine.Object.DestroyImmediate(dome.GetComponent<Collider>());  // not a surface for plane detection
         var sun = new GameObject("Sun", typeof(Light)); sun.transform.SetParent(root.transform, false);
         var light = sun.GetComponent<Light>(); light.type = LightType.Directional; light.intensity = 1.2f;
         sun.transform.localRotation = Quaternion.Euler(50, -35, 0);
@@ -136,6 +144,8 @@ public static class WorldArSetup {
         so.FindProperty("m_DefaultViewPose.rotation").quaternionValue = Quaternion.Euler(30, 0, 0);
         so.FindProperty("m_DefaultViewPivot").vector3Value = new Vector3(0, 0, 20);
         so.FindProperty("m_DefaultViewSize").floatValue = 120;
+        // XR Simulation renders the environment as the camera feed; without a sky it would be black above the horizon.
+        so.FindProperty("m_RenderSettings.m_Skybox").objectReferenceValue = AssetDatabase.GetBuiltinExtraResource<Material>("Default-Skybox.mat");
         so.ApplyModifiedPropertiesWithoutUndo();
     }
 
@@ -163,6 +173,7 @@ public static class WorldArSetup {
     // Edit-mode check on the saved WorldAR scene and its own AR camera: renders the apron and the replay from the
     // simulated starting pose (eye height), checks that every aircraft is within the camera's clipping range, and
     // that turning away takes the apron out of view. Writes work/world-ar/*.png for review.
+    [MenuItem("ApronLens/Check world AR (renders into the work folder)")]
     public static void Check() {
         Action<bool, string> check = (ok, message) => { if (!ok) throw new Exception("World AR check failed: " + message); };
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
