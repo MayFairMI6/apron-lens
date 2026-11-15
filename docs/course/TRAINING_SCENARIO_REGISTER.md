@@ -32,7 +32,7 @@ A01–A03 and A15 are the four practice lessons. Normal learner checkpoints now 
 
 | ID | Milestone | Task | Design | Implementation | Native verification | Task boundary |
 |---|---|---|---|---|---|---|
-| P01 | M2 | Arriving stand not clear of equipment | Source-backed draft | Not built | Pending | Turnaround stand-clearance branch |
+| P01 | M2 | Arriving stand not clear of equipment | Source-backed draft | Built in backend as `stand_clearance`; model-free tests pass | Pending (Unity view, typed model review and phone not yet run) | Turnaround stand-clearance branch |
 | P02 | M3 | Pushback clearance and wingtip conflict | Source-backed draft | Not built | Pending | Integrated clearance comparison using the stand/route task |
 | P03 | M2 | Aircraft not fully parked protrudes into taxi route | Source-backed draft | Not built | Pending | Queue/route-obstruction branch |
 | P04 | M1 | Typed fog restriction lesson extending A14; now A15 | Three typed questions and cutoff-specific criteria | Built; restored v2 suite 276 tests passed | Full native fog typed flow and failures recorded | Fourth practice lesson; see ledger F03/T01 |
@@ -48,7 +48,9 @@ P04 is implemented as A15 in M1. P01/P03/P05/P06/P07/P09 are assigned M2 tasks; 
 
 ### P01 · Arriving stand not clear of equipment
 
-**M2 · Assigned task — not built.** Setting: Terminal 2/3 stand and service access.
+**M2 · Built in the backend; native verification pending.** Setting: Terminal 2/3 stand and service access.
+
+Run with `--exercise stand_clearance --mode lesson`. It is a 210-second lesson with checkpoints at 60, 120 and 180 source seconds ([stand_clearance_lesson.py](../../backend/stand_clearance_lesson.py), [tests](../../tests/test_stand_clearance_lesson.py)). It is selected explicitly and stays out of the M1 `next` rotation and the frozen typed-review research tables. The vehicle leaves the stand before the removal report arrives, and the hold stays in place until the separate clearance-check report.
 
 Extends A06 with a new decision task; it is not a second claim that the existing animation is newly built.
 

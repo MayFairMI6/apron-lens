@@ -79,8 +79,34 @@ TYPED_QUESTIONS = {
 }
 
 
+# M2 lessons live in their own tables so the frozen typed-review research sets
+# (built on the four M1 lessons above) keep their exact coverage.
+M2_RUBRICS = {
+    'stand_clearance': [
+        [('flight', 'Identify inbound TRN103 as the held aircraft, waiting at the ground staging area for Stand B.', [0]),
+         ('reason', 'Identify the reported fuel-transfer vehicle on Stand B and the pending stand-clearance check as the reason for the hold.', [0, 1])],
+        [('pending', 'State that Stand B is not yet confirmed clear because the stand-clearance check is still pending.', [1]),
+         ('removal', 'Recognise that the vehicle removal report does not by itself confirm the stand is clear or release the hold.', [0, 1])],
+        [('check', 'Identify the completed Stand B clearance check as the update that changed the situation.', [1]),
+         ('release', 'Connect that check to the explicit release of the exercise arrival hold, without treating the earlier removal report or an empty-looking stand as the release.', [0, 1])],
+    ],
+}
+
+M2_TYPED_QUESTIONS = {
+    'stand_clearance': [
+        'Which flight is held, and what reported problem on its assigned stand explains the hold?',
+        'The vehicle removal has been reported. Is Stand B confirmed clear for TRN103? Explain what the reports establish.',
+        'Which update allowed TRN103 to continue to Stand B, and how does it differ from the earlier removal report?',
+    ],
+}
+
+
+def _questions(exercise):
+    return TYPED_QUESTIONS.get(exercise) or M2_TYPED_QUESTIONS[exercise]
+
+
 def typed_question_for(exercise, probe):
-    return TYPED_QUESTIONS[exercise][int(probe['id'].removeprefix('check-'))-1]
+    return _questions(exercise)[int(probe['id'].removeprefix('check-'))-1]
 
 
 @dataclass(frozen=True)
@@ -95,7 +121,7 @@ class ReviewContext:
 
 def rubric_for(exercise, probe, reports):
     index = int(probe['id'].removeprefix('check-')) - 1
-    rows = RUBRICS[exercise][index]
+    rows = (RUBRICS.get(exercise) or M2_RUBRICS[exercise])[index]
     criteria = [dict(id=cid, expected=meaning, evidenceIds=[probe['evidenceIds'][i] for i in refs])
                 for cid, meaning, refs in rows]
     criteria.append(dict(id='grounding', expected='Review EVERY clause in the response. Do not accept unsupported extra facts, other-flight attribution, causes, overall readiness or departure clearance. A correct core answer plus an invented clearance is contradicted, not met. Explicit uncertainty is acceptable. Quote the offending clause when contradicted.',

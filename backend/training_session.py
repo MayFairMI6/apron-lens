@@ -7,8 +7,9 @@ import secrets
 import threading
 import time
 
-from backend.lessons import EXERCISES, HOUR_EXERCISES, TITLES, OBJECTIVES, build_lesson
+from backend.lessons import EXERCISES, HOUR_EXERCISES, M2_LESSONS, TITLES, OBJECTIVES, build_lesson
 from backend.fog_lesson import FOG_LESSON
+from backend.stand_clearance_lesson import STAND_CLEARANCE_LESSON
 from backend.runway_scenarios import DEMONSTRATIONS, TITLES as DEMO_TITLES, OBJECTIVES as DEMO_OBJECTIVES, build_demonstration
 from backend.fleet_scenarios import FLEET_DEMONSTRATIONS, TITLES as FLEET_TITLES, OBJECTIVES as FLEET_OBJECTIVES, build_fleet
 from backend.training_environment import attach_environment, ENVIRONMENTS
@@ -21,11 +22,15 @@ class ReviewBusy(ActionConflict): pass
 class TrainingSession:
     def __init__(self, seed, exercise='surface_conflict', mode='lesson', clock=time.monotonic, audit_path=None, environment=None, assessment_mode='typed'):
         if mode not in ('lesson','continuous','demo'): raise ValueError('Unknown training mode')
-        if exercise not in EXERCISES+DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('Unknown exercise')
+        if exercise not in EXERCISES+M2_LESSONS+DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('Unknown exercise')
         if mode=='lesson' and exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('This case is a demonstration, not a practice lesson; use --mode demo or continuous')
         if exercise==FOG_LESSON:
             if mode!='lesson':raise ValueError('fog_restrictions is a 210-second lesson with typed practice feedback; use --mode lesson, or fog_visibility for the separate one-hour demonstration')
             if environment not in (None,'fog'):raise ValueError('The fog practice lesson requires its fog timeline; omit --environment or use fog')
+        if exercise==STAND_CLEARANCE_LESSON:
+            if mode!='lesson':raise ValueError('stand_clearance is a 210-second lesson with no one-hour demonstration; use --mode lesson')
+            # The weather profiles span 3600 s and would run past this lesson's clock.
+            if environment not in (None,'clear'):raise ValueError('The stand-clearance lesson has no weather timeline; omit --environment or use clear')
         if environment is None:environment='clear'
         if environment not in ENVIRONMENTS: raise ValueError('Unknown environment')
         if exercise=='fog_visibility' and environment not in ('clear','fog'):
@@ -44,7 +49,7 @@ class TrainingSession:
         self.scenario,self.reservations,self.probes=builder(self.seed,self.exercise)
         self.title={**TITLES,**DEMO_TITLES,**FLEET_TITLES}[self.exercise]
         self.objective={**OBJECTIVES,**DEMO_OBJECTIVES,**FLEET_OBJECTIVES}[self.exercise]
-        self.target='A1' if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise==FOG_LESSON else 'A3' if self.exercise=='late_arrival' else 'A2'
+        self.target='A1' if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise==FOG_LESSON else 'A3' if self.exercise in ('late_arrival',STAND_CLEARANCE_LESSON) else 'A2'
         effective_environment='fog' if self.exercise in ('fog_visibility',FOG_LESSON) else self.environment
         # The short scored lesson already owns a validated 210-second fog curve.
         # Applying the hour-long visual profile would extend it past its clock.
@@ -166,7 +171,7 @@ class TrainingSession:
                 if self.assessment_mode=='typed':result['checkpoint']['question']=typed_question_for(self.exercise,p)
             if self.phase=='feedback':result['feedback']=self._feedback(self.answers[-1])
             if self.phase=='debrief':result['reviews']=[self._feedback(a) for a in self.answers]
-            if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise==FOG_LESSON:
+            if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise in (FOG_LESSON,STAND_CLEARANCE_LESSON):
                 result['perspectives']=[
                     dict(role='Controller',text=self.objective),
                     dict(role='Pilot',text='Review the latest report for your flight and identify what still needs confirmation.'),
@@ -227,7 +232,7 @@ class TrainingSession:
             elif action in ('retry','next') and self.phase=='debrief':
                 if action=='next':
                     sequence=FLEET_DEMONSTRATIONS if self.exercise in FLEET_DEMONSTRATIONS else DEMONSTRATIONS if self.exercise in DEMONSTRATIONS else (
-                        EXERCISES if self.mode=='lesson' else HOUR_EXERCISES)
+                        M2_LESSONS if self.exercise in M2_LESSONS else EXERCISES if self.mode=='lesson' else HOUR_EXERCISES)
                     self.exercise=sequence[(sequence.index(self.exercise)+1)%len(sequence)]
                 self._reset()
                 result=self.state();self.transitions[transition]=(fingerprint,copy.deepcopy(result))
