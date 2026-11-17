@@ -45,6 +45,14 @@ def answer_for(data, aircraft, checkpoint, query):
     return dict(fact_ids=sorted(c['fact_id'] for c in selected['claims']), unknown=sorted(selected['unknown_properties']))
 
 
+def package_version(name):
+    """Installed version, or None where the package is absent (e.g. CI with a test double)."""
+    try:
+        return importlib.metadata.version(name)
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
 def load(dataset, split):
     data = DATASETS[dataset]
     manifest = json.loads((data / 'manifest.json').read_text())
@@ -112,7 +120,7 @@ def run(dataset, split, model, output):
     summary = dict(dataset=dataset, split=split, replay=dict(scenario=scenario_id, aircraft=aircraft, checkpoint=checkpoint),
                    method=VERSION, modelName=model, model=engine.manifest, device=engine.device,
                    dtype=str(engine.dtype).removeprefix('torch.'),
-                   transformers=importlib.metadata.version('transformers'), python=platform.python_version(),
+                   transformers=package_version('transformers'), python=platform.python_version(),
                    recordedUTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                    commit=commit.stdout.strip() if commit.returncode == 0 else None,
                    sources={p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
