@@ -1,0 +1,36 @@
+{
+ "status": "complete",
+ "protocol": "experiments/apron_detector/PROTOCOL.md",
+ "candidate": "B",
+ "threshold": 0.65,
+ "frames": 200,
+ "evaluableBoxes": 157,
+ "heldout": {
+  "evaluable": {
+   "tp": 146,
+   "fp": 22,
+   "fn": 11,
+   "precision": 0.869,
+   "recall": 0.9299,
+   "f1": 0.8985
+  },
+  "allBoxes": {
+   "tp": 146,
+   "fp": 23,
+   "fn": 14,
+   "precision": 0.8639,
+   "recall": 0.9125,
+   "f1": 0.8875
+  },
+  "falseDetectionsPerLookAwayFrame": 0.0,
+  "lookAwayFrames": 33,
+  "meanSecondsPerFrame": 0.03
+ },
+ "qualificationGate": {
+  "precisionAtLeast": 0.9,
+  "recallAtLeast": 0.7,
+  "passed": false
+ },
+ "manifestSha256": "a43288e51c39a36098d939f98e9b14e239111a3e27d7fe4cd69b21cf5ed1df8e",
+ "weightsSha256": "cd2f29312483a1e5cbb886168dc1e7859f2c011590c5ac020d0c94c403d3689a"
+}

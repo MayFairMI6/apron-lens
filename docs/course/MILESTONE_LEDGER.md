@@ -4458,3 +4458,39 @@ answer is withheld … Relevant report: V007. Open Reports to read it."
 Screenshot `outputs/checkpoint2-run/replay-native/wildlife-withheld-pointer-portrait.png`.
 No image reached the model in any of the 8 replay questions recorded so far
 (`imageUsedForInference` false in `work/replay-questions.jsonl`).
+
+## ML-058 — Stand B detector v2: much improved, not qualified (precision gate failed)
+
+17 November 2026, branch `codex/airfieldlens-checkpoint2`. Owner decisions:
+visual evidence next; Faster R-CNN weight download approved; render a larger
+development set. Protocol pre-registered and committed (fdbe9ba) before
+rendering; held-out manifest committed (b6f98dd) before training; fit report
+committed (61287fe) before the single held-out run.
+
+**Data.** Existing Stand B scene, Unity plan mode, 960×540 RGB + linear depth
++ mask. Development 640 frames (12 training, 4 validation domains; 380 and 118
+evaluable boxes). Held-out 200 frames, 5 domains, seed 20261118, same
+distribution and apron. Labels are Unity geometry.
+
+| Split | Candidate | Threshold | Precision | Recall | F1 | False per look-away frame |
+|---|---|---|---|---|---|---|
+| Validation | A tiled SSDLite (cached) | 0.80 | 0.69 | 0.36 | 0.48 | 0.09 |
+| Validation | B Faster R-CNN MobileNetV3-FPN | 0.65 | 0.92 | 0.92 | 0.92 | 0 |
+| **Held-out (once)** | **B** | 0.65 | **0.869** | **0.930** | 0.899 | 0 (33 frames) |
+
+Held-out counts: 146 correct, 22 false, 11 missed on 157 evaluable boxes
+(all-boxes rule: precision 0.864, recall 0.913). Inference 0.03 s per frame on
+the Mac GPU. **Gate (precision ≥ 0.90 and recall ≥ 0.70): failed on
+precision.** Under the protocol the detector is not qualified as camera
+evidence; this held-out split is spent and is not used for any further choice.
+v1 pilot results are unchanged (0 of 6; development fit 1 of 6 with 45 false).
+
+**Depth arm geometry** (development only): median 2.4 m, max 5.7 m from the
+true tanker position; on/off Stand B agreed in 117 of 118 validation boxes.
+`backend/camera_evidence.py` builds `rgb` and `rgb_depth` observations in the
+typed-claim format without reading masks or labels (7 tests).
+
+Limits: synthetic frames from one authored apron; no real-photo accuracy;
+held-out shares the development distribution, so it does not measure transfer.
+Files: `outputs/checkpoint2-run/detector-v2-*.json`,
+`experiments/apron_detector/{PROTOCOL.md,plan.py,train_v2.py}`.
