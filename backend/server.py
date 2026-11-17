@@ -11,7 +11,8 @@ from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
 from backend.reasoning import ROOT, context_for, decode_image, validate_answer
-from backend.decisions import select_claims, VERSION as DECISION_VERSION
+from backend.evidence import expected_selection
+from backend.query_parser import VERSION as PARSER_VERSION, parse
 from backend.engine import VLMEngine, load_engine
 from backend.models import PRIMARY_MODEL, model_names
 
@@ -33,7 +34,8 @@ class ReasonRequest(BaseModel):
     scenarioId: str = Field(min_length=1, max_length=80)
     aircraftId: str = Field(min_length=1, max_length=20)
     checkpoint: float = Field(ge=0, le=3600)
-    queryType: str = Field(default='latest', pattern='^(latest|current|change)$')
+    # Omit queryType to have the model parse `question`; give it to skip the model entirely.
+    queryType: str | None = Field(default=None, pattern='^(latest|current|change)$')
     properties: list[str] = Field(default_factory=list, max_length=10)
     # Optional: typed report queries never use the image for inference.
     imageBase64: str | None = Field(default=None, min_length=1, max_length=2_800_000)
@@ -80,7 +82,8 @@ def create_app(engine=None, token=None, model=PRIMARY_MODEL):
     async def reason(body: ReasonRequest, authorization: Annotated[str | None, Header()] = None):
         authenticate(authorization)
         try:
-            context = context_for(body.scenarioId, body.aircraftId, body.checkpoint, body.queryType, body.properties)
+            # Reject bad identities, times and properties before any model call.
+            context_for(body.scenarioId, body.aircraftId, body.checkpoint, body.queryType or 'latest', body.properties)
             image_hash = decode_image(body.imageBase64)[1] if body.imageBase64 is not None else None
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
@@ -88,24 +91,34 @@ def create_app(engine=None, token=None, model=PRIMARY_MODEL):
             raise HTTPException(429, 'Model is answering another request; retry shortly')
         async with app.state.busy:
             start = time.perf_counter()
-            try:
-                # Typed report queries have no visual answer-bearing evidence.
-                # Images remain auditable context, never a substitute for reports.
-                raw, trace = await run_in_threadpool(select_claims, app.state.engine, context)
-                inputs, outputs = trace['inputTokens'], trace['outputTokens']
-            except Exception as exc:
-                raise HTTPException(503, 'Local model generation failed; inspect server log') from exc
+            parsed = None
+            if body.queryType is None:
+                try:
+                    parsed = await run_in_threadpool(parse, app.state.engine, body.question)
+                except Exception as exc:
+                    raise HTTPException(503, 'Local model failed to parse the question; inspect server log') from exc
+                query_type, properties = parsed['queryType'], parsed['properties']
+            else:
+                query_type, properties = body.queryType, body.properties
+            context = context_for(body.scenarioId, body.aircraftId, body.checkpoint, query_type, properties)
+            # Code answers the query: values, temporal statuses, sources and every time comparison.
+            raw = json.dumps(expected_selection(context))
             result = validate_answer(raw, context)
             result.update(requestId=body.requestId, scenarioId=body.scenarioId, aircraftId=body.aircraftId,
                           flightInstance=context['flightInstance'], checkpoint=body.checkpoint,
                           model=app.state.engine.manifest['model_id'], revision=app.state.engine.manifest['revision'],
-                          elapsedSeconds=round(time.perf_counter() - start, 2), inputTokens=inputs, outputTokens=outputs,
-                          decisionVersion=DECISION_VERSION, forwardPasses=trace['forwardPasses'],
-                          imageUsedForInference=False, modelRole=trace['provenance'],
+                          elapsedSeconds=round(time.perf_counter() - start, 2),
+                          inputTokens=parsed['inputTokens'] if parsed else 0, outputTokens=0,
+                          queryType=query_type, properties=properties, parsedBy='model' if parsed else 'request',
+                          decisionVersion=PARSER_VERSION, forwardPasses=parsed['forwardPasses'] if parsed else 0,
+                          imageUsedForInference=False,
+                          modelRole=('Qwen interprets the question as a query type and topics. Code answers it from '
+                                     'the received reports; values, times and sources are copied, never generated.')
+                                    if parsed else 'No model call: the request named the query.',
                           eligibleEvidenceIds=[e['id'] for e in context['evidence']])
             # No image bytes, authentication secrets, or raw camera frames in the audit.
-            audit = dict(result, imageSha256=image_hash, question=body.question, rawModelOutput=raw,
-                         decisionTrace=trace, promptVersion=DECISION_VERSION,
+            audit = dict(result, imageSha256=image_hash, question=body.question,
+                         parseTrace=parsed['trace'] if parsed else None,
                          evidence=context['evidence'], recordedAt=time.time())
             AUDIT_PATH.parent.mkdir(exist_ok=True)
             with AUDIT_PATH.open('a') as stream:

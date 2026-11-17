@@ -83,15 +83,33 @@ class ReasoningTests(unittest.TestCase):
    with self.assertRaises(ValueError):context_for(sid,a,t)
  def test_http_auth_and_types(self):
   buf=io.BytesIO();Image.new('RGB',(32,32),'white').save(buf,format='PNG')
-  body=dict(requestId='test',scenarioId=S,aircraftId='A2',checkpoint=14,imageBase64=base64.b64encode(buf.getvalue()).decode())
+  body=dict(requestId='test',scenarioId=S,aircraftId='A2',checkpoint=14,queryType='latest',imageBase64=base64.b64encode(buf.getvalue()).decode())
   with tempfile.TemporaryDirectory() as tmp,patch('backend.server.AUDIT_PATH',Path(tmp)/'audit.jsonl'):
    with TestClient(create_app(FakeEngine(),'test-token')) as client:
     headers={'Authorization':'Bearer test-token'}
     self.assertEqual(client.post('/reason',json=body).status_code,401)
     r=client.post('/reason',json=body,headers=headers);self.assertEqual(r.status_code,200,r.text)
     self.assertEqual(r.json()['resultStatus'],'generated');self.assertEqual(r.json()['evidenceIds'],['E03'])
-    self.assertEqual(r.json()['decisionVersion'],'pairwise-predicates-v5')
+    self.assertEqual(r.json()['decisionVersion'],'query-parse-v1');self.assertEqual(r.json()['parsedBy'],'request')
     self.assertFalse(r.json()['imageUsedForInference'])
     for change in ({'checkpoint':61},{'imageBase64':'bad'},{'queryType':'freeform'},{'properties':['unknown_field']},{'events':[]}):
      self.assertEqual(client.post('/reason',json=dict(body,**change),headers=headers).status_code,422)
+class ParseEngine:
+ manifest={'model_id':'test-double','revision':'test-only'};device='test'
+ def score_labels(self,prompt,image,labels):
+  if labels==('A','B','C'):return {'A':-3.,'B':-.1,'C':-3.},50
+  yes='baggage' in prompt.split('specifically about')[-1]
+  return {'Yes':-.1 if yes else -5.,'No':-5. if yes else -.1},40
+class ParsedQuestionTests(unittest.TestCase):
+ def test_model_parses_and_code_answers(self):
+  body=dict(requestId='p',scenarioId=S,aircraftId='A2',checkpoint=14,question='Are the bags loaded?')
+  with tempfile.TemporaryDirectory() as tmp,patch('backend.server.AUDIT_PATH',Path(tmp)/'audit.jsonl'):
+   with TestClient(create_app(ParseEngine(),'t')) as client:
+    r=client.post('/reason',json=body,headers={'Authorization':'Bearer t'}).json()
+  self.assertEqual((r['parsedBy'],r['queryType'],r['properties']),('model','current',['baggage_status']))
+  self.assertEqual(r['resultStatus'],'generated');self.assertEqual(r['evidenceIds'],['E03'])
+  self.assertEqual(r['forwardPasses'],10);self.assertEqual(r['inputTokens'],50+9*40)
+ def test_keyword_baseline_shape(self):
+  from backend.query_parser import keyword_parse
+  self.assertEqual({k:v for k,v in keyword_parse('Has refuelling finished?').items() if k!='version'},{'queryType':'current','properties':['fuel_status']})
 if __name__=='__main__':unittest.main()

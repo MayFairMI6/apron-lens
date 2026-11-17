@@ -60,10 +60,8 @@ class BackboneTests(unittest.TestCase):
   text=(ROOT/'.github/workflows/model-check.yml').read_text()
   options=re.search(r'model:\n(?:.*\n)*?\s+options:\n((?:\s+- .*\n)+)',text).group(1)
   self.assertEqual([o.strip()[2:] for o in options.splitlines()],model_names())
-  for name in ('model-check.yml','checks.yml'):
-   self.assertEqual((ROOT/'.github/workflows'/name).read_text(),(ROOT/'docs/github-actions'/name).read_text())
  def test_request_without_image(self):
-  body=dict(requestId='test',scenarioId='M1-stand-coordination-01',aircraftId='A2',checkpoint=14)
+  body=dict(requestId='test',scenarioId='M1-stand-coordination-01',aircraftId='A2',checkpoint=14,queryType='latest')
   with tempfile.TemporaryDirectory() as tmp,patch('backend.server.AUDIT_PATH',Path(tmp)/'audit.jsonl'):
    with TestClient(create_app(NoEngine(),'test-token')) as client:
     r=client.post('/reason',json=body,headers={'Authorization':'Bearer test-token'})

@@ -1,5 +1,6 @@
 """Pinned model identities (config/models.json) and device choice. Weights live outside Git under models/<local_dir>."""
 import json
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,7 +64,8 @@ def pick_device(torch):
 def pick_dtype(torch, device, mps_dtype='float16'):
     """bfloat16 on NVIDIA where supported (float16 can overflow); MPS keeps the configured type."""
     if device == 'cpu':
-        return torch.float32
+        # Default float32; APRONLENS_CPU_DTYPE=float16 fits 3-4B models in ~11 GB on a CPU-only machine.
+        return getattr(torch, os.environ.get('APRONLENS_CPU_DTYPE', 'float32'))
     if device == 'cuda':
         return torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     return getattr(torch, mps_dtype)
