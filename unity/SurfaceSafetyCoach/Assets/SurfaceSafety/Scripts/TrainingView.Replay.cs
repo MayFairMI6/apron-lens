@@ -72,7 +72,7 @@ namespace SurfaceSafety {
             camera.rect=landscape?new Rect(.015f,.06f,.61f,.78f):new Rect(.015f,.405f,.97f,.445f);
             tagRoot=Box(root,"Flight labels",Vector2.zero,Vector2.one,Color.clear,false);BuildTags();
             var tools=Box(root,"View controls",new Vector2(.025f,landscape?.78f:.815f),new Vector2(landscape?.61f:.97f,.855f),Color.clear,false);
-            Button(tools,"Region",new Vector2(0,0),new Vector2(.2f,1),Overview);
+            Button(tools,Regional?"Region":"Apron",new Vector2(0,0),new Vector2(.2f,1),Overview);  // same label rule as the training view
             Button(tools,"Runway",new Vector2(.22f,0),new Vector2(.42f,1),RunwayView);
             Button(tools,"Follow flight",new Vector2(.44f,0),new Vector2(.72f,1),Focus);
             Button(tools,"−",new Vector2(.75f,0),new Vector2(.86f,1),()=>distance=Mathf.Min(12000,distance+(distance>400?200:35)));
