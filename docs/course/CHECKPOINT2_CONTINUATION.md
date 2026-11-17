@@ -122,3 +122,9 @@ for owner review (prompt wording for camera observations, question families,
 scoring, and a brief for a fresh agent to draft held-out cases). The owner asked
 that this start only after the session is switched to high effort (decision
 log #52). Nothing is frozen yet.
+
+Update 17 November 2026, latest: the comparison protocol is drafted
+(`docs/course/CAMERA_EVIDENCE_COMPARISON.md`, with the author brief
+`docs/course/M2_HELDOUT_AUTHORING_BRIEF.md`). First unfinished action: the
+owner settles D1–D7 in that document; then build on development data only,
+freeze 2, and only then hand the brief to a fresh agent.
