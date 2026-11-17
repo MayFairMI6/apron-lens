@@ -125,9 +125,12 @@ def main():
     p.add_argument('--port', type=int, default=8768)
     p.add_argument('--no-model', action='store_true',
                    help='Serve the replay without loading the assistant; questions return 503.')
+    p.add_argument('--camera-session', type=Path, help='Recorded camera observations (Stand B only)')
+    p.add_argument('--camera-arm', choices=('rgb', 'rgb_depth'), help='Which camera evidence arm to load')
     args = p.parse_args()
+    camera = dict(camera_session=args.camera_session, camera_arm=args.camera_arm) if args.camera_session else {}
     if args.no_model:
-        replay = ReplaySession(args.seed, args.exercise, audit_path=ROOT / 'work/replay-sessions.jsonl')
+        replay = ReplaySession(args.seed, args.exercise, audit_path=ROOT / 'work/replay-sessions.jsonl', **camera)
         local_token()
         print(f'REPLAY_STARTING {args.exercise} port={args.port} (no model)', flush=True)
         uvicorn.run(replay_app(None, None, replay), host='127.0.0.1', port=args.port, access_log=False)
@@ -135,7 +138,7 @@ def main():
     factory = partial(TrainingAdapter, 'qwen3.5-9b', profile='apronlens-v2-mps',
                       training_role='controller_awareness', prompt_audit_path=ROOT / 'work/replay-prompts.jsonl')
     adapter = IsolatedTrainingAdapter(factory, factory().served_model, audit_path=ROOT / 'work/replay-worker.jsonl')
-    replay = ReplaySession(args.seed, args.exercise, audit_path=ROOT / 'work/replay-sessions.jsonl')
+    replay = ReplaySession(args.seed, args.exercise, audit_path=ROOT / 'work/replay-sessions.jsonl', **camera)
     settings = Settings(adapter.served_model, 768, image_max_side=672)
     local_token()
     print(f'REPLAY_STARTING {args.exercise} port={args.port}', flush=True)

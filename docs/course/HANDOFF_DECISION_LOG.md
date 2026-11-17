@@ -82,4 +82,8 @@ owner can reverse any agent choice.
 | 44 | 2026-11-17 | v3 held-out split rendered and frozen (`detector-v3-heldout-manifest.json`) before candidate C is fitted; not opened | Agent | Amendment 1 |
 | 45 | 2026-11-17 | Candidate C fitted; B carried unchanged (validation reproduced exactly). Validation box F1: C 0.962 (P 0.958, R 0.966 at 0.30) vs B 0.924; C selected by the unchanged rule; fit report committed before the v3 run | Agent (rule fixed in PROTOCOL.md) | `outputs/checkpoint2-run/detector-v3-fit-report.json` |
 | 46 | 2026-11-17 | v3 held-out run (once): candidate C passes the box gate (P 0.975, R 0.957) and the evidence gate (presence P 1.00, R 0.963; location within 8 m 100%; Stand B agreement 98.1%). Recorded as qualified camera evidence for synthetic Stand B frames only | Protocol rule | ML-058 addendum; `outputs/checkpoint2-run/detector-v3-heldout.json` |
+| 47 | 2026-11-17 | Recorded Stand B camera session: scripted AR viewpoint once per second, 0–210 s; observations from the qualified detector for both arms; presence right in 211/211 frames | Agent | ML-058 addendum 2 |
+| 48 | 2026-11-17 | Tracking-lost frames keep presence but never a location | Agent | No pose, no place on the apron |
+| 49 | 2026-11-17 | Replay serves Stand B and loads exactly one camera arm per run; only a qualified session can be loaded | Agent | Arms stay separable for the comparison |
+| 50 | 2026-11-17 | Camera observations are **not** added to the assistant prompt yet; their prompt wording is part of the frozen comparison design. App display of camera rows waits for preview approval | Agent | Evaluation integrity; preview rule |
 

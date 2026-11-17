@@ -4516,3 +4516,22 @@ stands. Qualification applies to synthetic frames of this authored apron from
 the same distribution as development. It says nothing about real photographs,
 other airports, or other vehicles. Record:
 `outputs/checkpoint2-run/detector-v3-heldout.json`.
+
+**ML-058 addendum 2 — recorded Stand B camera session in the replay (17 November 2026).**
+`P01CaptureBatch` session mode rendered the scripted AR viewpoint once per
+source second, 0–210 s (211 frames): clear view, bridge occlusion (45–49 s,
+93–97 s), look-away (50–54 s, 98–102 s) and tracking loss (55–59 s,
+103–107 s). The qualified detector (v3, candidate C, threshold 0.30) produced
+one `rgb` and one `rgb_depth` observation per frame
+(`outputs/checkpoint2-run/stand-b-session-observations.json`). Checked
+afterwards against labels: presence right in 211 of 211 frames. Tracking-lost
+frames report presence with no location. The depth arm places the tanker off
+Stand B from 92 s, before the removal report (received 95 s) and the release
+(received 150 s); the replay still shows no release until 150 s.
+
+The replay now serves `stand_clearance` and loads one camera arm per run
+(`--camera-session … --camera-arm rgb|rgb_depth`); observations are cut off
+with the view, bound to the run and never change reports. Not done: the
+observations do not enter the assistant's prompt (that wording belongs to the
+frozen reports / +RGB / +depth comparison), and the app does not display them
+yet (a visual change needing preview approval). Full suite: 711 tests pass.

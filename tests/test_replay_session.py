@@ -2,6 +2,7 @@
 import copy
 import json
 import unittest
+from pathlib import Path
 
 from backend.bluebird_inbound import BLUEBIRD_787, HANDOFF, build_bluebird_inbound
 from backend.conversation.turns import run_turn
@@ -64,11 +65,12 @@ class LeadCase(ReplayCase):
         for exercise in REPLAY_CASES:
             for seed in range(20):
                 replay = ReplaySession(seed, exercise, clock=lambda: 0.)
-                driver = TrainingSession(seed, exercise, 'continuous', clock=lambda: 0.).scenario
+                mode = 'lesson' if exercise == 'stand_clearance' else 'continuous'
+                driver = TrainingSession(seed, exercise, mode, clock=lambda: 0.).scenario
                 ours = replay.scenario()
                 # The lesson driver adds its visual weather profile; reports, aircraft and motion must match.
                 for key in ('events', 'aircraft', 'runwayReservations'):
-                    self.assertEqual(ours[key], driver[key], (exercise, seed, key))
+                    self.assertEqual(ours.get(key), driver.get(key), (exercise, seed, key))
                 end = replay.view()
                 self.assertEqual(replay.action(dict(actionId='e', runId=replay.run_id, viewRevision=end['viewRevision'],
                                                     action='seek', cutoff=replay.end))['reports'][-1]['id'],
@@ -439,6 +441,64 @@ class Service(unittest.TestCase):
         self.assertEqual([r['id'] for r in view.json()['reports']], ['F001', 'F002', 'F003'])
         self.assertEqual(self.post(client, '/replay/question', requestId='q', viewRevision=1, question='Latest?').status_code, 503)
         self.assertFalse(self.replay.view()['assistantPending'])
+
+
+class StandBCameraSession(ReplayCase):
+    SESSION = Path(__file__).resolve().parents[1] / 'outputs/checkpoint2-run/stand-b-session-observations.json'
+
+    def stand(self, arm):
+        return ReplaySession(17, 'stand_clearance', clock=lambda: 0., camera_session=self.SESSION, camera_arm=arm)
+
+    def test_camera_sees_the_stand_clear_before_the_removal_report_and_release(self):
+        s = self.stand('rgb_depth')
+        self.count = 0
+        view = self.act(s, 'seek', cutoff=92)
+        latest = view['cameraObservations'][-1]
+        self.assertEqual((latest['captureTime'], latest['visibleVehicle'], latest['onStandB']), (92, 'present', False))
+        self.assertEqual(latest['sourceKind'], 'camera_observation')
+        self.assertNotIn('S007', [r['id'] for r in view['reports']])  # removal report arrives at 95 s
+        released = [r for r in self.act(s, 'seek', cutoff=149)['reports'] if 'released' in r['facts'][0]['value']]
+        self.assertEqual(released, [])  # a clear camera view never stands in for the release report
+        self.assertTrue(any('released' in r['facts'][0]['value'] for r in self.act(s, 'seek', cutoff=150)['reports']))
+        s.verify_unchanged()
+
+    def test_rgb_arm_has_no_location_and_tracking_loss_has_none_either(self):
+        rgb = self.stand('rgb')
+        self.count = 0
+        view = self.act(rgb, 'seek', cutoff=60)
+        self.assertEqual(len(view['cameraObservations']), 61)
+        self.assertFalse(any('apronPositionMetres' in o for o in view['cameraObservations']))
+        depth = self.stand('rgb_depth')
+        self.count = 0
+        lost = [o for o in self.act(depth, 'seek', cutoff=60)['cameraObservations'] if not o['trackingValid']]
+        self.assertEqual(len(lost), 5)
+        self.assertFalse(any('apronPositionMetres' in o for o in lost))
+        occluded = next(o for o in depth.view()['cameraObservations'] if o['captureTime'] == 47)
+        self.assertEqual(occluded['visibleVehicle'], 'not_detected')
+
+    def test_backward_seek_hides_later_observations_and_runs_are_bound(self):
+        s = self.stand('rgb_depth')
+        self.count = 0
+        self.act(s, 'seek', cutoff=200)
+        back = self.act(s, 'seek', cutoff=30)
+        self.assertEqual(max(o['captureTime'] for o in back['cameraObservations']), 30)
+        self.assertTrue(all(o['runId'] == s.run_id for o in back['cameraObservations']))
+
+    def test_session_is_only_for_stand_b_qualified_and_one_arm(self):
+        import json, tempfile
+        with self.assertRaises(ValueError):
+            ReplaySession(17, LEAD_CASE, camera_session=self.SESSION, camera_arm='rgb')
+        with self.assertRaises(ValueError):
+            self.stand('depth')
+        body = json.loads(self.SESSION.read_text())
+        body['qualified'] = False
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+            json.dump(body, handle)
+        with self.assertRaises(ValueError):
+            ReplaySession(17, 'stand_clearance', camera_session=handle.name, camera_arm='rgb')
+        plain = ReplaySession(17, 'stand_clearance', clock=lambda: 0.)
+        self.assertEqual((plain.observations, plain.camera_arm), ([], None))
+
 
 
 if __name__ == '__main__':

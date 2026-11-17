@@ -21,11 +21,16 @@ from backend.conversation.state import DEVELOPMENT, SessionState
 from backend.evidence import classify, received_facts, validate_scenario
 from backend.fleet_scenarios import FLEET_DEMONSTRATIONS, TITLES as FLEET_TITLES, build_fleet
 from backend.fleet_incident_variations import FLEET_VARIATIONS, VARIATION_TITLES, build_fleet_variation
+from backend.lessons import build_lesson
+from backend.stand_clearance_lesson import STAND_CLEARANCE_LESSON
 
 LEAD_CASE = 'fleet_a380_go_around'
 # Presentation order: the A380 go-around leads and the 787 handoff follows.
-REPLAY_CASES = (LEAD_CASE, BLUEBIRD_787) + tuple(c for c in FLEET_DEMONSTRATIONS if c != LEAD_CASE) + FLEET_VARIATIONS
-TITLES = {**FLEET_TITLES, **VARIATION_TITLES, BLUEBIRD_787: BLUEBIRD_TITLE}
+REPLAY_CASES = ((LEAD_CASE, BLUEBIRD_787) + tuple(c for c in FLEET_DEMONSTRATIONS if c != LEAD_CASE) + FLEET_VARIATIONS
+                + (STAND_CLEARANCE_LESSON,))  # Stand B: engineering and camera-evidence replay
+TITLES = {**FLEET_TITLES, **VARIATION_TITLES, BLUEBIRD_787: BLUEBIRD_TITLE,
+          STAND_CLEARANCE_LESSON: 'An arriving stand not clear of equipment'}
+CAMERA_ARMS = ('rgb', 'rgb_depth')
 RATES = (1., 4., 10.)
 MAX_NOTE_CHARS = 280
 MAX_QUESTION_CHARS = 400
@@ -66,11 +71,13 @@ def _position(aircraft, t):
 
 
 class ReplaySession:
-    def __init__(self, seed, exercise=LEAD_CASE, clock=time.monotonic, audit_path=None):
+    def __init__(self, seed, exercise=LEAD_CASE, clock=time.monotonic, audit_path=None,
+                 camera_session=None, camera_arm=None):
         if exercise not in REPLAY_CASES:
             raise ValueError('Unknown replay case')
         builder = (build_bluebird_inbound if exercise == BLUEBIRD_787 else
-                   build_fleet_variation if exercise in FLEET_VARIATIONS else build_fleet)
+                   build_fleet_variation if exercise in FLEET_VARIATIONS else
+                   build_lesson if exercise == STAND_CLEARANCE_LESSON else build_fleet)
         world, _, _ = builder(seed, exercise)
         validate_scenario(world)
         self.seed, self.exercise, self.clock = seed, exercise, clock
@@ -94,12 +101,37 @@ class ReplaySession:
         self.selected = 'A1'
         self.notes = []
         self.observations = []
+        self.camera_arm = None
+        if camera_session is not None:
+            self._load_camera_session(camera_session, camera_arm)
         self.memory_intents = []
         self.memory_turns = []
         self.pending = None
         self._actions = {}
         self._answers = {}
         self._log('replay_start', seed=seed, exercise=exercise, scenarioHash=self.scenario_hash)
+
+    def _load_camera_session(self, path, arm):
+        """Recorded camera observations for one evidence arm, bound to this run.
+
+        Only Stand B has a recorded session. The observations stay separate from
+        reports and from the scenario; they never change releases or movement.
+        """
+        if self.exercise != STAND_CLEARANCE_LESSON:
+            raise ValueError('Only the Stand B replay has a recorded camera session')
+        if arm not in CAMERA_ARMS:
+            raise ValueError('Choose a camera evidence arm: rgb or rgb_depth')
+        body = json.loads(Path(path).read_text())
+        if not body.get('qualified'):
+            raise ValueError('The session detector is not qualified as camera evidence')
+        self.camera_arm = arm
+        self.camera_session = dict(detector=body['detector'], threshold=body['threshold'], version=body['version'])
+        for index, record in enumerate(r for r in body['observations'] if r['arm'] == arm):
+            if record['runId'] != 'SESSION' or not 0 <= record['sourceTime'] <= self._world['duration']:
+                raise ValueError('Unexpected camera session record')
+            self.observations.append(dict(record, id=f'C{index + 1:03d}', runId=self.run_id,
+                                          captureTime=float(record['sourceTime']), sourceLabel='Camera observation'))
+        self.observations.sort(key=lambda o: (o['captureTime'], o['id']))
 
     # ---- immutable scenario -------------------------------------------------------
     def scenario(self):

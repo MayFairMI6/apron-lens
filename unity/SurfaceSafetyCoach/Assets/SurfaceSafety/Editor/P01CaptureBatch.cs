@@ -41,6 +41,7 @@ public static class P01CaptureBatch {
         Directory.CreateDirectory(output);int frames=0,visible=0,hidden=0;
         var planPath=Environment.GetEnvironmentVariable("AIRFIELDLENS_P01_CAPTURE_PLAN");
         if(!string.IsNullOrEmpty(planPath)){RunPlan(planPath,output,scenario,replay,camera,rig,vehicle);return;}
+        if(Environment.GetEnvironmentVariable("AIRFIELDLENS_P01_CAPTURE_SESSION")=="1"){RunSession(output,scenario,replay,camera,rig,vehicle);return;}
         // Fixed before rendering or model fitting. Body and viewpoint variants
         // are disjoint, but all share this authored apron and route: pilot only.
         var domains=new[]{
@@ -69,6 +70,25 @@ public static class P01CaptureBatch {
         }
         File.WriteAllText(Path.Combine(output,"capture-summary.json"),"{\"frames\":"+frames+",\"visibleVehicleFrames\":"+visible+",\"zeroVehiclePixelFrames\":"+hidden+",\"note\":\"Synthetic geometry labels; viewpoints at one scenario/time are a render group, not independent samples. Native scene acceptance remains separate.\"}");
         Debug.Log("P01_CAPTURE_BATCH_PASS frames="+frames+" visible="+visible+" zeroPixels="+hidden+" output="+output);
+    }
+    // Session mode: the scripted AR viewpoint (P01CameraRig.SetScripted) once per source second,
+    // as a recorded session would capture it, including look-away, bridge occlusion and tracking loss.
+    static void RunSession(string output,Scenario scenario,StandReplay replay,Camera camera,P01CameraRig rig,GameObject vehicle){
+        var route=Array.Find(scenario.groundVehicles,p=>p.id=="service-vehicle");
+        if(route==null)throw new InvalidOperationException("P01 service-vehicle route missing.");
+        rig.SetScripted(true);int frames=0,visible=0,hidden=0;
+        for(int second=0;second<=210;second++){
+            replay.SetReplayTime(second,"paused");
+            vehicle.transform.localPosition=Scenario.Position(route,second);vehicle.transform.localRotation=Quaternion.Euler(0,Scenario.Heading(route,second),0);
+            rig.Tick();
+            var frame=P01SynchronizedCapture.Capture(replay,camera,960);
+            if(frame.metadata.sourceTime!=replay.Clock.Time)throw new Exception("Source-time mismatch.");
+            frame.metadata.split="session";frame.metadata.domainVariant="scene-default";
+            frame.metadata.datasetPurpose="Recorded synthetic Stand B AR session (scripted viewpoint); for replay camera evidence, not detector training.";
+            frame.Export(Path.Combine(output,"session"),"t"+second.ToString("000"));frames++;if(frame.metadata.visibleBoxes.Length>0)visible++;else hidden++;
+        }
+        File.WriteAllText(Path.Combine(output,"capture-summary.json"),"{\"session\":true,\"frames\":"+frames+",\"visibleVehicleFrames\":"+visible+",\"zeroVehiclePixelFrames\":"+hidden+"}");
+        Debug.Log("P01_CAPTURE_SESSION_PASS frames="+frames+" visible="+visible+" zeroPixels="+hidden+" output="+output);
     }
     static void RunPlan(string planPath,string output,Scenario scenario,StandReplay replay,Camera camera,P01CameraRig rig,GameObject vehicle){
         var plan=JsonUtility.FromJson<CapturePlan>(File.ReadAllText(planPath));

@@ -82,6 +82,8 @@ class Records(unittest.TestCase):
         lost = dict(self.meta, trackingAvailable=False)
         record = observation(lost, [((40, 22, 56, 32), .9)], 'rgb', **self.common)
         self.assertEqual((record['trackingValid'], record['detectorQualified']), (False, False))
+        located = observation(lost, [((40, 22, 56, 32), .9)], 'rgb_depth', depth=self.depth, **self.common)
+        self.assertNotIn('apronPositionMetres', located)  # no pose, no place on the apron
 
     def test_a_camera_observation_cannot_establish_release(self):
         world, _, _ = build_stand_clearance_lesson(17)

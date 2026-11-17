@@ -98,7 +98,8 @@ def observation(meta, detections, arm, *, run_id, capture_id, detector, threshol
                   detector=detector, detectorQualified=bool(qualified), threshold=threshold,
                   note=('Camera observation, lower authority than a report. "not_detected" is not evidence of '
                         'absence. No observation establishes a stand release.'))
-    if arm == 'rgb_depth' and kept:
+    # Without tracking the frame cannot be placed on the apron, so no location is claimed.
+    if arm == 'rgb_depth' and kept and record['trackingValid']:
         point = locate(meta, depth, kept[0][0])
         record['apronPositionMetres'] = None if point is None else dict(zip('xyz', point))
         record['onStandB'] = None if point is None else on_stand_b(point)
