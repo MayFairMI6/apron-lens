@@ -12,12 +12,17 @@ FIELDS = {
  'route': 'Authored movement plan', 'movement_status': 'Scripted movement',
  'movement_condition': 'Authored movement condition', 'trajectory_checkpoint': 'Authored checkpoint',
  'overall_readiness': 'Overall departure readiness',
+ # Tower scenario (tower1.json): clearances and readbacks.
+ 'taxi_clearance': 'Taxi clearance', 'lineup_clearance': 'Line-up clearance',
+ 'takeoff_clearance': 'Take-off clearance', 'readback': 'Pilot readback', 'runway': 'Runway assigned',
 }
 STATUSES = ('current', 'superseded', 'scheduled', 'expired', 'conflicting')
 
 def load_scenario(sid):
     if sid == 'M1-stand-coordination-01':
         path=ROOT/'unity/SurfaceSafetyCoach/Assets/Resources/milestone1.json'
+    elif sid == 'T1-tower-clearances-01':
+        path=ROOT/'unity/SurfaceSafetyCoach/Assets/Resources/tower1.json'
     elif isinstance(sid,str) and sid.replace('-','').isalnum():
         path=DATA/(sid+'.json')
     else: raise ValueError('Unknown scenario')

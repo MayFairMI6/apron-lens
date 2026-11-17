@@ -11,7 +11,7 @@ from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
 from backend.reasoning import ROOT, context_for, decode_image, validate_answer
-from backend.evidence import expected_selection
+from backend.evidence import expected_selection, load_scenario
 from backend.query_parser import VERSION as PARSER_VERSION, parse
 from backend.engine import VLMEngine, load_engine
 from backend.models import PRIMARY_MODEL, model_names
@@ -93,8 +93,9 @@ def create_app(engine=None, token=None, model=PRIMARY_MODEL):
             start = time.perf_counter()
             parsed = None
             if body.queryType is None:
+                domain = load_scenario(body.scenarioId).get('domain', 'apron')
                 try:
-                    parsed = await run_in_threadpool(parse, app.state.engine, body.question)
+                    parsed = await run_in_threadpool(parse, app.state.engine, body.question, domain)
                 except Exception as exc:
                     raise HTTPException(503, 'Local model failed to parse the question; inspect server log') from exc
                 query_type, properties = parsed['queryType'], parsed['properties']
