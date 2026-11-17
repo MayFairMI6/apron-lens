@@ -13,7 +13,8 @@ namespace SurfaceSafety {
         public string question="What does the latest received report say for this aircraft, when did it happen and arrive, and what remains unconfirmed?";
     }
     [Serializable] public class ReasoningResponse {
-        public string requestId, scenarioId, aircraftId, flightInstance, answer, resultStatus, model, revision, validation, contextLimit, answerOrigin;
+        public string requestId, scenarioId, aircraftId, flightInstance, answer, resultStatus, model, revision, validation, contextLimit, answerOrigin, queryType, parsedBy;
+        public string[] properties;
         public SupportedClaim[] claims;
         public float checkpoint, elapsedSeconds;
         public string[] evidenceIds, eligibleEvidenceIds;
@@ -60,8 +61,11 @@ namespace SurfaceSafety {
         }
         public ReasoningRequest BuildRequest() {
             var a=replay.Data.aircraft[replay.SelectedAircraftIndex];
-            return new ReasoningRequest { requestId=Guid.NewGuid().ToString("N"),scenarioId=replay.Data.scenarioId,
+            var request=new ReasoningRequest { requestId=Guid.NewGuid().ToString("N"),scenarioId=replay.Data.scenarioId,
                 aircraftId=a.id,checkpoint=replay.Clock.Time,imageBase64=Convert.ToBase64String(CaptureSyntheticScene(replay)) };
+            // No queryType is sent, so the service has the model parse the typed question.
+            if(!string.IsNullOrWhiteSpace(replay.PendingQuestion))request.question=replay.PendingQuestion.Trim();
+            return request;
         }
         public void Request() {
             if(Busy)return;
@@ -72,7 +76,7 @@ namespace SurfaceSafety {
             replay.Pause();hasResult=false;LastResponse=null;LastError=null;
             pending=BuildRequest();
             var request=pending;
-            replay.SetAiResult("QWEN · THINKING",$"Reviewing {request.aircraftId} at {request.checkpoint:00.0}s. Replay paused to keep this explanation tied to its evidence.");
+            replay.SetAiResult("QWEN · THINKING",$"Reading the question for {request.aircraftId} at {request.checkpoint:00.0}s. Replay paused to keep the answer tied to its evidence.");
             active=new UnityWebRequest(endpoint+"/reason","POST");
             active.uploadHandler=new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(request)));
             active.downloadHandler=new DownloadHandlerBuffer();active.timeout=180;
@@ -109,9 +113,12 @@ namespace SurfaceSafety {
             LastResponse=response;resultFlight=a.flightInstance;resultTime=request.checkpoint;hasResult=true;
             string sources=response.evidenceIds.Length>0?string.Join(", ",response.evidenceIds):"No supporting report";
             string status=response.resultStatus=="withheld"?"SELECTION WITHHELD":"CLAIMS CHECKED";
-            replay.SetAiResult(status,$"{response.answer}\n\nSources: {sources} · As of {request.checkpoint:00.0}s\nScenario limit: {response.contextLimit}\n{response.elapsedSeconds:0.0}s on Mac · Qwen selects facts; checked templates supply the wording.");
+            string readAs=string.IsNullOrEmpty(response.queryType)?"":"Read as: "+QueryLabel(response.queryType)+
+                (response.properties!=null&&response.properties.Length>0?" · "+string.Join(", ",response.properties.Select(p=>p.Replace('_',' '))):"")+"\n\n";
+            replay.SetAiResult(status,$"{readAs}{response.answer}\n\nSources: {sources} · As of {request.checkpoint:00.0}s\nScenario limit: {response.contextLimit}\n{response.elapsedSeconds:0.0}s · Qwen read the question; rules chose the facts; templates supply the wording.");
             return true;
         }
+        static string QueryLabel(string queryType) => queryType=="current"?"current value":queryType=="change"?"change history":"latest report";
         bool ClaimSupported(SupportedClaim claim,float checkpoint,AircraftPlan aircraft) {
             if(claim==null||claim.evidence_ids==null||claim.evidence_ids.Length!=1||string.IsNullOrEmpty(claim.fact_id))return false;
             var e=replay.Data.KnownAt(checkpoint).FirstOrDefault(x=>x.id==claim.evidence_ids[0]&&x.flightInstance==aircraft.flightInstance&&x.aircraftId==aircraft.id);
