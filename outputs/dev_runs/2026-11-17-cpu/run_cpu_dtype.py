@@ -1,6 +1,6 @@
 """Wrapper used for these runs: sets the CPU number type (CPU_DTYPE, default bfloat16) so 3-4B models fit in 15 GB.
 
-It patches a backbone internal on purpose, for this one-off record only; it is not project code.
+It patches an engine internal on purpose, for this one-off record only; it is not project code.
 Usage from the repository root: CPU_DTYPE=float16 python outputs/dev_runs/2026-11-17-cpu/run_cpu_dtype.py --suite dev --model qwen3-vl-4b --output work/x
 """
 import atexit
@@ -15,7 +15,7 @@ atexit.register(lambda: print(f'PEAK_RSS_GB {resource.getrusage(resource.RUSAGE_
 
 ROOT = str(__import__('pathlib').Path(__file__).resolve().parents[3])
 sys.path.insert(0, ROOT)
-import backbone.engine as engine
+import backend.engine as engine
 
 original = engine.pick_dtype
 import os

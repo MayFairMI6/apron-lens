@@ -12,7 +12,8 @@ from pydantic import BaseModel, ConfigDict, Field
 from starlette.concurrency import run_in_threadpool
 from backend.reasoning import ROOT, context_for, decode_image, validate_answer
 from backend.decisions import select_claims, VERSION as DECISION_VERSION
-from backbone import PRIMARY_MODEL, VLMEngine, load_engine, model_names
+from backend.engine import VLMEngine, load_engine
+from backend.models import PRIMARY_MODEL, model_names
 
 TOKEN_PATH = ROOT / 'work/qwen-server-token.txt'
 AUDIT_PATH = ROOT / 'work/qwen-requests.jsonl'

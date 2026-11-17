@@ -5,7 +5,8 @@ Development observations, not held-out evidence. The 24 development questions
 during method development. Nothing here changes the frozen V2 evaluation.
 
 **Setup.** Cloud container: 4 CPU cores, 15 GB memory, no GPU. Python 3.12,
-torch 2.14.1+cpu, transformers 4.57.6, backbone 1.0.0, branch commit 174e8f9.
+torch 2.14.1+cpu, transformers 4.57.6, branch commit 174e8f9 (model code then
+lived in `backbone/`, since folded into `backend/`; the wrapper now patches `backend.engine`).
 `scripts/run_model_check.py` run unchanged through `run_cpu_dtype.py`, which
 only sets the CPU number type. Each `summary.json` records model revision,
 number type, device and source hashes; `results.jsonl` keeps every raw answer

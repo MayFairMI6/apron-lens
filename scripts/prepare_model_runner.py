@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from backbone import PRIMARY_MODEL, expected_manifest, model_dir, model_names
+from backend.models import PRIMARY_MODEL, expected_manifest, model_dir, model_names
 
 
 def prepare(cache, model=PRIMARY_MODEL):

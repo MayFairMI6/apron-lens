@@ -13,6 +13,6 @@ set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"
 PYTHON="${PYTHON:-python}"
 for model in ${MODELS:-qwen2.5-vl-3b}; do
-  "$PYTHON" -m backbone.download --model "$model"
+  "$PYTHON" -m backend.download --model "$model"
 done
 du -sh models/*/ 2>/dev/null || true

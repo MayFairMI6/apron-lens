@@ -1,11 +1,11 @@
-"""Download a registered model at its exact revision: python -m backbone.download --model <name> [--pin]"""
+"""Download a registered model at its exact revision: python -m backend.download --model <name> [--pin]"""
 import argparse
 import json
 import os
 
 # Use resumable HTTP downloads; the development Mac's Xet route was substantially slower.
 os.environ.setdefault("HF_HUB_DISABLE_XET", "1")
-from backbone.registry import MANIFEST_FIELDS, REGISTRY_PATH, model_dir, model_entry
+from backend.models import MANIFEST_FIELDS, REGISTRY_PATH, model_dir, model_entry
 
 
 def download(name, pin=False):
@@ -29,8 +29,7 @@ def download(name, pin=False):
         data = json.loads(REGISTRY_PATH.read_text())
         data['models'][name]['revision'] = revision
         REGISTRY_PATH.write_text(json.dumps(data, indent=2) + "\n")
-        print("Recorded the revision in backbone/models.json. This changes the backbone: "
-              "bump backbone/VERSION and run python -m backbone.check --stamp.", flush=True)
+        print("Recorded the revision in config/models.json; commit it with your results.", flush=True)
     manifest = {k: entry[k] for k in MANIFEST_FIELDS} | {'revision': revision}
     (target / "download-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"Download complete: {target}", flush=True)

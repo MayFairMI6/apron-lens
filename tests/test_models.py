@@ -1,10 +1,11 @@
-"""Shared-backbone contract: frozen evaluated model, pinned candidates, enforced boundary."""
-import importlib,json,re,subprocess,sys,tempfile,unittest
+"""Model contract: frozen evaluated model, pinned candidates, device choice."""
+import json,re,tempfile,unittest
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 from fastapi.testclient import TestClient
-from backbone import PRIMARY_MODEL,VLMEngine,check_transformers,expected_manifest,model_entry,model_names,pick_device,pick_dtype
+from backend.engine import VLMEngine
+from backend.models import PRIMARY_MODEL,check_transformers,expected_manifest,model_entry,model_names,pick_device,pick_dtype
 from backend.server import LocalQwen,create_app
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -14,7 +15,7 @@ class NoEngine:
 
 class BackboneTests(unittest.TestCase):
  def test_primary_is_the_evaluated_manifest(self):
-  # config/model-manifest.json stays the frozen V2 record; the backbone must match it exactly.
+  # config/model-manifest.json stays the frozen V2 record; the registry entry must match it exactly.
   self.assertEqual(expected_manifest(PRIMARY_MODEL),json.loads((ROOT/'config/model-manifest.json').read_text()))
   self.assertEqual(model_names()[0],PRIMARY_MODEL);self.assertEqual(model_entry(PRIMARY_MODEL)['role'],'primary')
   self.assertEqual(model_entry(PRIMARY_MODEL)['local_dir'],'Qwen2.5-VL-3B-Instruct');self.assertIs(LocalQwen,VLMEngine)
@@ -31,7 +32,7 @@ class BackboneTests(unittest.TestCase):
  def test_unknown_and_unpinned_rejected(self):
   with self.assertRaises(ValueError):expected_manifest('not-a-model')
   unpinned={'x':dict(model_entry(PRIMARY_MODEL),revision=None)}
-  with patch('backbone.registry._models',return_value=unpinned),self.assertRaises(ValueError):expected_manifest('x')
+  with patch('backend.models._models',return_value=unpinned),self.assertRaises(ValueError):expected_manifest('x')
  def test_transformers_version_gate(self):
   check_transformers('gemma-4-e4b','5.5.0.dev0');check_transformers('qwen3-vl-4b','4.57.6');check_transformers(PRIMARY_MODEL,'4.57.6')
   with self.assertRaises(ValueError):check_transformers('gemma-4-e4b','4.57.6')
@@ -40,7 +41,7 @@ class BackboneTests(unittest.TestCase):
   for name in (PRIMARY_MODEL,'qwen3-vl-4b'):
    with tempfile.TemporaryDirectory() as tmp:
     Path(tmp,'download-manifest.json').write_text(json.dumps(dict(expected_manifest(name),revision='0'*40)))
-    with patch('backbone.engine.model_dir',return_value=Path(tmp)),self.assertRaises(ValueError):VLMEngine(name)
+    with patch('backend.engine.model_dir',return_value=Path(tmp)),self.assertRaises(ValueError):VLMEngine(name)
  def test_device_and_dtype_choice(self):
   def torch(cuda,bf16=True,mps=False):
    return SimpleNamespace(float32='f32',float16='f16',bfloat16='bf16',
@@ -52,15 +53,6 @@ class BackboneTests(unittest.TestCase):
   self.assertEqual(pick_dtype(torch(False,mps=True),'mps'),'f16');self.assertEqual(pick_dtype(torch(True),'cuda'),'bf16')
   self.assertEqual(pick_dtype(torch(True,bf16=False),'cuda'),'f16');self.assertEqual(pick_dtype(torch(False),'cpu'),'f32')
   self.assertEqual(pick_dtype(torch(False,mps=True),'mps','bfloat16'),'bf16')
- def test_boundary_holds(self):
-  run=subprocess.run([sys.executable,'-m','backbone.check','--project','backend','scripts','tests'],cwd=ROOT,capture_output=True,text=True)
-  self.assertEqual(run.returncode,0,run.stdout+run.stderr)
- def test_boundary_violations_detected(self):
-  check=importlib.import_module('backbone.check')  # tooling, deliberately outside the public interface
-  with tempfile.TemporaryDirectory(dir=ROOT) as tmp:
-   Path(tmp,'bad.py').write_text('from backbone.registry import _models\nfrom backbone import REGISTRY_PATH\n')
-   errors=check.project_errors([Path(tmp).name])
-  self.assertEqual(len(errors),2,errors)
  def test_gaivi_jobs_use_class_partition(self):
   for job in ('download_models','model_check'):
    self.assertIn('#SBATCH --partition=ClsGenAI',(ROOT/f'scripts/gaivi/{job}.sbatch').read_text())

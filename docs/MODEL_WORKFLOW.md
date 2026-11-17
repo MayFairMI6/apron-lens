@@ -55,9 +55,8 @@ reviewed code because it executes on your machine. See GitHub's
 
 ## Try a candidate model
 
-The shared [backbone](../backbone/README.md) registry, `backbone/models.json`, lists
-alternative models with exact revisions, licences and the minimum transformers
-version each needs. The evaluated
+`config/models.json` lists alternative models with exact revisions, licences
+and the minimum transformers version each needs. The evaluated
 Qwen2.5-VL-3B stays the default and keeps `config/model-manifest.json`
 unchanged, so frozen V2 records still verify. Candidate results are development
 observations, not new held-out evidence.
@@ -71,13 +70,13 @@ observations, not new held-out evidence.
 
 ```sh
 # Qwen3-VL: reuse the locked environment
-.venv-qwen/bin/python -m backbone.download --model qwen3-vl-4b
+.venv-qwen/bin/python -m backend.download --model qwen3-vl-4b
 .venv-qwen/bin/python scripts/run_model_check.py --suite smoke --model qwen3-vl-4b --output work/check-q3vl4b-001
 
 # Qwen3.5 and Gemma 4: a separate environment, so the locked one stays unchanged
 python3.12 -m venv .venv-candidates
 .venv-candidates/bin/python -m pip install -r requirements-candidates.txt
-.venv-candidates/bin/python -m backbone.download --model gemma-4-e4b
+.venv-candidates/bin/python -m backend.download --model gemma-4-e4b
 .venv-candidates/bin/python scripts/run_model_check.py --suite smoke --model gemma-4-e4b --output work/check-gemma4-001
 ```
 
@@ -93,9 +92,8 @@ holding one subfolder per model name (each with its download manifest), and
 Gemma 4. Each run records the model name, revision and transformers version.
 
 To add a model, append an entry with `"revision": null`, read its model card,
-then run `python -m backbone.download --model <name> --pin` to record the
-revision. That changes the backbone: bump `backbone/VERSION`, run
-`python -m backbone.check --stamp`, and add the name to the workflow's model options.
+then run `python -m backend.download --model <name> --pin` to record the
+revision, and add the name to the workflow's model options.
 
 ## Run the same development check locally
 

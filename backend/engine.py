@@ -1,12 +1,10 @@
-"""Frozen vision-language model behind three calls. No prompts, data or task logic.
+"""Frozen vision-language model behind two calls. No prompts, data or task logic.
 
 generate     free text for a prompt and optional image
 score_labels log-probabilities of single-token labels (e.g. Yes/No) as the next token
-embed        mean-pooled final hidden state, as frozen features for project modules
 """
 import json
-from backbone.registry import check_transformers, expected_manifest, model_dir, model_entry, PRIMARY_MODEL
-from backbone.runtime import pick_device, pick_dtype
+from backend.models import check_transformers, expected_manifest, model_dir, model_entry, pick_device, pick_dtype, PRIMARY_MODEL
 
 
 class VLMEngine:
@@ -63,13 +61,6 @@ class VLMEngine:
             logits = self.model(**inputs,logits_to_keep=1,use_cache=False).logits[0,-1].float()
             scores = self.torch.log_softmax(logits,dim=-1)
         return {label:float(scores[ids[0]].item()) for label,ids in token_ids.items()},int(inputs['input_ids'].shape[1])
-
-    def embed(self, prompt, image=None):
-        """Frozen features only; any trained module that uses them lives in a project, not here."""
-        inputs = self._inputs(prompt, image)
-        with self.torch.inference_mode():
-            hidden = self.model(**inputs, output_hidden_states=True, use_cache=False).hidden_states[-1][0]
-        return hidden.float().mean(dim=0).cpu().tolist()
 
 
 def load_engine(name=PRIMARY_MODEL):

@@ -12,8 +12,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-import backbone
-from backbone import PRIMARY_MODEL, expected_manifest, load_engine, model_names
+from backend.engine import load_engine
+from backend.models import PRIMARY_MODEL, expected_manifest, model_names
 
 
 def run(suite, output, model):
@@ -51,11 +51,11 @@ def run(suite, output, model):
             stream.write(json.dumps(row)+'\n')
         print(q['id'], 'raw exact:', exact, 'baseline:', baseline_exact, 'guard:', guard['resultStatus'], flush=True)
     commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
-    sources = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ('backend/decisions.py','backend/evidence.py','backend/server.py','backbone/MANIFEST.json')}
+    sources = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ('backend/decisions.py','backend/evidence.py','backend/server.py','backend/engine.py','backend/models.py')}
     result = dict(suite=suite, purpose='Development regression; not fresh held-out evidence',
                   recordedUTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                   commit=commit.stdout.strip() if commit.returncode == 0 else None,
-                  method=VERSION, backbone=backbone.__version__, modelName=model, model=engine.manifest, device=engine.device, python=platform.python_version(),
+                  method=VERSION, modelName=model, model=engine.manifest, device=engine.device, python=platform.python_version(),
                   transformers=importlib.metadata.version('transformers'),
                   dtype=str(engine.dtype).removeprefix('torch.'),
                   gpu=engine.torch.cuda.get_device_name(0) if engine.device == 'cuda' else None,
