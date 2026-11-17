@@ -62,7 +62,7 @@ The app's replay and **Recorded facts** view work without a model. To use Qwen:
 
 USB forwarding: `adb reverse tcp:8765 tcp:8765`, using `http://127.0.0.1:8765`.
 Wi-Fi: start the service with `--host 0.0.0.0` on a trusted network and use the
-Mac's LAN address. Read [QWEN_CONNECTION.md](../QWEN_CONNECTION.md) for details.
+Mac's LAN address. Read [the model service guide](MODEL_SERVICE.md) for details.
 Never commit the service token or a Vuforia application license.
 
 ## Verification and remaining phone work

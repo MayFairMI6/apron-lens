@@ -63,7 +63,7 @@ swept wings, engines, windows and tail livery; their dimensions are illustrative
 Qwen runs on the Mac and selects from the flight's time-eligible reports. The
 service also accepts a synthetic Unity render for audit; production evidence
 decisions use text, since the scene has no service-state evidence. Connection setup, tests, and limitations are in
-QWEN_CONNECTION.md. No real camera imagery is sent. Changing time or aircraft
+docs/MODEL_SERVICE.md. No real camera imagery is sent. Changing time or aircraft
 invalidates an old answer. TOBT/TSAT and overall readiness remain unconfirmed;
 this prototype does not consume an A-CDM feed.
 

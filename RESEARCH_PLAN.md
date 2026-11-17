@@ -1,11 +1,10 @@
 # Research plan: time-valid visual reasoning for AR airfield coordination
 
-Status: proposed protocol. Local model installation and a synthetic-image
-inference check have passed on Apple MPS. The first Unity replay implementation
-compiles and passes deterministic checks. Android and physical tracking
-validation are recorded separately in MILESTONE_1.md. Synthetic evaluation results are linked below; no training-effectiveness
-findings or operational reliability claims are established. This plan extends the existing proposal's event-history
-evaluation; it preserves the smartphone AR, moving-aircraft, and A-CDM scope.
+Status: the Unity replay, evidence engine and model service are implemented.
+Evaluation records are linked below. No training-effectiveness findings or
+operational reliability claims are established. Since November 2026 the model
+parses questions into structured queries and code answers them; see
+`docs/MODEL_SERVICE.md` and `outputs/query_parsing_v1/`.
 
 ## Motivation and distinctive question
 
@@ -42,11 +41,6 @@ validity, source, and flight identity improve a vision-language model's answers
 about a changing simulated airport scene compared with recent history or
 retrieval without those constraints?
 
-The separate video-reasoning study, as recalled from saved personal context,
-focuses on learned visual-evidence retention and reasoning-rollout allocation
-under compute limits, anchored by AVIS. The AR project's independent focus is
-the validity of persistent event context and its use in interactive explanations.
-This distinction is a research design choice, not a claim of literature novelty.
 A focused related-work review is required before asserting a new method.
 
 ## Current integration versus research scope
@@ -194,8 +188,3 @@ Keep package/model revisions, scenario provenance and splits, prompts, raw
 responses, scoring rules, and logs. Share original assets and scenarios only
 with appropriate licenses. Retain the upstream Qwen Research License; do not
 redistribute weights as ordinary project source.
-
-A later CV entry should name the implemented system and the measured result,
-including its simulated setting and comparison. Until those exist, describe it
-as an in-progress AR prototype and evaluation plan. Publication potential and
-professional safety value remain questions to investigate.

@@ -8,6 +8,27 @@ was known at a checkpoint, and trace each explanation to its received reports.
 The intended stakeholder is a turnaround coordinator or ramp supervisor reviewing
 stand activity, with training and debrief as secondary uses.
 
+## Why this exists
+
+Stand coordination runs on reports that change. Ready-time estimates are revised,
+stands are reassigned, and some updates arrive after the event they describe.
+An answer can look plausible and still be wrong, because it uses an estimate
+that was already replaced, a report that had not arrived yet at the time in
+question, or a report about the same aircraft's previous visit. Airport
+Collaborative Decision Making (A-CDM) defines the turnaround milestones and who
+reports each one ([ICAO A-CDM milestone template](https://www.icao.int/ru/filebrowser/download/27415?fid=27415)),
+but a supervisor reviewing a stand still needs to reconstruct **what was known,
+when, and from which source**.
+
+ApronLens tests two ideas on a fictional, printed airfield board:
+
+- **Time-valid evidence.** Every answer uses only reports received by the replay
+  time, for the right aircraft and visit, with replaced and expired values
+  labelled, and each claim linked to its report.
+- **Information on the aircraft.** Showing that evidence in AR, on the aircraft
+  it concerns, may reduce mix-ups about which aircraft a report is about. This is
+  a hypothesis: comparing AR with an ordinary screen has not been run.
+
 **This repository contains the full Unity application**, its local Qwen service,
 synthetic datasets, and preserved evaluation records. The Android app places
 original 3D aircraft over a printed fictional airfield board using Vuforia.
@@ -27,9 +48,10 @@ keyboard and AR tracking tests remain pending.*
 - Scripted aircraft motion with pause, restart, seek and tracking-loss gating.
 - **Now / Why / History** views, selected-flight scope and source inspection.
 - Separate event and receipt times: a delayed report appears only after receipt.
-- Local Qwen evidence selection with exact source references and visible unknowns.
-- Explicit current, latest and change-history query types in the backend/harness.
-- A deterministic baseline displayed and evaluated separately from Qwen.
+- Local Qwen turns a typed question into a structured query; code answers it
+  with exact source references and visible unknowns.
+- Explicit current, latest and change-history query types.
+- Rule-based answers and checks that never depend on the model for time comparisons.
 - Android ARM64 development build and simulated base Galaxy S24 layout checks.
 
 The app currently has one authored M1 replay. Additional evaluation scenarios
@@ -79,30 +101,28 @@ The service generates a local connection token in `work/qwen-server-token.txt`;
 enter it through **More → Model connection**. Keep that token local.
 
 For a phone on USB, use `adb reverse tcp:8765 tcp:8765` and the default service
-address. For a trusted Wi-Fi connection, follow [QWEN_CONNECTION.md](QWEN_CONNECTION.md).
+address. For a trusted Wi-Fi connection, follow [the model service guide](docs/MODEL_SERVICE.md).
 
 ## How reasoning works
 
 ```mermaid
 flowchart LR
-    A[Android Unity AR replay] --> B[Selected flight and checkpoint]
-    B --> C[Received-report context manager]
-    C --> D[Qwen predicate decisions]
-    D --> E[Claim and completeness guard]
-    E --> F[Source-linked answer or withheld result]
-    C --> G[Separate deterministic baseline]
+    A[Typed question in the app] --> B[Qwen: query type and topics]
+    B --> C[Code: reports received by the replay time]
+    C --> D[Code: validity, replacement, expiry, conflicts]
+    D --> E[Claim guard and sentence templates]
+    E --> F[Source-linked answer or visible unknown]
 ```
 
-Code filters reports by receipt time and identity and supplies temporal status
-labels. Qwen selects literal predicates through short Yes/No decisions; the
-pipeline composes missing-evidence flags and projects exact values/source links
-from the selected records. The guard withholds an incomplete or incorrect
-selection; it never silently replaces it with a baseline answer.
-
-The production report-query path uses text. A synthetic scene image is captured
-for audit but supplies no service-state evidence. Multi-frame visual reasoning,
-visually necessary tasks and longitudinal memory remain research extensions.
-No model fine-tuning has been performed.
+The model's only job is interpreting the wording. It chooses among fixed options
+(latest report, current value or change history, then each topic), so it cannot
+produce an invalid query. Code filters reports by receipt time and identity,
+applies validity and replacement rules, compares times and copies values and
+sources into templates. Development runs showed both Qwen2.5-VL-3B and
+Qwen3-VL-4B misjudging receipt-time comparisons that code gets right, so those
+moved into code (`outputs/dev_runs/2026-11-17-cpu/`). The app's scene image is
+not used for inference. No model fine-tuning has been performed. Details:
+[model service guide](docs/MODEL_SERVICE.md).
 
 ## Preserved evaluation
 
