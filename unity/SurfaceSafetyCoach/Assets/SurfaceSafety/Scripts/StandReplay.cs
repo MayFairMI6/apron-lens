@@ -41,6 +41,14 @@ namespace SurfaceSafety {
         }
         public string CurrentReasoning {
             get {
+                if(IsTower){
+                    // Latest received value per property for the selected flight, each with its source.
+                    var latest=SelectedReports.SelectMany(e=>(e.facts??new EvidenceFact[0]).Select(f=>new{e,f}))
+                        .GroupBy(x=>x.f.property).Select(g=>g.Last());
+                    return string.Join(" ",latest.Select(x=>$"[{x.e.id}] {Pretty(x.f.property)}: {x.f.value}."))+
+                        (SelectedReports.Length==0?"No report received for this flight yet. ":" ")+
+                        "Overall readiness remains unknown: no received report establishes it. Similar call signs are shown in full.";
+                }
                 var reports=SelectedReports;
                 if(SelectedAircraftIndex==1){
                     var baggage=reports.FirstOrDefault(e=>e.id=="E03");
@@ -65,6 +73,7 @@ namespace SurfaceSafety {
         RectTransform safeRoot, body;
         Text status, clockLabel, playLabel, selectionLabel;
         Image[] aircraftChips, tabChips;
+        Text[] aircraftChipLabels;
         Slider slider;
         Button playButton;
         string logPath, bodyKey, aiStatus="Not requested", aiText="Generate an explanation of this checkpoint using the configured local model service.";
@@ -78,12 +87,27 @@ namespace SurfaceSafety {
         readonly Color amber=new Color(.65f,.35f,.04f);
         public void Initialize(bool preview) {
             previewMode=preview;
-            Data=JsonUtility.FromJson<Scenario>(Resources.Load<TextAsset>("milestone1").text);Data.Validate();
+            var saved=Application.isPlaying?PlayerPrefs.GetString(ScenarioPref,"milestone1"):"milestone1";
+            Data=LoadData(saved=="tower1"?"tower1":"milestone1");
             Clock=new ReplayClock(Data.duration);Clock.SetTracking(preview);
             Content=new GameObject("StandWorld").transform;Content.SetParent(transform,false);
             BuildWorld();BuildUI();
             logPath=Path.Combine(Application.persistentDataPath,"session-"+Guid.NewGuid().ToString("N")+".jsonl");
             Log("session_start");ApplyScene();
+        }
+        const string ScenarioPref="apronlens_scenario";
+        public bool IsTower => Data.scenarioId.StartsWith("T1",StringComparison.Ordinal);
+        static Scenario LoadData(string resource){var data=JsonUtility.FromJson<Scenario>(Resources.Load<TextAsset>(resource).text);data.Validate();return data;}
+        // Swap between the apron (M1) and tower (T1) replays in place; tracking state is kept.
+        public void LoadScenario(string resource){
+            if(resource!="milestone1"&&resource!="tower1")return;
+            if(Application.isPlaying)PlayerPrefs.SetString(ScenarioPref,resource);
+            bool tracked=Clock.Tracked;
+            Data=LoadData(resource);Clock=new ReplayClock(Data.duration);Clock.SetTracking(tracked);
+            for(int i=Content.childCount-1;i>=0;i--){var g=Content.GetChild(i).gameObject;g.SetActive(false);if(Application.isPlaying)Destroy(g);else DestroyImmediate(g);}
+            BuildWorld();BuildRing();
+            InspectedReportId="";PendingQuestion="";showTools=false;showBaseline=false;InvalidateAi();markerKey=null;bodyKey=null;
+            Log("scenario_"+Data.scenarioId);ApplyScene();
         }
         public void Tracking(bool found){
             if(Clock==null)return;
@@ -153,6 +177,7 @@ namespace SurfaceSafety {
             if(playLabel!=null)playLabel.text=Clock.Playing?"Pause":"Play";
             if(playButton!=null)playButton.interactable=Clock.Tracked;
             if(selectionLabel!=null)selectionLabel.text=SelectedAircraft.id+" · "+CurrentSceneState+" · simulated";
+            if(aircraftChipLabels!=null)for(int i=0;i<aircraftChipLabels.Length;i++)aircraftChipLabels[i].text=Data.aircraft[i].id+"  /  "+Data.aircraft[i].flightInstance;
             if(aircraftChips!=null)for(int i=0;i<aircraftChips.Length;i++)aircraftChips[i].color=i==SelectedAircraftIndex?new Color(.82f,.92f,.92f):panel;
             if(tabChips!=null)for(int i=0;i<tabChips.Length;i++){bool selected=SelectedTab==new[]{"now","why","history"}[i];tabChips[i].color=selected?teal:card;tabChips[i].GetComponentInChildren<Text>().color=selected?Color.white:ink;}
             if(slider!=null){updatingSlider=true;slider.SetValueWithoutNotify(Clock.Time);updatingSlider=false;}
@@ -235,11 +260,11 @@ namespace SurfaceSafety {
             Label(head,"ApronLens",new Vector2(.015f,.69f),new Vector2(.68f,.99f),47);
             Label(head,"SIMULATION",new Vector2(.67f,.69f),new Vector2(.985f,.95f),33,TextAnchor.MiddleRight,teal);
             status=Label(head,"",new Vector2(.015f,.47f),new Vector2(.985f,.68f),33);
-            aircraftChips=new Image[2];
+            aircraftChips=new Image[2];aircraftChipLabels=new Text[2];
             for(int i=0;i<2;i++){
                 int index=i;var r=Button(head,Data.aircraft[i].id+"  /  "+Data.aircraft[i].flightInstance,
                     new Vector2(.035f+i*.48f,.025f),new Vector2(.485f+i*.48f,.455f),()=>SelectAircraft(index),panel,39);
-                aircraftChips[i]=r.GetComponent<Image>();
+                aircraftChips[i]=r.GetComponent<Image>();aircraftChipLabels[i]=r.GetComponentInChildren<Text>();
                 Panel(r,"Aircraft color",new Vector2(0,0),new Vector2(.015f,1),i==0?teal:amber);
             }
             var caption=Panel(safeRoot,"Selected scene identity",new Vector2(.035f,.529f),new Vector2(.965f,.565f),new Color(.055f,.095f,.13f,.9f));
@@ -262,10 +287,7 @@ namespace SurfaceSafety {
             playLabel=play.GetComponentInChildren<Text>();playLabel.color=Color.white;playButton=play.GetComponent<Button>();
             Button(transport,"Restart",new Vector2(.555f,.035f),new Vector2(.795f,.45f),Restart,panel,39);
             Button(transport,"More",new Vector2(.815f,.035f),new Vector2(.965f,.45f),()=>{showTools=!showTools;bodyKey=null;ApplyScene();},panel,39);
-            var ring=new GameObject("Selected aircraft ring");ring.transform.SetParent(Content,false);selectionRing=ring.AddComponent<LineRenderer>();
-            selectionRing.useWorldSpace=false;selectionRing.loop=true;selectionRing.positionCount=48;selectionRing.widthMultiplier=.0007f;
-            selectionRing.sharedMaterial=new Material(Shader.Find("Sprites/Default"));
-            for(int i=0;i<48;i++){float a=i*Mathf.PI*2/48;selectionRing.SetPosition(i,new Vector3(Mathf.Sin(a)*.015f,.0009f,Mathf.Cos(a)*.015f));}
+            BuildRing();
         }
         // One marker per report for the selected flight at its receipt time; a late report also shows when
         // it happened, joined by an amber bar. Reports not yet received are grey.
@@ -295,11 +317,18 @@ namespace SurfaceSafety {
             PendingQuestion=(question??"").Trim();showBaseline=false;showAiDetails=false;Log("ask");
             if(RequestReasoning!=null)RequestReasoning();else SetAiResult("Not connected","Open More → Model connection to connect the service.");
         }
+        void BuildRing(){
+            var ring=new GameObject("Selected aircraft ring");ring.transform.SetParent(Content,false);selectionRing=ring.AddComponent<LineRenderer>();
+            selectionRing.useWorldSpace=false;selectionRing.loop=true;selectionRing.positionCount=48;selectionRing.widthMultiplier=.0007f;
+            selectionRing.sharedMaterial=new Material(Shader.Find("Sprites/Default"));
+            for(int i=0;i<48;i++){float a=i*Mathf.PI*2/48;selectionRing.SetPosition(i,new Vector3(Mathf.Sin(a)*.015f,.0009f,Mathf.Cos(a)*.015f));}
+        }
         void ClearBody(){
             for(int i=body.childCount-1;i>=0;i--){var g=body.GetChild(i).gameObject;g.SetActive(false);if(Application.isPlaying)Destroy(g);else DestroyImmediate(g);}
         }
         void RebuildBody(){ClearBody();if(showTools)BuildTools();else if(SelectedTab=="now")BuildNow();else if(SelectedTab=="why")BuildWhy();else BuildHistory();}
         RectTransform Card(string name,float bottom,float top){return Panel(body,name,new Vector2(.035f,bottom),new Vector2(.965f,top),card);}
+        static string Pretty(string property)=>property.Replace('_',' ');
         string ShortReport(ScenarioEvent report){
             if(report==null)return "No report received";
             if(report.facts!=null && report.facts.Length>0){
@@ -311,6 +340,11 @@ namespace SurfaceSafety {
                     case "route":return "Movement plan updated";
                     case "movement_status":return "Scripted movement "+f.value;
                     case "trajectory_checkpoint":return "Checkpoint: "+f.value;
+                    case "taxi_clearance":return "Taxi: "+f.value;
+                    case "lineup_clearance":return f.value;
+                    case "takeoff_clearance":return f.value;
+                    case "readback":return "Readback: "+f.value;
+                    case "runway":return "Runway "+f.value;
                 }
             }
             return report.message.Length>75?report.message.Substring(0,72)+"…":report.message;
@@ -363,7 +397,8 @@ namespace SurfaceSafety {
             if(cut>=0)text=text.Substring(0,cut);
             return System.Text.RegularExpressions.Regex.Replace(text,@" Event [\d.]+ s; received [\d.]+ s\.","");
         }
-        static readonly string[,] QuickQuestions={{"Latest","What is the latest report?"},{"Baggage done?","Is the baggage done?"},{"Stand changes","How has the stand changed?"}};
+        static readonly string[,] ApronQuestions={{"Latest","What is the latest report?"},{"Baggage done?","Is the baggage done?"},{"Stand changes","How has the stand changed?"}};
+        static readonly string[,] TowerQuestions={{"Latest","What is the latest report?"},{"Take-off?","Has it been cleared for take-off?"},{"Taxi changes","How has its taxi clearance changed?"}};
         void BuildWhy(){
             if(showBaseline){
                 Button(body,"Back to AI answer",new Vector2(.035f,.735f),new Vector2(.965f,.99f),()=>{showBaseline=false;bodyKey=null;ApplyScene();},card,39);
@@ -376,9 +411,10 @@ namespace SurfaceSafety {
             }
             var field=QuestionField(body,new Vector2(.035f,.80f),new Vector2(.75f,.99f));
             Button(body,"Ask",new Vector2(.77f,.80f),new Vector2(.965f,.99f),()=>Ask(field.text),teal,39).GetComponentInChildren<Text>().color=Color.white;
-            for(int i=0;i<QuickQuestions.GetLength(0);i++){
-                string question=QuickQuestions[i,1];float left=.035f+i*.31f;
-                Button(body,QuickQuestions[i,0],new Vector2(left,.625f),new Vector2(left+.30f,.785f),()=>Ask(question),new Color(.82f,.92f,.92f),33);
+            var quick=IsTower?TowerQuestions:ApronQuestions;
+            for(int i=0;i<quick.GetLength(0);i++){
+                string question=quick[i,1];float left=.035f+i*.31f;
+                Button(body,quick[i,0],new Vector2(left,.625f),new Vector2(left+.30f,.785f),()=>Ask(question),new Color(.82f,.92f,.92f),33);
             }
             var explanation=Card("Qwen selection",.21f,.61f);
             Label(explanation,FriendlyAiState(),new Vector2(.01f,.76f),new Vector2(.99f,.98f),39);
@@ -430,10 +466,11 @@ namespace SurfaceSafety {
             Button(body,$"Jump to receipt · {report.receiptTime:0} s",new Vector2(.035f,.005f),new Vector2(.965f,.26f),()=>SeekToReportReceipt(report.id),teal,39).GetComponentInChildren<Text>().color=Color.white;
         }
         void BuildTools(){
-            Label(body,"Session options",new Vector2(.015f,.81f),new Vector2(.985f,.99f),39);
-            Button(body,"Model connection",new Vector2(.035f,.55f),new Vector2(.965f,.805f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConnectionSettings?.Invoke();},card,39);
-            Button(body,logCopied?"Log path copied":"Copy session log path",new Vector2(.035f,.28f),new Vector2(.965f,.535f),()=>{GUIUtility.systemCopyBuffer=logPath;logCopied=true;Log("log_path_copied");bodyKey=null;ApplyScene();},card,39);
-            Button(body,"Done",new Vector2(.035f,.01f),new Vector2(.965f,.265f),()=>{showTools=false;bodyKey=null;ApplyScene();},teal,39).GetComponentInChildren<Text>().color=Color.white;
+            string other=IsTower?"milestone1":"tower1";
+            Button(body,IsTower?"Switch to apron replay":"Switch to tower replay",new Vector2(.035f,.77f),new Vector2(.965f,.99f),()=>LoadScenario(other),card,39);
+            Button(body,"Model connection",new Vector2(.035f,.52f),new Vector2(.965f,.745f),()=>{showTools=false;bodyKey=null;ApplyScene();OpenConnectionSettings?.Invoke();},card,39);
+            Button(body,logCopied?"Log path copied":"Copy session log path",new Vector2(.035f,.27f),new Vector2(.965f,.495f),()=>{GUIUtility.systemCopyBuffer=logPath;logCopied=true;Log("log_path_copied");bodyKey=null;ApplyScene();},card,39);
+            Button(body,"Done",new Vector2(.035f,.01f),new Vector2(.965f,.245f),()=>{showTools=false;bodyKey=null;ApplyScene();},teal,39).GetComponentInChildren<Text>().color=Color.white;
         }
     }
 }
