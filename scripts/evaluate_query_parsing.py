@@ -1,5 +1,6 @@
-"""Score four ways of answering a question: direct inference, and model choice, model-written
-query or keywords turned into a query that code answers.
+"""Score five ways of answering a question: direct inference, model-written Python run in a
+sandbox (PAL-style), and model choice, model-written query or keywords turned into a query
+that code answers.
 
     python scripts/evaluate_query_parsing.py --dataset apron --split dev --model qwen2.5-vl-3b --output work/p1
     python scripts/evaluate_query_parsing.py --dataset tower --split test --model qwen3-vl-4b --output work/p2
@@ -26,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 from backend.models import PRIMARY_MODEL, model_names
 from backend.direct_answer import answer_directly
 from backend.evidence import build_context, expected_selection, load_scenario
+from backend.program_answer import answer_with_program
 from backend.query_parser import VERSION, keyword_parse, parse, parse_generated
 
 DATASETS = {'apron': ROOT / 'data/query_parsing_v1', 'tower': ROOT / 'data/query_parsing_tower_v1'}
@@ -62,20 +64,31 @@ def load(dataset, split):
     return json.loads(path.read_text())
 
 
+METHODS = ('choice', 'generated', 'direct', 'pal')
+
+
 def score(rows, key):
-    answered = [r for r in rows if r[key] is not None]
-    exact = sum(r[key]['queryType'] == r['gold']['queryType'] and r[key]['properties'] == r['gold']['properties'] for r in answered)
-    types = sum(r[key]['queryType'] == r['gold']['queryType'] for r in answered)
-    props = sum(r[key]['properties'] == r['gold']['properties'] for r in answered)
+    rows = [r for r in rows if key in r['queries']]
+    answered = [r for r in rows if r['queries'][key] is not None]
+    exact = sum(r['queries'][key] == r['gold'] for r in answered)
+    types = sum(r['queries'][key]['queryType'] == r['gold']['queryType'] for r in answered)
+    props = sum(r['queries'][key]['properties'] == r['gold']['properties'] for r in answered)
     return dict(exact=exact, queryType=types, properties=props, invalid=len(rows) - len(answered), total=len(rows))
 
 
 def answer_score(rows, key):
+    rows = [r for r in rows if key in r['answers']]
     return dict(exact=sum(r['answers'][key] == r['answers']['gold'] for r in rows),
                 invalid=sum(r['answers'][key] is None for r in rows), total=len(rows))
 
 
-def run(dataset, split, model, output):
+def timed(fn, *args):
+    started = time.perf_counter()
+    result = fn(*args)
+    return result, round(time.perf_counter() - started, 3)
+
+
+def run(dataset, split, model, output, methods=METHODS):
     from backend.engine import load_engine
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -88,52 +101,49 @@ def run(dataset, split, model, output):
     engine = load_engine(model)
     rows = []
     for item in items:
-        started = time.perf_counter()
-        parsed = parse(engine, item['question'], dataset)
-        seconds = round(time.perf_counter() - started, 3)
-        started = time.perf_counter()
-        generated = parse_generated(engine, item['question'], dataset)
-        generated_seconds = round(time.perf_counter() - started, 3)
-        keyword = keyword_parse(item['question'], dataset)
-        started = time.perf_counter()
-        direct = answer_directly(engine, data, aircraft, checkpoint, item['question'])
-        direct_seconds = round(time.perf_counter() - started, 3)
-        queries = dict(choice={k: parsed[k] for k in ('queryType', 'properties')}, generated=generated['query'],
-                       keyword={k: keyword[k] for k in ('queryType', 'properties')})
-        answers = {name: answer_for(data, aircraft, checkpoint, q) for name, q in queries.items()}
-        answers['direct'] = direct['answer']
-        row = dict(id=item['id'], question=item['question'], seconds=seconds, generatedSeconds=generated_seconds,
-                   directSeconds=direct_seconds, directRaw=direct['raw'], directError=direct['error'],
-                   model={k: parsed[k] for k in ('queryType', 'properties')}, trace=parsed['trace'],
-                   generated=generated['query'], generatedRaw=generated['raw'], generatedError=generated['error'],
-                   keyword={k: keyword[k] for k in ('queryType', 'properties')},
-                   gold={k: item[k] for k in ('queryType', 'properties')})
-        answers['gold'] = answer_for(data, aircraft, checkpoint, row['gold'])
-        row['answers'] = answers
+        question = item['question']
+        row = dict(id=item['id'], question=question, queries={}, answers={}, errors={}, raw={}, seconds={})
+        if 'choice' in methods:
+            parsed, row['seconds']['choice'] = timed(parse, engine, question, dataset)
+            row['queries']['choice'] = {k: parsed[k] for k in ('queryType', 'properties')}
+            row['trace'] = parsed['trace']
+        if 'generated' in methods:
+            generated, row['seconds']['generated'] = timed(parse_generated, engine, question, dataset)
+            row['queries']['generated'] = generated['query']
+            row['errors']['generated'], row['raw']['generated'] = generated['error'], generated['raw']
+        keyword = keyword_parse(question, dataset)
+        row['queries']['keyword'] = {k: keyword[k] for k in ('queryType', 'properties')}
+        for name, query in row['queries'].items():
+            row['answers'][name] = answer_for(data, aircraft, checkpoint, query)
+        for name, fn in (('direct', answer_directly), ('pal', answer_with_program)):
+            if name in methods:
+                result, row['seconds'][name] = timed(fn, engine, data, aircraft, checkpoint, question)
+                row['answers'][name] = result['answer']
+                row['errors'][name], row['raw'][name] = result['error'], result['raw']
+        # Gold is read only after every method has answered.
+        row['gold'] = {k: item[k] for k in ('queryType', 'properties')}
+        row['answers']['gold'] = answer_for(data, aircraft, checkpoint, row['gold'])
         rows.append(row)
         with target.open('a') as stream:
             stream.write(json.dumps(row) + '\n')
-        print(item['id'], 'choice', 'ok' if row['model'] == row['gold'] else 'miss',
-              'generated', 'ok' if row['generated'] == row['gold'] else (generated['error'] or 'miss'),
-              'direct', 'ok' if answers['direct'] == answers['gold'] else (direct['error'] or 'miss'), flush=True)
+        print(item['id'], ' '.join(f"{k}:{'ok' if v == row['answers']['gold'] else (row['errors'].get(k) or 'miss')}"
+                                    for k, v in row['answers'].items() if k != 'gold'), flush=True)
     commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
+    run_methods = [m for m in METHODS if m in methods] + ['keyword']
     summary = dict(dataset=dataset, split=split, replay=dict(scenario=scenario_id, aircraft=aircraft, checkpoint=checkpoint),
-                   method=VERSION, modelName=model, model=engine.manifest, device=engine.device,
+                   methods=run_methods, parserVersion=VERSION, modelName=model, model=engine.manifest, device=engine.device,
                    dtype=str(engine.dtype).removeprefix('torch.'),
                    transformers=package_version('transformers'), python=platform.python_version(),
                    recordedUTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                    commit=commit.stdout.strip() if commit.returncode == 0 else None,
                    sources={p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
-                            for p in ('backend/query_parser.py', 'backend/direct_answer.py', 'backend/engine.py',
-                                      f'{DATASETS[dataset].relative_to(ROOT)}/manifest.json')},
-                   modelScore=score(rows, 'model'), generatedScore=score(rows, 'generated'), keywordScore=score(rows, 'keyword'),
-                   answerScore={k: answer_score(rows, k) for k in ('direct', 'choice', 'generated', 'keyword')},
-                   medianSeconds=sorted(r['seconds'] for r in rows)[len(rows) // 2],
-                   medianGeneratedSeconds=sorted(r['generatedSeconds'] for r in rows)[len(rows) // 2],
-                   medianDirectSeconds=sorted(r['directSeconds'] for r in rows)[len(rows) // 2])
+                            for p in ('backend/query_parser.py', 'backend/direct_answer.py', 'backend/program_answer.py',
+                                      'backend/engine.py', f'{DATASETS[dataset].relative_to(ROOT)}/manifest.json')},
+                   queryScore={m: score(rows, m) for m in run_methods if m in ('choice', 'generated', 'keyword')},
+                   answerScore={m: answer_score(rows, m) for m in run_methods},
+                   medianSeconds={m: sorted(r['seconds'][m] for r in rows)[len(rows) // 2] for m in run_methods if m != 'keyword'})
     (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
-    print(json.dumps({k: summary[k] for k in ('dataset', 'split', 'modelName', 'dtype', 'modelScore', 'generatedScore', 'keywordScore', 'answerScore',
-                                         'medianSeconds', 'medianGeneratedSeconds', 'medianDirectSeconds')}, indent=2))
+    print(json.dumps({k: summary[k] for k in ('dataset', 'split', 'modelName', 'dtype', 'queryScore', 'answerScore', 'medianSeconds')}, indent=2))
 
 
 if __name__ == '__main__':
@@ -142,5 +152,9 @@ if __name__ == '__main__':
     parser.add_argument('--split', choices=('dev', 'test'), required=True)
     parser.add_argument('--model', choices=model_names(), default=PRIMARY_MODEL)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--methods', default=','.join(METHODS), help='comma-separated subset of ' + ','.join(METHODS))
     args = parser.parse_args()
-    run(args.dataset, args.split, args.model, args.output)
+    methods = tuple(args.methods.split(','))
+    if not set(methods) <= set(METHODS):
+        parser.error('unknown method')
+    run(args.dataset, args.split, args.model, args.output, methods)

@@ -58,7 +58,16 @@ class TowerServiceTests(unittest.TestCase):
                   headers={'Authorization':'Bearer t'}).json()
   self.assertEqual((r['queryType'],r['properties'],r['evidenceIds']),('current',['taxi_clearance'],['T03']))
   self.assertIn('taxi clearance',engine.prompts[1])
-if __name__=='__main__':unittest.main()
+class SandboxTests(unittest.TestCase):
+ def test_hostile_code_is_rejected(self):
+  from backend.evidence import load_scenario
+  from backend.program_answer import run_code
+  d=load_scenario('M1-stand-coordination-01')
+  for code,why in (('import os','forbidden_statement'),('open("/etc/passwd")','forbidden_name'),('x=().__class__','forbidden_attribute'),
+                   ('getattr(len,"x")','forbidden_name'),('while True:\n    pass','runtime_error'),('answer = {','syntax_error')):
+   self.assertEqual(run_code(code,d,'A2',20),(None,why),code)
+  good='mine=[r for r in reports if r["flight"]==flight]\nlast=max(r["arrived"] for r in mine)\nanswer={"fact_ids":[r["fact_id"] for r in mine if r["arrived"]==last],"unknown":[]}'
+  self.assertEqual(run_code(good,d,'A2',20),({'fact_ids':['E06:movement_status'],'unknown':[]},None))
 
 class FakeAll:
  manifest={'model_id':'test-double','revision':'test-only'};device='test';dtype='test'
@@ -67,6 +76,7 @@ class FakeAll:
   return {l:(-.1 if l=='B' else -5.) for l in labels},40
  def generate(self,prompt,image):
   if prompt.endswith('Query:'):return 'current(baggage_status)',60,6
+  if 'Write Python' in prompt:return '```python\nanswer={"fact_ids":["E03:baggage_status"],"unknown":[]}\n```',300,20
   return '```json\n{"fact_ids":["E03:baggage_status"],"unknown":[]}\n```',300,20
 class EvaluationPipelineTests(unittest.TestCase):
  def test_four_methods_scored_on_answers(self):
@@ -82,6 +92,7 @@ class EvaluationPipelineTests(unittest.TestCase):
    rows=[json.loads(l) for l in Path(tmp,'results.jsonl').read_text().splitlines()]
   qd07=next(r for r in rows if r['id']=='QD07')  # "Is the baggage done?" -> current baggage_status
   self.assertEqual(qd07['answers']['gold'],{'fact_ids':['E03:baggage_status'],'unknown':[]})
-  for k in ('direct','choice','generated'):self.assertEqual(qd07['answers'][k],qd07['answers']['gold'],k)
-  self.assertEqual(set(summary['answerScore']),{'direct','choice','generated','keyword'})
+  for k in ('direct','pal','choice','generated'):self.assertEqual(qd07['answers'][k],qd07['answers']['gold'],k)
+  self.assertEqual(set(summary['answerScore']),{'direct','pal','choice','generated','keyword'})
   self.assertEqual(summary['answerScore']['keyword']['exact'],36)  # keyword rules were written on dev
+if __name__=='__main__':unittest.main()
