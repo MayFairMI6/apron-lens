@@ -1,5 +1,7 @@
+# PROCEDURAL: verifies the P01 evidence cutoffs and authored scene against regressions.
 """P01 stand-clearance lesson: report order, cutoffs, typed review and isolation from M1."""
 import json
+import math
 import unittest
 from unittest.mock import patch
 
@@ -71,16 +73,46 @@ class StandClearanceLessonTests(unittest.TestCase):
         start = (vehicle[0]['x'], vehicle[0]['z'])
         first_away = next(i for i, p in enumerate(vehicle) if (p['x'], p['z']) != start)
         starts_leaving = vehicle[first_away - 1]['t']
-        self.assertLess(starts_leaving, removed['receiptTime'])
+        self.assertEqual((starts_leaving, removed['eventTime'], removed['receiptTime']), (88, 92, 95))
+        self.assertEqual(released['receiptTime'], 150)
         inbound = next(a for a in world['aircraft'] if a['id'] == 'A3')['waypoints']
-        first_move = next(p['t'] for p in inbound if (p['x'], p['z']) != (inbound[0]['x'], inbound[0]['z']))
-        self.assertGreater(first_move, released['receiptTime'])
+        first_away = next(i for i, p in enumerate(inbound) if (p['x'], p['z']) != (inbound[0]['x'], inbound[0]['z']))
+        self.assertEqual(inbound[first_away - 1]['t'], 158)
         self.assertLess(inbound[-2]['t'], DURATION)
         self.assertEqual((round(inbound[-1]['x'], 6), round(inbound[-1]['z'], 6)), (.035, .04))
+        self.assertIn('check pending', self.current_condition(world, 95)['value'])
+        self.assertIn('check pending', self.current_condition(world, 149.999)['value'])
+        self.assertIn('hold released', self.current_condition(world, 150)['value'])
         for aircraft in world['aircraft']:
             if aircraft['id'] != 'A3':
                 poses = {(p['x'], p['z']) for p in aircraft['waypoints']}
                 self.assertEqual(len(poses), 1)
+
+    def test_full_vehicle_footprint_is_outside_stand_at_removal_event_and_receipt(self):
+        world, _, _ = build_stand_clearance_lesson(17)
+        service_vehicle, = world['groundVehicles']
+        self.assertTrue(service_vehicle['preciseHeading'])
+        waypoints = service_vehicle['waypoints']
+
+        def bounds_metres(time):
+            start, end = next((a, b) for a, b in zip(waypoints, waypoints[1:]) if a['t'] <= time <= b['t'])
+            fraction = (time - start['t']) / (end['t'] - start['t'])
+            x, z, heading = (start[k] + fraction * (end[k] - start[k]) for k in ('x', 'z', 'heading'))
+            # P01StandScenery tanker body, wheels and windshield fit within
+            # these half-extents in metres. Project the rotated box onto X/Z.
+            half_width, half_length = 1.9, 5.65
+            sine, cosine = abs(math.sin(math.radians(heading))), abs(math.cos(math.radians(heading)))
+            dx = cosine * half_width + sine * half_length
+            dz = sine * half_width + cosine * half_length
+            return (x * 1000 - dx, x * 1000 + dx, z * 1000 - dz, z * 1000 + dz)
+
+        x_min, x_max, z_min, z_max = bounds_metres(60)
+        self.assertTrue(12 < x_min < x_max < 58 and 7 < z_min < z_max < 57)
+        for tenth in range(920, 1001):
+            time = tenth / 10
+            x_min, _, z_min, _ = bounds_metres(time)
+            self.assertTrue(z_min > 57 or x_min > 58, f'Tanker intersects Stand B at {time} seconds')
+        self.assertEqual(waypoints[-1], dict(waypoints[-2], t=float(DURATION)))
 
     def test_choice_lesson_runs_to_debrief_with_cutoff_bounded_feedback(self):
         for seed in range(5):

@@ -17,15 +17,17 @@ D-090):
    camera sees from where the user stands, not a crop of the whole scene.
    Props hidden from that viewpoint, or aircraft outside it, aren't visible.
 
-## Training audience update
+## Controller replay and existing course flow
 
-The active training prototype targets controller and pilot situational awareness,
-with controller awareness preselected by default. The pilot track is a report-based
-surface briefing. Movement, identity, restrictions and evidence changes are the
-learning focus; service delays are supporting disruptions. This audience change
-does not rewrite the frozen M1 results or remove the M2 visual-evidence, detector,
-viewpoint and evaluation requirements below. Neither track currently provides
-operational ATC control, cockpit procedures or airborne flight dynamics.
+The primary Checkpoint 2 workflow is a read-only surface incident replay for
+tower controllers and supervisors. It opens with the A380 runway-occupied
+go-around. Controllers inspect which aircraft, reports, and AR observations were
+available at a selected source time. The 787 Bluebird handoff is the companion
+case. The controller workspace has a single role and keeps stand and turnaround
+reports available as evidence. The existing typed practice flow remains
+available for course requirements and regression checks. The visual-evidence,
+detector, viewpoint, and evaluation requirements below continue to apply.
+[Implementation and acceptance plan](course/EXECUTION_QUEUE.md)
 
 ## The workflow: simulated world-scale AR
 

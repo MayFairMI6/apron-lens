@@ -1,0 +1,195 @@
+{
+  "source": "BluebirdATC public synthetic I-Sector, Two Aircraft/descender",
+  "version": "0.4.0",
+  "commit": "d25de6ced993f0e3e1b0a9e07d3b57d9fdd38959",
+  "seed": 17,
+  "frames": [
+    {
+      "sourceSeconds": 6.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.36022272713035,
+          "longitudeDegrees": -3.5331101935156566,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.07311272307727,
+          "longitudeDegrees": -3.533110169640736,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 12.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.35372288857508,
+          "longitudeDegrees": -3.5331142177623596,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.07961399726716,
+          "longitudeDegrees": -3.5331141722108383,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 18.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.3472230427671,
+          "longitudeDegrees": -3.533118240865813,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.086115264136666,
+          "longitudeDegrees": -3.5331181758678993,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 24.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.34072318970602,
+          "longitudeDegrees": -3.5331222628263825,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.09261652368605,
+          "longitudeDegrees": -3.5331221806126782,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 30.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.33422332939148,
+          "longitudeDegrees": -3.53312628364441,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.09911777591568,
+          "longitudeDegrees": -3.5331261864459576,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 36.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.3277234618231,
+          "longitudeDegrees": -3.5331303033202106,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.10561902082584,
+          "longitudeDegrees": -3.5331301933685455,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 42.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.32122358700048,
+          "longitudeDegrees": -3.533134321854066,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.11212025841689,
+          "longitudeDegrees": -3.5331342013812836,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 48.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.31472370492325,
+          "longitudeDegrees": -3.5331383392462206,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.11862148868908,
+          "longitudeDegrees": -3.5331382104850486,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 54.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.30822381559101,
+          "longitudeDegrees": -3.5331423554968726,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.12512271164274,
+          "longitudeDegrees": -3.5331422206807637,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 60.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.30172391900342,
+          "longitudeDegrees": -3.533146370606166,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.13162392727816,
+          "longitudeDegrees": -3.5331462319694045,
+          "flightLevel": 300.0
+        }
+      ]
+    },
+    {
+      "sourceSeconds": 66.0,
+      "aircraft": [
+        {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0
+        },
+        {
+          "callsign": "AIR1",
+          "latitudeDegrees": 50.138125135595686,
+          "longitudeDegrees": -3.533150244352015,
+          "flightLevel": 300.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+// PROCEDURAL: external-session presentation, camera controls and authored vehicle rendering.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace SurfaceSafety {
     }
 
     // A presentation of the external session, never a second exercise clock.
-    public class TrainingView : MonoBehaviour {
+    public partial class TrainingView : MonoBehaviour {
         public TrainingState State {get;private set;}
         public bool Connected {get;set;}=true;
         StandReplay replay;ConversationClient assistant;Camera camera;TrainingWeather weather;Light sceneSun;Transform sunParent;
@@ -39,6 +40,10 @@ namespace SurfaceSafety {
         Text title,subtitle,clockText,focusText,answerText,answerHeading,notice,motionText;
         GameObject runwayGeometry;TrainingIncidentEffects incidentEffects;string seenSpotlight="";bool followFlight;TrainingIncident focusIncident;
         TrainingGeography regional;GameObject apronEnvironment;RectTransform vehicleTag;
+        P01StandScenery p01Scenery;
+        public P01CameraRig P01Camera {get;private set;}
+        public bool P01Presentation=>P01StandScenery.Applies(replay.Data);
+        public IReadOnlyList<GameObject> GroundVehicles=>vehicles;
         bool Regional=>TrainingGeography.Present(replay.Data.geography);
         AircraftPlan SelectedPlane=>replay.Data.aircraft[replay.SelectedAircraftIndex];
         InputField input;Button askButton;ScrollRect answerScroll;
@@ -66,13 +71,17 @@ namespace SurfaceSafety {
             sceneSun=FindObjectsByType<Light>(FindObjectsSortMode.None).FirstOrDefault(l=>l.isActiveAndEnabled&&l.type==LightType.Directional);
             if(sceneSun!=null){sunParent=sceneSun.transform.parent;sceneSun.transform.SetParent(transform,true);}
             weather=camera.gameObject.AddComponent<TrainingWeather>();weather.Bind(replay,camera,sceneSun);
+            P01Camera=camera.gameObject.AddComponent<P01CameraRig>();P01Camera.Bind(replay,camera);
+#if APRONLENS_SIMULATOR
+            if(Environment.GetCommandLineArgs().Contains("-airfieldlensP01Camera"))P01Camera.SetScripted(true);
+#endif
             font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             var go=new GameObject("Controller training",typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));
             go.transform.SetParent(transform,false);canvas=go.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=20;
             root=Box(go.transform,"Safe area",Vector2.zero,Vector2.one,Color.clear,false);
             camera.transform.rotation=Quaternion.Euler(48,0,0);
         }
-        void OnDestroy(){if(regional!=null)Destroy(regional.gameObject);if(apronEnvironment!=null)apronEnvironment.SetActive(true);if(sceneSun!=null)sceneSun.transform.SetParent(sunParent,true);if(weather!=null)Destroy(weather);if(runwayGeometry!=null)Destroy(runwayGeometry);if(assistant!=null){assistant.DisplayChanged-=OnAnswer;assistant.ExternalPresentation=false;assistant.TrainingQuestionBlocked=false;}}
+        void OnDestroy(){if(P01Camera!=null)Destroy(P01Camera);if(p01Scenery!=null)Destroy(p01Scenery.gameObject);if(regional!=null)Destroy(regional.gameObject);if(apronEnvironment!=null)apronEnvironment.SetActive(true);if(sceneSun!=null)sceneSun.transform.SetParent(sunParent,true);if(weather!=null)Destroy(weather);if(runwayGeometry!=null)Destroy(runwayGeometry);if(assistant!=null){assistant.DisplayChanged-=OnAnswer;assistant.ExternalPresentation=false;assistant.TrainingQuestionBlocked=false;}}
         public void Apply(TrainingState state){
             if(state==null||string.IsNullOrEmpty(state.runId))return;
             if(State!=null&&State.runId==state.runId&&state.revision<State.revision)return;
@@ -88,9 +97,12 @@ namespace SurfaceSafety {
             if(run){
                 sources=false;history=false;seenCue="";message="Choose a question or ask about the selected flight.";messageStatus="";
                 var selected=Array.FindIndex(replay.Data.aircraft,a=>a.id==state.targetAircraft);replay.SelectAircraft(Mathf.Max(0,selected));
-                selection=replay.SelectedFlight;BuildVehicles();Overview();seenSpotlight="";
+                selection=replay.SelectedFlight;Overview();seenSpotlight="";
                 if(apronEnvironment==null)apronEnvironment=GameObject.Find("ApronEnvironment");
                 if(apronEnvironment!=null)apronEnvironment.SetActive(!Regional);
+                if(p01Scenery!=null){p01Scenery.RestoreSourcePaint();p01Scenery.gameObject.SetActive(false);Destroy(p01Scenery.gameObject);p01Scenery=null;}
+                if(P01Presentation)p01Scenery=P01StandScenery.Build(replay.Content,apronEnvironment,replay.Data.taxiPaths);
+                BuildVehicles();
                 if(regional!=null){regional.gameObject.SetActive(false);Destroy(regional.gameObject);}
                 if(Regional){var map=new GameObject("Heathrow regional map");map.transform.SetParent(replay.Content,false);regional=map.AddComponent<TrainingGeography>();regional.Bind(replay,sceneSun);map.AddComponent<TrainingRoadTraffic>().Bind(replay);}
                 if(runwayGeometry!=null)Destroy(runwayGeometry);runwayGeometry=Regional?null:TrainingRunway.Build(replay.Content,replay.Data.runway,replay.Data.taxiPaths);
@@ -98,6 +110,7 @@ namespace SurfaceSafety {
                 var effects=new GameObject("Training incident effects");effects.transform.SetParent(replay.Content,false);
                 incidentEffects=effects.AddComponent<TrainingIncidentEffects>();incidentEffects.Bind(replay);
             }
+            if(run&&state.mode=="replay")ReplayStarted();
             var spotlight=state.spotlightId??"";
             if(spotlight!=seenSpotlight){seenSpotlight=spotlight;
                 if(spotlight!=""){
@@ -133,7 +146,10 @@ namespace SurfaceSafety {
             }
         }
         void OnAnswer(string status,string text){
-            messageStatus=status;message=status=="ANSWER WITHHELD"?"That answer could not be supported by the available reports. Please review Recent reports or ask again.":text;RefreshAnswer();
+            var pointed=assistant.LastResponse?.display?.selectedReportIds;
+            messageStatus=status;message=status!="ANSWER WITHHELD"?text:pointed!=null&&pointed.Length>0?
+                "This answer is withheld: what is still unknown could not be stated in a supported way. Relevant report: "+string.Join(", ",pointed)+". Open Recent reports to read it.":
+                "That answer could not be supported by the available reports. Please review Recent reports or ask again.";RefreshAnswer();
             if(!string.IsNullOrEmpty(pendingCue)&&status!="ASKING"){
                 var cue=pendingCue;pendingCue="";SendAction("demo_answer",cue:cue,success:status=="CHECKED ANSWER");
             }
@@ -144,6 +160,7 @@ namespace SurfaceSafety {
             root.anchorMin=new Vector2(area.xMin/Screen.width,area.yMin/Screen.height);
             root.anchorMax=new Vector2(area.xMax/Screen.width,area.yMax/Screen.height);
             RebuildIfNeeded();
+            if(ReplayMode){UpdateReplay();MoveCamera();UpdateTags();SynchronizeGroundVehicles();return;}
             if(selection!=replay.SelectedFlight){
                 selection=replay.SelectedFlight;assistant.NewSession();messageStatus="";sources=false;history=false;if(input!=null)input.text="";
                 message="Ask about "+selection+" using the reports received so far.";RefreshAnswer();
@@ -166,10 +183,14 @@ namespace SurfaceSafety {
             }
             if(history)RefreshAnswer();
             MoveCamera();UpdateTags();
+            SynchronizeGroundVehicles();
+        }
+        public void SynchronizeGroundVehicles(){
             var plans=replay.Data.groundVehicles??new AircraftPlan[0];
             for(int i=0;i<vehicles.Count&&i<plans.Length;i++){
                 vehicles[i].transform.localPosition=Scenario.Position(plans[i],replay.Clock.Time)+(Regional?Vector3.up*.0007f:Vector3.zero);
-                var d=Scenario.Direction(plans[i],replay.Clock.Time);if(d.sqrMagnitude>.000001f)vehicles[i].transform.localRotation=Quaternion.LookRotation(d);
+                if(P01Presentation&&plans[i].preciseHeading)vehicles[i].transform.localRotation=Quaternion.Euler(0,Scenario.Heading(plans[i],replay.Clock.Time),0);
+                else {var d=Scenario.Direction(plans[i],replay.Clock.Time);if(d.sqrMagnitude>.000001f)vehicles[i].transform.localRotation=Quaternion.LookRotation(d);}
             }
         }
         void RebuildIfNeeded(){
@@ -190,6 +211,7 @@ namespace SurfaceSafety {
             clockText=Label(header,"",new Vector2(.025f,.02f),new Vector2(.98f,.33f),landscape?18:22,teal);
             notice=Label(root,"",new Vector2(.025f,0),new Vector2(.98f,.035f),landscape?17:21,new Color(1,.74f,.35f));
             if(modal){BuildModal();return;}
+            if(ReplayMode){BuildReplay();return;}
             tagRoot=Box(root,"Flight labels",Vector2.zero,Vector2.one,Color.clear,false);
             BuildTags();
             var tools=Box(root,"View controls",new Vector2(.025f,landscape?.78f:.815f),new Vector2(landscape?.61f:.97f,.855f),Color.clear,false);
@@ -371,6 +393,7 @@ namespace SurfaceSafety {
         void Focus(){focusIncident=null;followFlight=true;terminalView=false;centre=replay.Content.TransformPoint(Scenario.Position(SelectedPlane,replay.Clock.Time));distance=ground?85:190;}
         bool OverUI(Vector2 p){hits.Clear();EventSystem.current?.RaycastAll(new PointerEventData(EventSystem.current){position=p},hits);return hits.Count>0;}
         void MoveCamera(){
+            if(P01Camera!=null){P01Camera.Tick();if(P01Presentation&&P01Camera.OverrideCamera)return;}
             if(State.phase=="checkpoint")return;
             Vector2 pos=Input.mousePosition;bool begin=Input.GetMouseButtonDown(0),held=Input.GetMouseButton(0),end=Input.GetMouseButtonUp(0);
             if(Input.touchCount>0){var t=Input.GetTouch(0);pos=t.position;begin=t.phase==TouchPhase.Began;held=t.phase!=TouchPhase.Ended&&t.phase!=TouchPhase.Canceled;end=!held;}
@@ -428,13 +451,13 @@ namespace SurfaceSafety {
             if(tags.Count==0)return;
             occupiedTags.Clear();
             // Keep full tags clear of camera controls, phase strip, map credit and side panel.
-            var bounds=new Rect(root.rect.xMin+root.rect.width*.025f,root.rect.yMin+root.rect.height*(landscape?.16f:.59f),
+            var bounds=ReplayMode?ReplayTagBounds():new Rect(root.rect.xMin+root.rect.width*.025f,root.rect.yMin+root.rect.height*(landscape?.16f:.59f),
                 root.rect.width*(landscape?.585f:.945f),root.rect.height*(landscape?.61f:.215f));
             var order=Enumerable.Range(0,tags.Count).OrderBy(i=>i==replay.SelectedAircraftIndex?0:
                 replay.Data.aircraft[i].id==State.spotlightAircraft?1:replay.Data.aircraft[i].id==State.targetAircraft?2:3).ThenBy(i=>i);
             foreach(int i in order){
                 var plan=replay.Data.aircraft[i];var aircraft=replay.Content.Find(plan.id);
-                if(plan.hidden||aircraft==null){tags[i].gameObject.SetActive(false);tagLeaders[i].gameObject.SetActive(false);continue;}
+                if(!plan.VisibleAt(replay.Clock.Time)||aircraft==null){tags[i].gameObject.SetActive(false);tagLeaders[i].gameObject.SetActive(false);continue;}
                 bool selected=i==replay.SelectedAircraftIndex;int slot=tagSlots[i];
                 PlaceTag(tags[i],tagLeaders[i],aircraft.position+Vector3.up*14,bounds,ref slot,selected);tagSlots[i]=slot;
                 tags[i].GetComponent<Image>().color=selected?new Color(.04f,.44f,.40f):panel;
@@ -444,8 +467,9 @@ namespace SurfaceSafety {
                 PlaceTag(vehicleTag,vehicleLeader,vehicles[0].transform.position+Vector3.up*10,bounds,ref vehicleSlot,false);
         }
         void BuildVehicles(){
-            foreach(var v in vehicles)Destroy(v);vehicles.Clear();
+            foreach(var v in vehicles){v.SetActive(false);Destroy(v);}vehicles.Clear();
             foreach(var plan in replay.Data.groundVehicles??new AircraftPlan[0]){
+                if(p01Scenery!=null&&plan.id=="service-vehicle"){vehicles.Add(p01Scenery.BuildVehicle(plan.id,replay.Content));continue;}
                 var vehicle=new GameObject(plan.id);vehicle.transform.SetParent(replay.Content,false);
                 Cube(vehicle.transform,"Body",new Vector3(0,.0016f,0),new Vector3(.0028f,.0022f,.0055f),new Color(.9f,.62f,.10f));
                 Cube(vehicle.transform,"Cab",new Vector3(0,.0028f,.0018f),new Vector3(.0027f,.0014f,.0018f),new Color(.85f,.87f,.85f));

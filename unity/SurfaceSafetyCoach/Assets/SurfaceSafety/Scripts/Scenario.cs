@@ -20,6 +20,8 @@ namespace SurfaceSafety {
         public float surfaceHeightMetres; // Pavement elevation, independent of path altitude.
         public bool preciseHeading;
         public bool hidden; // Nonparticipant identity slots in regional scenarios; legacy default is visible.
+        public float visibleFrom; // Source time when this aircraft enters the airport presentation.
+        public bool VisibleAt(float time) => !hidden && time >= visibleFrom;
         public RotationPlan[] rotations;
         public Waypoint[] waypoints;
         public FlightPhase[] phases;
@@ -57,6 +59,7 @@ namespace SurfaceSafety {
         public AmbientRoadTraffic ambientTraffic;
         public const int MaxAircraft = 4;
         public string scenarioId;
+        public string trainingProfile;
         public string trainingRole, trainingRoleLabel, trainingObjective;
         public string[] assistantQuestionLabels, assistantQuestions;
         // "uniform" renders every aircraft in one livery so that only position, motion
@@ -105,7 +108,9 @@ namespace SurfaceSafety {
         public void Validate() {
             TrainingGeography.Validate(geography);
             TrainingRoadTraffic.Validate(ambientTraffic);
-            if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length < 2 || aircraft.Length > MaxAircraft)
+            if (duration <= 0 || targetWidth <= 0 || aircraft == null || aircraft.Length < 2 ||
+                // Hidden contacts (observation-only, never drawn) do not count toward the drawn-aircraft limit.
+                aircraft.Count(a => !a.hidden) > MaxAircraft || aircraft.Length > MaxAircraft + 2)
                 throw new ArgumentException("Scenario requires positive duration/width and two to " + MaxAircraft + " aircraft.");
             if (!string.IsNullOrEmpty(livery) && livery != "indexed" && livery != "uniform")
                 throw new ArgumentException("Livery must be \"indexed\" or \"uniform\".");

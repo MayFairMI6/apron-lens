@@ -1,0 +1,68 @@
+# Checkpoint 2 decision log (Claude ↔ Codex handoff)
+
+Every choice made while continuing Checkpoint 2, newest last, so another agent
+can take over at any point. Evidence lives in the
+[milestone ledger](MILESTONE_LEDGER.md) (ML-054 onward). The resume steps live
+in [CHECKPOINT2_CONTINUATION.md](CHECKPOINT2_CONTINUATION.md). This log records
+*what was decided, by whom and why*; it is not evidence that work is accepted.
+
+**Who decides.** "Owner" means the project owner's own words in chat. "Agent"
+means a working choice made by the agent within the owner's instructions; the
+owner can reverse any agent choice.
+
+## How to take over
+
+1. Read `AGENTS.md`, this log, then `CHECKPOINT2_CONTINUATION.md`.
+2. Run `git status`. All Checkpoint 2 work is uncommitted on
+   `codex/airfieldlens-checkpoint2` (base 2fe7ef5) unless a later entry says
+   otherwise. Do not discard or reformat other agents' uncommitted files.
+3. Check for running processes before loading a model:
+   `ps aux | grep -E "backend.replay|backend.training|checkpoint2_scenarios|handoff_answers"`.
+   Only one process may hold the 9B model; only one service may use port 8767.
+4. Add a row below for every choice you make, and evidence to the ledger.
+
+## Standing owner rules that shape choices
+
+| Rule | Source |
+|---|---|
+| Work stays in Unity on the computer; no printed board, tabletop or physical phone | Owner memory |
+| Never write "team", "solo" or "teammate" in course or project docs | Owner memory |
+| Commit only named paths (`git commit -o <paths>`); a rename is kept staged | Owner memory |
+| Visual/scenery/movement changes use the reference → implementation → independent review workflow | `AGENTS.md` |
+| Effort: medium by default; high only for a concrete hard problem or final scientific review | `AGENTS.md`, `docs/AGENT_EXECUTION_POLICY.md` |
+| Preserve failures, frozen data and earlier results; never retune on held-out data | Execution queue, ledger |
+
+## Decisions
+
+| # | Date | Decision | By | Why / evidence |
+|---|---|---|---|---|
+| 1 | 2026-11-16 | Build the controller replay as a separate read-only session (`backend/replay_session.py`) with its own clock, not a mode of the lesson driver | Agent | Keeps the lesson clock, typed checkpoints and their acceptance untouched; ML-054 |
+| 2 | 2026-11-16 | One source cutoff drives scene, report list, camera observations and assistant context; seek/selection bumps a view revision and stale answers are discarded | Agent | Execution queue item 2; 24 replay tests |
+| 3 | 2026-11-16 | Backward seek: assistant memory is filtered with the existing `SessionState.visible_memory` rule, not a copy | Agent | One rule for both paths |
+| 4 | 2026-11-16 | Timeline markers carry no report content; unreceived markers later stripped of event time and label | Agent + reviewer | Requirement that future reports never leak; ML-055 |
+| 5 | 2026-11-16 | Notes are annotations stamped with run, cutoff, aircraft and eligible evidence IDs; they never bump the view | Agent | Execution queue item 2 |
+| 6 | 2026-11-16 | Replay service runs on its own module `backend/replay.py`, same token, port chosen at launch (8767 for the app) | Agent | App already polls 8767 |
+| 7 | 2026-11-16 | 787 `unknowns_schema` diagnosed as an invented property name, not a wrong answer; add one retry for out-of-vocabulary unknowns (policy v5, then v6 naming the bad entry) | Agent | Retry can only fire on an answer the validator would withhold; ML-054 |
+| 8 | 2026-11-16 | Safety motivation written as the occupied-runway / incursion problem, using the two sources already in the register; no new citations | Agent, at owner's request | Owner asked to make the airfield safety motivation clearer |
+| 9 | 2026-11-16 | Preview image approved | Owner ("Approve, build it") | `outputs/checkpoint2-run/controller-replay-preview/` |
+| 10 | 2026-11-16 | Screens built as a partial class `TrainingView.Replay.cs`; every hook gated on replay mode | Agent | Leaves lesson/demo paths unchanged; reviewer confirmed |
+| 11 | 2026-11-16 | Panel uses four tabs (Reports, Changed, Note, Ask) in both orientations instead of the preview's two-row footer | Agent | Report list must stay reachable; recorded as a deviation in ML-055 |
+| 12 | 2026-11-16 | Independent code review by a separate agent before the second build; all four confirmed defects fixed | Agent | `AGENTS.md` review rule; ML-055 |
+| 13 | 2026-11-16 | Unity validation counts only drawn aircraft (hidden observation-only contacts allowed beyond four) | Agent | Pre-existing defect stopped the 787 handoff loading; ML-055 |
+| 14 | 2026-11-16 | Build with `work/unity-editor` Unity, not the Hub install | Agent | Hub install lacks the Android module and fails to compile |
+| 15 | 2026-11-17 | Driver replication guide plus model-free `scripts/describe_scenario.py`; scenario identity = SHA-256 of the world without its run ID | Agent, at owner's request | Owner asked for a guide; ML-056 |
+| 16 | 2026-11-17 | `backend.replay --no-model` for screen checks that need no answer | Agent | Starts in seconds; frees the GPU |
+| 17 | 2026-11-17 | Keep withholding answers with an out-of-vocabulary unknown; do not drop the name in code | Owner ("ok do the recommended") | Dropping it hides the model's statement of what is unknown; ML-057 |
+| 18 | 2026-11-17 | Withheld answers of that kind point at the received report the model selected | Owner-approved recommendation | ML-057 |
+| 19 | 2026-11-17 | Selector prompt candidate v9 not promoted; live prompt stays v8 | Agent | Did not fix its target case and changed 6 of 43 answers; ML-057 |
+| 20 | 2026-11-17 | Built-in questions not reworded | Agent | Rewording changes scenario hashes already recorded |
+| 21 | 2026-11-17 | Execution-queue wording changed to drop "teammates"/"teamwork" | Agent | Owner memory rule on team wording |
+| 22 | 2026-11-17 | Effort recommendation: medium by default; high for designing and freezing the evaluation protocol and for the final scientific review | Agent recommendation, owner asked | Matches `AGENTS.md` effort policy |
+| 23 | 2026-11-17 | Replay also serves the two fleet return variations (single-engine, wildlife) | Agent | Queue item 5 says to cover the other assigned cases after A380 and 787; needed a case that reliably produces the withheld message; ML-057 addendum |
+| 24 | 2026-11-17 | Withheld-answer pointer verified on screen in the fifth build | Agent | ML-057 addendum |
+| 25 | 2026-11-17 | Next workstream: visual evidence (detector revision, detections into the replay as camera reports, reports / +RGB / +depth comparison) | Owner (chose the recommended option) | Main research question with no results yet |
+| 26 | 2026-11-17 | Approval of the frozen Checkpoint 2 evaluation set is delegated to Claude | Owner ("you can approve it") | Owner's answer to who authors/approves the held-out set |
+| 27 | 2026-11-17 | Drafting of that set goes to a fresh agent given only the protocol, never development cases or results; Claude reviews and approves; the ledger states this is weaker than an independent human author | Agent, within decision 26 | Keeps the author separate from development as far as possible; does not remove bias |
+| 28 | 2026-11-17 | Commit and push all Checkpoint 2 work on `codex/airfieldlens-checkpoint2`; no PR | Owner ("Commit and push") | Clean takeover point for Codex |
+| 29 | 2026-11-17 | Keep this log as the working handoff ledger, updated and committed with each meaningful slice | Owner ("keep a working handoff ledger") | Codex can take over at any time |
+

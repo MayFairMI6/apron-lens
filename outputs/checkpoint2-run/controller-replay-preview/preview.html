@@ -1,0 +1,186 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Controller replay preview</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{background:#1b1f24;font-family:Helvetica,Arial,sans-serif;color:#fff;padding:28px;width:1960px}
+h1{font-size:22px;font-weight:600;margin-bottom:4px}
+.sub{color:#aeb7c0;font-size:14px;margin-bottom:22px;max-width:1500px;line-height:1.4}
+.row{display:flex;gap:36px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:30px}
+.cap{font-size:14px;color:#cfd6dd;margin:0 0 8px 2px}
+.phone{background:#050b12;border-radius:26px;overflow:hidden;position:relative;border:3px solid #000}
+.land{width:874px;height:402px}
+.port{width:402px;height:874px}
+.head{background:#070e15;padding:6px 20px 7px 76px}
+.port .head{padding:60px 14px 10px 14px}
+.brand{font-size:8.5px;color:#b9c2ca;letter-spacing:.3px}
+.title{font-size:15.5px;margin:1px 0}
+.port .title{font-size:17px;margin:5px 0}
+.mode{font-size:9px;color:#19b39b}
+.port .mode{font-size:10.5px}
+.scene{position:absolute;background-size:cover;background-position:center}
+.land .scene{left:13px;top:56px;width:524px;height:316px}
+.btn{background:#233848;color:#fff;font-size:10px;padding:6px 9px;text-align:center;white-space:nowrap}
+.btn.go{background:#0c7566}
+.btn.sel{background:#0c7566}
+.views{position:absolute;left:8px;top:6px;display:flex;gap:6px}
+.strip{position:absolute;left:0;right:0;bottom:0;background:rgba(5,11,18,.92);padding:6px 9px 7px}
+.status{font-size:10.5px;margin-bottom:6px}
+.tl{display:flex;align-items:center;gap:7px}
+.play{width:26px;height:26px;background:#0c7566;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none}
+.time{font-size:10.5px;font-variant-numeric:tabular-nums;flex:none}
+.end{color:#93a0ab}
+.track{position:relative;flex:1;height:26px}
+.track:before{content:"";position:absolute;left:0;right:0;top:12px;height:2px;background:#3b5266}
+.fill{position:absolute;left:0;top:12px;height:2px;background:#19b39b}
+.mk{position:absolute;top:8px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#19b39b;border:2px solid #050b12}
+.mk.mv{border-radius:0;transform:rotate(45deg);background:#e2b84a;width:8px;height:8px;top:9px;margin-left:-4px}
+.mk.future{background:#3b5266}
+.mk.mv.future{background:#6d6a55}
+.headp{position:absolute;top:3px;width:3px;height:20px;margin-left:-1px;background:#fff}
+.jump{font-size:9.5px;padding:6px 7px;flex:none}
+.legend{display:flex;gap:12px;font-size:8.5px;color:#aeb7c0;margin-top:4px;align-items:center}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#19b39b;margin-right:4px}
+.dia{display:inline-block;width:6px;height:6px;background:#e2b84a;transform:rotate(45deg);margin-right:5px}
+.panel{position:absolute;background:#0c1620;padding:10px 12px}
+.land .panel{left:540px;top:56px;width:243px;height:316px}
+.lab{font-size:9px;color:#19b39b;letter-spacing:.2px;margin-bottom:6px}
+.chips{display:flex;gap:5px;margin-bottom:8px}
+.chips .btn{flex:1;padding:6px 2px}
+.chips small{display:block;font-size:7.5px;color:#c5d0d9;margin-top:1px}
+.avail{font-size:10.5px;margin-bottom:5px}
+.rep{border-left:3px solid #19b39b;background:#132331;padding:5px 7px;margin-bottom:5px}
+.rep.old{border-color:#3b5266}
+.rep .src{font-size:8px;color:#9fb0bd;display:flex;justify-content:space-between}
+.rep .txt{font-size:10px;margin:2px 0;line-height:1.25}
+.rep .tm{font-size:8px;color:#9fb0bd}
+.new{color:#e2b84a}
+.foot{position:absolute;left:12px;right:12px;bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.foot .go{grid-column:1/3}
+.sheet{position:absolute;background:#0c1620;border:1px solid #2c4356;padding:11px 13px}
+.sheet h3{font-size:12px;font-weight:600;margin-bottom:2px}
+.kv{display:grid;grid-template-columns:78px 1fr;font-size:9.5px;gap:3px 6px;margin:7px 0;color:#dfe6ec}
+.kv b{color:#9fb0bd;font-weight:400}
+.quote{font-size:10.5px;line-height:1.3;background:#132331;padding:6px 8px;margin:6px 0}
+.fine{font-size:8.5px;color:#9fb0bd;line-height:1.3}
+.note{background:#233848;font-size:10px;padding:7px 8px;line-height:1.3;margin:6px 0;min-height:38px}
+.close{position:absolute;right:10px;top:8px;font-size:11px;color:#9fb0bd}
+/* portrait */
+.port .scene{left:6px;right:6px;top:140px;height:392px;width:auto}
+.port .panel{left:10px;right:10px;top:540px;height:296px;width:auto}
+.port .btn{font-size:11px}
+.port .rep .txt{font-size:11px}
+.port .status{font-size:11px}
+.port .foot{grid-template-columns:repeat(4,1fr)}
+.port .foot .go{grid-column:auto}
+</style>
+
+<h1>AirfieldLens · controller replay — preview for approval (not yet implemented)</h1>
+<div class="sub" style="color:#fff;margin-bottom:8px"><b>Why:</b> an aircraft still on the runway when another is about to land is an existing airfield safety problem. Reviewing such an event means asking what was known at each moment, without hindsight, and what was still unresolved at handover.</div>
+<div class="sub">A380 runway-occupied go-around, seed 17, replay paused at source time 01:45 (the receipt of the go-around report). Scene images are frames from the existing Simulator build; the timeline, evidence list, source sheet and handoff note are the proposed additions, drawn in the existing style. Report text, event times and receipt times are the scenario's own.</div>
+
+<div class="row">
+<div class="col">
+<div>
+<div class="cap">1 · Landscape — timeline and evidence at one cutoff</div>
+<div class="phone land">
+  <div class="head"><div class="brand">AIRFIELDLENS</div><div class="title">A runway-occupied go-around</div><div class="mode">Controller replay · Read-only · Source 01:45</div></div>
+  <div class="scene" style="background-image:url(scene-overview.jpg)">
+    <div class="views"><div class="btn">Runway</div><div class="btn">Follow flight</div><div class="btn">−</div><div class="btn">+</div></div>
+    <div class="strip">
+      <div class="status">TRN101 · Go-around · A380 &nbsp;&nbsp;|&nbsp;&nbsp; TRN102 · Stopped on runway · 737</div>
+      <div class="tl">
+        <div class="play">▶</div><div class="time">01:45</div>
+        <div class="track">
+          <div class="fill" style="width:31.7%"></div>
+          <div class="mk" style="left:0%"></div><div class="mk" style="left:25.7%"></div>
+          <div class="mk mv" style="left:31.4%"></div><div class="mk" style="left:31.7%"></div>
+          <div class="mk mv future" style="left:33.8%"></div><div class="mk future" style="left:34.1%"></div>
+          <div class="mk future" style="left:90.9%"></div>
+          <div class="headp" style="left:31.7%"></div>
+        </div>
+        <div class="time end">05:31</div>
+        <div class="btn jump">‹ Event</div><div class="btn jump">Event ›</div>
+      </div>
+      <div class="legend"><span><i class="dot"></i>Report received</span><span><i class="dia"></i>Movement change</span><span>Later reports stay hidden until their receipt time</span></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="lab">AIRCRAFT</div>
+    <div class="chips"><div class="btn sel">TRN101<small>A380</small></div><div class="btn">TRN102<small>737 · on 09R</small></div><div class="btn">Parked<small>2</small></div></div>
+    <div class="avail">Received by 01:45 · TRN101</div>
+    <div class="rep"><div class="src"><span>Airport report</span><span class="new">New at 01:45</span></div><div class="txt">Go-around: Runway 09R occupied by TRN102</div><div class="tm">Happened 01:44 · Received 01:45</div></div>
+    <div class="rep old"><div class="src"><span>Airport report</span><span>1:45 old</span></div><div class="txt">Approach to Runway 09R</div><div class="tm">Happened 00:00 · Received 00:00</div></div>
+    <div class="foot"><div class="btn">What changed</div><div class="btn">Handoff note</div><div class="btn go">Ask assistant</div></div>
+  </div>
+</div>
+</div>
+
+<div>
+<div class="cap">2 · Landscape — source inspection (tap a report) and handoff note</div>
+<div class="phone land">
+  <div class="head"><div class="brand">AIRFIELDLENS</div><div class="title">A runway-occupied go-around</div><div class="mode">Controller replay · Read-only · Source 01:45</div></div>
+  <div class="scene" style="background-image:url(scene-go-around.jpg)">
+    <div class="strip">
+      <div class="tl">
+        <div class="play">▶</div><div class="time">01:45</div>
+        <div class="track">
+          <div class="fill" style="width:31.7%"></div>
+          <div class="mk" style="left:0%"></div><div class="mk" style="left:25.7%"></div>
+          <div class="mk mv" style="left:31.4%"></div><div class="mk" style="left:31.7%"></div>
+          <div class="mk mv future" style="left:33.8%"></div><div class="mk future" style="left:34.1%"></div>
+          <div class="mk future" style="left:90.9%"></div>
+          <div class="headp" style="left:31.7%"></div>
+        </div>
+        <div class="time end">05:31</div>
+        <div class="btn jump">‹ Event</div><div class="btn jump">Event ›</div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="close">Close ✕</div>
+    <div class="lab">SOURCE · F003</div>
+    <div class="quote">“TRN101 goes around because TRN102 has not vacated Runway 09R.”</div>
+    <div class="kv"><b>Source</b><span>Airport report · exercise operations</span><b>Aircraft</b><span>TRN101 (A380)</span><b>Happened</b><span>01:44</span><b>Received</b><span>01:45 · 1 s after it happened</span><b>At 01:45</b><span>Current</span></div>
+    <div class="lab" style="margin-top:9px">HANDOFF NOTE · 01:45 · TRN101</div>
+    <div class="note">TRN102 still on 09R. No landing reported for TRN101.</div>
+    <div class="fine">Saved with this replay run and time. A note is an annotation; it does not change the replay.</div>
+    <div class="foot" style="grid-template-columns:1fr"><div class="btn go" style="grid-column:auto">Save note</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<div>
+<div class="cap">3 · Portrait — runway and aircraft stay visible</div>
+<div class="phone port">
+  <div class="head"><div class="brand">AIRFIELDLENS</div><div class="title">A runway-occupied go-around</div><div class="mode">Controller replay · Read-only · Source 01:45</div></div>
+  <div class="scene" style="background-image:url(scene-go-around.jpg);background-position:42% center">
+    <div class="views"><div class="btn">Runway</div><div class="btn">Follow flight</div><div class="btn">−</div><div class="btn">+</div></div>
+    <div class="strip">
+      <div class="status">TRN101 · Go-around &nbsp;|&nbsp; TRN102 · On runway</div>
+      <div class="tl">
+        <div class="play">▶</div><div class="time">01:45</div>
+        <div class="track">
+          <div class="fill" style="width:31.7%"></div>
+          <div class="mk" style="left:0%"></div><div class="mk" style="left:25.7%"></div>
+          <div class="mk mv" style="left:31.4%"></div><div class="mk" style="left:31.7%"></div>
+          <div class="mk mv future" style="left:33.8%"></div><div class="mk future" style="left:34.1%"></div>
+          <div class="mk future" style="left:90.9%"></div>
+          <div class="headp" style="left:31.7%"></div>
+        </div>
+        <div class="btn jump">‹</div><div class="btn jump">›</div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="chips"><div class="btn sel">TRN101<small>A380</small></div><div class="btn">TRN102<small>737 · on 09R</small></div><div class="btn">Parked<small>2</small></div></div>
+    <div class="avail">Received by 01:45 · TRN101</div>
+    <div class="rep"><div class="src"><span>Airport report</span><span class="new">New at 01:45</span></div><div class="txt">Go-around: Runway 09R occupied by TRN102</div><div class="tm">Happened 01:44 · Received 01:45</div></div>
+    <div class="rep old"><div class="src"><span>Airport report</span><span>1:45 old</span></div><div class="txt">Approach to Runway 09R</div><div class="tm">Happened 00:00 · Received 00:00</div></div>
+    <div class="foot"><div class="btn">Changed</div><div class="btn">Sources</div><div class="btn">Note</div><div class="btn go">Ask</div></div>
+  </div>
+</div>
+</div>
+</div>

@@ -8,6 +8,8 @@ and receive new information between conversational turns. Aviation is the
 application domain: moving aircraft, flight rotations and changing stand reports
 provide a controlled environment for studying spatial and temporal context.
 
+To regenerate, compare or add a scenario, see the [scenario driver guide](docs/SCENARIO_DRIVER_GUIDE.md).
+
 **AirfieldLens was previously called ApronLens.** The repository name and existing
 setup identifiers remain compatible; archived recordings and frozen results keep
 their original labels.

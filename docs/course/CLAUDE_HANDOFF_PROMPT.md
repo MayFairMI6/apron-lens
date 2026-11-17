@@ -9,7 +9,7 @@ Read AGENTS.md and docs/AGENT_EXECUTION_POLICY.md, then the current handoff's sh
 read-in-order list. Check git status before edits and avoid concurrent writers.
 
 GitHub: https://github.com/MayFairMI6/apron-lens
-Current branch: main
+Current branch: codex/airfieldlens-checkpoint2 (Checkpoint 2 work, uncommitted as of 17 November 2026). Read docs/course/HANDOFF_DECISION_LOG.md first.
 Merged PR: https://github.com/MayFairMI6/apron-lens/pull/22
 Direct handoff: https://github.com/MayFairMI6/apron-lens/blob/main/docs/course/CLAUDE_TAKEOVER.md
 PR #22 is merged into main as 32173d023168b0c16d3dd29d4efcf129e736385b. Use main as the current published version.

@@ -1,3 +1,4 @@
+# SUBSTANTIVE: authored lesson timing, report cutoffs, and the stand-clearance control.
 """P01: an arriving stand that is not clear of equipment (M2 prevention branch).
 
 Short scored lesson on the generic three-stand apron. A fuel-transfer vehicle
@@ -83,10 +84,14 @@ def build_stand_clearance_lesson(seed):
            'The Stand B clearance check is complete. The exercise arrival hold for TRN103 is released.',
            4, 'stand-planning')
 
-    # The vehicle drives off at 88 s, before the removal report reaches anyone.
-    # An empty-looking stand is scenery, not a completed check.
-    world['groundVehicles'] = [dict(id='service-vehicle', waypoints=[
-        still(0, .045, .025), still(88, .045, .025), still(100, -.05, -.06), still(DURATION, -.05, -.06)])]
+    # Coordinates are in kilometres. The tanker leaves the Stand B footprint
+    # (x=12–58 m, z=7–57 m) via the service road at z=67 m and parks alongside it.
+    # Its full footprint is out of B by the 92 s removal event. The resulting view
+    # cannot establish the stand-clearance check, which is a separate report.
+    service_route, _ = rounded_path([(.045, .040), (.045, .067), (.076, .067), (.076, .055)], radius=.004)
+    service_movement = timed_path(service_route, 88., speed=6)
+    world['groundVehicles'] = [dict(id='service-vehicle', preciseHeading=True, waypoints=[
+        dict(service_movement[0], t=0.), *service_movement, dict(service_movement[-1], t=float(DURATION))])]
 
     path, turns = rounded_path([STAGING, (.24, -.025), (STAND_B[0], -.025), STAND_B])
     start = 158.
@@ -99,7 +104,8 @@ def build_stand_clearance_lesson(seed):
     for aircraft in world['aircraft']:
         aircraft['waypoints'].append(dict(aircraft['waypoints'][-1], t=float(DURATION)))
     world['events'].sort(key=lambda e: (e['receiptTime'], e['id']))
-    world['predictionBoundaries'] = sorted({0., 88., 100., start, end, float(DURATION)})
+    world['predictionBoundaries'] = sorted({0., service_movement[0]['t'], service_movement[-1]['t'],
+                                            start, end, float(DURATION)})
 
     rows = [
         ('Why is TRN103 holding at the staging area?',
@@ -109,7 +115,7 @@ def build_stand_clearance_lesson(seed):
           'A fuel spill has closed Stand B'],
          'Ground handling reports a fuel-transfer vehicle on Stand B, and stand planning keeps TRN103 held '
          'until a clearance check is done. Nothing reports a spill or another aircraft on the stand.',
-         ['vehicle', 'pending'], 'Why is TRN103 holding?'),
+        ['vehicle', 'pending', 'waiting'], 'Why is TRN103 holding?'),
         ('The vehicle removal has been reported. Is Stand B confirmed clear for TRN103?',
          ['Not yet; the stand-clearance check is still pending',
           'Yes, the removal report confirms the stand is clear',

@@ -1,0 +1,37 @@
+{
+  "installedModel": {
+    "name": "qwen3.5:27b",
+    "model": "qwen3.5:27b",
+    "modified_at": "2026-11-16T19:59:47.576140889-05:00",
+    "size": 19763237532,
+    "digest": "2d2e4b8fc7c0479b70f8cba9fc8bdb49a3c9a43a8a6da3873b724c9fca4672ef",
+    "details": {
+      "parent_model": "",
+      "format": "safetensors",
+      "family": "",
+      "families": null,
+      "parameter_size": "",
+      "quantization_level": "nvfp4",
+      "runner": "mlx"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "thinking",
+      "tools"
+    ]
+  },
+  "runtime": {
+    "version": "0.40.5"
+  },
+  "fixtureSHA256": "0a57f37b255371bc6bab0fa7584fea545e73d4de7a3a5d232223d3ab9cad7df4",
+  "controlSHA256": "da73694d3c3caeeb08fc43039f64f7edfcd93dfdee32a5e7ad355ea90153b0b1",
+  "deadlineSeconds": 55,
+  "options": {
+    "num_predict": 1000,
+    "num_ctx": 4096,
+    "temperature": 0,
+    "seed": 17
+  },
+  "thinking": false
+}

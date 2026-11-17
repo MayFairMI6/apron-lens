@@ -83,7 +83,7 @@ TYPED_QUESTIONS = {
 # (built on the four M1 lessons above) keep their exact coverage.
 M2_RUBRICS = {
     'stand_clearance': [
-        [('flight', 'Identify inbound TRN103 as the held aircraft, waiting at the ground staging area for Stand B.', [0]),
+        [('flight', 'Identify inbound TRN103 as the held aircraft at the ground staging area.', [2]),
          ('reason', 'Identify the reported fuel-transfer vehicle on Stand B and the pending stand-clearance check as the reason for the hold.', [0, 1])],
         [('pending', 'State that Stand B is not yet confirmed clear because the stand-clearance check is still pending.', [1]),
          ('removal', 'Recognise that the vehicle removal report does not by itself confirm the stand is clear or release the hold.', [0, 1])],
@@ -94,7 +94,7 @@ M2_RUBRICS = {
 
 M2_TYPED_QUESTIONS = {
     'stand_clearance': [
-        'Which flight is held, and what reported problem on its assigned stand explains the hold?',
+        'Which flight is held, where is it waiting, and what reported problem and pending check explain the hold?',
         'The vehicle removal has been reported. Is Stand B confirmed clear for TRN103? Explain what the reports establish.',
         'Which update allowed TRN103 to continue to Stand B, and how does it differ from the earlier removal report?',
     ],

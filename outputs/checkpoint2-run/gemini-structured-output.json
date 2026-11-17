@@ -1,0 +1,17 @@
+{
+  "transport": "Google Gen AI SDK with local fixture",
+  "request": {
+    "jsonMode": true,
+    "requestedFields": [
+      "flight",
+      "release_confirmed",
+      "status"
+    ]
+  },
+  "parsed": {
+    "flight": "EXAMPLE01",
+    "status": "inspection pending",
+    "release_confirmed": false
+  },
+  "missingFieldRejected": true
+}

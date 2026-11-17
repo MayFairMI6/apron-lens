@@ -1,0 +1,1042 @@
+[
+ {
+  "exercise": "fleet_b787_bluebird_handoff",
+  "cue": "inbound-gap",
+  "before": {
+   "accepted": false,
+   "cited": [],
+   "unknowns": [],
+   "errors": [
+    "unknowns_schema"
+   ],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "BB-AIR0-10:trajectory_checkpoint"
+   ],
+   "unknowns": [
+    "movement_status",
+    "overall_readiness"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": false
+ },
+ {
+  "exercise": "fleet_b787_bluebird_handoff",
+  "cue": "priority",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F002:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F002:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b787_bluebird_handoff",
+  "cue": "arrival-stop",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status",
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status",
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b787_bluebird_handoff",
+  "cue": "recovery",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_condition"
+   ],
+   "unknowns": [
+    "overall_readiness"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": false
+ },
+ {
+  "exercise": "fleet_a320_birds",
+  "cue": "bird-hold",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F001:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F001:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b737_rejected_takeoff",
+  "cue": "rejection",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b787_priority_landing",
+  "cue": "priority",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F002:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F002:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b787_priority_landing",
+  "cue": "arrival-stop",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status",
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status",
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b787_priority_landing",
+  "cue": "recovery",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_a380_go_around",
+  "cue": "go-around",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b737_single_engine_return",
+  "cue": "engine-return-request",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "V001:movement_condition",
+    "V002:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "V001:movement_condition",
+    "V002:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_a320_wildlife_return",
+  "cue": "wildlife-warning",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "V001:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "V001:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "apron_route_obstruction",
+  "cue": "obstruction-hold",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q003:movement_condition",
+    "Q004:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q003:movement_condition",
+    "Q004:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-notice",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q001:route"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q001:trajectory_checkpoint"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": false
+ },
+ {
+  "exercise": "weather_runway_queues",
+  "cue": "queue-building",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q014:movement_status",
+    "Q017:movement_condition"
+   ],
+   "unknowns": [
+    "stand"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q014:movement_status",
+    "Q017:movement_condition"
+   ],
+   "unknowns": [
+    "stand"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-closure",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q002:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q002:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-treatment",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q005:movement_condition"
+   ],
+   "unknowns": [
+    "stand"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q005:movement_condition"
+   ],
+   "unknowns": [
+    "movement_status"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": false
+ },
+ {
+  "exercise": "fuel_service_interruption",
+  "cue": "fuel-interrupted",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q002:fuel_status",
+    "Q003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q002:fuel_status",
+    "Q003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_a320_birds",
+  "cue": "inspection",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_a320_birds",
+  "cue": "departure",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b737_rejected_takeoff",
+  "cue": "stopped",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status",
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status",
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b737_rejected_takeoff",
+  "cue": "release",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_condition"
+   ],
+   "unknowns": [
+    "overall_readiness"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": false
+ },
+ {
+  "exercise": "fleet_a380_go_around",
+  "cue": "climb",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F004:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_a380_go_around",
+  "cue": "next",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "F005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b737_single_engine_return",
+  "cue": "engine-landing",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "V005:movement_status",
+    "V006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "V005:movement_status",
+    "V006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_b737_single_engine_return",
+  "cue": "engine-recovery",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "V007:movement_condition"
+   ],
+   "unknowns": [
+    "overall_readiness"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "V007:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": false
+ },
+ {
+  "exercise": "fleet_a320_wildlife_return",
+  "cue": "wildlife-return-request",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "V002:movement_condition",
+    "V003:movement_status"
+   ],
+   "unknowns": [
+    "overall_readiness"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "V002:movement_condition",
+    "V003:movement_status"
+   ],
+   "unknowns": [
+    "overall_readiness"
+   ],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fleet_a320_wildlife_return",
+  "cue": "wildlife-inspection",
+  "before": {
+   "accepted": false,
+   "cited": [],
+   "unknowns": [],
+   "errors": [
+    "unknowns_schema"
+   ],
+   "attempts": 2
+  },
+  "after": {
+   "accepted": false,
+   "cited": [],
+   "unknowns": [],
+   "errors": [
+    "unknowns_schema"
+   ],
+   "attempts": 2
+  },
+  "same": true
+ },
+ {
+  "exercise": "apron_route_obstruction",
+  "cue": "obstruction-repositioned",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q007:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q007:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "apron_route_obstruction",
+  "cue": "obstruction-release",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q008:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q008:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-diversion",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q003:route"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q003:route"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-expected",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q004:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q004:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-restored",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q005:movement_condition",
+    "Q006:route"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q005:movement_condition",
+    "Q006:route"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "weather_runway_queues",
+  "cue": "queue-visibility",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q010:movement_condition",
+    "Q011:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q010:movement_condition",
+    "Q011:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "weather_runway_queues",
+  "cue": "queue-recovery",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q021:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q021:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-recovery",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q003:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-inspected",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q004:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q004:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-reopened",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q005:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-inspection",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q006:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-ready",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q008:overall_readiness"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q008:overall_readiness"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-release",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q009:movement_condition",
+    "Q010:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q009:movement_condition",
+    "Q010:movement_status"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fuel_service_interruption",
+  "cue": "fuel-checked",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q002:fuel_status",
+    "Q004:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q002:fuel_status",
+    "Q004:movement_condition"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ },
+ {
+  "exercise": "fuel_service_interruption",
+  "cue": "fuel-handover",
+  "before": {
+   "accepted": true,
+   "cited": [
+    "Q007:fuel_status",
+    "Q005:movement_condition",
+    "Q008:overall_readiness"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "after": {
+   "accepted": true,
+   "cited": [
+    "Q007:fuel_status",
+    "Q005:movement_condition",
+    "Q008:overall_readiness"
+   ],
+   "unknowns": [],
+   "errors": [],
+   "attempts": 1
+  },
+  "same": true
+ }
+]

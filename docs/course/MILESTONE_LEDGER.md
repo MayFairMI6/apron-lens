@@ -1,9 +1,34 @@
 # AirfieldLens milestone ledger
 
-**ML-053 closes the planning discussion: B06 is a stronger FREE LOCAL comparison
-planned for Checkpoint 2.** Primary: quantized Qwen3.5-27B versus frozen 9B;
-other local candidates are conditional. No implementation/download/inference now,
-and this is not a current-checkpoint blocker. ML-052's failed results and unmet
+**Checkpoint 2 — controller surface incident replay.** The owner made the
+A380 runway-occupied go-around the lead case and retained the 787-8 Bluebird
+handoff as a companion. Use one controller workspace. The approved Stand B
+assets, detector study, existing typed practice, other assigned incidents,
+Google exercises, and B06 remain in scope. The new controller screens and
+their acceptance are planned in the [execution queue](EXECUTION_QUEUE.md).
+
+The latest development receipts include the 27B B06 exposed run (six
+structurally valid outputs, four faithful meanings, promotion gate failed) and
+the 787 handoff answer rejected for schema validity. The remaining B06
+contrasts stay sealed. The visual pilot, MediaPipe inference exercise, and
+Gemini SDK fixture have separate records under
+[`outputs/checkpoint2-run`](../../outputs/checkpoint2-run/).
+
+**Checkpoint 2 — Bluebird inbound handoff for the 787-8.** The owner moved the
+bounded Bluebird comparison into this checkpoint. The offline comparison ran
+against the authored priority-landing replay, using two identical exports from
+BluebirdDT 0.4.0. The selected airport evidence matched at all four airport
+cutoffs, and the synthetic observations passed the identity, cutoff and gap
+checks. The [trace and results](../../outputs/bluebird-handoff/README.md) document
+the offline run. Native presentation and successful handoff response acceptance
+remain pending. The original
+fleet demonstrations and assigned incident, detector, Google and B06 work retain
+their checkpoint placement.
+
+**ML-053 established the free local B06 comparison for Checkpoint 2.** The
+original decision selected quantized Qwen3.5-27B versus frozen 9B and left
+other local candidates conditional. The first implementation and inference
+receipt appears above. ML-052's failed results and unmet
 typed-fix gates remain unchanged. Hosted spending is not the primary plan.
 
 **ML-052 is authorized for continuous end-to-end development toward its fixed
@@ -4135,3 +4160,301 @@ Checkpoint 2; its planning discussion is CLOSED. No feature completion, defect
 closure, duplicate milestone count or whole-course completion follows.
 
 **4 November 2026 — main publication (user-authorized merge).** PR #22 merged as 32173d023168b0c16d3dd29d4efcf129e736385b, including implementation, preserved experiments, handoffs and deferred plans. PR head e51c999 passed both backend and both backbone checks; conflict resolution preserved the exact previously published 4d29d8d tree. Publication does not convert ML-052 failures into acceptance or B06 planned work into implementation. Current shared branch is main; video and old results unchanged.
+
+## ML-054 — Controller replay backend; 787 handoff answer diagnosis (development)
+
+16 November 2026, branch `codex/airfieldlens-checkpoint2` (base 2fe7ef5, nothing
+committed). This entry records evidence only. No checkpoint, screen or native
+acceptance is claimed, and no independent ledger review has been run on it.
+
+**Replay backend (model-free).** `backend/replay_session.py` gives a read-only
+replay over an immutable scenario with its own clock: seek, event jump,
+play/pause (1×, 4×, 10×), aircraft selection, camera observations, handoff notes
+and assistant questions, all under one source cutoff. `backend/replay.py` serves
+it locally (`python -m backend.replay`, port 8768). The lesson service and typed
+flow are untouched. `tests/test_replay_session.py` (24 tests) covers: report
+excluded before and included at receipt; forward and backward seeks returning
+the same view; an answer arriving after a seek or an aircraft switch being
+discarded with no memory kept; later-turn memory absent after a backward seek;
+repeated actions applied once; run isolation; notes not changing the view or
+the scenario hash; timeline markers carrying no report content; TRN101 and
+TRN102 kept separate; and the 787 handoff's two contacts, 30-second gap and
+airport report sequence matching the original 787 replay at matched cutoffs
+(seeds 0 and 17). Full suite: 695 tests pass
+(`.venv-candidates/bin/python -m unittest discover -s tests`,
+log `work/replay-handoff-full-suite.log`).
+
+Limits: mock-model tests only for the replay endpoints; camera observations are
+stored and cut off with the view but do not enter the assistant prompt; the
+controller screens are not built. The
+[preview](../../outputs/checkpoint2-run/controller-replay-preview/controller-replay-preview.png)
+awaits owner approval. No Simulator run of the replay exists.
+
+**787 handoff `unknowns_schema` diagnosis.** In the first genuine answer
+(`work/checkpoint2-native/scenario-answers.jsonl`, cue `inbound-gap`, cutoff 75)
+the frozen Qwen3.5-9B chose the right flight and the latest inbound observation
+(BB-AIR0-10) and reported the airport landing release as not received. It wrote
+that as the unknown `airport_landing_release`, a name outside the fixed property
+vocabulary. The selector passed it through and the unchanged validator withheld
+the answer. The evidence choice was right; the property name was invented.
+
+**Revision (training selector only; prompt v8 and validator unchanged).** An
+out-of-vocabulary unknown now counts as a completeness error eligible for the
+existing single retry. It can only fire on an answer the validator would have
+withheld. Policy v5 told the model to copy from `missingProperties`; policy v6
+names the invented entries, lists the allowed names and states that an
+unreported clearance, release or authorisation is a missing
+`movement_condition`. Two fixture tests added in
+`tests/test_training_completeness.py`.
+
+**Genuine 9B results, eight development cases through the replay session**
+(`experiments/bluebird_handoff/handoff_answers.py`, seed 17, MPS, about 44 s
+load and 7–23 s per answer; raw files in `outputs/bluebird-handoff/`):
+
+| Run | Policy | Passed | Failures kept |
+|---|---|---|---|
+| `handoff-answers-v5-run1.jsonl` | v5 | 6/8 | Re-asking the original cue after a backward seek repeated `airport_landing_release` on both attempts and was withheld. `gap-negative-authorisation` was accepted but named no unreported property. |
+| `handoff-answers-v6-run1.jsonl` | v6 | 7/8 | `gap-negative-authorisation` unchanged: accepted, cites only the inbound observation, makes no authorisation claim, and does not state that authorisation is unreported. |
+
+In both runs the original cue asked first was accepted without a retry, with
+the unknown given as `movement_status`; the check accepts any in-vocabulary
+unknown, so this is weaker than requiring `movement_condition`. The second
+contact kept its own identity, no answer in the gap cited an airport report,
+and after the backward seek the answers given at later cutoffs were absent from
+memory. These are development cases written after seeing the failure. They are
+not held-out, the retry wording was revised on them, and one model run each is
+not a reliability estimate. Simulator verification of the handoff is not done.
+
+**Remaining checks for the eight new driver cases** (from the receipts): seeded
+driver tests and matched normal/accelerated cutoffs over 20 seeds exist for all
+eight; one genuine answer exists for the first cue of each. Not done: genuine
+answers for the second and third cues, and native runs in either orientation.
+Not built: protected-boundary and stop-bar evidence, callsign/readback and
+conflicting-stand corrections, and disabled-aircraft towing, vacancy,
+inspection and reopening.
+
+## ML-055 — Controller replay screens built; A380 journey run in the Simulator
+
+16 November 2026, branch `codex/airfieldlens-checkpoint2`, nothing committed.
+The owner approved the preview image in this session ("Approve, build it").
+Evidence only; no checkpoint completion is claimed.
+
+**Built.** `TrainingView.Replay.cs` (a partial class of `TrainingView`) adds the
+controller workspace: timeline scrubber with report and movement markers,
+play/pause with 1×/4×/10×, previous/next event, aircraft chips, the list of
+reports received by the cutoff, source inspection, "Changed", handoff note and
+the assistant. Hooks in `TrainingView.cs`, `ExternalTrafficDriver.cs`,
+`StandReplay.cs` and `ConversationClient.cs` are gated on replay mode. The
+service's `/traffic` feed now carries the viewer block the app reads. One
+difference from the preview: the panel uses four tabs (Reports, Changed, Note,
+Ask) in both orientations so the report list can be reached again.
+
+**Genuine model over HTTP** (`experiments/checkpoint2_scenarios/replay_http.py`,
+`outputs/checkpoint2-run/replay-http-a380-run1.jsonl`, Qwen3.5-9B, seed 17):
+5/5. Go-around at receipt cites F003 only; the unconfirmed next approach cites
+F005; after a backward seek to 90 s the answer cites F001 and nothing later;
+after switching to TRN102 it cites F002 only; a seek made while the model was
+answering returned HTTP 409 and left no pending answer.
+
+**iPhone 18 Pro Simulator (iOS 27.0), A380 case, actual taps.** Build from
+`work/checkpoint2-native/xcode-replay` (Unity 6000.2.2f1 from `work/unity-editor`).
+Screenshots in `outputs/checkpoint2-run/replay-native/`.
+
+| Check | Orientation | Result |
+|---|---|---|
+| App follows a seek made on the service | Portrait | Pass: scene, clock and list moved to 01:53 together |
+| Chip tap selects TRN102; list and scene label follow | Portrait | Pass |
+| Previous event twice (01:53 → 01:52 → 01:45); selection returns to TRN101 | Portrait | Pass |
+| Tap a report opens its source with both times | Portrait | Pass |
+| Quick question answered by the real model at 01:45 | Portrait | Pass: cites F003; service record matches cutoff and aircraft |
+| Next event after the answer replaces it with "The replay moved" | Landscape | Pass |
+| Rotation keeps the panel mode and draft | Portrait → landscape | Pass |
+| Handoff note typed and saved; view revision unchanged; evidence IDs F001, F003 only | Landscape | Pass (test text was entered twice by the test input, not by the app) |
+| Drag the scrubber backward to about 01:02; later reports leave the list | Landscape | Pass on the service state; no screenshot kept |
+
+Not run on the A380 case: play at each rate to the end, the Changed tab, a
+typed question, aircraft selection by tapping a scene label, and any landscape
+model answer.
+
+**Independent review** (a separate reviewer agent, code reading only, before the
+second build) confirmed four client defects, all fixed: an old answer stayed
+visible during playback; report ages and the source sheet froze at an old
+cutoff; a tap made during another request was lost; a refused selection could
+revert and resend every frame. Also changed after the review: unreceived
+timeline markers no longer carry event time or a specific label; the scene is
+predicted at most 1.5 s ahead of the last poll; a slider value rounded just past
+the end is accepted; notes written at a later replay time are hidden after a
+backward seek. Not changed: `/traffic` still sends the whole scenario, which the
+scene needs, so the payload is not cutoff-clean even though nothing later is
+displayed; taps during a busy request are dropped without a message; a third
+aircraft on the status line would be cut off. The fixes were rebuilt; the
+checks in the table above were run on the build before them.
+
+**Pre-existing defect found.** The 787 Bluebird handoff could not load in the
+app: `Scenario.Validate` rejected more than four aircraft and the handoff has a
+fifth, hidden, observation-only contact. Validation now counts drawn aircraft,
+and the livery lookup wraps.
+
+Full suite: 695 tests pass (`work/replay-ui-full-suite.log`).
+
+**ML-055 addendum — 787 Bluebird handoff in the Simulator (third build).** With
+the five-aircraft fix the handoff loads. iPhone 18 Pro Simulator, actual taps,
+real Qwen3.5-9B answer; screenshots `outputs/checkpoint2-run/replay-native/b787-*.png`.
+
+| Check | Orientation | Result |
+|---|---|---|
+| Gap at 01:15: TRN101 "Not yet at the airport", only airborne observations, latest 15 s old, no airport report | Landscape | Pass |
+| Source sheet names the source as an airborne Bluebird synthetic observation with both times | Landscape | Pass |
+| Real model answer in the gap cites BB-AIR0-10 only (service record: cutoff 75, A1, accepted, one attempt) | Landscape | Pass |
+| Second-contact chip shows only BLUEBIRD-TRAFFIC observations | Landscape | Pass |
+| Two event jumps reach 02:21; selection returns to TRN101; priority authorisation is new, the first hydraulic report is superseded | Portrait | Pass |
+| Play at 1×: service reports playing and the cutoff advancing; Changed tab opens | Portrait | Pass, with one defect found |
+
+Defect found and fixed in source: while playing, the Changed tab's empty message
+printed a frozen end time ("between 02:21 and 02:21"). The message no longer
+states an end time. Not run on the 787 case: a real answer after a backward seek
+in the app (covered over HTTP and in the development runs only), the landing,
+stop, inspection and unconfirmed-release reports on screen, and 4×/10× playback.
+The gap question asked on screen was the quick "Latest report" question, not the
+landing-release question from the development cases.
+
+**ML-055 addendum — A380 recheck on the fourth (current) build.** This build
+holds every fix above, including the Changed-tab wording. iPhone 18 Pro
+Simulator, portrait, actual taps, real Qwen3.5-9B
+(`outputs/checkpoint2-run/replay-native/a380-final-*.png`):
+
+| Check | Result |
+|---|---|
+| Three next-event taps: 00:00 → 01:25 → 01:44 → 01:45, selection on TRN101 | Pass |
+| Quick question at 01:45 answered by the model, citing F003 | Pass |
+| Play pressed with that answer on screen: answer replaced by "The replay moved" | Pass (the first review defect) |
+| Report list during 1× playback: F004 appears on its own at 01:53 and ages track the clock (13 s, 21 s, 2:05 at 02:05) | Pass (the second review defect) |
+
+Not rechecked on this build: landscape, the note, scrubbing, the source sheet,
+aircraft switching and the new Changed wording. They passed on earlier builds
+or, for the wording, are untested on screen. The two selection-race fixes have
+no direct test. The 787 case was run on the third build, which differs from
+this one only in two message strings.
+
+## ML-056 — Driver replication guide; remaining driver questions; open replay checks
+
+17 November 2026, branch `codex/airfieldlens-checkpoint2`, nothing committed.
+Evidence only. No independent ledger review has been run on this entry.
+
+**Guide and tool.** [docs/SCENARIO_DRIVER_GUIDE.md](../SCENARIO_DRIVER_GUIDE.md)
+explains how to regenerate, compare, run and add scenarios. The model-free
+`scripts/describe_scenario.py` prints a world hash, reports and questions for
+any exercise and seed; `--all` lists all 23 exercises. Its output was identical
+on two consecutive runs, and the A380 and 787 handoff hashes equal the replay
+service's. `backend.replay --no-model` serves the replay without the assistant
+(questions return 503); one test added. Full suite: 696 tests pass.
+
+**Genuine Qwen3.5-9B answers for the questions the first run left out**
+(`experiments/checkpoint2_scenarios/run.py --cues rest`, seed 17, policy v6;
+raw `outputs/checkpoint2-run/scenario-answers-rest-run1.jsonl`, summary
+`scenario-answers-rest-run1-summary.json`). Each case kept one session, so the
+first question was asked again only to rebuild memory and is not counted.
+
+| Measure | Result |
+|---|---|
+| New questions answered | 25, across the four fleet cases' later cues and all eight new driver cases |
+| Accepted by the unchanged validator | 24/25 |
+| Withheld | 1: `fleet_a320_wildlife_return` / `wildlife-inspection`. The model chose the right report (V007) and wrote the unknown as `engine_condition` on both attempts, so the retry did not repair it |
+| Cited the most recently received current report | 22/25 |
+| Other two accepted answers | Both ask "which report released …" and cite the release report (Q008, Q005), which was not the latest report. Read by hand they are right; the latest-report reference does not fit those questions |
+| Latency | 5.8–13.7 s per answer; the retried one 14.6 s |
+
+The accepted answers were checked only for validity, receipt cutoff and which
+fact they cite. Nobody judged whether each answer fully addresses its question.
+With the first run's eight, every built-in question of the eight new cases now
+has one genuine text answer: 32 of 33 accepted. None was run in the app.
+
+The invented-name failure has now appeared on two different cases. In both, the
+unreported thing is described inside a current report or has no property of its
+own. The retry fixed one of three occurrences. Dropping an unrecognised name in
+code would make these pass, but it would change what the answer says is unknown,
+so it is left for the owner to decide.
+
+**Stand B (model-free).** `tests/test_stand_clearance_lesson.py` (9 tests, pass)
+asserts for seed 17: the tanker starts leaving at 88 s, removal happens at 92 s
+and is received at 95 s, the tanker's full footprint is outside Stand B from
+92.0 to 100.0 s, the release is received at 150 s with the hold still in force
+at 149.999 s, and TRN103 first moves at 158 s. Checkpoints are at 60, 120 and
+180 s. Still separate and not done here: the native typed flow beyond the
+earlier P01 debrief, landscape, and synchronized RGB/depth evidence.
+
+**Open replay checks from ML-055, on the current (fourth) build**, iPhone 18 Pro
+Simulator, actual taps, model-free service:
+
+| Check | Result |
+|---|---|
+| A380 4× playback to the end; stops at 05:31 with all five reports | Pass (portrait) |
+| A380 scrub back from the end to 01:15; later reports leave the list | Pass (landscape) |
+| A380 select TRN102 by tapping its scene label | Pass (landscape) |
+| A380 10× playback to the end | Pass (landscape) |
+| Changed tab wording with no end time | Pass (landscape) |
+| 787 final state at 06:33: stopped for inspection, runway release unconfirmed marked new, earlier holds superseded | Pass (landscape) |
+
+Seen during these: taps made in the first seconds after launch were sometimes
+ignored, and at 4× the list heading lagged the header clock by about a second
+(the scene is predicted between polls; the list updates on each poll). At 10×
+that lag can reach roughly ten source seconds. Still not run: the note and the
+source sheet on the current build, 787 playback at 4× and 10×, and a real
+answer after a backward seek inside the app.
+
+**Not started (issue #39).** Stop-bar/protected-boundary conflict,
+callsign/readback and conflicting-stand correction, and disabled-aircraft
+recovery have no driver code. The register has no source-backed draft for them,
+and new aircraft movement needs the reference and review workflow in
+`AGENTS.md`, so they need a sourced design before building.
+
+## ML-057 — Withheld answers point at the selected report; prompt candidate not promoted
+
+17 November 2026, nothing committed. Owner decision: keep withholding answers
+whose "unknown" name is not in the vocabulary; do not drop the name in code.
+
+**Withheld pointer (live).** When an answer is withheld for an invented unknown
+name, `backend/training_turn.py` now adds `display.selectedReportIds` and a
+message naming the report the model selected, limited to reports received by
+the cutoff for the selected flight. No claim is shown and the answer stays
+withheld. Three fixture tests added. Seen with the real model: the wildlife
+inspection case returned "Relevant report: V007". The app shows this message in
+replay and lesson views (`TrainingView.Replay.cs`, `TrainingView.cs`,
+`ConversationClient.cs`); a fifth app build succeeded but has NOT been
+installed or looked at.
+
+**Prompt candidate (development only, not live).**
+`experiments/unknown_names/candidate.py` adds two sentences to selector prompt
+v8. Qwen3.5-9B, seed 17, one run each; comparison in
+`outputs/checkpoint2-run/unknown-names-candidate-comparison.json`.
+
+| Set | Live v8 | Candidate |
+|---|---|---|
+| 43 built-in questions accepted | 41 | 42 |
+| Wildlife inspection (`engine_condition`) | Withheld | Still withheld, same invented name on both attempts |
+| Handoff gap question | Withheld in the first run | Accepted |
+| Eight handoff development cases | 7/8 | 7/8, same failure |
+| Answers identical to live | — | 37/43 |
+
+Side effects in accepted answers: three "is it released?" answers no longer
+list overall readiness as unknown, one changed which unknown it names, and one
+cited the same report under a different property. The candidate did not fix
+the case it was written for and changed other answers, so it is not promoted.
+The live prompt remains v8. The two built-in questions were not reworded,
+because that would change the scenario hashes.
+
+Model-free tests for this change pass (`test_training_completeness.py`, 15).
+The full suite was not rerun after this change.
+
+**ML-057 addendum (17 November 2026).** Full suite 699 pass before this
+addendum's change, then `tests/test_replay_session.py` 26 pass after it. The
+replay now also serves `fleet_b737_single_engine_return` and
+`fleet_a320_wildlife_return`; a new test checks over 20 seeds that every replay
+case has the lesson driver's reports, aircraft and reservations. The fifth app
+build was installed on the iPhone 18 Pro Simulator. With the real Qwen3.5-9B,
+the wildlife inspection question typed in the Ask panel at 04:59 was withheld
+after two attempts (`engine_condition` both times), and the panel showed "This
+answer is withheld … Relevant report: V007. Open Reports to read it."
+Screenshot `outputs/checkpoint2-run/replay-native/wildlife-withheld-pointer-portrait.png`.
+No image reached the model in any of the 8 replay questions recorded so far
+(`imageUsedForInference` false in `work/replay-questions.jsonl`).

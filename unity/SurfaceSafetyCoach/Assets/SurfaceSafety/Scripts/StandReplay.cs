@@ -43,7 +43,7 @@ namespace SurfaceSafety {
         // Indexed liveries; the first two are the original Milestone 1 colours.
         static readonly Color[] IndexedLiveries={new Color(.15f,.68f,.86f),new Color(1,.64f,.18f),new Color(.36f,.70f,.36f),new Color(.66f,.44f,.82f)};
         static readonly Color UniformLiveryColor=new Color(.30f,.40f,.52f);
-        Color LiveryOf(int index)=>Data.UniformLivery?UniformLiveryColor:IndexedLiveries[index];
+        Color LiveryOf(int index)=>Data.UniformLivery?UniformLiveryColor:IndexedLiveries[index%IndexedLiveries.Length];
         public string CurrentSceneState {
             get {
                 var a=SelectedAircraft;
@@ -223,6 +223,12 @@ namespace SurfaceSafety {
             if(!LiveTraffic || float.IsNaN(time) || float.IsInfinity(time))return;
             trafficStatus=state;Clock.Seek(Mathf.Max(Clock.Time,time));ApplyScene();
         }
+        // Controller replay: the service's cutoff is the time, forward or backward.
+        public void SetReplayTime(float time,string state){
+            if(!LiveTraffic || float.IsNaN(time) || float.IsInfinity(time))return;
+            if(time<Clock.Time){interruptions.Clear();ClearAwayNotice();}
+            trafficStatus=state;Clock.Seek(time);ApplyScene();
+        }
         // World AR only: whether the caption, tabs and inspector are shown (DetailsOpen) or collapsed under the AR view.
         public bool DetailsOpen {get;private set;}=true;
         public void SetDetails(bool open){
@@ -316,7 +322,7 @@ namespace SurfaceSafety {
         public void ApplyScene(){
             if(planes==null||Data==null||Clock==null)return;
             for(int i=0;i<planes.Length;i++) {
-                planes[i].gameObject.SetActive(!Data.aircraft[i].hidden);
+                planes[i].gameObject.SetActive(Data.aircraft[i].VisibleAt(Clock.Time));
                 planes[i].localRotation=Quaternion.identity;
                 var direction=Scenario.Direction(Data.aircraft[i],Clock.Time);
                 if(direction.sqrMagnitude>0.000001f)planes[i].localRotation=Quaternion.LookRotation(direction,Vector3.up);

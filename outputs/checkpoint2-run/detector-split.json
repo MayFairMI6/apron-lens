@@ -1,0 +1,112 @@
+{
+    "purpose": "P01 synthetic detector pilot; split assigned before generation by authored body/camera variant, shared apron and trajectories. Not a generalization acceptance set.",
+    "sourceScenario": "LESSON-stand_clearance-17",
+    "domains": [
+        {
+            "id": "body-a",
+            "split": "train",
+            "body": {
+                "r": 0.7599999904632568,
+                "g": 0.7799999713897705,
+                "b": 0.7599999904632568,
+                "a": 1.0
+            },
+            "bodyScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "cameraOffsetMetres": {
+                "x": -9.0,
+                "y": 0.0,
+                "z": -3.0
+            }
+        },
+        {
+            "id": "body-b",
+            "split": "train",
+            "body": {
+                "r": 0.5799999833106995,
+                "g": 0.6399999856948853,
+                "b": 0.6600000262260437,
+                "a": 1.0
+            },
+            "bodyScale": {
+                "x": 0.9399999976158142,
+                "y": 1.0399999618530274,
+                "z": 0.9599999785423279
+            },
+            "cameraOffsetMetres": {
+                "x": -4.0,
+                "y": 2.0,
+                "z": 4.0
+            }
+        },
+        {
+            "id": "body-c",
+            "split": "train",
+            "body": {
+                "r": 0.8299999833106995,
+                "g": 0.7900000214576721,
+                "b": 0.6700000166893005,
+                "a": 1.0
+            },
+            "bodyScale": {
+                "x": 1.0399999618530274,
+                "y": 0.9599999785423279,
+                "z": 1.0299999713897706
+            },
+            "cameraOffsetMetres": {
+                "x": 4.0,
+                "y": -1.0,
+                "z": -7.0
+            }
+        },
+        {
+            "id": "body-d",
+            "split": "validation",
+            "body": {
+                "r": 0.6800000071525574,
+                "g": 0.7300000190734863,
+                "b": 0.6700000166893005,
+                "a": 1.0
+            },
+            "bodyScale": {
+                "x": 0.9800000190734863,
+                "y": 1.0199999809265137,
+                "z": 1.059999942779541
+            },
+            "cameraOffsetMetres": {
+                "x": 10.0,
+                "y": 3.0,
+                "z": 2.0
+            }
+        },
+        {
+            "id": "body-e",
+            "split": "test",
+            "body": {
+                "r": 0.7900000214576721,
+                "g": 0.7200000286102295,
+                "b": 0.6499999761581421,
+                "a": 1.0
+            },
+            "bodyScale": {
+                "x": 1.059999942779541,
+                "y": 0.9800000190734863,
+                "z": 0.9399999976158142
+            },
+            "cameraOffsetMetres": {
+                "x": 16.0,
+                "y": 1.0,
+                "z": -11.0
+            }
+        }
+    ],
+    "sourceTimes": [
+        40.0,
+        90.0,
+        95.0,
+        120.0
+    ]
+}

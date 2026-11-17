@@ -88,6 +88,19 @@ def run_turn(session, data, turn, adapter, settings):
             prior = session.previous_turn_for(ref['aircraftId'], ref['flightInstance'], cutoff, receipts)
         checked = validate_proposal(proposal, data, cutoff, prior, image_time)
 
+    if not checked['accepted'] and reply.ok and reply.metadata.get('trainingSelectionError') == 'unknown_property_name' \
+            and selection is not None and isinstance(proposal, dict):
+        # The answer stays withheld. Name only reports that were received by the
+        # cutoff for the selected flight, so the user knows where to look.
+        eligible = {e['id'] for e in data['events'] if e['receiptTime'] <= cutoff
+                    and (e['aircraftId'], e['flightInstance']) == selection}
+        claims = proposal.get('claims') if isinstance(proposal.get('claims'), list) else []
+        pointed = sorted({i for c in claims if isinstance(c, dict) for i in (c.get('evidence_ids') or [])
+                          if isinstance(i, str) and i in eligible})
+        if pointed:
+            checked['display']['selectedReportIds'] = pointed
+            checked['display']['answer'] = ('This answer is withheld: what is still unknown could not be stated in a '
+                                            'supported way. Relevant report: ' + ', '.join(pointed) + '. Open Reports to read it.')
     stored_turn = None
     if checked['accepted']:
         p = proposal

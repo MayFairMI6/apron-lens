@@ -1,0 +1,55 @@
+{
+  "scope": "Three labeled DVIDS domain-shift checks, military ramp images, no calibration",
+  "iou": 0.5,
+  "threshold": 0.8,
+  "sources": [
+    {
+      "file": "9638187.jpg",
+      "boxes": [
+        [
+          0,
+          277,
+          628,
+          525
+        ]
+      ],
+      "source": "https://www.dvidshub.net/image/9638187/48-lrs-fuels-management-flight-supports-mission-readiness-rafl",
+      "sha256": "ee58ed533ad5926230cc56d8338d4f1ba6af1ccf2cd92d5dd3299d8ed0f598ed"
+    },
+    {
+      "file": "979369.jpg",
+      "boxes": [
+        [
+          0,
+          140,
+          1000,
+          585
+        ]
+      ],
+      "source": "https://www.dvidshub.net/image/979369/r-11-trucks-operators-ensure-flow-fuel",
+      "sha256": "286afdfe3b42cc9b1f7d5f98f41f430aa01f38173487a42b4a640b6d75b51308"
+    },
+    {
+      "file": "6607254.jpg",
+      "boxes": [],
+      "source": "https://www.dvidshub.net/image/6607254/c-17-aircrew-qualify-aerial-bulk-fuel-delivery-system-auab",
+      "sha256": "e7c023b1386a0387aa047ea6d960c6b6801e65d325cadf9794aeae3473394c84"
+    }
+  ],
+  "unchanged": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "adapted": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  }
+}

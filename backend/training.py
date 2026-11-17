@@ -9,12 +9,12 @@ from starlette.concurrency import run_in_threadpool
 from fastapi import Header, HTTPException, Request
 from starlette.responses import JSONResponse
 from backend.conversation.server import create_app, ROOT, local_token
-from backend.training_session import TrainingSession, ActionConflict, ReviewBusy
+from backend.training_session import TrainingSession, ActionConflict, ReviewBusy, DEMONSTRATION_EXERCISES
 from backend.training_assessment import generate_review
 from backend.training_turn import run_turn as training_turn
 from backend.lessons import EXERCISES, M2_LESSONS
-from backend.runway_scenarios import DEMONSTRATIONS
-from backend.fleet_scenarios import FLEET_DEMONSTRATIONS
+from backend.surface_queue_variations import WEATHER_QUEUES
+from backend.turnaround_variations import WINTER_HANDOVER
 from backend.training_environment import ENVIRONMENTS
 from modelaccess.contract import Settings
 
@@ -205,12 +205,12 @@ def main():
     from backend.training_worker import IsolatedTrainingAdapter
     from functools import partial
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--exercise',choices=EXERCISES+M2_LESSONS+DEMONSTRATIONS+FLEET_DEMONSTRATIONS,default='surface_conflict')
+    p.add_argument('--exercise',choices=EXERCISES+M2_LESSONS+DEMONSTRATION_EXERCISES,default='surface_conflict')
     p.add_argument('--mode',choices=('lesson','continuous','demo'),default='lesson')
     p.add_argument('--environment',choices=ENVIRONMENTS,default=None,help='Visual conditions only; defaults to clear except fog cases, which use their own fog timeline. The fog practice lesson rejects conflicting conditions.')
     p.add_argument('--seed',type=int,default=17);p.add_argument('--port',type=int,default=8767)
     args=p.parse_args()
-    if args.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS and args.mode=='lesson':
+    if args.exercise in DEMONSTRATION_EXERCISES and args.mode=='lesson':
         p.error('Incident cases require --mode demo or --mode continuous; choose one of the four practice lessons for lesson mode.')
     if args.exercise=='fog_restrictions':
         if args.mode!='lesson':p.error('fog_restrictions is a short practice lesson (210 source seconds); use --mode lesson, or choose fog_visibility for a one-hour demonstration.')
@@ -218,6 +218,10 @@ def main():
     if args.exercise=='stand_clearance':
         if args.mode!='lesson':p.error('stand_clearance is a short practice lesson (210 source seconds); use --mode lesson.')
         if args.environment not in (None,'clear'):p.error('stand_clearance has no weather timeline; omit --environment or use clear.')
+    if args.exercise==WEATHER_QUEUES and args.environment not in (None,'fog'):
+        p.error('weather_runway_queues has an authored weather timeline; omit --environment or use fog.')
+    if args.exercise==WINTER_HANDOVER and args.environment not in (None,'snow'):
+        p.error('winter_surface_handover has an authored snow timeline; omit --environment or use snow.')
     factory=partial(TrainingAdapter,'qwen3.5-9b',profile='apronlens-v2-mps',
                     training_role='controller_awareness',prompt_audit_path=ROOT/'work/training-prompts.jsonl')
     # Construction reads metadata only. Weights and kernels belong to the child.

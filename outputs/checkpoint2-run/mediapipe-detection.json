@@ -1,0 +1,35 @@
+{
+  "runtime": "1.2.3",
+  "model": "MediaPipe codelab dogs.tflite",
+  "input": "Google public cat_and_dog.jpg",
+  "detections": [
+    {
+      "bbox": [
+        70,
+        153,
+        247,
+        191
+      ],
+      "scores": [
+        [
+          "aci",
+          0.8359375
+        ]
+      ]
+    },
+    {
+      "bbox": [
+        327,
+        23,
+        243,
+        331
+      ],
+      "scores": [
+        [
+          "aci",
+          0.38671875
+        ]
+      ]
+    }
+  ]
+}

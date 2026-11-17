@@ -1,0 +1,13 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/mayfairmi6/Documents/Codex/2026-10-12/the-final-project-is-to-create/experiments/driver_spec/Driver.tla
+Parsing file /private/var/folders/5k/z9r6pyv973d78d_9cg0p4pb00000gn/T/Naturals.tla
+Parsing file /private/var/folders/5k/z9r6pyv973d78d_9cg0p4pb00000gn/T/FiniteSets.tla
+Parsing file /private/var/folders/5k/z9r6pyv973d78d_9cg0p4pb00000gn/T/TLC.tla
+Parsing file /private/var/folders/5k/z9r6pyv973d78d_9cg0p4pb00000gn/T/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module Driver

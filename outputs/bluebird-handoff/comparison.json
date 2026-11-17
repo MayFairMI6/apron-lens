@@ -1,0 +1,285 @@
+{
+  "exercise": "fleet_b787_priority_landing",
+  "seed": 17,
+  "gapSeconds": 30,
+  "observationCount": 22,
+  "checks": {
+    "airportEvidenceIdentical": true,
+    "identitySeparated": true,
+    "futureObservationsExcluded": true,
+    "gapPreserved": true
+  },
+  "pairedCutoffs": [
+    {
+      "check": "before first sample",
+      "cutoffSeconds": -91,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": null
+      },
+      "withBluebird": {
+        "observation": null,
+        "sampleAgeSeconds": null,
+        "airportSelection": null
+      },
+      "otherTrafficCallsign": null
+    },
+    {
+      "check": "mid-trace",
+      "cutoffSeconds": -60,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": null
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.3277234618231,
+          "longitudeDegrees": -3.5331303033202106,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 36.0,
+          "replaySeconds": -60.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 0.0,
+        "airportSelection": null
+      },
+      "otherTrafficCallsign": "AIR1"
+    },
+    {
+      "check": "last available sample",
+      "cutoffSeconds": -30,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": null
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 66.0,
+          "replaySeconds": -30.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 0.0,
+        "airportSelection": null
+      },
+      "otherTrafficCallsign": "AIR1"
+    },
+    {
+      "check": "handoff gap",
+      "cutoffSeconds": -1,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": null
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 66.0,
+          "replaySeconds": -30.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 29.0,
+        "airportSelection": null
+      },
+      "otherTrafficCallsign": "AIR1"
+    },
+    {
+      "check": "first airport report",
+      "cutoffSeconds": 0,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F001:movement_condition",
+              "value": "priority arrival: crew reported hydraulic concern; diagnosis unconfirmed",
+              "status": "current",
+              "evidence_ids": [
+                "F001"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 66.0,
+          "replaySeconds": -30.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 30.0,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F001:movement_condition",
+              "value": "priority arrival: crew reported hydraulic concern; diagnosis unconfirmed",
+              "status": "current",
+              "evidence_ids": [
+                "F001"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "otherTrafficCallsign": "AIR1"
+    },
+    {
+      "check": "priority",
+      "cutoffSeconds": 70,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F002:movement_condition",
+              "value": "exercise priority landing authorised; hydraulic concern reported",
+              "status": "current",
+              "evidence_ids": [
+                "F002"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 66.0,
+          "replaySeconds": -30.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 100.0,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F002:movement_condition",
+              "value": "exercise priority landing authorised; hydraulic concern reported",
+              "status": "current",
+              "evidence_ids": [
+                "F002"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "otherTrafficCallsign": "AIR1"
+    },
+    {
+      "check": "arrival-stop",
+      "cutoffSeconds": 242,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F005:movement_condition",
+              "value": "hold: inspection pending; runway occupied",
+              "status": "current",
+              "evidence_ids": [
+                "F005"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 66.0,
+          "replaySeconds": -30.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 272.0,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F005:movement_condition",
+              "value": "hold: inspection pending; runway occupied",
+              "status": "current",
+              "evidence_ids": [
+                "F005"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "otherTrafficCallsign": "AIR1"
+    },
+    {
+      "check": "recovery",
+      "cutoffSeconds": 312,
+      "authoredOnly": {
+        "observation": null,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F006:movement_condition",
+              "value": "hold: inspection underway; recovery requested; runway release unconfirmed",
+              "status": "current",
+              "evidence_ids": [
+                "F006"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "withBluebird": {
+        "observation": {
+          "callsign": "AIR0",
+          "latitudeDegrees": 51.295224015160095,
+          "longitudeDegrees": -3.5331503845741747,
+          "flightLevel": 290.0,
+          "flightInstance": "TRN101",
+          "sourceSeconds": 66.0,
+          "replaySeconds": -30.0,
+          "source": "bluebird-synthetic-observation"
+        },
+        "sampleAgeSeconds": 342.0,
+        "airportSelection": {
+          "claims": [
+            {
+              "fact_id": "F006:movement_condition",
+              "value": "hold: inspection underway; recovery requested; runway release unconfirmed",
+              "status": "current",
+              "evidence_ids": [
+                "F006"
+              ]
+            }
+          ],
+          "unknown_properties": []
+        }
+      },
+      "otherTrafficCallsign": "AIR1"
+    }
+  ]
+}

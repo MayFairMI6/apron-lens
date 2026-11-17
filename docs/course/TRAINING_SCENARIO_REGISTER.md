@@ -48,7 +48,7 @@ P04 is implemented as A15 in M1. P01/P03/P05/P06/P07/P09 are assigned M2 tasks; 
 
 ### P01 · Arriving stand not clear of equipment
 
-**M2 · Built in the backend; native verification pending.** Setting: Terminal 2/3 stand and service access.
+**M2 · Built in the backend; native verification pending.** Setting: a fictional three-stand apron with service access.
 
 Run with `--exercise stand_clearance --mode lesson`. It is a 210-second lesson with checkpoints at 60, 120 and 180 source seconds ([stand_clearance_lesson.py](../../backend/stand_clearance_lesson.py), [tests](../../tests/test_stand_clearance_lesson.py)). It is selected explicitly and stays out of the M1 `next` rotation and the frozen typed-review research tables. The vehicle leaves the stand before the removal report arrives, and the hold stays in place until the separate clearance-check report.
 

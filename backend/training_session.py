@@ -12,6 +12,14 @@ from backend.fog_lesson import FOG_LESSON
 from backend.stand_clearance_lesson import STAND_CLEARANCE_LESSON
 from backend.runway_scenarios import DEMONSTRATIONS, TITLES as DEMO_TITLES, OBJECTIVES as DEMO_OBJECTIVES, build_demonstration
 from backend.fleet_scenarios import FLEET_DEMONSTRATIONS, TITLES as FLEET_TITLES, OBJECTIVES as FLEET_OBJECTIVES, build_fleet
+from backend.fleet_incident_variations import FLEET_VARIATIONS, VARIATION_TITLES, VARIATION_OBJECTIVES, build_fleet_variation
+from backend.bluebird_inbound import BLUEBIRD_787, TITLE as BLUEBIRD_TITLE, OBJECTIVE as BLUEBIRD_OBJECTIVE, build_bluebird_inbound
+from backend.surface_queue_variations import (
+    SURFACE_VARIATIONS, SURFACE_TITLES, SURFACE_OBJECTIVES, WEATHER_QUEUES, build_surface_variation,
+)
+from backend.turnaround_variations import (
+    TURNAROUND_VARIATIONS, TURNAROUND_TITLES, TURNAROUND_OBJECTIVES, WINTER_HANDOVER, build_turnaround_variation,
+)
 from backend.training_environment import attach_environment, ENVIRONMENTS
 from evidencekit import SourceRecord, check_references
 from backend.training_assessment import MAX_RESPONSE_CHARS, ReviewContext, rubric_for, typed_question_for
@@ -19,11 +27,13 @@ from backend.training_assessment import MAX_RESPONSE_CHARS, ReviewContext, rubri
 class ActionConflict(ValueError): pass
 class ReviewBusy(ActionConflict): pass
 
+DEMONSTRATION_EXERCISES = DEMONSTRATIONS + FLEET_DEMONSTRATIONS + FLEET_VARIATIONS + SURFACE_VARIATIONS + TURNAROUND_VARIATIONS + (BLUEBIRD_787,)
+
 class TrainingSession:
     def __init__(self, seed, exercise='surface_conflict', mode='lesson', clock=time.monotonic, audit_path=None, environment=None, assessment_mode='typed'):
         if mode not in ('lesson','continuous','demo'): raise ValueError('Unknown training mode')
-        if exercise not in EXERCISES+M2_LESSONS+DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('Unknown exercise')
-        if mode=='lesson' and exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS: raise ValueError('This case is a demonstration, not a practice lesson; use --mode demo or continuous')
+        if exercise not in EXERCISES+M2_LESSONS+DEMONSTRATION_EXERCISES: raise ValueError('Unknown exercise')
+        if mode=='lesson' and exercise in DEMONSTRATION_EXERCISES: raise ValueError('This case is a demonstration, not a practice lesson; use --mode demo or continuous')
         if exercise==FOG_LESSON:
             if mode!='lesson':raise ValueError('fog_restrictions is a 210-second lesson with typed practice feedback; use --mode lesson, or fog_visibility for the separate one-hour demonstration')
             if environment not in (None,'fog'):raise ValueError('The fog practice lesson requires its fog timeline; omit --environment or use fog')
@@ -31,6 +41,10 @@ class TrainingSession:
             if mode!='lesson':raise ValueError('stand_clearance is a 210-second lesson with no one-hour demonstration; use --mode lesson')
             # The weather profiles span 3600 s and would run past this lesson's clock.
             if environment not in (None,'clear'):raise ValueError('The stand-clearance lesson has no weather timeline; omit --environment or use clear')
+        if exercise == WEATHER_QUEUES and environment not in (None, 'fog'):
+            raise ValueError('The queue exercise has an authored weather timeline; omit --environment or use fog')
+        if exercise == WINTER_HANDOVER and environment not in (None, 'snow'):
+            raise ValueError('The winter handover has an authored snow timeline; omit --environment or use snow')
         if environment is None:environment='clear'
         if environment not in ENVIRONMENTS: raise ValueError('Unknown environment')
         if exercise=='fog_visibility' and environment not in ('clear','fog'):
@@ -45,15 +59,29 @@ class TrainingSession:
     def _reset(self):
         self.run_id=secrets.token_hex(10);self.revision=0;self.source_time=0.;self.last_wall=self.clock()
         self.started_wall=self.last_wall;self.phase='briefing' if self.mode=='lesson' else 'practice'
-        builder=build_fleet if self.exercise in FLEET_DEMONSTRATIONS else build_demonstration if self.exercise in DEMONSTRATIONS else build_lesson
+        if self.exercise == BLUEBIRD_787:
+            builder = build_bluebird_inbound
+        elif self.exercise in TURNAROUND_VARIATIONS:
+            builder = build_turnaround_variation
+        elif self.exercise in SURFACE_VARIATIONS:
+            builder = build_surface_variation
+        elif self.exercise in FLEET_VARIATIONS:
+            builder = build_fleet_variation
+        elif self.exercise in FLEET_DEMONSTRATIONS:
+            builder = build_fleet
+        elif self.exercise in DEMONSTRATIONS:
+            builder = build_demonstration
+        else:
+            builder = build_lesson
         self.scenario,self.reservations,self.probes=builder(self.seed,self.exercise)
-        self.title={**TITLES,**DEMO_TITLES,**FLEET_TITLES}[self.exercise]
-        self.objective={**OBJECTIVES,**DEMO_OBJECTIVES,**FLEET_OBJECTIVES}[self.exercise]
-        self.target='A1' if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise==FOG_LESSON else 'A3' if self.exercise in ('late_arrival',STAND_CLEARANCE_LESSON) else 'A2'
-        effective_environment='fog' if self.exercise in ('fog_visibility',FOG_LESSON) else self.environment
+        self.title={**TITLES,**DEMO_TITLES,**FLEET_TITLES,**VARIATION_TITLES,**SURFACE_TITLES,**TURNAROUND_TITLES,BLUEBIRD_787:BLUEBIRD_TITLE}[self.exercise]
+        self.objective={**OBJECTIVES,**DEMO_OBJECTIVES,**FLEET_OBJECTIVES,**VARIATION_OBJECTIVES,**SURFACE_OBJECTIVES,**TURNAROUND_OBJECTIVES,BLUEBIRD_787:BLUEBIRD_OBJECTIVE}[self.exercise]
+        self.target='A1' if self.exercise in DEMONSTRATION_EXERCISES or self.exercise==FOG_LESSON else 'A3' if self.exercise in ('late_arrival',STAND_CLEARANCE_LESSON) else 'A2'
+        effective_environment='fog' if self.exercise in ('fog_visibility',FOG_LESSON,WEATHER_QUEUES) else self.environment
+        if self.exercise == WINTER_HANDOVER:effective_environment='snow'
         # The short scored lesson already owns a validated 210-second fog curve.
         # Applying the hour-long visual profile would extend it past its clock.
-        if self.exercise!=FOG_LESSON:attach_environment(self.scenario,effective_environment)
+        if self.exercise not in (FOG_LESSON, WEATHER_QUEUES, WINTER_HANDOVER):attach_environment(self.scenario,effective_environment)
         self.demo_probes=sorted(self.probes+self.scenario.get('demoQuestions',[]),key=lambda p:p['at'])
         self.scenario['scenarioId']='LESSON-'+self.run_id
         self.records=[SourceRecord(self.scenario['scenarioId'],e['id'],e['eventTime'],e['receiptTime'],'report')
@@ -171,7 +199,7 @@ class TrainingSession:
                 if self.assessment_mode=='typed':result['checkpoint']['question']=typed_question_for(self.exercise,p)
             if self.phase=='feedback':result['feedback']=self._feedback(self.answers[-1])
             if self.phase=='debrief':result['reviews']=[self._feedback(a) for a in self.answers]
-            if self.exercise in DEMONSTRATIONS+FLEET_DEMONSTRATIONS or self.exercise in (FOG_LESSON,STAND_CLEARANCE_LESSON):
+            if self.exercise in DEMONSTRATION_EXERCISES or self.exercise in (FOG_LESSON,STAND_CLEARANCE_LESSON):
                 result['perspectives']=[
                     dict(role='Controller',text=self.objective),
                     dict(role='Pilot',text='Review the latest report for your flight and identify what still needs confirmation.'),
@@ -231,8 +259,10 @@ class TrainingSession:
                     self._log('assistant_cue_end',cueId=self.cue['id'],success=body.get('success') is True)
             elif action in ('retry','next') and self.phase=='debrief':
                 if action=='next':
-                    sequence=FLEET_DEMONSTRATIONS if self.exercise in FLEET_DEMONSTRATIONS else DEMONSTRATIONS if self.exercise in DEMONSTRATIONS else (
-                        M2_LESSONS if self.exercise in M2_LESSONS else EXERCISES if self.mode=='lesson' else HOUR_EXERCISES)
+                    sequence = next(sequence for sequence in (
+                        FLEET_DEMONSTRATIONS, FLEET_VARIATIONS, DEMONSTRATIONS, SURFACE_VARIATIONS, TURNAROUND_VARIATIONS, (BLUEBIRD_787,),
+                        M2_LESSONS, EXERCISES if self.mode == 'lesson' else HOUR_EXERCISES,
+                    ) if self.exercise in sequence)
                     self.exercise=sequence[(sequence.index(self.exercise)+1)%len(sequence)]
                 self._reset()
                 result=self.state();self.transitions[transition]=(fingerprint,copy.deepcopy(result))

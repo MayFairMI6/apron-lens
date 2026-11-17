@@ -1,5 +1,15 @@
 # AirfieldLens shared takeover and resume record
 
+## Current resume state — 17 November 2026 (supersedes the 4 November state below)
+
+Checkpoint 2 work is under way on branch `codex/airfieldlens-checkpoint2`
+(base 2fe7ef5) and is **uncommitted**. Start with
+[HANDOFF_DECISION_LOG.md](HANDOFF_DECISION_LOG.md) (every choice, who made it
+and why), then [CHECKPOINT2_CONTINUATION.md](CHECKPOINT2_CONTINUATION.md)
+(exact resume commands and first unfinished action). Evidence is in the
+milestone ledger from ML-054. The 4 November text below is historical: the
+owner has since resumed Checkpoint 2, and B06 ran (27B semantic gate failed).
+
 ## Current resume state — 4 November 2026
 
 **Planning discussion closed; stronger-model execution is deferred to Checkpoint 2.**

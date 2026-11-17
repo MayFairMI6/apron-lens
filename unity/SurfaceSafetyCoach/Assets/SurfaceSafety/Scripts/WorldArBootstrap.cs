@@ -38,7 +38,13 @@ namespace SurfaceSafety {
         void LateUpdate(){
             var camera=Camera.main;
             if(camera==null||Replay==null||Replay.Clock==null)return;
-            if(Replay.TrainingPresentation){if(!Replay.Clock.Tracked)Replay.Tracking(true);return;}
+            if(Replay.TrainingPresentation){
+                var rig=camera.GetComponent<P01CameraRig>();
+                // Looking away changes visibility, not tracking. P01's explicit
+                // synthetic tracking-loss condition is independent of pose.
+                bool tracked=!P01StandScenery.Applies(Replay.Data)||rig==null||!rig.OverrideCamera||rig.TrackingAvailable;
+                if(Replay.Clock.Tracked!=tracked)Replay.Tracking(tracked);return;
+            }
             var inView=ApronInView(camera,Replay.Content.position);
             if(inView!=Replay.Clock.Tracked)Replay.Tracking(inView);
         }

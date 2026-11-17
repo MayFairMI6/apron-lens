@@ -17,7 +17,8 @@ from modelaccess.local_backbone import LocalBackboneAdapter
 from modelaccess.contract import Adapter, ProviderReply, FinishReason, Usage
 
 TRAINING_PROMPT_VERSION='training-evidence-selector-v8'
-COMPLETENESS_POLICY_VERSION='reference-history-coverage-one-retry-v4'
+COMPLETENESS_POLICY_VERSION='reference-history-coverage-unknown-name-one-retry-v6'
+UNKNOWN_NAME_ERROR='unknown_property_name'
 
 class EmptySelectionError(ValueError):
     pass
@@ -120,6 +121,9 @@ class _PracticeReviewAdapter(Adapter):
         return LocalBackboneAdapter._generate(self.owner,request,effective)
 
 class TrainingAdapter(LocalBackboneAdapter):
+    # A development candidate may subclass and change only these two; the live prompt stays v8.
+    prompt_version=TRAINING_PROMPT_VERSION
+    def selector(self,base_prompt):return selector_context(base_prompt,self.training_role)
     def __init__(self,*args,prompt_audit_path,training_role='controller_awareness',**kwargs):
         super().__init__(*args,**kwargs)
         self.prompt_audit_path=Path(prompt_audit_path)
@@ -156,17 +160,19 @@ class TrainingAdapter(LocalBackboneAdapter):
             if not record['ok']:raise RuntimeError('Model startup inference failed: '+str(record['error']))
         return records
     def _generate(self,request,effective):
-        prompt,candidates=selector_context(request.messages[0][1],self.training_role)
+        prompt,candidates=self.selector(request.messages[0][1])
         # Retry only an empty, otherwise well-formed selection. The immutable prompt,
         # candidates, cutoff and image are reused; no new reports or canned claims.
         attempts=[]
-        usage=[]
+        usage=[];invented=[]
         for attempt in range(2):
             current_prompt=prompt if attempt==0 else prompt+(
                 '\nThe previous response failed the '+str(error)+' check. '
                 'For an explicit history question asking before or preceding a named value, selecting that named value itself does not answer the question. Use the received earlier historical fact when available. '
                 'For an unqualified pronoun, keep Memory.currentReferent; do not switch flights based on a stand value. '
                 'If the previous selection was empty, include relevant facts or requested unknowns. '
+                +('The names '+json.dumps(invented)+' are not property names. Replace each with the closest name from this list, or leave it out: '
+                  +json.dumps(sorted(FIELDS))+'. A clearance, release or authorisation that has not been reported is a missing movement_condition. ' if invented else '')+
                 'Answer the same question using ONLY the same flights and reports above. '
                 'Select relevant fact IDs, or name the requested missing properties in unknowns. '
                 'Do not invent evidence or choose unrelated properties just to fill the answer. '
@@ -181,6 +187,10 @@ class TrainingAdapter(LocalBackboneAdapter):
             try:
                 reply.text=expand_selection(original,candidates)
                 error=reference_error(json.loads(reply.text),prompt,candidates) or history_error(json.loads(reply.text),prompt,candidates)
+                # A property name outside the fixed vocabulary is always withheld by
+                # the validator, so one retry here cannot replace an accepted answer.
+                invented=[u for u in json.loads(reply.text)['unknowns'] if u not in FIELDS]
+                if error is None and invented:error=UNKNOWN_NAME_ERROR
             except EmptySelectionError: error='empty_answer'
             except (ValueError,TypeError,KeyError): error='invalid_selection'
             usage.append(reply.usage)
@@ -191,11 +201,11 @@ class TrainingAdapter(LocalBackboneAdapter):
                                  providerErrorType=reply.metadata.get('providerErrorType')))
             self.prompt_audit_path.parent.mkdir(parents=True,exist_ok=True)
             with self.prompt_audit_path.open('a') as audit:
-                audit.write(json.dumps(dict(requestId=request.request_id,promptVersion=TRAINING_PROMPT_VERSION,
+                audit.write(json.dumps(dict(requestId=request.request_id,promptVersion=self.prompt_version,
                     trainingRole=self.training_role,selectorFormatVersion=SELECTOR_FORMAT_VERSION,
                     completenessPolicy=COMPLETENESS_POLICY_VERSION,prompt=current_prompt,**attempts[-1]))+'\n')
             allowed={request.settings.model,*request.settings.accepted_returned_models}
-            if error not in ('empty_answer','followup_reference_mismatch',HISTORY_ERROR) or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
+            if error not in ('empty_answer','followup_reference_mismatch',HISTORY_ERROR,UNKNOWN_NAME_ERROR) or reply.finish_reason!=FinishReason.STOP or reply.returned_model not in allowed: break
         # Aggregate usage over actual calls, preserving unknown usage as unknown.
         for field in ('input_tokens','output_tokens','reasoning_tokens','image_tokens','cached_input_tokens'):
             values=[getattr(u,field) for u in usage]

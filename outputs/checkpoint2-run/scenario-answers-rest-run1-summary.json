@@ -1,0 +1,417 @@
+[
+ {
+  "exercise": "fleet_a320_birds",
+  "cue": "inspection",
+  "cutoff": 90,
+  "question": "Does inspection completion release TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "F003:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.315
+ },
+ {
+  "exercise": "fleet_a320_birds",
+  "cue": "departure",
+  "cutoff": 166,
+  "question": "What is the latest reported movement for TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "F006:movement_status"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.675
+ },
+ {
+  "exercise": "fleet_b737_rejected_takeoff",
+  "cue": "stopped",
+  "cutoff": 129,
+  "question": "What is the latest reported movement for TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "F004:movement_status",
+   "F005:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.342
+ },
+ {
+  "exercise": "fleet_b737_rejected_takeoff",
+  "cue": "release",
+  "cutoff": 310,
+  "question": "Is the runway released for TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "F006:movement_condition"
+  ],
+  "unknowns": [
+   "overall_readiness"
+  ],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.63
+ },
+ {
+  "exercise": "fleet_a380_go_around",
+  "cue": "climb",
+  "cutoff": 169,
+  "question": "What is the latest reported movement for TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "F004:movement_status"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.033
+ },
+ {
+  "exercise": "fleet_a380_go_around",
+  "cue": "next",
+  "cutoff": 310,
+  "question": "Is another approach confirmed for TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "F005:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.04
+ },
+ {
+  "exercise": "fleet_b737_single_engine_return",
+  "cue": "engine-landing",
+  "cutoff": 240,
+  "question": "Has TRN101 landed, and where is it now?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "V005:movement_status",
+   "V006:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 13.68
+ },
+ {
+  "exercise": "fleet_b737_single_engine_return",
+  "cue": "engine-recovery",
+  "cutoff": 320,
+  "question": "May TRN101 move again, and has the runway been released?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "V007:movement_condition"
+  ],
+  "unknowns": [
+   "overall_readiness"
+  ],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.733
+ },
+ {
+  "exercise": "fleet_a320_wildlife_return",
+  "cue": "wildlife-return-request",
+  "cutoff": 90,
+  "question": "Why did TRN101 request a return, and what remains unknown about the strike and engines?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "V002:movement_condition",
+   "V003:movement_status"
+  ],
+  "unknowns": [
+   "overall_readiness"
+  ],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.741
+ },
+ {
+  "exercise": "fleet_a320_wildlife_return",
+  "cue": "wildlife-inspection",
+  "cutoff": 308,
+  "question": "What did inspection confirm on TRN101, and what remains unknown about its engines?",
+  "accepted": false,
+  "errors": [
+   "unknowns_schema"
+  ],
+  "cited": [],
+  "unknowns": null,
+  "citesLatestCurrent": false,
+  "citesSuperseded": [],
+  "attempts": 2,
+  "latency": 14.55
+ },
+ {
+  "exercise": "apron_route_obstruction",
+  "cue": "obstruction-repositioned",
+  "cutoff": 180,
+  "question": "Does the new parking position release TRN101 to continue?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q007:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 5.845
+ },
+ {
+  "exercise": "apron_route_obstruction",
+  "cue": "obstruction-release",
+  "cutoff": 272,
+  "question": "Which report let TRN101 continue past Stand B?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q008:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": false,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.505
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-diversion",
+  "cutoff": 205,
+  "question": "Which ground-vehicle route is authorised while Pier 6 Road South is closed?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q003:route"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.03
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-expected",
+  "cutoff": 306,
+  "question": "The planned reopening time has passed. What road status is confirmed?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q004:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.537
+ },
+ {
+  "exercise": "connector_road_closure",
+  "cue": "connector-restored",
+  "cutoff": 373,
+  "question": "Which road has reopened, and what changed for the diversion?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q005:movement_condition",
+   "Q006:route"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.896
+ },
+ {
+  "exercise": "weather_runway_queues",
+  "cue": "queue-visibility",
+  "cutoff": 660,
+  "question": "What permits TRN103 to move, and does the limited sequence release other flights?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q010:movement_condition",
+   "Q011:movement_status"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.79
+ },
+ {
+  "exercise": "weather_runway_queues",
+  "cue": "queue-recovery",
+  "cutoff": 833,
+  "question": "Which update now governs TRN102 after the older stand report arrived?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q021:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.48
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-recovery",
+  "cutoff": 160,
+  "question": "Does recovering the object reopen the route?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q003:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.51
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-inspected",
+  "cutoff": 223,
+  "question": "Is the westbound route released now that inspection is complete?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q004:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.36
+ },
+ {
+  "exercise": "debris_route_reopening",
+  "cue": "debris-reopened",
+  "cutoff": 300,
+  "question": "Which report allowed TRN101 to move?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q005:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": false,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.729
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-inspection",
+  "cutoff": 259,
+  "question": "What does the surface inspection establish about the lane, the aircraft and movement authority?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q006:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 6.05
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-ready",
+  "cutoff": 357,
+  "question": "Does reported turnaround readiness allow TRN101 to move yet?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q008:overall_readiness"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.176
+ },
+ {
+  "exercise": "winter_surface_handover",
+  "cue": "winter-release",
+  "cutoff": 439,
+  "question": "What movement has ground control authorised for TRN101?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q009:movement_condition",
+   "Q010:movement_status"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 8.162
+ },
+ {
+  "exercise": "fuel_service_interruption",
+  "cue": "fuel-checked",
+  "cutoff": 181,
+  "question": "What did the check establish, and which restriction remains?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q002:fuel_status",
+   "Q004:movement_condition"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 7.211
+ },
+ {
+  "exercise": "fuel_service_interruption",
+  "cue": "fuel-handover",
+  "cutoff": 327,
+  "question": "What can you report about fuelling, the local exclusion and departure readiness?",
+  "accepted": true,
+  "errors": [],
+  "cited": [
+   "Q007:fuel_status",
+   "Q005:movement_condition",
+   "Q008:overall_readiness"
+  ],
+  "unknowns": [],
+  "citesLatestCurrent": true,
+  "citesSuperseded": [],
+  "attempts": 1,
+  "latency": 12.789
+ }
+]

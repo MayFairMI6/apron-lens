@@ -33,6 +33,7 @@ namespace SurfaceSafety {
         public string resultStatus, answer, validation;
         public SupportedClaim[] claims;
         public string[] unknowns;
+        public string[] selectedReportIds; // withheld answers only: received reports to read instead
         public InterpretationDisplay interpretation;
     }
     [Serializable] public class ConversationResponse {
@@ -109,6 +110,15 @@ namespace SurfaceSafety {
             var request=new UnityWebRequest(endpoint+"/training/action","POST");
             request.uploadHandler=new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
             request.downloadHandler=new DownloadHandlerBuffer();request.timeout=8;
+            request.SetRequestHeader("Content-Type","application/json");
+            request.SetRequestHeader("Authorization","Bearer "+token);return request;
+        }
+        // Controller replay service (backend/replay.py): same host, token and port as the lesson service.
+        public UnityWebRequest ReplayRequest(string path,string json,int timeout){
+            LoadConnection();
+            var request=new UnityWebRequest(endpoint+path,"POST");
+            request.uploadHandler=new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+            request.downloadHandler=new DownloadHandlerBuffer();request.timeout=timeout;
             request.SetRequestHeader("Content-Type","application/json");
             request.SetRequestHeader("Authorization","Bearer "+token);return request;
         }
