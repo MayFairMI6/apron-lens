@@ -4494,3 +4494,25 @@ Limits: synthetic frames from one authored apron; no real-photo accuracy;
 held-out shares the development distribution, so it does not measure transfer.
 Files: `outputs/checkpoint2-run/detector-v2-*.json`,
 `experiments/apron_detector/{PROTOCOL.md,plan.py,train_v2.py}`.
+
+**ML-058 addendum — detector v3 qualified as camera evidence (17 November 2026).**
+After the v2 failure the owner chose protocol amendment 1: an evidence gate
+(presence and depth location), the box gate kept and reported, a fresh v3
+held-out split (seed 20261119) frozen before fitting (75bd4d9), and a small
+development-only revision C (1.5× input, 10 epochs). C was selected over B on
+validation by the unchanged rule (box F1 0.962 vs 0.924; 5648fcb). Single v3
+held-out run (200 frames, 161 evaluable boxes), threshold 0.30:
+
+| Gate | Result | Required | Pass |
+|---|---|---|---|
+| Box precision / recall | 0.975 / 0.957 (154 correct, 4 false, 7 missed) | ≥ 0.90 / ≥ 0.70 | Yes |
+| Presence precision / recall | 1.000 / 0.963 (0 false, 6 missed) | ≥ 0.95 / ≥ 0.80 | Yes |
+| Depth location within 8 m | 100% of 155 frames (median 2.48 m, max 6.06 m) | ≥ 90% | Yes |
+| On/off Stand B agreement | 98.1% | ≥ 95% | Yes |
+
+No false detections on look-away frames; 0.056 s per frame on the Mac GPU.
+The gate choice followed a failure, which the record states; the v2 result
+stands. Qualification applies to synthetic frames of this authored apron from
+the same distribution as development. It says nothing about real photographs,
+other airports, or other vehicles. Record:
+`outputs/checkpoint2-run/detector-v3-heldout.json`.

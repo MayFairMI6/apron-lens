@@ -1,0 +1,55 @@
+{
+ "status": "complete",
+ "protocol": "experiments/apron_detector/PROTOCOL.md",
+ "candidate": "C",
+ "threshold": 0.3,
+ "frames": 200,
+ "evaluableBoxes": 161,
+ "heldout": {
+  "evaluable": {
+   "tp": 154,
+   "fp": 4,
+   "fn": 7,
+   "precision": 0.9747,
+   "recall": 0.9565,
+   "f1": 0.9655
+  },
+  "allBoxes": {
+   "tp": 154,
+   "fp": 6,
+   "fn": 11,
+   "precision": 0.9625,
+   "recall": 0.9333,
+   "f1": 0.9477
+  },
+  "falseDetectionsPerLookAwayFrame": 0.0,
+  "lookAwayFrames": 27,
+  "meanSecondsPerFrame": 0.0559
+ },
+ "manifestSha256": "94d1776221b24b5adc2d930c94916c084dbefaf6a4c6605352c6e6b8c479d1c0",
+ "weightsSha256": "7f067d0c7727f9ce23e63ea9064a686abac371ecb515ef65a18234d5ea194913",
+ "boxGate": {
+  "precisionAtLeast": 0.9,
+  "recallAtLeast": 0.7,
+  "passed": true
+ },
+ "evidenceGate": {
+  "presence": {
+   "tp": 155,
+   "fp": 0,
+   "fn": 6,
+   "precision": 1.0,
+   "recall": 0.9627
+  },
+  "location": {
+   "frames": 155,
+   "within8m": 1.0,
+   "standBAgreement": 0.9806,
+   "medianErrorMetres": 2.48,
+   "maxErrorMetres": 6.06
+  },
+  "passed": true
+ },
+ "qualifiedAsCameraEvidence": true,
+ "amendment": "PROTOCOL.md amendment 1"
+}
