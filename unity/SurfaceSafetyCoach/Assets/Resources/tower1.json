@@ -1,0 +1,210 @@
+{
+ "scenarioId": "T1-tower-clearances-01",
+ "domain": "tower",
+ "duration": 60.0,
+ "targetWidth": 0.24,
+ "aircraft": [
+  {
+   "id": "A1",
+   "flightInstance": "EZY123",
+   "waypoints": [
+    {
+     "t": 0,
+     "x": -0.045,
+     "z": 0.04
+    },
+    {
+     "t": 10,
+     "x": -0.045,
+     "z": 0.04
+    },
+    {
+     "t": 20,
+     "x": -0.045,
+     "z": -0.025
+    },
+    {
+     "t": 40,
+     "x": 0.09,
+     "z": -0.025
+    },
+    {
+     "t": 60,
+     "x": 0.09,
+     "z": -0.025
+    }
+   ]
+  },
+  {
+   "id": "A2",
+   "flightInstance": "EZY132",
+   "waypoints": [
+    {
+     "t": 0,
+     "x": 0.035,
+     "z": 0.04
+    },
+    {
+     "t": 24,
+     "x": 0.035,
+     "z": 0.04
+    },
+    {
+     "t": 32,
+     "x": 0.035,
+     "z": -0.025
+    },
+    {
+     "t": 48,
+     "x": 0.07,
+     "z": -0.025
+    },
+    {
+     "t": 60,
+     "x": 0.07,
+     "z": -0.025
+    }
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "T01",
+   "aircraftId": "A1",
+   "flightInstance": "EZY123",
+   "source": "tower-ground",
+   "eventTime": 0,
+   "receiptTime": 0,
+   "message": "EZY123 cleared to taxi to holding point H1 via B; runway 09.",
+   "facts": [
+    {
+     "property": "taxi_clearance",
+     "value": "To H1 via B"
+    },
+    {
+     "property": "runway",
+     "value": "09"
+    }
+   ]
+  },
+  {
+   "id": "T02",
+   "aircraftId": "A2",
+   "flightInstance": "EZY132",
+   "source": "tower-ground",
+   "eventTime": 0,
+   "receiptTime": 0,
+   "message": "EZY132 hold position on stand; runway 09.",
+   "facts": [
+    {
+     "property": "taxi_clearance",
+     "value": "Hold position"
+    },
+    {
+     "property": "runway",
+     "value": "09"
+    }
+   ]
+  },
+  {
+   "id": "T03",
+   "aircraftId": "A1",
+   "flightInstance": "EZY123",
+   "source": "tower-ground",
+   "eventTime": 12,
+   "receiptTime": 12,
+   "message": "EZY123 taxi clearance amended: to H1 via B, hold short of A.",
+   "facts": [
+    {
+     "property": "taxi_clearance",
+     "value": "To H1 via B, hold short of A",
+     "supersedes": [
+      "T01:taxi_clearance"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "T04",
+   "aircraftId": "A1",
+   "flightInstance": "EZY123",
+   "source": "pilot-readback",
+   "eventTime": 13,
+   "receiptTime": 19,
+   "message": "EZY123 read back: to H1 via B, hold short of A. Transcript arrived late.",
+   "facts": [
+    {
+     "property": "readback",
+     "value": "Correct, amended clearance"
+    }
+   ]
+  },
+  {
+   "id": "T05",
+   "aircraftId": "A2",
+   "flightInstance": "EZY132",
+   "source": "tower-ground",
+   "eventTime": 22,
+   "receiptTime": 22,
+   "message": "EZY132 cleared to taxi to H1 via A.",
+   "facts": [
+    {
+     "property": "taxi_clearance",
+     "value": "To H1 via A",
+     "supersedes": [
+      "T02:taxi_clearance"
+     ]
+    },
+    {
+     "property": "movement_status",
+     "value": "Cleared to taxi"
+    }
+   ]
+  },
+  {
+   "id": "T06",
+   "aircraftId": "A1",
+   "flightInstance": "EZY123",
+   "source": "pilot-readback",
+   "eventTime": 23,
+   "receiptTime": 23,
+   "message": "EZY123 read back EZY132's taxi clearance (similar call sign).",
+   "facts": [
+    {
+     "property": "readback",
+     "value": "Wrong aircraft: read back EZY132's clearance"
+    }
+   ]
+  },
+  {
+   "id": "T07",
+   "aircraftId": "A1",
+   "flightInstance": "EZY123",
+   "source": "tower",
+   "eventTime": 38,
+   "receiptTime": 38,
+   "message": "EZY123 line up and wait runway 09.",
+   "facts": [
+    {
+     "property": "lineup_clearance",
+     "value": "Line up and wait, runway 09"
+    }
+   ]
+  },
+  {
+   "id": "T08",
+   "aircraftId": "A1",
+   "flightInstance": "EZY123",
+   "source": "tower",
+   "eventTime": 44,
+   "receiptTime": 50,
+   "message": "EZY123 cleared for take-off runway 09. Display update arrived late.",
+   "facts": [
+    {
+     "property": "takeoff_clearance",
+     "value": "Cleared for take-off, runway 09"
+    }
+   ]
+  }
+ ]
+}
