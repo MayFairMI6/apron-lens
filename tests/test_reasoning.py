@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 from backend.reasoning import context_for,prompt_for,validate_answer,normalized_claims
 from backend.evidence import build_context,load_scenario,expected_selection,validate_scenario
 from backend.server import create_app
+from backend.query_parser import VERSION as PARSER_VERSION
 S='M1-stand-coordination-01'
 def claim(fid,value,status='current',citation=None):return dict(fact_id=fid,value=value,status=status,evidence_ids=[citation or fid.split(':')[0]])
 def raw(claims,unknown=()):return json.dumps(dict(claims=claims,unknown_properties=list(unknown)))
@@ -90,7 +91,7 @@ class ReasoningTests(unittest.TestCase):
     self.assertEqual(client.post('/reason',json=body).status_code,401)
     r=client.post('/reason',json=body,headers=headers);self.assertEqual(r.status_code,200,r.text)
     self.assertEqual(r.json()['resultStatus'],'generated');self.assertEqual(r.json()['evidenceIds'],['E03'])
-    self.assertEqual(r.json()['decisionVersion'],'query-parse-v1');self.assertEqual(r.json()['parsedBy'],'request')
+    self.assertEqual(r.json()['decisionVersion'],PARSER_VERSION);self.assertEqual(r.json()['parsedBy'],'request')
     self.assertFalse(r.json()['imageUsedForInference'])
     for change in ({'checkpoint':61},{'imageBase64':'bad'},{'queryType':'freeform'},{'properties':['unknown_field']},{'events':[]}):
      self.assertEqual(client.post('/reason',json=dict(body,**change),headers=headers).status_code,422)
@@ -98,8 +99,7 @@ class ParseEngine:
  manifest={'model_id':'test-double','revision':'test-only'};device='test'
  def score_labels(self,prompt,image,labels):
   if labels==('A','B','C'):return {'A':-3.,'B':-.1,'C':-3.},50
-  yes='baggage' in prompt.split('specifically about')[-1]
-  return {'Yes':-.1 if yes else -5.,'No':-5. if yes else -.1},40
+  return {l:(-.1 if l=='B' else -5.) for l in labels},40  # B = baggage_status in the topic list
 class ParsedQuestionTests(unittest.TestCase):
  def test_model_parses_and_code_answers(self):
   body=dict(requestId='p',scenarioId=S,aircraftId='A2',checkpoint=14,question='Are the bags loaded?')
@@ -108,7 +108,7 @@ class ParsedQuestionTests(unittest.TestCase):
     r=client.post('/reason',json=body,headers={'Authorization':'Bearer t'}).json()
   self.assertEqual((r['parsedBy'],r['queryType'],r['properties']),('model','current',['baggage_status']))
   self.assertEqual(r['resultStatus'],'generated');self.assertEqual(r['evidenceIds'],['E03'])
-  self.assertEqual(r['forwardPasses'],10);self.assertEqual(r['inputTokens'],50+9*40)
+  self.assertEqual(r['forwardPasses'],2);self.assertEqual(r['inputTokens'],50+40)
  def test_keyword_baseline_shape(self):
   from backend.query_parser import keyword_parse
   self.assertEqual({k:v for k,v in keyword_parse('Has refuelling finished?').items() if k!='version'},{'queryType':'current','properties':['fuel_status']})
