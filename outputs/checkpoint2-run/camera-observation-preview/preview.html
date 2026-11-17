@@ -1,0 +1,85 @@
+<!doctype html><meta charset="utf-8"><title>Camera observation preview</title><style>
+*{box-sizing:border-box;margin:0}
+body{background:#1b1f24;font-family:Helvetica,Arial,sans-serif;color:#fff;padding:28px;width:1960px}
+h1{font-size:22px;font-weight:600;margin-bottom:4px}
+.sub{color:#aeb7c0;font-size:14px;margin-bottom:22px;max-width:1500px;line-height:1.4}
+.row{display:flex;gap:36px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:30px}
+.cap{font-size:14px;color:#cfd6dd;margin:0 0 8px 2px}
+.phone{background:#050b12;border-radius:26px;overflow:hidden;position:relative;border:3px solid #000}
+.land{width:874px;height:402px}
+.port{width:402px;height:874px}
+.head{background:#070e15;padding:6px 20px 7px 76px}
+.port .head{padding:60px 14px 10px 14px}
+.brand{font-size:8.5px;color:#b9c2ca;letter-spacing:.3px}
+.title{font-size:15.5px;margin:1px 0}
+.port .title{font-size:17px;margin:5px 0}
+.mode{font-size:9px;color:#19b39b}
+.port .mode{font-size:10.5px}
+.scene{position:absolute;background-size:cover;background-position:center}
+.land .scene{left:13px;top:56px;width:524px;height:316px}
+.btn{background:#233848;color:#fff;font-size:10px;padding:6px 9px;text-align:center;white-space:nowrap}
+.btn.go{background:#0c7566}
+.btn.sel{background:#0c7566}
+.views{position:absolute;left:8px;top:6px;display:flex;gap:6px}
+.strip{position:absolute;left:0;right:0;bottom:0;background:rgba(5,11,18,.92);padding:6px 9px 7px}
+.status{font-size:10.5px;margin-bottom:6px}
+.tl{display:flex;align-items:center;gap:7px}
+.play{width:26px;height:26px;background:#0c7566;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none}
+.time{font-size:10.5px;font-variant-numeric:tabular-nums;flex:none}
+.end{color:#93a0ab}
+.track{position:relative;flex:1;height:26px}
+.track:before{content:"";position:absolute;left:0;right:0;top:12px;height:2px;background:#3b5266}
+.fill{position:absolute;left:0;top:12px;height:2px;background:#19b39b}
+.mk{position:absolute;top:8px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#19b39b;border:2px solid #050b12}
+.mk.mv{border-radius:0;transform:rotate(45deg);background:#e2b84a;width:8px;height:8px;top:9px;margin-left:-4px}
+.mk.future{background:#3b5266}
+.mk.mv.future{background:#6d6a55}
+.headp{position:absolute;top:3px;width:3px;height:20px;margin-left:-1px;background:#fff}
+.jump{font-size:9.5px;padding:6px 7px;flex:none}
+.legend{display:flex;gap:12px;font-size:8.5px;color:#aeb7c0;margin-top:4px;align-items:center}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#19b39b;margin-right:4px}
+.dia{display:inline-block;width:6px;height:6px;background:#e2b84a;transform:rotate(45deg);margin-right:5px}
+.panel{position:absolute;background:#0c1620;padding:10px 12px}
+.land .panel{left:540px;top:56px;width:243px;height:316px}
+.lab{font-size:9px;color:#19b39b;letter-spacing:.2px;margin-bottom:6px}
+.chips{display:flex;gap:5px;margin-bottom:8px}
+.chips .btn{flex:1;padding:6px 2px}
+.chips small{display:block;font-size:7.5px;color:#c5d0d9;margin-top:1px}
+.avail{font-size:10.5px;margin-bottom:5px}
+.rep{border-left:3px solid #19b39b;background:#132331;padding:5px 7px;margin-bottom:5px}
+.rep.old{border-color:#3b5266}
+.rep .src{font-size:8px;color:#9fb0bd;display:flex;justify-content:space-between}
+.rep .txt{font-size:10px;margin:2px 0;line-height:1.25}
+.rep .tm{font-size:8px;color:#9fb0bd}
+.new{color:#e2b84a}
+.foot{position:absolute;left:12px;right:12px;bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.foot .go{grid-column:1/3}
+.sheet{position:absolute;background:#0c1620;border:1px solid #2c4356;padding:11px 13px}
+.sheet h3{font-size:12px;font-weight:600;margin-bottom:2px}
+.kv{display:grid;grid-template-columns:78px 1fr;font-size:9.5px;gap:3px 6px;margin:7px 0;color:#dfe6ec}
+.kv b{color:#9fb0bd;font-weight:400}
+.quote{font-size:10.5px;line-height:1.3;background:#132331;padding:6px 8px;margin:6px 0}
+.fine{font-size:8.5px;color:#9fb0bd;line-height:1.3}
+.note{background:#233848;font-size:10px;padding:7px 8px;line-height:1.3;margin:6px 0;min-height:38px}
+.close{position:absolute;right:10px;top:8px;font-size:11px;color:#9fb0bd}
+/* portrait */
+.port .scene{left:6px;right:6px;top:140px;height:392px;width:auto}
+.port .panel{left:10px;right:10px;top:540px;height:296px;width:auto}
+.port .btn{font-size:11px}
+.port .rep .txt{font-size:11px}
+.port .status{font-size:11px}
+.port .foot{grid-template-columns:repeat(4,1fr)}
+.port .foot .go{grid-column:auto}
+.cam{border-left:3px solid #6fb3ff;background:#11243a;padding:5px 7px;margin-bottom:6px}
+.cam .src{font-size:8px;color:#9cc6f0;display:flex;justify-content:space-between}
+.cam .txt{font-size:10.5px;margin:2px 0;line-height:1.25}
+.cam .tm{font-size:8px;color:#9fb0bd}
+.cam .warn{font-size:8px;color:#e2b84a;margin-top:2px}
+.port .cam .txt{font-size:11px}
+.sect{font-size:8.5px;color:#9fb0bd;margin:6px 0 3px;letter-spacing:.2px}
+</style>
+<h1>AirfieldLens · camera observations in the Stand B replay — preview for approval (not yet implemented)</h1>
+<div class="sub" style="color:#fff;margin-bottom:8px"><b>What changes:</b> one "Latest camera observation" card above the report list, in a different colour and labelled as lower authority than reports. Only the newest observation at the replay time is shown (the session has one per second). Other states use the same card: "not detected (not proof it has gone)" and "seen, position unknown (tracking lost)".</div>
+<div class="sub">Values are the real session output at seed 17. Scene images are recorded capture frames. The camera evidence arm (RGB only, or RGB + depth) is fixed when the replay starts and is shown in the card label.</div>
+<div class="row"><div class="col"><div><div class="cap">1 · 01:32, RGB + depth: camera sees the tanker off the stand; the reports still say the check is pending</div><div class="phone land"><div class="head"><div class="brand">AIRFIELDLENS</div><div class="title">An arriving stand not clear of equipment</div><div class="mode">Controller replay · Read-only · Source 01:32</div></div><div class="scene" style="background-image:url(scene-092.jpg)"><div class="strip"><div class="status">TRN103 · Holding at staging &nbsp;|&nbsp; Stand B</div><div class="tl"><div class="play">▶</div><div class="time">01:32</div><div class="track"><div class="fill" style="width:43.8%"></div><div class="mk" style="left:0.0%"></div><div class="mk" style="left:0.5%"></div><div class="mk" style="left:10.5%"></div><div class="mk" style="left:15.7%"></div><div class="mk future" style="left:45.2%"></div><div class="mk future" style="left:71.4%"></div><div class="mk future" style="left:75.7%"></div><div class="mk future" style="left:94.8%"></div><div class="mk mv future" style="left:75.2%"></div><div class="headp" style="left:43.8%"></div></div><div class="time end">03:30</div><div class="btn jump">‹ Event</div><div class="btn jump">Event ›</div></div></div></div><div class="panel"><div class="chips"><div class="btn">TRN101<small>Stand A</small></div><div class="btn">TRN102<small>Stand C</small></div><div class="btn sel">TRN103<small>inbound</small></div></div><div class="sect">CAMERA · RGB + DEPTH</div><div class="cam"><div class="src"><span>Camera observation · RGB + depth</span><span>Latest</span></div><div class="txt">Fuel-transfer vehicle seen <b>off Stand B</b></div><div class="tm">Captured 01:32 · 0 s old · est. position x 46 m, z 60 m · confidence 1.00</div><div class="warn">A camera view is not a report and cannot release the stand.</div></div><div class="sect">REPORTS RECEIVED BY 01:32 · TRN103</div><div class="rep"><div class="src"><span>Stand planning</span><span class="">Current</span></div><div class="txt">Hold: Stand B clearance check pending</div><div class="tm">Happened 00:30 · Received 00:33</div></div><div class="rep old"><div class="src"><span>Ground handling</span><span class="">Superseded</span></div><div class="txt">Hold: equipment reported on Stand B</div><div class="tm">Happened 00:20 · Received 00:22</div></div><div class="foot" style="grid-template-columns:repeat(4,1fr)"><div class="btn">Reports</div><div class="btn">Changed</div><div class="btn">Note</div><div class="btn go">Ask</div></div></div></div></div><div><div class="cap">2 · 02:30, RGB + depth: the release report arrives; the camera card does not change it</div><div class="phone land"><div class="head"><div class="brand">AIRFIELDLENS</div><div class="title">An arriving stand not clear of equipment</div><div class="mode">Controller replay · Read-only · Source 02:30</div></div><div class="scene" style="background-image:url(scene-150.jpg)"><div class="strip"><div class="status">TRN103 · Holding at staging &nbsp;|&nbsp; Stand B</div><div class="tl"><div class="play">▶</div><div class="time">02:30</div><div class="track"><div class="fill" style="width:71.4%"></div><div class="mk" style="left:0.0%"></div><div class="mk" style="left:0.5%"></div><div class="mk" style="left:10.5%"></div><div class="mk" style="left:15.7%"></div><div class="mk" style="left:45.2%"></div><div class="mk" style="left:71.4%"></div><div class="mk future" style="left:75.7%"></div><div class="mk future" style="left:94.8%"></div><div class="mk mv future" style="left:75.2%"></div><div class="headp" style="left:71.4%"></div></div><div class="time end">03:30</div><div class="btn jump">‹ Event</div><div class="btn jump">Event ›</div></div></div></div><div class="panel"><div class="chips"><div class="btn">TRN101<small>Stand A</small></div><div class="btn">TRN102<small>Stand C</small></div><div class="btn sel">TRN103<small>inbound</small></div></div><div class="sect">CAMERA · RGB + DEPTH</div><div class="cam"><div class="src"><span>Camera observation · RGB + depth</span><span>Latest</span></div><div class="txt">Fuel-transfer vehicle seen <b>off Stand B</b></div><div class="tm">Captured 02:30 · 0 s old · est. position x 76 m, z 49 m · confidence 1.00</div><div class="warn">A camera view is not a report and cannot release the stand.</div></div><div class="sect">REPORTS RECEIVED BY 02:30 · TRN103</div><div class="rep"><div class="src"><span>Stand planning</span><span class="new">New at 02:30</span></div><div class="txt">Stand B check complete; arrival hold released</div><div class="tm">Happened 02:26 · Received 02:30</div></div><div class="rep old"><div class="src"><span>Ground handling</span><span class="">Superseded</span></div><div class="txt">Equipment removal reported; check pending</div><div class="tm">Happened 01:32 · Received 01:35</div></div><div class="foot" style="grid-template-columns:repeat(4,1fr)"><div class="btn">Reports</div><div class="btn">Changed</div><div class="btn">Note</div><div class="btn go">Ask</div></div></div></div></div></div><div><div class="cap">3 · Portrait, RGB only: presence without position</div><div class="phone port"><div class="head"><div class="brand">AIRFIELDLENS</div><div class="title">An arriving stand not clear of equipment</div><div class="mode">Controller replay · Read-only · Source 01:32</div></div><div class="scene" style="background-image:url(scene-092.jpg);background-position:58% center"><div class="strip"><div class="status">TRN103 · Holding at staging &nbsp;|&nbsp; Stand B</div><div class="tl"><div class="play">▶</div><div class="time">01:32</div><div class="track"><div class="fill" style="width:43.8%"></div><div class="mk" style="left:0.0%"></div><div class="mk" style="left:0.5%"></div><div class="mk" style="left:10.5%"></div><div class="mk" style="left:15.7%"></div><div class="mk future" style="left:45.2%"></div><div class="mk future" style="left:71.4%"></div><div class="mk future" style="left:75.7%"></div><div class="mk future" style="left:94.8%"></div><div class="mk mv future" style="left:75.2%"></div><div class="headp" style="left:43.8%"></div></div><div class="btn jump">‹</div><div class="btn jump">›</div></div></div></div><div class="panel"><div class="chips"><div class="btn">TRN101<small>Stand A</small></div><div class="btn">TRN102<small>Stand C</small></div><div class="btn sel">TRN103<small>inbound</small></div></div><div class="sect">CAMERA · RGB ONLY</div><div class="cam"><div class="src"><span>Camera observation · RGB</span><span>Latest</span></div><div class="txt">Fuel-transfer vehicle seen in view</div><div class="tm">Captured 01:32 · 0 s old · position not available in this arm · confidence 1.00</div><div class="warn">A camera view is not a report and cannot release the stand.</div></div><div class="sect">REPORTS RECEIVED BY 01:32 · TRN103</div><div class="rep"><div class="src"><span>Stand planning</span><span class="">Current</span></div><div class="txt">Hold: Stand B clearance check pending</div><div class="tm">Happened 00:30 · Received 00:33</div></div><div class="foot" style="grid-template-columns:repeat(4,1fr)"><div class="btn">Reports</div><div class="btn">Changed</div><div class="btn">Note</div><div class="btn go">Ask</div></div></div></div></div></div>

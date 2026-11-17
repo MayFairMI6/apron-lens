@@ -17,10 +17,11 @@ namespace SurfaceSafety {
     [Serializable] public class ReplayMarker {public string id,kind,sourceKind,aircraftId,flightInstance,label;public float time,eventTime;public bool passed;}
     [Serializable] public class ReplayNote {public string id,runId,text,aircraftId,flightInstance;public float cutoff;}
     [Serializable] public class ReplayChange {public float cutoff;public string[] factIds;}
+    [Serializable] public class ReplayCameraLatest {public bool present;public string armLabel,text,meta,warning;}
     [Serializable] public class ReplayView {
         public string runId,exercise,title,scenarioId,scenarioHash,selectedAircraft,selectedFlight,evidenceDigest;
         public int viewRevision;public float cutoff,end,rate;public bool playing,readOnly,assistantPending;
-        public ReplayReport[] reports,selectedReports;public ReplayMarker[] timeline;public ReplayNote[] notes;public ReplayChange changedSince;
+        public ReplayReport[] reports,selectedReports;public ReplayMarker[] timeline;public ReplayNote[] notes;public ReplayChange changedSince;public ReplayCameraLatest cameraLatest;
     }
     [Serializable] public class ReplayActionBody {
         public string actionId,runId,action,markerId="",aircraftId="",text="";
@@ -41,6 +42,8 @@ namespace SurfaceSafety {
         readonly List<(ReplayReport report,Text tag,bool changed)> ageTags=new List<(ReplayReport,Text,bool)>();float scrubTarget,lastScrub=-10,playRate=1;
         ReplayAnswer replayAnswer;
         readonly List<(ReplayMarker marker,Image image)> markerImages=new List<(ReplayMarker,Image)>();
+        Text camText,camMeta;
+        readonly Color camBlue=new Color(.435f,.70f,1f),camRow=new Color(.067f,.141f,.227f),camLabel=new Color(.61f,.78f,.94f);
         readonly Color amber=new Color(.89f,.72f,.29f),rowColor=new Color(.075f,.14f,.19f);
         static readonly float[] replayRates={1,4,10};
 
@@ -139,7 +142,7 @@ namespace SurfaceSafety {
                 panelMode=="note"?"Handoff note · "+Clock(Replay.cutoff)+" · "+Replay.selectedFlight:
                 panelMode=="ask"?"Ask about "+Replay.selectedFlight+" at "+Clock(Replay.cutoff):
                 "Received by "+Clock(Replay.cutoff)+" · "+Replay.selectedFlight;
-            RefreshMarkers();RefreshChips();RefreshBody();
+            RefreshMarkers();RefreshChips();RefreshBody();UpdateCameraCard();
             // Ages follow the cutoff every frame; the rows themselves rebuild only when the received set changes.
             foreach(var (report,tag,changed) in ageTags){
                 if(tag==null)continue;float since=Replay.cutoff-report.receiptTime;bool isNew=changed&&since<.5f;
@@ -194,10 +197,10 @@ namespace SurfaceSafety {
         }
         void RefreshBody(){
             var key=panelMode=="note"?"note|"+(Replay.notes?.Length??0)+"|"+(Replay.notes??new ReplayNote[0]).Count(n=>n.cutoff<=Replay.cutoff+.001f):panelMode=="ask"?"ask":
-                panelMode+"|"+Replay.evidenceDigest+"|"+Replay.selectedAircraft+"|"+inspectId+"|"+(inspectId==""?0:Mathf.Floor(Replay.cutoff))+"|"+(Replay.changedSince?.cutoff??0)+"|"+string.Join(",",Replay.changedSince?.factIds??new string[0]);
+                panelMode+"|"+ReportKey()+"|"+(CameraCard?"cam":"")+"|"+Replay.selectedAircraft+"|"+inspectId+"|"+(inspectId==""?0:Mathf.Floor(Replay.cutoff))+"|"+(Replay.changedSince?.cutoff??0)+"|"+string.Join(",",Replay.changedSince?.factIds??new string[0]);
             if(key==bodyKey)return;bodyKey=key;
             foreach(Transform child in replayBody)Destroy(child.gameObject);
-            noteInput=null;questionInput=null;replayAnswerText=null;ageTags.Clear();
+            noteInput=null;questionInput=null;replayAnswerText=null;camText=null;camMeta=null;ageTags.Clear();
             var selected=Replay.selectedReports??new ReplayReport[0];
             if(panelMode=="note"){BuildNote();return;}
             if(panelMode=="ask"){BuildAsk();return;}
@@ -210,11 +213,31 @@ namespace SurfaceSafety {
             var inspected=Array.Find(selected,r=>r.id==inspectId);
             if(inspected!=null){BuildSource(inspected);return;}
             inspectId="";
-            if(selected.Length==0){ScrollText(replayBody,"No report or observation for "+Replay.selectedFlight+" has been received by the time shown.",Vector2.zero,Vector2.one,landscape?21:25,out _);return;}
-            BuildRows(selected.Reverse().ToArray(),false);
+            var area=replayBody;
+            if(CameraCard){BuildCameraCard();area=Box(replayBody,"Report area",Vector2.zero,new Vector2(1,.555f),Color.clear,false);}
+            if(selected.Length==0){ScrollText(area,"No report or observation for "+Replay.selectedFlight+" has been received by the time shown.",Vector2.zero,Vector2.one,landscape?21:25,out _);return;}
+            BuildRows(selected.Reverse().ToArray(),false,area);
         }
-        void BuildRows(ReplayReport[] rows,bool changedOnly){
-            var viewport=Box(replayBody,"Report list",Vector2.zero,Vector2.one,panel);viewport.gameObject.AddComponent<RectMask2D>();
+        bool CameraCard=>Replay!=null&&Replay.cameraLatest!=null&&Replay.cameraLatest.present&&panelMode=="reports";
+        string ReportKey()=>string.Join(",",(Replay.reports??new ReplayReport[0]).Select(r=>r.id+":"+string.Join("/",(r.facts??new ReplayFact[0]).Select(f=>f.status))));
+        // Camera observation card: wording comes from the replay service; it is never a report and is listed apart from them.
+        void BuildCameraCard(){
+            int small=landscape?16:19,main=landscape?21:25;
+            var card=Box(replayBody,"Camera observation",new Vector2(0,.575f),Vector2.one,camRow);
+            Box(card,"Accent",Vector2.zero,new Vector2(.012f,1),camBlue,false);
+            Label(card,"Camera observation · "+Replay.cameraLatest.armLabel,new Vector2(.035f,.78f),new Vector2(.75f,.98f),small,camLabel);
+            var latest=Label(card,"Latest",new Vector2(.7f,.78f),new Vector2(.97f,.98f),small,camLabel);latest.alignment=TextAnchor.MiddleRight;
+            camText=Label(card,"",new Vector2(.035f,.50f),new Vector2(.97f,.78f),main,Color.white);camText.alignment=TextAnchor.MiddleLeft;
+            camMeta=Label(card,"",new Vector2(.035f,.25f),new Vector2(.97f,.50f),small,muted);camMeta.alignment=TextAnchor.MiddleLeft;
+            var warn=Label(card,Replay.cameraLatest.warning,new Vector2(.035f,.02f),new Vector2(.97f,.25f),small,amber);warn.alignment=TextAnchor.MiddleLeft;
+            UpdateCameraCard();
+        }
+        void UpdateCameraCard(){
+            if(camText==null||Replay?.cameraLatest==null)return;
+            camText.text=Replay.cameraLatest.text;camMeta.text=Replay.cameraLatest.meta;
+        }
+        void BuildRows(ReplayReport[] rows,bool changedOnly,RectTransform parent=null){
+            var viewport=Box(parent??replayBody,"Report list",Vector2.zero,Vector2.one,panel);viewport.gameObject.AddComponent<RectMask2D>();
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;scroll.scrollSensitivity=28;
             var content=new GameObject("Content",typeof(RectTransform)).GetComponent<RectTransform>();content.SetParent(viewport,false);
             content.anchorMin=new Vector2(0,1);content.anchorMax=Vector2.one;content.pivot=new Vector2(.5f,1);content.offsetMin=content.offsetMax=Vector2.zero;

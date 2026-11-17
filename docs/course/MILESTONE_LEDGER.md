@@ -4535,3 +4535,15 @@ with the view, bound to the run and never change reports. Not done: the
 observations do not enter the assistant's prompt (that wording belongs to the
 frozen reports / +RGB / +depth comparison), and the app does not display them
 yet (a visual change needing preview approval). Full suite: 711 tests pass.
+
+**ML-058 addendum 3 — camera observation card in the replay app (17 November 2026).**
+Built from the approved preview
+(`outputs/checkpoint2-run/camera-observation-preview/`). The replay service
+composes the wording (`cameraLatest`); the app only shows it, above the
+reports, in blue, labelled as a camera observation with the warning that it
+cannot release the stand. It shows only for the flight the camera is about.
+Checked in the iPhone 18 Pro Simulator in both orientations and both arms
+(`outputs/checkpoint2-run/replay-native/camera-card-*.png`). Still not done:
+camera observations in the assistant's prompt (part of the comparison design).
+Noted separately: TRN101's stand-assignment report text reads only "A".
+Full suite: 712 tests pass.

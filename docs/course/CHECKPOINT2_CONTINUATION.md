@@ -109,3 +109,16 @@ then freeze a fresh held-out split before evaluating it, then feed qualified
 detections into the replay as camera reports for the reports / +RGB / +depth
 comparison. The issue #39 variants are queued after it. The unknown-name
 question is settled (decision log #17 to #20).
+
+Update 17 November 2026, later (ledger ML-058 addenda 1–3, decision log #31–#56):
+detector v3 qualified as camera evidence for synthetic Stand B frames; a
+recorded Stand B camera session loads into the replay with one arm
+(`--camera-session outputs/checkpoint2-run/stand-b-session-observations.json
+--camera-arm rgb|rgb_depth`), and the app shows a "latest camera observation"
+card for TRN103.
+
+First unfinished action: draft the reports / +RGB / +depth comparison protocol
+for owner review (prompt wording for camera observations, question families,
+scoring, and a brief for a fresh agent to draft held-out cases). The owner asked
+that this start only after the session is switched to high effort (decision
+log #52). Nothing is frozen yet.

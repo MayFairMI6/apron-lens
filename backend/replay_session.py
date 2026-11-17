@@ -241,6 +241,10 @@ class ReplaySession:
         return changed_facts(snapshot(self._world, aircraft_id, flight, earlier),
                              snapshot(self._world, aircraft_id, flight, later))
 
+    def _camera_subject(self):
+        """True when the selected aircraft is the one the loaded camera observations are about."""
+        return any(o['aircraftId'] == self.selected for o in self.observations)
+
     def view(self):
         with self.lock:
             cutoff = self.advance()
@@ -262,7 +266,9 @@ class ReplaySession:
                 changedSince=dict(cutoff=previous, factIds=self.changes(self.selected, previous, cutoff)),
                 timeline=[self._marker_at(m, cutoff) for m in self.markers],
                 notes=copy.deepcopy(self.notes), assistantPending=self.pending is not None,
-                evidenceDigest=_digest([[r['id'] for r in reports], [o['id'] for o in cameras]]))
+                evidenceDigest=_digest([[r['id'] for r in reports], [o['id'] for o in cameras]]),
+                cameraLatest=camera_card(self.camera_arm if self._camera_subject() else None,
+                                         cameras[-1] if cameras else None, cutoff))
 
     def snapshot(self):
         """Scene feed in the shape the existing viewer reads, driven by the replay cutoff."""
@@ -477,6 +483,40 @@ class ReplaySession:
         if not self.finish_question(ticket, result, memory):
             raise ReplayConflict('The replay view changed while the assistant was answering; ask again')
         return copy.deepcopy(self._answers[ticket['requestId']][1])
+
+
+def _clock(seconds):
+    seconds = max(0, int(seconds))
+    return f'{seconds // 60:02d}:{seconds % 60:02d}'
+
+
+def camera_card(arm, record, cutoff):
+    """Wording for the app's 'latest camera observation' card; empty when no camera arm is loaded."""
+    if arm is None:
+        return dict(present=False, armLabel='', text='', meta='', warning='')
+    label = 'RGB + depth' if arm == 'rgb_depth' else 'RGB'
+    if record is None:
+        return dict(present=True, armLabel=label, text='No camera observation yet', meta='', warning='')
+    seen = record['visibleVehicle'] == 'present'
+    meta = [f"Captured {_clock(record['captureTime'])}", f"{int(round(cutoff - record['captureTime']))} s old"]
+    if not seen:
+        text = 'Fuel-transfer vehicle not detected (not proof it has gone)'
+    elif not record['trackingValid']:
+        text = 'Fuel-transfer vehicle seen; position unknown (tracking lost)'
+    elif arm == 'rgb':
+        text = 'Fuel-transfer vehicle seen in view'
+        meta.append('position not available in this arm')
+    elif record.get('apronPositionMetres') is None:
+        text = 'Fuel-transfer vehicle seen; position unknown'
+    else:
+        where = 'on' if record['onStandB'] else 'off'
+        text = f'Fuel-transfer vehicle seen {where} Stand B'
+        position = record['apronPositionMetres']
+        meta.append(f"est. position x {position['x']:.0f} m, z {position['z']:.0f} m")
+    if seen:
+        meta.append(f"confidence {record['confidence']:.2f}")
+    return dict(present=True, armLabel=label, text=text, meta=' · '.join(meta),
+                warning='A camera view is not a report and cannot release the stand.')
 
 
 class _Memory:

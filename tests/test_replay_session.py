@@ -484,6 +484,26 @@ class StandBCameraSession(ReplayCase):
         self.assertEqual(max(o['captureTime'] for o in back['cameraObservations']), 30)
         self.assertTrue(all(o['runId'] == s.run_id for o in back['cameraObservations']))
 
+    def test_card_wording_follows_the_latest_observation_at_the_cutoff(self):
+        depth, rgb = self.stand('rgb_depth'), self.stand('rgb')
+        self.count = 0
+        for s in (depth, rgb):
+            self.act(s, 'select', aircraftId='A3')
+        card = lambda s, t: self.act(s, 'seek', cutoff=t)['cameraLatest']
+        self.assertEqual(card(depth, 40)['text'], 'Fuel-transfer vehicle seen on Stand B')
+        self.assertEqual(card(depth, 92)['text'], 'Fuel-transfer vehicle seen off Stand B')
+        self.assertIn('est. position x 46 m, z 60 m', card(depth, 92)['meta'])
+        self.assertEqual(card(depth, 47)['text'], 'Fuel-transfer vehicle not detected (not proof it has gone)')
+        self.assertEqual(card(depth, 57)['text'], 'Fuel-transfer vehicle seen; position unknown (tracking lost)')
+        self.assertEqual(card(rgb, 92)['text'], 'Fuel-transfer vehicle seen in view')
+        self.assertIn('position not available in this arm', card(rgb, 92)['meta'])
+        self.assertIn('cannot release the stand', card(rgb, 92)['warning'])
+        self.assertEqual(card(depth, 92.6)['meta'].split(' · ')[:2], ['Captured 01:32', '1 s old'])
+        other = next(a['id'] for a in depth._world['aircraft'] if a['id'] != 'A3')
+        self.assertFalse(self.act(depth, 'select', aircraftId=other)['cameraLatest']['present'])
+        plain = ReplaySession(17, LEAD_CASE, clock=lambda: 0.)
+        self.assertEqual(plain.view()['cameraLatest']['present'], False)
+
     def test_session_is_only_for_stand_b_qualified_and_one_arm(self):
         import json, tempfile
         with self.assertRaises(ValueError):
