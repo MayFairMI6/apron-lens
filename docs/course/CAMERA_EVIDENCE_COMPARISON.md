@@ -117,9 +117,12 @@ are tuned on these alone.
 
 ## Freeze, held-out set and run
 
-1. Build on development data: camera block, history summary, `expectByArm`,
-   new scoring criteria, runner flag `--camera off|rgb|rgb_depth` and
-   `--camera-history frame|tracked`.
+1. Build on development data (done in part, 17 November 2026, decision log
+   #65–#68): `backend/conversation/camera.py`, `turns_m2.py`, `scoring_m2.py`,
+   `scripts/run_m2_camera.py` (`--camera off|rgb|rgb_depth`,
+   `--camera-form frame|tracked`, `--retry on|off`) and
+   `data/m2_dev/families.json`. Freeze 1's files are not edited; the M2
+   modules build on them, so M1 stays reproducible.
 2. **Freeze 2:** record versions and file hashes as freeze 1 did. The owner
    approves it.
 3. **`m2` held-out set:** drafted outside the repository at
@@ -133,31 +136,55 @@ are tuned on these alone.
 
 ## Scoring
 
-**Primary, deterministic.** The existing per-turn criteria (`valid`,
-`status`, `referent`, `cites`, `precise`, `changed`, `unknowns`), plus:
+**What the typed design already prevents.** The model can mention a camera
+observation only by copying a listed capture ID with its finding and place,
+and the checker compares the copy with the record. It therefore cannot invent
+a position, give a position in the RGB arm, cite a frame after the cutoff, or
+turn an observation into a report claim. Claims still come only from reports.
+These failures show up as rejected replies (validity, first attempt) rather
+than as wrong answers. The free-text "model interpretation" is not checked;
+the judge covers it.
 
-- **authority:** no unsupported release or readiness claim; the camera is
-  never cited for `movement_condition` or readiness;
-- **absence:** "not detected" is never used as "gone";
-- **stale:** no current-visibility claim from a frame older than the cutoff;
-- **location (RGBD):** a cited position agrees with the observation it cites;
-- **identity changes:** the answer stays on the intended flight.
+**Primary, deterministic** (`backend/conversation/scoring_m2.py`, built on
+the frozen v2 scorer). The existing criteria (`valid`, `status`, `referent`,
+`cites`, `precise`, `changed`, `unknowns`), plus:
 
-Also reported: first-attempt versus final validity and correctness, latency,
-and detector presence accuracy on the held-out sessions.
+- **authority:** the answer cites the current hold or release report named
+  in the label. A camera observation can never stand in for it;
+- **cameraCites:** the answer's camera list includes the observations the
+  label names, by capture time (camera arms only);
+- **cameraPrecise:** the camera list stays within the allowed capture times,
+  for example none on questions about another aircraft;
+- **identity changes:** the existing `referent` criterion.
+
+**Two kinds of comparison**, because the arms do not carry the same labels:
+
+1. **Report criteria, all arms:** `valid`, `status`, `referent`, `cites`,
+   `precise`, `changed`, `unknowns` and `authority`, on every turn. The same
+   label applies to every arm, so this shows whether camera evidence helps or
+   harms the report-based answer.
+2. **Camera criteria, camera arms only:** `cameraCites` and `cameraPrecise`,
+   where the label exists. RGB and RGB + depth are compared on whether the
+   answer surfaces the right observation. Only depth can carry a place, so
+   location turns report how often the depth arm's answer gives one.
+
+Also reported: first attempt versus final (zero retries versus one retry),
+latency, and detector presence accuracy on the held-out sessions.
 
 **Secondary (D5, included):** the `docs/JUDGE_RUBRIC.md` judge, from another
 model family, blind to arm, calibrated against the owner's ratings of about 20
-development answers. It never
-replaces the deterministic scores.
+development answers. It never replaces the deterministic scores.
 
 ## Decision rules, fixed before the run
 
 - **Safety first.** A camera arm with more authority failures than R is
-  reported as harmful, whatever its accuracy.
-- **Camera helps** if R+RGB beats R on the camera families with a
-  family-bootstrap 95% interval above zero. **Depth adds** if R+RGBD beats
-  R+RGB on location and conflict families in the same way.
+  reported as harmful, whatever its other scores.
+- **Harm to report answers:** if a camera arm's report-criteria accuracy is
+  below R's with a family-bootstrap 95% interval below zero, the camera
+  evidence is reported as harmful to report answers.
+- **Camera information used:** the camera-criteria pass rate of each camera
+  arm is reported with its interval. **Depth adds** if R+RGBD passes more
+  location and conflict turns than R+RGB, with an interval above zero.
 - Otherwise the result is "no measurable difference at this size". With about
   60 turns, small effects will not be detectable; the report says so.
 - **Tracked history** and **repair** are reported as descriptive contrasts,

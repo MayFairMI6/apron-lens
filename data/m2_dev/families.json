@@ -1,0 +1,542 @@
+{
+ "version": "m2-dev-v1",
+ "split": "development",
+ "note": "Development families for the M2 camera comparison (docs/course/CAMERA_EVIDENCE_COMPARISON.md). Written by the method developer; used to tune wording; never evaluation evidence.",
+ "labelFields": {
+  "expectByArm": "partial expect per camera arm (off, rgb, rgb_depth), merged over expect",
+  "cameraMustCite": "capture times (s) the camera list must include",
+  "cameraCiteOnly": "capture times the camera list may include",
+  "authority": "report fact IDs (current hold or release) the answer must cite",
+  "cameraSession": "recorded camera session (repository path) for the family"
+ },
+ "families": [
+  {
+   "id": "D2-01",
+   "type": "visual-observation",
+   "tests": "Camera and reports agree: vehicle on the stand, check pending.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 40,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Is the fuel vehicle still on Stand B?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S006:movement_condition"
+      ],
+      "authority": [
+       "S006:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        40
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        40
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-02",
+   "type": "conflicting-reports",
+   "tests": "At 92 s the depth camera places the vehicle off the stand; the report still holds. At 96 s the removal report arrives while the view is blocked.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 92,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Is Stand B clear of the fuel vehicle now?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S006:movement_condition"
+      ],
+      "authority": [
+       "S006:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        92
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        92
+       ]
+      }
+     }
+    },
+    {
+     "cutoff": 96,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "And now?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S007:movement_condition"
+      ],
+      "authority": [
+       "S007:movement_condition"
+      ],
+      "explanationChanged": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-03",
+   "type": "other:authority",
+   "tests": "The camera sees the stand empty long before the release; only the release report allows TRN103 to go.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 120,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Can TRN103 go to Stand B now?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S007:movement_condition"
+      ],
+      "authority": [
+       "S007:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        120
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        120
+       ]
+      }
+     }
+    },
+    {
+     "cutoff": 152,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Can it go now?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S008:movement_condition"
+      ],
+      "authority": [
+       "S008:movement_condition"
+      ],
+      "explanationChanged": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-04",
+   "type": "missing-evidence",
+   "tests": "The vehicle is not detected during a look-away; the report still says the check is pending.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 50,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Has the fuel vehicle left Stand B?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S006:movement_condition"
+      ],
+      "authority": [
+       "S006:movement_condition"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-05",
+   "type": "tracking-interruption",
+   "tests": "The user lost sight of the stand at 93 s; the removal report arrived at 95 s.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 85,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "What is TRN103 waiting for?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S006:movement_condition"
+      ],
+      "authority": [
+       "S006:movement_condition"
+      ]
+     }
+    },
+    {
+     "cutoff": 102,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "What changed while I was not looking?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S007:movement_condition"
+      ],
+      "citeOnly": [
+       "S007:movement_condition"
+      ],
+      "explanationChanged": true
+     },
+     "lastSeen": 93
+    }
+   ]
+  },
+  {
+   "id": "D2-06",
+   "type": "other:location",
+   "tests": "Where the vehicle is: only the depth arm can give a position.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 125,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Where is the fuel vehicle now?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S007:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        125
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        125
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-07",
+   "type": "other:location",
+   "tests": "Tracking is lost: the camera sees the vehicle but cannot place it.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 105,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Is the fuel vehicle still near the stand?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S007:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        105
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        105
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-08",
+   "type": "other:tracking-lost",
+   "tests": "Tracking lost while the vehicle is still parked; the hold stands.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 57,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Is anything still on Stand B?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S006:movement_condition"
+      ],
+      "authority": [
+       "S006:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        57
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        57
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-09",
+   "type": "other:report-only-control",
+   "tests": "Another aircraft: the camera is not about it and must not be cited.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 60,
+     "selected": {
+      "aircraftId": "A1",
+      "flightInstance": "TRN101"
+     },
+     "question": "Which stand is this aircraft on?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A1",
+       "flightInstance": "TRN101"
+      },
+      "mustCite": [
+       "S001:stand"
+      ],
+      "cameraCiteOnly": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-10",
+   "type": "other:report-only-control",
+   "tests": "Another aircraft late in the exercise.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 150,
+     "selected": {
+      "aircraftId": "A2",
+      "flightInstance": "TRN102"
+     },
+     "question": "Any update for this aircraft?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A2",
+       "flightInstance": "TRN102"
+      },
+      "mustCite": [
+       "S002:stand"
+      ],
+      "cameraCiteOnly": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-11",
+   "type": "scene-change",
+   "tests": "After the release TRN103 starts to move.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 170,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Is TRN103 moving?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S009:movement_status"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "D2-12",
+   "type": "other:authority",
+   "tests": "Before any removal report the user asks whether the stand is ready.",
+   "scenario": "LESSON-stand_clearance-17",
+   "cameraSession": "outputs/checkpoint2-run/stand-b-session-observations.json",
+   "turns": [
+    {
+     "cutoff": 70,
+     "selected": {
+      "aircraftId": "A3",
+      "flightInstance": "TRN103"
+     },
+     "question": "Is Stand B ready for TRN103?",
+     "expect": {
+      "status": [
+       "answer"
+      ],
+      "referent": {
+       "aircraftId": "A3",
+       "flightInstance": "TRN103"
+      },
+      "mustCite": [
+       "S006:movement_condition"
+      ],
+      "authority": [
+       "S006:movement_condition"
+      ]
+     },
+     "expectByArm": {
+      "rgb": {
+       "cameraMustCite": [
+        70
+       ]
+      },
+      "rgb_depth": {
+       "cameraMustCite": [
+        70
+       ]
+      }
+     }
+    }
+   ]
+  }
+ ]
+}
