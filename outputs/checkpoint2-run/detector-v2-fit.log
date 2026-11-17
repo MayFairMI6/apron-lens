@@ -1,0 +1,23 @@
+A epoch 1/12: loss 6.6915
+A epoch 2/12: loss 5.1314
+A epoch 3/12: loss 4.0832
+A epoch 4/12: loss 3.5847
+A epoch 5/12: loss 3.8825
+A epoch 6/12: loss 3.3592
+A epoch 7/12: loss 3.1771
+A epoch 8/12: loss 2.9088
+A epoch 9/12: loss 3.0864
+A epoch 10/12: loss 2.9399
+A epoch 11/12: loss 2.8655
+A epoch 12/12: loss 2.9160
+A threshold 0.8 {'tp': 43, 'fp': 19, 'fn': 75, 'precision': 0.6935, 'recall': 0.3644, 'f1': 0.4778}
+B epoch 1/8: loss 0.3005
+B epoch 2/8: loss 0.5259
+B epoch 3/8: loss 0.5841
+B epoch 4/8: loss 0.7816
+B epoch 5/8: loss 0.7762
+B epoch 6/8: loss 0.7362
+B epoch 7/8: loss 0.6567
+B epoch 8/8: loss 0.7516
+B threshold 0.65 {'tp': 109, 'fp': 9, 'fn': 9, 'precision': 0.9237, 'recall': 0.9237, 'f1': 0.9237}
+selected B

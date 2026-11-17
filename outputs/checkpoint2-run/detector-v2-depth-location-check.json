@@ -1,0 +1,18 @@
+{
+ "folder": "work/detector-v2/development/validation",
+ "boxes": 118,
+ "medianErrorMetres": 2.385,
+ "p90ErrorMetres": 5.39,
+ "maxErrorMetres": 5.73,
+ "standBAgreement": 117,
+ "disagreements": [
+  {
+   "frame": "d13-05",
+   "time": 91.19999694824219,
+   "errorMetres": 2.95,
+   "estimatedOnStandB": true,
+   "trueOnStandB": false
+  }
+ ],
+ "note": "Development frames; label boxes used only to test geometry. Route position is the vehicle reference point, so a few metres of offset is expected."
+}
