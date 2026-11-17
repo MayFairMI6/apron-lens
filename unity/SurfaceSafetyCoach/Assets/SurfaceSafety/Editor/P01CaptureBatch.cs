@@ -13,6 +13,13 @@ public static class P01CaptureBatch {
         public string purpose="P01 synthetic detector pilot; split assigned before generation by authored body/camera variant, shared apron and trajectories. Not a generalization acceptance set.";
         public string sourceScenario;public PilotDomain[] domains;public float[] sourceTimes;
     }
+    // Plan mode (detector revision): one row per frame, generated and seeded outside Unity
+    // by experiments/apron_detector/plan.py. Camera pose is given directly in apron metres.
+    [Serializable] public sealed class PlannedFrame {
+        public string split,domain,viewpoint,stem;public float time,fieldOfView;
+        public Color body;public Vector3 bodyScale,positionMetres,lookAtMetres;
+    }
+    [Serializable] public sealed class CapturePlan {public string version,purpose;public PlannedFrame[] frames;}
     static PilotDomain Domain(string id,string split,Color body,Vector3 scale,Vector3 offset)=>new PilotDomain{id=id,split=split,body=body,bodyScale=scale,cameraOffsetMetres=offset};
     public static void Run(){
         var input=Environment.GetEnvironmentVariable("AIRFIELDLENS_P01_SCENARIO");
@@ -32,6 +39,8 @@ public static class P01CaptureBatch {
         var vehicle=scenery.BuildVehicle("service-vehicle",replay.Content);
         var rig=camera.gameObject.AddComponent<P01CameraRig>();rig.Bind(replay,camera);
         Directory.CreateDirectory(output);int frames=0,visible=0,hidden=0;
+        var planPath=Environment.GetEnvironmentVariable("AIRFIELDLENS_P01_CAPTURE_PLAN");
+        if(!string.IsNullOrEmpty(planPath)){RunPlan(planPath,output,scenario,replay,camera,rig,vehicle);return;}
         // Fixed before rendering or model fitting. Body and viewpoint variants
         // are disjoint, but all share this authored apron and route: pilot only.
         var domains=new[]{
@@ -60,6 +69,34 @@ public static class P01CaptureBatch {
         }
         File.WriteAllText(Path.Combine(output,"capture-summary.json"),"{\"frames\":"+frames+",\"visibleVehicleFrames\":"+visible+",\"zeroVehiclePixelFrames\":"+hidden+",\"note\":\"Synthetic geometry labels; viewpoints at one scenario/time are a render group, not independent samples. Native scene acceptance remains separate.\"}");
         Debug.Log("P01_CAPTURE_BATCH_PASS frames="+frames+" visible="+visible+" zeroPixels="+hidden+" output="+output);
+    }
+    static void RunPlan(string planPath,string output,Scenario scenario,StandReplay replay,Camera camera,P01CameraRig rig,GameObject vehicle){
+        var plan=JsonUtility.FromJson<CapturePlan>(File.ReadAllText(planPath));
+        if(plan?.frames==null||plan.frames.Length==0)throw new InvalidOperationException("Capture plan has no frames.");
+        var route=Array.Find(scenario.groundVehicles,p=>p.id=="service-vehicle");
+        if(route==null)throw new InvalidOperationException("P01 service-vehicle route missing.");
+        int frames=0,visible=0,hidden=0;
+        // The rig is released: plan viewpoints set the camera directly, and Tick() leaves it alone.
+        rig.ReleaseCamera();
+        foreach(var f in plan.frames){
+            if(string.IsNullOrEmpty(f.stem)||Path.GetFileName(f.stem)!=f.stem||string.IsNullOrEmpty(f.split))throw new InvalidOperationException("Invalid planned frame.");
+            replay.SetReplayTime(f.time,"paused");
+            if(Math.Abs(replay.Clock.Time-f.time)>1e-4f)throw new InvalidOperationException("Replay clock did not reach the planned time.");
+            vehicle.transform.localScale=f.bodyScale;
+            foreach(var renderer in vehicle.GetComponentsInChildren<Renderer>())if(renderer.name=="Fuel tanker cab"||renderer.name=="Fuel tanker tank")renderer.sharedMaterial.color=f.body;
+            vehicle.transform.localPosition=Scenario.Position(route,f.time);vehicle.transform.localRotation=Quaternion.Euler(0,Scenario.Heading(route,f.time),0);
+            var world=replay.Content.TransformPoint(f.positionMetres/WorldArBootstrap.MetresPerBoardUnit);
+            var aim=replay.Content.TransformPoint(f.lookAtMetres/WorldArBootstrap.MetresPerBoardUnit);
+            camera.transform.SetPositionAndRotation(world,Quaternion.LookRotation(aim-world,Vector3.up));camera.fieldOfView=f.fieldOfView;
+            var frame=P01SynchronizedCapture.Capture(replay,camera,960);
+            if(frame.metadata.sourceTime!=replay.Clock.Time)throw new Exception("Source-time mismatch.");
+            frame.metadata.split=f.split;frame.metadata.domainVariant=f.domain;frame.metadata.pose=f.viewpoint;
+            frame.metadata.datasetPurpose="Synthetic Stand B detector revision ("+plan.version+"); geometric labels; no real-world acceptance claim.";
+            frame.metadata.renderGroup=f.domain+"/"+f.viewpoint+"/"+f.time.ToString("F3",System.Globalization.CultureInfo.InvariantCulture);
+            frame.Export(Path.Combine(output,f.split),f.stem);frames++;if(frame.metadata.visibleBoxes.Length>0)visible++;else hidden++;
+        }
+        File.WriteAllText(Path.Combine(output,"capture-summary.json"),"{\"plan\":\""+plan.version+"\",\"frames\":"+frames+",\"visibleVehicleFrames\":"+visible+",\"zeroVehiclePixelFrames\":"+hidden+"}");
+        Debug.Log("P01_CAPTURE_PLAN_PASS frames="+frames+" visible="+visible+" zeroPixels="+hidden+" output="+output);
     }
     static void Write(StandReplay replay,Camera camera,string output,string stem,PilotDomain domain,ref int frames,ref int visible,ref int hidden){
         var frame=P01SynchronizedCapture.Capture(replay,camera,960);
