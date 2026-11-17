@@ -88,19 +88,23 @@ def timed(fn, *args):
     return result, round(time.perf_counter() - started, 3)
 
 
-def run(dataset, split, model, output, methods=METHODS):
+def run(dataset, split, model, output, methods=METHODS, resume=False):
     from backend.engine import load_engine
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
     target = output / 'results.jsonl'
-    if target.exists():
-        raise ValueError('Output already exists. Choose a new output directory; no run is overwritten.')
+    if target.exists() and not resume:
+        raise ValueError('Output already exists. Choose a new output directory, or --resume an interrupted run.')
+    # --resume keeps every recorded answer and asks only the questions not yet answered.
+    rows = [json.loads(line) for line in target.read_text().splitlines()] if target.exists() else []
+    done = {r['id'] for r in rows}
     items = load(dataset, split)
     scenario_id, aircraft, checkpoint = REPLAY[dataset]
     data = load_scenario(scenario_id)
     engine = load_engine(model)
-    rows = []
     for item in items:
+        if item['id'] in done:
+            continue
         question = item['question']
         row = dict(id=item['id'], question=question, queries={}, answers={}, errors={}, raw={}, seconds={})
         if 'choice' in methods:
@@ -153,8 +157,9 @@ if __name__ == '__main__':
     parser.add_argument('--model', choices=model_names(), default=PRIMARY_MODEL)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--methods', default=','.join(METHODS), help='comma-separated subset of ' + ','.join(METHODS))
+    parser.add_argument('--resume', action='store_true', help='continue an interrupted run in the same output directory')
     args = parser.parse_args()
     methods = tuple(args.methods.split(','))
     if not set(methods) <= set(METHODS):
         parser.error('unknown method')
-    run(args.dataset, args.split, args.model, args.output, methods)
+    run(args.dataset, args.split, args.model, args.output, methods, args.resume)

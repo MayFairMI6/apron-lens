@@ -1,0 +1,27 @@
+{
+  "note": "Development-only tuning record. Parser v2 dev run (Qwen2.5-VL-3B, float16 CPU) interrupted by a container restart after 32 of 36 apron dev questions; thresholds for v3 chosen by grid search on these 32 rows. No test data was used.",
+  "parserVersionRun": "query-parse-v2",
+  "rows": 32,
+  "answerExactOf32": {
+    "direct": 9,
+    "pal": 1,
+    "choice": 18,
+    "generated": 23,
+    "keyword": 32
+  },
+  "gridSearch": {
+    "latestNoneMargin": "0.0-3.0 step 0.25",
+    "secondTopicMargin": "0.0-2.0 step 0.25",
+    "v2Rule": {
+      "latestNone": 0.0,
+      "second": 1.0,
+      "queryExact": 18
+    },
+    "chosen": {
+      "latestNone": 2.0,
+      "second": 0.0,
+      "queryExact": 23,
+      "plateau": "latestNone 1.75-3.0 all 23"
+    }
+  }
+}

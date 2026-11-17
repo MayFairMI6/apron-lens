@@ -14,10 +14,13 @@ keyword_parse is the rule-based baseline both must beat.
 import json
 import re
 
-VERSION = 'query-parse-v2'
+VERSION = 'query-parse-v3'
 LETTERS = 'ABCDEFGHIJ'
-# A second topic is kept when its score is this close to the best one; set on dev.json only.
-SECOND_TOPIC_MARGIN = 1.0
+# Set on the apron dev.json scores only (outputs/query_parsing_v1/dev-tuning.json): a latest-report
+# question means "no specific topic" when that option is within this margin of the best topic
+# (1.75-3.0 all scored the same), and a second topic is kept only if it scores at least as high.
+LATEST_NONE_MARGIN = 2.0
+SECOND_TOPIC_MARGIN = 0.0
 TYPES = {'A': 'latest', 'B': 'current', 'C': 'change'}
 TOPICS = {
     'apron': {
@@ -66,7 +69,8 @@ def parse(engine, question, domain='apron'):
     """Return {queryType, properties} plus a trace of every scored option.
 
     v1 asked a separate Yes/No question per topic; its margins were small and poorly
-    calibrated on dev.json, so v2 lets the topics compete in one multiple-choice question.
+    calibrated on dev.json, so later versions let the topics compete in one multiple-choice
+    question. v3 sets the two thresholds from the dev scores.
     """
     fields = list(TOPICS[domain])
     none = LETTERS[len(fields)]
@@ -74,11 +78,10 @@ def parse(engine, question, domain='apron'):
     query_type = TYPES[max(scores, key=scores.get)]
     topic_scores, n = engine.score_labels(topic_prompt(question, domain), None, tuple(LETTERS[:len(fields) + 1]))
     tokens += n
-    ranked = sorted(topic_scores, key=topic_scores.get, reverse=True)
-    if ranked[0] == none and query_type == 'latest':
+    named = [t for t in sorted(topic_scores, key=topic_scores.get, reverse=True) if t != none]
+    if query_type == 'latest' and topic_scores[none] >= topic_scores[named[0]] - LATEST_NONE_MARGIN:
         properties = []
     else:
-        named = [t for t in ranked if t != none]
         properties = [fields[LETTERS.index(named[0])]]
         if topic_scores[named[1]] >= topic_scores[named[0]] - SECOND_TOPIC_MARGIN:
             properties.append(fields[LETTERS.index(named[1])])
