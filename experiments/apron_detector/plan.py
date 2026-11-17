@@ -17,9 +17,9 @@ from pathlib import Path
 from backend.lessons import build_lesson
 
 VERSION = 'stand-b-detector-v2'
-SEEDS = {'development': 20261117, 'heldout': 20261118}
+SEEDS = {'development': 20261117, 'heldout': 20261118, 'heldout-v3': 20261119}  # v3: PROTOCOL.md amendment 1
 # (split, number of domains); development holds training and validation domains.
-SPLITS = {'development': (('train', 12), ('validation', 4)), 'heldout': (('heldout', 5),)}
+SPLITS = {'development': (('train', 12), ('validation', 4)), 'heldout': (('heldout', 5),), 'heldout-v3': (('heldout', 5),)}
 FRAMES_PER_DOMAIN = 40
 BRIDGE_CAB = (22.0, 4.0, 70.0)  # existing opaque Stand B bridge cab, apron metres
 
@@ -84,7 +84,7 @@ def build(purpose):
     rng = random.Random(SEEDS[purpose])
     points = route()
     frames, domains = [], []
-    prefix = 'h' if purpose == 'heldout' else 'd'
+    prefix = {'heldout': 'h', 'heldout-v3': 'v'}.get(purpose, 'd')
     number = 0
     for split, count in SPLITS[purpose]:
         for _ in range(count):

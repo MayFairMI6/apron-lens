@@ -75,3 +75,41 @@ detections may still be shown in development tools, labelled as unqualified.
 
 Real-photo accuracy (a separate check), depth-based features, and the
 reports-versus-camera comparison, which has its own frozen evaluation.
+
+## Amendment 1 — 17 November 2026 (after the v2 held-out run)
+
+**Why.** Candidate B failed the box gate on the v2 held-out split (precision
+0.869, recall 0.930). On *development* validation frames, all 7 false
+detections were loose boxes on the real tanker (IoU 0.07–0.48), none on
+another object and none on look-away frames. The assistant consumes presence
+and depth location, not box overlap. This amendment was prompted by that
+failure; the v2 result stands as recorded and the v2 held-out split is not
+reused. The owner chose this route.
+
+**Evidence gate (decides qualification as camera evidence).** At the
+validation-selected threshold, on the fresh v3 held-out split:
+
+- *Presence:* a frame is "present" if it has at least one evaluable box,
+  "absent" if it has no box at all; frames with only ignore boxes are left
+  out. The detector says "present" if it has any detection at or above the
+  threshold. Presence precision ≥ 0.95 and presence recall ≥ 0.80.
+- *Location (depth arm):* for frames correctly called present, the top
+  detection's depth-based apron position (`backend/camera_evidence.locate`) is
+  within 8 m of the tanker's authored route position in ≥ 90% of frames, and
+  on/off Stand B agrees with the route position in ≥ 95% of frames. (8 m is
+  about one tanker length; the development geometry check with true boxes had
+  a maximum error of 5.7 m.)
+
+**Box gate (kept, reported, not decisive for evidence use):** unchanged,
+precision ≥ 0.90 and recall ≥ 0.70 on evaluable boxes.
+
+**Candidate C (small development-only box revision).** Candidate B's model and
+budget with the input upsampled: min side 810, max 1440 (1.5×), 10 epochs.
+Selection between B (existing weights, unchanged) and C uses the original
+rule: higher validation box F1, ties to higher validation box precision.
+Threshold selection is unchanged.
+
+**v3 held-out split.** Plan seed `20261119`, 5 domains × 40 frames, same
+ranges as v2, rendered and frozen in
+`outputs/checkpoint2-run/detector-v3-heldout-manifest.json` before candidate C
+is fitted. Evaluated once, for the selected candidate only.

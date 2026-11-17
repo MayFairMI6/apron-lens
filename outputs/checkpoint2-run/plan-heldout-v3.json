@@ -1,0 +1,5859 @@
+{
+ "version": "stand-b-detector-v2",
+ "purpose": "heldout-v3",
+ "seed": 20261119,
+ "domains": [
+  {
+   "domain": "v01",
+   "split": "heldout",
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   }
+  },
+  {
+   "domain": "v02",
+   "split": "heldout",
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   }
+  },
+  {
+   "domain": "v03",
+   "split": "heldout",
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   }
+  },
+  {
+   "domain": "v04",
+   "split": "heldout",
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   }
+  },
+  {
+   "domain": "v05",
+   "split": "heldout",
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   }
+  }
+ ],
+ "frames": [
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-00",
+   "stem": "v01-00",
+   "time": 87.08,
+   "fieldOfView": 52.16,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 93.028,
+    "y": 4.135,
+    "z": 0.633
+   },
+   "lookAtMetres": {
+    "x": 35.292,
+    "y": 0.082,
+    "z": 23.356
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-01",
+   "stem": "v01-01",
+   "time": 71.3,
+   "fieldOfView": 57.38,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -4.601,
+    "y": 18.04,
+    "z": 13.407
+   },
+   "lookAtMetres": {
+    "x": 51.555,
+    "y": 1.162,
+    "z": 36.893
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-02",
+   "stem": "v01-02",
+   "time": 114.38,
+   "fieldOfView": 45.58,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 9.587,
+    "y": 11.079,
+    "z": -23.132
+   },
+   "lookAtMetres": {
+    "x": 55.224,
+    "y": 2.546,
+    "z": 65.022
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-03",
+   "stem": "v01-03",
+   "time": 64.22,
+   "fieldOfView": 50.07,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 101.039,
+    "y": 3.266,
+    "z": -6.042
+   },
+   "lookAtMetres": {
+    "x": 56.475,
+    "y": 1.239,
+    "z": 32.895
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-04",
+   "stem": "v01-04",
+   "time": 81.34,
+   "fieldOfView": 52.02,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 76.594,
+    "y": 21.582,
+    "z": -12.983
+   },
+   "lookAtMetres": {
+    "x": 38.74,
+    "y": 2.859,
+    "z": 35.765
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-05",
+   "stem": "v01-05",
+   "time": 122.79,
+   "fieldOfView": 43.89,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 93.181,
+    "y": 4.601,
+    "z": 34.466
+   },
+   "lookAtMetres": {
+    "x": 57.71,
+    "y": 2.585,
+    "z": 56.98
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-06",
+   "stem": "v01-06",
+   "time": 94.23,
+   "fieldOfView": 62.07,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 113.405,
+    "y": 15.841,
+    "z": -65.037
+   },
+   "lookAtMetres": {
+    "x": 37.655,
+    "y": 2.991,
+    "z": 73.577
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-07",
+   "stem": "v01-07",
+   "time": 171.28,
+   "fieldOfView": 48.26,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 93.51,
+    "y": 22.761,
+    "z": -10.479
+   },
+   "lookAtMetres": {
+    "x": 55.897,
+    "y": 2.611,
+    "z": 53.055
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-08",
+   "stem": "v01-08",
+   "time": 193.17,
+   "fieldOfView": 41.49,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -7.275,
+    "y": 11.728,
+    "z": 14.757
+   },
+   "lookAtMetres": {
+    "x": 64.345,
+    "y": 0.132,
+    "z": 43.704
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-09",
+   "stem": "v01-09",
+   "time": 98.6,
+   "fieldOfView": 48.54,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 126.777,
+    "y": 3.398,
+    "z": 0.733
+   },
+   "lookAtMetres": {
+    "x": 96.261,
+    "y": 1.426,
+    "z": 50.735
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-10",
+   "stem": "v01-10",
+   "time": 124.14,
+   "fieldOfView": 45.35,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -3.414,
+    "y": 24.573,
+    "z": 10.083
+   },
+   "lookAtMetres": {
+    "x": 65.437,
+    "y": 0.97,
+    "z": 65.035
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-11",
+   "stem": "v01-11",
+   "time": 110.88,
+   "fieldOfView": 57.09,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 19.409,
+    "y": 26.208,
+    "z": 17.142
+   },
+   "lookAtMetres": {
+    "x": -24.833,
+    "y": 1.144,
+    "z": -39.578
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-12",
+   "stem": "v01-12",
+   "time": 161.74,
+   "fieldOfView": 55.87,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 130.612,
+    "y": 32.563,
+    "z": -80.873
+   },
+   "lookAtMetres": {
+    "x": 78.282,
+    "y": 2.601,
+    "z": 28.653
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-13",
+   "stem": "v01-13",
+   "time": 182.37,
+   "fieldOfView": 49.1,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -37.729,
+    "y": 4.131,
+    "z": 1.09
+   },
+   "lookAtMetres": {
+    "x": 66.072,
+    "y": 0.121,
+    "z": 56.241
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-14",
+   "stem": "v01-14",
+   "time": 38.32,
+   "fieldOfView": 41.46,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 146.489,
+    "y": 10.413,
+    "z": -51.996
+   },
+   "lookAtMetres": {
+    "x": 25.312,
+    "y": 0.606,
+    "z": 47.021
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-15",
+   "stem": "v01-15",
+   "time": 15.69,
+   "fieldOfView": 55.45,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 75.053,
+    "y": 26.014,
+    "z": -100.768
+   },
+   "lookAtMetres": {
+    "x": 35.42,
+    "y": 0.614,
+    "z": 29.834
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-16",
+   "stem": "v01-16",
+   "time": 34.23,
+   "fieldOfView": 56.35,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 110.666,
+    "y": 3.728,
+    "z": -48.059
+   },
+   "lookAtMetres": {
+    "x": 39.159,
+    "y": 1.705,
+    "z": 42.335
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-17",
+   "stem": "v01-17",
+   "time": 124.31,
+   "fieldOfView": 57.71,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 129.802,
+    "y": 3.192,
+    "z": 19.193
+   },
+   "lookAtMetres": {
+    "x": 62.933,
+    "y": 1.753,
+    "z": 53.617
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-18",
+   "stem": "v01-18",
+   "time": 89.89,
+   "fieldOfView": 50.01,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -18.86,
+    "y": 32.745,
+    "z": -63.362
+   },
+   "lookAtMetres": {
+    "x": 55.972,
+    "y": 1.843,
+    "z": 37.149
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-19",
+   "stem": "v01-19",
+   "time": 168.69,
+   "fieldOfView": 49.12,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 62.618,
+    "y": 4.548,
+    "z": -79.238
+   },
+   "lookAtMetres": {
+    "x": -55.295,
+    "y": 1.381,
+    "z": -95.647
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-20",
+   "stem": "v01-20",
+   "time": 163.73,
+   "fieldOfView": 51.14,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 89.964,
+    "y": 34.793,
+    "z": 6.79
+   },
+   "lookAtMetres": {
+    "x": 52.579,
+    "y": 2.388,
+    "z": -29.648
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-21",
+   "stem": "v01-21",
+   "time": 90.53,
+   "fieldOfView": 55.62,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 87.951,
+    "y": 31.911,
+    "z": 37.78
+   },
+   "lookAtMetres": {
+    "x": 103.024,
+    "y": 2.776,
+    "z": 89.031
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-22",
+   "stem": "v01-22",
+   "time": 94.96,
+   "fieldOfView": 52.3,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 154.608,
+    "y": 26.495,
+    "z": 16.109
+   },
+   "lookAtMetres": {
+    "x": 154.782,
+    "y": 1.846,
+    "z": -95.081
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "bridge-23",
+   "stem": "v01-23",
+   "time": 16.9,
+   "fieldOfView": 42.01,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 14.852,
+    "y": 5.263,
+    "z": 79.324
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-24",
+   "stem": "v01-24",
+   "time": 17.96,
+   "fieldOfView": 48.53,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 52.546,
+    "y": 34.391,
+    "z": -33.202
+   },
+   "lookAtMetres": {
+    "x": 66.102,
+    "y": 2.277,
+    "z": 35.258
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-25",
+   "stem": "v01-25",
+   "time": 97.11,
+   "fieldOfView": 43.48,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 135.849,
+    "y": 3.561,
+    "z": 41.027
+   },
+   "lookAtMetres": {
+    "x": 151.098,
+    "y": 0.539,
+    "z": -31.993
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-26",
+   "stem": "v01-26",
+   "time": 56.75,
+   "fieldOfView": 50.94,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 11.569,
+    "y": 12.749,
+    "z": -14.394
+   },
+   "lookAtMetres": {
+    "x": -44.582,
+    "y": 1.607,
+    "z": 29.805
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "away-27",
+   "stem": "v01-27",
+   "time": 187.09,
+   "fieldOfView": 48.83,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 122.498,
+    "y": 12.07,
+    "z": -7.235
+   },
+   "lookAtMetres": {
+    "x": 77.209,
+    "y": 0.847,
+    "z": -77.219
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-28",
+   "stem": "v01-28",
+   "time": 98.1,
+   "fieldOfView": 42.0,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 123.428,
+    "y": 24.901,
+    "z": 2.465
+   },
+   "lookAtMetres": {
+    "x": 70.387,
+    "y": 0.318,
+    "z": 41.005
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-29",
+   "stem": "v01-29",
+   "time": 110.42,
+   "fieldOfView": 52.54,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 195.436,
+    "y": 27.754,
+    "z": -15.151
+   },
+   "lookAtMetres": {
+    "x": 68.845,
+    "y": 2.519,
+    "z": 57.988
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "bridge-30",
+   "stem": "v01-30",
+   "time": 3.09,
+   "fieldOfView": 44.02,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 11.199,
+    "y": 5.159,
+    "z": 84.089
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-31",
+   "stem": "v01-31",
+   "time": 90.6,
+   "fieldOfView": 45.9,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -39.652,
+    "y": 12.923,
+    "z": -27.181
+   },
+   "lookAtMetres": {
+    "x": 41.287,
+    "y": 1.36,
+    "z": 70.738
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-32",
+   "stem": "v01-32",
+   "time": 92.68,
+   "fieldOfView": 52.38,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 9.46,
+    "y": 10.744,
+    "z": -2.758
+   },
+   "lookAtMetres": {
+    "x": 44.097,
+    "y": 1.001,
+    "z": 59.133
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-33",
+   "stem": "v01-33",
+   "time": 91.55,
+   "fieldOfView": 46.94,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 35.778,
+    "y": 10.356,
+    "z": 12.714
+   },
+   "lookAtMetres": {
+    "x": 36.047,
+    "y": 1.003,
+    "z": 53.625
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-34",
+   "stem": "v01-34",
+   "time": 21.63,
+   "fieldOfView": 52.01,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": -54.616,
+    "y": 8.45,
+    "z": 1.801
+   },
+   "lookAtMetres": {
+    "x": 49.901,
+    "y": 2.098,
+    "z": 25.041
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-35",
+   "stem": "v01-35",
+   "time": 18.9,
+   "fieldOfView": 54.38,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 135.582,
+    "y": 9.574,
+    "z": -61.407
+   },
+   "lookAtMetres": {
+    "x": 49.252,
+    "y": 2.195,
+    "z": 48.406
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-36",
+   "stem": "v01-36",
+   "time": 83.95,
+   "fieldOfView": 51.41,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 87.428,
+    "y": 13.589,
+    "z": -74.581
+   },
+   "lookAtMetres": {
+    "x": 32.941,
+    "y": 1.862,
+    "z": 57.237
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-37",
+   "stem": "v01-37",
+   "time": 67.86,
+   "fieldOfView": 54.52,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 134.379,
+    "y": 19.739,
+    "z": -22.411
+   },
+   "lookAtMetres": {
+    "x": 29.647,
+    "y": 2.329,
+    "z": 45.513
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-38",
+   "stem": "v01-38",
+   "time": 15.79,
+   "fieldOfView": 42.38,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 30.669,
+    "y": 30.35,
+    "z": -59.084
+   },
+   "lookAtMetres": {
+    "x": 52.614,
+    "y": 1.397,
+    "z": 27.525
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v01",
+   "viewpoint": "apron-39",
+   "stem": "v01-39",
+   "time": 36.31,
+   "fieldOfView": 61.98,
+   "body": {
+    "r": 0.8011,
+    "g": 0.6885,
+    "b": 0.8358,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.022,
+    "y": 1.095,
+    "z": 1.069
+   },
+   "positionMetres": {
+    "x": 139.23,
+    "y": 13.681,
+    "z": -26.035
+   },
+   "lookAtMetres": {
+    "x": 46.815,
+    "y": 0.094,
+    "z": 42.246
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "bridge-00",
+   "stem": "v02-00",
+   "time": 82.22,
+   "fieldOfView": 43.43,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 10.9,
+    "y": 4.644,
+    "z": 84.478
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-01",
+   "stem": "v02-01",
+   "time": 30.61,
+   "fieldOfView": 44.81,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 17.915,
+    "y": 11.323,
+    "z": 28.451
+   },
+   "lookAtMetres": {
+    "x": 66.168,
+    "y": 0.145,
+    "z": 43.535
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-02",
+   "stem": "v02-02",
+   "time": 75.29,
+   "fieldOfView": 54.2,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -44.763,
+    "y": 33.715,
+    "z": -12.77
+   },
+   "lookAtMetres": {
+    "x": 50.113,
+    "y": 0.798,
+    "z": 33.44
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-03",
+   "stem": "v02-03",
+   "time": 89.04,
+   "fieldOfView": 54.13,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -96.579,
+    "y": 29.178,
+    "z": -14.516
+   },
+   "lookAtMetres": {
+    "x": 49.047,
+    "y": 2.48,
+    "z": 44.761
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-04",
+   "stem": "v02-04",
+   "time": 24.91,
+   "fieldOfView": 54.98,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 0.806,
+    "y": 3.616,
+    "z": -5.098
+   },
+   "lookAtMetres": {
+    "x": 31.961,
+    "y": 2.227,
+    "z": 40.689
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-05",
+   "stem": "v02-05",
+   "time": 31.51,
+   "fieldOfView": 46.02,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 189.633,
+    "y": 27.267,
+    "z": -17.354
+   },
+   "lookAtMetres": {
+    "x": 34.042,
+    "y": 1.836,
+    "z": 48.996
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-06",
+   "stem": "v02-06",
+   "time": 95.22,
+   "fieldOfView": 43.86,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 142.568,
+    "y": 11.352,
+    "z": 30.456
+   },
+   "lookAtMetres": {
+    "x": 86.11,
+    "y": 0.488,
+    "z": 44.116
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-07",
+   "stem": "v02-07",
+   "time": 94.64,
+   "fieldOfView": 49.57,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 20.862,
+    "y": 34.958,
+    "z": 52.631
+   },
+   "lookAtMetres": {
+    "x": 43.463,
+    "y": 0.196,
+    "z": 69.938
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "bridge-08",
+   "stem": "v02-08",
+   "time": 10.35,
+   "fieldOfView": 64.95,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 6.998,
+    "y": 3.005,
+    "z": 89.568
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-09",
+   "stem": "v02-09",
+   "time": 38.98,
+   "fieldOfView": 58.25,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 33.922,
+    "y": 5.67,
+    "z": 7.885
+   },
+   "lookAtMetres": {
+    "x": 47.777,
+    "y": 2.501,
+    "z": 34.566
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-10",
+   "stem": "v02-10",
+   "time": 56.68,
+   "fieldOfView": 64.84,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 99.534,
+    "y": 30.126,
+    "z": -46.502
+   },
+   "lookAtMetres": {
+    "x": 39.864,
+    "y": 0.47,
+    "z": 57.134
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-11",
+   "stem": "v02-11",
+   "time": 39.3,
+   "fieldOfView": 47.42,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -55.166,
+    "y": 11.007,
+    "z": -81.222
+   },
+   "lookAtMetres": {
+    "x": 54.333,
+    "y": 2.935,
+    "z": 42.482
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-12",
+   "stem": "v02-12",
+   "time": 36.84,
+   "fieldOfView": 64.04,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -17.398,
+    "y": 11.391,
+    "z": -22.762
+   },
+   "lookAtMetres": {
+    "x": 48.206,
+    "y": 0.775,
+    "z": 50.248
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-13",
+   "stem": "v02-13",
+   "time": 21.24,
+   "fieldOfView": 51.83,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 81.668,
+    "y": 24.574,
+    "z": -86.492
+   },
+   "lookAtMetres": {
+    "x": 38.302,
+    "y": 2.661,
+    "z": 48.713
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-14",
+   "stem": "v02-14",
+   "time": 70.41,
+   "fieldOfView": 57.88,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 72.388,
+    "y": 13.655,
+    "z": -19.606
+   },
+   "lookAtMetres": {
+    "x": 62.198,
+    "y": 2.887,
+    "z": 38.983
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "away-15",
+   "stem": "v02-15",
+   "time": 90.68,
+   "fieldOfView": 50.01,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 1.604,
+    "y": 2.785,
+    "z": 15.506
+   },
+   "lookAtMetres": {
+    "x": 5.322,
+    "y": 2.306,
+    "z": -22.199
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-16",
+   "stem": "v02-16",
+   "time": 100.98,
+   "fieldOfView": 41.92,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 3.044,
+    "y": 21.941,
+    "z": 2.753
+   },
+   "lookAtMetres": {
+    "x": 81.525,
+    "y": 2.738,
+    "z": 47.626
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "away-17",
+   "stem": "v02-17",
+   "time": 77.83,
+   "fieldOfView": 53.4,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -72.357,
+    "y": 13.689,
+    "z": -62.133
+   },
+   "lookAtMetres": {
+    "x": -171.009,
+    "y": 0.585,
+    "z": 29.006
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-18",
+   "stem": "v02-18",
+   "time": 67.38,
+   "fieldOfView": 50.88,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 64.209,
+    "y": 7.683,
+    "z": -98.432
+   },
+   "lookAtMetres": {
+    "x": 52.921,
+    "y": 1.396,
+    "z": 15.322
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-19",
+   "stem": "v02-19",
+   "time": 59.41,
+   "fieldOfView": 55.02,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 24.099,
+    "y": 21.909,
+    "z": -12.88
+   },
+   "lookAtMetres": {
+    "x": 35.807,
+    "y": 0.504,
+    "z": 22.385
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-20",
+   "stem": "v02-20",
+   "time": 91.14,
+   "fieldOfView": 43.88,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -1.8,
+    "y": 7.307,
+    "z": -2.522
+   },
+   "lookAtMetres": {
+    "x": 42.427,
+    "y": 0.26,
+    "z": 84.831
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-21",
+   "stem": "v02-21",
+   "time": 5.53,
+   "fieldOfView": 40.4,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 22.054,
+    "y": 11.187,
+    "z": -13.732
+   },
+   "lookAtMetres": {
+    "x": 53.922,
+    "y": 0.273,
+    "z": 20.766
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-22",
+   "stem": "v02-22",
+   "time": 20.33,
+   "fieldOfView": 42.5,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 67.076,
+    "y": 28.529,
+    "z": 11.836
+   },
+   "lookAtMetres": {
+    "x": 45.239,
+    "y": 2.191,
+    "z": 56.749
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "bridge-23",
+   "stem": "v02-23",
+   "time": 2.29,
+   "fieldOfView": 49.55,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 13.104,
+    "y": 4.298,
+    "z": 81.604
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "away-24",
+   "stem": "v02-24",
+   "time": 55.1,
+   "fieldOfView": 44.55,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -14.79,
+    "y": 9.558,
+    "z": 8.217
+   },
+   "lookAtMetres": {
+    "x": 18.65,
+    "y": 2.803,
+    "z": -46.599
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-25",
+   "stem": "v02-25",
+   "time": 88.22,
+   "fieldOfView": 49.75,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 138.744,
+    "y": 32.093,
+    "z": -29.124
+   },
+   "lookAtMetres": {
+    "x": 59.917,
+    "y": 1.045,
+    "z": 32.704
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-26",
+   "stem": "v02-26",
+   "time": 92.02,
+   "fieldOfView": 61.22,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 70.951,
+    "y": 22.215,
+    "z": 22.136
+   },
+   "lookAtMetres": {
+    "x": 46.537,
+    "y": 0.019,
+    "z": 66.144
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-27",
+   "stem": "v02-27",
+   "time": 68.65,
+   "fieldOfView": 54.1,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -77.847,
+    "y": 2.653,
+    "z": -56.806
+   },
+   "lookAtMetres": {
+    "x": 31.429,
+    "y": 2.891,
+    "z": 39.256
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-28",
+   "stem": "v02-28",
+   "time": 26.8,
+   "fieldOfView": 46.1,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 45.226,
+    "y": 31.31,
+    "z": -8.447
+   },
+   "lookAtMetres": {
+    "x": 51.152,
+    "y": 1.685,
+    "z": 38.362
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-29",
+   "stem": "v02-29",
+   "time": 49.1,
+   "fieldOfView": 60.61,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -35.24,
+    "y": 9.892,
+    "z": -77.28
+   },
+   "lookAtMetres": {
+    "x": 49.964,
+    "y": 2.056,
+    "z": 45.866
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-30",
+   "stem": "v02-30",
+   "time": 10.49,
+   "fieldOfView": 48.74,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 146.014,
+    "y": 18.889,
+    "z": -38.99
+   },
+   "lookAtMetres": {
+    "x": 48.335,
+    "y": 1.671,
+    "z": 46.21
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-31",
+   "stem": "v02-31",
+   "time": 96.3,
+   "fieldOfView": 45.59,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 39.573,
+    "y": 10.253,
+    "z": 40.713
+   },
+   "lookAtMetres": {
+    "x": 75.654,
+    "y": 1.852,
+    "z": 47.518
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-32",
+   "stem": "v02-32",
+   "time": 34.75,
+   "fieldOfView": 50.54,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 73.175,
+    "y": 8.287,
+    "z": -29.955
+   },
+   "lookAtMetres": {
+    "x": 37.239,
+    "y": 0.294,
+    "z": 42.202
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-33",
+   "stem": "v02-33",
+   "time": 89.4,
+   "fieldOfView": 49.67,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": -58.515,
+    "y": 25.29,
+    "z": -31.725
+   },
+   "lookAtMetres": {
+    "x": 42.633,
+    "y": 0.849,
+    "z": 52.489
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "away-34",
+   "stem": "v02-34",
+   "time": 166.02,
+   "fieldOfView": 57.99,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 190.297,
+    "y": 15.151,
+    "z": -34.842
+   },
+   "lookAtMetres": {
+    "x": 243.778,
+    "y": 1.703,
+    "z": 97.757
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-35",
+   "stem": "v02-35",
+   "time": 99.46,
+   "fieldOfView": 41.73,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 108.415,
+    "y": 11.098,
+    "z": -78.736
+   },
+   "lookAtMetres": {
+    "x": 69.895,
+    "y": 1.36,
+    "z": 40.079
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-36",
+   "stem": "v02-36",
+   "time": 141.94,
+   "fieldOfView": 53.62,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 76.802,
+    "y": 16.268,
+    "z": 8.397
+   },
+   "lookAtMetres": {
+    "x": 67.966,
+    "y": 0.659,
+    "z": 36.569
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-37",
+   "stem": "v02-37",
+   "time": 49.16,
+   "fieldOfView": 51.31,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 69.849,
+    "y": 14.244,
+    "z": 9.664
+   },
+   "lookAtMetres": {
+    "x": 50.472,
+    "y": 0.775,
+    "z": 51.097
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-38",
+   "stem": "v02-38",
+   "time": 104.18,
+   "fieldOfView": 41.27,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 165.109,
+    "y": 14.154,
+    "z": -69.065
+   },
+   "lookAtMetres": {
+    "x": 87.942,
+    "y": 0.372,
+    "z": 70.382
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v02",
+   "viewpoint": "apron-39",
+   "stem": "v02-39",
+   "time": 3.2,
+   "fieldOfView": 47.83,
+   "body": {
+    "r": 0.5553,
+    "g": 0.4536,
+    "b": 0.4284,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.046,
+    "y": 0.999,
+    "z": 0.914
+   },
+   "positionMetres": {
+    "x": 160.835,
+    "y": 23.525,
+    "z": -23.161
+   },
+   "lookAtMetres": {
+    "x": 56.218,
+    "y": 0.16,
+    "z": 42.618
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "away-00",
+   "stem": "v03-00",
+   "time": 81.43,
+   "fieldOfView": 62.91,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -5.897,
+    "y": 5.891,
+    "z": -104.472
+   },
+   "lookAtMetres": {
+    "x": 134.558,
+    "y": 1.825,
+    "z": -166.567
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-01",
+   "stem": "v03-01",
+   "time": 57.09,
+   "fieldOfView": 63.74,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -35.47,
+    "y": 6.027,
+    "z": 10.36
+   },
+   "lookAtMetres": {
+    "x": 45.994,
+    "y": 2.772,
+    "z": 39.884
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-02",
+   "stem": "v03-02",
+   "time": 92.63,
+   "fieldOfView": 48.75,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 55.45,
+    "y": 14.564,
+    "z": -42.26
+   },
+   "lookAtMetres": {
+    "x": 45.959,
+    "y": 2.785,
+    "z": 71.667
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-03",
+   "stem": "v03-03",
+   "time": 148.82,
+   "fieldOfView": 50.38,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 43.121,
+    "y": 13.519,
+    "z": 29.985
+   },
+   "lookAtMetres": {
+    "x": 100.701,
+    "y": 0.981,
+    "z": 54.156
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "bridge-04",
+   "stem": "v03-04",
+   "time": 44.06,
+   "fieldOfView": 52.75,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 10.481,
+    "y": 3.63,
+    "z": 85.024
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-05",
+   "stem": "v03-05",
+   "time": 10.76,
+   "fieldOfView": 49.62,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -24.23,
+    "y": 18.843,
+    "z": 6.86
+   },
+   "lookAtMetres": {
+    "x": 52.905,
+    "y": 2.313,
+    "z": 62.307
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-06",
+   "stem": "v03-06",
+   "time": 181.86,
+   "fieldOfView": 44.08,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 33.876,
+    "y": 9.897,
+    "z": -10.07
+   },
+   "lookAtMetres": {
+    "x": 63.309,
+    "y": 1.515,
+    "z": 49.034
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-07",
+   "stem": "v03-07",
+   "time": 121.75,
+   "fieldOfView": 41.73,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 107.238,
+    "y": 19.343,
+    "z": 28.474
+   },
+   "lookAtMetres": {
+    "x": 57.69,
+    "y": 1.517,
+    "z": 76.4
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-08",
+   "stem": "v03-08",
+   "time": 91.94,
+   "fieldOfView": 44.76,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -0.169,
+    "y": 30.766,
+    "z": -89.3
+   },
+   "lookAtMetres": {
+    "x": 62.527,
+    "y": 2.109,
+    "z": 65.134
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-09",
+   "stem": "v03-09",
+   "time": 123.37,
+   "fieldOfView": 53.2,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 129.266,
+    "y": 29.924,
+    "z": 31.541
+   },
+   "lookAtMetres": {
+    "x": 55.851,
+    "y": 0.791,
+    "z": 55.707
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-10",
+   "stem": "v03-10",
+   "time": 4.09,
+   "fieldOfView": 41.24,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -27.232,
+    "y": 17.398,
+    "z": -76.616
+   },
+   "lookAtMetres": {
+    "x": 40.058,
+    "y": 0.696,
+    "z": 50.57
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-11",
+   "stem": "v03-11",
+   "time": 73.73,
+   "fieldOfView": 53.67,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 6.078,
+    "y": 10.568,
+    "z": -108.173
+   },
+   "lookAtMetres": {
+    "x": 35.67,
+    "y": 0.161,
+    "z": 16.571
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "away-12",
+   "stem": "v03-12",
+   "time": 169.83,
+   "fieldOfView": 40.32,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 115.493,
+    "y": 33.391,
+    "z": -33.245
+   },
+   "lookAtMetres": {
+    "x": 227.817,
+    "y": 2.643,
+    "z": -24.581
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-13",
+   "stem": "v03-13",
+   "time": 88.07,
+   "fieldOfView": 44.99,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 12.822,
+    "y": 30.616,
+    "z": -69.044
+   },
+   "lookAtMetres": {
+    "x": 59.537,
+    "y": 1.621,
+    "z": 36.55
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-14",
+   "stem": "v03-14",
+   "time": 90.81,
+   "fieldOfView": 40.81,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -34.253,
+    "y": 24.559,
+    "z": -68.934
+   },
+   "lookAtMetres": {
+    "x": 43.941,
+    "y": 0.17,
+    "z": 49.974
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-15",
+   "stem": "v03-15",
+   "time": 71.49,
+   "fieldOfView": 57.76,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 106.664,
+    "y": 28.062,
+    "z": -6.667
+   },
+   "lookAtMetres": {
+    "x": 53.868,
+    "y": 2.678,
+    "z": 42.766
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-16",
+   "stem": "v03-16",
+   "time": 158.64,
+   "fieldOfView": 57.33,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 160.87,
+    "y": 6.037,
+    "z": 20.395
+   },
+   "lookAtMetres": {
+    "x": 79.113,
+    "y": 0.643,
+    "z": 66.021
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "away-17",
+   "stem": "v03-17",
+   "time": 97.61,
+   "fieldOfView": 40.83,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 47.999,
+    "y": 23.869,
+    "z": 44.106
+   },
+   "lookAtMetres": {
+    "x": 52.818,
+    "y": 1.416,
+    "z": 37.536
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-18",
+   "stem": "v03-18",
+   "time": 39.18,
+   "fieldOfView": 41.09,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -11.243,
+    "y": 15.015,
+    "z": -44.443
+   },
+   "lookAtMetres": {
+    "x": 53.405,
+    "y": 2.391,
+    "z": 40.889
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-19",
+   "stem": "v03-19",
+   "time": 97.94,
+   "fieldOfView": 52.85,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 38.948,
+    "y": 29.831,
+    "z": 38.188
+   },
+   "lookAtMetres": {
+    "x": 93.86,
+    "y": 2.562,
+    "z": 51.371
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-20",
+   "stem": "v03-20",
+   "time": 70.58,
+   "fieldOfView": 53.46,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -63.088,
+    "y": 22.366,
+    "z": -8.928
+   },
+   "lookAtMetres": {
+    "x": 53.748,
+    "y": 1.996,
+    "z": 42.374
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-21",
+   "stem": "v03-21",
+   "time": 185.73,
+   "fieldOfView": 56.46,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 182.608,
+    "y": 13.611,
+    "z": 4.873
+   },
+   "lookAtMetres": {
+    "x": 59.626,
+    "y": 2.294,
+    "z": 48.604
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-22",
+   "stem": "v03-22",
+   "time": 99.93,
+   "fieldOfView": 51.67,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -3.535,
+    "y": 2.894,
+    "z": -54.307
+   },
+   "lookAtMetres": {
+    "x": 67.194,
+    "y": 2.905,
+    "z": 44.416
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "bridge-23",
+   "stem": "v03-23",
+   "time": 79.4,
+   "fieldOfView": 56.87,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 15.299,
+    "y": 5.674,
+    "z": 78.741
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-24",
+   "stem": "v03-24",
+   "time": 49.31,
+   "fieldOfView": 56.08,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 37.136,
+    "y": 32.365,
+    "z": 3.86
+   },
+   "lookAtMetres": {
+    "x": 43.5,
+    "y": 2.125,
+    "z": 28.747
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-25",
+   "stem": "v03-25",
+   "time": 15.99,
+   "fieldOfView": 47.45,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 166.949,
+    "y": 12.203,
+    "z": -17.163
+   },
+   "lookAtMetres": {
+    "x": 56.248,
+    "y": 2.965,
+    "z": 48.417
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-26",
+   "stem": "v03-26",
+   "time": 60.28,
+   "fieldOfView": 41.44,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 169.311,
+    "y": 23.182,
+    "z": -38.534
+   },
+   "lookAtMetres": {
+    "x": 33.041,
+    "y": 2.554,
+    "z": 42.493
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-27",
+   "stem": "v03-27",
+   "time": 99.17,
+   "fieldOfView": 63.62,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -15.325,
+    "y": 11.158,
+    "z": -16.076
+   },
+   "lookAtMetres": {
+    "x": 89.402,
+    "y": 2.066,
+    "z": 73.686
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-28",
+   "stem": "v03-28",
+   "time": 169.62,
+   "fieldOfView": 48.86,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 0.761,
+    "y": 20.441,
+    "z": -75.032
+   },
+   "lookAtMetres": {
+    "x": 88.452,
+    "y": 1.477,
+    "z": 72.447
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "away-29",
+   "stem": "v03-29",
+   "time": 96.62,
+   "fieldOfView": 52.95,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 58.341,
+    "y": 12.236,
+    "z": 31.174
+   },
+   "lookAtMetres": {
+    "x": 33.798,
+    "y": 2.342,
+    "z": 41.353
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "away-30",
+   "stem": "v03-30",
+   "time": 94.24,
+   "fieldOfView": 57.98,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 134.225,
+    "y": 11.329,
+    "z": -26.916
+   },
+   "lookAtMetres": {
+    "x": 15.443,
+    "y": 0.523,
+    "z": -87.521
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-31",
+   "stem": "v03-31",
+   "time": 97.42,
+   "fieldOfView": 55.46,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 207.404,
+    "y": 25.441,
+    "z": 15.506
+   },
+   "lookAtMetres": {
+    "x": 83.681,
+    "y": 2.309,
+    "z": 55.536
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "bridge-32",
+   "stem": "v03-32",
+   "time": 81.61,
+   "fieldOfView": 54.77,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 3.768,
+    "y": 6.744,
+    "z": 93.781
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-33",
+   "stem": "v03-33",
+   "time": 185.67,
+   "fieldOfView": 51.9,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -42.442,
+    "y": 24.338,
+    "z": -30.507
+   },
+   "lookAtMetres": {
+    "x": 73.333,
+    "y": 0.274,
+    "z": 74.255
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-34",
+   "stem": "v03-34",
+   "time": 71.66,
+   "fieldOfView": 54.58,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -82.649,
+    "y": 4.167,
+    "z": -43.638
+   },
+   "lookAtMetres": {
+    "x": 45.838,
+    "y": 2.57,
+    "z": 26.016
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-35",
+   "stem": "v03-35",
+   "time": 149.8,
+   "fieldOfView": 48.07,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 54.945,
+    "y": 17.385,
+    "z": 13.335
+   },
+   "lookAtMetres": {
+    "x": 74.187,
+    "y": 1.189,
+    "z": 56.898
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-36",
+   "stem": "v03-36",
+   "time": 148.41,
+   "fieldOfView": 62.49,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 44.772,
+    "y": 33.322,
+    "z": -82.261
+   },
+   "lookAtMetres": {
+    "x": 61.597,
+    "y": 2.269,
+    "z": 68.684
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-37",
+   "stem": "v03-37",
+   "time": 67.15,
+   "fieldOfView": 59.46,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": -33.175,
+    "y": 19.753,
+    "z": -14.932
+   },
+   "lookAtMetres": {
+    "x": 60.318,
+    "y": 2.656,
+    "z": 17.23
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-38",
+   "stem": "v03-38",
+   "time": 114.23,
+   "fieldOfView": 53.41,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 57.289,
+    "y": 11.286,
+    "z": -51.174
+   },
+   "lookAtMetres": {
+    "x": 73.09,
+    "y": 0.437,
+    "z": 57.181
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v03",
+   "viewpoint": "apron-39",
+   "stem": "v03-39",
+   "time": 199.95,
+   "fieldOfView": 62.41,
+   "body": {
+    "r": 0.5548,
+    "g": 0.5136,
+    "b": 0.5053,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 0.979,
+    "y": 1.083,
+    "z": 1.033
+   },
+   "positionMetres": {
+    "x": 57.689,
+    "y": 17.6,
+    "z": 18.919
+   },
+   "lookAtMetres": {
+    "x": 78.443,
+    "y": 0.255,
+    "z": 39.273
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "bridge-00",
+   "stem": "v04-00",
+   "time": 55.75,
+   "fieldOfView": 47.67,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 14.955,
+    "y": 5.189,
+    "z": 79.189
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-01",
+   "stem": "v04-01",
+   "time": 45.66,
+   "fieldOfView": 64.57,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 76.856,
+    "y": 28.557,
+    "z": -6.652
+   },
+   "lookAtMetres": {
+    "x": 41.131,
+    "y": 0.045,
+    "z": 38.449
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "away-02",
+   "stem": "v04-02",
+   "time": 63.69,
+   "fieldOfView": 59.72,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 60.298,
+    "y": 20.26,
+    "z": -93.981
+   },
+   "lookAtMetres": {
+    "x": 194.691,
+    "y": 1.414,
+    "z": -167.197
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-03",
+   "stem": "v04-03",
+   "time": 88.58,
+   "fieldOfView": 53.83,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 73.412,
+    "y": 20.395,
+    "z": -11.451
+   },
+   "lookAtMetres": {
+    "x": 29.155,
+    "y": 0.85,
+    "z": 45.963
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-04",
+   "stem": "v04-04",
+   "time": 13.36,
+   "fieldOfView": 49.29,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 26.414,
+    "y": 4.091,
+    "z": -116.947
+   },
+   "lookAtMetres": {
+    "x": 44.743,
+    "y": 1.464,
+    "z": 46.065
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "away-05",
+   "stem": "v04-05",
+   "time": 97.95,
+   "fieldOfView": 53.06,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -16.38,
+    "y": 12.361,
+    "z": 18.651
+   },
+   "lookAtMetres": {
+    "x": -22.07,
+    "y": 0.745,
+    "z": -87.979
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "away-06",
+   "stem": "v04-06",
+   "time": 98.51,
+   "fieldOfView": 41.86,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 82.661,
+    "y": 33.842,
+    "z": -8.485
+   },
+   "lookAtMetres": {
+    "x": 24.213,
+    "y": 2.047,
+    "z": -60.181
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-07",
+   "stem": "v04-07",
+   "time": 156.88,
+   "fieldOfView": 41.39,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 51.968,
+    "y": 10.376,
+    "z": -28.776
+   },
+   "lookAtMetres": {
+    "x": 64.462,
+    "y": 2.892,
+    "z": 62.356
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-08",
+   "stem": "v04-08",
+   "time": 138.89,
+   "fieldOfView": 62.95,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 75.763,
+    "y": 31.122,
+    "z": -4.125
+   },
+   "lookAtMetres": {
+    "x": 78.101,
+    "y": 0.04,
+    "z": 55.671
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-09",
+   "stem": "v04-09",
+   "time": 50.34,
+   "fieldOfView": 41.09,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 88.966,
+    "y": 29.671,
+    "z": -49.809
+   },
+   "lookAtMetres": {
+    "x": 48.836,
+    "y": 2.712,
+    "z": 76.896
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-10",
+   "stem": "v04-10",
+   "time": 29.72,
+   "fieldOfView": 43.75,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 151.121,
+    "y": 16.927,
+    "z": -17.099
+   },
+   "lookAtMetres": {
+    "x": 57.885,
+    "y": 0.885,
+    "z": 31.112
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-11",
+   "stem": "v04-11",
+   "time": 22.86,
+   "fieldOfView": 56.25,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 48.112,
+    "y": 27.721,
+    "z": -16.464
+   },
+   "lookAtMetres": {
+    "x": 61.621,
+    "y": 2.979,
+    "z": 56.312
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-12",
+   "stem": "v04-12",
+   "time": 47.79,
+   "fieldOfView": 46.68,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 75.075,
+    "y": 6.438,
+    "z": -48.428
+   },
+   "lookAtMetres": {
+    "x": 38.794,
+    "y": 0.256,
+    "z": 50.088
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "bridge-13",
+   "stem": "v04-13",
+   "time": 46.39,
+   "fieldOfView": 48.08,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 14.844,
+    "y": 6.771,
+    "z": 79.335
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-14",
+   "stem": "v04-14",
+   "time": 157.85,
+   "fieldOfView": 55.78,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 106.03,
+    "y": 16.344,
+    "z": 20.049
+   },
+   "lookAtMetres": {
+    "x": 70.567,
+    "y": 1.515,
+    "z": 43.982
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "bridge-15",
+   "stem": "v04-15",
+   "time": 20.8,
+   "fieldOfView": 63.32,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 15.052,
+    "y": 3.33,
+    "z": 79.063
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-16",
+   "stem": "v04-16",
+   "time": 168.42,
+   "fieldOfView": 45.83,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 34.426,
+    "y": 8.436,
+    "z": -59.135
+   },
+   "lookAtMetres": {
+    "x": 54.871,
+    "y": 1.775,
+    "z": 51.948
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-17",
+   "stem": "v04-17",
+   "time": 85.06,
+   "fieldOfView": 58.75,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -63.828,
+    "y": 20.696,
+    "z": -65.685
+   },
+   "lookAtMetres": {
+    "x": 55.295,
+    "y": 0.745,
+    "z": 31.314
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-18",
+   "stem": "v04-18",
+   "time": 93.28,
+   "fieldOfView": 42.3,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -58.04,
+    "y": 22.171,
+    "z": 6.375
+   },
+   "lookAtMetres": {
+    "x": 62.156,
+    "y": 0.618,
+    "z": 64.154
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-19",
+   "stem": "v04-19",
+   "time": 90.52,
+   "fieldOfView": 60.93,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 93.227,
+    "y": 4.913,
+    "z": 25.321
+   },
+   "lookAtMetres": {
+    "x": 49.689,
+    "y": 2.131,
+    "z": 50.698
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-20",
+   "stem": "v04-20",
+   "time": 75.53,
+   "fieldOfView": 63.36,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 91.529,
+    "y": 31.586,
+    "z": -11.016
+   },
+   "lookAtMetres": {
+    "x": 23.201,
+    "y": 0.953,
+    "z": 46.406
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "away-21",
+   "stem": "v04-21",
+   "time": 138.64,
+   "fieldOfView": 40.14,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -17.129,
+    "y": 16.818,
+    "z": -45.048
+   },
+   "lookAtMetres": {
+    "x": 37.661,
+    "y": 1.064,
+    "z": -156.904
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-22",
+   "stem": "v04-22",
+   "time": 145.95,
+   "fieldOfView": 47.64,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -19.468,
+    "y": 31.112,
+    "z": 3.353
+   },
+   "lookAtMetres": {
+    "x": 68.603,
+    "y": 2.884,
+    "z": 38.321
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-23",
+   "stem": "v04-23",
+   "time": 111.65,
+   "fieldOfView": 42.32,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 159.757,
+    "y": 19.981,
+    "z": -10.483
+   },
+   "lookAtMetres": {
+    "x": 80.264,
+    "y": 2.118,
+    "z": 32.271
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-24",
+   "stem": "v04-24",
+   "time": 134.23,
+   "fieldOfView": 51.87,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 11.639,
+    "y": 28.213,
+    "z": -89.309
+   },
+   "lookAtMetres": {
+    "x": 78.848,
+    "y": 2.007,
+    "z": 50.14
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "away-25",
+   "stem": "v04-25",
+   "time": 19.46,
+   "fieldOfView": 44.99,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 82.954,
+    "y": 34.168,
+    "z": -29.21
+   },
+   "lookAtMetres": {
+    "x": 13.97,
+    "y": 0.875,
+    "z": -78.375
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-26",
+   "stem": "v04-26",
+   "time": 38.74,
+   "fieldOfView": 44.33,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -17.218,
+    "y": 27.011,
+    "z": 3.173
+   },
+   "lookAtMetres": {
+    "x": 32.974,
+    "y": 2.761,
+    "z": 37.655
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-27",
+   "stem": "v04-27",
+   "time": 91.67,
+   "fieldOfView": 54.12,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -41.979,
+    "y": 11.897,
+    "z": 2.322
+   },
+   "lookAtMetres": {
+    "x": 44.958,
+    "y": 0.048,
+    "z": 54.992
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-28",
+   "stem": "v04-28",
+   "time": 179.13,
+   "fieldOfView": 48.57,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 114.311,
+    "y": 32.185,
+    "z": -13.152
+   },
+   "lookAtMetres": {
+    "x": 73.047,
+    "y": 1.349,
+    "z": 55.89
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-29",
+   "stem": "v04-29",
+   "time": 164.6,
+   "fieldOfView": 55.62,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -0.806,
+    "y": 26.346,
+    "z": 4.201
+   },
+   "lookAtMetres": {
+    "x": 73.947,
+    "y": 2.535,
+    "z": 59.937
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-30",
+   "stem": "v04-30",
+   "time": 3.86,
+   "fieldOfView": 43.55,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 45.627,
+    "y": 20.144,
+    "z": -8.089
+   },
+   "lookAtMetres": {
+    "x": 38.247,
+    "y": 0.922,
+    "z": 42.572
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-31",
+   "stem": "v04-31",
+   "time": 8.43,
+   "fieldOfView": 60.26,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 89.998,
+    "y": 5.544,
+    "z": -63.559
+   },
+   "lookAtMetres": {
+    "x": 61.242,
+    "y": 0.563,
+    "z": 31.005
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-32",
+   "stem": "v04-32",
+   "time": 26.72,
+   "fieldOfView": 61.62,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 8.617,
+    "y": 12.437,
+    "z": 10.799
+   },
+   "lookAtMetres": {
+    "x": 76.856,
+    "y": 0.034,
+    "z": 45.627
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-33",
+   "stem": "v04-33",
+   "time": 102.74,
+   "fieldOfView": 47.49,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 90.366,
+    "y": 21.789,
+    "z": -6.882
+   },
+   "lookAtMetres": {
+    "x": 91.32,
+    "y": 0.3,
+    "z": 72.915
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-34",
+   "stem": "v04-34",
+   "time": 89.57,
+   "fieldOfView": 47.44,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 116.765,
+    "y": 31.928,
+    "z": -83.818
+   },
+   "lookAtMetres": {
+    "x": 66.615,
+    "y": 2.87,
+    "z": 13.279
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-35",
+   "stem": "v04-35",
+   "time": 41.37,
+   "fieldOfView": 53.98,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 159.782,
+    "y": 19.591,
+    "z": -46.457
+   },
+   "lookAtMetres": {
+    "x": 53.94,
+    "y": 2.879,
+    "z": 41.495
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-36",
+   "stem": "v04-36",
+   "time": 91.61,
+   "fieldOfView": 58.73,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 30.887,
+    "y": 25.91,
+    "z": 26.683
+   },
+   "lookAtMetres": {
+    "x": 46.893,
+    "y": 0.595,
+    "z": 60.499
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-37",
+   "stem": "v04-37",
+   "time": 97.37,
+   "fieldOfView": 40.77,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 44.576,
+    "y": 32.314,
+    "z": -3.373
+   },
+   "lookAtMetres": {
+    "x": 86.606,
+    "y": 1.21,
+    "z": 86.48
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-38",
+   "stem": "v04-38",
+   "time": 124.82,
+   "fieldOfView": 41.39,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": -2.627,
+    "y": 26.954,
+    "z": -51.791
+   },
+   "lookAtMetres": {
+    "x": 84.0,
+    "y": 2.083,
+    "z": 60.344
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v04",
+   "viewpoint": "apron-39",
+   "stem": "v04-39",
+   "time": 90.59,
+   "fieldOfView": 54.95,
+   "body": {
+    "r": 0.7121,
+    "g": 0.7425,
+    "b": 0.808,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.044,
+    "y": 1.088,
+    "z": 0.967
+   },
+   "positionMetres": {
+    "x": 62.554,
+    "y": 27.566,
+    "z": 29.271
+   },
+   "lookAtMetres": {
+    "x": 34.544,
+    "y": 2.928,
+    "z": 71.39
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-00",
+   "stem": "v05-00",
+   "time": 12.91,
+   "fieldOfView": 44.46,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 83.563,
+    "y": 23.422,
+    "z": -52.141
+   },
+   "lookAtMetres": {
+    "x": 27.511,
+    "y": 0.026,
+    "z": 42.743
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-01",
+   "stem": "v05-01",
+   "time": 33.32,
+   "fieldOfView": 43.46,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 35.723,
+    "y": 19.943,
+    "z": 6.104
+   },
+   "lookAtMetres": {
+    "x": 48.899,
+    "y": 1.806,
+    "z": 32.599
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-02",
+   "stem": "v05-02",
+   "time": 176.37,
+   "fieldOfView": 53.37,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 61.018,
+    "y": 8.072,
+    "z": 26.097
+   },
+   "lookAtMetres": {
+    "x": 65.29,
+    "y": 2.921,
+    "z": 39.866
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-03",
+   "stem": "v05-03",
+   "time": 76.12,
+   "fieldOfView": 44.86,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -19.29,
+    "y": 6.449,
+    "z": -9.59
+   },
+   "lookAtMetres": {
+    "x": 50.541,
+    "y": 2.448,
+    "z": 29.354
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-04",
+   "stem": "v05-04",
+   "time": 25.74,
+   "fieldOfView": 41.2,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -40.517,
+    "y": 28.62,
+    "z": -39.725
+   },
+   "lookAtMetres": {
+    "x": 44.211,
+    "y": 0.912,
+    "z": 27.677
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "away-05",
+   "stem": "v05-05",
+   "time": 51.06,
+   "fieldOfView": 50.9,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 147.063,
+    "y": 18.892,
+    "z": -77.466
+   },
+   "lookAtMetres": {
+    "x": 265.044,
+    "y": 0.16,
+    "z": 53.126
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-06",
+   "stem": "v05-06",
+   "time": 20.36,
+   "fieldOfView": 47.19,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 93.167,
+    "y": 20.946,
+    "z": 18.182
+   },
+   "lookAtMetres": {
+    "x": 64.81,
+    "y": 2.931,
+    "z": 40.817
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "away-07",
+   "stem": "v05-07",
+   "time": 5.05,
+   "fieldOfView": 47.77,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -60.288,
+    "y": 24.402,
+    "z": -0.347
+   },
+   "lookAtMetres": {
+    "x": -171.982,
+    "y": 2.541,
+    "z": 28.438
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-08",
+   "stem": "v05-08",
+   "time": 90.26,
+   "fieldOfView": 40.62,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -46.232,
+    "y": 27.384,
+    "z": -11.46
+   },
+   "lookAtMetres": {
+    "x": 69.342,
+    "y": 2.199,
+    "z": 49.001
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-09",
+   "stem": "v05-09",
+   "time": 93.58,
+   "fieldOfView": 47.94,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 74.863,
+    "y": 31.297,
+    "z": 43.072
+   },
+   "lookAtMetres": {
+    "x": 60.606,
+    "y": 0.03,
+    "z": 51.586
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-10",
+   "stem": "v05-10",
+   "time": 182.46,
+   "fieldOfView": 63.73,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 147.269,
+    "y": 22.264,
+    "z": -13.753
+   },
+   "lookAtMetres": {
+    "x": 79.382,
+    "y": 1.802,
+    "z": 44.39
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-11",
+   "stem": "v05-11",
+   "time": 106.29,
+   "fieldOfView": 53.23,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 155.733,
+    "y": 19.283,
+    "z": -52.491
+   },
+   "lookAtMetres": {
+    "x": 76.983,
+    "y": 2.888,
+    "z": 59.744
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-12",
+   "stem": "v05-12",
+   "time": 8.33,
+   "fieldOfView": 46.53,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -5.732,
+    "y": 11.095,
+    "z": -1.807
+   },
+   "lookAtMetres": {
+    "x": 54.249,
+    "y": 2.098,
+    "z": 50.43
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-13",
+   "stem": "v05-13",
+   "time": 89.19,
+   "fieldOfView": 58.52,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 150.253,
+    "y": 24.939,
+    "z": -69.168
+   },
+   "lookAtMetres": {
+    "x": 50.255,
+    "y": 0.499,
+    "z": 49.352
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-14",
+   "stem": "v05-14",
+   "time": 47.53,
+   "fieldOfView": 48.49,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -58.616,
+    "y": 26.101,
+    "z": -20.493
+   },
+   "lookAtMetres": {
+    "x": 32.183,
+    "y": 0.21,
+    "z": 45.978
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-15",
+   "stem": "v05-15",
+   "time": 148.83,
+   "fieldOfView": 46.08,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 140.542,
+    "y": 14.391,
+    "z": 12.107
+   },
+   "lookAtMetres": {
+    "x": 62.455,
+    "y": 0.839,
+    "z": 57.366
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-16",
+   "stem": "v05-16",
+   "time": 52.28,
+   "fieldOfView": 63.34,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 4.531,
+    "y": 27.775,
+    "z": -26.986
+   },
+   "lookAtMetres": {
+    "x": 18.27,
+    "y": 2.525,
+    "z": 4.238
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-17",
+   "stem": "v05-17",
+   "time": 18.48,
+   "fieldOfView": 52.52,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 9.791,
+    "y": 6.109,
+    "z": -45.867
+   },
+   "lookAtMetres": {
+    "x": 63.348,
+    "y": 0.625,
+    "z": 29.258
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-18",
+   "stem": "v05-18",
+   "time": 47.59,
+   "fieldOfView": 59.07,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 22.253,
+    "y": 17.113,
+    "z": 24.939
+   },
+   "lookAtMetres": {
+    "x": 52.831,
+    "y": 0.516,
+    "z": 41.98
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-19",
+   "stem": "v05-19",
+   "time": 37.22,
+   "fieldOfView": 40.18,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 53.925,
+    "y": 25.234,
+    "z": -8.764
+   },
+   "lookAtMetres": {
+    "x": 64.778,
+    "y": 0.804,
+    "z": 52.597
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-20",
+   "stem": "v05-20",
+   "time": 153.69,
+   "fieldOfView": 41.4,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 113.22,
+    "y": 29.158,
+    "z": 8.975
+   },
+   "lookAtMetres": {
+    "x": 80.729,
+    "y": 2.999,
+    "z": 40.546
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-21",
+   "stem": "v05-21",
+   "time": 80.57,
+   "fieldOfView": 55.68,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 48.308,
+    "y": 5.677,
+    "z": -34.649
+   },
+   "lookAtMetres": {
+    "x": 36.878,
+    "y": 1.731,
+    "z": 57.0
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-22",
+   "stem": "v05-22",
+   "time": 67.84,
+   "fieldOfView": 47.16,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 59.315,
+    "y": 4.924,
+    "z": -80.935
+   },
+   "lookAtMetres": {
+    "x": 45.767,
+    "y": 2.487,
+    "z": 57.224
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-23",
+   "stem": "v05-23",
+   "time": 67.33,
+   "fieldOfView": 51.4,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -85.009,
+    "y": 33.192,
+    "z": -29.018
+   },
+   "lookAtMetres": {
+    "x": 45.429,
+    "y": 2.102,
+    "z": 55.921
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-24",
+   "stem": "v05-24",
+   "time": 19.76,
+   "fieldOfView": 51.67,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 157.937,
+    "y": 20.444,
+    "z": -6.438
+   },
+   "lookAtMetres": {
+    "x": 61.12,
+    "y": 0.695,
+    "z": 32.863
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-25",
+   "stem": "v05-25",
+   "time": 4.99,
+   "fieldOfView": 57.36,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -36.416,
+    "y": 8.151,
+    "z": 9.381
+   },
+   "lookAtMetres": {
+    "x": 33.246,
+    "y": 1.083,
+    "z": 52.323
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-26",
+   "stem": "v05-26",
+   "time": 93.38,
+   "fieldOfView": 61.01,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 69.973,
+    "y": 3.897,
+    "z": 12.78
+   },
+   "lookAtMetres": {
+    "x": 61.464,
+    "y": 1.122,
+    "z": 61.402
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "away-27",
+   "stem": "v05-27",
+   "time": 55.12,
+   "fieldOfView": 42.57,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -64.743,
+    "y": 17.073,
+    "z": -1.148
+   },
+   "lookAtMetres": {
+    "x": -124.065,
+    "y": 0.466,
+    "z": -96.648
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-28",
+   "stem": "v05-28",
+   "time": 20.9,
+   "fieldOfView": 48.91,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 101.344,
+    "y": 28.075,
+    "z": -12.319
+   },
+   "lookAtMetres": {
+    "x": 39.505,
+    "y": 0.81,
+    "z": 15.993
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-29",
+   "stem": "v05-29",
+   "time": 77.13,
+   "fieldOfView": 50.34,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 50.487,
+    "y": 13.544,
+    "z": -19.064
+   },
+   "lookAtMetres": {
+    "x": 46.641,
+    "y": 0.379,
+    "z": 39.35
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-30",
+   "stem": "v05-30",
+   "time": 69.39,
+   "fieldOfView": 52.14,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -3.427,
+    "y": 21.244,
+    "z": 10.74
+   },
+   "lookAtMetres": {
+    "x": 45.711,
+    "y": 0.35,
+    "z": 43.074
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-31",
+   "stem": "v05-31",
+   "time": 89.13,
+   "fieldOfView": 54.63,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 92.554,
+    "y": 34.495,
+    "z": -0.012
+   },
+   "lookAtMetres": {
+    "x": 32.473,
+    "y": 1.786,
+    "z": 48.798
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "away-32",
+   "stem": "v05-32",
+   "time": 94.53,
+   "fieldOfView": 44.43,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 101.919,
+    "y": 29.481,
+    "z": -43.988
+   },
+   "lookAtMetres": {
+    "x": 216.83,
+    "y": 1.446,
+    "z": -121.734
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-33",
+   "stem": "v05-33",
+   "time": 90.11,
+   "fieldOfView": 64.28,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 64.355,
+    "y": 31.535,
+    "z": -43.491
+   },
+   "lookAtMetres": {
+    "x": 56.968,
+    "y": 0.123,
+    "z": 35.899
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-34",
+   "stem": "v05-34",
+   "time": 93.41,
+   "fieldOfView": 40.62,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 56.522,
+    "y": 23.23,
+    "z": 29.723
+   },
+   "lookAtMetres": {
+    "x": 68.808,
+    "y": 1.692,
+    "z": 44.787
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "away-35",
+   "stem": "v05-35",
+   "time": 13.55,
+   "fieldOfView": 56.83,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 179.42,
+    "y": 34.861,
+    "z": -31.687
+   },
+   "lookAtMetres": {
+    "x": 317.2,
+    "y": 2.611,
+    "z": -20.21
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-36",
+   "stem": "v05-36",
+   "time": 3.7,
+   "fieldOfView": 59.59,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 11.412,
+    "y": 34.113,
+    "z": 19.583
+   },
+   "lookAtMetres": {
+    "x": 61.616,
+    "y": 1.25,
+    "z": 55.979
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-37",
+   "stem": "v05-37",
+   "time": 91.01,
+   "fieldOfView": 63.27,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 23.658,
+    "y": 18.75,
+    "z": -67.503
+   },
+   "lookAtMetres": {
+    "x": 47.095,
+    "y": 1.846,
+    "z": 61.222
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "apron-38",
+   "stem": "v05-38",
+   "time": 180.65,
+   "fieldOfView": 43.42,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": -33.02,
+    "y": 31.84,
+    "z": -9.25
+   },
+   "lookAtMetres": {
+    "x": 75.851,
+    "y": 2.395,
+    "z": 72.482
+   }
+  },
+  {
+   "split": "heldout",
+   "domain": "v05",
+   "viewpoint": "bridge-39",
+   "stem": "v05-39",
+   "time": 86.04,
+   "fieldOfView": 46.01,
+   "body": {
+    "r": 0.8385,
+    "g": 0.8429,
+    "b": 0.9172,
+    "a": 1.0
+   },
+   "bodyScale": {
+    "x": 1.064,
+    "y": 1.007,
+    "z": 0.937
+   },
+   "positionMetres": {
+    "x": 6.048,
+    "y": 3.973,
+    "z": 90.807
+   },
+   "lookAtMetres": {
+    "x": 45.0,
+    "y": 1.8,
+    "z": 40.0
+   }
+  }
+ ]
+}
