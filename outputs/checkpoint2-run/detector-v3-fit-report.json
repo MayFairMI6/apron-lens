@@ -1,0 +1,444 @@
+{
+ "protocol": "experiments/apron_detector/PROTOCOL.md",
+ "version": "stand-b-detector-v2",
+ "seed": 17,
+ "counts": {
+  "train": 480,
+  "validation": 160,
+  "trainEvaluableBoxes": 380,
+  "validationEvaluableBoxes": 118
+ },
+ "torch": "2.15.0",
+ "candidates": {
+  "C": {
+   "device": "mps",
+   "budget": {
+    "epochs": 10,
+    "lr": 0.0001,
+    "batch": 4
+   },
+   "losses": [
+    0.2089475655928254,
+    0.35702985326449077,
+    0.49041219982585366,
+    0.4719536912937959,
+    0.46820743770028156,
+    0.5253403628865878,
+    0.5570551668604214,
+    0.593212754279375,
+    0.5445494566073952,
+    0.5468840477367242
+   ],
+   "validationEvidence": {
+    "presence": {
+     "tp": 114,
+     "fp": 1,
+     "fn": 4,
+     "precision": 0.9913,
+     "recall": 0.9661
+    },
+    "location": {
+     "frames": 114,
+     "within8m": 1.0,
+     "standBAgreement": 1.0,
+     "medianErrorMetres": 2.4,
+     "maxErrorMetres": 5.77
+    },
+    "passed": true
+   },
+   "fitSeconds": 612.5,
+   "threshold": 0.3,
+   "validation": {
+    "evaluable": {
+     "tp": 114,
+     "fp": 5,
+     "fn": 4,
+     "precision": 0.958,
+     "recall": 0.9661,
+     "f1": 0.962
+    },
+    "allBoxes": {
+     "tp": 114,
+     "fp": 6,
+     "fn": 7,
+     "precision": 0.95,
+     "recall": 0.9421,
+     "f1": 0.9461
+    },
+    "falseDetectionsPerLookAwayFrame": 0.0312,
+    "lookAwayFrames": 32,
+    "meanSecondsPerFrame": 0.0565
+   },
+   "validationGrid": {
+    "0.05": {
+     "tp": 116,
+     "fp": 14,
+     "fn": 2,
+     "precision": 0.8923,
+     "recall": 0.9831,
+     "f1": 0.9355
+    },
+    "0.1": {
+     "tp": 115,
+     "fp": 11,
+     "fn": 3,
+     "precision": 0.9127,
+     "recall": 0.9746,
+     "f1": 0.9426
+    },
+    "0.15": {
+     "tp": 114,
+     "fp": 8,
+     "fn": 4,
+     "precision": 0.9344,
+     "recall": 0.9661,
+     "f1": 0.95
+    },
+    "0.2": {
+     "tp": 114,
+     "fp": 6,
+     "fn": 4,
+     "precision": 0.95,
+     "recall": 0.9661,
+     "f1": 0.958
+    },
+    "0.25": {
+     "tp": 114,
+     "fp": 6,
+     "fn": 4,
+     "precision": 0.95,
+     "recall": 0.9661,
+     "f1": 0.958
+    },
+    "0.3": {
+     "tp": 114,
+     "fp": 5,
+     "fn": 4,
+     "precision": 0.958,
+     "recall": 0.9661,
+     "f1": 0.962
+    },
+    "0.35": {
+     "tp": 113,
+     "fp": 5,
+     "fn": 5,
+     "precision": 0.9576,
+     "recall": 0.9576,
+     "f1": 0.9576
+    },
+    "0.4": {
+     "tp": 110,
+     "fp": 3,
+     "fn": 8,
+     "precision": 0.9735,
+     "recall": 0.9322,
+     "f1": 0.9524
+    },
+    "0.45": {
+     "tp": 110,
+     "fp": 3,
+     "fn": 8,
+     "precision": 0.9735,
+     "recall": 0.9322,
+     "f1": 0.9524
+    },
+    "0.5": {
+     "tp": 110,
+     "fp": 2,
+     "fn": 8,
+     "precision": 0.9821,
+     "recall": 0.9322,
+     "f1": 0.9565
+    },
+    "0.55": {
+     "tp": 110,
+     "fp": 1,
+     "fn": 8,
+     "precision": 0.991,
+     "recall": 0.9322,
+     "f1": 0.9607
+    },
+    "0.6": {
+     "tp": 110,
+     "fp": 1,
+     "fn": 8,
+     "precision": 0.991,
+     "recall": 0.9322,
+     "f1": 0.9607
+    },
+    "0.65": {
+     "tp": 110,
+     "fp": 1,
+     "fn": 8,
+     "precision": 0.991,
+     "recall": 0.9322,
+     "f1": 0.9607
+    },
+    "0.7": {
+     "tp": 110,
+     "fp": 1,
+     "fn": 8,
+     "precision": 0.991,
+     "recall": 0.9322,
+     "f1": 0.9607
+    },
+    "0.75": {
+     "tp": 109,
+     "fp": 0,
+     "fn": 9,
+     "precision": 1.0,
+     "recall": 0.9237,
+     "f1": 0.9604
+    },
+    "0.8": {
+     "tp": 109,
+     "fp": 0,
+     "fn": 9,
+     "precision": 1.0,
+     "recall": 0.9237,
+     "f1": 0.9604
+    },
+    "0.85": {
+     "tp": 109,
+     "fp": 0,
+     "fn": 9,
+     "precision": 1.0,
+     "recall": 0.9237,
+     "f1": 0.9604
+    },
+    "0.9": {
+     "tp": 106,
+     "fp": 0,
+     "fn": 12,
+     "precision": 1.0,
+     "recall": 0.8983,
+     "f1": 0.9464
+    },
+    "0.95": {
+     "tp": 104,
+     "fp": 0,
+     "fn": 14,
+     "precision": 1.0,
+     "recall": 0.8814,
+     "f1": 0.9369
+    }
+   },
+   "weightsSha256": "7f067d0c7727f9ce23e63ea9064a686abac371ecb515ef65a18234d5ea194913"
+  },
+  "B": {
+   "device": "mps",
+   "budget": {
+    "epochs": 8,
+    "lr": 0.0001,
+    "batch": 4
+   },
+   "losses": [
+    0.3005400212015957,
+    0.5258633266513546,
+    0.5841274240092995,
+    0.7815967520078023,
+    0.7761652439832687,
+    0.7361659941573938,
+    0.656667968009909,
+    0.7516453760365646
+   ],
+   "fitSeconds": 241.2,
+   "threshold": 0.65,
+   "validation": {
+    "evaluable": {
+     "tp": 109,
+     "fp": 9,
+     "fn": 9,
+     "precision": 0.9237,
+     "recall": 0.9237,
+     "f1": 0.9237
+    },
+    "allBoxes": {
+     "tp": 109,
+     "fp": 9,
+     "fn": 12,
+     "precision": 0.9237,
+     "recall": 0.9008,
+     "f1": 0.9121
+    },
+    "falseDetectionsPerLookAwayFrame": 0.0,
+    "lookAwayFrames": 32,
+    "meanSecondsPerFrame": 0.0412
+   },
+   "validationGrid": {
+    "0.05": {
+     "tp": 114,
+     "fp": 75,
+     "fn": 4,
+     "precision": 0.6032,
+     "recall": 0.9661,
+     "f1": 0.7427
+    },
+    "0.1": {
+     "tp": 114,
+     "fp": 63,
+     "fn": 4,
+     "precision": 0.6441,
+     "recall": 0.9661,
+     "f1": 0.7729
+    },
+    "0.15": {
+     "tp": 114,
+     "fp": 57,
+     "fn": 4,
+     "precision": 0.6667,
+     "recall": 0.9661,
+     "f1": 0.7889
+    },
+    "0.2": {
+     "tp": 114,
+     "fp": 49,
+     "fn": 4,
+     "precision": 0.6994,
+     "recall": 0.9661,
+     "f1": 0.8114
+    },
+    "0.25": {
+     "tp": 114,
+     "fp": 42,
+     "fn": 4,
+     "precision": 0.7308,
+     "recall": 0.9661,
+     "f1": 0.8321
+    },
+    "0.3": {
+     "tp": 114,
+     "fp": 39,
+     "fn": 4,
+     "precision": 0.7451,
+     "recall": 0.9661,
+     "f1": 0.8413
+    },
+    "0.35": {
+     "tp": 114,
+     "fp": 36,
+     "fn": 4,
+     "precision": 0.76,
+     "recall": 0.9661,
+     "f1": 0.8507
+    },
+    "0.4": {
+     "tp": 113,
+     "fp": 32,
+     "fn": 5,
+     "precision": 0.7793,
+     "recall": 0.9576,
+     "f1": 0.8593
+    },
+    "0.45": {
+     "tp": 112,
+     "fp": 28,
+     "fn": 6,
+     "precision": 0.8,
+     "recall": 0.9492,
+     "f1": 0.8682
+    },
+    "0.5": {
+     "tp": 112,
+     "fp": 23,
+     "fn": 6,
+     "precision": 0.8296,
+     "recall": 0.9492,
+     "f1": 0.8854
+    },
+    "0.55": {
+     "tp": 112,
+     "fp": 19,
+     "fn": 6,
+     "precision": 0.855,
+     "recall": 0.9492,
+     "f1": 0.8996
+    },
+    "0.6": {
+     "tp": 110,
+     "fp": 11,
+     "fn": 8,
+     "precision": 0.9091,
+     "recall": 0.9322,
+     "f1": 0.9205
+    },
+    "0.65": {
+     "tp": 109,
+     "fp": 9,
+     "fn": 9,
+     "precision": 0.9237,
+     "recall": 0.9237,
+     "f1": 0.9237
+    },
+    "0.7": {
+     "tp": 107,
+     "fp": 8,
+     "fn": 11,
+     "precision": 0.9304,
+     "recall": 0.9068,
+     "f1": 0.9185
+    },
+    "0.75": {
+     "tp": 104,
+     "fp": 5,
+     "fn": 14,
+     "precision": 0.9541,
+     "recall": 0.8814,
+     "f1": 0.9163
+    },
+    "0.8": {
+     "tp": 103,
+     "fp": 5,
+     "fn": 15,
+     "precision": 0.9537,
+     "recall": 0.8729,
+     "f1": 0.9115
+    },
+    "0.85": {
+     "tp": 99,
+     "fp": 3,
+     "fn": 19,
+     "precision": 0.9706,
+     "recall": 0.839,
+     "f1": 0.9
+    },
+    "0.9": {
+     "tp": 91,
+     "fp": 1,
+     "fn": 27,
+     "precision": 0.9891,
+     "recall": 0.7712,
+     "f1": 0.8667
+    },
+    "0.95": {
+     "tp": 79,
+     "fp": 0,
+     "fn": 39,
+     "precision": 1.0,
+     "recall": 0.6695,
+     "f1": 0.802
+    }
+   },
+   "weightsSha256": "cd2f29312483a1e5cbb886168dc1e7859f2c011590c5ac020d0c94c403d3689a",
+   "carriedFrom": "work/detector-v2/fit",
+   "validationEvidence": {
+    "presence": {
+     "tp": 110,
+     "fp": 0,
+     "fn": 8,
+     "precision": 1.0,
+     "recall": 0.9322
+    },
+    "location": {
+     "frames": 110,
+     "within8m": 1.0,
+     "standBAgreement": 1.0,
+     "medianErrorMetres": 2.33,
+     "maxErrorMetres": 5.72
+    },
+    "passed": true
+   }
+  }
+ },
+ "selected": "C"
+}

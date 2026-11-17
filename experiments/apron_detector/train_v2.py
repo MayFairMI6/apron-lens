@@ -30,7 +30,8 @@ TRUCK = 8  # COCO "truck"; the tanker is mapped to it, other classes ignored
 MIN_PIXELS, MIN_SIDE = 150, 6
 THRESHOLDS = [round(0.05 * i, 2) for i in range(1, 20)]
 TILE, STRIDE_X, TILE_Y = 320, 160, (0, 110, 220)
-BUDGET = {'A': dict(epochs=12, lr=2e-4, batch=8), 'B': dict(epochs=8, lr=1e-4, batch=4)}
+BUDGET = {'A': dict(epochs=12, lr=2e-4, batch=8), 'B': dict(epochs=8, lr=1e-4, batch=4),
+          'C': dict(epochs=10, lr=1e-4, batch=4)}  # C: PROTOCOL.md amendment 1
 
 
 # ---------- data ----------------------------------------------------------------
@@ -69,8 +70,8 @@ def build(candidate):
     from torchvision.models import detection as d
     if candidate == 'A':
         return d.ssdlite320_mobilenet_v3_large(weights=d.SSDLite320_MobileNet_V3_Large_Weights.DEFAULT)
-    return d.fasterrcnn_mobilenet_v3_large_fpn(weights=d.FasterRCNN_MobileNet_V3_Large_FPN_Weights.COCO_V1,
-                                               min_size=540, max_size=960)
+    size = dict(min_size=810, max_size=1440) if candidate == 'C' else dict(min_size=540, max_size=960)
+    return d.fasterrcnn_mobilenet_v3_large_fpn(weights=d.FasterRCNN_MobileNet_V3_Large_FPN_Weights.COCO_V1, **size)
 
 
 def tiles(width, height):
@@ -101,7 +102,7 @@ def predict(candidate, model, image, device):
     """Truck detections for one full frame: (boxes N×4, scores N), on CPU."""
     model.eval()
     with torch.inference_mode():
-        if candidate == 'B':
+        if candidate in ('B', 'C'):
             out = model([image.to(device)])[0]
             keep = out['labels'] == TRUCK
             return out['boxes'][keep].cpu(), out['scores'][keep].cpu()
@@ -199,6 +200,40 @@ def summarize(results, threshold):
     return out
 
 
+def evidence(results, rows, threshold):
+    """Amendment 1 evidence gate. Ground truth (boxes, route) is used here for scoring only."""
+    from backend.camera_evidence import load_capture, locate, on_stand_b
+    from experiments.apron_detector.plan import route, tanker_at
+    points = route()
+    tp = fp = fn = 0
+    errors, agree = [], 0
+    for (boxes, scores, good, ignore, _, _), (image, _, _, meta) in zip(results, rows):
+        if not good and ignore:
+            continue  # only ignore-size boxes: left out of presence scoring
+        truth = bool(good)
+        keep = scores >= threshold
+        said = bool(keep.any())
+        tp, fp, fn = tp + (said and truth), fp + (said and not truth), fn + (truth and not said)
+        if said and truth:
+            top = boxes[keep][torch.argmax(scores[keep])].tolist()
+            _, depth = load_capture(str(image)[:-4])
+            point = locate(meta, depth, top)
+            tx, tz = tanker_at(points, meta['sourceTime'])
+            errors.append(float('inf') if point is None else ((point[0] - tx) ** 2 + (point[2] - tz) ** 2) ** .5)
+            truth_on = 12 <= tx <= 58 and 7 <= tz <= 57
+            agree += point is not None and on_stand_b(point) == truth_on
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    within = sum(e <= 8 for e in errors) / len(errors) if errors else 0.0
+    stand = agree / len(errors) if errors else 0.0
+    ordered = sorted(errors)
+    return dict(presence=dict(tp=tp, fp=fp, fn=fn, precision=round(precision, 4), recall=round(recall, 4)),
+                location=dict(frames=len(errors), within8m=round(within, 4), standBAgreement=round(stand, 4),
+                              medianErrorMetres=round(ordered[len(ordered) // 2], 2) if ordered else None,
+                              maxErrorMetres=round(ordered[-1], 2) if ordered else None),
+                passed=precision >= .95 and recall >= .80 and within >= .90 and stand >= .95)
+
+
 def run(candidate, model, rows, device):
     results = []
     for image_path, good, ignore, meta in rows:
@@ -241,11 +276,30 @@ def fit(args):
         threshold = max(THRESHOLDS, key=lambda t: (grid[t]['f1'], t))
         torch.save(model.state_dict(), args.output / f'candidate-{candidate}.pt')
         report['candidates'][candidate] = dict(device=device.type, budget=BUDGET[candidate], losses=history,
+                                               validationEvidence=evidence(results, validation, threshold),
                                                fitSeconds=round(fit_seconds, 1), threshold=threshold,
                                                validation=summarize(results, threshold),
                                                validationGrid={str(t): grid[t] for t in THRESHOLDS},
                                                weightsSha256=sha(args.output / f'candidate-{candidate}.pt'))
         print(candidate, 'threshold', threshold, report['candidates'][candidate]['validation']['evaluable'], flush=True)
+    for spec in args.carry:
+        # Reuse an already fitted candidate unchanged: same weights, same recorded validation results.
+        name, folder = spec.split('=', 1)
+        earlier = json.loads((Path(folder) / 'fit-report.json').read_text())['candidates'][name]
+        source = Path(folder) / f'candidate-{name}.pt'
+        if sha(source) != earlier['weightsSha256']:
+            raise SystemExit(f'Carried weights for {name} changed')
+        (args.output / f'candidate-{name}.pt').write_bytes(source.read_bytes())
+        device = device_for(name)
+        model = build(name)
+        model.load_state_dict(torch.load(source, map_location='cpu'))
+        model.to(device)
+        results = run(name, model, validation, device)
+        if summarize(results, earlier['threshold'])['evaluable'] != earlier['validation']['evaluable']:
+            raise SystemExit(f'Carried candidate {name} does not reproduce its validation result')
+        report['candidates'][name] = dict(earlier, carriedFrom=folder,
+                                          validationEvidence=evidence(results, validation, earlier['threshold']))
+        print(name, 'carried; validation reproduced', flush=True)
     scored = report['candidates']
     report['selected'] = max(scored, key=lambda c: (scored[c]['validation']['evaluable']['f1'],
                                                    scored[c]['validation']['evaluable']['precision']))
@@ -294,8 +348,15 @@ def evaluate(args):
                   threshold=chosen['threshold'], frames=len(rows), evaluableBoxes=sum(len(r[1]) for r in rows),
                   heldout=summary, qualificationGate=dict(precisionAtLeast=.90, recallAtLeast=.70, passed=gate),
                   manifestSha256=sha(args.manifest), weightsSha256=chosen['weightsSha256'])
+    if args.evidence_gate:
+        record['boxGate'] = record.pop('qualificationGate')
+        record['evidenceGate'] = evidence(results, rows, chosen['threshold'])
+        record['qualifiedAsCameraEvidence'] = record['evidenceGate']['passed']
+        record['amendment'] = 'PROTOCOL.md amendment 1'
     args.output.write_text(json.dumps(record, indent=1) + '\n')
-    print(json.dumps(record['heldout']['evaluable']), 'gate passed' if gate else 'gate FAILED')
+    print(json.dumps(record['heldout']['evaluable']), 'box gate passed' if gate else 'box gate FAILED')
+    if args.evidence_gate:
+        print(json.dumps(record['evidenceGate']))
 
 
 def main():
@@ -304,7 +365,8 @@ def main():
     f = sub.add_parser('fit')
     f.add_argument('development', type=Path)
     f.add_argument('output', type=Path)
-    f.add_argument('--candidates', nargs='+', default=['A', 'B'], choices=['A', 'B'])
+    f.add_argument('--candidates', nargs='*', default=['A', 'B'], choices=['A', 'B', 'C'])
+    f.add_argument('--carry', nargs='*', default=[], help='NAME=FIT_FOLDER: reuse a fitted candidate unchanged')
     m = sub.add_parser('manifest')
     m.add_argument('heldout', type=Path)
     m.add_argument('output', type=Path)
@@ -313,6 +375,7 @@ def main():
     e.add_argument('heldout', type=Path)
     e.add_argument('manifest', type=Path)
     e.add_argument('output', type=Path)
+    e.add_argument('--evidence-gate', action='store_true', help='Amendment 1: also score the evidence gate')
     args = cli.parse_args()
     dict(fit=fit, manifest=manifest, evaluate=evaluate)[args.command](args)
 

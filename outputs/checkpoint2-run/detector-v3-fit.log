@@ -1,0 +1,13 @@
+C epoch 1/10: loss 0.2089
+C epoch 2/10: loss 0.3570
+C epoch 3/10: loss 0.4904
+C epoch 4/10: loss 0.4720
+C epoch 5/10: loss 0.4682
+C epoch 6/10: loss 0.5253
+C epoch 7/10: loss 0.5571
+C epoch 8/10: loss 0.5932
+C epoch 9/10: loss 0.5445
+C epoch 10/10: loss 0.5469
+C threshold 0.3 {'tp': 114, 'fp': 5, 'fn': 4, 'precision': 0.958, 'recall': 0.9661, 'f1': 0.962}
+B carried; validation reproduced
+selected C
