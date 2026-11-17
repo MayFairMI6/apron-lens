@@ -1,6 +1,6 @@
 # Camera evidence comparison: reports, + RGB, + RGB and depth
 
-**Status: DRAFT for owner review, 17 November 2026. Nothing here is frozen.**
+**Status: DRAFT, 17 November 2026; D1, D3, D4 and D5 answered by the owner. Nothing here is frozen.**
 No held-out case exists yet, and no prompt wording for camera observations has
 been tried. Decisions the owner needs to make are listed at the end (D1–D7),
 each with a recommendation. Once they are settled, this document becomes the
@@ -146,8 +146,9 @@ are tuned on these alone.
 Also reported: first-attempt versus final validity and correctness, latency,
 and detector presence accuracy on the held-out sessions.
 
-**Secondary (D5):** the `docs/JUDGE_RUBRIC.md` judge, from another model
-family, blind to arm, calibrated against the owner's own ratings. It never
+**Secondary (D5, included):** the `docs/JUDGE_RUBRIC.md` judge, from another
+model family, blind to arm, calibrated against the owner's ratings of about 20
+development answers. It never
 replaces the deterministic scores.
 
 ## Decision rules, fixed before the run
@@ -166,7 +167,8 @@ replaces the deterministic scores.
 
 About 60 turns, as AR_SCOPE plans. Arms: R, R+RGB and R+RGBD with tracked
 history, plus R+RGB and R+RGBD with the current frame only. That is 5 × 60 =
-300 local model turns with Qwen3.5-9B. All runs are local, so there is no
+300 local model turns per model; with Qwen3.5-9B and `qwen3-vl-4b` (D3),
+600, plus the deterministic baseline. All runs are local, so there is no
 hosted cost.
 
 ## Not in this comparison
@@ -178,14 +180,17 @@ hosted cost.
 - The images-to-VLM arm stays as it was unless D3 adds it.
 - The app's prompt is unchanged.
 
-## Owner decisions needed
+## Owner decisions
 
-| # | Decision | Recommendation |
+Answered 17 November 2026 (decision log #61–#64). D2, D6 and D7 follow the
+recommendation until the owner says otherwise.
+
+| # | Decision | Status |
 |---|---|---|
-| D1 | Run this as M2 (freeze 2, `m2` set) in the research runner, rather than in the app replay | Yes: existing guards, scoring and precedent |
-| D2 | Include the tracked-history versus current-frame contrast | Yes: the queue asks for it; costs 120 more local turns |
-| D3 | Models: Qwen3.5-9B only, or also `qwen3-vl-4b` and the deterministic baseline ("every model run so far" in AR_SCOPE) | 9B plus the deterministic baseline; add VL-4B only if images return as an arm |
-| D4 | Held-out variety: new camera sessions only, or also authored scenario timing variants | New sessions plus two authored timing variants, with sources noted |
-| D5 | Secondary judge: needs your ratings on about 20 development answers to calibrate | Defer the judge to M3, and report deterministic scores only for M2 |
-| D6 | Viewpoint family ("to the left of the bridge from here") | Include 2–3 families; drop if the detector's box is too small to place left/right reliably on development |
-| D7 | Effect rule: family-bootstrap 95% interval, authority failures as a hard gate | As written above |
+| D1 | Run this as M2 (freeze 2, `m2` set) in the research runner, rather than in the app replay | **Decided: M2 in the runner** |
+| D2 | Include the tracked-history versus current-frame contrast | Recommended: yes (120 more turns per model) |
+| D3 | Models | **Decided: Qwen3.5-9B, `qwen3-vl-4b` and the deterministic baseline.** VL-4B runs the same text arms; no images arm is added. Turns: 5 forms × 60 × 2 models = 600 local model turns, plus the baseline |
+| D4 | Held-out variety | **Decided: new camera sessions plus two authored timing variants**, with their sources noted |
+| D5 | Secondary judge | **Decided: include it.** The owner rates about 20 development answers to calibrate a judge from another model family, blind to arm. The ratings are collected after development answers exist and before freeze 2 |
+| D6 | Viewpoint family ("to the left of the bridge from here") | Recommended: 2–3 families; dropped if left/right cannot be placed reliably on development |
+| D7 | Effect rule: family-bootstrap 95% interval; authority failures are a hard gate | Recommended: as written above |
