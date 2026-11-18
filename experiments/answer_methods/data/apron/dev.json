@@ -1,0 +1,286 @@
+[
+ {
+  "id": "QD01",
+  "question": "What's the latest update for this aircraft?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QD02",
+  "question": "Anything new on this flight?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QD03",
+  "question": "What was the most recent report received?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QD04",
+  "question": "What's the newest fuel report?",
+  "queryType": "latest",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QD05",
+  "question": "Last thing we heard about the stand?",
+  "queryType": "latest",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QD06",
+  "question": "Which stand is it on right now?",
+  "queryType": "current",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QD07",
+  "question": "Is the baggage done?",
+  "queryType": "current",
+  "properties": [
+   "baggage_status"
+  ]
+ },
+ {
+  "id": "QD08",
+  "question": "Has refuelling finished?",
+  "queryType": "current",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QD09",
+  "question": "What's the target off-block time at the moment?",
+  "queryType": "current",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD10",
+  "question": "When is it planned to push back?",
+  "queryType": "current",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD11",
+  "question": "Which route has it been given?",
+  "queryType": "current",
+  "properties": [
+   "route"
+  ]
+ },
+ {
+  "id": "QD12",
+  "question": "Is it moving yet?",
+  "queryType": "current",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "QD13",
+  "question": "What has to happen before it can move?",
+  "queryType": "current",
+  "properties": [
+   "movement_condition"
+  ]
+ },
+ {
+  "id": "QD14",
+  "question": "Where is it on its planned path?",
+  "queryType": "current",
+  "properties": [
+   "trajectory_checkpoint"
+  ]
+ },
+ {
+  "id": "QD15",
+  "question": "Is it ready to depart?",
+  "queryType": "current",
+  "properties": [
+   "overall_readiness"
+  ]
+ },
+ {
+  "id": "QD16",
+  "question": "Are bags and fuel both complete?",
+  "queryType": "current",
+  "properties": [
+   "baggage_status",
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QD17",
+  "question": "What stand and TOBT does it have now?",
+  "queryType": "current",
+  "properties": [
+   "stand",
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD18",
+  "question": "How has the stand assignment changed?",
+  "queryType": "change",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QD19",
+  "question": "Show me the history of the TOBT.",
+  "queryType": "change",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD20",
+  "question": "Did the route get revised at any point?",
+  "queryType": "change",
+  "properties": [
+   "route"
+  ]
+ },
+ {
+  "id": "QD21",
+  "question": "What were the earlier fuel reports?",
+  "queryType": "change",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QD22",
+  "question": "How did the baggage status evolve?",
+  "queryType": "change",
+  "properties": [
+   "baggage_status"
+  ]
+ },
+ {
+  "id": "QD23",
+  "question": "Has the movement plan been updated over time?",
+  "queryType": "change",
+  "properties": [
+   "route"
+  ]
+ },
+ {
+  "id": "QD24",
+  "question": "List every change to its stand and route.",
+  "queryType": "change",
+  "properties": [
+   "route",
+   "stand"
+  ]
+ },
+ {
+  "id": "QD25",
+  "question": "Which checkpoints has it passed so far?",
+  "queryType": "change",
+  "properties": [
+   "trajectory_checkpoint"
+  ]
+ },
+ {
+  "id": "QD26",
+  "question": "Was the off-block target moved earlier or later?",
+  "queryType": "change",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD27",
+  "question": "Tell me the current fuel and baggage situation.",
+  "queryType": "current",
+  "properties": [
+   "baggage_status",
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QD28",
+  "question": "What's the newest word on its movement?",
+  "queryType": "latest",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "QD29",
+  "question": "Is the aircraft cleared to go?",
+  "queryType": "current",
+  "properties": [
+   "overall_readiness"
+  ]
+ },
+ {
+  "id": "QD30",
+  "question": "What condition is attached to its movement?",
+  "queryType": "current",
+  "properties": [
+   "movement_condition"
+  ]
+ },
+ {
+  "id": "QD31",
+  "question": "Has the stand changed since it arrived?",
+  "queryType": "change",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QD32",
+  "question": "Most recent TOBT?",
+  "queryType": "latest",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD33",
+  "question": "Status of fuelling?",
+  "queryType": "current",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QD34",
+  "question": "What's happened with the TOBT so far?",
+  "queryType": "change",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QD35",
+  "question": "What came in last?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QD36",
+  "question": "Has it started taxiing?",
+  "queryType": "current",
+  "properties": [
+   "movement_status"
+  ]
+ }
+]
