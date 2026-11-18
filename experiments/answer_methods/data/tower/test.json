@@ -1,0 +1,190 @@
+[
+ {
+  "id": "TT01",
+  "question": "Give me the last tower message.",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "TT02",
+  "question": "What's new on this flight?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "TT03",
+  "question": "Most recent take-off clearance?",
+  "queryType": "latest",
+  "properties": [
+   "takeoff_clearance"
+  ]
+ },
+ {
+  "id": "TT04",
+  "question": "Latest line-up instruction?",
+  "queryType": "latest",
+  "properties": [
+   "lineup_clearance"
+  ]
+ },
+ {
+  "id": "TT05",
+  "question": "What is its taxi instruction right now?",
+  "queryType": "current",
+  "properties": [
+   "taxi_clearance"
+  ]
+ },
+ {
+  "id": "TT06",
+  "question": "May it enter the runway and wait?",
+  "queryType": "current",
+  "properties": [
+   "lineup_clearance"
+  ]
+ },
+ {
+  "id": "TT07",
+  "question": "Can it take off now?",
+  "queryType": "current",
+  "properties": [
+   "takeoff_clearance"
+  ]
+ },
+ {
+  "id": "TT08",
+  "question": "Was the clearance read back properly?",
+  "queryType": "current",
+  "properties": [
+   "readback"
+  ]
+ },
+ {
+  "id": "TT09",
+  "question": "What runway was it given?",
+  "queryType": "current",
+  "properties": [
+   "runway"
+  ]
+ },
+ {
+  "id": "TT10",
+  "question": "Is the aircraft moving?",
+  "queryType": "current",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "TT11",
+  "question": "Which point has it reached?",
+  "queryType": "current",
+  "properties": [
+   "trajectory_checkpoint"
+  ]
+ },
+ {
+  "id": "TT12",
+  "question": "Is it good to go?",
+  "queryType": "current",
+  "properties": [
+   "overall_readiness"
+  ]
+ },
+ {
+  "id": "TT13",
+  "question": "Walk me through the taxi clearance changes.",
+  "queryType": "change",
+  "properties": [
+   "taxi_clearance"
+  ]
+ },
+ {
+  "id": "TT14",
+  "question": "Did its route to the holding point get revised?",
+  "queryType": "change",
+  "properties": [
+   "taxi_clearance"
+  ]
+ },
+ {
+  "id": "TT15",
+  "question": "List every readback received.",
+  "queryType": "change",
+  "properties": [
+   "readback"
+  ]
+ },
+ {
+  "id": "TT16",
+  "question": "Was the runway ever switched?",
+  "queryType": "change",
+  "properties": [
+   "runway"
+  ]
+ },
+ {
+  "id": "TT17",
+  "question": "How did the take-off clearance evolve?",
+  "queryType": "change",
+  "properties": [
+   "takeoff_clearance"
+  ]
+ },
+ {
+  "id": "TT18",
+  "question": "Current runway and line-up status?",
+  "queryType": "current",
+  "properties": [
+   "lineup_clearance",
+   "runway"
+  ]
+ },
+ {
+  "id": "TT19",
+  "question": "What are its taxi and take-off clearances now?",
+  "queryType": "current",
+  "properties": [
+   "takeoff_clearance",
+   "taxi_clearance"
+  ]
+ },
+ {
+  "id": "TT20",
+  "question": "Show the line-up clearance history.",
+  "queryType": "change",
+  "properties": [
+   "lineup_clearance"
+  ]
+ },
+ {
+  "id": "TT21",
+  "question": "Newest readback from the pilot?",
+  "queryType": "latest",
+  "properties": [
+   "readback"
+  ]
+ },
+ {
+  "id": "TT22",
+  "question": "What arrived last?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "TT23",
+  "question": "Has it begun taxiing?",
+  "queryType": "current",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "TT24",
+  "question": "What checkpoints has it been through?",
+  "queryType": "change",
+  "properties": [
+   "trajectory_checkpoint"
+  ]
+ }
+]

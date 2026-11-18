@@ -1,0 +1,30 @@
+{
+  "suite": "smoke",
+  "purpose": "Development regression; not fresh held-out evidence",
+  "recordedUTC": "2026-11-17T20:46:00.643019+00:00",
+  "commit": "174e8f99c8545d7eb43dd6ceea3d14d4f356b640",
+  "method": "pairwise-predicates-v5",
+  "backbone": "1.0.0",
+  "modelName": "qwen2.5-vl-3b",
+  "model": {
+    "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "source": "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct",
+    "license": "Qwen Research License; non-commercial research/evaluation"
+  },
+  "device": "cpu",
+  "python": "3.12.3",
+  "transformers": "4.57.6",
+  "dtype": "bfloat16",
+  "gpu": null,
+  "sources": {
+    "backend/decisions.py": "dc20c8dfe0f9abbf668fea08dc430252c0531121dcbb15e6cdbc9d2c876e6850",
+    "backend/evidence.py": "3401365d3ecc38dd7d8544e1082a4e99fe54f48538af4d3e797ddd2875502806",
+    "backend/server.py": "09465f31e7635f7c548781dd43be9a7929b44cc341818ff4f3c115d953795da3",
+    "backbone/MANIFEST.json": "6a239452368ec4702d39f5588d3e1be63e3f87b8e07c27aebd690f7de4e3b0c2"
+  },
+  "total": 2,
+  "rawExact": 1,
+  "deterministicExact": 2,
+  "guardAccepted": 1
+}

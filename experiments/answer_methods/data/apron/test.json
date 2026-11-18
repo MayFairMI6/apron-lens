@@ -1,0 +1,288 @@
+[
+ {
+  "id": "QT01",
+  "question": "Give me the most recent message for this flight.",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QT02",
+  "question": "What did the last report say?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QT03",
+  "question": "Any fresh news on the route?",
+  "queryType": "latest",
+  "properties": [
+   "route"
+  ]
+ },
+ {
+  "id": "QT04",
+  "question": "What was the latest baggage update?",
+  "queryType": "latest",
+  "properties": [
+   "baggage_status"
+  ]
+ },
+ {
+  "id": "QT05",
+  "question": "Most recent movement report?",
+  "queryType": "latest",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "QT06",
+  "question": "Which gate stand is assigned?",
+  "queryType": "current",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QT07",
+  "question": "Are the bags loaded?",
+  "queryType": "current",
+  "properties": [
+   "baggage_status"
+  ]
+ },
+ {
+  "id": "QT08",
+  "question": "Is fuelling complete?",
+  "queryType": "current",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QT09",
+  "question": "When should it be off blocks?",
+  "queryType": "current",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QT10",
+  "question": "What path is it supposed to follow?",
+  "queryType": "current",
+  "properties": [
+   "route"
+  ]
+ },
+ {
+  "id": "QT11",
+  "question": "Has pushback begun?",
+  "queryType": "current",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "QT12",
+  "question": "What does it need to wait for before moving?",
+  "queryType": "current",
+  "properties": [
+   "movement_condition"
+  ]
+ },
+ {
+  "id": "QT13",
+  "question": "Which waypoint has it reached?",
+  "queryType": "current",
+  "properties": [
+   "trajectory_checkpoint"
+  ]
+ },
+ {
+  "id": "QT14",
+  "question": "Can it leave now?",
+  "queryType": "current",
+  "properties": [
+   "overall_readiness"
+  ]
+ },
+ {
+  "id": "QT15",
+  "question": "Fuel and bags: done or not?",
+  "queryType": "current",
+  "properties": [
+   "baggage_status",
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QT16",
+  "question": "Where is it parked and on what route?",
+  "queryType": "current",
+  "properties": [
+   "route",
+   "stand"
+  ]
+ },
+ {
+  "id": "QT17",
+  "question": "Walk me through the stand changes.",
+  "queryType": "change",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QT18",
+  "question": "How many times was the TOBT revised?",
+  "queryType": "change",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QT19",
+  "question": "What did the route look like before it was updated?",
+  "queryType": "change",
+  "properties": [
+   "route"
+  ]
+ },
+ {
+  "id": "QT20",
+  "question": "Give the full fuel history.",
+  "queryType": "change",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QT21",
+  "question": "Trace the baggage reports over time.",
+  "queryType": "change",
+  "properties": [
+   "baggage_status"
+  ]
+ },
+ {
+  "id": "QT22",
+  "question": "Was it ever moved to a different stand?",
+  "queryType": "change",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QT23",
+  "question": "Show all versions of the movement plan and the stand.",
+  "queryType": "change",
+  "properties": [
+   "route",
+   "stand"
+  ]
+ },
+ {
+  "id": "QT24",
+  "question": "Which checkpoints has it been through?",
+  "queryType": "change",
+  "properties": [
+   "trajectory_checkpoint"
+  ]
+ },
+ {
+  "id": "QT25",
+  "question": "Did the off-block time slip?",
+  "queryType": "change",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QT26",
+  "question": "What's the state of fuel right now?",
+  "queryType": "current",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QT27",
+  "question": "Newest report about the off-block target?",
+  "queryType": "latest",
+  "properties": [
+   "tobt"
+  ]
+ },
+ {
+  "id": "QT28",
+  "question": "Is departure readiness confirmed?",
+  "queryType": "current",
+  "properties": [
+   "overall_readiness"
+  ]
+ },
+ {
+  "id": "QT29",
+  "question": "Under what condition may it start moving?",
+  "queryType": "current",
+  "properties": [
+   "movement_condition"
+  ]
+ },
+ {
+  "id": "QT30",
+  "question": "Has the parking position been changed?",
+  "queryType": "change",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QT31",
+  "question": "Latest stand report?",
+  "queryType": "latest",
+  "properties": [
+   "stand"
+  ]
+ },
+ {
+  "id": "QT32",
+  "question": "Is the refuel still pending?",
+  "queryType": "current",
+  "properties": [
+   "fuel_status"
+  ]
+ },
+ {
+  "id": "QT33",
+  "question": "History of movement status, please.",
+  "queryType": "change",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "QT34",
+  "question": "What arrived most recently?",
+  "queryType": "latest",
+  "properties": []
+ },
+ {
+  "id": "QT35",
+  "question": "Is it taxiing at the moment?",
+  "queryType": "current",
+  "properties": [
+   "movement_status"
+  ]
+ },
+ {
+  "id": "QT36",
+  "question": "What has changed with the TOBT and fuel?",
+  "queryType": "change",
+  "properties": [
+   "fuel_status",
+   "tobt"
+  ]
+ }
+]

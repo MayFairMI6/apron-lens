@@ -1,0 +1,8 @@
+{
+  "domain": "tower",
+  "note": "Test set frozen by hash before the tower parser options and keyword rules were written; develop on dev.json only.",
+  "files": {
+    "dev.json": "c10965e5225ea4655d4fe0758a01dace9ff18a43adc6c6750bcc64c66c2cf7f5",
+    "test.json": "1e7f98027669a2f00700170ec25de42b3577d005a07f0f0e7e3dac4fc4582d1d"
+  }
+}
