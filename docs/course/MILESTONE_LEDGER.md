@@ -4547,3 +4547,41 @@ Checked in the iPhone 18 Pro Simulator in both orientations and both arms
 camera observations in the assistant's prompt (part of the comparison design).
 Noted separately: TRN101's stand-assignment report text reads only "A".
 Full suite: 712 tests pass.
+
+## ML-060 — Claude cloud handoff and submission priorities
+
+17 November 2026 (local time). Reconciled the cloud handoff with GitHub and the
+local `codex/airfieldlens-checkpoint2` branch at `fe82fdf`. The cloud handoff
+identifies 18 November as the assignment date and records that Simulator
+evidence is accepted. The course package is the immediate priority. The app's
+Android phone direction and the controller's tower-clearance work stay assigned
+alongside the existing apron and replay work.
+
+- [PR #75](https://github.com/MayFairMI6/apron-lens/pull/75) is a draft at
+  `4c4f37c`, clean against main `0a7ebc4`, with four passing checks at readback.
+  It adds the five-method apron/tower experiment, hash-frozen question sets,
+  and CPU run records. It leaves the app, backend and shared backbone code as
+  they are on main. PR #74 was closed without merge. The owner selected the
+  research-only port when the branches diverged. Keep the discarded Unity
+  and backbone patches out of that port. Keep ledger edits on this branch
+  while the cloud session publishes its own results.
+- Place the direct, PAL, generated-query, choice and keyword comparison as
+  supplementary checkpoint research. Keep ML-052 typed feedback and B06's
+  stronger-model gate separate. The preliminary handoff reports apron
+  Qwen2.5-VL-3B scores of 9/36 direct, 3/36 PAL, 23/36 generated, 27/36 choice,
+  and 31/36 keyword. The cloud PR description still reports the remaining
+  real-weight runs in progress. The question sets and labels were AI-authored
+  without independent human review. The tower test set was read once during
+  fake-model verification of the report builder. Disclose both limits in any
+  use of the results. Adopt no production method from the partial run.
+- Android phone delivery requires the present controller AR camera and Board
+  paths in the current app, with simulator/device evidence for each. The
+  historical Android printed-board build verifies a different workflow.
+  The product direction is Android phone. Existing iPhone Simulator receipts
+  remain usable as permitted course evidence. Embedded Android tools are
+  available locally, with no Android target attached at the check.
+- The tower-clearance domain is separate from ML-059's rotating viewpoint.
+  Use the fictional tower scenario to review amended taxi instructions,
+  similar callsigns, late or wrong-flight readbacks, and take-off updates at
+  their receipt cutoffs. Retain the apron cases and current controller-only
+  replay. The ML-059 working files are awaiting their own visual acceptance.

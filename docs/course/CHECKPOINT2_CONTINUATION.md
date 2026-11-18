@@ -128,3 +128,31 @@ Update 17 November 2026, latest: the comparison protocol is drafted
 `docs/course/M2_HELDOUT_AUTHORING_BRIEF.md`). First unfinished action: the
 owner settles D1–D7 in that document; then build on development data only,
 freeze 2, and only then hand the brief to a fresh agent.
+
+## Local continuation after the Claude cloud handoff
+
+See ML-060 for research and submission placement. The current app work stays
+on `codex/airfieldlens-checkpoint2`. The research-only port remains on PR #75.
+
+The current iPhone Simulator acceptance path uses the approved controller
+replay at `fe82fdf`. The submission walkthrough uses three native recordings:
+A380, 787 Bluebird, and Stand B. The replay service advanced the cutoffs
+during capture, and earlier native taps and real Qwen answers have separate
+receipts. The submission folder is `~/Downloads/AirfieldLens Checkpoint 2`.
+
+Android phone support starts with the existing approved controller Board.
+`IosSimulatorBuild.AndroidBoard` builds that scene as an Android development
+APK from a disposable replay project. Use the embedded Unity Android SDK,
+configure the installed debug app with
+`python3 scripts/configure_android_replay.py <adb-serial> --port 8767`, and
+start the local replay service. This uses a private app file and ADB reverse.
+The live-camera interaction and Board/camera transition need their own
+preview and Android acceptance work.
+
+M2 camera development runs resume from `work/m2-camera/handoff-20261117/`.
+The deterministic baseline ran 15 turns in all five evidence forms, with
+14 correct and 9/9 authority checks in each. Camera citing was 7/7 in the four
+camera forms. This is the existing development set. Preserve the raw records.
+The 9B runs use a separate set of files in the same work directory. Before
+freezing, settle the remaining protocol decisions, collect the blind-judge
+calibration, and use a fresh author for the sealed held-out families.
