@@ -83,8 +83,16 @@ namespace SurfaceSafety {
                 endpoint = new UriBuilder(reason.Scheme, reason.Host, ServicePort).Uri.ToString().TrimEnd('/');
             token = PlayerPrefs.GetString("qwen_token", "");
 #if APRONLENS_SIMULATOR
-            // Installed privately into this simulator by configure_ios_assistant.py; never bundled.
-            var configPath = Path.Combine(Application.persistentDataPath, "assistant-connection.json");
+            // Test connections are provisioned in the app sandbox, without an embedded token.
+            var connectionDirectory = Application.persistentDataPath;
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (var unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = unity.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var files = activity.Call<AndroidJavaObject>("getFilesDir")) {
+                connectionDirectory = files.Call<string>("getAbsolutePath");
+            }
+#endif
+            var configPath = Path.Combine(connectionDirectory, "assistant-connection.json");
             if (File.Exists(configPath)) {
                 try {
                     var config = JsonUtility.FromJson<LocalConnection>(File.ReadAllText(configPath));
