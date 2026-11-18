@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'outputs/answer-methods-v1'
 LABELS = {'direct': 'Direct inference (model picks the facts)', 'pal': 'PAL: model-written Python, sandboxed',
-          'generated': 'Model-written query + code', 'choice': 'Model choice + code (service)', 'keyword': 'Keywords + code'}
+          'generated': 'Model-written query + code', 'choice': 'Model choice + code', 'keyword': 'Keywords + code'}
 
 
 def main(folders):
@@ -32,7 +32,7 @@ def main(folders):
              '(apron: flight A2 at 20 s; tower: EZY123 at 50 s, both aircraft\'s reports visible). The',
              'correct answer is what the deterministic rules return for the labelled query. Test sets were',
              'hash-frozen and committed before any parser existed; thresholds were set on dev only',
-             '(`dev-tuning.json`). Greedy decoding; each run records its device, number type and attention.', '',
+             '(`dev-tuning.json`). Greedy decoding; run settings are listed below.', '',
              '## Correct final answers', '',
              '| Dataset | Model | ' + ' | '.join(LABELS[m] for m in LABELS) + ' |',
              '|---|---|' + '---:|' * len(LABELS)]
@@ -57,6 +57,25 @@ def main(folders):
         t = summary['medianSeconds']
         lines.append(f"| {summary['dataset']} | {summary['modelName']} | " +
                      ' | '.join(f"{t[m]:.1f}" for m in ('choice', 'generated', 'direct', 'pal')) + ' |')
+    lines += ['', '## Run settings', '',
+              '| Dataset | Model | Revision | Device | Number type | Attention | Code commit | transformers |',
+              '|---|---|---|---|---|---|---|---|']
+    unrecorded = False
+    for summary, rows, _ in runs:
+        runtime = summary.get('runtime') or {}
+        attention = runtime.get('attn_implementation')
+        unrecorded = unrecorded or attention is None
+        lines.append(f"| {summary['dataset']} | {summary['modelName']} | `{summary['model']['revision'][:7]}` | "
+                     f"{runtime.get('device', summary.get('device'))} | {runtime.get('dtype', summary.get('dtype'))} | "
+                     f"{attention or 'not recorded'} | `{str(summary.get('commit'))[:7]}` | "
+                     f"{runtime.get('transformers', summary.get('transformers'))} |")
+    if unrecorded:
+        lines += ['', 'Runs without a recorded attention setting came from the closed PR #74 code (commit `d7b67ac`),',
+                  'where the same method code lived at `scripts/evaluate_query_parsing.py`, `backend/query_parser.py`,',
+                  '`backend/direct_answer.py` and `backend/program_answer.py`. Against the modules here it differs only',
+                  'in comments and import paths, and it used the same pinned model revisions and test files (identical',
+                  'hashes). That engine loaded Qwen2.5-VL with eager attention and other models with the library',
+                  'default (SDPA on CPU).']
     lines += ['', '## Limits', '',
               '- Questions and labels were written by the AI assistant that wrote the parsers, without',
               '  independent human review; one scenario and one replay moment per dataset. Development-scale.',

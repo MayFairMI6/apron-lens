@@ -1,0 +1,93 @@
+{
+  "dataset": "tower",
+  "split": "test",
+  "replay": {
+    "scenario": "T1-tower-clearances-01",
+    "aircraft": "A1",
+    "checkpoint": 50.0
+  },
+  "methods": [
+    "choice",
+    "generated",
+    "direct",
+    "pal",
+    "keyword"
+  ],
+  "parserVersion": "query-parse-v3",
+  "modelName": "qwen2.5-vl-3b",
+  "model": {
+    "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "source": "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct",
+    "license": "Qwen Research License; non-commercial research/evaluation"
+  },
+  "device": "cpu",
+  "dtype": "float16",
+  "transformers": "4.57.6",
+  "python": "3.12.3",
+  "recordedUTC": "2026-11-18T02:21:39.568322+00:00",
+  "commit": "d7b67aca6995c20e66eef4e3e0c426e69783b97b",
+  "sources": {
+    "backend/query_parser.py": "0eefc7f64dc821a3ee311f521c9c773cbcecd0abbadd1506952b1c06bd8a7927",
+    "backend/direct_answer.py": "0c08e4983645a2e9954c125b5daf72c96d9e542b1454b5ee1dc4e86cd2ba8e95",
+    "backend/program_answer.py": "0b16183c36d01b85ebb5abcf5fd43a61d439dc7bd0baed738aef7605de82659e",
+    "backend/engine.py": "67ef6cd2f4f11b2e9b5d53f3599d2837a8db5d4f1b4c00b2bde5fa14fb3bbcbc",
+    "data/query_parsing_tower_v1/manifest.json": "83afbfecd36f0a75e295a1701826cdedbc2275e01f8e48a0fccb809f136cc9f4"
+  },
+  "queryScore": {
+    "choice": {
+      "exact": 20,
+      "queryType": 23,
+      "properties": 21,
+      "invalid": 0,
+      "total": 24
+    },
+    "generated": {
+      "exact": 10,
+      "queryType": 12,
+      "properties": 15,
+      "invalid": 7,
+      "total": 24
+    },
+    "keyword": {
+      "exact": 18,
+      "queryType": 23,
+      "properties": 19,
+      "invalid": 0,
+      "total": 24
+    }
+  },
+  "answerScore": {
+    "choice": {
+      "exact": 20,
+      "invalid": 0,
+      "total": 24
+    },
+    "generated": {
+      "exact": 14,
+      "invalid": 7,
+      "total": 24
+    },
+    "direct": {
+      "exact": 8,
+      "invalid": 0,
+      "total": 24
+    },
+    "pal": {
+      "exact": 1,
+      "invalid": 5,
+      "total": 24
+    },
+    "keyword": {
+      "exact": 19,
+      "invalid": 3,
+      "total": 24
+    }
+  },
+  "medianSeconds": {
+    "choice": 4.13,
+    "generated": 5.718,
+    "direct": 21.591,
+    "pal": 37.004
+  }
+}
