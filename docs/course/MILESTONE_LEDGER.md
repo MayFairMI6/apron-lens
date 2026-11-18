@@ -4585,3 +4585,32 @@ alongside the existing apron and replay work.
   similar callsigns, late or wrong-flight readbacks, and take-off updates at
   their receipt cutoffs. Retain the apron cases and current controller-only
   replay. The ML-059 working files are awaiting their own visual acceptance.
+
+**Local continuation receipt.** The submission package is in
+`~/Downloads/AirfieldLens Checkpoint 2`. It includes a one-page reflection,
+the rebuilt arm64 iPhone Simulator app, the progress deck, and a narrated
+A380-first video followed by 787 Bluebird and Stand B. The video uses fresh
+footage from the installed Simulator build with the committed controller
+presentation from `fe82fdf`, local replay-service controls, and synthetic
+narration. Model-backed native acceptance remains documented in the earlier
+runs. The local focused replay suite passed 31 tests. This receipt records
+package preparation, with submission confirmation still outstanding.
+
+The deterministic M2 development run scored 14/15 turns and 9/9 authority
+checks in each of the five forms. The first reports-only 9B development arm
+scored 10/15 overall and 6/9 authority checks. The full dev run retains all
+failures. Freeze approval, blind calibration and independently authored
+held-out families remain separate gates.
+
+**GAIVI replication.** Slurm job `622922` was submitted after private SSH
+authentication and started on a Titan RTX on `ClsGenAI`. The archived inputs
+match PR #75 head `4c4f37c30fc2a098d5ff245def3f78629b9b8273`. The input includes
+the frozen M1 apron scenario resource that a broad Unity exclusion would
+omit. One job runs all four dataset/model pairs under CUDA float16 SDPA,
+with the five methods, unchanged labels, and sequential resumable results.
+The older cluster Python environment is checked in the job before inference.
+The corresponding Mac method preflight passes six of eight mocked tests.
+Both PAL failures trace to macOS rejecting the sandbox's fixed address-space
+limit. Preserve the Linux sandbox for this comparison. The GPU results
+belong on a separate `gaivi-test-runs` branch after all rows are verified.
+Job launch establishes no answer result yet.
